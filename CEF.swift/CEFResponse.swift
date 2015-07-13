@@ -9,9 +9,6 @@
 import Foundation
 
 extension cef_response_t: CEFObject {
-    public static func create() -> UnsafeMutablePointer<cef_response_t> {
-        return cef_response_create()
-    }
     public var base: cef_base_t { get { return self.base } nonmutating set { } }
 }
 
@@ -19,8 +16,8 @@ extension cef_response_t: CEFObject {
 public class CEFResponse: CEFBase<cef_response_t> {
     typealias HeaderMap = [String: [String]]
     
-    override init() {
-        super.init()
+    init() {
+        super.init(pointer: cef_response_create())
     }
     
     override init(proxiedObject obj: cef_response_t) {

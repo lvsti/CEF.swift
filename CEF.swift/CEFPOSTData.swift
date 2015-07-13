@@ -9,16 +9,13 @@
 import Foundation
 
 extension cef_post_data_t: CEFObject {
-    public static func create() -> UnsafeMutablePointer<cef_post_data_t> {
-        return cef_post_data_create()
-    }
     public var base: cef_base_t { get { return self.base } nonmutating set { } }
 }
 
 public class CEFPOSTData: CEFBase<cef_post_data_t> {
     
-    override init() {
-        super.init()
+    init() {
+        super.init(pointer: cef_post_data_create())
     }
     
     override init(proxiedObject obj: cef_post_data_t) {

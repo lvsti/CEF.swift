@@ -9,9 +9,6 @@
 import Foundation
 
 extension cef_post_data_element_t: CEFObject {
-    public static func create() -> UnsafeMutablePointer<cef_post_data_element_t> {
-        return cef_post_data_element_create()
-    }
     public var base: cef_base_t { get { return self.base } nonmutating set { } }
 }
 
@@ -23,8 +20,8 @@ public class CEFPOSTDataElement: CEFBase<cef_post_data_element_t> {
         case File
     }
     
-    override init() {
-        super.init()
+    init() {
+        super.init(pointer: cef_post_data_element_create())
     }
     
     override init(proxiedObject obj: cef_post_data_element_t) {

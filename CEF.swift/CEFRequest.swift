@@ -9,9 +9,6 @@
 import Foundation
 
 extension cef_request_t: CEFObject {
-    public static func create() -> UnsafeMutablePointer<cef_request_t> {
-        return cef_request_create()
-    }
     public var base: cef_base_t { get { return self.base } nonmutating set { } }
 }
 
@@ -77,8 +74,8 @@ public class CEFRequest: CEFBase<cef_request_t> {
         let flags: Flags
     }
     
-    override init() {
-        super.init()
+    init() {
+        super.init(pointer: cef_request_create())
     }
     
     override init(proxiedObject obj: cef_request_t) {

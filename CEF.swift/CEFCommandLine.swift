@@ -9,9 +9,6 @@
 import Foundation
 
 extension cef_command_line_t: CEFObject {
-    public static func create() -> UnsafeMutablePointer<cef_command_line_t> {
-        return cef_command_line_create()
-    }
     public var base: cef_base_t { get { return self.base } nonmutating set { } }
 }
 
@@ -24,8 +21,8 @@ public class CEFCommandLine: CEFBase<cef_command_line_t> {
         return CEFCommandLine(proxiedObject: cef_command_line_get_global().memory)
     }
     
-    override init() {
-        super.init()
+    init() {
+        super.init(pointer: cef_command_line_create())
     }
     
     override init(proxiedObject obj: cef_command_line_t) {
@@ -45,17 +42,10 @@ public class CEFCommandLine: CEFBase<cef_command_line_t> {
         return CEFCommandLine(proxiedObject: copiedObj.memory)
     }
 
-    func initFromArgv(argv: [String]) {
-        let cefArgv = UnsafeMutablePointer<UnsafePointer<Int8>>.alloc(argv.count)
-        var utf8Strings = argv.map { NSString(string: $0).UTF8String }
-        
-        for i in 0..<argv.count {
-            cefArgv.advancedBy(i).memory = utf8Strings[i]
-        }
-        
-        object.init_from_argv(cefSelf, Int32(argv.count), cefArgv)
-        
-        cefArgv.dealloc(argv.count)
+    func initFromArguments(arguments: [String]) {
+        let argv = CEFArgVFromArguments(arguments)
+        object.init_from_argv(cefSelf, Int32(arguments.count), argv)
+        argv.dealloc(arguments.count)
     }
     
     func initFromString(commandLine: String) {
@@ -87,16 +77,16 @@ public class CEFCommandLine: CEFBase<cef_command_line_t> {
     }
     
     func getCommandLineString() -> String {
-        let cefCmdLine = object.get_command_line_string(cefSelf)
-        let retval = CEFStringToSwiftString(cefCmdLine.memory)
-        cef_string_userfree_utf16_free(cefCmdLine)
+        let cefCmdLinePtr = object.get_command_line_string(cefSelf)
+        let retval = CEFStringToSwiftString(cefCmdLinePtr.memory)
+        cef_string_userfree_utf16_free(cefCmdLinePtr)
         return retval
     }
     
     func getProgram() -> String {
-        let cefProgram = object.get_program(cefSelf)
-        let retval = CEFStringToSwiftString(cefProgram.memory)
-        cef_string_userfree_utf16_free(cefProgram)
+        let cefProgramPtr = object.get_program(cefSelf)
+        let retval = CEFStringToSwiftString(cefProgramPtr.memory)
+        cef_string_userfree_utf16_free(cefProgramPtr)
         return retval
     }
 
