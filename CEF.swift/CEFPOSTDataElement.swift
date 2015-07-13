@@ -54,8 +54,7 @@ public class CEFPOSTDataElement: CEFBase<cef_post_data_element_t> {
     func getFile() -> String {
         let cefStrPtr = object.get_file(cefSelf)
         let retval = CEFStringToSwiftString(cefStrPtr.memory)
-        cefStrPtr.dealloc(1)
-        
+        cef_string_userfree_utf16_free(cefStrPtr)        
         return retval
     }
     

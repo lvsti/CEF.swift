@@ -87,9 +87,9 @@ public class CEFRequest: CEFBase<cef_request_t> {
     }
     
     func getURL() -> NSURL {
-        let cefURL = object.get_url(cefSelf)
-        let urlStr = CEFStringToSwiftString(cefURL.memory)
-        cef_string_userfree_utf16_free(cefURL)
+        let cefURLPtr = object.get_url(cefSelf)
+        let urlStr = CEFStringToSwiftString(cefURLPtr.memory)
+        cef_string_userfree_utf16_free(cefURLPtr)
         
         return NSURL(string: urlStr)!
     }
@@ -101,9 +101,9 @@ public class CEFRequest: CEFBase<cef_request_t> {
     }
     
     func getMethod() -> String {
-        let cefMethod = object.get_method(cefSelf)
-        let retval = CEFStringToSwiftString(cefMethod.memory)
-        cef_string_userfree_utf16_free(cefMethod)
+        let cefMethodPtr = object.get_method(cefSelf)
+        let retval = CEFStringToSwiftString(cefMethodPtr.memory)
+        cef_string_userfree_utf16_free(cefMethodPtr)
         
         return retval
     }
