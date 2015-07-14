@@ -74,20 +74,29 @@ public class CEFRequest: CEFBase<cef_request_t> {
         let flags: Flags
     }
     
-    init() {
-        super.init(pointer: cef_request_create())
+    private override init?(ptr: UnsafeMutablePointer<cef_request_t>) {
+        super.init(ptr: ptr)
     }
     
-    override init(proxiedObject obj: cef_request_t) {
-        super.init(proxiedObject: obj)
+    static func fromCEF(ptr: UnsafeMutablePointer<cef_request_t>) -> CEFRequest? {
+        return CEFRequest(ptr: ptr)
+    }
+    
+    func toCEF() -> UnsafeMutablePointer<cef_request_t> {
+        addRef()
+        return cefObjectPtr
+    }
+    
+    static func create() -> CEFRequest? {
+        return CEFRequest(ptr: cef_request_create())
     }
     
     func isReadOnly() -> Bool {
-        return object.is_read_only(cefSelf) != 0
+        return cefObject.is_read_only(cefObjectPtr) != 0
     }
     
     func getURL() -> NSURL {
-        let cefURLPtr = object.get_url(cefSelf)
+        let cefURLPtr = cefObject.get_url(cefObjectPtr)
         let urlStr = CEFStringToSwiftString(cefURLPtr.memory)
         cef_string_userfree_utf16_free(cefURLPtr)
         
@@ -96,12 +105,12 @@ public class CEFRequest: CEFBase<cef_request_t> {
     
     func setURL(url: NSURL) {
         let cefURLPtr = CEFStringPtrFromSwiftString(url.absoluteString)
-        object.set_url(cefSelf, cefURLPtr)
+        cefObject.set_url(cefObjectPtr, cefURLPtr)
         cef_string_userfree_utf16_free(cefURLPtr)
     }
     
     func getMethod() -> String {
-        let cefMethodPtr = object.get_method(cefSelf)
+        let cefMethodPtr = cefObject.get_method(cefObjectPtr)
         let retval = CEFStringToSwiftString(cefMethodPtr.memory)
         cef_string_userfree_utf16_free(cefMethodPtr)
         
@@ -110,22 +119,22 @@ public class CEFRequest: CEFBase<cef_request_t> {
     
     func setMethod(method: String) {
         let cefMethodPtr = CEFStringPtrFromSwiftString(method)
-        object.set_method(cefSelf, cefMethodPtr)
+        cefObject.set_method(cefObjectPtr, cefMethodPtr)
         cef_string_userfree_utf16_free(cefMethodPtr)
     }
     
-    func getPOSTData() -> CEFPOSTData {
-        let cefPtr = object.get_post_data(cefSelf)
-        return CEFPOSTData(proxiedObject: cefPtr.memory)
+    func getPOSTData() -> CEFPOSTData? {
+        let cefPOSTDataPtr = cefObject.get_post_data(cefObjectPtr)
+        return CEFPOSTData.fromCEF(cefPOSTDataPtr)
     }
     
     func setPOSTData(postData: CEFPOSTData) {
-        object.set_post_data(cefSelf, postData.cefSelf)
+        cefObject.set_post_data(cefObjectPtr, postData.cefObjectPtr)
     }
     
     func getHeaderMap() -> HeaderMap {
         let cefHeaderMap = cef_string_multimap_alloc()
-        object.get_header_map(cefSelf, cefHeaderMap)
+        cefObject.get_header_map(cefObjectPtr, cefHeaderMap)
         
         let retval = CEFStringMultimapToSwiftDictionaryOfArrays(cefHeaderMap)
         cef_string_multimap_free(cefHeaderMap)
@@ -135,7 +144,7 @@ public class CEFRequest: CEFBase<cef_request_t> {
     
     func setHeaderMap(headerMap: HeaderMap) {
         let cefHeaderMap = CEFStringMultimapFromSwiftDictionaryOfArrays(headerMap)
-        object.set_header_map(cefSelf, cefHeaderMap)
+        cefObject.set_header_map(cefObjectPtr, cefHeaderMap)
         cef_string_multimap_free(cefHeaderMap)
     }
     
@@ -144,7 +153,7 @@ public class CEFRequest: CEFBase<cef_request_t> {
         let cefMethodPtr = CEFStringPtrFromSwiftString(method)
         let cefHeaderMap = CEFStringMultimapFromSwiftDictionaryOfArrays(headerMap)
         
-        object.set(cefSelf, cefURLPtr, cefMethodPtr, postData.cefSelf, cefHeaderMap)
+        cefObject.set(cefObjectPtr, cefURLPtr, cefMethodPtr, postData.cefObjectPtr, cefHeaderMap)
         
         cef_string_userfree_utf16_free(cefURLPtr)
         cef_string_userfree_utf16_free(cefMethodPtr)
@@ -152,16 +161,16 @@ public class CEFRequest: CEFBase<cef_request_t> {
     }
     
     func getFlags() -> RequestFlags {
-        let rawFlags:UInt = UInt(object.get_flags(cefSelf))
+        let rawFlags:UInt = UInt(cefObject.get_flags(cefObjectPtr))
         return RequestFlags(rawValue: rawFlags)
     }
     
     func setFlags(flags: RequestFlags) {
-        object.set_flags(cefSelf, Int32(flags.rawValue))
+        cefObject.set_flags(cefObjectPtr, Int32(flags.rawValue))
     }
     
     func getFirstPartyForCookies() -> NSURL {
-        let cefURL = object.get_first_party_for_cookies(cefSelf)
+        let cefURL = cefObject.get_first_party_for_cookies(cefObjectPtr)
         let urlStr = CEFStringToSwiftString(cefURL.memory)
         cef_string_userfree_utf16_free(cefURL)
         
@@ -170,24 +179,24 @@ public class CEFRequest: CEFBase<cef_request_t> {
     
     func setFirstPartyForCookies(url: NSURL) {
         let cefURLPtr = CEFStringPtrFromSwiftString(url.absoluteString)
-        object.set_first_party_for_cookies(cefSelf, cefURLPtr)
+        cefObject.set_first_party_for_cookies(cefObjectPtr, cefURLPtr)
         cef_string_userfree_utf16_free(cefURLPtr)
     }
     
     func getResourceType() -> ResourceType {
-        let rawValue = object.get_resource_type(cefSelf).rawValue
+        let rawValue = cefObject.get_resource_type(cefObjectPtr).rawValue
         return ResourceType(rawValue: UInt(rawValue))!
     }
     
     func getTransitionType() -> TransitionType {
-        let rawValue = object.get_transition_type(cefSelf).rawValue
+        let rawValue = cefObject.get_transition_type(cefObjectPtr).rawValue
         let source = TransitionType.Source(rawValue: UInt8(rawValue & TT_SOURCE_MASK.rawValue))!
         let flags = UInt(rawValue & TT_QUALIFIER_MASK.rawValue)
         return TransitionType(source: source, flags: TransitionType.Flags(rawValue: flags))
     }
     
     func getIdentifier() -> UInt64 {
-        return object.get_identifier(cefSelf)
+        return cefObject.get_identifier(cefObjectPtr)
     }
 
 }

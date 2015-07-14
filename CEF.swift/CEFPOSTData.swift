@@ -14,47 +14,54 @@ extension cef_post_data_t: CEFObject {
 
 public class CEFPOSTData: CEFBase<cef_post_data_t> {
     
-    init() {
-        super.init(pointer: cef_post_data_create())
+    override init?(ptr: UnsafeMutablePointer<cef_post_data_t>) {
+        super.init(ptr: ptr)
     }
     
-    override init(proxiedObject obj: cef_post_data_t) {
-        super.init(proxiedObject: obj)
+    func toCEF() -> UnsafeMutablePointer<cef_post_data_t> {
+        addRef()
+        return cefObjectPtr
+    }
+    
+    static func fromCEF(ptr: UnsafeMutablePointer<cef_post_data_t>) -> CEFPOSTData? {
+        return CEFPOSTData(ptr: ptr)
     }
     
     func isReadOnly() -> Bool {
-        return object.is_read_only(cefSelf) != 0
+        return cefObject.is_read_only(cefObjectPtr) != 0
     }
 
     func getElementCount() -> size_t {
-        return object.get_element_count(cefSelf)
+        return cefObject.get_element_count(cefObjectPtr)
     }
     
     func getElements() -> [CEFPOSTDataElement] {
         let countPtr = UnsafeMutablePointer<size_t>()
         let elementsPtr = UnsafeMutablePointer<UnsafeMutablePointer<cef_post_data_element_t>>()
         
-        object.get_elements(cefSelf, countPtr, elementsPtr)
+        cefObject.get_elements(cefObjectPtr, countPtr, elementsPtr)
         
         var elements = [CEFPOSTDataElement]()
         for i in 0..<countPtr.memory {
-            let pde = elementsPtr.advancedBy(i).memory.memory
-            elements.append(CEFPOSTDataElement(proxiedObject: pde))
+            let cefPDEPtr = elementsPtr.advancedBy(i).memory
+            if let pde = CEFPOSTDataElement.fromCEF(cefPDEPtr) {
+                elements.append(pde)
+            }
         }
         
         return elements
     }
     
     func removeElement(element: CEFPOSTDataElement) {
-        object.remove_element(cefSelf, element.cefSelf)
+        cefObject.remove_element(cefObjectPtr, element.cefObjectPtr)
     }
     
     func addElement(element: CEFPOSTDataElement) {
-        object.add_element(cefSelf, element.cefSelf)
+        cefObject.add_element(cefObjectPtr, element.cefObjectPtr)
     }
     
     func removeElements() {
-        object.remove_elements(cefSelf)
+        cefObject.remove_elements(cefObjectPtr)
     }
 
 }

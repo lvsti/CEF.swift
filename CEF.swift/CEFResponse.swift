@@ -16,28 +16,37 @@ extension cef_response_t: CEFObject {
 public class CEFResponse: CEFBase<cef_response_t> {
     typealias HeaderMap = [String: [String]]
     
-    init() {
-        super.init(pointer: cef_response_create())
+    override init?(ptr: UnsafeMutablePointer<cef_response_t>) {
+        super.init(ptr: ptr)
     }
     
-    override init(proxiedObject obj: cef_response_t) {
-        super.init(proxiedObject: obj)
+    static func fromCEF(ptr: UnsafeMutablePointer<cef_response_t>) -> CEFResponse? {
+        return CEFResponse(ptr: ptr)
+    }
+    
+    func toCEF() -> UnsafeMutablePointer<cef_response_t> {
+        addRef()
+        return cefObjectPtr
+    }
+    
+    static func create() -> CEFResponse? {
+        return CEFResponse.fromCEF(cef_response_create())
     }
     
     func isReadOnly() -> Bool {
-        return object.is_read_only(cefSelf) != 0
+        return cefObject.is_read_only(cefObjectPtr) != 0
     }
 
     func getStatus() -> Int {
-        return Int(object.get_status(cefSelf))
+        return Int(cefObject.get_status(cefObjectPtr))
     }
     
     func setStatus(status: Int) {
-        object.set_status(cefSelf, Int32(status))
+        cefObject.set_status(cefObjectPtr, Int32(status))
     }
     
     func getStatusText() -> String {
-        let cefStrPtr = object.get_status_text(cefSelf)
+        let cefStrPtr = cefObject.get_status_text(cefObjectPtr)
         let retval = CEFStringToSwiftString(cefStrPtr.memory)
         cef_string_userfree_utf16_free(cefStrPtr)
         
@@ -46,12 +55,12 @@ public class CEFResponse: CEFBase<cef_response_t> {
 
     func setStatusText(statusText: String) {
         let cefStrPtr = CEFStringPtrFromSwiftString(statusText)
-        object.set_status_text(cefSelf, cefStrPtr)
+        cefObject.set_status_text(cefObjectPtr, cefStrPtr)
         cef_string_userfree_utf16_free(cefStrPtr)
     }
 
     func getMimeType() -> String {
-        let cefStrPtr = object.get_status_text(cefSelf)
+        let cefStrPtr = cefObject.get_status_text(cefObjectPtr)
         let retval = CEFStringToSwiftString(cefStrPtr.memory)
         cef_string_userfree_utf16_free(cefStrPtr)
         
@@ -60,13 +69,13 @@ public class CEFResponse: CEFBase<cef_response_t> {
     
     func setMimeType(mimeType: String) {
         let cefStrPtr = CEFStringPtrFromSwiftString(mimeType)
-        object.set_status_text(cefSelf, cefStrPtr)
+        cefObject.set_status_text(cefObjectPtr, cefStrPtr)
         cef_string_userfree_utf16_free(cefStrPtr)
     }
 
     func getHeader(forKey key: String) -> String {
         let cefKeyPtr = CEFStringPtrFromSwiftString(key)
-        let cefHeaderPtr = object.get_header(cefSelf, cefKeyPtr)
+        let cefHeaderPtr = cefObject.get_header(cefObjectPtr, cefKeyPtr)
         cef_string_userfree_utf16_free(cefKeyPtr)
         
         let retval = CEFStringToSwiftString(cefHeaderPtr.memory)
@@ -77,7 +86,7 @@ public class CEFResponse: CEFBase<cef_response_t> {
     
     func getHeaderMap() -> HeaderMap {
         let cefHeaderMap = cef_string_multimap_alloc()
-        object.get_header_map(cefSelf, cefHeaderMap)
+        cefObject.get_header_map(cefObjectPtr, cefHeaderMap)
         
         let retval = CEFStringMultimapToSwiftDictionaryOfArrays(cefHeaderMap)
         cef_string_multimap_free(cefHeaderMap)
@@ -87,7 +96,7 @@ public class CEFResponse: CEFBase<cef_response_t> {
     
     func setHeaderMap(headerMap: HeaderMap) {
         let cefHeaderMap = CEFStringMultimapFromSwiftDictionaryOfArrays(headerMap)
-        object.set_header_map(cefSelf, cefHeaderMap)
+        cefObject.set_header_map(cefObjectPtr, cefHeaderMap)
         cef_string_multimap_free(cefHeaderMap)
     }
 }
