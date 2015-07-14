@@ -8,14 +8,6 @@
 
 import Foundation
 
-public class CEFStruct<T> {
-    var cefStruct: T
-    
-    init(cefStruct: T) {
-        self.cefStruct = cefStruct
-    }
-}
-
 public protocol CEFObject {
     var base: cef_base_t { get nonmutating set }
 }

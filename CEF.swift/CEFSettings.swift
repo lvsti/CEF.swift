@@ -28,7 +28,7 @@ struct CEFColor {
     let g: UInt8
     let b: UInt8
     let a: UInt8
-    var argb: UInt32 { get { UInt32(a) << 24 | UInt32(r) << 16 | UInt32(g) << 8 | UInt32(b) } }
+    var argb: UInt32 { get { return UInt32(a) << 24 | UInt32(r) << 16 | UInt32(g) << 8 | UInt32(b) } }
     
     init(argb: UInt32) {
         r = UInt8((argb >> 16) & 0xff)
@@ -38,139 +38,81 @@ struct CEFColor {
     }
 }
 
-class CEFSettings: CEFStruct<cef_settings_t> {
-    var singleProcess: Bool {
-        get { return self.cefStruct.single_process != 0 }
-        set(value) { self.cefStruct.single_process = value ? 1 : 0 }
+struct CEFSettings {
+    var singleProcess: Bool
+    var noSandbox: Bool
+    var browserSubprocessPath: String
+    var multiThreadedMessageLoop: Bool
+    var windowlessRenderingEnabled: Bool
+    var commandLineArgsDisabled: Bool
+    var cachePath: String
+    var userDataPath: String
+    var persistSessionCookies: Bool
+    var userAgent: String
+    var productVersion: String
+    var locale: String
+    var logFile: String
+    var logSeverity: CEFLogSeverity
+    var javascriptFlags: String
+    var resourcesDirPath: String
+    var localesDirPath: String
+    var packLoadingDisabled: Bool
+    var remoteDebuggingPort: Int16
+    var uncaughtExceptionStackSize: Int
+    var contextSafetyImplementation: CEFV8ContextSafetyImplementation
+    var ignoreCertificateErrors: Bool
+    var backgroundColor: CEFColor
+    var acceptLanguageList: String
+    
+    init() {
     }
     
-    var noSandbox: Bool {
-        get { return self.cefStruct.no_sandbox != 0 }
-        set(value) { self.cefStruct.no_sandbox = value ? 1 : 0 }
+    func toCEF() -> cef_settings_t {
+        var cefStruct = cef_settings_t()
+        
+        cefStruct.single_process = singleProcess ? 1 : 0
+        cefStruct.no_sandbox = noSandbox ? 1 : 0
+        CEFStringSetFromSwiftString(browserSubprocessPath, cefString: &cefStruct.browser_subprocess_path)
+        cefStruct.multi_threaded_message_loop = multiThreadedMessageLoop ? 1 : 0
+        cefStruct.windowless_rendering_enabled = windowlessRenderingEnabled ? 1 : 0
+        cefStruct.command_line_args_disabled = commandLineArgsDisabled ? 1 : 0
+        CEFStringSetFromSwiftString(cachePath, cefString: &cefStruct.cache_path)
+        CEFStringSetFromSwiftString(userDataPath, cefString: &cefStruct.user_data_path)
+        cefStruct.persist_session_cookies = persistSessionCookies ? 1 : 0
+        CEFStringSetFromSwiftString(userAgent, cefString: &cefStruct.user_agent)
+        CEFStringSetFromSwiftString(productVersion, cefString: &cefStruct.product_version)
+        CEFStringSetFromSwiftString(locale, cefString: &cefStruct.locale)
+        CEFStringSetFromSwiftString(logFile, cefString: &cefStruct.log_file)
+        cefStruct.log_severity = cef_log_severity_t(rawValue: UInt32(logSeverity.rawValue))
+        CEFStringSetFromSwiftString(javascriptFlags, cefString: &cefStruct.javascript_flags)
+        CEFStringSetFromSwiftString(resourcesDirPath, cefString: &cefStruct.resources_dir_path)
+        CEFStringSetFromSwiftString(localesDirPath, cefString: &cefStruct.locales_dir_path)
+        cefStruct.pack_loading_disabled = packLoadingDisabled ? 1 : 0
+        cefStruct.remote_debugging_port = Int32(remoteDebuggingPort)
+        cefStruct.uncaught_exception_stack_size = Int32(uncaughtExceptionStackSize)
+        cefStruct.context_safety_implementation = Int32(contextSafetyImplementation.rawValue)
+        cefStruct.ignore_certificate_errors = ignoreCertificateErrors ? 1 : 0
+        cefStruct.background_color = backgroundColor.argb
+        CEFStringSetFromSwiftString(acceptLanguageList, cefString: &cefStruct.accept_language_list)
+        
+        return cefStruct
     }
 
-    var browserSubprocessPath: String {
-        get { return CEFStringToSwiftString(self.cefStruct.browser_subprocess_path) }
-        set(value) { CEFStringSetFromSwiftString(value, cefString: &self.cefStruct.browser_subprocess_path) }
-    }
-
-    var multiThreadedMessageLoop: Bool {
-        get { return self.cefStruct.multi_threaded_message_loop != 0 }
-        set(value) { self.cefStruct.multi_threaded_message_loop = value ? 1 : 0 }
-    }
-
-    var windowlessRenderingEnabled: Bool {
-        get { return self.cefStruct.windowless_rendering_enabled != 0 }
-        set(value) { self.cefStruct.windowless_rendering_enabled = value ? 1 : 0 }
-    }
-
-    var commandLineArgsDisabled: Bool {
-        get { return self.cefStruct.command_line_args_disabled != 0 }
-        set(value) { self.cefStruct.command_line_args_disabled = value ? 1 : 0 }
-    }
-
-    var cachePath: String {
-        get { return CEFStringToSwiftString(self.cefStruct.cache_path) }
-        set(value) { CEFStringSetFromSwiftString(value, cefString: &self.cefStruct.cache_path) }
-    }
-
-    var userDataPath: String {
-        get { return CEFStringToSwiftString(self.cefStruct.user_data_path) }
-        set(value) { CEFStringSetFromSwiftString(value, cefString: &self.cefStruct.user_data_path) }
-    }
-
-    var persistSessionCookies: Bool {
-        get { return self.cefStruct.persist_session_cookies != 0 }
-        set(value) { self.cefStruct.persist_session_cookies = value ? 1 : 0 }
-    }
-
-    var userAgent: String {
-        get { return CEFStringToSwiftString(self.cefStruct.user_agent) }
-        set(value) { CEFStringSetFromSwiftString(value, cefString: &self.cefStruct.user_agent) }
-    }
-    
-    var productVersion: String {
-        get { return CEFStringToSwiftString(self.cefStruct.product_version) }
-        set(value) { CEFStringSetFromSwiftString(value, cefString: &self.cefStruct.product_version) }
-    }
-
-    var locale: String {
-        get { return CEFStringToSwiftString(self.cefStruct.locale) }
-        set(value) { CEFStringSetFromSwiftString(value, cefString: &self.cefStruct.locale) }
-    }
-
-    var logFile: String {
-        get { return CEFStringToSwiftString(self.cefStruct.log_file) }
-        set(value) { CEFStringSetFromSwiftString(value, cefString: &self.cefStruct.log_file) }
-    }
-
-    var logSeverity: CEFLogSeverity {
-        get { return CEFLogSeverity(rawValue: Int(self.cefStruct.log_severity.rawValue))! }
-        set(value) { self.cefStruct.log_severity = cef_log_severity_t(rawValue: UInt32(value.rawValue)) }
-    }
-
-    var javascriptFlags: String {
-        get { return CEFStringToSwiftString(self.cefStruct.javascript_flags) }
-        set(value) { CEFStringSetFromSwiftString(value, cefString: &self.cefStruct.javascript_flags) }
-    }
-
-    var resourcesDirPath: String {
-        get { return CEFStringToSwiftString(self.cefStruct.resources_dir_path) }
-        set(value) { CEFStringSetFromSwiftString(value, cefString: &self.cefStruct.resources_dir_path) }
-    }
-
-    var localesDirPath: String {
-        get { return CEFStringToSwiftString(self.cefStruct.locales_dir_path) }
-        set(value) { CEFStringSetFromSwiftString(value, cefString: &self.cefStruct.locales_dir_path) }
-    }
-
-    var packLoadingDisabled: Bool {
-        get { return self.cefStruct.pack_loading_disabled != 0 }
-        set(value) { self.cefStruct.pack_loading_disabled = value ? 1 : 0 }
-    }
-
-    var remoteDebuggingPort: Int16 {
-        get { return Int16(self.cefStruct.remote_debugging_port) }
-        set(value) { self.cefStruct.remote_debugging_port = Int32(value) }
-    }
-
-    var uncaughtExceptionStackSize: Int {
-        get { return Int(self.cefStruct.uncaught_exception_stack_size) }
-        set(value) { self.cefStruct.uncaught_exception_stack_size = Int32(value) }
-    }
-
-    var contextSafetyImplementation: CEFV8ContextSafetyImplementation {
-        get { return CEFV8ContextSafetyImplementation(rawValue: Int(self.cefStruct.context_safety_implementation))! }
-        set(value) { self.cefStruct.context_safety_implementation = Int32(value.rawValue) }
-    }
-
-    var ignoreCertificateErrors: Bool {
-        get { return self.cefStruct.ignore_certificate_errors != 0 }
-        set(value) { self.cefStruct.ignore_certificate_errors = value ? 1 : 0 }
-    }
-    
-    var backgroundColor: CEFColor {
-        get { return CEFColor(argb: self.cefStruct.background_color) }
-        set(value) { self.cefStruct.background_color = value.argb }
-    }
-
-    var acceptLanguageList: String {
-        get { return CEFStringToSwiftString(self.cefStruct.accept_language_list) }
-        set(value) { CEFStringSetFromSwiftString(value, cefString: &self.cefStruct.accept_language_list) }
-    }
-
-    deinit {
-        cef_string_utf16_clear(&self.cefStruct.browser_subprocess_path)
-        cef_string_utf16_clear(&self.cefStruct.cache_path)
-        cef_string_utf16_clear(&self.cefStruct.user_data_path)
-        cef_string_utf16_clear(&self.cefStruct.user_agent)
-        cef_string_utf16_clear(&self.cefStruct.product_version)
-        cef_string_utf16_clear(&self.cefStruct.locale)
-        cef_string_utf16_clear(&self.cefStruct.log_file)
-        cef_string_utf16_clear(&self.cefStruct.javascript_flags)
-        cef_string_utf16_clear(&self.cefStruct.resources_dir_path)
-        cef_string_utf16_clear(&self.cefStruct.locales_dir_path)
-        cef_string_utf16_clear(&self.cefStruct.accept_language_list)
-    }
-    
 }
+
+extension cef_settings_t {
+    mutating func clear() {
+        cef_string_utf16_clear(&browser_subprocess_path)
+        cef_string_utf16_clear(&cache_path)
+        cef_string_utf16_clear(&user_data_path)
+        cef_string_utf16_clear(&user_agent)
+        cef_string_utf16_clear(&product_version)
+        cef_string_utf16_clear(&locale)
+        cef_string_utf16_clear(&log_file)
+        cef_string_utf16_clear(&javascript_flags)
+        cef_string_utf16_clear(&resources_dir_path)
+        cef_string_utf16_clear(&locales_dir_path)
+        cef_string_utf16_clear(&accept_language_list)
+    }
+}
+

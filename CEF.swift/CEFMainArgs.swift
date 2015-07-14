@@ -11,26 +11,44 @@ import Foundation
 typealias CEFArgV = UnsafeMutablePointer<UnsafePointer<Int8>>
 typealias CEFMutableArgV = UnsafeMutablePointer<UnsafeMutablePointer<Int8>>
 
-class CEFMainArgs: CEFStruct<cef_main_args_t> {
-    var arguments: [String] {
-        didSet {
-            self.cefStruct = cef_main_args_t(argc: Int32(arguments.count),
-                                             argv: CEFMutableArgV(CEFArgVFromArguments(arguments)))
-        }
-    }
+struct CEFMainArgs {
+    var arguments: [String]
     
-    init(arguments: [String]) {
-        super.init(cefStruct: cef_main_args_t())
-        self.arguments = arguments
+    func toCEF() -> cef_main_args_t {
+        return cef_main_args_t(argc: Int32(arguments.count),
+                               argv: CEFMutableArgV(CEFArgVFromArguments(arguments)))
+    }
+}
+
+extension cef_main_args_t {
+    mutating func clear() {
+        if argv == nil {
+            return
+        }
+        
+        for i in 0..<Int(argc) {
+            let cstr = argv.advancedBy(i).memory
+            if let str = String.fromCString(cstr) {
+                let byteCount = str.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) + 1
+                cstr.dealloc(byteCount)
+            }
+        }
+        
+        argv.dealloc(Int(argc))
     }
 }
 
 func CEFArgVFromArguments(arguments: [String]) -> CEFArgV {
     let argv = CEFArgV.alloc(arguments.count)
-    let utf8Strings = arguments.map { NSString(string: $0).UTF8String }
     
     for i in 0..<arguments.count {
-        argv.advancedBy(i).memory = utf8Strings[i]
+        let utf8ByteCount = arguments[i].lengthOfBytesUsingEncoding(NSUTF8StringEncoding) + 1
+        let ptr = UnsafeMutablePointer<Int8>.alloc(utf8ByteCount)
+        arguments[i].withCString { cstr in
+            ptr.initializeFrom(UnsafeMutablePointer<Int8>(cstr), count: utf8ByteCount)
+            argv.advancedBy(i).memory = ptr
+            return false
+        }
     }
     
     return argv
