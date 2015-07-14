@@ -13,21 +13,34 @@ public protocol CEFObject {
 }
 
 public class CEFBase<T : CEFObject> {
+    private let _cefPtr: UnsafeMutablePointer<T>
+    var cefObjectPtr: UnsafeMutablePointer<T> { get { return _cefPtr } }
+    var cefObject: T { get { return _cefPtr.memory } }
     
-    let cefSelf: UnsafeMutablePointer<T>
-    var object: T { return cefSelf.memory }
+    init?(ptr: UnsafeMutablePointer<T>) {
+        if ptr == nil {
+            _cefPtr = nil
+            return nil
+        }
+        
+        _cefPtr = ptr
+    }
     
-    init(proxiedObject obj: T) {
-        self.cefSelf = UnsafeMutablePointer<T>.alloc(1)
-        self.cefSelf.memory = obj
-    }
-
-    init(pointer ptr: UnsafeMutablePointer<T>) {
-        self.cefSelf = ptr
-    }
-
     deinit {
-        self.cefSelf.memory.base.release(&self.cefSelf.memory.base)
+        if _cefPtr != nil {
+            release()
+        }
     }
     
+    func addRef() {
+        _cefPtr.memory.base.add_ref(&_cefPtr.memory.base)
+    }
+    
+    func release() {
+        _cefPtr.memory.base.release(&_cefPtr.memory.base)
+    }
+    
+    func hasOneRef() -> Bool {
+        return _cefPtr.memory.base.has_one_ref(&_cefPtr.memory.base) != 0
+    }
 }
