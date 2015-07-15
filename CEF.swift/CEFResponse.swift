@@ -16,21 +16,8 @@ extension cef_response_t: CEFObject {
 public class CEFResponse: CEFBase<cef_response_t> {
     typealias HeaderMap = [String: [String]]
     
-    override init?(ptr: UnsafeMutablePointer<cef_response_t>) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_response_t>) -> CEFResponse? {
-        return CEFResponse(ptr: ptr)
-    }
-    
-    func toCEF() -> UnsafeMutablePointer<cef_response_t> {
-        addRef()
-        return cefObjectPtr
-    }
-    
-    static func create() -> CEFResponse? {
-        return CEFResponse.fromCEF(cef_response_create())
+    init?() {
+        super.init(ptr: cef_response_create())
     }
     
     func isReadOnly() -> Bool {

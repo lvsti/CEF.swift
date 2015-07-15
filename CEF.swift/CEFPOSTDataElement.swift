@@ -20,16 +20,8 @@ public class CEFPOSTDataElement: CEFBase<cef_post_data_element_t> {
         case File
     }
     
-    override init?(ptr: UnsafeMutablePointer<cef_post_data_element_t>) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_post_data_element_t>) -> CEFPOSTDataElement? {
-        return CEFPOSTDataElement(ptr: ptr)
-    }
-    
-    static func create() -> CEFPOSTDataElement? {
-        return CEFPOSTDataElement.fromCEF(cef_post_data_element_create())
+    init?() {
+        super.init(ptr: cef_post_data_element_create())
     }
     
     func isReadOnly() -> Bool {

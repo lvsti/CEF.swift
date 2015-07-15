@@ -74,21 +74,8 @@ public class CEFRequest: CEFBase<cef_request_t> {
         let flags: Flags
     }
     
-    private override init?(ptr: UnsafeMutablePointer<cef_request_t>) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_request_t>) -> CEFRequest? {
-        return CEFRequest(ptr: ptr)
-    }
-    
-    func toCEF() -> UnsafeMutablePointer<cef_request_t> {
-        addRef()
-        return cefObjectPtr
-    }
-    
-    static func create() -> CEFRequest? {
-        return CEFRequest(ptr: cef_request_create())
+    init?() {
+        super.init(ptr: cef_request_create())
     }
     
     func isReadOnly() -> Bool {

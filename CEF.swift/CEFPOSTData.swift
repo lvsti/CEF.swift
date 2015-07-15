@@ -14,17 +14,8 @@ extension cef_post_data_t: CEFObject {
 
 public class CEFPOSTData: CEFBase<cef_post_data_t> {
     
-    override init?(ptr: UnsafeMutablePointer<cef_post_data_t>) {
-        super.init(ptr: ptr)
-    }
-    
-    func toCEF() -> UnsafeMutablePointer<cef_post_data_t> {
-        addRef()
-        return cefObjectPtr
-    }
-    
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_post_data_t>) -> CEFPOSTData? {
-        return CEFPOSTData(ptr: ptr)
+    init?() {
+        super.init(ptr: cef_post_data_create())
     }
     
     func isReadOnly() -> Bool {
