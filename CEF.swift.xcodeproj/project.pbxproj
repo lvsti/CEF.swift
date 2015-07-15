@@ -23,6 +23,7 @@
 		E8613E221B52C503009BDAC9 /* libcef_dll_wrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8613E211B52C503009BDAC9 /* libcef_dll_wrapper.a */; };
 		E8613E241B52C51F009BDAC9 /* Chromium Embedded Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8613E231B52C51F009BDAC9 /* Chromium Embedded Framework.framework */; };
 		E8613E261B52C5B1009BDAC9 /* CEF.swift-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = E8613E251B52C5B1009BDAC9 /* CEF.swift-Bridging-Header.h */; };
+		E8613E2C1B5318EA009BDAC9 /* CEFSchemeRegistrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8613E2B1B5318EA009BDAC9 /* CEFSchemeRegistrar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		E8613E211B52C503009BDAC9 /* libcef_dll_wrapper.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcef_dll_wrapper.a; path = External/cef_binary/build/Debug/libcef_dll_wrapper.a; sourceTree = SOURCE_ROOT; };
 		E8613E231B52C51F009BDAC9 /* Chromium Embedded Framework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Chromium Embedded Framework.framework"; path = "External/cef_binary/Debug/Chromium Embedded Framework.framework"; sourceTree = SOURCE_ROOT; };
 		E8613E251B52C5B1009BDAC9 /* CEF.swift-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CEF.swift-Bridging-Header.h"; sourceTree = "<group>"; };
+		E8613E2B1B5318EA009BDAC9 /* CEFSchemeRegistrar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFSchemeRegistrar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				E8613E101B52C46D009BDAC9 /* CEFPOSTDataElement.swift */,
 				E8613E111B52C46D009BDAC9 /* CEFRequest.swift */,
 				E8613E121B52C46D009BDAC9 /* CEFResponse.swift */,
+				E8613E2B1B5318EA009BDAC9 /* CEFSchemeRegistrar.swift */,
 				E8476A451B5463DF00DFFD91 /* CEFSettings.swift */,
 				E8613E131B52C46D009BDAC9 /* CEFString.swift */,
 				E8613E141B52C46D009BDAC9 /* CEFStringList.swift */,
@@ -184,6 +187,7 @@
 				E8613E1F1B52C46D009BDAC9 /* CEFStringMap.swift in Sources */,
 				E8613E191B52C46D009BDAC9 /* CEFPOSTData.swift in Sources */,
 				E8613E1B1B52C46D009BDAC9 /* CEFRequest.swift in Sources */,
+				E8613E2C1B5318EA009BDAC9 /* CEFSchemeRegistrar.swift in Sources */,
 				E8613E1D1B52C46D009BDAC9 /* CEFString.swift in Sources */,
 				E8613E1A1B52C46D009BDAC9 /* CEFPOSTDataElement.swift in Sources */,
 				E8613E1C1B52C46D009BDAC9 /* CEFResponse.swift in Sources */,
