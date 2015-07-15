@@ -13,11 +13,14 @@ public protocol CEFObject {
 }
 
 public class CEFBase<T : CEFObject> {
-    private let _cefPtr: UnsafeMutablePointer<T>
-    var cefObjectPtr: UnsafeMutablePointer<T> { get { return _cefPtr } }
-    var cefObject: T { get { return _cefPtr.memory } }
+    typealias ObjectType = T
+    typealias ObjectPtrType = UnsafeMutablePointer<T>
     
-    init?(ptr: UnsafeMutablePointer<T>) {
+    private let _cefPtr: ObjectPtrType
+    var cefObjectPtr: ObjectPtrType { get { return _cefPtr } }
+    var cefObject: ObjectType { get { return _cefPtr.memory } }
+    
+    public required init?(ptr: ObjectPtrType) {
         if ptr == nil {
             _cefPtr = nil
             return nil
@@ -42,5 +45,14 @@ public class CEFBase<T : CEFObject> {
     
     func hasOneRef() -> Bool {
         return _cefPtr.memory.base.has_one_ref(&_cefPtr.memory.base) != 0
+    }
+    
+    static func fromCEF(ptr: ObjectPtrType) -> Self? {
+        return self.init(ptr: ptr)
+    }
+    
+    func toCEF() -> ObjectPtrType {
+        addRef()
+        return cefObjectPtr
     }
 }
