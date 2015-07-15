@@ -43,12 +43,12 @@ func CEFArgVFromArguments(arguments: [String]) -> CEFArgV {
     
     for i in 0..<arguments.count {
         let utf8ByteCount = arguments[i].lengthOfBytesUsingEncoding(NSUTF8StringEncoding) + 1
-        let ptr = UnsafeMutablePointer<Int8>.alloc(utf8ByteCount)
-        arguments[i].withCString { cstr in
+        let ptr = arguments[i].withCString { (cstr: UnsafePointer<Int8>) -> UnsafeMutablePointer<Int8> in
+            let ptr = UnsafeMutablePointer<Int8>.alloc(utf8ByteCount)
             ptr.initializeFrom(UnsafeMutablePointer<Int8>(cstr), count: utf8ByteCount)
-            argv.advancedBy(i).memory = ptr
-            return false
+            return ptr
         }
+        argv.advancedBy(i).memory = UnsafePointer<Int8>(ptr)
     }
     
     return argv
