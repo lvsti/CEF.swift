@@ -39,8 +39,8 @@ public class CEFBase<T : CEFObject> {
         _cefPtr.memory.base.add_ref(&_cefPtr.memory.base)
     }
     
-    func release() {
-        _cefPtr.memory.base.release(&_cefPtr.memory.base)
+    func release() -> Bool {
+        return _cefPtr.memory.base.release(&_cefPtr.memory.base) != 0
     }
     
     func hasOneRef() -> Bool {
