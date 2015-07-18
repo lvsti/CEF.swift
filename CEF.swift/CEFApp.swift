@@ -12,19 +12,12 @@ extension cef_app_t: CEFObject {
     public var base: cef_base_t { get { return self.base } nonmutating set { } }
 }
 
-class CEFApp: CEFBase<cef_app_t> {
+class CEFApp: CEFHandlerBase<cef_app_t>, CEFObjectLookup {
+    typealias SelfType = CEFApp
 
-    private static let _registryQueue = dispatch_queue_create("CEFApp.registry", nil)
-    private static var _registry = [ObjectPtrType: CEFApp]()
-    
-    static func lookup(ptr: ObjectPtrType) -> CEFApp? {
-        var obj:CEFApp? = nil
-        dispatch_sync(CEFApp._registryQueue) {
-            obj = _registry[ptr]
-        }
-        return obj
-    }
-    
+    static var _registryMutex = pthread_mutex_t()
+    static var _registry = Dictionary<ObjectPtrType, SelfType>()
+  
     init?() {
         let app = ObjectPtrType.alloc(1)
         app.memory.base.add_ref = CEFApp_addRef
@@ -37,13 +30,8 @@ class CEFApp: CEFBase<cef_app_t> {
         app.memory.get_render_process_handler = CEFApp_getRenderProcessHandler
         
         super.init(ptr: app)
-        app.dealloc(1)
-        
-        dispatch_sync(CEFApp._registryQueue) {
-            CEFApp._registry[app] = self
-        }
     }
-
+    
     func onBeforeCommandLineProcessing(processType processType: String, commandLine: CEFCommandLine) {
     }
 
@@ -67,33 +55,35 @@ func CEFAppExecuteProcess(args: CEFMainArgs, app: CEFApp) -> Int {
     var cefArgs = args.toCEF()
     let argsPtr = UnsafeMutablePointer<cef_main_args_t>.alloc(1)
     argsPtr.initialize(cefArgs)
-    
-    let retval = Int(cef_execute_process(argsPtr, app.toCEF(), nil))
-    
-    cefArgs.clear()
-    argsPtr.dealloc(1)
-    
-    return retval
+
+    defer {
+        cefArgs.clear()
+        argsPtr.dealloc(1)
+    }
+
+    return Int(cef_execute_process(argsPtr, app.toCEF(), nil))
 }
 
 func CEFAppInitialize(args: CEFMainArgs, settings: CEFSettings, app: CEFApp) -> Int {
     var cefArgs = args.toCEF()
     let argsPtr = UnsafeMutablePointer<cef_main_args_t>.alloc(1)
     argsPtr.initialize(cefArgs)
+
+    defer {
+        cefArgs.clear()
+        argsPtr.dealloc(1)
+    }
     
     var cefSettings = settings.toCEF()
     let settingsPtr = UnsafeMutablePointer<cef_settings_t>.alloc(1)
     settingsPtr.initialize(cefSettings)
+
+    defer {
+        cefSettings.clear()
+        settingsPtr.dealloc(1)
+    }
     
-    let retval = Int(cef_initialize(argsPtr, settingsPtr, app.toCEF(), nil))
-    
-    cefSettings.clear()
-    settingsPtr.dealloc(1)
-    
-    cefArgs.clear()
-    argsPtr.dealloc(1)
-    
-    return retval
+    return Int(cef_initialize(argsPtr, settingsPtr, app.toCEF(), nil))
 }
 
 func CEFAppShutdown() {
