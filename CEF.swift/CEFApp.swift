@@ -15,7 +15,7 @@ extension cef_app_t: CEFObject {
 class CEFApp: CEFHandlerBase<cef_app_t>, CEFObjectLookup {
     typealias SelfType = CEFApp
 
-    static var _registryMutex = pthread_mutex_t()
+    static var _registryLock: Lock = pthread_mutex_t()
     static var _registry = Dictionary<ObjectPtrType, SelfType>()
   
     init?() {

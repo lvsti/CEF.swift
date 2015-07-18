@@ -15,7 +15,7 @@ extension cef_resource_bundle_handler_t: CEFObject {
 class CEFResourceBundleHandler: CEFHandlerBase<cef_resource_bundle_handler_t>, CEFObjectLookup {
     typealias SelfType = CEFResourceBundleHandler
     
-    static var _registryMutex = pthread_mutex_t()
+    static var _registryLock: Lock = pthread_mutex_t()
     static var _registry = Dictionary<ObjectPtrType, SelfType>()
     
     init?() {

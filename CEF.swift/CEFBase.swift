@@ -8,6 +8,22 @@
 
 import Foundation
 
+protocol Lock {
+    mutating func lock()
+    mutating func unlock()
+}
+
+extension pthread_mutex_t: Lock {
+    mutating func lock() {
+        pthread_mutex_lock(&self)
+    }
+    
+    mutating func unlock() {
+        pthread_mutex_unlock(&self)
+    }
+}
+
+
 public protocol CEFObject {
     var base: cef_base_t { get set }
 }
@@ -83,15 +99,14 @@ public class CEFProxyBase<T : CEFObject>: CEFBase, CEFProxyRefCounting {
 
 
 protocol CEFHandlerRefCounting: CEFRefCounting {
-    func refCountLock()
-    func refCountUnlock()
+    var _refCountLock: Lock { get set }
     var _refCount: Int { get set }
 }
 
 extension CEFHandlerRefCounting where Self : CEFBase, Self : CEFObjectLookupAdapter {
     func addRef() {
-        refCountLock()
-        defer { refCountUnlock() }
+        _refCountLock.lock()
+        defer { _refCountLock.unlock() }
         
         ++_refCount
         if _refCount == 1 {
@@ -100,8 +115,8 @@ extension CEFHandlerRefCounting where Self : CEFBase, Self : CEFObjectLookupAdap
     }
     
     func release() -> Bool {
-        refCountLock()
-        defer { refCountUnlock() }
+        _refCountLock.lock()
+        defer { _refCountLock.unlock() }
         
         --_refCount
         if _refCount == 0 {
@@ -113,8 +128,8 @@ extension CEFHandlerRefCounting where Self : CEFBase, Self : CEFObjectLookupAdap
     }
     
     func hasOneRef() -> Bool {
-        refCountLock()
-        defer { refCountUnlock() }
+        _refCountLock.lock()
+        defer { _refCountLock.unlock() }
         
         return _refCount == 1
     }
@@ -131,29 +146,29 @@ protocol CEFObjectLookup {
     typealias SelfType
     
     static var _registry: [UnsafeMutablePointer<ObjectType>: SelfType] { get set }
-    static var _registryMutex: pthread_mutex_t { get set }
+    static var _registryLock: Lock { get set }
 
     static func lookup(ptr: UnsafeMutablePointer<ObjectType>) -> SelfType?
 }
 
 extension CEFObjectLookupAdapter where Self : CEFBase, Self : CEFObjectLookup, Self == Self.SelfType {
     func registerSelf() {
-        pthread_mutex_lock(&Self._registryMutex)
-        defer { pthread_mutex_unlock(&Self._registryMutex) }
+        Self._registryLock.lock()
+        defer { Self._registryLock.unlock() }
         
         Self._registry[cefObjectPtr] = self
     }
     
     func deregisterSelf() {
-        pthread_mutex_lock(&Self._registryMutex)
-        defer { pthread_mutex_unlock(&Self._registryMutex) }
+        Self._registryLock.lock()
+        defer { Self._registryLock.unlock() }
         
         Self._registry.removeValueForKey(cefObjectPtr)
     }
 
     static func lookup(ptr: UnsafeMutablePointer<ObjectType>) -> SelfType? {
-        pthread_mutex_lock(&_registryMutex)
-        defer { pthread_mutex_unlock(&_registryMutex) }
+        Self._registryLock.lock()
+        defer { Self._registryLock.unlock() }
         
         return _registry[ptr]
     }
@@ -168,17 +183,9 @@ public class CEFHandlerBase<T : CEFObject>: CEFBase, CEFHandlerRefCounting, CEFO
     var cefObjectPtr: UnsafeMutablePointer<ObjectType> { get { return _cefPtr } set {} }
     var cefObject: ObjectType { get { return _cefPtr.memory } set {} }
 
-    var _refMutex: pthread_mutex_t = pthread_mutex_t()
+    var _refCountLock: Lock = pthread_mutex_t()
     var _refCount: Int = 0
     
-    func refCountLock() {
-        pthread_mutex_lock(&_refMutex)
-    }
-    
-    func refCountUnlock() {
-        pthread_mutex_unlock(&_refMutex)
-    }
-
     init(ptr: ObjectPtrType) {
         _cefPtr = ptr
     }
@@ -187,10 +194,7 @@ public class CEFHandlerBase<T : CEFObject>: CEFBase, CEFHandlerRefCounting, CEFO
         _cefPtr.dealloc(1)
     }
     
-    func registerSelf() {
-    }
-    
-    func deregisterSelf() {
-    }
+    func registerSelf() {}
+    func deregisterSelf() {}
 }
 
