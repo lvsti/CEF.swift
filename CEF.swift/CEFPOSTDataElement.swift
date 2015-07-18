@@ -12,7 +12,7 @@ extension cef_post_data_element_t: CEFObject {
     public var base: cef_base_t { get { return self.base } nonmutating set { } }
 }
 
-public class CEFPOSTDataElement: CEFBase<cef_post_data_element_t> {
+public class CEFPOSTDataElement: CEFProxyBase<cef_post_data_element_t> {
     
     enum ElementType: Int {
         case Empty = 0

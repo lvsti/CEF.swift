@@ -13,7 +13,7 @@ extension cef_request_t: CEFObject {
 }
 
 
-public class CEFRequest: CEFBase<cef_request_t> {
+public class CEFRequest: CEFProxyBase<cef_request_t> {
     typealias HeaderMap = [String:[String]]
     
     struct RequestFlags: OptionSetType {

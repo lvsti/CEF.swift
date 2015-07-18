@@ -13,7 +13,7 @@ extension cef_command_line_t: CEFObject {
 }
 
 
-public class CEFCommandLine: CEFBase<cef_command_line_t> {
+public class CEFCommandLine: CEFProxyBase<cef_command_line_t> {
     typealias ArgumentList = [String]
     typealias SwitchMap = [String:String]
     

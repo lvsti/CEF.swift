@@ -12,13 +12,56 @@ public protocol CEFObject {
     var base: cef_base_t { get nonmutating set }
 }
 
-public class CEFBase<T : CEFObject> {
+protocol CEFBase: class, CEFRefCounting {
+    typealias ObjectType : CEFObject
+    typealias ObjectPtrType = UnsafeMutablePointer<ObjectType>
+    
+    var cefObjectPtr: UnsafeMutablePointer<ObjectType> { get set }
+    var cefObject: ObjectType { get set }
+    
+    func toCEF() -> UnsafeMutablePointer<ObjectType>
+}
+
+extension CEFBase {
+    func toCEF() -> UnsafeMutablePointer<ObjectType> {
+        addRef()
+        return cefObjectPtr
+    }
+}
+
+protocol CEFRefCounting: class {
+    func addRef()
+    func release() -> Bool
+    func hasOneRef() -> Bool
+}
+
+
+protocol CEFProxyRefCounting: CEFRefCounting {
+    typealias ObjectType
+}
+
+extension CEFProxyRefCounting where Self : CEFBase {
+    func addRef() {
+        self.cefObject.base.add_ref(&self.cefObject.base)
+    }
+    
+    func release() -> Bool {
+        return self.cefObject.base.release(&self.cefObject.base) != 0
+    }
+    
+    func hasOneRef() -> Bool {
+        return self.cefObject.base.has_one_ref(&self.cefObject.base) != 0
+    }
+}
+
+
+public class CEFProxyBase<T : CEFObject>: CEFBase, CEFProxyRefCounting {
     typealias ObjectType = T
     typealias ObjectPtrType = UnsafeMutablePointer<T>
     
     private let _cefPtr: ObjectPtrType
-    var cefObjectPtr: ObjectPtrType { get { return _cefPtr } }
-    var cefObject: ObjectType { get { return _cefPtr.memory } }
+    var cefObjectPtr: UnsafeMutablePointer<ObjectType> { get { return _cefPtr } set {} }
+    var cefObject: ObjectType { get { return _cefPtr.memory } set {} }
     
     public required init?(ptr: ObjectPtrType) {
         if ptr == nil {
@@ -30,29 +73,10 @@ public class CEFBase<T : CEFObject> {
     }
     
     deinit {
-        if _cefPtr != nil {
-            release()
-        }
-    }
-    
-    func addRef() {
-        _cefPtr.memory.base.add_ref(&_cefPtr.memory.base)
-    }
-    
-    func release() -> Bool {
-        return _cefPtr.memory.base.release(&_cefPtr.memory.base) != 0
-    }
-    
-    func hasOneRef() -> Bool {
-        return _cefPtr.memory.base.has_one_ref(&_cefPtr.memory.base) != 0
+        release()
     }
     
     static func fromCEF(ptr: ObjectPtrType) -> Self? {
         return self.init(ptr: ptr)
-    }
-    
-    func toCEF() -> ObjectPtrType {
-        addRef()
-        return cefObjectPtr
     }
 }

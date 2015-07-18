@@ -13,7 +13,7 @@ extension cef_response_t: CEFObject {
 }
 
 
-public class CEFResponse: CEFBase<cef_response_t> {
+public class CEFResponse: CEFProxyBase<cef_response_t> {
     typealias HeaderMap = [String: [String]]
     
     init?() {

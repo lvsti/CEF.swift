@@ -12,7 +12,7 @@ extension cef_post_data_t: CEFObject {
     public var base: cef_base_t { get { return self.base } nonmutating set { } }
 }
 
-public class CEFPOSTData: CEFBase<cef_post_data_t> {
+public class CEFPOSTData: CEFProxyBase<cef_post_data_t> {
     
     init?() {
         super.init(ptr: cef_post_data_create())
