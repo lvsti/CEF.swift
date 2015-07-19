@@ -10,7 +10,6 @@ import Foundation
 
 
 extension cef_binary_value_t: CEFObject {
-    public var base: cef_base_t { get { return self.base } nonmutating set { } }
 }
 
 class CEFBinaryValue: CEFProxyBase<cef_binary_value_t> {

@@ -9,7 +9,6 @@
 import Foundation
 
 extension cef_list_value_t: CEFObject {
-    public var base: cef_base_t { get { return self.base } nonmutating set { } }
 }
 
 class CEFListValue: CEFProxyBase<cef_list_value_t> {

@@ -9,7 +9,6 @@
 import Foundation
 
 extension cef_response_t: CEFObject {
-    public var base: cef_base_t { get { return self.base } nonmutating set { } }
 }
 
 

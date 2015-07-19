@@ -9,7 +9,6 @@
 import Foundation
 
 extension cef_browser_process_handler_t: CEFObject {
-    public var base: cef_base_t { get { return self.base } nonmutating set { } }
 }
 
 class CEFBrowserProcessHandler: CEFHandlerBase<cef_browser_process_handler_t>, CEFObjectLookup {

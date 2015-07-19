@@ -9,7 +9,6 @@
 import Foundation
 
 extension cef_scheme_registrar_t: CEFObject {
-    public var base: cef_base_t { get { return self.base } nonmutating set { } }
 }
 
 class CEFSchemeRegistrar: CEFProxyBase<cef_scheme_registrar_t> {

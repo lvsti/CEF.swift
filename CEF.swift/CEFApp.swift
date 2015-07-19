@@ -9,7 +9,6 @@
 import Foundation
 
 extension cef_app_t: CEFObject {
-    public var base: cef_base_t { get { return self.base } nonmutating set { } }
 }
 
 class CEFApp: CEFHandlerBase<cef_app_t>, CEFObjectLookup {
