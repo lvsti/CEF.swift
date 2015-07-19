@@ -141,16 +141,6 @@ protocol CEFObjectLookupAdapter {
     func deregisterSelf()
 }
 
-protocol CEFObjectLookup {
-    typealias ObjectType
-    typealias SelfType
-    
-    static var _registry: [UnsafeMutablePointer<ObjectType>: SelfType] { get set }
-    static var _registryLock: Lock { get set }
-
-    static func lookup(ptr: UnsafeMutablePointer<ObjectType>) -> SelfType?
-}
-
 extension CEFObjectLookupAdapter where Self : CEFBase, Self : CEFObjectLookup, Self == Self.SelfType {
     func registerSelf() {
         Self._registryLock.lock()
@@ -165,7 +155,19 @@ extension CEFObjectLookupAdapter where Self : CEFBase, Self : CEFObjectLookup, S
         
         Self._registry.removeValueForKey(cefObjectPtr)
     }
+}
 
+protocol CEFObjectLookup {
+    typealias ObjectType
+    typealias SelfType
+    
+    static var _registry: [UnsafeMutablePointer<ObjectType>: SelfType] { get set }
+    static var _registryLock: Lock { get set }
+    
+    static func lookup(ptr: UnsafeMutablePointer<ObjectType>) -> SelfType?
+}
+
+extension CEFObjectLookup {
     static func lookup(ptr: UnsafeMutablePointer<ObjectType>) -> SelfType? {
         Self._registryLock.lock()
         defer { Self._registryLock.unlock() }
