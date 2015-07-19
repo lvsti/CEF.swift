@@ -14,7 +14,7 @@ extension cef_client_t: CEFObject {
 public class CEFClient: CEFHandlerBase<cef_client_t>, CEFObjectLookup {
     typealias SelfType = CEFClient
     
-    static var _registryLock: Lock = pthread_mutex_t()
+    static var _registryLock: Lock = CEFClient.createLock()
     static var _registry = Dictionary<ObjectPtrType, SelfType>()
     
     public init?() {

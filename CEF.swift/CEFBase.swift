@@ -174,6 +174,19 @@ extension CEFObjectLookup {
         
         return _registry[ptr]
     }
+    
+    static func createLock() -> Lock {
+        var mutex = pthread_mutex_t()
+        pthread_mutex_init(&mutex, nil)
+        return mutex
+    }
+    
+    static func destroyLock(lock: Lock) {
+        guard var mutex = lock as? pthread_mutex_t else {
+            return
+        }
+        pthread_mutex_destroy(&mutex)
+    }
 }
 
 

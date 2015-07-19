@@ -14,7 +14,7 @@ extension cef_browser_process_handler_t: CEFObject {
 public class CEFBrowserProcessHandler: CEFHandlerBase<cef_browser_process_handler_t>, CEFObjectLookup {
     typealias SelfType = CEFBrowserProcessHandler
     
-    static var _registryLock: Lock = pthread_mutex_t()
+    static var _registryLock: Lock = CEFBrowserProcessHandler.createLock()
     static var _registry = Dictionary<ObjectPtrType, SelfType>()
     
     init?() {
