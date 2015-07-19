@@ -11,17 +11,21 @@ import Foundation
 typealias CEFArgV = UnsafeMutablePointer<UnsafePointer<Int8>>
 typealias CEFMutableArgV = UnsafeMutablePointer<UnsafeMutablePointer<Int8>>
 
-struct CEFMainArgs {
-    var arguments: [String]
+public struct CEFMainArgs {
+    public let arguments: [String]
     
-    func toCEF() -> cef_main_args_t {
+    public init(arguments: [String]) {
+        self.arguments = arguments
+    }
+    
+    public func toCEF() -> cef_main_args_t {
         return cef_main_args_t(argc: Int32(arguments.count),
                                argv: CEFMutableArgV(CEFArgVFromArguments(arguments)))
     }
 }
 
 extension cef_main_args_t {
-    mutating func clear() {
+    public mutating func clear() {
         if argv == nil {
             return
         }

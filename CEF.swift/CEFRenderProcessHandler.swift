@@ -11,6 +11,6 @@ import Foundation
 extension cef_render_process_handler_t: CEFObject {
 }
 
-class CEFRenderProcessHandler: CEFHandlerBase<cef_render_process_handler_t> {
+public class CEFRenderProcessHandler: CEFHandlerBase<cef_render_process_handler_t> {
     
 }

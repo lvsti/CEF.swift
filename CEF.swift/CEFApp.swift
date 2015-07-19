@@ -11,46 +11,46 @@ import Foundation
 extension cef_app_t: CEFObject {
 }
 
-class CEFApp: CEFHandlerBase<cef_app_t>, CEFObjectLookup {
+public class CEFApp: CEFHandlerBase<cef_app_t>, CEFObjectLookup {
     typealias SelfType = CEFApp
 
     static var _registryLock: Lock = pthread_mutex_t()
     static var _registry = Dictionary<ObjectPtrType, SelfType>()
   
-    init?() {
-        let app = ObjectPtrType.alloc(1)
-        app.memory.base.add_ref = CEFApp_addRef
-        app.memory.base.release = CEFApp_release
-        app.memory.base.has_one_ref = CEFApp_hasOneRef
-        app.memory.on_before_command_line_processing = CEFApp_onBeforeCommandLineProcessing
-        app.memory.on_register_custom_schemes = CEFApp_onRegisterCustomSchemes
-        app.memory.get_resource_bundle_handler = CEFApp_getResourceBundleHandler
-        app.memory.get_browser_process_handler = CEFApp_getBrowserProcessHandler
-        app.memory.get_render_process_handler = CEFApp_getRenderProcessHandler
+    public init?() {
+        let handler = ObjectPtrType.alloc(1)
+        handler.memory.base.add_ref = CEFApp_addRef
+        handler.memory.base.release = CEFApp_release
+        handler.memory.base.has_one_ref = CEFApp_hasOneRef
+        handler.memory.on_before_command_line_processing = CEFApp_onBeforeCommandLineProcessing
+        handler.memory.on_register_custom_schemes = CEFApp_onRegisterCustomSchemes
+        handler.memory.get_resource_bundle_handler = CEFApp_getResourceBundleHandler
+        handler.memory.get_browser_process_handler = CEFApp_getBrowserProcessHandler
+        handler.memory.get_render_process_handler = CEFApp_getRenderProcessHandler
         
-        super.init(ptr: app)
+        super.init(ptr: handler)
     }
     
-    func onBeforeCommandLineProcessing(processType processType: String, commandLine: CEFCommandLine) {
+    public func onBeforeCommandLineProcessing(processType processType: String, commandLine: CEFCommandLine) {
     }
 
-    func onRegisterCustomSchemes(registrar: CEFSchemeRegistrar) {
+    public func onRegisterCustomSchemes(registrar: CEFSchemeRegistrar) {
     }
 
-    func getResourceBundleHandler() -> CEFResourceBundleHandler? {
+    public func getResourceBundleHandler() -> CEFResourceBundleHandler? {
         return nil
     }
 
-    func getBrowserProcessHandler() -> CEFBrowserProcessHandler? {
+    public func getBrowserProcessHandler() -> CEFBrowserProcessHandler? {
         return nil
     }
     
-    func getRenderProcessHandler() -> CEFRenderProcessHandler? {
+    public func getRenderProcessHandler() -> CEFRenderProcessHandler? {
         return nil
     }
 }
 
-func CEFAppExecuteProcess(args: CEFMainArgs, app: CEFApp) -> Int {
+public func CEFExecuteProcess(args: CEFMainArgs, app: CEFApp) -> Int {
     var cefArgs = args.toCEF()
     let argsPtr = UnsafeMutablePointer<cef_main_args_t>.alloc(1)
     argsPtr.initialize(cefArgs)
@@ -63,7 +63,7 @@ func CEFAppExecuteProcess(args: CEFMainArgs, app: CEFApp) -> Int {
     return Int(cef_execute_process(argsPtr, app.toCEF(), nil))
 }
 
-func CEFAppInitialize(args: CEFMainArgs, settings: CEFSettings, app: CEFApp) -> Int {
+public func CEFInitialize(args: CEFMainArgs, settings: CEFSettings, app: CEFApp) -> Int {
     var cefArgs = args.toCEF()
     let argsPtr = UnsafeMutablePointer<cef_main_args_t>.alloc(1)
     argsPtr.initialize(cefArgs)
@@ -85,15 +85,19 @@ func CEFAppInitialize(args: CEFMainArgs, settings: CEFSettings, app: CEFApp) -> 
     return Int(cef_initialize(argsPtr, settingsPtr, app.toCEF(), nil))
 }
 
-func CEFAppShutdown() {
+public func CEFShutdown() {
     cef_shutdown()
 }
 
-func CEFAppDoMessageLoopWork() {
+public func CEFDoMessageLoopWork() {
     cef_do_message_loop_work()
 }
 
-func CEFAppQuitMessageLoop() {
+public func CEFRunMessageLoop() {
+    cef_run_message_loop()
+}
+
+public func CEFQuitMessageLoop() {
     cef_quit_message_loop()
 }
 

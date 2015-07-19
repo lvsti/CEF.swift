@@ -11,7 +11,7 @@ import Foundation
 extension cef_browser_process_handler_t: CEFObject {
 }
 
-class CEFBrowserProcessHandler: CEFHandlerBase<cef_browser_process_handler_t>, CEFObjectLookup {
+public class CEFBrowserProcessHandler: CEFHandlerBase<cef_browser_process_handler_t>, CEFObjectLookup {
     typealias SelfType = CEFBrowserProcessHandler
     
     static var _registryLock: Lock = pthread_mutex_t()

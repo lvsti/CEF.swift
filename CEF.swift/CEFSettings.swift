@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum CEFLogSeverity: Int {
+public enum CEFLogSeverity: Int {
     case Default = 0
     case Verbose
     case Info
@@ -17,20 +17,20 @@ enum CEFLogSeverity: Int {
     case Disable = 99
 }
 
-enum CEFV8ContextSafetyImplementation: Int {
+public enum CEFV8ContextSafetyImplementation: Int {
     case Default = 0
     case Alternate = 1
     case Disabled = -1
 }
 
-struct CEFColor {
-    let r: UInt8
-    let g: UInt8
-    let b: UInt8
-    let a: UInt8
-    var argb: UInt32 { get { return UInt32(a) << 24 | UInt32(r) << 16 | UInt32(g) << 8 | UInt32(b) } }
+public struct CEFColor {
+    public let r: UInt8
+    public let g: UInt8
+    public let b: UInt8
+    public let a: UInt8
+    public var argb: UInt32 { get { return UInt32(a) << 24 | UInt32(r) << 16 | UInt32(g) << 8 | UInt32(b) } }
     
-    init(argb: UInt32) {
+    public init(argb: UInt32) {
         r = UInt8((argb >> 16) & 0xff)
         g = UInt8((argb >> 8) & 0xff)
         b = UInt8(argb & 0xff)
@@ -38,38 +38,36 @@ struct CEFColor {
     }
 }
 
-struct CEFSettings {
-    var singleProcess: Bool
-    var noSandbox: Bool
-    var browserSubprocessPath: String
-    var multiThreadedMessageLoop: Bool
-    var windowlessRenderingEnabled: Bool
-    var commandLineArgsDisabled: Bool
-    var cachePath: String
-    var userDataPath: String
-    var persistSessionCookies: Bool
-    var userAgent: String
-    var productVersion: String
-    var locale: String
-    var logFile: String
-    var logSeverity: CEFLogSeverity
-    var javascriptFlags: String
-    var resourcesDirPath: String
-    var localesDirPath: String
-    var packLoadingDisabled: Bool
-    var remoteDebuggingPort: Int16
-    var uncaughtExceptionStackSize: Int
-    var contextSafetyImplementation: CEFV8ContextSafetyImplementation
-    var ignoreCertificateErrors: Bool
-    var backgroundColor: CEFColor
-    var acceptLanguageList: String
+public struct CEFSettings {
+    public var singleProcess: Bool = false
+    public var noSandbox: Bool = false
+    public var browserSubprocessPath: String = ""
+    public var multiThreadedMessageLoop: Bool = false
+    public var windowlessRenderingEnabled: Bool = false
+    public var commandLineArgsDisabled: Bool = false
+    public var cachePath: String = ""
+    public var userDataPath: String = ""
+    public var persistSessionCookies: Bool = false
+    public var userAgent: String = ""
+    public var productVersion: String = ""
+    public var locale: String = ""
+    public var logFile: String = ""
+    public var logSeverity: CEFLogSeverity = .Default
+    public var javascriptFlags: String = ""
+    public var resourcesDirPath: String = ""
+    public var localesDirPath: String = ""
+    public var packLoadingDisabled: Bool = false
+    public var remoteDebuggingPort: Int16 = 0
+    public var uncaughtExceptionStackSize: Int = 0
+    public var contextSafetyImplementation: CEFV8ContextSafetyImplementation = .Default
+    public var ignoreCertificateErrors: Bool = false
+    public var backgroundColor: CEFColor = CEFColor(argb: 0)
+    public var acceptLanguageList: String = ""
     
-    init() {
-    }
-    
-    func toCEF() -> cef_settings_t {
+    public func toCEF() -> cef_settings_t {
         var cefStruct = cef_settings_t()
         
+        cefStruct.size = sizeof(cef_settings_t)
         cefStruct.single_process = singleProcess ? 1 : 0
         cefStruct.no_sandbox = noSandbox ? 1 : 0
         CEFStringSetFromSwiftString(browserSubprocessPath, cefString: &cefStruct.browser_subprocess_path)
@@ -98,10 +96,12 @@ struct CEFSettings {
         return cefStruct
     }
 
+    public init() {
+    }
 }
 
 extension cef_settings_t {
-    mutating func clear() {
+    public mutating func clear() {
         cef_string_utf16_clear(&browser_subprocess_path)
         cef_string_utf16_clear(&cache_path)
         cef_string_utf16_clear(&user_data_path)
