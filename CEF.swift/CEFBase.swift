@@ -185,16 +185,19 @@ public class CEFHandlerBase<T : CEFObject>: CEFBase, CEFHandlerRefCounting, CEFO
     var cefObjectPtr: UnsafeMutablePointer<ObjectType> { get { return _cefPtr } set {} }
     var cefObject: ObjectType { get { return _cefPtr.memory } set {} }
 
-    var _refCountLock: Lock = pthread_mutex_t()
+    var _refCountMutex = pthread_mutex_t()
+    var _refCountLock: Lock { get { return _refCountMutex } set {} }
     var _refCount: Int = 0
     
     init(ptr: ObjectPtrType) {
+        pthread_mutex_init(&_refCountMutex, nil)
         _cefPtr = ptr
         _cefPtr.memory.base.size = sizeof(ObjectType)
     }
 
     deinit {
         _cefPtr.dealloc(1)
+        pthread_mutex_destroy(&_refCountMutex)
     }
     
     func registerSelf() {}
