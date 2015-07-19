@@ -27,6 +27,7 @@
 		E8613E261B52C5B1009BDAC9 /* CEF.swift-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = E8613E251B52C5B1009BDAC9 /* CEF.swift-Bridging-Header.h */; };
 		E8613E2A1B5317D2009BDAC9 /* CEFApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8613E291B5317D2009BDAC9 /* CEFApp.swift */; };
 		E8613E2C1B5318EA009BDAC9 /* CEFSchemeRegistrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8613E2B1B5318EA009BDAC9 /* CEFSchemeRegistrar.swift */; };
+		E8732E031B5BEEF90068F130 /* Chromium Embedded Framework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E8613E231B52C51F009BDAC9 /* Chromium Embedded Framework.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E8CC9D211B5ABB47002948BD /* CEFListValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CC9D201B5ABB47002948BD /* CEFListValue.swift */; };
 		E8CC9D231B5AC3A0002948BD /* CEFValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CC9D221B5AC3A0002948BD /* CEFValue.swift */; };
 		E8CC9D251B5AC4F3002948BD /* CEFDictionaryValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CC9D241B5AC4F3002948BD /* CEFDictionaryValue.swift */; };
@@ -49,6 +50,19 @@
 			remoteInfo = CEF.swift;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E8732E021B5BEEF10068F130 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E8732E031B5BEEF90068F130 /* Chromium Embedded Framework.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		E8456E101B52C29700AE93DC /* CEFswift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CEFswift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,6 +87,7 @@
 		E8613E251B52C5B1009BDAC9 /* CEF.swift-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CEF.swift-Bridging-Header.h"; sourceTree = "<group>"; };
 		E8613E291B5317D2009BDAC9 /* CEFApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFApp.swift; sourceTree = "<group>"; };
 		E8613E2B1B5318EA009BDAC9 /* CEFSchemeRegistrar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFSchemeRegistrar.swift; sourceTree = "<group>"; };
+		E8732E011B5BE1E40068F130 /* cef_application_mac_capi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cef_application_mac_capi.h; sourceTree = "<group>"; };
 		E8CC9D201B5ABB47002948BD /* CEFListValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFListValue.swift; sourceTree = "<group>"; };
 		E8CC9D221B5AC3A0002948BD /* CEFValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFValue.swift; sourceTree = "<group>"; };
 		E8CC9D241B5AC4F3002948BD /* CEFDictionaryValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFDictionaryValue.swift; sourceTree = "<group>"; };
@@ -84,6 +99,7 @@
 		E8CC9D351B5AF47B002948BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		E8CC9D371B5AF47B002948BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8CC9D3B1B5AF516002948BD /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		E8CC9EA31B5B042D002948BD /* CEFDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CEFDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +182,8 @@
 				E8CC9D341B5AF47B002948BD /* MainMenu.xib */,
 				E8CC9D371B5AF47B002948BD /* Info.plist */,
 				E8CC9D3B1B5AF516002948BD /* main.swift */,
+				E8CC9EA31B5B042D002948BD /* CEFDemo-Bridging-Header.h */,
+				E8732E011B5BE1E40068F130 /* cef_application_mac_capi.h */,
 			);
 			path = CEFDemo;
 			sourceTree = "<group>";
@@ -210,6 +228,7 @@
 				E8CC9D2A1B5AF47B002948BD /* Sources */,
 				E8CC9D2B1B5AF47B002948BD /* Frameworks */,
 				E8CC9D2C1B5AF47B002948BD /* Resources */,
+				E8732E021B5BEEF10068F130 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -475,14 +494,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(CEF_BINARY_ROOT)/Debug";
 				HEADER_SEARCH_PATHS = "$(CEF_BINARY_ROOT)";
 				INFOPLIST_FILE = CEFDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(CEF_BINARY_ROOT)/build/Debug";
 				PRODUCT_BUNDLE_IDENTIFIER = me.cocoagrinder.CEFDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CEFDemo/CEFDemo-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -490,14 +510,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(CEF_BINARY_ROOT)/Debug";
 				HEADER_SEARCH_PATHS = "$(CEF_BINARY_ROOT)";
 				INFOPLIST_FILE = CEFDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(CEF_BINARY_ROOT)/build/Debug";
 				PRODUCT_BUNDLE_IDENTIFIER = me.cocoagrinder.CEFDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CEFDemo/CEFDemo-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -529,6 +550,7 @@
 				E8CC9D3A1B5AF47B002948BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

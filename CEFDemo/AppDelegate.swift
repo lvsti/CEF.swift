@@ -21,6 +21,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
 
+    func createApplication() {
+        NSApplication.sharedApplication()
+        NSBundle.mainBundle().loadNibNamed("MainMenu", owner: NSApp, topLevelObjects: nil)
+        NSApp.delegate = self
+    }
+    
+    func tryToTerminateApplication(app: NSApplication) {
+        let handler = SimpleHandler.instance
+        if !handler.isClosing {
+            handler.closeAllBrowsers(false)
+        }
+    }
+    
+    func applicationShouldTerminate(sender: NSApplication) -> NSApplicationTerminateReply {
+        return .TerminateNow
+    }
 
 }
 
