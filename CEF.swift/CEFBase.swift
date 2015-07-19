@@ -188,6 +188,7 @@ public class CEFHandlerBase<T : CEFObject>: CEFBase, CEFHandlerRefCounting, CEFO
     
     init(ptr: ObjectPtrType) {
         _cefPtr = ptr
+        _cefPtr.memory.base.size = sizeof(ObjectType)
     }
 
     deinit {
