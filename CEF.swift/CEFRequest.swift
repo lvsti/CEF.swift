@@ -15,16 +15,24 @@ extension cef_request_t: CEFObject {
 public class CEFRequest: CEFProxyBase<cef_request_t> {
     typealias HeaderMap = [String:[String]]
     
-    struct RequestFlags: OptionSetType {
+    struct URLRequestFlags: OptionSetType {
         let rawValue: UInt
         
-        static let None = RequestFlags(rawValue: 0)
-        static let SkipCache = RequestFlags(rawValue: 1 << 0)
-        static let AllowCachedCredentials = RequestFlags(rawValue: 1 << 1)
-        static let ReportUploadProgress = RequestFlags(rawValue: 1 << 3)
-        static let ReportRawHeaders = RequestFlags(rawValue: 1 << 5)
-        static let NoDownloadData = RequestFlags(rawValue: 1 << 6)
-        static let NoRetryOn5XX = RequestFlags(rawValue: 1 << 7)
+        static let None = URLRequestFlags(rawValue: 0)
+        static let SkipCache = URLRequestFlags(rawValue: 1 << 0)
+        static let AllowCachedCredentials = URLRequestFlags(rawValue: 1 << 1)
+        static let ReportUploadProgress = URLRequestFlags(rawValue: 1 << 3)
+        static let ReportRawHeaders = URLRequestFlags(rawValue: 1 << 5)
+        static let NoDownloadData = URLRequestFlags(rawValue: 1 << 6)
+        static let NoRetryOn5XX = URLRequestFlags(rawValue: 1 << 7)
+
+        static func fromCEF(value: cef_urlrequest_flags_t) -> URLRequestFlags {
+            return URLRequestFlags(rawValue: UInt(value.rawValue))
+        }
+        
+        func toCEF() -> cef_urlrequest_flags_t {
+            return cef_urlrequest_flags_t(rawValue: UInt32(rawValue))
+        }
     }
     
     enum ResourceType: UInt {
@@ -44,9 +52,15 @@ public class CEFRequest: CEFProxyBase<cef_request_t> {
         case XHR
         case Ping
         case ServiceWorker
+        
+        static func fromCEF(value: cef_resource_type_t) -> ResourceType {
+            return ResourceType(rawValue: UInt(value.rawValue))!
+        }
     }
     
-    struct TransitionType {
+    struct TransitionType: RawRepresentable {
+        let rawValue: UInt
+        
         enum Source: UInt8 {
             case Link = 0
             case Explicit
@@ -69,8 +83,16 @@ public class CEFRequest: CEFProxyBase<cef_request_t> {
             var isRedirect: Bool { return self.contains(.ClientRedirect) || self.contains(.ServerRedirect) }
         }
         
-        let source: Source
-        let flags: Flags
+        var source: Source { get { return Source(rawValue: UInt8(UInt32(rawValue) & TT_SOURCE_MASK.rawValue))! } }
+        var flags: Flags { get { return Flags(rawValue: UInt(UInt32(rawValue) & TT_QUALIFIER_MASK.rawValue)) } }
+        
+        init(rawValue: UInt) {
+            self.rawValue = rawValue
+        }
+        
+        static func fromCEF(value: cef_transition_type_t) -> TransitionType {
+            return TransitionType(rawValue: UInt(value.rawValue))
+        }
     }
     
     init?() {
@@ -142,12 +164,12 @@ public class CEFRequest: CEFProxyBase<cef_request_t> {
         cefObject.set(cefObjectPtr, cefURLPtr, cefMethodPtr, postData.cefObjectPtr, cefHeaderMap)
     }
     
-    func getFlags() -> RequestFlags {
-        let rawFlags:UInt = UInt(cefObject.get_flags(cefObjectPtr))
-        return RequestFlags(rawValue: rawFlags)
+    func getFlags() -> URLRequestFlags {
+        let rawFlags = cefObject.get_flags(cefObjectPtr)
+        return URLRequestFlags(rawValue: UInt(rawFlags))
     }
     
-    func setFlags(flags: RequestFlags) {
+    func setFlags(flags: URLRequestFlags) {
         cefObject.set_flags(cefObjectPtr, Int32(flags.rawValue))
     }
     
@@ -166,15 +188,13 @@ public class CEFRequest: CEFProxyBase<cef_request_t> {
     }
     
     func getResourceType() -> ResourceType {
-        let rawValue = cefObject.get_resource_type(cefObjectPtr).rawValue
-        return ResourceType(rawValue: UInt(rawValue))!
+        let cefRT = cefObject.get_resource_type(cefObjectPtr)
+        return ResourceType.fromCEF(cefRT)
     }
     
     func getTransitionType() -> TransitionType {
-        let rawValue = cefObject.get_transition_type(cefObjectPtr).rawValue
-        let source = TransitionType.Source(rawValue: UInt8(rawValue & TT_SOURCE_MASK.rawValue))!
-        let flags = UInt(rawValue & TT_QUALIFIER_MASK.rawValue)
-        return TransitionType(source: source, flags: TransitionType.Flags(rawValue: flags))
+        let cefTT = cefObject.get_transition_type(cefObjectPtr)
+        return TransitionType.fromCEF(cefTT)
     }
     
     func getIdentifier() -> UInt64 {
