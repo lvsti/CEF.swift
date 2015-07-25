@@ -40,6 +40,7 @@
 		E8CC9D3F1B5AF601002948BD /* CEFswift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8456E101B52C29700AE93DC /* CEFswift.framework */; };
 		E8CC9D401B5AF648002948BD /* Chromium Embedded Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8613E231B52C51F009BDAC9 /* Chromium Embedded Framework.framework */; };
 		E8F5CC261B62E14500B0A295 /* CEFMarshaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F5CC251B62E14500B0A295 /* CEFMarshaller.swift */; };
+		E8F5CC381B63E41A00B0A295 /* CEFBrowserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F5CC371B63E41A00B0A295 /* CEFBrowserSettings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +103,7 @@
 		E8CC9D3B1B5AF516002948BD /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		E8CC9EA31B5B042D002948BD /* CEFDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CEFDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		E8F5CC251B62E14500B0A295 /* CEFMarshaller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFMarshaller.swift; sourceTree = "<group>"; };
+		E8F5CC371B63E41A00B0A295 /* CEFBrowserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFBrowserSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 				E8613E0D1B52C46D009BDAC9 /* CEFBase.swift */,
 				E8CC9D261B5AC8E2002948BD /* CEFBinaryValue.swift */,
 				E8476A491B56F66200DFFD91 /* CEFBrowserProcessHandler.swift */,
+				E8F5CC371B63E41A00B0A295 /* CEFBrowserSettings.swift */,
 				E8CC9D281B5AF157002948BD /* CEFClient.swift */,
 				E8613E0E1B52C46D009BDAC9 /* CEFCommandLine.swift */,
 				E8CC9D241B5AC4F3002948BD /* CEFDictionaryValue.swift */,
@@ -327,6 +330,7 @@
 				E8613E1F1B52C46D009BDAC9 /* CEFStringMap.swift in Sources */,
 				E8476A481B56F64B00DFFD91 /* CEFResourceBundleHandler.swift in Sources */,
 				E8613E191B52C46D009BDAC9 /* CEFPOSTData.swift in Sources */,
+				E8F5CC381B63E41A00B0A295 /* CEFBrowserSettings.swift in Sources */,
 				E8613E1B1B52C46D009BDAC9 /* CEFRequest.swift in Sources */,
 				E8CC9D231B5AC3A0002948BD /* CEFValue.swift in Sources */,
 				E8613E2C1B5318EA009BDAC9 /* CEFSchemeRegistrar.swift in Sources */,
