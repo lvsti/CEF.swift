@@ -14,22 +14,19 @@ func CEFStringMapToSwiftDictionary(cefMap: cef_string_map_t) -> [String:String] 
     }
     
     let count = cef_string_map_size(cefMap)
-    let cefKeyPtr = UnsafeMutablePointer<cef_string_t>.alloc(1)
-    let cefValuePtr = UnsafeMutablePointer<cef_string_t>.alloc(1)
+    var cefKey = cef_string_t()
+    var cefValue = cef_string_t()
     var map = [String:String]()
     
     for i in 0..<count {
-        cef_string_map_key(cefMap, i, cefKeyPtr)
-        cef_string_map_value(cefMap, i, cefValuePtr)
+        cef_string_map_key(cefMap, i, &cefKey)
+        cef_string_map_value(cefMap, i, &cefValue)
         
-        let key = CEFStringToSwiftString(cefKeyPtr.memory)
-        let value = CEFStringToSwiftString(cefValuePtr.memory)
+        let key = CEFStringToSwiftString(cefKey)
+        let value = CEFStringToSwiftString(cefValue)
         
         map[key] = value
     }
-
-    cefKeyPtr.dealloc(1)
-    cefValuePtr.dealloc(1)
 
     return map
 }

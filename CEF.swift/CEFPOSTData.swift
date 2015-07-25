@@ -26,13 +26,13 @@ public class CEFPOSTData: CEFProxyBase<cef_post_data_t> {
     }
     
     func getElements() -> [CEFPOSTDataElement] {
-        let countPtr = UnsafeMutablePointer<size_t>()
+        var count:size_t = 0
         let elementsPtr = UnsafeMutablePointer<UnsafeMutablePointer<cef_post_data_element_t>>()
         
-        cefObject.get_elements(cefObjectPtr, countPtr, elementsPtr)
+        cefObject.get_elements(cefObjectPtr, &count, elementsPtr)
         
         var elements = [CEFPOSTDataElement]()
-        for i in 0..<countPtr.memory {
+        for i in 0..<count {
             let cefPDEPtr = elementsPtr.advancedBy(i).memory
             if let pde = CEFPOSTDataElement.fromCEF(cefPDEPtr) {
                 elements.append(pde)
