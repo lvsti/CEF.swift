@@ -31,17 +31,21 @@ func CEFStringMapToSwiftDictionary(cefMap: cef_string_map_t) -> [String:String] 
     return map
 }
 
-func CEFStringMapFromSwiftDictionary(dictionary: [String:String]) -> cef_string_map_t {
+func CEFStringMapCreateFromSwiftDictionary(dictionary: [String:String]) -> cef_string_map_t {
     let cefMap = cef_string_map_alloc()
     
+    var cefKey = cef_string_t()
+    var cefValue = cef_string_t()
+    defer {
+        cef_string_utf16_clear(&cefKey)
+        cef_string_utf16_clear(&cefValue)
+    }
+
     for (key, value) in dictionary {
-        let cefKeyPtr = CEFStringPtrFromSwiftString(key)
-        let cefValuePtr = CEFStringPtrFromSwiftString(value)
+        CEFStringSetFromSwiftString(key, cefString: &cefKey)
+        CEFStringSetFromSwiftString(value, cefString: &cefValue)
 
-        cef_string_map_append(cefMap, cefKeyPtr, cefValuePtr)
-
-        cef_string_userfree_utf16_free(cefKeyPtr)
-        cef_string_userfree_utf16_free(cefValuePtr)
+        cef_string_map_append(cefMap, &cefKey, &cefValue)
     }
     
     return cefMap

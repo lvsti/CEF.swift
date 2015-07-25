@@ -14,16 +14,16 @@ func CEFStringMultimapToSwiftDictionaryOfArrays(cefMultimap: cef_string_multimap
     }
     
     let count = cef_string_multimap_size(cefMultimap)
-    let cefKeyPtr = UnsafeMutablePointer<cef_string_t>.alloc(1)
-    let cefValuePtr = UnsafeMutablePointer<cef_string_t>.alloc(1)
+    var cefKey = cef_string_t()
+    var cefValue = cef_string_t()
     var multimap = [String: [String]]()
     
     for i in 0..<count {
-        cef_string_multimap_key(cefMultimap, i, cefKeyPtr)
-        cef_string_multimap_value(cefMultimap, i, cefValuePtr)
+        cef_string_multimap_key(cefMultimap, i, &cefKey)
+        cef_string_multimap_value(cefMultimap, i, &cefValue)
         
-        let key = CEFStringToSwiftString(cefKeyPtr.memory)
-        let value = CEFStringToSwiftString(cefValuePtr.memory)
+        let key = CEFStringToSwiftString(cefKey)
+        let value = CEFStringToSwiftString(cefValue)
         
         if multimap[key] != nil {
             multimap[key]!.append(value)
@@ -32,23 +32,25 @@ func CEFStringMultimapToSwiftDictionaryOfArrays(cefMultimap: cef_string_multimap
         }
     }
 
-    cefKeyPtr.dealloc(1)
-    cefValuePtr.dealloc(1)
-
     return multimap
 }
 
-func CEFStringMultimapFromSwiftDictionaryOfArrays(dictionary: [String: [String]]) -> cef_string_multimap_t {
+func CEFStringMultimapCreateFromSwiftDictionaryOfArrays(dictionary: [String: [String]]) -> cef_string_multimap_t {
     let multimap = cef_string_multimap_alloc()
     
+    var cefKey = cef_string_t()
+    var cefValue = cef_string_t()
+    defer {
+        cef_string_utf16_clear(&cefKey)
+        cef_string_utf16_clear(&cefValue)
+    }
+    
     for (key, values) in dictionary {
-        let cefKeyPtr = CEFStringPtrFromSwiftString(key)
+        CEFStringSetFromSwiftString(key, cefString: &cefKey)
         for value in values {
-            let cefValuePtr = CEFStringPtrFromSwiftString(value)
-            cef_string_multimap_append(multimap, cefKeyPtr, cefValuePtr)
-            cef_string_userfree_utf16_free(cefValuePtr)
+            CEFStringSetFromSwiftString(value, cefString: &cefValue)
+            cef_string_multimap_append(multimap, &cefKey, &cefValue)
         }
-        cef_string_userfree_utf16_free(cefKeyPtr)
     }
     
     return multimap

@@ -8,13 +8,15 @@
 
 import Foundation
 
-func CEFStringListFromSwiftArray(array: [String]) -> cef_string_list_t {
+func CEFStringListCreateFromSwiftArray(array: [String]) -> cef_string_list_t {
     let cefList = cef_string_list_alloc()
     
+    var cefStr = cef_string_t()
+    defer { cef_string_utf16_clear(&cefStr) }
+    
     for item in array {
-        let cefStrPtr = CEFStringPtrFromSwiftString(item)
-        cef_string_list_append(cefList, cefStrPtr)
-        cef_string_userfree_utf16_free(cefStrPtr)
+        CEFStringSetFromSwiftString(item, cefString: &cefStr)
+        cef_string_list_append(cefList, &cefStr)
     }
     
     return cefList
@@ -22,14 +24,13 @@ func CEFStringListFromSwiftArray(array: [String]) -> cef_string_list_t {
 
 func CEFStringListToSwiftArray(cefList: cef_string_list_t) -> [String] {
     let count = cef_string_list_size(cefList)
-    let cefStrPtr = cef_string_userfree_utf16_alloc()
+    var cefStr = cef_string_t()
     var list = [String]()
     
     for i in 0..<count {
-        cef_string_list_value(cefList, i, cefStrPtr)
-        list.append(CEFStringToSwiftString(cefStrPtr.memory))
+        cef_string_list_value(cefList, i, &cefStr)
+        list.append(CEFStringToSwiftString(cefStr))
     }
-    cef_string_userfree_utf16_free(cefStrPtr)
     
     return list
 }

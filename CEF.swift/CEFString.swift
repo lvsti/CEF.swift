@@ -12,10 +12,14 @@ func CEFStringToSwiftString(cefStr: cef_string_t) -> String {
     return String(NSString(characters: cefStr.str, length: cefStr.length))
 }
 
-func CEFStringPtrFromSwiftString(str: String) -> cef_string_userfree_utf16_t {
+func CEFStringPtrCreateFromSwiftString(str: String) -> cef_string_userfree_utf16_t {
     let cefStr = cef_string_userfree_utf16_alloc()
     CEFStringSetFromSwiftString(str, cefString: cefStr)
     return cefStr
+}
+
+func CEFStringPtrRelease(ptr: cef_string_userfree_utf16_t) {
+    cef_string_userfree_utf16_free(ptr)
 }
 
 func CEFStringSetFromSwiftString(str: String, cefString ptr: UnsafeMutablePointer<cef_string_t>) {
