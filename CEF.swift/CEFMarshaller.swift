@@ -86,6 +86,12 @@ class CEFMarshaller<TStruct, TClass where TStruct : CEFObject,
         let unmanaged = Unmanaged<AnyObject>.passUnretained(marshaller)
         let marshallerPtr = UnsafeMutablePointer<Int8>(unmanaged.toOpaque())
         let structPtr = marshallerPtr.advancedBy(16)
+        let basePtr = UnsafeMutablePointer<cef_base_t>(structPtr)
+        
+        if obj.hasOneRef() {
+            register(basePtr, forObject: marshaller)
+        }
+        
         return UnsafeMutablePointer<TStruct>(structPtr)
     }
     
