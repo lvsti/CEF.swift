@@ -14,7 +14,7 @@ class SimpleApp: CEFApp {
 }
 
 class SimpleHandler: CEFClient {
-    static var instance = SimpleHandler()!
+    static var instance = SimpleHandler()
     
     private var _isClosing: Bool = false
     var isClosing: Bool { get { return _isClosing } }
@@ -23,8 +23,7 @@ class SimpleHandler: CEFClient {
         
     }
     
-    override init?() {
-        
+    override init() {
         super.init()
     }
 }
@@ -65,7 +64,7 @@ class SimpleApplication : NSApplication, CefAppProtocol {
 }
 
 let args = CEFMainArgs(arguments: Process.arguments)
-let app = SimpleApp()!
+let app = SimpleApp()
 
 SimpleApplication.sharedApplication()
 

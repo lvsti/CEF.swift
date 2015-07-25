@@ -232,6 +232,7 @@
 				E8CC9D2B1B5AF47B002948BD /* Frameworks */,
 				E8CC9D2C1B5AF47B002948BD /* Resources */,
 				E8732E021B5BEEF10068F130 /* CopyFiles */,
+				E8F5CC281B63C70600B0A295 /* Copy helpers */,
 			);
 			buildRules = (
 			);
@@ -298,6 +299,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E8F5CC281B63C70600B0A295 /* Copy helpers */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy helpers";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nFRAMEWORKS_DIR=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/Contents/Frameworks\"\n\ncp -R \"${CEF_BINARY_ROOT}/cefsimple/Debug/cefsimple Helper.app\" \"${FRAMEWORKS_DIR}/\"\n\nif [ ! -e \"${FRAMEWORKS_DIR}/${PRODUCT_NAME} Helper.app\" ]; then\n    ln -s \"${FRAMEWORKS_DIR}/cefsimple Helper.app\" \"${FRAMEWORKS_DIR}/${PRODUCT_NAME} Helper.app\"\n    ln -s \"${FRAMEWORKS_DIR}/cefsimple Helper.app/Contents/MacOS/cefsimple\" \"${FRAMEWORKS_DIR}/cefsimple Helper.app/Contents/MacOS/${PRODUCT_NAME} Helper\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E8456E0B1B52C29700AE93DC /* Sources */ = {
