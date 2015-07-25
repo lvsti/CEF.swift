@@ -34,38 +34,38 @@ public class CEFResponse: CEFProxyBase<cef_response_t> {
     func getStatusText() -> String {
         let cefStrPtr = cefObject.get_status_text(cefObjectPtr)
         let retval = CEFStringToSwiftString(cefStrPtr.memory)
-        cef_string_userfree_utf16_free(cefStrPtr)
+        CEFStringPtrRelease(cefStrPtr)
         
         return retval
     }
 
     func setStatusText(statusText: String) {
-        let cefStrPtr = CEFStringPtrFromSwiftString(statusText)
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(statusText)
         cefObject.set_status_text(cefObjectPtr, cefStrPtr)
-        cef_string_userfree_utf16_free(cefStrPtr)
+        CEFStringPtrRelease(cefStrPtr)
     }
 
     func getMimeType() -> String {
         let cefStrPtr = cefObject.get_status_text(cefObjectPtr)
         let retval = CEFStringToSwiftString(cefStrPtr.memory)
-        cef_string_userfree_utf16_free(cefStrPtr)
+        CEFStringPtrRelease(cefStrPtr)
         
         return retval
     }
     
     func setMimeType(mimeType: String) {
-        let cefStrPtr = CEFStringPtrFromSwiftString(mimeType)
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(mimeType)
         cefObject.set_status_text(cefObjectPtr, cefStrPtr)
-        cef_string_userfree_utf16_free(cefStrPtr)
+        CEFStringPtrRelease(cefStrPtr)
     }
 
     func getHeader(forKey key: String) -> String {
-        let cefKeyPtr = CEFStringPtrFromSwiftString(key)
+        let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         let cefHeaderPtr = cefObject.get_header(cefObjectPtr, cefKeyPtr)
-        cef_string_userfree_utf16_free(cefKeyPtr)
+        CEFStringPtrRelease(cefKeyPtr)
         
         let retval = CEFStringToSwiftString(cefHeaderPtr.memory)
-        cef_string_userfree_utf16_free(cefHeaderPtr)
+        CEFStringPtrRelease(cefHeaderPtr)
         
         return retval
     }
@@ -81,7 +81,7 @@ public class CEFResponse: CEFProxyBase<cef_response_t> {
     }
     
     func setHeaderMap(headerMap: HeaderMap) {
-        let cefHeaderMap = CEFStringMultimapFromSwiftDictionaryOfArrays(headerMap)
+        let cefHeaderMap = CEFStringMultimapCreateFromSwiftDictionaryOfArrays(headerMap)
         cefObject.set_header_map(cefObjectPtr, cefHeaderMap)
         cef_string_multimap_free(cefHeaderMap)
     }

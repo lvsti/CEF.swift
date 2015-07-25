@@ -32,9 +32,9 @@ public class CEFPOSTDataElement: CEFProxyBase<cef_post_data_element_t> {
     }
     
     func setToFile(fileName: String) {
-        let cefStrPtr = CEFStringPtrFromSwiftString(fileName)
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(fileName)
+        defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.set_to_file(cefObjectPtr, cefStrPtr)
-        cef_string_userfree_utf16_free(cefStrPtr)
     }
     
     func setToBytes(data: NSData) {
@@ -48,9 +48,8 @@ public class CEFPOSTDataElement: CEFProxyBase<cef_post_data_element_t> {
     
     func getFile() -> String {
         let cefStrPtr = cefObject.get_file(cefObjectPtr)
-        let retval = CEFStringToSwiftString(cefStrPtr.memory)
-        cef_string_userfree_utf16_free(cefStrPtr)        
-        return retval
+        defer { CEFStringPtrRelease(cefStrPtr) }
+        return CEFStringToSwiftString(cefStrPtr.memory)
     }
     
     func getBytesCount() -> size_t {

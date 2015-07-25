@@ -44,9 +44,9 @@ public class CEFCommandLine: CEFProxyBase<cef_command_line_t> {
     }
     
     func initFromString(commandLine: String) {
-        let cefCmdLinePtr = CEFStringPtrFromSwiftString(commandLine)
+        let cefCmdLinePtr = CEFStringPtrCreateFromSwiftString(commandLine)
+        defer { CEFStringPtrRelease(cefCmdLinePtr) }
         cefObject.init_from_string(cefObjectPtr, cefCmdLinePtr)
-        cef_string_userfree_utf16_free(cefCmdLinePtr)
     }
     
     func reset() {
@@ -73,22 +73,20 @@ public class CEFCommandLine: CEFProxyBase<cef_command_line_t> {
     
     func getCommandLineString() -> String {
         let cefCmdLinePtr = cefObject.get_command_line_string(cefObjectPtr)
-        let retval = CEFStringToSwiftString(cefCmdLinePtr.memory)
-        cef_string_userfree_utf16_free(cefCmdLinePtr)
-        return retval
+        defer { CEFStringPtrRelease(cefCmdLinePtr) }
+        return CEFStringToSwiftString(cefCmdLinePtr.memory)
     }
     
     func getProgram() -> String {
         let cefProgramPtr = cefObject.get_program(cefObjectPtr)
-        let retval = CEFStringToSwiftString(cefProgramPtr.memory)
-        cef_string_userfree_utf16_free(cefProgramPtr)
-        return retval
+        defer { CEFStringPtrRelease(cefProgramPtr) }
+        return CEFStringToSwiftString(cefProgramPtr.memory)
     }
 
     func setProgram(program: String) {
-        let cefProgramPtr = CEFStringPtrFromSwiftString(program)
+        let cefProgramPtr = CEFStringPtrCreateFromSwiftString(program)
+        defer { CEFStringPtrRelease(cefProgramPtr) }
         cefObject.set_program(cefObjectPtr, cefProgramPtr)
-        cef_string_userfree_utf16_free(cefProgramPtr)
     }
     
     func hasSwitches() -> Bool {
@@ -96,41 +94,42 @@ public class CEFCommandLine: CEFProxyBase<cef_command_line_t> {
     }
     
     func hasSwitch(name: String) -> Bool {
-        let cefStrPtr = CEFStringPtrFromSwiftString(name)
-        let retval = cefObject.has_switch(cefObjectPtr, cefStrPtr) != 0
-        cef_string_userfree_utf16_free(cefStrPtr)
-        return retval
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
+        defer { CEFStringPtrRelease(cefStrPtr) }
+        return cefObject.has_switch(cefObjectPtr, cefStrPtr) != 0
     }
     
     func getSwitchValue(name: String) -> String {
-        let cefStrPtr = CEFStringPtrFromSwiftString(name)
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
         let cefValuePtr = cefObject.get_switch_value(cefObjectPtr, cefStrPtr)
-        let retval = CEFStringToSwiftString(cefValuePtr.memory)
-        cef_string_userfree_utf16_free(cefStrPtr)
-        cef_string_userfree_utf16_free(cefValuePtr)
-        return retval
+        defer {
+            CEFStringPtrRelease(cefStrPtr)
+            CEFStringPtrRelease(cefValuePtr)
+        }
+        return CEFStringToSwiftString(cefValuePtr.memory)
     }
     
     func getSwitches() -> SwitchMap {
         let cefMap = cef_string_map_alloc()
+        defer { cef_string_map_free(cefMap) }
         cefObject.get_switches(cefObjectPtr, cefMap)
-        let retval = CEFStringMapToSwiftDictionary(cefMap)
-        cef_string_map_free(cefMap)
-        return retval
+        return CEFStringMapToSwiftDictionary(cefMap)
     }
     
     func appendSwitch(name: String) {
-        let cefStrPtr = CEFStringPtrFromSwiftString(name)
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
+        defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.append_switch(cefObjectPtr, cefStrPtr)
-        cef_string_userfree_utf16_free(cefStrPtr)
     }
     
     func appendSwitchWithValue(name: String, value: String) {
-        let cefNamePtr = CEFStringPtrFromSwiftString(name)
-        let cefValuePtr = CEFStringPtrFromSwiftString(value)
+        let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
+        let cefValuePtr = CEFStringPtrCreateFromSwiftString(value)
+        defer {
+            CEFStringPtrRelease(cefNamePtr)
+            CEFStringPtrRelease(cefValuePtr)
+        }
         cefObject.append_switch_with_value(cefObjectPtr, cefNamePtr, cefValuePtr)
-        cef_string_userfree_utf16_free(cefNamePtr)
-        cef_string_userfree_utf16_free(cefValuePtr)
     }
     
     func hasArguments() -> Bool {
@@ -139,22 +138,21 @@ public class CEFCommandLine: CEFProxyBase<cef_command_line_t> {
     
     func getArguments() -> ArgumentList {
         let cefList = cef_string_list_alloc()
+        defer { cef_string_list_free(cefList) }
         cefObject.get_arguments(cefObjectPtr, cefList)
-        let arguments = CEFStringListToSwiftArray(cefList)
-        cef_string_list_free(cefList)
-        return arguments
+        return CEFStringListToSwiftArray(cefList)
     }
     
     func appendArgument(arg: String) {
-        let cefStrPtr = CEFStringPtrFromSwiftString(arg)
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(arg)
+        defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.append_argument(cefObjectPtr, cefStrPtr)
-        cef_string_userfree_utf16_free(cefStrPtr)
     }
     
     func prependWrapper(wrapper: String) {
-        let cefStrPtr = CEFStringPtrFromSwiftString(wrapper)
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(wrapper)
+        defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.prepend_wrapper(cefObjectPtr, cefStrPtr)
-        cef_string_userfree_utf16_free(cefStrPtr)
     }
     
 }

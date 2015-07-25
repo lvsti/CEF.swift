@@ -83,30 +83,28 @@ public class CEFRequest: CEFProxyBase<cef_request_t> {
     
     func getURL() -> NSURL {
         let cefURLPtr = cefObject.get_url(cefObjectPtr)
+        defer { CEFStringPtrRelease(cefURLPtr) }
         let urlStr = CEFStringToSwiftString(cefURLPtr.memory)
-        cef_string_userfree_utf16_free(cefURLPtr)
         
         return NSURL(string: urlStr)!
     }
     
     func setURL(url: NSURL) {
-        let cefURLPtr = CEFStringPtrFromSwiftString(url.absoluteString)
+        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
+        defer { CEFStringPtrRelease(cefURLPtr) }
         cefObject.set_url(cefObjectPtr, cefURLPtr)
-        cef_string_userfree_utf16_free(cefURLPtr)
     }
     
     func getMethod() -> String {
         let cefMethodPtr = cefObject.get_method(cefObjectPtr)
-        let retval = CEFStringToSwiftString(cefMethodPtr.memory)
-        cef_string_userfree_utf16_free(cefMethodPtr)
-        
-        return retval
+        defer { CEFStringPtrRelease(cefMethodPtr) }
+        return CEFStringToSwiftString(cefMethodPtr.memory)
     }
     
     func setMethod(method: String) {
-        let cefMethodPtr = CEFStringPtrFromSwiftString(method)
+        let cefMethodPtr = CEFStringPtrCreateFromSwiftString(method)
+        defer { CEFStringPtrRelease(cefMethodPtr) }
         cefObject.set_method(cefObjectPtr, cefMethodPtr)
-        cef_string_userfree_utf16_free(cefMethodPtr)
     }
     
     func getPOSTData() -> CEFPOSTData? {
@@ -120,30 +118,28 @@ public class CEFRequest: CEFProxyBase<cef_request_t> {
     
     func getHeaderMap() -> HeaderMap {
         let cefHeaderMap = cef_string_multimap_alloc()
+        defer { cef_string_multimap_free(cefHeaderMap) }
         cefObject.get_header_map(cefObjectPtr, cefHeaderMap)
-        
-        let retval = CEFStringMultimapToSwiftDictionaryOfArrays(cefHeaderMap)
-        cef_string_multimap_free(cefHeaderMap)
-        
-        return retval
+        return CEFStringMultimapToSwiftDictionaryOfArrays(cefHeaderMap)
     }
     
     func setHeaderMap(headerMap: HeaderMap) {
-        let cefHeaderMap = CEFStringMultimapFromSwiftDictionaryOfArrays(headerMap)
+        let cefHeaderMap = CEFStringMultimapCreateFromSwiftDictionaryOfArrays(headerMap)
+        defer { cef_string_multimap_free(cefHeaderMap) }
         cefObject.set_header_map(cefObjectPtr, cefHeaderMap)
-        cef_string_multimap_free(cefHeaderMap)
     }
     
     func set(url: NSURL, method: String, postData: CEFPOSTData, headerMap: HeaderMap) {
-        let cefURLPtr = CEFStringPtrFromSwiftString(url.absoluteString)
-        let cefMethodPtr = CEFStringPtrFromSwiftString(method)
-        let cefHeaderMap = CEFStringMultimapFromSwiftDictionaryOfArrays(headerMap)
+        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
+        let cefMethodPtr = CEFStringPtrCreateFromSwiftString(method)
+        let cefHeaderMap = CEFStringMultimapCreateFromSwiftDictionaryOfArrays(headerMap)
+        defer {
+            CEFStringPtrRelease(cefURLPtr)
+            CEFStringPtrRelease(cefMethodPtr)
+            cef_string_multimap_free(cefHeaderMap)
+        }
         
         cefObject.set(cefObjectPtr, cefURLPtr, cefMethodPtr, postData.cefObjectPtr, cefHeaderMap)
-        
-        cef_string_userfree_utf16_free(cefURLPtr)
-        cef_string_userfree_utf16_free(cefMethodPtr)
-        cef_string_multimap_free(cefHeaderMap)
     }
     
     func getFlags() -> RequestFlags {
@@ -157,16 +153,16 @@ public class CEFRequest: CEFProxyBase<cef_request_t> {
     
     func getFirstPartyForCookies() -> NSURL {
         let cefURL = cefObject.get_first_party_for_cookies(cefObjectPtr)
+        defer { CEFStringPtrRelease(cefURL) }
+
         let urlStr = CEFStringToSwiftString(cefURL.memory)
-        cef_string_userfree_utf16_free(cefURL)
-        
         return NSURL(string: urlStr)!
     }
     
     func setFirstPartyForCookies(url: NSURL) {
-        let cefURLPtr = CEFStringPtrFromSwiftString(url.absoluteString)
+        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
+        defer { CEFStringPtrRelease(cefURLPtr) }
         cefObject.set_first_party_for_cookies(cefObjectPtr, cefURLPtr)
-        cef_string_userfree_utf16_free(cefURLPtr)
     }
     
     func getResourceType() -> ResourceType {

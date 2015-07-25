@@ -75,7 +75,7 @@ public class CEFValue: CEFProxyBase<cef_value_t> {
     public func getString() -> String {
         let cefStrPtr = cefObject.get_string(cefObjectPtr)
         let retval = CEFStringToSwiftString(cefStrPtr.memory)
-        cef_string_userfree_utf16_free(cefStrPtr)
+        CEFStringPtrRelease(cefStrPtr)
         
         return retval
     }
@@ -112,9 +112,9 @@ public class CEFValue: CEFProxyBase<cef_value_t> {
     }
 
     public func setString(string: String) -> Bool {
-        let cefStrPtr = CEFStringPtrFromSwiftString(string)
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(string)
         let retval = cefObject.set_string(cefObjectPtr, cefStrPtr) != 0
-        cef_string_userfree_utf16_free(cefStrPtr)
+        CEFStringPtrRelease(cefStrPtr)
         return retval
     }
 
