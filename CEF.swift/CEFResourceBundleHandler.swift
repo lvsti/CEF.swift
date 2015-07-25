@@ -11,21 +11,18 @@ import Foundation
 extension cef_resource_bundle_handler_t: CEFObject {
 }
 
-public class CEFResourceBundleHandler: CEFHandlerBase<cef_resource_bundle_handler_t>, CEFObjectLookup {
-    typealias SelfType = CEFResourceBundleHandler
-    
-    static var _registryLock: Lock = CEFResourceBundleHandler.createLock()
-    static var _registry = Dictionary<ObjectPtrType, SelfType>()
-    
-    init?() {
-        let handler = ObjectPtrType.alloc(1)
-        handler.memory.base.add_ref = CEFResourceBundleHandler_addRef
-        handler.memory.base.release = CEFResourceBundleHandler_release
-        handler.memory.base.has_one_ref = CEFResourceBundleHandler_hasOneRef
-        handler.memory.get_localized_string = CEFResourceBundleHandler_getLocalizedString
-        handler.memory.get_data_resource = CEFResourceBundleHandler_getDataResource
-        
-        super.init(ptr: handler)
+class CEFResourceBundleHandlerMarshaller: CEFMarshaller<cef_resource_bundle_handler_t, CEFResourceBundleHandler> {
+    override init(obj: CEFResourceBundleHandler) {
+        super.init(obj: obj)
+        cefStruct.get_localized_string = CEFResourceBundleHandler_getLocalizedString
+        cefStruct.get_data_resource = CEFResourceBundleHandler_getDataResource
+    }
+}
+
+public class CEFResourceBundleHandler: CEFHandler {
+
+    public override init() {
+        super.init()
     }
     
     func getLocalizedString(stringID: Int) -> String? {
@@ -36,41 +33,21 @@ public class CEFResourceBundleHandler: CEFHandlerBase<cef_resource_bundle_handle
         return nil
     }
     
-}
-
-
-func CEFResourceBundleHandler_addRef(ptr: UnsafeMutablePointer<cef_base_t>) {
-    guard let wrapper = CEFResourceBundleHandler.lookup(CEFResourceBundleHandler.ObjectPtrType(ptr)) else {
-        return
+    func toCEF() -> UnsafeMutablePointer<cef_resource_bundle_handler_t> {
+        return CEFResourceBundleHandlerMarshaller.pass(self)
     }
     
-    wrapper.addRef()
 }
 
-func CEFResourceBundleHandler_release(ptr: UnsafeMutablePointer<cef_base_t>) -> Int32 {
-    guard let wrapper = CEFResourceBundleHandler.lookup(CEFResourceBundleHandler.ObjectPtrType(ptr)) else {
-        return 0
-    }
-    
-    return wrapper.release() ? 1 : 0
-}
 
-func CEFResourceBundleHandler_hasOneRef(ptr: UnsafeMutablePointer<cef_base_t>) -> Int32 {
-    guard let wrapper = CEFResourceBundleHandler.lookup(CEFResourceBundleHandler.ObjectPtrType(ptr)) else {
-        return 0
-    }
-    
-    return wrapper.hasOneRef() ? 1 : 0
-}
-
-func CEFResourceBundleHandler_getLocalizedString(ptr: CEFResourceBundleHandler.ObjectPtrType,
+func CEFResourceBundleHandler_getLocalizedString(ptr: UnsafeMutablePointer<cef_resource_bundle_handler_t>,
                                                  stringID: Int32,
                                                  cefStrPtr: UnsafeMutablePointer<cef_string_t>) -> Int32 {
-    guard let wrapper = CEFResourceBundleHandler.lookup(CEFResourceBundleHandler.ObjectPtrType(ptr)) else {
+    guard let obj = CEFResourceBundleHandlerMarshaller.get(ptr) else {
         return 0
     }
-    
-    if let str = wrapper.getLocalizedString(Int(stringID)) {
+                                                    
+    if let str = obj.getLocalizedString(Int(stringID)) {
         CEFStringSetFromSwiftString(str, cefString: cefStrPtr)
         return 1
     }
@@ -78,15 +55,15 @@ func CEFResourceBundleHandler_getLocalizedString(ptr: CEFResourceBundleHandler.O
     return 0
 }
 
-func CEFResourceBundleHandler_getDataResource(ptr: CEFResourceBundleHandler.ObjectPtrType,
+func CEFResourceBundleHandler_getDataResource(ptr: UnsafeMutablePointer<cef_resource_bundle_handler_t>,
                                               resourceID: Int32,
                                               dataBufferPtr: UnsafeMutablePointer<UnsafeMutablePointer<Void>>,
                                               dataSizePtr: UnsafeMutablePointer<size_t>) -> Int32 {
-    guard let wrapper = CEFResourceBundleHandler.lookup(CEFResourceBundleHandler.ObjectPtrType(ptr)) else {
+    guard let obj = CEFResourceBundleHandlerMarshaller.get(ptr) else {
         return 0
     }
     
-    if let (bufferPtr, size) = wrapper.getDataResource(Int(resourceID)) {
+    if let (bufferPtr, size) = obj.getDataResource(Int(resourceID)) {
         dataBufferPtr.memory = bufferPtr
         dataSizePtr.memory = size
         return 1

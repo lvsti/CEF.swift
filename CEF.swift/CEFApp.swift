@@ -11,24 +11,22 @@ import Foundation
 extension cef_app_t: CEFObject {
 }
 
-public class CEFApp: CEFHandlerBase<cef_app_t>, CEFObjectLookup {
-    typealias SelfType = CEFApp
+class CEFAppMarshaller: CEFMarshaller<cef_app_t, CEFApp> {
+    override init(obj: CEFApp) {
+        super.init(obj: obj)
+        cefStruct.on_before_command_line_processing = CEFApp_onBeforeCommandLineProcessing
+        cefStruct.on_register_custom_schemes = CEFApp_onRegisterCustomSchemes
+        cefStruct.get_resource_bundle_handler = CEFApp_getResourceBundleHandler
+        cefStruct.get_browser_process_handler = CEFApp_getBrowserProcessHandler
+        cefStruct.get_render_process_handler = CEFApp_getRenderProcessHandler
+    }
+}
 
-    static var _registryLock: Lock = CEFApp.createLock()
-    static var _registry = Dictionary<ObjectPtrType, SelfType>()
-  
-    public init?() {
-        let handler = ObjectPtrType.alloc(1)
-        handler.memory.base.add_ref = CEFApp_addRef
-        handler.memory.base.release = CEFApp_release
-        handler.memory.base.has_one_ref = CEFApp_hasOneRef
-        handler.memory.on_before_command_line_processing = CEFApp_onBeforeCommandLineProcessing
-        handler.memory.on_register_custom_schemes = CEFApp_onRegisterCustomSchemes
-        handler.memory.get_resource_bundle_handler = CEFApp_getResourceBundleHandler
-        handler.memory.get_browser_process_handler = CEFApp_getBrowserProcessHandler
-        handler.memory.get_render_process_handler = CEFApp_getRenderProcessHandler
-        
-        super.init(ptr: handler)
+
+public class CEFApp: CEFHandler {
+    
+    public override init() {
+        super.init()
     }
     
     public func onBeforeCommandLineProcessing(processType processType: String, commandLine: CEFCommandLine) {
@@ -47,6 +45,10 @@ public class CEFApp: CEFHandlerBase<cef_app_t>, CEFObjectLookup {
     
     public func getRenderProcessHandler() -> CEFRenderProcessHandler? {
         return nil
+    }
+    
+    func toCEF() -> UnsafeMutablePointer<cef_app_t> {
+        return CEFAppMarshaller.pass(self)
     }
 }
 
@@ -102,81 +104,56 @@ public func CEFQuitMessageLoop() {
 }
 
 
-func CEFApp_addRef(ptr: UnsafeMutablePointer<cef_base_t>) {
-    guard let wrapper = CEFApp.lookup(CEFApp.ObjectPtrType(ptr)) else {
-        return
-    }
-    
-    wrapper.addRef()
-}
-
-func CEFApp_release(ptr: UnsafeMutablePointer<cef_base_t>) -> Int32 {
-    guard let wrapper = CEFApp.lookup(CEFApp.ObjectPtrType(ptr)) else {
-        return 0
-    }
-    
-    return wrapper.release() ? 1 : 0
-}
-
-func CEFApp_hasOneRef(ptr: UnsafeMutablePointer<cef_base_t>) -> Int32 {
-    guard let wrapper = CEFApp.lookup(CEFApp.ObjectPtrType(ptr)) else {
-        return 0
-    }
-    
-    return wrapper.hasOneRef() ? 1 : 0
-}
-
-
-func CEFApp_onBeforeCommandLineProcessing(ptr: CEFApp.ObjectPtrType,
+func CEFApp_onBeforeCommandLineProcessing(ptr: UnsafeMutablePointer<cef_app_t>,
                                           procType: UnsafePointer<cef_string_t>,
                                           cmdLine: UnsafeMutablePointer<cef_command_line_t>) {
-    guard let wrapper = CEFApp.lookup(ptr) else {
+    guard let obj = CEFAppMarshaller.get(ptr) else {
         return
     }
     
-    wrapper.onBeforeCommandLineProcessing(processType: CEFStringToSwiftString(procType.memory),
-                                          commandLine: CEFCommandLine.fromCEF(cmdLine)!)
+    obj.onBeforeCommandLineProcessing(processType: CEFStringToSwiftString(procType.memory),
+                                      commandLine: CEFCommandLine.fromCEF(cmdLine)!)
 }
 
-func CEFApp_onRegisterCustomSchemes(ptr: CEFApp.ObjectPtrType,
+func CEFApp_onRegisterCustomSchemes(ptr: UnsafeMutablePointer<cef_app_t>,
                                     registrar: UnsafeMutablePointer<cef_scheme_registrar_t>) {
-    guard let wrapper = CEFApp.lookup(ptr) else {
+    guard let obj = CEFAppMarshaller.get(ptr) else {
         return
     }
     
-    wrapper.onRegisterCustomSchemes(CEFSchemeRegistrar.fromCEF(registrar)!)
+    obj.onRegisterCustomSchemes(CEFSchemeRegistrar.fromCEF(registrar)!)
 }
 
-func CEFApp_getResourceBundleHandler(ptr: CEFApp.ObjectPtrType) -> UnsafeMutablePointer<cef_resource_bundle_handler_t> {
-    guard let wrapper = CEFApp.lookup(ptr) else {
+func CEFApp_getResourceBundleHandler(ptr: UnsafeMutablePointer<cef_app_t>) -> UnsafeMutablePointer<cef_resource_bundle_handler_t> {
+    guard let obj = CEFAppMarshaller.get(ptr) else {
         return nil
     }
     
-    if let handler = wrapper.getResourceBundleHandler() {
+    if let handler = obj.getResourceBundleHandler() {
         return handler.toCEF()
     }
     
     return nil
 }
 
-func CEFApp_getBrowserProcessHandler(ptr: CEFApp.ObjectPtrType) -> UnsafeMutablePointer<cef_browser_process_handler_t> {
-    guard let wrapper = CEFApp.lookup(ptr) else {
+func CEFApp_getBrowserProcessHandler(ptr: UnsafeMutablePointer<cef_app_t>) -> UnsafeMutablePointer<cef_browser_process_handler_t> {
+    guard let obj = CEFAppMarshaller.get(ptr) else {
         return nil
     }
     
-    if let handler = wrapper.getBrowserProcessHandler() {
+    if let handler = obj.getBrowserProcessHandler() {
         return handler.toCEF()
     }
     
     return nil
 }
 
-func CEFApp_getRenderProcessHandler(ptr: CEFApp.ObjectPtrType) -> UnsafeMutablePointer<cef_render_process_handler_t> {
-    guard let wrapper = CEFApp.lookup(ptr) else {
+func CEFApp_getRenderProcessHandler(ptr: UnsafeMutablePointer<cef_app_t>) -> UnsafeMutablePointer<cef_render_process_handler_t> {
+    guard let obj = CEFAppMarshaller.get(ptr) else {
         return nil
     }
     
-    if let handler = wrapper.getRenderProcessHandler() {
+    if let handler = obj.getRenderProcessHandler() {
         return handler.toCEF()
     }
     

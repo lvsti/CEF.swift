@@ -11,23 +11,20 @@ import Foundation
 extension cef_browser_process_handler_t: CEFObject {
 }
 
-public class CEFBrowserProcessHandler: CEFHandlerBase<cef_browser_process_handler_t>, CEFObjectLookup {
-    typealias SelfType = CEFBrowserProcessHandler
+class CEFBrowserProcessHandlerMarshaller: CEFMarshaller<cef_browser_process_handler_t, CEFBrowserProcessHandler> {
+    override init(obj: CEFBrowserProcessHandler) {
+        super.init(obj: obj)
+        cefStruct.on_context_initialized = CEFBrowserProcessHandler_onContextInitialized
+        cefStruct.on_before_child_process_launch = CEFBrowserProcessHandler_onBeforeChildProcessLaunch
+        cefStruct.on_render_process_thread_created = CEFBrowserProcessHandler_onRenderProcessThreadCreated
+//        .get_print_handler = CEFBrowserProcessHandler_getPrintHandler
+    }
+}
+
+public class CEFBrowserProcessHandler: CEFHandler {
     
-    static var _registryLock: Lock = CEFBrowserProcessHandler.createLock()
-    static var _registry = Dictionary<ObjectPtrType, SelfType>()
-    
-    init?() {
-        let handler = ObjectPtrType.alloc(1)
-        handler.memory.base.add_ref = CEFBrowserProcessHandler_addRef
-        handler.memory.base.release = CEFBrowserProcessHandler_release
-        handler.memory.base.has_one_ref = CEFBrowserProcessHandler_hasOneRef
-        handler.memory.on_context_initialized = CEFBrowserProcessHandler_onContextInitialized
-        handler.memory.on_before_child_process_launch = CEFBrowserProcessHandler_onBeforeChildProcessLaunch
-        handler.memory.on_render_process_thread_created = CEFBrowserProcessHandler_onRenderProcessThreadCreated
-//        handler.memory.get_print_handler = CEFBrowserProcessHandler_getPrintHandler
-        
-        super.init(ptr: handler)
+    public override init() {
+        super.init()
     }
 
     func onContextInitialized() {
@@ -44,65 +41,45 @@ public class CEFBrowserProcessHandler: CEFHandlerBase<cef_browser_process_handle
 //        return nil
 //    }
 
+    func toCEF() -> UnsafeMutablePointer<cef_browser_process_handler_t> {
+        return CEFBrowserProcessHandlerMarshaller.pass(self)
+    }
+    
 }
 
 
-func CEFBrowserProcessHandler_addRef(ptr: UnsafeMutablePointer<cef_base_t>) {
-    guard let wrapper = CEFBrowserProcessHandler.lookup(CEFBrowserProcessHandler.ObjectPtrType(ptr)) else {
+func CEFBrowserProcessHandler_onContextInitialized(ptr: UnsafeMutablePointer<cef_browser_process_handler_t>) {
+    guard let obj = CEFBrowserProcessHandlerMarshaller.get(ptr) else {
         return
     }
     
-    wrapper.addRef()
+    obj.onContextInitialized()
 }
 
-func CEFBrowserProcessHandler_release(ptr: UnsafeMutablePointer<cef_base_t>) -> Int32 {
-    guard let wrapper = CEFBrowserProcessHandler.lookup(CEFBrowserProcessHandler.ObjectPtrType(ptr)) else {
-        return 0
-    }
-    
-    return wrapper.release() ? 1 : 0
-}
-
-func CEFBrowserProcessHandler_hasOneRef(ptr: UnsafeMutablePointer<cef_base_t>) -> Int32 {
-    guard let wrapper = CEFBrowserProcessHandler.lookup(CEFBrowserProcessHandler.ObjectPtrType(ptr)) else {
-        return 0
-    }
-    
-    return wrapper.hasOneRef() ? 1 : 0
-}
-
-func CEFBrowserProcessHandler_onContextInitialized(ptr: CEFBrowserProcessHandler.ObjectPtrType) {
-    guard let wrapper = CEFBrowserProcessHandler.lookup(CEFBrowserProcessHandler.ObjectPtrType(ptr)) else {
-        return
-    }
-    
-    wrapper.onContextInitialized()
-}
-
-func CEFBrowserProcessHandler_onBeforeChildProcessLaunch(ptr: CEFBrowserProcessHandler.ObjectPtrType,
+func CEFBrowserProcessHandler_onBeforeChildProcessLaunch(ptr: UnsafeMutablePointer<cef_browser_process_handler_t>,
                                                          commandLine: UnsafeMutablePointer<cef_command_line_t>) {
-    guard let wrapper = CEFBrowserProcessHandler.lookup(CEFBrowserProcessHandler.ObjectPtrType(ptr)) else {
+    guard let obj = CEFBrowserProcessHandlerMarshaller.get(ptr) else {
         return
     }
     
-    wrapper.onBeforeChildProcessLaunch(CEFCommandLine.fromCEF(commandLine)!)
+    obj.onBeforeChildProcessLaunch(CEFCommandLine.fromCEF(commandLine)!)
 }
 
-func CEFBrowserProcessHandler_onRenderProcessThreadCreated(ptr: CEFBrowserProcessHandler.ObjectPtrType,
+func CEFBrowserProcessHandler_onRenderProcessThreadCreated(ptr: UnsafeMutablePointer<cef_browser_process_handler_t>,
                                                            userInfo: UnsafeMutablePointer<cef_list_value_t>) {
-    guard let wrapper = CEFBrowserProcessHandler.lookup(CEFBrowserProcessHandler.ObjectPtrType(ptr)) else {
+    guard let obj = CEFBrowserProcessHandlerMarshaller.get(ptr) else {
         return
     }
     
-    wrapper.onRenderProcessThreadCreated(CEFListValue.fromCEF(userInfo)!)
+    obj.onRenderProcessThreadCreated(CEFListValue.fromCEF(userInfo)!)
 }
-
-//func CEFBrowserProcessHandler_getPrintHandler(ptr: CEFBrowserProcessHandler.ObjectPtrType) -> UnsafeMutablePointer<cef_print_handler_t> {
-//    guard let wrapper = CEFBrowserProcessHandler.lookup(CEFBrowserProcessHandler.ObjectPtrType(ptr)) else {
+//
+//func CEFBrowserProcessHandler_getPrintHandler(ptr: UnsafeMutablePointer<cef_browser_process_handler_t>) -> UnsafeMutablePointer<cef_print_handler_t> {
+//    guard let obj = CEFBrowserProcessHandlerMarshaller.get(ptr) else {
 //        return nil
 //    }
-//    
-//    return wrapper.getPrintHandler()
+//
+//    return obj.getPrintHandler()
 //}
 
 

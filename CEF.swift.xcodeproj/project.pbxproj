@@ -39,6 +39,7 @@
 		E8CC9D3C1B5AF516002948BD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CC9D3B1B5AF516002948BD /* main.swift */; };
 		E8CC9D3F1B5AF601002948BD /* CEFswift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8456E101B52C29700AE93DC /* CEFswift.framework */; };
 		E8CC9D401B5AF648002948BD /* Chromium Embedded Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8613E231B52C51F009BDAC9 /* Chromium Embedded Framework.framework */; };
+		E8F5CC261B62E14500B0A295 /* CEFMarshaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F5CC251B62E14500B0A295 /* CEFMarshaller.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		E8CC9D371B5AF47B002948BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8CC9D3B1B5AF516002948BD /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		E8CC9EA31B5B042D002948BD /* CEFDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CEFDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		E8F5CC251B62E14500B0A295 /* CEFMarshaller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFMarshaller.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 				E8CC9D241B5AC4F3002948BD /* CEFDictionaryValue.swift */,
 				E8CC9D201B5ABB47002948BD /* CEFListValue.swift */,
 				E8476A431B545A3C00DFFD91 /* CEFMainArgs.swift */,
+				E8F5CC251B62E14500B0A295 /* CEFMarshaller.swift */,
 				E8613E0F1B52C46D009BDAC9 /* CEFPOSTData.swift */,
 				E8613E101B52C46D009BDAC9 /* CEFPOSTDataElement.swift */,
 				E8476A4B1B56F67500DFFD91 /* CEFRenderProcessHandler.swift */,
@@ -311,6 +314,7 @@
 				E8613E2C1B5318EA009BDAC9 /* CEFSchemeRegistrar.swift in Sources */,
 				E8613E1D1B52C46D009BDAC9 /* CEFString.swift in Sources */,
 				E8476A4A1B56F66200DFFD91 /* CEFBrowserProcessHandler.swift in Sources */,
+				E8F5CC261B62E14500B0A295 /* CEFMarshaller.swift in Sources */,
 				E8476A4C1B56F67500DFFD91 /* CEFRenderProcessHandler.swift in Sources */,
 				E8CC9D291B5AF157002948BD /* CEFClient.swift in Sources */,
 				E8613E1A1B52C46D009BDAC9 /* CEFPOSTDataElement.swift in Sources */,
