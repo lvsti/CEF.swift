@@ -141,6 +141,9 @@ public struct CEFWindowInfo {
     public var transparentPaintingEnabled: Bool = false
     public var view: CEFWindowHandle? = nil
     
+    public init() {
+    }
+    
     func toCEF() -> cef_window_info_t {
         var cefStruct = cef_window_info_t()
         

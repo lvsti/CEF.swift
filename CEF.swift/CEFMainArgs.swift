@@ -18,14 +18,14 @@ public struct CEFMainArgs {
         self.arguments = arguments
     }
     
-    public func toCEF() -> cef_main_args_t {
+    func toCEF() -> cef_main_args_t {
         return cef_main_args_t(argc: Int32(arguments.count),
                                argv: CEFMutableArgV(CEFArgVFromArguments(arguments)))
     }
 }
 
 extension cef_main_args_t {
-    public mutating func clear() {
+    mutating func clear() {
         if argv == nil {
             return
         }

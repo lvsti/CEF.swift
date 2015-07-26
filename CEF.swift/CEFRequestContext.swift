@@ -11,6 +11,6 @@ import Foundation
 extension cef_request_context_t: CEFObject {
 }
 
-class CEFRequestContext: CEFProxyBase<cef_request_context_t> {
+public class CEFRequestContext: CEFProxyBase<cef_request_context_t> {
     
 }

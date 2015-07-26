@@ -13,27 +13,27 @@ extension cef_post_data_t: CEFObject {
 
 public class CEFPOSTData: CEFProxyBase<cef_post_data_t> {
     
-    init?() {
+    public init?() {
         super.init(ptr: cef_post_data_create())
     }
     
-    func isReadOnly() -> Bool {
+    public func isReadOnly() -> Bool {
         return cefObject.is_read_only(cefObjectPtr) != 0
     }
 
-    func getElementCount() -> size_t {
+    public func getElementCount() -> size_t {
         return cefObject.get_element_count(cefObjectPtr)
     }
     
-    func getElements() -> [CEFPOSTDataElement] {
+    public func getElements() -> [CEFPOSTDataElement] {
         var count:size_t = 0
-        let elementsPtr = UnsafeMutablePointer<UnsafeMutablePointer<cef_post_data_element_t>>()
+        var cefElements = UnsafeMutablePointer<cef_post_data_element_t>()
         
-        cefObject.get_elements(cefObjectPtr, &count, elementsPtr)
+        cefObject.get_elements(cefObjectPtr, &count, &cefElements)
         
         var elements = [CEFPOSTDataElement]()
         for i in 0..<count {
-            let cefPDEPtr = elementsPtr.advancedBy(i).memory
+            let cefPDEPtr = cefElements.advancedBy(i)
             if let pde = CEFPOSTDataElement.fromCEF(cefPDEPtr) {
                 elements.append(pde)
             }
@@ -42,15 +42,15 @@ public class CEFPOSTData: CEFProxyBase<cef_post_data_t> {
         return elements
     }
     
-    func removeElement(element: CEFPOSTDataElement) {
-        cefObject.remove_element(cefObjectPtr, element.cefObjectPtr)
+    public func removeElement(element: CEFPOSTDataElement) {
+        cefObject.remove_element(cefObjectPtr, element.toCEF())
     }
     
-    func addElement(element: CEFPOSTDataElement) {
-        cefObject.add_element(cefObjectPtr, element.cefObjectPtr)
+    public func addElement(element: CEFPOSTDataElement) {
+        cefObject.add_element(cefObjectPtr, element.toCEF())
     }
     
-    func removeElements() {
+    public func removeElements() {
         cefObject.remove_elements(cefObjectPtr)
     }
 

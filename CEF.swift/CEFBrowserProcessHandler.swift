@@ -27,13 +27,13 @@ public class CEFBrowserProcessHandler: CEFHandler {
         super.init()
     }
 
-    func onContextInitialized() {
+    public func onContextInitialized() {
     }
     
-    func onBeforeChildProcessLaunch(commandLine: CEFCommandLine) {
+    public func onBeforeChildProcessLaunch(commandLine: CEFCommandLine) {
     }
     
-    func onRenderProcessThreadCreated(userInfo: CEFListValue) {
+    public func onRenderProcessThreadCreated(userInfo: CEFListValue) {
     }
     
     // TODO:

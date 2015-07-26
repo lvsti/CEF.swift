@@ -15,8 +15,8 @@ public class CEFSchemeRegistrar: CEFProxyBase<cef_scheme_registrar_t> {
     
     public func addCustomScheme(name: String, isStandard: Bool, isLocal: Bool, isDisplayIsolated: Bool) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
+        defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.add_custom_scheme(cefObjectPtr, cefStrPtr, isStandard ? 1 : 0, isLocal ? 1 : 0, isDisplayIsolated ? 1 : 0)
-        CEFStringPtrRelease(cefStrPtr)
     }
     
 }

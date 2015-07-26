@@ -54,6 +54,9 @@ public struct CEFBrowserSettings {
     public var backgroundColor: CEFColor = CEFColor(argb: 0)
     public var acceptLanguageList: String = ""
 
+    public init() {
+    }
+
     public func toCEF() -> cef_browser_settings_t {
         var cefStruct = cef_browser_settings_t()
         
@@ -91,18 +94,15 @@ public struct CEFBrowserSettings {
         cefStruct.databases = databases.toCEF()
         cefStruct.application_cache = applicationCache.toCEF()
         cefStruct.webgl = webGL.toCEF()
-        cefStruct.background_color = backgroundColor.argb
+        cefStruct.background_color = backgroundColor.toCEF()
         CEFStringSetFromSwiftString(acceptLanguageList, cefString: &cefStruct.accept_language_list)
         
         return cefStruct
     }
-    
-    public init() {
-    }
 }
 
 extension cef_browser_settings_t {
-    public mutating func clear() {
+    mutating func clear() {
         cef_string_utf16_clear(&standard_font_family)
         cef_string_utf16_clear(&fixed_font_family)
         cef_string_utf16_clear(&serif_font_family)

@@ -36,6 +36,19 @@ public struct CEFColor {
         b = UInt8(argb & 0xff)
         a = UInt8((argb >> 24) & 0xff)
     }
+    
+    public init(r: UInt8, g: UInt8, b: UInt8, a: UInt8 = UInt8.max) {
+        self.r = r
+        self.g = g
+        self.b = b
+        self.a = a
+    }
+    
+    public static let Transparent = CEFColor(argb: 0)
+    
+    func toCEF() -> cef_color_t {
+        return cef_color_t(argb)
+    }
 }
 
 public struct CEFSettings {
@@ -64,7 +77,7 @@ public struct CEFSettings {
     public var backgroundColor: CEFColor = CEFColor(argb: 0)
     public var acceptLanguageList: String = ""
     
-    public func toCEF() -> cef_settings_t {
+    func toCEF() -> cef_settings_t {
         var cefStruct = cef_settings_t()
         
         cefStruct.size = sizeof(cef_settings_t)
@@ -90,7 +103,7 @@ public struct CEFSettings {
         cefStruct.uncaught_exception_stack_size = Int32(uncaughtExceptionStackSize)
         cefStruct.context_safety_implementation = Int32(contextSafetyImplementation.rawValue)
         cefStruct.ignore_certificate_errors = ignoreCertificateErrors ? 1 : 0
-        cefStruct.background_color = backgroundColor.argb
+        cefStruct.background_color = backgroundColor.toCEF()
         CEFStringSetFromSwiftString(acceptLanguageList, cefString: &cefStruct.accept_language_list)
         
         return cefStruct
@@ -101,7 +114,7 @@ public struct CEFSettings {
 }
 
 extension cef_settings_t {
-    public mutating func clear() {
+    mutating func clear() {
         cef_string_utf16_clear(&browser_subprocess_path)
         cef_string_utf16_clear(&cache_path)
         cef_string_utf16_clear(&user_data_path)

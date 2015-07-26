@@ -63,11 +63,11 @@ public class CEFClient: CEFHandler {
     func getKeyboardHandler() -> CEFKeyboardHandler? {
         return nil
     }
-
+*/
     func getLifeSpanHandler() -> CEFLifeSpanHandler? {
         return nil
     }
-    
+/*
     func getLoadHandler() -> CEFLoadHandler? {
         return nil
     }
@@ -91,5 +91,7 @@ public class CEFClient: CEFHandler {
         return CEFClientMarshaller.pass(self)
     }
 }
+
+
 
 
