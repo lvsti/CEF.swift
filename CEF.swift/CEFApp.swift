@@ -58,37 +58,18 @@ public class CEFApp: CEFHandler, CEFMarshallable {
 
 public func CEFExecuteProcess(args: CEFMainArgs, app: CEFApp) -> Int {
     var cefArgs = args.toCEF()
-    let argsPtr = UnsafeMutablePointer<cef_main_args_t>.alloc(1)
-    argsPtr.initialize(cefArgs)
-
-    defer {
-        cefArgs.clear()
-        argsPtr.dealloc(1)
-    }
-
-    return Int(cef_execute_process(argsPtr, app.toCEF(), nil))
+    defer { cefArgs.clear() }
+    return Int(cef_execute_process(&cefArgs, app.toCEF(), nil))
 }
 
 public func CEFInitialize(args: CEFMainArgs, settings: CEFSettings, app: CEFApp) -> Int {
     var cefArgs = args.toCEF()
-    let argsPtr = UnsafeMutablePointer<cef_main_args_t>.alloc(1)
-    argsPtr.initialize(cefArgs)
-
+    var cefSettings = settings.toCEF()
     defer {
         cefArgs.clear()
-        argsPtr.dealloc(1)
-    }
-    
-    var cefSettings = settings.toCEF()
-    let settingsPtr = UnsafeMutablePointer<cef_settings_t>.alloc(1)
-    settingsPtr.initialize(cefSettings)
-
-    defer {
         cefSettings.clear()
-        settingsPtr.dealloc(1)
     }
-    
-    return Int(cef_initialize(argsPtr, settingsPtr, app.toCEF(), nil))
+    return Int(cef_initialize(&cefArgs, &cefSettings, app.toCEF(), nil))
 }
 
 public func CEFShutdown() {
