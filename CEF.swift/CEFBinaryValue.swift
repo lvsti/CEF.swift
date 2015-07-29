@@ -12,7 +12,7 @@ import Foundation
 extension cef_binary_value_t: CEFObject {
 }
 
-public class CEFBinaryValue: CEFProxyBase<cef_binary_value_t> {
+public class CEFBinaryValue: CEFProxy<cef_binary_value_t> {
     
     public init?(data: UnsafePointer<Void>, size: size_t) {
         super.init(ptr: cef_binary_value_create(data, size))

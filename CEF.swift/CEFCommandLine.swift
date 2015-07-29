@@ -12,7 +12,7 @@ extension cef_command_line_t: CEFObject {
 }
 
 
-public class CEFCommandLine: CEFProxyBase<cef_command_line_t> {
+public class CEFCommandLine: CEFProxy<cef_command_line_t> {
     public typealias ArgumentList = [String]
     public typealias SwitchMap = [String:String]
     

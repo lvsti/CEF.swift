@@ -11,7 +11,7 @@ import Foundation
 extension cef_list_value_t: CEFObject {
 }
 
-public class CEFListValue: CEFProxyBase<cef_list_value_t> {
+public class CEFListValue: CEFProxy<cef_list_value_t> {
 
     public init?() {
         super.init(ptr: cef_list_value_create())

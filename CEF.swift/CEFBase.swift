@@ -28,36 +28,19 @@ public protocol CEFObject: DefaultInitializable {
     var base: cef_base_t { get set }
 }
 
-protocol CEFBase: class, CEFRefCounting {
-    typealias ObjectType : CEFObject
-    typealias ObjectPtrType = UnsafeMutablePointer<ObjectType>
-    
-    var cefObjectPtr: UnsafeMutablePointer<ObjectType> { get set }
-    var cefObject: ObjectType { get set }
-    
-    func toCEF() -> UnsafeMutablePointer<ObjectType>
-}
-
-extension CEFBase {
-    func toCEF() -> UnsafeMutablePointer<ObjectType> {
-        addRef()
-        return cefObjectPtr
-    }
-}
-
 protocol CEFRefCounting: class {
     func addRef()
     func release() -> Bool
     func hasOneRef() -> Bool
 }
 
-protocol CEFProxyProto {
+protocol CEFProxying {
     typealias ObjectPtrType
     init?(ptr: ObjectPtrType)
 }
 
 
-public class CEFProxyBase<T : CEFObject>: CEFBase, CEFRefCounting, CEFProxyProto {
+public class CEFProxy<T : CEFObject>: CEFRefCounting, CEFProxying {
     public typealias ObjectType = T
     public typealias ObjectPtrType = UnsafeMutablePointer<T>
     
@@ -92,6 +75,11 @@ public class CEFProxyBase<T : CEFObject>: CEFBase, CEFRefCounting, CEFProxyProto
 
     static func fromCEF(ptr: ObjectPtrType) -> Self? {
         return self.init(ptr: ptr)
+    }
+    
+    func toCEF() -> UnsafeMutablePointer<ObjectType> {
+        addRef()
+        return cefObjectPtr
     }
 }
 

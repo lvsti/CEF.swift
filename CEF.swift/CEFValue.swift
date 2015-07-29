@@ -24,7 +24,7 @@ public enum CEFValueType: Int {
 }
 
 
-public class CEFValue: CEFProxyBase<cef_value_t> {
+public class CEFValue: CEFProxy<cef_value_t> {
 
     public init?() {
         super.init(ptr: cef_value_create())

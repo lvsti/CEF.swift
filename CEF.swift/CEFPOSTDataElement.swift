@@ -11,7 +11,7 @@ import Foundation
 extension cef_post_data_element_t: CEFObject {
 }
 
-public class CEFPOSTDataElement: CEFProxyBase<cef_post_data_element_t> {
+public class CEFPOSTDataElement: CEFProxy<cef_post_data_element_t> {
     
     public enum ElementType: Int {
         case Empty = 0

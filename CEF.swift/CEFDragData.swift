@@ -11,6 +11,6 @@ import Foundation
 extension cef_drag_data_t: CEFObject {
 }
 
-public class CEFDragData: CEFProxyBase<cef_drag_data_t> {
+public class CEFDragData: CEFProxy<cef_drag_data_t> {
     
 }

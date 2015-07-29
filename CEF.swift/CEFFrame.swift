@@ -11,7 +11,7 @@ import Foundation
 extension cef_frame_t: CEFObject {
 }
 
-public class CEFFrame: CEFProxyBase<cef_frame_t> {
+public class CEFFrame: CEFProxy<cef_frame_t> {
     
     typealias Identifier = Int64
     

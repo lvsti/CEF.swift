@@ -11,7 +11,7 @@ import Foundation
 extension cef_browser_t: CEFObject {
 }
 
-public class CEFBrowser : CEFProxyBase<cef_browser_t> {
+public class CEFBrowser : CEFProxy<cef_browser_t> {
     typealias Identifier = Int32
     
     func getHost() -> CEFBrowserHost? {

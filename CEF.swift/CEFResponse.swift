@@ -12,7 +12,7 @@ extension cef_response_t: CEFObject {
 }
 
 
-public class CEFResponse: CEFProxyBase<cef_response_t> {
+public class CEFResponse: CEFProxy<cef_response_t> {
     public typealias HeaderMap = [String: [String]]
     
     public init?() {

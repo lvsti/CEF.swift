@@ -11,7 +11,7 @@ import Foundation
 extension cef_scheme_registrar_t: CEFObject {
 }
 
-public class CEFSchemeRegistrar: CEFProxyBase<cef_scheme_registrar_t> {
+public class CEFSchemeRegistrar: CEFProxy<cef_scheme_registrar_t> {
     
     public required init?(ptr: ObjectPtrType) {
         super.init(ptr: ptr)

@@ -65,7 +65,7 @@ public struct CEFFileDialogMode: RawRepresentable {
 }
 
 
-public class CEFBrowserHost : CEFProxyBase<cef_browser_host_t> {
+public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
 
     public typealias CEFFindIdentifier = Int32
     

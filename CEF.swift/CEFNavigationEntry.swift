@@ -11,7 +11,7 @@ import Foundation
 extension cef_navigation_entry_t: CEFObject {
 }
 
-public class CEFNavigationEntry: CEFProxyBase<cef_navigation_entry_t> {
+public class CEFNavigationEntry: CEFProxy<cef_navigation_entry_t> {
 
     public typealias TransitionType = CEFTransitionType
     

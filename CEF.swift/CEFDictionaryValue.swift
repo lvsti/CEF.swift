@@ -11,7 +11,7 @@ import Foundation
 extension cef_dictionary_value_t: CEFObject {
 }
 
-public class CEFDictionaryValue: CEFProxyBase<cef_dictionary_value_t> {
+public class CEFDictionaryValue: CEFProxy<cef_dictionary_value_t> {
 
     public init?() {
         super.init(ptr: cef_dictionary_value_create())

@@ -11,7 +11,7 @@ import Foundation
 extension cef_post_data_t: CEFObject {
 }
 
-public class CEFPOSTData: CEFProxyBase<cef_post_data_t> {
+public class CEFPOSTData: CEFProxy<cef_post_data_t> {
     
     public init?() {
         super.init(ptr: cef_post_data_create())

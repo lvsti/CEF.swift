@@ -12,7 +12,7 @@ extension cef_request_t: CEFObject {
 }
 
 
-public class CEFRequest: CEFProxyBase<cef_request_t> {
+public class CEFRequest: CEFProxy<cef_request_t> {
     public typealias HeaderMap = [String:[String]]
     public typealias TransitionType = CEFTransitionType
     

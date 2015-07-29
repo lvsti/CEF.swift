@@ -20,7 +20,7 @@ public enum CEFProcessID: Int {
     }
 }
 
-public class CEFProcessMessage: CEFProxyBase<cef_process_message_t> {
+public class CEFProcessMessage: CEFProxy<cef_process_message_t> {
 
     public init?(name: String) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
