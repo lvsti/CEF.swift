@@ -63,5 +63,14 @@ public class CEFPOSTDataElement: CEFProxy<cef_post_data_element_t> {
         return data
     }
     
+    // private
+    
+    override init?(ptr: ObjectPtrType) {
+        super.init(ptr: ptr)
+    }
+    
+    static func fromCEF(ptr: ObjectPtrType) -> CEFPOSTDataElement? {
+        return CEFPOSTDataElement(ptr: ptr)
+    }
 }
 

@@ -47,5 +47,14 @@ public class CEFBinaryValue: CEFProxy<cef_binary_value_t> {
         return cefObject.get_data(cefObjectPtr, buffer, size, offset)
     }
     
+    // private
+    
+    override init?(ptr: ObjectPtrType) {
+        super.init(ptr: ptr)
+    }
+    
+    static func fromCEF(ptr: ObjectPtrType) -> CEFBinaryValue? {
+        return CEFBinaryValue(ptr: ptr)
+    }
 }
 

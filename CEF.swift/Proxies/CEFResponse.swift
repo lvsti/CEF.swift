@@ -79,4 +79,14 @@ public class CEFResponse: CEFProxy<cef_response_t> {
         defer { cef_string_multimap_free(cefHeaderMap) }
         cefObject.set_header_map(cefObjectPtr, cefHeaderMap)
     }
+
+    // private
+    
+    override init?(ptr: ObjectPtrType) {
+        super.init(ptr: ptr)
+    }
+    
+    static func fromCEF(ptr: ObjectPtrType) -> CEFResponse? {
+        return CEFResponse(ptr: ptr)
+    }
 }

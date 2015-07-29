@@ -119,5 +119,15 @@ public class CEFBrowser : CEFProxy<cef_browser_t> {
         return cefObject.send_process_message(cefObjectPtr, targetProcessID.toCEF(), message.toCEF()) != 0
     }
 
+    // private
+    
+    override init?(ptr: ObjectPtrType) {
+        super.init(ptr: ptr)
+    }
+    
+    static func fromCEF(ptr: ObjectPtrType) -> CEFBrowser? {
+        return CEFBrowser(ptr: ptr)
+    }
+
 }
 

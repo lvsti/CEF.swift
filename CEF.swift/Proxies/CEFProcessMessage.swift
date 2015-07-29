@@ -54,4 +54,13 @@ public class CEFProcessMessage: CEFProxy<cef_process_message_t> {
         return CEFListValue.fromCEF(cefList)
     }
 
+    // private
+    
+    override init?(ptr: ObjectPtrType) {
+        super.init(ptr: ptr)
+    }
+    
+    static func fromCEF(ptr: ObjectPtrType) -> CEFProcessMessage? {
+        return CEFProcessMessage(ptr: ptr)
+    }
 }

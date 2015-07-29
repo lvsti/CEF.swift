@@ -13,4 +13,13 @@ extension cef_drag_data_t: CEFObject {
 
 public class CEFDragData: CEFProxy<cef_drag_data_t> {
     
+    // private
+    
+    override init?(ptr: ObjectPtrType) {
+        super.init(ptr: ptr)
+    }
+    
+    static func fromCEF(ptr: ObjectPtrType) -> CEFDragData? {
+        return CEFDragData(ptr: ptr)
+    }
 }

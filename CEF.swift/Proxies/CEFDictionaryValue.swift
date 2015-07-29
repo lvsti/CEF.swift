@@ -192,5 +192,14 @@ public class CEFDictionaryValue: CEFProxy<cef_dictionary_value_t> {
         return cefObject.set_list(cefObjectPtr, cefKeyPtr, value.toCEF()) != 0
     }
 
+    // private
+    
+    override init?(ptr: ObjectPtrType) {
+        super.init(ptr: ptr)
+    }
+    
+    static func fromCEF(ptr: ObjectPtrType) -> CEFDictionaryValue? {
+        return CEFDictionaryValue(ptr: ptr)
+    }
 }
 

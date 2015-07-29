@@ -130,4 +130,13 @@ public class CEFValue: CEFProxy<cef_value_t> {
         return cefObject.set_list(cefObjectPtr, value.toCEF()) != 0
     }
 
+    // private
+    
+    override init?(ptr: ObjectPtrType) {
+        super.init(ptr: ptr)
+    }
+    
+    static func fromCEF(ptr: ObjectPtrType) -> CEFValue? {
+        return CEFValue(ptr: ptr)
+    }
 }

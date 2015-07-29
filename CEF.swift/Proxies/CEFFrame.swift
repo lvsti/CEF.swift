@@ -15,8 +15,13 @@ public class CEFFrame: CEFProxy<cef_frame_t> {
     
     typealias Identifier = Int64
     
-    static func fromCEF() -> CEFFrame? {
-        return nil
+    // private
+    
+    override init?(ptr: ObjectPtrType) {
+        super.init(ptr: ptr)
     }
     
+    static func fromCEF(ptr: ObjectPtrType) -> CEFFrame? {
+        return CEFFrame(ptr: ptr)
+    }
 }

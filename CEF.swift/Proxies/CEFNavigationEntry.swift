@@ -67,5 +67,14 @@ public class CEFNavigationEntry: CEFProxy<cef_navigation_entry_t> {
         return Int(cefObject.get_http_status_code(cefObjectPtr))
     }
 
+    // private
+    
+    override init?(ptr: ObjectPtrType) {
+        super.init(ptr: ptr)
+    }
+    
+    static func fromCEF(ptr: ObjectPtrType) -> CEFNavigationEntry? {
+        return CEFNavigationEntry(ptr: ptr)
+    }
 }
 

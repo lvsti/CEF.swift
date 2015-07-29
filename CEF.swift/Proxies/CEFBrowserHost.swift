@@ -331,5 +331,15 @@ public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
     public func dragSourceSystemDragEnded() {
         cefObject.drag_source_system_drag_ended(cefObjectPtr)
     }
+
+    // private
     
+    override init?(ptr: ObjectPtrType) {
+        super.init(ptr: ptr)
+    }
+    
+    static func fromCEF(ptr: ObjectPtrType) -> CEFBrowserHost? {
+        return CEFBrowserHost(ptr: ptr)
+    }
+
 };

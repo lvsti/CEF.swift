@@ -168,5 +168,14 @@ public class CEFRequest: CEFProxy<cef_request_t> {
         return cefObject.get_identifier(cefObjectPtr)
     }
 
+    // private
+    
+    override init?(ptr: ObjectPtrType) {
+        super.init(ptr: ptr)
+    }
+    
+    static func fromCEF(ptr: ObjectPtrType) -> CEFRequest? {
+        return CEFRequest(ptr: ptr)
+    }
 }
 

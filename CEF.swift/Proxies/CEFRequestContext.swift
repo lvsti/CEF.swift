@@ -13,4 +13,13 @@ extension cef_request_context_t: CEFObject {
 
 public class CEFRequestContext: CEFProxy<cef_request_context_t> {
     
+    // private
+    
+    override init?(ptr: ObjectPtrType) {
+        super.init(ptr: ptr)
+    }
+    
+    static func fromCEF(ptr: ObjectPtrType) -> CEFRequestContext? {
+        return CEFRequestContext(ptr: ptr)
+    }
 }

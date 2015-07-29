@@ -54,4 +54,13 @@ public class CEFPOSTData: CEFProxy<cef_post_data_t> {
         cefObject.remove_elements(cefObjectPtr)
     }
 
+    // private
+    
+    override init?(ptr: ObjectPtrType) {
+        super.init(ptr: ptr)
+    }
+    
+    static func fromCEF(ptr: ObjectPtrType) -> CEFPOSTData? {
+        return CEFPOSTData(ptr: ptr)
+    }
 }

@@ -13,14 +13,19 @@ extension cef_scheme_registrar_t: CEFObject {
 
 public class CEFSchemeRegistrar: CEFProxy<cef_scheme_registrar_t> {
     
-    public required init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-
     public func addCustomScheme(name: String, isStandard: Bool, isLocal: Bool, isDisplayIsolated: Bool) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
         defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.add_custom_scheme(cefObjectPtr, cefStrPtr, isStandard ? 1 : 0, isLocal ? 1 : 0, isDisplayIsolated ? 1 : 0)
     }
     
+    // private
+    
+    override init?(ptr: ObjectPtrType) {
+        super.init(ptr: ptr)
+    }
+    
+    static func fromCEF(ptr: ObjectPtrType) -> CEFSchemeRegistrar? {
+        return CEFSchemeRegistrar(ptr: ptr)
+    }
 }
