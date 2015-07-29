@@ -11,17 +11,10 @@ import Foundation
 extension cef_browser_process_handler_t: CEFObject {
 }
 
-class CEFBrowserProcessHandlerMarshaller: CEFMarshaller<cef_browser_process_handler_t, CEFBrowserProcessHandler> {
-    override init(obj: CEFBrowserProcessHandler) {
-        super.init(obj: obj)
-        cefStruct.on_context_initialized = CEFBrowserProcessHandler_onContextInitialized
-        cefStruct.on_before_child_process_launch = CEFBrowserProcessHandler_onBeforeChildProcessLaunch
-        cefStruct.on_render_process_thread_created = CEFBrowserProcessHandler_onRenderProcessThreadCreated
-//        .get_print_handler = CEFBrowserProcessHandler_getPrintHandler
-    }
-}
+typealias CEFBrowserProcessHandlerMarshaller = CEFMarshaller<CEFBrowserProcessHandler>
 
-public class CEFBrowserProcessHandler: CEFHandler {
+public class CEFBrowserProcessHandler: CEFHandler, CEFMarshallable {
+    typealias StructType = cef_browser_process_handler_t
     
     public override init() {
         super.init()
@@ -45,6 +38,11 @@ public class CEFBrowserProcessHandler: CEFHandler {
         return CEFBrowserProcessHandlerMarshaller.pass(self)
     }
     
+    func marshalCallbacks(inout cefStruct: cef_browser_process_handler_t) {
+        cefStruct.on_context_initialized = CEFBrowserProcessHandler_onContextInitialized
+        cefStruct.on_before_child_process_launch = CEFBrowserProcessHandler_onBeforeChildProcessLaunch
+        cefStruct.on_render_process_thread_created = CEFBrowserProcessHandler_onRenderProcessThreadCreated
+    }
 }
 
 

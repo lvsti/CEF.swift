@@ -11,25 +11,21 @@ import Foundation
 extension cef_app_t: CEFObject {
 }
 
-class CEFAppMarshaller: CEFMarshaller<cef_app_t, CEFApp> {
-    override init(obj: CEFApp) {
-        super.init(obj: obj)
-        cefStruct.on_before_command_line_processing = CEFApp_onBeforeCommandLineProcessing
-        cefStruct.on_register_custom_schemes = CEFApp_onRegisterCustomSchemes
-        cefStruct.get_resource_bundle_handler = CEFApp_getResourceBundleHandler
-        cefStruct.get_browser_process_handler = CEFApp_getBrowserProcessHandler
-        cefStruct.get_render_process_handler = CEFApp_getRenderProcessHandler
-    }
+struct ext_cef_app_t {
+    var cefStruct: cef_app_t
+    var swiftObjPtr: UnsafeMutablePointer<Void>
 }
 
+typealias CEFAppMarshaller = CEFMarshaller<CEFApp>
 
-public class CEFApp: CEFHandler {
+public class CEFApp: CEFHandler, CEFMarshallable {
+    typealias StructType = cef_app_t
     
     public override init() {
         super.init()
     }
     
-    public func onBeforeCommandLineProcessing(processType processType: String, commandLine: CEFCommandLine) {
+    public func onBeforeCommandLineProcessing(processType processType: String?, commandLine: CEFCommandLine) {
     }
 
     public func onRegisterCustomSchemes(registrar: CEFSchemeRegistrar) {
@@ -49,6 +45,14 @@ public class CEFApp: CEFHandler {
     
     func toCEF() -> UnsafeMutablePointer<cef_app_t> {
         return CEFAppMarshaller.pass(self)
+    }
+
+    func marshalCallbacks(inout cefStruct: cef_app_t) {
+        cefStruct.on_before_command_line_processing = CEFApp_onBeforeCommandLineProcessing
+        cefStruct.on_register_custom_schemes = CEFApp_onRegisterCustomSchemes
+        cefStruct.get_resource_bundle_handler = CEFApp_getResourceBundleHandler
+        cefStruct.get_browser_process_handler = CEFApp_getBrowserProcessHandler
+        cefStruct.get_render_process_handler = CEFApp_getRenderProcessHandler
     }
 }
 
@@ -111,7 +115,8 @@ func CEFApp_onBeforeCommandLineProcessing(ptr: UnsafeMutablePointer<cef_app_t>,
         return
     }
     
-    obj.onBeforeCommandLineProcessing(processType: CEFStringToSwiftString(procType.memory),
+    let processType: String? = procType != nil ? CEFStringToSwiftString(procType.memory) : nil
+    obj.onBeforeCommandLineProcessing(processType: processType,
                                       commandLine: CEFCommandLine.fromCEF(cmdLine)!)
 }
 

@@ -11,25 +11,20 @@ import Foundation
 extension cef_resource_bundle_handler_t: CEFObject {
 }
 
-class CEFResourceBundleHandlerMarshaller: CEFMarshaller<cef_resource_bundle_handler_t, CEFResourceBundleHandler> {
-    override init(obj: CEFResourceBundleHandler) {
-        super.init(obj: obj)
-        cefStruct.get_localized_string = CEFResourceBundleHandler_getLocalizedString
-        cefStruct.get_data_resource = CEFResourceBundleHandler_getDataResource
-    }
-}
+typealias CEFResourceBundleHandlerMarshaller = CEFMarshaller<CEFResourceBundleHandler>
 
-public class CEFResourceBundleHandler: CEFHandler {
-
+public class CEFResourceBundleHandler: CEFHandler, CEFMarshallable {
+    typealias StructType = cef_resource_bundle_handler_t
+    
     public override init() {
         super.init()
     }
     
-    func getLocalizedString(stringID: Int) -> String? {
+    public func getLocalizedString(stringID: Int) -> String? {
         return nil
     }
     
-    func getDataResource(resourceID: Int) -> (dataBufferPtr: UnsafeMutablePointer<Void>, dataSize: size_t)? {
+    public func getDataResource(resourceID: Int) -> (dataBufferPtr: UnsafeMutablePointer<Void>, dataSize: size_t)? {
         return nil
     }
     
@@ -37,6 +32,10 @@ public class CEFResourceBundleHandler: CEFHandler {
         return CEFResourceBundleHandlerMarshaller.pass(self)
     }
     
+    func marshalCallbacks(inout cefStruct: cef_resource_bundle_handler_t) {
+        cefStruct.get_localized_string = CEFResourceBundleHandler_getLocalizedString
+        cefStruct.get_data_resource = CEFResourceBundleHandler_getDataResource
+    }
 }
 
 

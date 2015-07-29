@@ -17,7 +17,11 @@ public class CEFCommandLine: CEFProxyBase<cef_command_line_t> {
     public typealias SwitchMap = [String:String]
     
     public static func getGlobal() -> CEFCommandLine? {
-        return CEFCommandLine.fromCEF(cef_command_line_get_global())
+        return self.init(ptr: cef_command_line_get_global())
+    }
+    
+    public required init?(ptr: ObjectPtrType) {
+        super.init(ptr: ptr)
     }
     
     public init?() {

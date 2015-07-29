@@ -51,27 +51,13 @@ protocol CEFRefCounting: class {
     func hasOneRef() -> Bool
 }
 
-
-protocol CEFProxyRefCounting: CEFRefCounting {
-    typealias ObjectType
-}
-
-extension CEFProxyRefCounting where Self : CEFBase {
-    func addRef() {
-        self.cefObject.base.add_ref(&self.cefObject.base)
-    }
-    
-    func release() -> Bool {
-        return self.cefObject.base.release(&self.cefObject.base) != 0
-    }
-    
-    func hasOneRef() -> Bool {
-        return self.cefObject.base.has_one_ref(&self.cefObject.base) != 0
-    }
+protocol CEFProxyProto {
+    typealias ObjectPtrType
+    init?(ptr: ObjectPtrType)
 }
 
 
-public class CEFProxyBase<T : CEFObject>: CEFBase, CEFProxyRefCounting {
+public class CEFProxyBase<T : CEFObject>: CEFBase, CEFRefCounting, CEFProxyProto {
     public typealias ObjectType = T
     public typealias ObjectPtrType = UnsafeMutablePointer<T>
     
@@ -91,7 +77,19 @@ public class CEFProxyBase<T : CEFObject>: CEFBase, CEFProxyRefCounting {
     deinit {
         release()
     }
+
+    func addRef() {
+        _cefPtr.memory.base.add_ref(UnsafeMutablePointer<cef_base_t>(_cefPtr))
+    }
     
+    func release() -> Bool {
+        return _cefPtr.memory.base.release(UnsafeMutablePointer<cef_base_t>(_cefPtr)) != 0
+    }
+    
+    func hasOneRef() -> Bool {
+        return _cefPtr.memory.base.has_one_ref(UnsafeMutablePointer<cef_base_t>(_cefPtr)) != 0
+    }
+
     static func fromCEF(ptr: ObjectPtrType) -> Self? {
         return self.init(ptr: ptr)
     }
