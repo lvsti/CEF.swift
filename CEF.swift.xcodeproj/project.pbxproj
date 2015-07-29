@@ -272,6 +272,7 @@
 				E8CC9D2C1B5AF47B002948BD /* Resources */,
 				E8732E021B5BEEF10068F130 /* CopyFiles */,
 				E8F5CC281B63C70600B0A295 /* Copy helpers */,
+				E8508F8F1B6532960005F13B /* Fix framework link */,
 			);
 			buildRules = (
 			);
@@ -340,6 +341,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		E8508F8F1B6532960005F13B /* Fix framework link */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Fix framework link";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "install_name_tool -change \"@executable_path/../Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework\" \"@executable_path/../../../Chromium Embedded Framework.framework/Chromium Embedded Framework\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/Contents/Frameworks/cefsimple Helper.app/Contents/MacOS/cefsimple Helper\"";
+		};
 		E8F5CC281B63C70600B0A295 /* Copy helpers */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -352,7 +367,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\nFRAMEWORKS_DIR=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/Contents/Frameworks\"\n\ncp -R \"${CEF_BINARY_ROOT}/cefsimple/Debug/cefsimple Helper.app\" \"${FRAMEWORKS_DIR}/\"\n\nif [ ! -e \"${FRAMEWORKS_DIR}/${PRODUCT_NAME} Helper.app\" ]; then\n    ln -s \"${FRAMEWORKS_DIR}/cefsimple Helper.app\" \"${FRAMEWORKS_DIR}/${PRODUCT_NAME} Helper.app\"\n    ln -s \"${FRAMEWORKS_DIR}/cefsimple Helper.app/Contents/MacOS/cefsimple\" \"${FRAMEWORKS_DIR}/cefsimple Helper.app/Contents/MacOS/${PRODUCT_NAME} Helper\"\nfi\n";
+			shellScript = "set -e\n\nFRAMEWORKS_DIR=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/Contents/Frameworks\"\n\ncp -R \"${CEF_BINARY_ROOT}/cefsimple/Debug/cefsimple Helper.app\" \"${FRAMEWORKS_DIR}/\"\n\nif [ ! -e \"${FRAMEWORKS_DIR}/${PRODUCT_NAME} Helper.app\" ]; then\n    ln -s \"cefsimple Helper.app\" \"${FRAMEWORKS_DIR}/${PRODUCT_NAME} Helper.app\"\n    ln -s \"cefsimple Helper\" \"${FRAMEWORKS_DIR}/cefsimple Helper.app/Contents/MacOS/${PRODUCT_NAME} Helper\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

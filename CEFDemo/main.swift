@@ -9,9 +9,48 @@
 import Cocoa
 import CEFswift
 
-class SimpleApp: CEFApp {
-    
+class Client: CEFClient {
+    override init() {
+        super.init()
+    }
 }
+
+class BrowserProcessHandler: CEFBrowserProcessHandler {
+    let client: Client
+    
+    override init() {
+        client = Client()
+        super.init()
+    }
+    
+    override func onContextInitialized() {
+        let winInfo = CEFWindowInfo()
+        let settings = CEFBrowserSettings()
+        
+        let cmdLine = CEFCommandLine.getGlobal()
+        var url = NSURL(string: "http://www.google.com")!
+        if let urlSwitch = cmdLine?.getSwitchValue("url") where !urlSwitch.isEmpty {
+            url = NSURL(string: urlSwitch)!
+        }
+        
+        CEFBrowserHost.createBrowser(winInfo, client: client, url: url, settings: settings, requestContext: nil)
+    }
+}
+
+class SimpleApp: CEFApp {
+
+    let browserProcessHandler: BrowserProcessHandler
+    
+    override init() {
+        browserProcessHandler = BrowserProcessHandler()
+        super.init()
+    }
+    
+    override func getBrowserProcessHandler() -> CEFBrowserProcessHandler? {
+        return browserProcessHandler
+    }
+}
+
 
 class SimpleHandler: CEFClient {
     static var instance = SimpleHandler()
