@@ -27,7 +27,7 @@ public struct CEFDragOperationsMask: OptionSetType {
     public static let Delete = CEFDragOperationsMask(rawValue: 32)
     public static let Every = CEFDragOperationsMask(rawValue: ~0)
     
-    public func toCEF() -> cef_drag_operations_mask_t {
+    func toCEF() -> cef_drag_operations_mask_t {
         return cef_drag_operations_mask_t(rawValue: UInt32(rawValue))
     }
 }
@@ -52,14 +52,14 @@ public struct CEFFileDialogMode: RawRepresentable {
         public static let HideReadOnly = Flags(rawValue: 0x02000000)
     }
     
-    var type: Type { get { return Type(rawValue: UInt8(UInt32(rawValue) & FILE_DIALOG_TYPE_MASK.rawValue))! } }
-    var flags: Flags { get { return Flags(rawValue: UInt(UInt32(rawValue) & ~FILE_DIALOG_TYPE_MASK.rawValue)) } }
+    public var type: Type { get { return Type(rawValue: UInt8(UInt32(rawValue) & FILE_DIALOG_TYPE_MASK.rawValue))! } }
+    public var flags: Flags { get { return Flags(rawValue: UInt(UInt32(rawValue) & ~FILE_DIALOG_TYPE_MASK.rawValue)) } }
     
     public init(rawValue: UInt) {
         self.rawValue = rawValue
     }
     
-    public func toCEF() -> cef_file_dialog_mode_t {
+    func toCEF() -> cef_file_dialog_mode_t {
         return cef_file_dialog_mode_t(rawValue: UInt32(type.rawValue) | UInt32(flags.rawValue))
     }
 }

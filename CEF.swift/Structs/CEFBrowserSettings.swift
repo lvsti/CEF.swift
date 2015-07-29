@@ -57,7 +57,7 @@ public struct CEFBrowserSettings {
     public init() {
     }
 
-    public func toCEF() -> cef_browser_settings_t {
+    func toCEF() -> cef_browser_settings_t {
         var cefStruct = cef_browser_settings_t()
         
         cefStruct.size = sizeof(cef_browser_settings_t)
