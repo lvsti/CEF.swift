@@ -13,7 +13,7 @@ extension cef_frame_t: CEFObject {
 
 public class CEFFrame: CEFProxy<cef_frame_t> {
     
-    typealias Identifier = Int64
+    public typealias Identifier = Int64
     
     // private
     

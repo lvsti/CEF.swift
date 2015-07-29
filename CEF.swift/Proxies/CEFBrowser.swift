@@ -12,34 +12,34 @@ extension cef_browser_t: CEFObject {
 }
 
 public class CEFBrowser : CEFProxy<cef_browser_t> {
-    typealias Identifier = Int32
+    public typealias Identifier = Int32
     
-    func getHost() -> CEFBrowserHost? {
+    public func getHost() -> CEFBrowserHost? {
         let cefHost = cefObject.get_host(cefObjectPtr)
         return CEFBrowserHost.fromCEF(cefHost)
     }
     
-    func canGoBack() -> Bool {
+    public func canGoBack() -> Bool {
         return cefObject.can_go_back(cefObjectPtr) != 0
     }
 
-    func goBack() {
+    public func goBack() {
         cefObject.go_back(cefObjectPtr)
     }
     
-    func canGoForward() -> Bool {
+    public func canGoForward() -> Bool {
         return cefObject.can_go_forward(cefObjectPtr) != 0
     }
 
-    func goForward() {
+    public func goForward() {
         cefObject.go_forward(cefObjectPtr)
     }
     
-    func isLoading() -> Bool {
+    public func isLoading() -> Bool {
         return cefObject.is_loading(cefObjectPtr) != 0
     }
 
-    func reload(ignoringCache: Bool = false) {
+    public func reload(ignoringCache: Bool = false) {
         if ignoringCache {
             cefObject.reload_ignore_cache(cefObjectPtr)
         }
@@ -48,42 +48,42 @@ public class CEFBrowser : CEFProxy<cef_browser_t> {
         }
     }
 
-    func stopLoad() {
+    public func stopLoad() {
         cefObject.stop_load(cefObjectPtr)
     }
 
-    func getIdentifier() -> Identifier {
+    public func getIdentifier() -> Identifier {
         return cefObject.get_identifier(cefObjectPtr)
     }
 
-    func isSame(other: CEFBrowser) -> Bool {
+    public func isSame(other: CEFBrowser) -> Bool {
         return cefObject.is_same(cefObjectPtr, other.toCEF()) != 0
     }
 
-    func isPopup() -> Bool {
+    public func isPopup() -> Bool {
         return cefObject.is_popup(cefObjectPtr) != 0
     }
     
-    func hasDocument() -> Bool {
+    public func hasDocument() -> Bool {
         return cefObject.has_document(cefObjectPtr) != 0
     }
     
-    func getMainFrame() -> CEFFrame? {
+    public func getMainFrame() -> CEFFrame? {
         let cefFrame = cefObject.get_main_frame(cefObjectPtr)
         return CEFFrame.fromCEF(cefFrame)
     }
     
-    func getFocusedFrame() -> CEFFrame? {
+    public func getFocusedFrame() -> CEFFrame? {
         let cefFrame = cefObject.get_focused_frame(cefObjectPtr)
         return CEFFrame.fromCEF(cefFrame)
     }
     
-    func getFrame(byID id: CEFFrame.Identifier) -> CEFFrame? {
+    public func getFrame(byID id: CEFFrame.Identifier) -> CEFFrame? {
         let cefFrame = cefObject.get_frame_byident(cefObjectPtr, id)
         return CEFFrame.fromCEF(cefFrame)
     }
 
-    func getFrame(byName name: String) -> CEFFrame? {
+    public func getFrame(byName name: String) -> CEFFrame? {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
         defer { CEFStringPtrRelease(cefNamePtr) }
         
@@ -91,11 +91,11 @@ public class CEFBrowser : CEFProxy<cef_browser_t> {
         return CEFFrame.fromCEF(cefFrame)
     }
 
-    func getFrameCount() -> size_t {
+    public func getFrameCount() -> size_t {
         return cefObject.get_frame_count(cefObjectPtr)
     }
 
-    func getFrameIDs() -> [CEFFrame.Identifier] {
+    public func getFrameIDs() -> [CEFFrame.Identifier] {
         var idCount:size_t = 0
         let idsPtr:UnsafeMutablePointer<CEFFrame.Identifier> = nil
         cefObject.get_frame_identifiers(cefObjectPtr, &idCount, idsPtr)
@@ -107,7 +107,7 @@ public class CEFBrowser : CEFProxy<cef_browser_t> {
         return ids
     }
 
-    func getFrameNames() -> [String] {
+    public func getFrameNames() -> [String] {
         let cefList = cef_string_list_alloc()
         defer { cef_string_list_free(cefList) }
         
@@ -115,7 +115,7 @@ public class CEFBrowser : CEFProxy<cef_browser_t> {
         return CEFStringListToSwiftArray(cefList)
     }
 
-    func sendProcessMessage(targetProcessID: CEFProcessID, message: CEFProcessMessage) -> Bool {
+    public func sendProcessMessage(targetProcessID: CEFProcessID, message: CEFProcessMessage) -> Bool {
         return cefObject.send_process_message(cefObjectPtr, targetProcessID.toCEF(), message.toCEF()) != 0
     }
 
