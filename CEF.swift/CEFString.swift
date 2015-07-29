@@ -19,7 +19,9 @@ func CEFStringPtrCreateFromSwiftString(str: String) -> cef_string_userfree_utf16
 }
 
 func CEFStringPtrRelease(ptr: cef_string_userfree_utf16_t) {
-    cef_string_userfree_utf16_free(ptr)
+    if ptr != nil {
+        cef_string_userfree_utf16_free(ptr)
+    }
 }
 
 func CEFStringSetFromSwiftString(str: String, cefString ptr: UnsafeMutablePointer<cef_string_t>) {
