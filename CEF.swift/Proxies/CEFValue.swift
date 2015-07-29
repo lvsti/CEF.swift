@@ -80,19 +80,19 @@ public class CEFValue: CEFProxy<cef_value_t> {
         return retval
     }
 
-    public func getBinary() -> CEFBinaryValue {
+    public func getBinary() -> CEFBinaryValue? {
         let cefBinary = cefObject.get_binary(cefObjectPtr)
-        return CEFBinaryValue.fromCEF(cefBinary)!
+        return CEFBinaryValue.fromCEF(cefBinary)
     }
 
-    public func getDictionary() -> CEFDictionaryValue {
+    public func getDictionary() -> CEFDictionaryValue? {
         let cefDict = cefObject.get_dictionary(cefObjectPtr)
-        return CEFDictionaryValue.fromCEF(cefDict)!
+        return CEFDictionaryValue.fromCEF(cefDict)
     }
 
-    public func getList() -> CEFListValue {
+    public func getList() -> CEFListValue? {
         let cefList = cefObject.get_list(cefObjectPtr)
-        return CEFListValue.fromCEF(cefList)!
+        return CEFListValue.fromCEF(cefList)
     }
 
     public func setNull() -> Bool {

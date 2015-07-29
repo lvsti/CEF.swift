@@ -86,19 +86,19 @@ public class CEFListValue: CEFProxy<cef_list_value_t> {
         return CEFStringToSwiftString(cefStrPtr.memory)
     }
 
-    public func getBinary(index: Int) -> CEFBinaryValue {
+    public func getBinary(index: Int) -> CEFBinaryValue? {
         let cefBinary = cefObject.get_binary(cefObjectPtr, Int32(index))
-        return CEFBinaryValue.fromCEF(cefBinary)!
+        return CEFBinaryValue.fromCEF(cefBinary)
     }
 
-    public func getDictionary(index: Int) -> CEFDictionaryValue {
+    public func getDictionary(index: Int) -> CEFDictionaryValue? {
         let cefDict = cefObject.get_dictionary(cefObjectPtr, Int32(index))
-        return CEFDictionaryValue.fromCEF(cefDict)!
+        return CEFDictionaryValue.fromCEF(cefDict)
     }
 
-    public func getList(index: Int) -> CEFListValue {
+    public func getList(index: Int) -> CEFListValue? {
         let cefList = cefObject.get_list(cefObjectPtr, Int32(index))
-        return CEFListValue.fromCEF(cefList)!
+        return CEFListValue.fromCEF(cefList)
     }
 
     public func setValue(index: Int, value: CEFValue) -> Bool {

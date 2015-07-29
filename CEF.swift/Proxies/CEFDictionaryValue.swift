@@ -113,25 +113,25 @@ public class CEFDictionaryValue: CEFProxy<cef_dictionary_value_t> {
         return CEFStringToSwiftString(cefStrPtr.memory)
     }
 
-    public func getBinary(key: String) -> CEFBinaryValue {
+    public func getBinary(key: String) -> CEFBinaryValue? {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         let cefBinary = cefObject.get_binary(cefObjectPtr, cefKeyPtr)
-        return CEFBinaryValue.fromCEF(cefBinary)!
+        return CEFBinaryValue.fromCEF(cefBinary)
     }
 
-    public func getDictionary(key: String) -> CEFDictionaryValue {
+    public func getDictionary(key: String) -> CEFDictionaryValue? {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         let cefDict = cefObject.get_dictionary(cefObjectPtr, cefKeyPtr)
-        return CEFDictionaryValue.fromCEF(cefDict)!
+        return CEFDictionaryValue.fromCEF(cefDict)
     }
 
-    public func getList(key: String) -> CEFListValue {
+    public func getList(key: String) -> CEFListValue? {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         let cefList = cefObject.get_list(cefObjectPtr, cefKeyPtr)
-        return CEFListValue.fromCEF(cefList)!
+        return CEFListValue.fromCEF(cefList)
     }
 
     public func setValue(key: String, value: CEFValue) -> Bool {
