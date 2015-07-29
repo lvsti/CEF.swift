@@ -110,7 +110,7 @@ public class CEFCommandLine: CEFProxyBase<cef_command_line_t> {
             CEFStringPtrRelease(cefStrPtr)
             CEFStringPtrRelease(cefValuePtr)
         }
-        return CEFStringToSwiftString(cefValuePtr.memory)
+        return cefValuePtr != nil ? CEFStringToSwiftString(cefValuePtr.memory) : ""
     }
     
     public func getSwitches() -> SwitchMap {
