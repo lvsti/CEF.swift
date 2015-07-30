@@ -35,7 +35,7 @@ public struct CEFWindowInfo {
         cefStruct.hidden = isHidden ? 1 : 0
         
         if let parentView = parentView {
-            cefStruct.parent_view = UnsafeMutablePointer<Void>(Unmanaged<NSView>.passUnretained(parentView).toOpaque())
+            cefStruct.parent_view = UnsafeMutablePointer<Void>(Unmanaged<CEFWindowHandle>.passUnretained(parentView).toOpaque())
         } else {
             cefStruct.parent_view = nil
         }
@@ -44,7 +44,7 @@ public struct CEFWindowInfo {
         cefStruct.transparent_painting_enabled = transparentPaintingEnabled ? 1 : 0
         
         if let view = view {
-            cefStruct.view = UnsafeMutablePointer<Void>(Unmanaged<NSView>.passUnretained(view).toOpaque())
+            cefStruct.view = UnsafeMutablePointer<Void>(Unmanaged<CEFWindowHandle>.passUnretained(view).toOpaque())
         } else {
             cefStruct.view = nil
         }
