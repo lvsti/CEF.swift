@@ -8,23 +8,10 @@
 
 import Foundation
 
-extension cef_render_process_handler_t: CEFObject {
-}
-
-typealias CEFRenderProcessHandlerMarshaller = CEFMarshaller<CEFRenderProcessHandler>
-
-public class CEFRenderProcessHandler: CEFHandler, CEFMarshallable {
-    typealias StructType = cef_render_process_handler_t
+public class CEFRenderProcessHandler: CEFHandler {
 
     public override init() {
         super.init()
     }
 
-    func toCEF() -> UnsafeMutablePointer<cef_render_process_handler_t> {
-        return CEFRenderProcessHandlerMarshaller.pass(self)
-    }
-    
-    func marshalCallbacks(inout cefStruct: cef_render_process_handler_t) {
-        //
-    }
 }
