@@ -74,9 +74,7 @@ class CEFMarshaller<TClass : CEFMarshallable>: CEFMarshallerBase, CEFRefCounting
         let basePtr = UnsafeMutablePointer<cef_base_t>(ptr)
         let marshaller:InstanceType? = lookup(basePtr) as? InstanceType
         if let obj = marshaller?.swiftObj {
-            if obj.release() {
-                deregister(basePtr)
-            }
+            obj.release()
             return obj
         }
         return nil
@@ -84,20 +82,16 @@ class CEFMarshaller<TClass : CEFMarshallable>: CEFMarshallerBase, CEFRefCounting
     
     static func pass(obj: TClass) -> UnsafeMutablePointer<TClass.StructType> {
         let marshaller = CEFMarshaller(obj: obj)
+        marshaller.addRef()
         
-        obj.addRef()
-        
-        // pointer to the struct?
+        return UnsafeMutablePointer<TClass.StructType>(getBasePtr(marshaller))
+    }
+    
+    static func getBasePtr(marshaller: CEFMarshaller) -> UnsafeMutablePointer<cef_base_t> {
         let unmanaged = Unmanaged<AnyObject>.passUnretained(marshaller)
         let marshallerPtr = UnsafeMutablePointer<Int8>(unmanaged.toOpaque())
         let structPtr = marshallerPtr.advancedBy(16)
-        let basePtr = UnsafeMutablePointer<cef_base_t>(structPtr)
-        
-        if obj.hasOneRef() {
-            register(basePtr, forObject: marshaller)
-        }
-        
-        return UnsafeMutablePointer<TClass.StructType>(structPtr)
+        return UnsafeMutablePointer<cef_base_t>(structPtr)
     }
     
     required init(obj: TClass) {
@@ -126,6 +120,10 @@ class CEFMarshaller<TClass : CEFMarshallable>: CEFMarshallerBase, CEFRefCounting
         _refCountMutex.lock()
         defer { _refCountMutex.unlock() }
         ++_refCount
+        if _refCount == 1 {
+            let basePtr = CEFMarshaller.getBasePtr(self)
+            CEFMarshaller.register(basePtr, forObject: self)
+        }
         self._self = self
     }
     
@@ -137,6 +135,8 @@ class CEFMarshaller<TClass : CEFMarshallable>: CEFMarshallerBase, CEFRefCounting
         let shouldRelease = _refCount == 0
         if shouldRelease {
             _self = nil
+            let basePtr = CEFMarshaller.getBasePtr(self)
+            CEFMarshaller.deregister(basePtr)
         }
         return shouldRelease
     }
