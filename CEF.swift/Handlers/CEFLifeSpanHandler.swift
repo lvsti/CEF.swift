@@ -8,12 +8,29 @@
 
 import Foundation
 
-public class CEFLifeSpanHandler: CEFHandler {
+public protocol CEFLifeSpanHandler {
 
-    public override init() {
-        super.init()
-    }
-    
+//    func onBeforePopup(browser: CEFBrowser,
+//                       frame: CEFFrame,
+//                       inout targetURL: NSURL,
+//                       inout targetFrameName: String,
+//                       targetDisposition: CEFWindowOpenDisposition,
+//                       userGesture: Bool,
+//                       popupFeatures: CEFPopupFeatures,
+//                       windowInfo: CEFWindowInfo,
+//                       client: CEFClient,
+//                       settings: CEFBrowserSettings,
+//                       inout jsAccess: Bool) -> Bool
+
+    func onAfterCreated(browser: CEFBrowser)
+    func runModal(browser: CEFBrowser) -> Bool
+    func doClose(browser: CEFBrowser) -> Bool
+    func onBeforeClose(browser: CEFBrowser)
+
+}
+
+public extension CEFLifeSpanHandler {
+
 //    public func onBeforePopup(browser: CEFBrowser,
 //                       frame: CEFFrame,
 //                       inout targetURL: NSURL,
@@ -28,18 +45,18 @@ public class CEFLifeSpanHandler: CEFHandler {
 //        return false
 //    }
 
-    public func onAfterCreated(browser: CEFBrowser) {
+    func onAfterCreated(browser: CEFBrowser) {
     }
     
-    public func runModal(browser: CEFBrowser) -> Bool {
+    func runModal(browser: CEFBrowser) -> Bool {
         return false
     }
 
-    public func doClose(browser: CEFBrowser) -> Bool {
+    func doClose(browser: CEFBrowser) -> Bool {
         return false
     }
     
-    public func onBeforeClose(browser: CEFBrowser) {
+    func onBeforeClose(browser: CEFBrowser) {
     }
     
 }

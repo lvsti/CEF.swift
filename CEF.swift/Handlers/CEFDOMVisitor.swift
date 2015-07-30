@@ -8,14 +8,15 @@
 
 import Foundation
 
-public class CEFDOMVisitor: CEFHandler {
+public protocol CEFDOMVisitor {
 
-    public override init() {
-        super.init()
-    }
-
-    public func visit(document: CEFDOMDocument) {
-    }
-
+    func visit(document: CEFDOMDocument)
+    
 }
 
+public extension CEFDOMVisitor {
+    
+    func visit(document: CEFDOMDocument) {
+    }
+    
+}

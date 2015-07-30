@@ -8,20 +8,11 @@
 
 import Foundation
 
-public class CEFBrowserProcessHandler: CEFHandler {
+public protocol CEFBrowserProcessHandler {
     
-    public override init() {
-        super.init()
-    }
-
-    public func onContextInitialized() {
-    }
-    
-    public func onBeforeChildProcessLaunch(commandLine: CEFCommandLine) {
-    }
-    
-    public func onRenderProcessThreadCreated(userInfo: CEFListValue) {
-    }
+    func onContextInitialized()
+    func onBeforeChildProcessLaunch(commandLine: CEFCommandLine)
+    func onRenderProcessThreadCreated(userInfo: CEFListValue)
     
     // TODO:
 //    func getPrintHandler() -> CEFPrintHandler? {
@@ -30,4 +21,15 @@ public class CEFBrowserProcessHandler: CEFHandler {
 
 }
 
+public extension CEFBrowserProcessHandler {
 
+    func onContextInitialized() {
+    }
+    
+    func onBeforeChildProcessLaunch(commandLine: CEFCommandLine) {
+    }
+    
+    func onRenderProcessThreadCreated(userInfo: CEFListValue) {
+    }
+
+}

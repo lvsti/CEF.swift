@@ -11,17 +11,17 @@ import Foundation
 extension cef_run_file_dialog_callback_t: CEFObject {
 }
 
-typealias CEFRunFileDialogCallbackMarshaller = CEFMarshaller<CEFRunFileDialogCallback>
+typealias CEFRunFileDialogCallbackMarshaller = CEFMarshaller<CEFRunFileDialogCallback, cef_run_file_dialog_callback_t>
 
-extension CEFRunFileDialogCallback: CEFMarshallable {
-    typealias StructType = cef_run_file_dialog_callback_t
-
+extension CEFRunFileDialogCallback {
     func toCEF() -> UnsafeMutablePointer<cef_run_file_dialog_callback_t> {
         return CEFRunFileDialogCallbackMarshaller.pass(self)
     }
-    
-    func marshalCallbacks(inout cefStruct: cef_run_file_dialog_callback_t) {
-        cefStruct.on_file_dialog_dismissed = CEFRunFileDialogCallback_onFileDialogDismissed
+}
+
+extension cef_run_file_dialog_callback_t: CEFCallbackMarshalling {
+    mutating func marshalCallbacks() {
+        on_file_dialog_dismissed = CEFRunFileDialogCallback_onFileDialogDismissed
     }
 }
 

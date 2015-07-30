@@ -8,10 +8,6 @@
 
 import Foundation
 
-public class CEFRenderProcessHandler: CEFHandler {
-
-    public override init() {
-        super.init()
-    }
+public protocol CEFRenderProcessHandler {
 
 }

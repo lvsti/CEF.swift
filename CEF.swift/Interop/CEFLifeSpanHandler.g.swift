@@ -11,21 +11,21 @@ import Foundation
 extension cef_life_span_handler_t: CEFObject {
 }
 
-typealias CEFLifeSpanHandlerMarshaller = CEFMarshaller<CEFLifeSpanHandler>
+typealias CEFLifeSpanHandlerMarshaller = CEFMarshaller<CEFLifeSpanHandler, cef_life_span_handler_t>
 
-extension CEFLifeSpanHandler: CEFMarshallable {
-    typealias StructType = cef_life_span_handler_t
-   
+extension CEFLifeSpanHandler {
     func toCEF() -> UnsafeMutablePointer<cef_life_span_handler_t> {
         return CEFLifeSpanHandlerMarshaller.pass(self)
     }
-    
-    func marshalCallbacks(inout cefStruct: cef_life_span_handler_t) {
-//        cefStruct.on_before_popup = CEFLifeSpanHandler_onBeforePopup
-        cefStruct.on_after_created = CEFLifeSpanHandler_onAfterCreated
-        cefStruct.run_modal = CEFLifeSpanHandler_runModal
-        cefStruct.on_before_close = CEFLifeSpanHandler_onBeforeClose
-        cefStruct.do_close = CEFLifeSpanHandler_doClose
+}
+
+extension cef_life_span_handler_t: CEFCallbackMarshalling {
+    mutating func marshalCallbacks() {
+//        on_before_popup = CEFLifeSpanHandler_onBeforePopup
+        on_after_created = CEFLifeSpanHandler_onAfterCreated
+        run_modal = CEFLifeSpanHandler_runModal
+        on_before_close = CEFLifeSpanHandler_onBeforeClose
+        do_close = CEFLifeSpanHandler_doClose
     }
 }
 

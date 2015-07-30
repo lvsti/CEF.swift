@@ -8,27 +8,31 @@
 
 import Foundation
 
-public class CEFApp: CEFHandler {
-    
-    public override init() {
-        super.init()
-    }
-    
-    public func onBeforeCommandLineProcessing(processType processType: String?, commandLine: CEFCommandLine) {
-    }
+public protocol CEFApp {
+    func onBeforeCommandLineProcessing(processType processType: String?, commandLine: CEFCommandLine)
+    func onRegisterCustomSchemes(registrar: CEFSchemeRegistrar)
+    func getResourceBundleHandler() -> CEFResourceBundleHandler?
+    func getBrowserProcessHandler() -> CEFBrowserProcessHandler?
+    func getRenderProcessHandler() -> CEFRenderProcessHandler?
+}
 
-    public func onRegisterCustomSchemes(registrar: CEFSchemeRegistrar) {
+public extension CEFApp {
+    
+    func onBeforeCommandLineProcessing(processType processType: String?, commandLine: CEFCommandLine) {
     }
-
-    public func getResourceBundleHandler() -> CEFResourceBundleHandler? {
+    
+    func onRegisterCustomSchemes(registrar: CEFSchemeRegistrar) {
+    }
+    
+    func getResourceBundleHandler() -> CEFResourceBundleHandler? {
         return nil
     }
-
-    public func getBrowserProcessHandler() -> CEFBrowserProcessHandler? {
+    
+    func getBrowserProcessHandler() -> CEFBrowserProcessHandler? {
         return nil
     }
     
-    public func getRenderProcessHandler() -> CEFRenderProcessHandler? {
+    func getRenderProcessHandler() -> CEFRenderProcessHandler? {
         return nil
     }
     

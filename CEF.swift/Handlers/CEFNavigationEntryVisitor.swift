@@ -8,12 +8,15 @@
 
 import Foundation
 
-public class CEFNavigationEntryVisitor: CEFHandler {
+public protocol CEFNavigationEntryVisitor {
     
-    public override init() {
-        super.init()
-    }
+    func visit(entry: CEFNavigationEntry, isCurrent: Bool, index: Int, totalCount: Int) -> Bool
+    
+}
 
+
+public extension CEFNavigationEntryVisitor {
+    
     public func visit(entry: CEFNavigationEntry, isCurrent: Bool, index: Int, totalCount: Int) -> Bool {
         return false
     }

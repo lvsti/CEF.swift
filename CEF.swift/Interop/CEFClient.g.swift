@@ -11,16 +11,16 @@ import Foundation
 extension cef_client_t: CEFObject {
 }
 
-typealias CEFClientMarshaller = CEFMarshaller<CEFClient>
+typealias CEFClientMarshaller = CEFMarshaller<CEFClient, cef_client_t>
 
-extension CEFClient: CEFMarshallable {
-    typealias StructType = cef_client_t
-
+extension CEFClient {
     func toCEF() -> UnsafeMutablePointer<cef_client_t> {
         return CEFClientMarshaller.pass(self)
     }
-    
-    func marshalCallbacks(inout cefStruct: cef_client_t) {
+}
+
+extension cef_client_t: CEFCallbackMarshalling {
+    mutating func marshalCallbacks() {
 //        cefStruct.get_context_menu_handler
 //        cefStruct.get_dialog_handler
 //        cefStruct.get_display_handler
@@ -31,7 +31,7 @@ extension CEFClient: CEFMarshallable {
 //        cefStruct.get_geolocation_handler
 //        cefStruct.get_jsdialog_handler
 //        cefStruct.get_keyboard_handler
-        cefStruct.get_life_span_handler = CEFClient_getLifeSpanHandler
+//        get_life_span_handler = CEFClient_getLifeSpanHandler
 //        cefStruct.get_load_handler
 //        cefStruct.get_render_handler
 //        cefStruct.get_request_handler
@@ -39,15 +39,15 @@ extension CEFClient: CEFMarshallable {
     }
 }
 
-func CEFClient_getLifeSpanHandler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_life_span_handler_t> {
-    guard let obj = CEFClientMarshaller.get(ptr) else {
-        return nil
-    }
-    
-    if let handler = obj.getLifeSpanHandler() {
-        return handler.toCEF()
-    }
-    
-    return nil
-}
-
+//func CEFClient_getLifeSpanHandler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_life_span_handler_t> {
+//    guard let obj = CEFClientMarshaller.get(ptr) else {
+//        return nil
+//    }
+//    
+//    if let handler = obj.getLifeSpanHandler() {
+//        return handler.toCEF()
+//    }
+//    
+//    return nil
+//}
+//

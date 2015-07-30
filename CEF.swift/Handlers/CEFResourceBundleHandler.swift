@@ -8,11 +8,15 @@
 
 import Foundation
 
-public class CEFResourceBundleHandler: CEFHandler {
+public protocol CEFResourceBundleHandler {
     
-    public override init() {
-        super.init()
-    }
+    func getLocalizedString(stringID: Int) -> String?
+    func getDataResource(resourceID: Int) -> (dataBufferPtr: UnsafeMutablePointer<Void>, dataSize: size_t)?
+    
+}
+
+
+public extension CEFResourceBundleHandler {
     
     public func getLocalizedString(stringID: Int) -> String? {
         return nil

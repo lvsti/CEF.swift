@@ -8,12 +8,15 @@
 
 import Foundation
 
-public class CEFRunFileDialogCallback: CEFHandler {
+public protocol CEFRunFileDialogCallback {
 
-    public override init() {
-        super.init()
-    }
+    func onFileDialogDismissed(filterIndex: Int, filePaths: [String])
 
+}
+
+
+public extension CEFRunFileDialogCallback {
+    
     public func onFileDialogDismissed(filterIndex: Int, filePaths: [String]) {
     }
     

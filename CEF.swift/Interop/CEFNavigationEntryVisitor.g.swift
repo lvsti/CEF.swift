@@ -11,17 +11,17 @@ import Foundation
 extension cef_navigation_entry_visitor_t: CEFObject {
 }
 
-typealias CEFNavigationEntryVisitorMarshaller = CEFMarshaller<CEFNavigationEntryVisitor>
+typealias CEFNavigationEntryVisitorMarshaller = CEFMarshaller<CEFNavigationEntryVisitor, cef_navigation_entry_visitor_t>
 
-extension CEFNavigationEntryVisitor: CEFMarshallable {
-    typealias StructType = cef_navigation_entry_visitor_t
-
+extension CEFNavigationEntryVisitor {
     func toCEF() -> UnsafeMutablePointer<cef_navigation_entry_visitor_t> {
         return CEFNavigationEntryVisitorMarshaller.pass(self)
     }
-    
-    func marshalCallbacks(inout cefStruct: cef_navigation_entry_visitor_t) {
-        cefStruct.visit = CEFNavigationEntryVisitor_visit
+}
+
+extension cef_navigation_entry_visitor_t: CEFCallbackMarshalling {
+    mutating func marshalCallbacks() {
+        visit = CEFNavigationEntryVisitor_visit
     }
 }
 

@@ -11,19 +11,19 @@ import Foundation
 extension cef_browser_process_handler_t: CEFObject {
 }
 
-typealias CEFBrowserProcessHandlerMarshaller = CEFMarshaller<CEFBrowserProcessHandler>
+typealias CEFBrowserProcessHandlerMarshaller = CEFMarshaller<CEFBrowserProcessHandler, cef_browser_process_handler_t>
 
-extension CEFBrowserProcessHandler: CEFMarshallable {
-    typealias StructType = cef_browser_process_handler_t
-
+extension CEFBrowserProcessHandler {
     func toCEF() -> UnsafeMutablePointer<cef_browser_process_handler_t> {
         return CEFBrowserProcessHandlerMarshaller.pass(self)
     }
-    
-    func marshalCallbacks(inout cefStruct: cef_browser_process_handler_t) {
-        cefStruct.on_context_initialized = CEFBrowserProcessHandler_onContextInitialized
-        cefStruct.on_before_child_process_launch = CEFBrowserProcessHandler_onBeforeChildProcessLaunch
-        cefStruct.on_render_process_thread_created = CEFBrowserProcessHandler_onRenderProcessThreadCreated
+}
+
+extension cef_browser_process_handler_t: CEFCallbackMarshalling {
+    mutating func marshalCallbacks() {
+        on_context_initialized = CEFBrowserProcessHandler_onContextInitialized
+        on_before_child_process_launch = CEFBrowserProcessHandler_onBeforeChildProcessLaunch
+        on_render_process_thread_created = CEFBrowserProcessHandler_onRenderProcessThreadCreated
     }
 }
 

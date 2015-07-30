@@ -8,14 +8,16 @@
 
 import Foundation
 
-public class CEFStringVisitor: CEFHandler {
-    
-    public override init() {
-        super.init()
-    }
+public protocol CEFStringVisitor {
 
-    public func visit(string: String) {
+    func visit(string: String)
+
+}
+
+
+public extension CEFStringVisitor {
+    
+    func visit(string: String) {
     }
     
 }
-

@@ -11,18 +11,18 @@ import Foundation
 extension cef_resource_bundle_handler_t: CEFObject {
 }
 
-typealias CEFResourceBundleHandlerMarshaller = CEFMarshaller<CEFResourceBundleHandler>
+typealias CEFResourceBundleHandlerMarshaller = CEFMarshaller<CEFResourceBundleHandler, cef_resource_bundle_handler_t>
 
-extension CEFResourceBundleHandler: CEFMarshallable {
-    typealias StructType = cef_resource_bundle_handler_t
-
+extension CEFResourceBundleHandler {
     func toCEF() -> UnsafeMutablePointer<cef_resource_bundle_handler_t> {
         return CEFResourceBundleHandlerMarshaller.pass(self)
     }
-    
-    func marshalCallbacks(inout cefStruct: cef_resource_bundle_handler_t) {
-        cefStruct.get_localized_string = CEFResourceBundleHandler_getLocalizedString
-        cefStruct.get_data_resource = CEFResourceBundleHandler_getDataResource
+}
+
+extension cef_resource_bundle_handler_t: CEFCallbackMarshalling {
+    mutating func marshalCallbacks() {
+        get_localized_string = CEFResourceBundleHandler_getLocalizedString
+        get_data_resource = CEFResourceBundleHandler_getDataResource
     }
 }
 

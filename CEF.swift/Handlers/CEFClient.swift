@@ -8,11 +8,29 @@
 
 import Foundation
 
-public class CEFClient: CEFHandler {
+public protocol CEFClient {
 
-    public override init() {
-        super.init()
-    }
+//    func getContextMenuHandler() -> CEFContextMenuHandler?
+//    func getDialogHandler() -> CEFDialogHandler?
+//    func getDisplayHandler() -> CEFDisplayHandler?
+//    func getDownloadHandler() -> CEFDownloadHandler?
+//    func getDragHandler() -> CEFDragHandler?
+//    func getFindHandler() -> CEFFindHandler?
+//    func getFocusHandler() -> CEFFocusHandler?
+//    func getGeolocationHandler() -> CEFGeolocationHandler?
+//    func getJSDialogHandler() -> CEFJSDialogHandler?
+//    func getKeyboardHandler() -> CEFKeyboardHandler?
+    func getLifeSpanHandler() -> CEFLifeSpanHandler?
+//    func getLoadHandler() -> CEFLoadHandler?
+//    func getRenderHandler() -> CEFRenderHandler?
+//    func getRequestHandler() -> CEFRequestHandler?
+//    func onProcessMessageReceived(browser: CEFBrowser,
+//                                  processID: CEFProcessID,
+//                                  message: CEFProcessMessage) -> Bool
+    
+}
+
+public extension CEFClient {
 
     /*
     func getContextMenuHandler() -> CEFContextMenuHandler? {
@@ -55,9 +73,10 @@ public class CEFClient: CEFHandler {
         return nil
     }
 */
-    public func getLifeSpanHandler() -> CEFLifeSpanHandler? {
+    func getLifeSpanHandler() -> CEFLifeSpanHandler? {
         return nil
     }
+    
 /*
     func getLoadHandler() -> CEFLoadHandler? {
         return nil
@@ -78,6 +97,5 @@ public class CEFClient: CEFHandler {
     }
 */
 }
-
 
 
