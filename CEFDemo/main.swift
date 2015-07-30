@@ -9,21 +9,22 @@
 import Cocoa
 import CEFswift
 
-class Client: CEFClient {
-    override init() {
-        super.init()
-    }
-}
 
-class BrowserProcessHandler: CEFBrowserProcessHandler {
-    let client: Client
+class SimpleApp: CEFApp, CEFBrowserProcessHandler {
+
+    let client: SimpleHandler
     
-    override init() {
-        client = Client()
-        super.init()
+    init() {
+        client = SimpleHandler.instance
     }
     
-    override func onContextInitialized() {
+    // cefapp
+    func getBrowserProcessHandler() -> CEFBrowserProcessHandler? {
+        return self
+    }
+    
+    // cefbrowserprocesshandler
+    func onContextInitialized() {
         let winInfo = CEFWindowInfo()
         let settings = CEFBrowserSettings()
         
@@ -37,20 +38,6 @@ class BrowserProcessHandler: CEFBrowserProcessHandler {
     }
 }
 
-class SimpleApp: CEFApp {
-
-    let browserProcessHandler: BrowserProcessHandler
-    
-    override init() {
-        browserProcessHandler = BrowserProcessHandler()
-        super.init()
-    }
-    
-    override func getBrowserProcessHandler() -> CEFBrowserProcessHandler? {
-        return browserProcessHandler
-    }
-}
-
 
 class SimpleHandler: CEFClient {
     static var instance = SimpleHandler()
@@ -60,10 +47,6 @@ class SimpleHandler: CEFClient {
     
     func closeAllBrowsers(force: Bool) {
         
-    }
-    
-    override init() {
-        super.init()
     }
 }
 
