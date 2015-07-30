@@ -75,40 +75,6 @@ public class CEFProxy<T : CEFObject>: CEFRefCounting {
 }
 
 
-public class CEFHandler: CEFRefCounting {
-    var _refCountMutex = pthread_mutex_t()
-    var _refCountLock: Lock { get { return _refCountMutex } set {} }
-    var _refCount: Int = 0
-
-    init() {
-        pthread_mutex_init(&_refCountMutex, nil)
-    }
-
-    deinit {
-        pthread_mutex_destroy(&_refCountMutex)
-    }
-
-    func addRef() {
-        _refCountLock.lock()
-        defer { _refCountLock.unlock() }
-        
-        ++_refCount
-    }
-    
-    func release() -> Bool {
-        _refCountLock.lock()
-        defer { _refCountLock.unlock() }
-        
-        --_refCount
-        return _refCount == 0
-    }
-    
-    func hasOneRef() -> Bool {
-        _refCountLock.lock()
-        defer { _refCountLock.unlock() }
-        
-        return _refCount == 1
-    }
-    
+public class CEFHandler {
 }
 

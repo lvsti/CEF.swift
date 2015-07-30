@@ -13,7 +13,7 @@ public protocol DefaultInitializable {
     init()
 }
 
-protocol CEFMarshallable: CEFRefCounting {
+protocol CEFMarshallable {
     typealias StructType : CEFObject
     func marshalCallbacks(inout cefStruct: StructType)
 }
@@ -66,18 +66,19 @@ class CEFMarshaller<TClass : CEFMarshallable>: CEFMarshallerBase, CEFRefCounting
     
     static func get(ptr: UnsafeMutablePointer<TClass.StructType>) -> TClass? {
         let basePtr = UnsafeMutablePointer<cef_base_t>(ptr)
-        let marshaller:InstanceType? = lookup(basePtr) as? InstanceType
-        return marshaller?.swiftObj
+        guard let marshaller = lookup(basePtr) as? InstanceType else {
+            return nil
+        }
+        return marshaller.swiftObj
     }
     
     static func take(ptr: UnsafeMutablePointer<TClass.StructType>) -> TClass? {
         let basePtr = UnsafeMutablePointer<cef_base_t>(ptr)
-        let marshaller:InstanceType? = lookup(basePtr) as? InstanceType
-        if let obj = marshaller?.swiftObj {
-            obj.release()
-            return obj
+        guard let marshaller = lookup(basePtr) as? InstanceType else {
+            return nil
         }
-        return nil
+        marshaller.release()
+        return marshaller.swiftObj
     }
     
     static func pass(obj: TClass) -> UnsafeMutablePointer<TClass.StructType> {
@@ -109,14 +110,12 @@ class CEFMarshaller<TClass : CEFMarshallable>: CEFMarshallerBase, CEFRefCounting
     }
     
     deinit {
-        print("\(self) deinit\n")
         pthread_mutex_destroy(&_refCountMutex)
     }
     
     // reference counting
     
     func addRef() {
-        swiftObj.addRef()
         _refCountMutex.lock()
         defer { _refCountMutex.unlock() }
         ++_refCount
@@ -124,11 +123,10 @@ class CEFMarshaller<TClass : CEFMarshallable>: CEFMarshallerBase, CEFRefCounting
             let basePtr = CEFMarshaller.getBasePtr(self)
             CEFMarshaller.register(basePtr, forObject: self)
         }
-        self._self = self
+        _self = self
     }
     
     func release() -> Bool {
-        swiftObj.release()
         _refCountMutex.lock()
         defer { _refCountMutex.unlock() }
         --_refCount
