@@ -16,6 +16,10 @@ typealias CEFRunFileDialogCallbackMarshaller = CEFMarshaller<CEFRunFileDialogCal
 public class CEFRunFileDialogCallback: CEFHandler, CEFMarshallable {
     typealias StructType = cef_run_file_dialog_callback_t
 
+    public override init() {
+        super.init()
+    }
+
     public func onFileDialogDismissed(filterIndex: Int, filePaths: [String]) {
     }
     

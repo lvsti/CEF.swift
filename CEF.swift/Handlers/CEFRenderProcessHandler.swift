@@ -16,6 +16,10 @@ typealias CEFRenderProcessHandlerMarshaller = CEFMarshaller<CEFRenderProcessHand
 public class CEFRenderProcessHandler: CEFHandler, CEFMarshallable {
     typealias StructType = cef_render_process_handler_t
 
+    public override init() {
+        super.init()
+    }
+
     func toCEF() -> UnsafeMutablePointer<cef_render_process_handler_t> {
         return CEFRenderProcessHandlerMarshaller.pass(self)
     }

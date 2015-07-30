@@ -16,6 +16,10 @@ typealias CEFNavigationEntryVisitorMarshaller = CEFMarshaller<CEFNavigationEntry
 public class CEFNavigationEntryVisitor: CEFHandler, CEFMarshallable {
     typealias StructType = cef_navigation_entry_visitor_t
     
+    public override init() {
+        super.init()
+    }
+
     public func visit(entry: CEFNavigationEntry, isCurrent: Bool, index: Int, totalCount: Int) -> Bool {
         return false
     }

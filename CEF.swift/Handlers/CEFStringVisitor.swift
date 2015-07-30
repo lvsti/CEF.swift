@@ -16,6 +16,10 @@ typealias CEFStringVisitorMarshaller = CEFMarshaller<CEFStringVisitor>
 public class CEFStringVisitor: CEFHandler, CEFMarshallable {
     typealias StructType = cef_string_visitor_t
     
+    public override init() {
+        super.init()
+    }
+
     public func visit(string: String) {
     }
     

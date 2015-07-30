@@ -16,6 +16,10 @@ typealias CEFDOMVisitorMarshaller = CEFMarshaller<CEFDOMVisitor>
 public class CEFDOMVisitor: CEFHandler, CEFMarshallable {
     typealias StructType = cef_domvisitor_t
 
+    public override init() {
+        super.init()
+    }
+
     public func visit(document: CEFDOMDocument) {
     }
 
