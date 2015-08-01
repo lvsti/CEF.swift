@@ -27,11 +27,11 @@ public class CEFV8Context: CEFProxy<cef_v8context_t> {
     public static func inContext() -> Bool {
         return cef_v8context_in_context() != 0
     }
-// TODO:
-//    public func getTaskRunner() -> CEFTaskRunner? {
-//        let cefTaskRunner = cefObject.get_task_runner(cefObjectPtr)
-//        return CEFTaskRunner.fromCEF(cefTaskRunner)
-//    }
+
+    public func getTaskRunner() -> CEFTaskRunner? {
+        let cefTaskRunner = cefObject.get_task_runner(cefObjectPtr)
+        return CEFTaskRunner.fromCEF(cefTaskRunner)
+    }
     
     public func isValid() -> Bool {
         return cefObject.is_valid(cefObjectPtr) != 0
