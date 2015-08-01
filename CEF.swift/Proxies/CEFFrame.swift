@@ -123,11 +123,10 @@ public class CEFFrame: CEFProxy<cef_frame_t> {
         return CEFBrowser.fromCEF(cefBrowser)!
     }
 
-// TODO:
-//    public func getV8Context() -> CEFV8Context {
-//        let cefV8Ctx = cefObject.get_v8context(cefObjectPtr)
-//        return CEFV8Context.fromCEF(cefV8Ctx)!
-//    }
+    public func getV8Context() -> CEFV8Context {
+        let cefV8Ctx = cefObject.get_v8context(cefObjectPtr)
+        return CEFV8Context.fromCEF(cefV8Ctx)!
+    }
 
     public func visitDOM(visitor: CEFDOMVisitor) {
         return cefObject.visit_dom(cefObjectPtr, visitor.toCEF())
