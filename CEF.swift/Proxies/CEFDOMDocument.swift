@@ -11,17 +11,6 @@ import Foundation
 extension cef_domdocument_t: CEFObject {
 }
 
-public enum CEFDOMDocumentType: Int {
-    case Unknown = 0
-    case HTML
-    case XHTML
-    case Plugin
-
-    func toCEF() -> cef_dom_document_type_t {
-        return cef_dom_document_type_t(rawValue: UInt32(rawValue))
-    }
-}
-
 public class CEFDOMDocument: CEFProxy<cef_domdocument_t> {
     
     public typealias Type = CEFDOMDocumentType

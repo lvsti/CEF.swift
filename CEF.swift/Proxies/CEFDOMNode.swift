@@ -11,23 +11,6 @@ import Foundation
 extension cef_domnode_t: CEFObject {
 }
 
-public enum CEFDOMNodeType: Int {
-    case Unsupported = 0
-    case Element
-    case Attribute
-    case Text
-    case CDATASection
-    case ProcessingInstructions
-    case Comment
-    case Document
-    case DocumentType
-    case DocumentFragment
-    
-    func toCEF() -> cef_dom_node_type_t {
-        return cef_dom_node_type_t(rawValue: UInt32(rawValue))
-    }
-}
-
 public class CEFDOMNode: CEFProxy<cef_domnode_t> {
 
     public typealias AttributeMap = [String: String]

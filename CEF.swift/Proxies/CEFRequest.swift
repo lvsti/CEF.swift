@@ -15,53 +15,8 @@ extension cef_request_t: CEFObject {
 public class CEFRequest: CEFProxy<cef_request_t> {
     public typealias HeaderMap = [String:[String]]
     public typealias TransitionType = CEFTransitionType
+    public typealias ResourceType = CEFResourceType
     
-    public struct URLRequestFlags: OptionSetType {
-        public let rawValue: UInt
-        public init(rawValue: UInt) {
-            self.rawValue = rawValue
-        }
-        
-        public static let None = URLRequestFlags(rawValue: 0)
-        public static let SkipCache = URLRequestFlags(rawValue: 1 << 0)
-        public static let AllowCachedCredentials = URLRequestFlags(rawValue: 1 << 1)
-        public static let ReportUploadProgress = URLRequestFlags(rawValue: 1 << 3)
-        public static let ReportRawHeaders = URLRequestFlags(rawValue: 1 << 5)
-        public static let NoDownloadData = URLRequestFlags(rawValue: 1 << 6)
-        public static let NoRetryOn5XX = URLRequestFlags(rawValue: 1 << 7)
-
-        static func fromCEF(value: cef_urlrequest_flags_t) -> URLRequestFlags {
-            return URLRequestFlags(rawValue: UInt(value.rawValue))
-        }
-        
-        func toCEF() -> cef_urlrequest_flags_t {
-            return cef_urlrequest_flags_t(rawValue: UInt32(rawValue))
-        }
-    }
-    
-    public enum ResourceType: UInt {
-        case MainFrame = 0
-        case Subframe
-        case StyleSheet
-        case Script
-        case Image
-        case FontResource
-        case Subresource
-        case Object
-        case Media
-        case Worker
-        case SharedWorker
-        case Prefetch
-        case Favicon
-        case XHR
-        case Ping
-        case ServiceWorker
-        
-        static func fromCEF(value: cef_resource_type_t) -> ResourceType {
-            return ResourceType(rawValue: UInt(value.rawValue))!
-        }
-    }
-        
     public init?() {
         super.init(ptr: cef_request_create())
     }

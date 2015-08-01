@@ -12,59 +12,6 @@ import Foundation
 extension cef_browser_host_t: CEFObject {
 }
 
-public struct CEFDragOperationsMask: OptionSetType {
-    public let rawValue: UInt
-    public init(rawValue: UInt) {
-        self.rawValue = rawValue
-    }
-
-    public static let None = CEFDragOperationsMask(rawValue: 0)
-    public static let Copy = CEFDragOperationsMask(rawValue: 1)
-    public static let Link = CEFDragOperationsMask(rawValue: 2)
-    public static let Generic = CEFDragOperationsMask(rawValue: 4)
-    public static let Private = CEFDragOperationsMask(rawValue: 8)
-    public static let Move = CEFDragOperationsMask(rawValue: 16)
-    public static let Delete = CEFDragOperationsMask(rawValue: 32)
-    public static let Every = CEFDragOperationsMask(rawValue: ~0)
-    
-    func toCEF() -> cef_drag_operations_mask_t {
-        return cef_drag_operations_mask_t(rawValue: UInt32(rawValue))
-    }
-}
-
-public struct CEFFileDialogMode: RawRepresentable {
-    public let rawValue: UInt
-    
-    public enum Type: UInt8 {
-        case Open = 0
-        case OpenMultiple
-        case OpenFolder
-        case Save
-    }
-    
-    public struct Flags: OptionSetType {
-        public let rawValue: UInt
-        public init(rawValue: UInt) {
-            self.rawValue = rawValue
-        }
-
-        public static let OverwritePrompt = Flags(rawValue: 0x01000000)
-        public static let HideReadOnly = Flags(rawValue: 0x02000000)
-    }
-    
-    public var type: Type { get { return Type(rawValue: UInt8(UInt32(rawValue) & FILE_DIALOG_TYPE_MASK.rawValue))! } }
-    public var flags: Flags { get { return Flags(rawValue: UInt(UInt32(rawValue) & ~FILE_DIALOG_TYPE_MASK.rawValue)) } }
-    
-    public init(rawValue: UInt) {
-        self.rawValue = rawValue
-    }
-    
-    func toCEF() -> cef_file_dialog_mode_t {
-        return cef_file_dialog_mode_t(rawValue: UInt32(type.rawValue) | UInt32(flags.rawValue))
-    }
-}
-
-
 public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
 
     public typealias CEFFindIdentifier = Int32

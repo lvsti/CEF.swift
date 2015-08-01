@@ -11,15 +11,6 @@ import Foundation
 extension cef_process_message_t: CEFObject {
 }
 
-public enum CEFProcessID: Int {
-    case Browser = 0
-    case Renderer
-    
-    func toCEF() -> cef_process_id_t {
-        return cef_process_id_t(rawValue: UInt32(rawValue))
-    }
-}
-
 public class CEFProcessMessage: CEFProxy<cef_process_message_t> {
 
     public init?(name: String) {

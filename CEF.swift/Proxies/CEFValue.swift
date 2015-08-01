@@ -11,19 +11,6 @@ import Foundation
 extension cef_value_t: CEFObject {
 }
 
-public enum CEFValueType: Int {
-    case Invalid = 0
-    case Null
-    case Bool
-    case Int
-    case Double
-    case String
-    case Binary
-    case Dictionary
-    case List
-}
-
-
 public class CEFValue: CEFProxy<cef_value_t> {
 
     public init?() {

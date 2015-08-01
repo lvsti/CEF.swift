@@ -12,12 +12,8 @@ extension cef_post_data_element_t: CEFObject {
 }
 
 public class CEFPOSTDataElement: CEFProxy<cef_post_data_element_t> {
-    
-    public enum ElementType: Int {
-        case Empty = 0
-        case Bytes
-        case File
-    }
+
+    public typealias ElementType = CEFPOSTDataElementType
     
     public init?() {
         super.init(ptr: cef_post_data_element_create())
@@ -42,8 +38,8 @@ public class CEFPOSTDataElement: CEFProxy<cef_post_data_element_t> {
     }
     
     public func getType() -> ElementType {
-        let type = cefObject.get_type(cefObjectPtr).rawValue
-        return ElementType(rawValue: Int(type))!
+        let cefType = cefObject.get_type(cefObjectPtr)
+        return CEFPOSTDataElementType.fromCEF(cefType)
     }
     
     public func getFile() -> String {
