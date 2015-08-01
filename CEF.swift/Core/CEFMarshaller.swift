@@ -100,7 +100,7 @@ class CEFMarshaller<TClass, TStruct where TStruct : CEFObject, TStruct : CEFCall
         swiftObj = obj
         cefStruct = TStruct()
 
-        cefStruct.base.size = sizeof(TStruct.self)
+        cefStruct.base.size = strideof(TStruct.self)
         cefStruct.base.add_ref = CEFMarshaller_addRef
         cefStruct.base.release = CEFMarshaller_release
         cefStruct.base.has_one_ref = CEFMarshaller_hasOneRef
@@ -109,6 +109,7 @@ class CEFMarshaller<TClass, TStruct where TStruct : CEFObject, TStruct : CEFCall
     }
     
     deinit {
+        print("\(self) deinit\n")
         pthread_mutex_destroy(&_refCountMutex)
     }
     

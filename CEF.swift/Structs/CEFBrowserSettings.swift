@@ -60,7 +60,7 @@ public struct CEFBrowserSettings {
     func toCEF() -> cef_browser_settings_t {
         var cefStruct = cef_browser_settings_t()
         
-        cefStruct.size = sizeof(cef_browser_settings_t)
+        cefStruct.size = strideof(cef_browser_settings_t)
         
         cefStruct.windowless_frame_rate = Int32(windowlessFrameRate)
         CEFStringSetFromSwiftString(standardFontFamily, cefString: &cefStruct.standard_font_family)
