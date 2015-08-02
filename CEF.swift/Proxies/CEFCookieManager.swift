@@ -71,6 +71,8 @@ public class CEFCookieManager: CEFProxy<cef_cookie_manager_t> {
         }
 
         var cefCookie = cookie.toCEF()
+        defer { cefCookie.clear() }
+        
         return cefObject.set_cookie(cefObjectPtr, cefURLPtr, &cefCookie, cefCallbackPtr) != 0
     }
     
