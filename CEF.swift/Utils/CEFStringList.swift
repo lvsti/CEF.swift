@@ -22,6 +22,10 @@ func CEFStringListCreateFromSwiftArray(array: [String]) -> cef_string_list_t {
     return cefList
 }
 
+func CEFStringListRelease(cefList: cef_string_list_t) {
+    cef_string_list_free(cefList)
+}
+
 func CEFStringListToSwiftArray(cefList: cef_string_list_t) -> [String] {
     let count = cef_string_list_size(cefList)
     var cefStr = cef_string_t()

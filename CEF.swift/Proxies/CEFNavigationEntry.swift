@@ -59,8 +59,8 @@ public class CEFNavigationEntry: CEFProxy<cef_navigation_entry_t> {
     }
     
     public func getCompletionTime() -> NSDate {
-        var cefTime = cefObject.get_completion_time(cefObjectPtr)
-        return CEFTimeToNSDate(&cefTime)
+        let cefTime = cefObject.get_completion_time(cefObjectPtr)
+        return CEFTimeToNSDate(cefTime)
     }
 
     public func getHTTPStatusCode() -> Int {

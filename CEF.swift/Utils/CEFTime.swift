@@ -8,9 +8,10 @@
 
 import Foundation
 
-func CEFTimeToNSDate(timePtr: UnsafeMutablePointer<cef_time_t>) -> NSDate {
+func CEFTimeToNSDate(cefTime: cef_time_t) -> NSDate {
     var time: Double = 0;
-    cef_time_to_doublet(timePtr, &time)
+    var tmpTime = cefTime
+    cef_time_to_doublet(&tmpTime, &time)
     return NSDate(timeIntervalSince1970: time)
 }
 
@@ -18,6 +19,10 @@ func CEFTimePtrCreateFromNSDate(date: NSDate) -> UnsafeMutablePointer<cef_time_t
     let cefTime = UnsafeMutablePointer<cef_time_t>.alloc(1)
     CEFTimeSetFromNSDate(date, cefTime: cefTime)
     return cefTime
+}
+
+func CEFTimePtrRelease(ptr: UnsafeMutablePointer<cef_time_t>) {
+    ptr.dealloc(1)
 }
 
 func CEFTimeSetFromNSDate(date: NSDate, cefTime ptr: UnsafeMutablePointer<cef_time_t>) {

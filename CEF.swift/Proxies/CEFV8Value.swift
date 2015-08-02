@@ -139,8 +139,8 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
     }
 
     public func getDateValue() -> NSDate {
-        var cefTime = cefObject.get_date_value(cefObjectPtr)
-        return CEFTimeToNSDate(&cefTime)
+        let cefTime = cefObject.get_date_value(cefObjectPtr)
+        return CEFTimeToNSDate(cefTime)
     }
 
     public func getStringValue() -> String {
