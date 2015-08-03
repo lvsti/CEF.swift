@@ -44,7 +44,7 @@ public class CEFValue: CEFProxy<cef_value_t> {
 
     public func getType() -> CEFValueType {
         let cefType = cefObject.get_type(cefObjectPtr)
-        return CEFValueType(rawValue: Int(cefType.rawValue))!
+        return CEFValueType.fromCEF(cefType)
     }
 
     public func getBool() -> Bool {

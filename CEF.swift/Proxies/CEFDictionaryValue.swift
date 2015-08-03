@@ -76,7 +76,7 @@ public class CEFDictionaryValue: CEFProxy<cef_dictionary_value_t> {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         let cefType = cefObject.get_type(cefObjectPtr, cefKeyPtr)
-        return CEFValueType(rawValue: Int(cefType.rawValue))!
+        return CEFValueType.fromCEF(cefType)
     }
 
     public func getValue(key: String) -> CEFValue {

@@ -16,6 +16,7 @@ public class CEFRequest: CEFProxy<cef_request_t> {
     public typealias HeaderMap = [String:[String]]
     public typealias TransitionType = CEFTransitionType
     public typealias ResourceType = CEFResourceType
+    public typealias RequestFlags = CEFURLRequestFlags
     
     public init?() {
         super.init(ptr: cef_request_create())
@@ -86,12 +87,12 @@ public class CEFRequest: CEFProxy<cef_request_t> {
         cefObject.set(cefObjectPtr, cefURLPtr, cefMethodPtr, postData.toCEF(), cefHeaderMap)
     }
     
-    public func getFlags() -> URLRequestFlags {
-        let rawFlags = cefObject.get_flags(cefObjectPtr)
-        return URLRequestFlags(rawValue: UInt(rawFlags))
+    public func getFlags() -> RequestFlags {
+        let cefFlags = cefObject.get_flags(cefObjectPtr)
+        return RequestFlags(rawValue: UInt32(cefFlags))
     }
     
-    public func setFlags(flags: URLRequestFlags) {
+    public func setFlags(flags: RequestFlags) {
         cefObject.set_flags(cefObjectPtr, Int32(flags.rawValue))
     }
     

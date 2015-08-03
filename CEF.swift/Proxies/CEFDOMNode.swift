@@ -18,7 +18,7 @@ public class CEFDOMNode: CEFProxy<cef_domnode_t> {
     
     func getType() -> Type {
         let cefType = cefObject.get_type(cefObjectPtr)
-        return Type(rawValue: Int(cefType.rawValue))!
+        return Type.fromCEF(cefType)
     }
 
     func isText() -> Bool {

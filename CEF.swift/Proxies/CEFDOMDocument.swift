@@ -17,7 +17,7 @@ public class CEFDOMDocument: CEFProxy<cef_domdocument_t> {
 
     public func getType() -> Type {
         let cefType = cefObject.get_type(cefObjectPtr)
-        return Type(rawValue: Int(cefType.rawValue))!
+        return Type.fromCEF(cefType)
     }
 
     public func getDocument() -> CEFDOMNode? {

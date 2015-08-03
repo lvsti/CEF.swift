@@ -60,7 +60,7 @@ public class CEFListValue: CEFProxy<cef_list_value_t> {
 
     public func getType(index: Int) -> CEFValueType {
         let cefType = cefObject.get_type(cefObjectPtr, Int32(index))
-        return CEFValueType(rawValue: Int(cefType.rawValue))!
+        return CEFValueType.fromCEF(cefType)
     }
 
     public func getValue(index: Int) -> CEFValue {
