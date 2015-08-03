@@ -8,14 +8,6 @@
 
 import Foundation
 
-public enum CEFLogSeverity: Int {
-    case Default = 0
-    case Verbose
-    case Info
-    case Warning
-    case Error
-    case Disable = 99
-}
 
 public enum CEFV8ContextSafetyImplementation: Int {
     case Default = 0

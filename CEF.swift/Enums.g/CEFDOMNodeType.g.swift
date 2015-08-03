@@ -1,14 +1,16 @@
 //
-//  CEFDOMNodeType.swift
+//  CEFDOMNodeType.g.swift
 //  CEF.swift
 //
-//  Created by Tamas Lustyik on 2015. 08. 01..
-//  Copyright © 2015. Tamas Lustyik. All rights reserved.
+//  This file was generated automatically from cef_types.h.
 //
 
 import Foundation
 
-public enum CEFDOMNodeType: Int {
+///
+// DOM node types.
+///
+public enum CEFDOMNodeType: Int32 {
     case Unsupported = 0
     case Element
     case Attribute
@@ -22,6 +24,10 @@ public enum CEFDOMNodeType: Int {
 }
 
 extension CEFDOMNodeType {
+    static func fromCEF(value: cef_dom_node_type_t) -> CEFDOMNodeType {
+        return CEFDOMNodeType(rawValue: Int32(value.rawValue))!
+    }
+
     func toCEF() -> cef_dom_node_type_t {
         return cef_dom_node_type_t(rawValue: UInt32(rawValue))
     }

@@ -8,16 +8,6 @@
 
 import Foundation
 
-public enum CEFState: Int {
-    case Default = 0
-    case Enabled
-    case Disabled
-    
-    func toCEF() -> cef_state_t {
-        return cef_state_t(rawValue: UInt32(self.rawValue))
-    }
-}
-
 public struct CEFBrowserSettings {
     public var windowlessFrameRate: Int = 30
     public var standardFontFamily: String = ""
