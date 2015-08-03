@@ -9,17 +9,17 @@
 import Foundation
 
 public struct CEFBrowserSettings {
-    public var windowlessFrameRate: Int = 30
+    public var windowlessFrameRate: Int32 = 30
     public var standardFontFamily: String = ""
     public var fixedFontFamily: String = ""
     public var serifFontFamily: String = ""
     public var sansSerifFontFamily: String = ""
     public var cursiveFontFamily: String = ""
     public var fantasyFontFamily: String = ""
-    public var defaultFontSize: Int = 0
-    public var defaultFixedFontSize: Int = 0
-    public var minimumFontSize: Int = 0
-    public var minimumLogicalFontSize: Int = 0
+    public var defaultFontSize: Int32 = 0
+    public var defaultFixedFontSize: Int32 = 0
+    public var minimumFontSize: Int32 = 0
+    public var minimumLogicalFontSize: Int32 = 0
     public var defaultEncoding: String = ""
     public var remoteFonts: CEFState = .Default
     public var javascript: CEFState = .Default
@@ -46,23 +46,25 @@ public struct CEFBrowserSettings {
 
     public init() {
     }
+}
 
+extension CEFBrowserSettings {
     func toCEF() -> cef_browser_settings_t {
         var cefStruct = cef_browser_settings_t()
         
         cefStruct.size = strideof(cef_browser_settings_t)
         
-        cefStruct.windowless_frame_rate = Int32(windowlessFrameRate)
+        cefStruct.windowless_frame_rate = windowlessFrameRate
         CEFStringSetFromSwiftString(standardFontFamily, cefString: &cefStruct.standard_font_family)
         CEFStringSetFromSwiftString(fixedFontFamily, cefString: &cefStruct.fixed_font_family)
         CEFStringSetFromSwiftString(serifFontFamily, cefString: &cefStruct.serif_font_family)
         CEFStringSetFromSwiftString(sansSerifFontFamily, cefString: &cefStruct.sans_serif_font_family)
         CEFStringSetFromSwiftString(cursiveFontFamily, cefString: &cefStruct.cursive_font_family)
         CEFStringSetFromSwiftString(fantasyFontFamily, cefString: &cefStruct.fantasy_font_family)
-        cefStruct.default_font_size = Int32(defaultFontSize)
-        cefStruct.default_fixed_font_size = Int32(defaultFixedFontSize)
-        cefStruct.minimum_font_size = Int32(minimumFontSize)
-        cefStruct.minimum_logical_font_size = Int32(minimumLogicalFontSize)
+        cefStruct.default_font_size = defaultFontSize
+        cefStruct.default_fixed_font_size = defaultFixedFontSize
+        cefStruct.minimum_font_size = minimumFontSize
+        cefStruct.minimum_logical_font_size = minimumLogicalFontSize
         CEFStringSetFromSwiftString(defaultEncoding, cefString: &cefStruct.default_encoding)
         cefStruct.remote_fonts = remoteFonts.toCEF()
         cefStruct.javascript = javascript.toCEF()

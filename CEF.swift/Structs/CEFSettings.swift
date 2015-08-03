@@ -9,40 +9,6 @@
 import Foundation
 
 
-public enum CEFV8ContextSafetyImplementation: Int {
-    case Default = 0
-    case Alternate = 1
-    case Disabled = -1
-}
-
-public struct CEFColor {
-    public let r: UInt8
-    public let g: UInt8
-    public let b: UInt8
-    public let a: UInt8
-    public var argb: UInt32 { get { return UInt32(a) << 24 | UInt32(r) << 16 | UInt32(g) << 8 | UInt32(b) } }
-    
-    public init(argb: UInt32) {
-        r = UInt8((argb >> 16) & 0xff)
-        g = UInt8((argb >> 8) & 0xff)
-        b = UInt8(argb & 0xff)
-        a = UInt8((argb >> 24) & 0xff)
-    }
-    
-    public init(r: UInt8, g: UInt8, b: UInt8, a: UInt8 = UInt8.max) {
-        self.r = r
-        self.g = g
-        self.b = b
-        self.a = a
-    }
-    
-    public static let Transparent = CEFColor(argb: 0)
-    
-    func toCEF() -> cef_color_t {
-        return cef_color_t(argb)
-    }
-}
-
 public struct CEFSettings {
     public var singleProcess: Bool = false
     public var noSandbox: Bool = false
@@ -62,13 +28,18 @@ public struct CEFSettings {
     public var resourcesDirPath: String = ""
     public var localesDirPath: String = ""
     public var packLoadingDisabled: Bool = false
-    public var remoteDebuggingPort: Int16 = 0
-    public var uncaughtExceptionStackSize: Int = 0
+    public var remoteDebuggingPort: UInt16 = 0
+    public var uncaughtExceptionStackSize: Int32 = 0
     public var contextSafetyImplementation: CEFV8ContextSafetyImplementation = .Default
     public var ignoreCertificateErrors: Bool = false
     public var backgroundColor: CEFColor = CEFColor(argb: 0)
     public var acceptLanguageList: String = ""
-    
+
+    public init() {
+    }
+}
+
+extension CEFSettings {
     func toCEF() -> cef_settings_t {
         var cefStruct = cef_settings_t()
         
@@ -86,22 +57,19 @@ public struct CEFSettings {
         CEFStringSetFromSwiftString(productVersion, cefString: &cefStruct.product_version)
         CEFStringSetFromSwiftString(locale, cefString: &cefStruct.locale)
         CEFStringSetFromSwiftString(logFile, cefString: &cefStruct.log_file)
-        cefStruct.log_severity = cef_log_severity_t(rawValue: UInt32(logSeverity.rawValue))
+        cefStruct.log_severity = logSeverity.toCEF()
         CEFStringSetFromSwiftString(javascriptFlags, cefString: &cefStruct.javascript_flags)
         CEFStringSetFromSwiftString(resourcesDirPath, cefString: &cefStruct.resources_dir_path)
         CEFStringSetFromSwiftString(localesDirPath, cefString: &cefStruct.locales_dir_path)
         cefStruct.pack_loading_disabled = packLoadingDisabled ? 1 : 0
         cefStruct.remote_debugging_port = Int32(remoteDebuggingPort)
         cefStruct.uncaught_exception_stack_size = Int32(uncaughtExceptionStackSize)
-        cefStruct.context_safety_implementation = Int32(contextSafetyImplementation.rawValue)
+        cefStruct.context_safety_implementation = contextSafetyImplementation.toCEF()
         cefStruct.ignore_certificate_errors = ignoreCertificateErrors ? 1 : 0
         cefStruct.background_color = backgroundColor.toCEF()
         CEFStringSetFromSwiftString(acceptLanguageList, cefString: &cefStruct.accept_language_list)
         
         return cefStruct
-    }
-
-    public init() {
     }
 }
 

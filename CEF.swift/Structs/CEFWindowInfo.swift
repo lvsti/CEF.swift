@@ -11,10 +11,10 @@ import Foundation
 
 public struct CEFWindowInfo {
     public var windowName: String = ""
-    public var x: Int = 0
-    public var y: Int = 0
-    public var width: Int = 0
-    public var height: Int = 0
+    public var x: Int32 = 0
+    public var y: Int32 = 0
+    public var width: Int32 = 0
+    public var height: Int32 = 0
     public var isHidden: Bool = false
     public var parentView: CEFWindowHandle? = nil
     public var windowlessRenderingEnabled: Bool = false
@@ -23,15 +23,17 @@ public struct CEFWindowInfo {
     
     public init() {
     }
-    
+}
+
+extension CEFWindowInfo {
     func toCEF() -> cef_window_info_t {
         var cefStruct = cef_window_info_t()
         
         CEFStringSetFromSwiftString(windowName, cefString: &cefStruct.window_name)
-        cefStruct.x = Int32(x)
-        cefStruct.y = Int32(y)
-        cefStruct.width = Int32(width)
-        cefStruct.height = Int32(height)
+        cefStruct.x = x
+        cefStruct.y = y
+        cefStruct.width = width
+        cefStruct.height = height
         cefStruct.hidden = isHidden ? 1 : 0
         
         if let parentView = parentView {

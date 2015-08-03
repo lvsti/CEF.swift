@@ -17,7 +17,9 @@ public struct CEFMainArgs {
     public init(arguments: [String]) {
         self.arguments = arguments
     }
-    
+}
+
+extension CEFMainArgs {
     func toCEF() -> cef_main_args_t {
         return cef_main_args_t(argc: Int32(arguments.count),
                                argv: CEFMutableArgV(CEFArgVFromArguments(arguments)))
