@@ -7,3 +7,29 @@
 //
 
 import Foundation
+
+extension cef_callback_t: CEFObject {
+}
+
+public class CEFCallback: CEFProxy<cef_callback_t> {
+
+    public func doContinue() {
+        cefObject.cont(cefObjectPtr)
+    }
+    
+    public func doCancel() {
+        cefObject.cancel(cefObjectPtr)
+    }
+    
+    // private
+    
+    override init?(ptr: ObjectPtrType) {
+        super.init(ptr: ptr)
+    }
+    
+    static func fromCEF(ptr: ObjectPtrType) -> CEFCallback? {
+        return CEFCallback(ptr: ptr)
+    }
+
+}
+

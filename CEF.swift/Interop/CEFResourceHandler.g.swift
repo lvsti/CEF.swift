@@ -37,7 +37,7 @@ func CEFResourceHandler_processRequest(ptr: UnsafeMutablePointer<cef_resource_ha
         return 0
     }
     
-    return obj.processRequest(CEFRequest.fromCEF(request)!, callback: callback.toSwift()!) ? 1 : 0
+    return obj.processRequest(CEFRequest.fromCEF(request)!, callback: CEFCallback.fromCEF(callback)!) ? 1 : 0
 }
 
 func CEFResourceHandler_getResponseHeaders(ptr: UnsafeMutablePointer<cef_resource_handler_t>,
@@ -74,7 +74,7 @@ func CEFResourceHandler_readResponse(ptr: UnsafeMutablePointer<cef_resource_hand
     let retval = obj.readResponse(buffer,
                                   bufferLength: Int(bufferLength),
                                   actualLength: &length,
-                                  callback: callback.toSwift()!)
+                                  callback: CEFCallback.fromCEF(callback)!)
     
     actualLength.memory = Int32(length)
     return retval ? 1 : 0
