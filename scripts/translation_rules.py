@@ -15,7 +15,19 @@ typename_overrides = {
     'cef_urlrequest_flags_t': 'CEFURLRequestFlags',
     'cef_urlrequest_status_t': 'CEFURLRequestStatus',
     'cef_jsdialog_type_t': 'CEFJSDialogType',
-    'cef_errorcode_t': 'CEFErrorCode'
+    'cef_errorcode_t': 'CEFErrorCode',
+    
+    'cef_urlrequest_t': 'CEFURLRequest',
+    'cef_v8value_t': 'CEFV8Value',
+    'cef_v8stack_trace_t': 'CEFV8StackTrace',
+    'cef_v8stack_frame_t': 'CEFV8StackFrame',
+    'cef_v8exception_t': 'CEFV8Exception',
+    'cef_v8context_t': 'CEFV8Context',
+    'cef_sslinfo_t': 'CEFSSLInfo',
+    'cef_sslcert_principal_t': 'CEFSSLCertPrincipal',
+    'cef_jsdialog_callback_t': 'CEFJSDialogCallback',
+    'cef_domnode_t': 'CEFDOMNode',
+    'cef_domdocument_t': 'CEFDOMDocument'
 }
 
 entryname_overrides = {
@@ -82,10 +94,6 @@ entryvalue_overrides = {
     'UINT_MAX' : 'UInt32.max',
 }
 
-entries_render_as_property = {
-    'MENU_ID_SPELLCHECK_SUGGESTION_LAST'
-}
-
 cef_enums = [
     'cef_log_severity_t',
     'cef_state_t',
@@ -102,7 +110,6 @@ cef_enums = [
     'cef_thread_id_t',
     'cef_value_type_t',
     'cef_jsdialog_type_t',
-    'cef_menu_id_t',
     'cef_mouse_button_type_t',
     'cef_paint_element_type_t',
     'cef_menu_item_type_t',
@@ -137,8 +144,21 @@ cef_option_sets = [
     'cef_json_writer_options_t'
 ]
 
+cef_const_collections = {
+    'cef_menu_id_t': 'Int32'
+}
+
 cef_hybrid_enums = [
     'cef_transition_type_t',
     'cef_file_dialog_mode_t',
 ]
 
+pod_type_map = {
+    'bool': 'Bool',
+    'int16': 'Int16',
+    'uint16': 'UInt16',
+    'int': 'Int32',
+    'unsigned int': 'UInt32',
+    'int64': 'Int64',
+    'uint64': 'UInt64'
+}

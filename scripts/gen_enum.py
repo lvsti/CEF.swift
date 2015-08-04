@@ -4,15 +4,9 @@ import sys
 import os
 import re
 import string
-from annotations import *
+from translation_rules import *
+from translation_helpers import *
 
-
-
-def indent_multiline_string(mls, level):
-    retval = ""
-    for line in mls.splitlines(True):
-        retval += "\t".expandtabs(4*level) + line.lstrip()
-    return retval
 
 def cef_capi_enum_entry_to_swift(capi_entry, prefix):
     if capi_entry in entryname_overrides:
@@ -32,19 +26,6 @@ def cef_capi_enum_value_to_swift(capi_value):
         return entryvalue_overrides[capi_value]
     
     return capi_value
-
-def cef_capi_type_to_swift(capi_type):
-    if capi_type in typename_overrides:
-        return typename_overrides[capi_type]
-    
-    retval = "CEF"
-    for word in capi_type.split("_")[1:-1]:
-        if word.lower() in abbreviations:
-            retval += word.upper()
-        else:
-            retval += word.capitalize()
-    
-    return retval
 
 def common_prefix(m):
     if not m: return ''
@@ -83,13 +64,9 @@ def make_enum(cef_capi_name, cef_body):
             result += "\n" + indent_multiline_string("///\n" + inline_comments[i] + "\n///", 1) + "\n"
             
         swift_name = cef_capi_enum_entry_to_swift(names[i], prefix)
-        if names[i] in entries_render_as_property:
-            result += "    public static var " + swift_name + ": " + swift_type_name
-            result += " { get { return " + swift_type_name + "(rawValue: " + values[i].strip() + ")! } }\n" 
-        else:
-            result += "    case " + swift_name
-            if values[i] != None:
-                result += " = " + values[i].strip()
+        result += "    case " + swift_name
+        if values[i] != None:
+            result += " = " + values[i].strip()
             
         result += "\n"
 
@@ -114,7 +91,7 @@ def make_enum(cef_capi_name, cef_body):
 def make_option_set(cef_capi_name, cef_body):
     result = ""
 
-    swift_type_name = cef_capi_type_to_swift(type_name)
+    swift_type_name = cef_capi_type_to_swift(cef_capi_name)
 
     result += "public struct " + swift_type_name + ": OptionSetType {\n"
     result += "    public let rawValue: UInt32\n"
@@ -139,9 +116,9 @@ def make_option_set(cef_capi_name, cef_body):
         elif inline_comments[i] != None and len(inline_comments[i].strip()) > 0:
             result += "\n" + indent_multiline_string("///\n" + inline_comments[i] + "\n///", 1) + "\n"
             
-        swift_name = cef_capi_enum_entry_to_swift(names[i], prefix)
+        swift_entry_name = cef_capi_enum_entry_to_swift(names[i], prefix)
         swift_value = cef_capi_enum_value_to_swift(values[i].strip())
-        result += "    public static let " + swift_name + " = " + swift_type_name + "(rawValue: " + swift_value + ")\n"
+        result += "    public static let " + swift_entry_name + " = " + swift_type_name + "(rawValue: " + swift_value + ")\n"
 
     result += "}\n\n"
 
@@ -155,6 +132,54 @@ def make_option_set(cef_capi_name, cef_body):
     result += "}\n\n"
 
     return result
+
+
+def make_const_collection(cef_capi_name, cef_header_name):
+    result = ""
+
+    swift_type_name = cef_capi_type_to_swift(cef_capi_name)
+    swift_raw_type = cef_const_collections[cef_capi_name]
+
+    result += "public struct " + swift_type_name + ": RawRepresentable {\n"
+    result += "    public let rawValue: " + swift_raw_type + "\n"
+    result += "    public init(rawValue: " + swift_raw_type + ") {\n"
+    result += "        self.rawValue = rawValue\n"
+    result += "    }\n\n"
+
+    head_comments = []
+    names = []
+    values = []
+    inline_comments = []
+    for value_match in re.finditer(enum_value_pattern, type_body):
+        head_comments.append(value_match.group(1))
+        names.append(value_match.group(2))
+        values.append(value_match.group(3))
+        inline_comments.append(value_match.group(4))
+
+    prefix = string.join(common_prefix(names).split("_")[:-1], "_")
+    for i in range(0, len(names)):
+        if head_comments[i] != None:
+            result += "\n" + indent_multiline_string(head_comments[i], 1) + "\n"
+        elif inline_comments[i] != None and len(inline_comments[i].strip()) > 0:
+            result += "\n" + indent_multiline_string("///\n" + inline_comments[i] + "\n///", 1) + "\n"
+            
+        swift_entry_name = cef_capi_enum_entry_to_swift(names[i], prefix)
+        swift_value = cef_capi_enum_value_to_swift(values[i].strip())
+        result += "    public static let " + swift_entry_name + " = " + swift_type_name + "(rawValue: " + swift_value + ")\n"
+
+    result += "}\n\n"
+
+    result += "extension " + swift_type_name + " {\n"
+    result += "    static func fromCEF(value: " + swift_raw_type + ") -> " + swift_type_name + " {\n"
+    result += "        return " + swift_type_name + "(rawValue: value)\n"
+    result += "    }\n\n"
+    result += "    func toCEF() -> " + swift_raw_type + " {\n"
+    result += "        return rawValue\n"
+    result += "    }\n"
+    result += "}\n\n"
+
+    return result
+    
 
 
 def make_enum_header(swift_type_name, cef_header_name):
@@ -196,6 +221,8 @@ for type_match in re.finditer(enum_type_pattern, infile_contents):
         result += make_enum(type_name, type_body)
     elif type_name in cef_option_sets:
         result += make_option_set(type_name, type_body)
+    elif type_name in cef_const_collections:
+        result += make_const_collection(type_name, type_body)
     else:
         if type_name in cef_hybrid_enums:
             print "skipping hybrid type '" + type_name + "'"
