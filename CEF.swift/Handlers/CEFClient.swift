@@ -10,7 +10,7 @@ import Foundation
 
 public protocol CEFClient {
 
-//    func getContextMenuHandler() -> CEFContextMenuHandler?
+    func getContextMenuHandler() -> CEFContextMenuHandler?
 //    func getDialogHandler() -> CEFDialogHandler?
 //    func getDisplayHandler() -> CEFDisplayHandler?
 //    func getDownloadHandler() -> CEFDownloadHandler?

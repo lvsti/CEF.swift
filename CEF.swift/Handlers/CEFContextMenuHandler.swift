@@ -17,7 +17,7 @@ public protocol CEFContextMenuHandler {
     func onContextMenuCommand(browser: CEFBrowser,
                               frame: CEFFrame,
                               params: CEFContextMenuParams,
-                              commandID: Int,
+                              commandID: CEFMenuID,
                               eventFlags: CEFEventFlags) -> Bool
     func onContextMenuDismissed(browser: CEFBrowser, frame: CEFFrame)
 }
@@ -33,7 +33,7 @@ public extension CEFContextMenuHandler {
     func onContextMenuCommand(browser: CEFBrowser,
                               frame: CEFFrame,
                               params: CEFContextMenuParams,
-                              commandID: Int,
+                              commandID: CEFMenuID,
                               eventFlags: CEFEventFlags) -> Bool {
         return false
     }

@@ -21,7 +21,7 @@ extension CEFClient {
 
 extension cef_client_t: CEFCallbackMarshalling {
     mutating func marshalCallbacks() {
-//        cefStruct.get_context_menu_handler
+        get_context_menu_handler = CEFClient_getContextMenuHandler
 //        cefStruct.get_dialog_handler
 //        cefStruct.get_display_handler
 //        cefStruct.get_download_handler
@@ -51,3 +51,15 @@ extension cef_client_t: CEFCallbackMarshalling {
 //    return nil
 //}
 //
+func CEFClient_getContextMenuHandler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_context_menu_handler_t> {
+    guard let obj = CEFClientMarshaller.get(ptr) else {
+        return nil
+    }
+    
+    if let handler = obj.getContextMenuHandler() {
+        return handler.toCEF()
+    }
+    
+    return nil
+}
+
