@@ -21,7 +21,7 @@ public protocol CEFClient {
 //    func getJSDialogHandler() -> CEFJSDialogHandler?
 //    func getKeyboardHandler() -> CEFKeyboardHandler?
     func getLifeSpanHandler() -> CEFLifeSpanHandler?
-//    func getLoadHandler() -> CEFLoadHandler?
+    func getLoadHandler() -> CEFLoadHandler?
 //    func getRenderHandler() -> CEFRenderHandler?
 //    func getRequestHandler() -> CEFRequestHandler?
 //    func onProcessMessageReceived(browser: CEFBrowser,
@@ -77,11 +77,10 @@ public extension CEFClient {
         return nil
     }
     
-/*
     func getLoadHandler() -> CEFLoadHandler? {
         return nil
     }
-    
+/*
     func getRenderHandler() -> CEFRenderHandler? {
         return nil
     }

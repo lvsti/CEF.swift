@@ -32,7 +32,7 @@ extension cef_client_t: CEFCallbackMarshalling {
 //        cefStruct.get_jsdialog_handler
 //        cefStruct.get_keyboard_handler
 //        get_life_span_handler = CEFClient_getLifeSpanHandler
-//        cefStruct.get_load_handler
+        get_load_handler = CEFClient_getLoadHandler
 //        cefStruct.get_render_handler
 //        cefStruct.get_request_handler
 //        cefStruct.on_process_message_received
@@ -57,6 +57,18 @@ func CEFClient_getContextMenuHandler(ptr: UnsafeMutablePointer<cef_client_t>) ->
     }
     
     if let handler = obj.getContextMenuHandler() {
+        return handler.toCEF()
+    }
+    
+    return nil
+}
+
+func CEFClient_getLoadHandler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_load_handler_t> {
+    guard let obj = CEFClientMarshaller.get(ptr) else {
+        return nil
+    }
+    
+    if let handler = obj.getLoadHandler() {
         return handler.toCEF()
     }
     
