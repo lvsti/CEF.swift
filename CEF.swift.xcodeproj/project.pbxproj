@@ -14,6 +14,8 @@
 		E84249E81B753B77000F23C1 /* CEFWebPluginUnstableCallback.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84249E71B753B77000F23C1 /* CEFWebPluginUnstableCallback.g.swift */; };
 		E84249EB1B753CAB000F23C1 /* CEFWebPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84249EA1B753CAB000F23C1 /* CEFWebPlugin.swift */; };
 		E84249ED1B753F1A000F23C1 /* CEFRequestHandler.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84249EC1B753F1A000F23C1 /* CEFRequestHandler.g.swift */; };
+		E84249EF1B754F39000F23C1 /* CEFDisplayHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84249EE1B754F39000F23C1 /* CEFDisplayHandler.swift */; };
+		E84249F11B75533E000F23C1 /* CEFDisplayHandler.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84249F01B75533E000F23C1 /* CEFDisplayHandler.g.swift */; };
 		E8456E141B52C29700AE93DC /* CEF.swift.h in Headers */ = {isa = PBXBuildFile; fileRef = E8456E131B52C29700AE93DC /* CEF.swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E8613E241B52C51F009BDAC9 /* Chromium Embedded Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8613E231B52C51F009BDAC9 /* Chromium Embedded Framework.framework */; };
 		E8613E261B52C5B1009BDAC9 /* CEF.swift-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = E8613E251B52C5B1009BDAC9 /* CEF.swift-Bridging-Header.h */; };
@@ -202,6 +204,8 @@
 		E84249E71B753B77000F23C1 /* CEFWebPluginUnstableCallback.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFWebPluginUnstableCallback.g.swift; sourceTree = "<group>"; };
 		E84249EA1B753CAB000F23C1 /* CEFWebPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFWebPlugin.swift; sourceTree = "<group>"; };
 		E84249EC1B753F1A000F23C1 /* CEFRequestHandler.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFRequestHandler.g.swift; sourceTree = "<group>"; };
+		E84249EE1B754F39000F23C1 /* CEFDisplayHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFDisplayHandler.swift; sourceTree = "<group>"; };
+		E84249F01B75533E000F23C1 /* CEFDisplayHandler.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFDisplayHandler.g.swift; sourceTree = "<group>"; };
 		E8456E101B52C29700AE93DC /* CEFswift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CEFswift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8456E131B52C29700AE93DC /* CEF.swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEF.swift.h; sourceTree = "<group>"; };
 		E8456E151B52C29700AE93DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -448,6 +452,7 @@
 				E88B86421B6E3A3800D10E17 /* CEFContextMenuHandler.swift */,
 				E88B86221B6E0CE800D10E17 /* CEFCookieVisitor.swift */,
 				E88B862E1B6E167600D10E17 /* CEFDeleteCookiesCallback.swift */,
+				E84249EE1B754F39000F23C1 /* CEFDisplayHandler.swift */,
 				E8898B391B696F35009E0DFF /* CEFDOMVisitor.swift */,
 				E8898AF31B69654C009E0DFF /* CEFLifeSpanHandler.swift */,
 				E890E9981B72A2CA007DB9C6 /* CEFLoadHandler.swift */,
@@ -552,6 +557,7 @@
 				E890E9941B716195007DB9C6 /* CEFContextMenuHandler.g.swift */,
 				E88B86261B6E0F2E00D10E17 /* CEFCookieVisitor.g.swift */,
 				E88B862C1B6E163700D10E17 /* CEFDeleteCookiesCallback.g.swift */,
+				E84249F01B75533E000F23C1 /* CEFDisplayHandler.g.swift */,
 				E88B85CF1B6ABE0600D10E17 /* CEFDOMVisitor.g.swift */,
 				E88B85D11B6ABF3100D10E17 /* CEFLifeSpanHandler.g.swift */,
 				E890E99A1B72A493007DB9C6 /* CEFLoadHandler.g.swift */,
@@ -897,6 +903,7 @@
 				E8898B201B69654C009E0DFF /* CEFBrowser.swift in Sources */,
 				E8898B1E1B69654C009E0DFF /* CEFRunFileDialogCallback.swift in Sources */,
 				E8898B2C1B69654C009E0DFF /* CEFRequestContext.swift in Sources */,
+				E84249F11B75533E000F23C1 /* CEFDisplayHandler.g.swift in Sources */,
 				E890E9A11B72AE50007DB9C6 /* CEFAuthCallback.swift in Sources */,
 				E8898B311B69654C009E0DFF /* CEFMainArgs.swift in Sources */,
 				E88B868D1B6EA08A00D10E17 /* CEFNavigationType.g.swift in Sources */,
@@ -939,6 +946,7 @@
 				E88B86791B6EA08A00D10E17 /* CEFCursorType.g.swift in Sources */,
 				E88B85D01B6ABE0600D10E17 /* CEFDOMVisitor.g.swift in Sources */,
 				E88B862B1B6E159900D10E17 /* CEFSetCookieCallback.g.swift in Sources */,
+				E84249EF1B754F39000F23C1 /* CEFDisplayHandler.swift in Sources */,
 				E88B85E81B6C16CF00D10E17 /* CEFV8Exception.swift in Sources */,
 				E8898B401B697A66009E0DFF /* CEFStringVisitor.swift in Sources */,
 				E890E9951B716195007DB9C6 /* CEFContextMenuHandler.g.swift in Sources */,
