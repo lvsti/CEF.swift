@@ -69,7 +69,7 @@ func CEFLoadHandler_onLoadEnd(ptr: UnsafeMutablePointer<cef_load_handler_t>,
 func CEFLoadHandler_onLoadError(ptr: UnsafeMutablePointer<cef_load_handler_t>,
                                 browser: UnsafeMutablePointer<cef_browser_t>,
                                 frame: UnsafeMutablePointer<cef_frame_t>,
-                                errorCode: Int32,
+                                errorCode: cef_errorcode_t,
                                 errorMsg: UnsafePointer<cef_string_t>,
                                 url: UnsafePointer<cef_string_t>) {
     guard let obj = CEFLoadHandlerMarshaller.get(ptr) else {
@@ -78,7 +78,7 @@ func CEFLoadHandler_onLoadError(ptr: UnsafeMutablePointer<cef_load_handler_t>,
     
     obj.onLoadError(CEFBrowser.fromCEF(browser)!,
                     frame: CEFFrame.fromCEF(frame)!,
-                    errorCode: CEFErrorCode.fromCEF(errorCode),
+                    errorCode: CEFErrorCode.fromCEF(errorCode.rawValue),
                     errorMessage: CEFStringToSwiftString(errorMsg.memory),
                     url: NSURL(string: CEFStringToSwiftString(url.memory))!)
 }
