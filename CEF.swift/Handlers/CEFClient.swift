@@ -23,20 +23,19 @@ public protocol CEFClient {
     func getLifeSpanHandler() -> CEFLifeSpanHandler?
     func getLoadHandler() -> CEFLoadHandler?
 //    func getRenderHandler() -> CEFRenderHandler?
-//    func getRequestHandler() -> CEFRequestHandler?
-//    func onProcessMessageReceived(browser: CEFBrowser,
-//                                  processID: CEFProcessID,
-//                                  message: CEFProcessMessage) -> Bool
+    func getRequestHandler() -> CEFRequestHandler?
+    func onProcessMessageReceived(browser: CEFBrowser,
+                                  processID: CEFProcessID,
+                                  message: CEFProcessMessage) -> Bool
     
 }
 
 public extension CEFClient {
 
-    /*
     func getContextMenuHandler() -> CEFContextMenuHandler? {
         return nil
     }
-    
+/*
     func getDialogHandler() -> CEFDialogHandler? {
         return nil
     }
@@ -85,17 +84,17 @@ public extension CEFClient {
     func getRenderHandler() -> CEFRenderHandler? {
         return nil
     }
-    
+*/
     func getRequestHandler() -> CEFRequestHandler? {
         return nil
     }
-    
+
     func onProcessMessageReceived(browser: CEFBrowser,
                                   processID: CEFProcessID,
                                   message: CEFProcessMessage) -> Bool {
         return false
     }
-*/
+
 }
 
 

@@ -31,26 +31,14 @@ extension cef_client_t: CEFCallbackMarshalling {
 //        cefStruct.get_geolocation_handler
 //        cefStruct.get_jsdialog_handler
 //        cefStruct.get_keyboard_handler
-//        get_life_span_handler = CEFClient_getLifeSpanHandler
+        get_life_span_handler = CEFClient_getLifeSpanHandler
         get_load_handler = CEFClient_getLoadHandler
 //        cefStruct.get_render_handler
-//        cefStruct.get_request_handler
-//        cefStruct.on_process_message_received
+        get_request_handler = CEFClient_getRequestHandler
+        on_process_message_received = CEFClient_onProcessMessageReceived
     }
 }
 
-//func CEFClient_getLifeSpanHandler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_life_span_handler_t> {
-//    guard let obj = CEFClientMarshaller.get(ptr) else {
-//        return nil
-//    }
-//    
-//    if let handler = obj.getLifeSpanHandler() {
-//        return handler.toCEF()
-//    }
-//    
-//    return nil
-//}
-//
 func CEFClient_getContextMenuHandler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_context_menu_handler_t> {
     guard let obj = CEFClientMarshaller.get(ptr) else {
         return nil
@@ -87,6 +75,18 @@ func CEFClient_getDownloadHandler(ptr: UnsafeMutablePointer<cef_client_t>) -> Un
     return nil
 }
 
+func CEFClient_getLifeSpanHandler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_life_span_handler_t> {
+    guard let obj = CEFClientMarshaller.get(ptr) else {
+        return nil
+    }
+    
+    if let handler = obj.getLifeSpanHandler() {
+        return handler.toCEF()
+    }
+    
+    return nil
+}
+
 func CEFClient_getLoadHandler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_load_handler_t> {
     guard let obj = CEFClientMarshaller.get(ptr) else {
         return nil
@@ -97,5 +97,30 @@ func CEFClient_getLoadHandler(ptr: UnsafeMutablePointer<cef_client_t>) -> Unsafe
     }
     
     return nil
+}
+
+func CEFClient_getRequestHandler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_request_handler_t> {
+    guard let obj = CEFClientMarshaller.get(ptr) else {
+        return nil
+    }
+    
+    if let handler = obj.getRequestHandler() {
+        return handler.toCEF()
+    }
+    
+    return nil
+}
+
+func CEFClient_onProcessMessageReceived(ptr: UnsafeMutablePointer<cef_client_t>,
+                                        browser: UnsafeMutablePointer<cef_browser_t>,
+                                        source: cef_process_id_t,
+                                        message: UnsafeMutablePointer<cef_process_message_t>) -> Int32 {
+    guard let obj = CEFClientMarshaller.get(ptr) else {
+        return 0
+    }
+
+    return obj.onProcessMessageReceived(CEFBrowser.fromCEF(browser)!,
+                                        processID: CEFProcessID.fromCEF(source),
+                                        message: CEFProcessMessage.fromCEF(message)!) ? 1 : 0
 }
 
