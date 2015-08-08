@@ -1,5 +1,5 @@
 //
-//  CEFWebPlugin.swift
+//  CEFWebPluginGlobals.swift
 //  CEF.swift
 //
 //  Created by Tamas Lustyik on 2015. 08. 07..
