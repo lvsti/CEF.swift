@@ -17,7 +17,7 @@ public protocol CEFClient {
 //    func getDragHandler() -> CEFDragHandler?
 //    func getFindHandler() -> CEFFindHandler?
     func getFocusHandler() -> CEFFocusHandler?
-//    func getGeolocationHandler() -> CEFGeolocationHandler?
+    func getGeolocationHandler() -> CEFGeolocationHandler?
 //    func getJSDialogHandler() -> CEFJSDialogHandler?
 //    func getKeyboardHandler() -> CEFKeyboardHandler?
     func getLifeSpanHandler() -> CEFLifeSpanHandler?
@@ -60,11 +60,11 @@ public extension CEFClient {
     func getFocusHandler() -> CEFFocusHandler? {
         return nil
     }
-/*
+
     func getGeolocationHandler() -> CEFGeolocationHandler? {
         return nil
     }
-
+/*
     func getJSDialogHandler() -> CEFJSDialogHandler? {
         return nil
     }

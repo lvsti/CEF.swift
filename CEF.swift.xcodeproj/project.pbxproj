@@ -28,6 +28,13 @@
 		E8621C521B762ED600944CEE /* CEFFocusHandler.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8621C511B762ED600944CEE /* CEFFocusHandler.g.swift */; };
 		E8621C541B76395900944CEE /* CEFAppGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8621C531B76395900944CEE /* CEFAppGlobals.swift */; };
 		E8621C561B763BEA00944CEE /* CEFV8Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8621C551B763BEA00944CEE /* CEFV8Globals.swift */; };
+		E8621C581B7644A100944CEE /* CEFGetGeolocationCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8621C571B7644A100944CEE /* CEFGetGeolocationCallback.swift */; };
+		E8621C5A1B7644D900944CEE /* CEFGeoposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8621C591B7644D900944CEE /* CEFGeoposition.swift */; };
+		E8621C5C1B7648C400944CEE /* CEFGetGeolocationCallback.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8621C5B1B7648C400944CEE /* CEFGetGeolocationCallback.g.swift */; };
+		E8621C5E1B7649F100944CEE /* CEFGeolocationGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8621C5D1B7649F100944CEE /* CEFGeolocationGlobals.swift */; };
+		E8621C601B764BD400944CEE /* CEFGeolocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8621C5F1B764BD400944CEE /* CEFGeolocationHandler.swift */; };
+		E8621C621B764C7300944CEE /* CEFGeolocationCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8621C611B764C7300944CEE /* CEFGeolocationCallback.swift */; };
+		E8621C641B764D6600944CEE /* CEFGeolocationHandler.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8621C631B764D6600944CEE /* CEFGeolocationHandler.g.swift */; };
 		E8732E031B5BEEF90068F130 /* Chromium Embedded Framework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E8613E231B52C51F009BDAC9 /* Chromium Embedded Framework.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E8898B151B69654C009E0DFF /* CEFBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8898AED1B69654C009E0DFF /* CEFBase.swift */; };
 		E8898B161B69654C009E0DFF /* CEFMarshaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8898AEE1B69654C009E0DFF /* CEFMarshaller.swift */; };
@@ -229,6 +236,13 @@
 		E8621C511B762ED600944CEE /* CEFFocusHandler.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFFocusHandler.g.swift; sourceTree = "<group>"; };
 		E8621C531B76395900944CEE /* CEFAppGlobals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFAppGlobals.swift; sourceTree = "<group>"; };
 		E8621C551B763BEA00944CEE /* CEFV8Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFV8Globals.swift; sourceTree = "<group>"; };
+		E8621C571B7644A100944CEE /* CEFGetGeolocationCallback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFGetGeolocationCallback.swift; sourceTree = "<group>"; };
+		E8621C591B7644D900944CEE /* CEFGeoposition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFGeoposition.swift; sourceTree = "<group>"; };
+		E8621C5B1B7648C400944CEE /* CEFGetGeolocationCallback.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFGetGeolocationCallback.g.swift; sourceTree = "<group>"; };
+		E8621C5D1B7649F100944CEE /* CEFGeolocationGlobals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFGeolocationGlobals.swift; sourceTree = "<group>"; };
+		E8621C5F1B764BD400944CEE /* CEFGeolocationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFGeolocationHandler.swift; sourceTree = "<group>"; };
+		E8621C611B764C7300944CEE /* CEFGeolocationCallback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFGeolocationCallback.swift; sourceTree = "<group>"; };
+		E8621C631B764D6600944CEE /* CEFGeolocationHandler.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFGeolocationHandler.g.swift; sourceTree = "<group>"; };
 		E8732E011B5BE1E40068F130 /* cef_application_mac_capi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cef_application_mac_capi.h; sourceTree = "<group>"; };
 		E8898AED1B69654C009E0DFF /* CEFBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFBase.swift; sourceTree = "<group>"; };
 		E8898AEE1B69654C009E0DFF /* CEFMarshaller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFMarshaller.swift; sourceTree = "<group>"; };
@@ -409,6 +423,7 @@
 			isa = PBXGroup;
 			children = (
 				E8621C531B76395900944CEE /* CEFAppGlobals.swift */,
+				E8621C5D1B7649F100944CEE /* CEFGeolocationGlobals.swift */,
 				E8621C551B763BEA00944CEE /* CEFV8Globals.swift */,
 				E84249EA1B753CAB000F23C1 /* CEFWebPluginGlobals.swift */,
 			);
@@ -476,6 +491,8 @@
 				E8898B391B696F35009E0DFF /* CEFDOMVisitor.swift */,
 				E8621C491B76279800944CEE /* CEFDownloadHandler.swift */,
 				E8621C4F1B762E2400944CEE /* CEFFocusHandler.swift */,
+				E8621C571B7644A100944CEE /* CEFGetGeolocationCallback.swift */,
+				E8621C5F1B764BD400944CEE /* CEFGeolocationHandler.swift */,
 				E8898AF31B69654C009E0DFF /* CEFLifeSpanHandler.swift */,
 				E890E9981B72A2CA007DB9C6 /* CEFLoadHandler.swift */,
 				E8898AF41B69654C009E0DFF /* CEFNavigationEntryVisitor.swift */,
@@ -516,6 +533,7 @@
 				E8621C471B76270400944CEE /* CEFDownloadItemCallback.swift */,
 				E8898AFE1B69654C009E0DFF /* CEFDragData.swift */,
 				E8898AFF1B69654C009E0DFF /* CEFFrame.swift */,
+				E8621C611B764C7300944CEE /* CEFGeolocationCallback.swift */,
 				E8898B001B69654C009E0DFF /* CEFListValue.swift */,
 				E890E98E1B700B93007DB9C6 /* CEFMenuModel.swift */,
 				E8898B011B69654C009E0DFF /* CEFNavigationEntry.swift */,
@@ -547,6 +565,7 @@
 				E8898B0B1B69654C009E0DFF /* CEFBrowserSettings.swift */,
 				E890E98A1B7001B1007DB9C6 /* CEFColor.swift */,
 				E88B86241B6E0D2C00D10E17 /* CEFCookie.swift */,
+				E8621C591B7644D900944CEE /* CEFGeoposition.swift */,
 				E88B85C21B6ABA9300D10E17 /* CEFKeyEvent.swift */,
 				E8898B0C1B69654C009E0DFF /* CEFMainArgs.swift */,
 				E890E9921B71560F007DB9C6 /* CEFMenuItemAccelerator.swift */,
@@ -586,6 +605,8 @@
 				E88B85CF1B6ABE0600D10E17 /* CEFDOMVisitor.g.swift */,
 				E8621C4D1B762B1100944CEE /* CEFDownloadHandler.g.swift */,
 				E8621C511B762ED600944CEE /* CEFFocusHandler.g.swift */,
+				E8621C631B764D6600944CEE /* CEFGeolocationHandler.g.swift */,
+				E8621C5B1B7648C400944CEE /* CEFGetGeolocationCallback.g.swift */,
 				E88B85D11B6ABF3100D10E17 /* CEFLifeSpanHandler.g.swift */,
 				E890E99A1B72A493007DB9C6 /* CEFLoadHandler.g.swift */,
 				E88B85D31B6ABF8300D10E17 /* CEFNavigationEntryVisitor.g.swift */,
@@ -836,6 +857,7 @@
 				E88B86231B6E0CE800D10E17 /* CEFCookieVisitor.swift in Sources */,
 				E88B867A1B6EA08A00D10E17 /* CEFDOMDocumentType.g.swift in Sources */,
 				E88B86B81B6EA0CC00D10E17 /* CEFFileDialogMode.swift in Sources */,
+				E8621C641B764D6600944CEE /* CEFGeolocationHandler.g.swift in Sources */,
 				E88B862D1B6E163700D10E17 /* CEFDeleteCookiesCallback.g.swift in Sources */,
 				E8898B2E1B69654C009E0DFF /* CEFSchemeRegistrar.swift in Sources */,
 				E88B85EA1B6C17D500D10E17 /* CEFV8Value.swift in Sources */,
@@ -859,6 +881,7 @@
 				E88B869B1B6EA08A00D10E17 /* CEFV8AccessControl.g.swift in Sources */,
 				E88B86871B6EA08A00D10E17 /* CEFJSONWriterOptions.g.swift in Sources */,
 				E8898B3A1B696F35009E0DFF /* CEFDOMVisitor.swift in Sources */,
+				E8621C601B764BD400944CEE /* CEFGeolocationHandler.swift in Sources */,
 				E88B85DA1B6AC05D00D10E17 /* CEFRunFileDialogCallback.g.swift in Sources */,
 				E88B86751B6EA08A00D10E17 /* CEFContextMenuEditStateFlags.g.swift in Sources */,
 				E84249ED1B753F1A000F23C1 /* CEFRequestHandler.g.swift in Sources */,
@@ -880,6 +903,7 @@
 				E88B86821B6EA08A00D10E17 /* CEFFocusSource.g.swift in Sources */,
 				E88B86831B6EA08A00D10E17 /* CEFGeopositionErrorCode.g.swift in Sources */,
 				E8898B211B69654C009E0DFF /* CEFBrowserHost.swift in Sources */,
+				E8621C5C1B7648C400944CEE /* CEFGetGeolocationCallback.g.swift in Sources */,
 				E890E9971B716202007DB9C6 /* CEFCallback.swift in Sources */,
 				E88B869E1B6EA08A00D10E17 /* CEFWindowOpenDisposition.g.swift in Sources */,
 				E88B85F31B6D435E00D10E17 /* CEFV8StackFrame.swift in Sources */,
@@ -899,6 +923,7 @@
 				E88B86271B6E0F2E00D10E17 /* CEFCookieVisitor.g.swift in Sources */,
 				E88B863B1B6E227200D10E17 /* CEFSchemeHandlerFactory.g.swift in Sources */,
 				E88B86A01B6EA08A00D10E17 /* CEFXMLNodeType.g.swift in Sources */,
+				E8621C5E1B7649F100944CEE /* CEFGeolocationGlobals.swift in Sources */,
 				E84249EB1B753CAB000F23C1 /* CEFWebPluginGlobals.swift in Sources */,
 				E88B861D1B6E089A00D10E17 /* CEFCookieManager.swift in Sources */,
 				E88B86921B6EA08A00D10E17 /* CEFResourceType.g.swift in Sources */,
@@ -939,6 +964,7 @@
 				E84249F11B75533E000F23C1 /* CEFDisplayHandler.g.swift in Sources */,
 				E890E9A11B72AE50007DB9C6 /* CEFAuthCallback.swift in Sources */,
 				E8898B311B69654C009E0DFF /* CEFMainArgs.swift in Sources */,
+				E8621C5A1B7644D900944CEE /* CEFGeoposition.swift in Sources */,
 				E88B868D1B6EA08A00D10E17 /* CEFNavigationType.g.swift in Sources */,
 				E88B863D1B6E24EF00D10E17 /* CEFResourceHandler.g.swift in Sources */,
 				E8898B191B69654C009E0DFF /* CEFClient.swift in Sources */,
@@ -958,6 +984,7 @@
 				E8898B161B69654C009E0DFF /* CEFMarshaller.swift in Sources */,
 				E88B867B1B6EA08A00D10E17 /* CEFDOMEventCategory.g.swift in Sources */,
 				E88B85C71B6ABAED00D10E17 /* CEFWindowInfo.swift in Sources */,
+				E8621C581B7644A100944CEE /* CEFGetGeolocationCallback.swift in Sources */,
 				E88B868A1B6EA08A00D10E17 /* CEFMenuID.g.swift in Sources */,
 				E88B85F11B6D423B00D10E17 /* CEFV8StackTrace.swift in Sources */,
 				E8898B2B1B69654C009E0DFF /* CEFRequest.swift in Sources */,
@@ -973,6 +1000,7 @@
 				E88B869A1B6EA08A00D10E17 /* CEFURLRequestStatus.g.swift in Sources */,
 				E88B86331B6E1B8500D10E17 /* CEFRequestContextHandler.g.swift in Sources */,
 				E88B86931B6EA08A00D10E17 /* CEFReturnValue.g.swift in Sources */,
+				E8621C621B764C7300944CEE /* CEFGeolocationCallback.swift in Sources */,
 				E88B869D1B6EA08A00D10E17 /* CEFValueType.g.swift in Sources */,
 				E88B86431B6E3A3800D10E17 /* CEFContextMenuHandler.swift in Sources */,
 				E8898B1A1B69654C009E0DFF /* CEFLifeSpanHandler.swift in Sources */,

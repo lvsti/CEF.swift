@@ -28,7 +28,7 @@ extension cef_client_t: CEFCallbackMarshalling {
 //        cefStruct.get_drag_handler
 //        cefStruct.get_find_handler
         get_focus_handler = CEFClient_getFocusHandler
-//        cefStruct.get_geolocation_handler
+        get_geolocation_handler = CEFClient_getGeolocationHandler
 //        cefStruct.get_jsdialog_handler
 //        cefStruct.get_keyboard_handler
         get_life_span_handler = CEFClient_getLifeSpanHandler
@@ -81,6 +81,18 @@ func CEFClient_getFocusHandler(ptr: UnsafeMutablePointer<cef_client_t>) -> Unsaf
     }
     
     if let handler = obj.getFocusHandler() {
+        return handler.toCEF()
+    }
+    
+    return nil
+}
+
+func CEFClient_getFocusHandler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_geolocation_handler_t> {
+    guard let obj = CEFClientMarshaller.get(ptr) else {
+        return nil
+    }
+    
+    if let handler = obj.getGeolocationHandler() {
         return handler.toCEF()
     }
     
