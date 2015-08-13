@@ -45,6 +45,7 @@
 		E8519F071B7D32B6003CE7C5 /* CEFWriteHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8519F061B7D32B6003CE7C5 /* CEFWriteHandler.swift */; };
 		E8519F091B7D333E003CE7C5 /* CEFWriteHandler.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8519F081B7D333E003CE7C5 /* CEFWriteHandler.g.swift */; };
 		E8519F0B1B7D33F5003CE7C5 /* CEFStreamWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8519F0A1B7D33F5003CE7C5 /* CEFStreamWriter.swift */; };
+		E8519F0D1B7D39CA003CE7C5 /* CEFTaskRunnerGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8519F0C1B7D39CA003CE7C5 /* CEFTaskRunnerGlobals.swift */; };
 		E8613E241B52C51F009BDAC9 /* Chromium Embedded Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8613E231B52C51F009BDAC9 /* Chromium Embedded Framework.framework */; };
 		E8613E261B52C5B1009BDAC9 /* CEF.swift-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = E8613E251B52C5B1009BDAC9 /* CEF.swift-Bridging-Header.h */; };
 		E8621C461B76260F00944CEE /* CEFBeforeDownloadCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8621C451B76260F00944CEE /* CEFBeforeDownloadCallback.swift */; };
@@ -281,6 +282,7 @@
 		E8519F061B7D32B6003CE7C5 /* CEFWriteHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFWriteHandler.swift; sourceTree = "<group>"; };
 		E8519F081B7D333E003CE7C5 /* CEFWriteHandler.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFWriteHandler.g.swift; sourceTree = "<group>"; };
 		E8519F0A1B7D33F5003CE7C5 /* CEFStreamWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFStreamWriter.swift; sourceTree = "<group>"; };
+		E8519F0C1B7D39CA003CE7C5 /* CEFTaskRunnerGlobals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFTaskRunnerGlobals.swift; sourceTree = "<group>"; };
 		E8613E231B52C51F009BDAC9 /* Chromium Embedded Framework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Chromium Embedded Framework.framework"; path = "External/cef_binary/Debug/Chromium Embedded Framework.framework"; sourceTree = SOURCE_ROOT; };
 		E8613E251B52C5B1009BDAC9 /* CEF.swift-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CEF.swift-Bridging-Header.h"; sourceTree = "<group>"; };
 		E8621C451B76260F00944CEE /* CEFBeforeDownloadCallback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFBeforeDownloadCallback.swift; sourceTree = "<group>"; };
@@ -481,6 +483,7 @@
 				E8621C531B76395900944CEE /* CEFAppGlobals.swift */,
 				E81F6B7E1B7A715700311F4B /* CEFCrossOriginWhitelistGlobals.swift */,
 				E8621C5D1B7649F100944CEE /* CEFGeolocationGlobals.swift */,
+				E8519F0C1B7D39CA003CE7C5 /* CEFTaskRunnerGlobals.swift */,
 				E8621C551B763BEA00944CEE /* CEFV8Globals.swift */,
 				E84249EA1B753CAB000F23C1 /* CEFWebPluginGlobals.swift */,
 			);
@@ -1022,6 +1025,7 @@
 				E84249EB1B753CAB000F23C1 /* CEFWebPluginGlobals.swift in Sources */,
 				E88B861D1B6E089A00D10E17 /* CEFCookieManager.swift in Sources */,
 				E88B86921B6EA08A00D10E17 /* CEFResourceType.g.swift in Sources */,
+				E8519F0D1B7D39CA003CE7C5 /* CEFTaskRunnerGlobals.swift in Sources */,
 				E8898B2F1B69654C009E0DFF /* CEFValue.swift in Sources */,
 				E8898B151B69654C009E0DFF /* CEFBase.swift in Sources */,
 				E88B867E1B6EA08A00D10E17 /* CEFDragOperationsMask.g.swift in Sources */,

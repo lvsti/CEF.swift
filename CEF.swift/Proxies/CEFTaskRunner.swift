@@ -53,16 +53,3 @@ public class CEFTaskRunner: CEFProxy<cef_task_runner_t> {
     }
 }
 
-
-func CEFCurrentlyOn(thread threadID: CEFThreadID) -> Bool {
-    return cef_currently_on(threadID.toCEF()) != 0
-}
-
-func CEFPostTask(onThread threadID: CEFThreadID, task: CEFTask) -> Bool {
-    return cef_post_task(threadID.toCEF(), task.toCEF()) != 0
-}
-
-func CEFPostDelayedTask(onThread threadID: CEFThreadID, task: CEFTask, delayInMsec delay: Int64) -> Bool {
-    return cef_post_delayed_task(threadID.toCEF(), task.toCEF(), delay) != 0
-}
-
