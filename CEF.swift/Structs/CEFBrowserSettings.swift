@@ -91,6 +91,47 @@ extension CEFBrowserSettings {
         
         return cefStruct
     }
+    
+    static func fromCEF(value: cef_browser_settings_t) -> CEFBrowserSettings {
+        var settings = CEFBrowserSettings()
+        
+        settings.windowlessFrameRate = value.windowless_frame_rate
+        settings.standardFontFamily = CEFStringToSwiftString(value.standard_font_family)
+        settings.fixedFontFamily = CEFStringToSwiftString(value.fixed_font_family)
+        settings.serifFontFamily = CEFStringToSwiftString(value.serif_font_family)
+        settings.sansSerifFontFamily = CEFStringToSwiftString(value.sans_serif_font_family)
+        settings.cursiveFontFamily = CEFStringToSwiftString(value.cursive_font_family)
+        settings.fantasyFontFamily = CEFStringToSwiftString(value.fantasy_font_family)
+        settings.defaultFontSize = value.default_font_size
+        settings.defaultFixedFontSize = value.default_fixed_font_size
+        settings.minimumFontSize = value.minimum_font_size
+        settings.minimumLogicalFontSize = value.minimum_logical_font_size
+        settings.defaultEncoding = CEFStringToSwiftString(value.default_encoding)
+        settings.remoteFonts = CEFState.fromCEF(value.remote_fonts)
+        settings.javascript = CEFState.fromCEF(value.javascript)
+        settings.javascriptOpenWindows = CEFState.fromCEF(value.javascript_open_windows)
+        settings.javascriptCloseWindows = CEFState.fromCEF(value.javascript_close_windows)
+        settings.javascriptAccessClipboard = CEFState.fromCEF(value.javascript_access_clipboard)
+        settings.javascriptDOMPaste = CEFState.fromCEF(value.javascript_dom_paste)
+        settings.caretBrowsing = CEFState.fromCEF(value.caret_browsing)
+        settings.java = CEFState.fromCEF(value.java)
+        settings.plugins = CEFState.fromCEF(value.plugins)
+        settings.universalAccessFromFileURLs = CEFState.fromCEF(value.universal_access_from_file_urls)
+        settings.fileAccessFromFileURLs = CEFState.fromCEF(value.file_access_from_file_urls)
+        settings.webSecurity = CEFState.fromCEF(value.web_security)
+        settings.imageLoading = CEFState.fromCEF(value.image_loading)
+        settings.imageShrinkStandaloneToFit = CEFState.fromCEF(value.image_shrink_standalone_to_fit)
+        settings.textAreaResize = CEFState.fromCEF(value.text_area_resize)
+        settings.tabToLinks = CEFState.fromCEF(value.tab_to_links)
+        settings.localStorage = CEFState.fromCEF(value.local_storage)
+        settings.databases = CEFState.fromCEF(value.databases)
+        settings.applicationCache = CEFState.fromCEF(value.application_cache)
+        settings.webGL = CEFState.fromCEF(value.webgl)
+        settings.backgroundColor = CEFColor(argb: value.background_color)
+        settings.acceptLanguageList = CEFStringToSwiftString(value.accept_language_list)
+        
+        return settings
+    }
 }
 
 extension cef_browser_settings_t {

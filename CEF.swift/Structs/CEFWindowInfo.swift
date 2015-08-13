@@ -11,10 +11,7 @@ import Foundation
 
 public struct CEFWindowInfo {
     public var windowName: String = ""
-    public var x: Int32 = 0
-    public var y: Int32 = 0
-    public var width: Int32 = 0
-    public var height: Int32 = 0
+    public var rect: NSRect = NSRect.zeroRect
     public var isHidden: Bool = false
     public var parentView: CEFWindowHandle? = nil
     public var windowlessRenderingEnabled: Bool = false
@@ -30,10 +27,10 @@ extension CEFWindowInfo {
         var cefStruct = cef_window_info_t()
         
         CEFStringSetFromSwiftString(windowName, cefString: &cefStruct.window_name)
-        cefStruct.x = x
-        cefStruct.y = y
-        cefStruct.width = width
-        cefStruct.height = height
+        cefStruct.x = Int32(rect.origin.x)
+        cefStruct.y = Int32(rect.origin.y)
+        cefStruct.width = Int32(rect.size.width)
+        cefStruct.height = Int32(rect.size.height)
         cefStruct.hidden = isHidden ? 1 : 0
         
         if let parentView = parentView {
@@ -52,6 +49,19 @@ extension CEFWindowInfo {
         }
         
         return cefStruct
+    }
+    
+    static func fromCEF(value: cef_window_info_t) -> CEFWindowInfo {
+        var winInfo = CEFWindowInfo()
+        winInfo.windowName = CEFStringToSwiftString(value.window_name)
+        winInfo.rect = NSRect(x: Int(value.x), y: Int(value.y), width: Int(value.width), height: Int(value.height))
+        winInfo.isHidden = value.hidden != 0
+        winInfo.parentView = Unmanaged<CEFWindowHandle>.fromOpaque(COpaquePointer(value.parent_view)).takeUnretainedValue()
+        winInfo.windowlessRenderingEnabled = value.windowless_rendering_enabled != 0
+        winInfo.transparentPaintingEnabled = value.transparent_painting_enabled != 0
+        winInfo.view = Unmanaged<CEFWindowHandle>.fromOpaque(COpaquePointer(value.view)).takeUnretainedValue()
+        
+        return winInfo
     }
 }
 

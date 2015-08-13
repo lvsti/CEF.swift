@@ -10,17 +10,17 @@ import Foundation
 
 public protocol CEFLifeSpanHandler {
 
-//    func onBeforePopup(browser: CEFBrowser,
-//                       frame: CEFFrame,
-//                       inout targetURL: NSURL,
-//                       inout targetFrameName: String,
-//                       targetDisposition: CEFWindowOpenDisposition,
-//                       userGesture: Bool,
-//                       popupFeatures: CEFPopupFeatures,
-//                       windowInfo: CEFWindowInfo,
-//                       client: CEFClient,
-//                       settings: CEFBrowserSettings,
-//                       inout jsAccess: Bool) -> Bool
+    func onBeforePopup(browser: CEFBrowser,
+                       frame: CEFFrame,
+                       targetURL: NSURL?,
+                       targetFrameName: String?,
+                       targetDisposition: CEFWindowOpenDisposition,
+                       userGesture: Bool,
+                       popupFeatures: CEFPopupFeatures,
+                       inout windowInfo: CEFWindowInfo,
+                       inout client: CEFClient,
+                       inout settings: CEFBrowserSettings,
+                       inout jsAccess: Bool) -> Bool
 
     func onAfterCreated(browser: CEFBrowser)
     func runModal(browser: CEFBrowser) -> Bool
@@ -31,19 +31,19 @@ public protocol CEFLifeSpanHandler {
 
 public extension CEFLifeSpanHandler {
 
-//    public func onBeforePopup(browser: CEFBrowser,
-//                       frame: CEFFrame,
-//                       inout targetURL: NSURL,
-//                       inout targetFrameName: String,
-//                       targetDisposition: CEFWindowOpenDisposition,
-//                       userGesture: Bool,
-//                       popupFeatures: CEFPopupFeatures,
-//                       windowInfo: CEFWindowInfo,
-//                       client: CEFClient,
-//                       settings: CEFBrowserSettings,
-//                       inout jsAccess: Bool) -> Bool {
-//        return false
-//    }
+    func onBeforePopup(browser: CEFBrowser,
+                       frame: CEFFrame,
+                       targetURL: NSURL?,
+                       targetFrameName: String?,
+                       targetDisposition: CEFWindowOpenDisposition,
+                       userGesture: Bool,
+                       popupFeatures: CEFPopupFeatures,
+                       windowInfo: CEFWindowInfo,
+                       client: CEFClient,
+                       settings: CEFBrowserSettings,
+                       inout jsAccess: Bool) -> Bool {
+        return false
+    }
 
     func onAfterCreated(browser: CEFBrowser) {
     }
