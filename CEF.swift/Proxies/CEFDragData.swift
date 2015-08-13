@@ -130,9 +130,11 @@ public class CEFDragData: CEFProxy<cef_drag_data_t> {
     // NULL this method will return the size of the file contents in bytes.
     // Call GetFileName() to get a suggested name for the file.
     ///
-    // TODO:
-//    public func getFileContents(writer: CEFStreamWriter?) -> size_t {
-//    }
+    public func getFileContents(writer: CEFStreamWriter?) -> size_t {
+        let cefWriter: UnsafeMutablePointer<cef_stream_writer_t> =
+            writer != nil ? writer!.toCEF() : nil
+        return cefObject.get_file_contents(cefObjectPtr, cefWriter)
+    }
     
     ///
     // Retrieve the list of file names that are being dragged into the browser
