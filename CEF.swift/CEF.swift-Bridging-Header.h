@@ -10,3 +10,4 @@
 #include "include/capi/cef_response_capi.h"
 #include "include/capi/cef_scheme_capi.h"
 #include "include/capi/cef_geolocation_capi.h"
+#include "include/capi/cef_origin_whitelist_capi.h"
