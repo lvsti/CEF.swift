@@ -12,4 +12,5 @@ import AppKit
 public typealias CEFWindowHandle = NSView
 public typealias CEFTextInputContext = NSTextInputContext
 public typealias CEFEventHandle = NSEvent
+public typealias CEFFindIdentifier = Int32
 

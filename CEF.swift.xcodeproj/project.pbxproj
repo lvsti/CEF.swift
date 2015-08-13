@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E81F6B591B7A323000311F4B /* CEFFindHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F6B581B7A323000311F4B /* CEFFindHandler.swift */; };
 		E81F6B5B1B7A334E00311F4B /* CEFRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F6B5A1B7A334E00311F4B /* CEFRect.swift */; };
+		E81F6B5D1B7A383100311F4B /* CEFFindHandler.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F6B5C1B7A383100311F4B /* CEFFindHandler.g.swift */; };
 		E81F6B691B7A4A8A00311F4B /* CEFJSDialogCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F6B681B7A4A8A00311F4B /* CEFJSDialogCallback.swift */; };
 		E81F6B6B1B7A4BC200311F4B /* CEFJSDialogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F6B6A1B7A4BC200311F4B /* CEFJSDialogHandler.swift */; };
 		E81F6B6D1B7A4DBB00311F4B /* CEFJSDialogHandler.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F6B6C1B7A4DBB00311F4B /* CEFJSDialogHandler.g.swift */; };
@@ -221,7 +223,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E81F6B581B7A323000311F4B /* CEFFindHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFFindHandler.swift; sourceTree = "<group>"; };
 		E81F6B5A1B7A334E00311F4B /* CEFRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFRect.swift; sourceTree = "<group>"; };
+		E81F6B5C1B7A383100311F4B /* CEFFindHandler.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFFindHandler.g.swift; sourceTree = "<group>"; };
 		E81F6B681B7A4A8A00311F4B /* CEFJSDialogCallback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFJSDialogCallback.swift; sourceTree = "<group>"; };
 		E81F6B6A1B7A4BC200311F4B /* CEFJSDialogHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFJSDialogHandler.swift; sourceTree = "<group>"; };
 		E81F6B6C1B7A4DBB00311F4B /* CEFJSDialogHandler.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFJSDialogHandler.g.swift; sourceTree = "<group>"; };
@@ -508,6 +512,7 @@
 				E8898B391B696F35009E0DFF /* CEFDOMVisitor.swift */,
 				E8621C491B76279800944CEE /* CEFDownloadHandler.swift */,
 				E81F6B6E1B7A520900311F4B /* CEFDragHandler.swift */,
+				E81F6B581B7A323000311F4B /* CEFFindHandler.swift */,
 				E8621C4F1B762E2400944CEE /* CEFFocusHandler.swift */,
 				E8621C571B7644A100944CEE /* CEFGetGeolocationCallback.swift */,
 				E8621C5F1B764BD400944CEE /* CEFGeolocationHandler.swift */,
@@ -627,6 +632,7 @@
 				E88B85CF1B6ABE0600D10E17 /* CEFDOMVisitor.g.swift */,
 				E8621C4D1B762B1100944CEE /* CEFDownloadHandler.g.swift */,
 				E81F6B721B7A53A600311F4B /* CEFDragHandler.g.swift */,
+				E81F6B5C1B7A383100311F4B /* CEFFindHandler.g.swift */,
 				E8621C511B762ED600944CEE /* CEFFocusHandler.g.swift */,
 				E8621C631B764D6600944CEE /* CEFGeolocationHandler.g.swift */,
 				E8621C5B1B7648C400944CEE /* CEFGetGeolocationCallback.g.swift */,
@@ -909,6 +915,7 @@
 				E8621C601B764BD400944CEE /* CEFGeolocationHandler.swift in Sources */,
 				E88B85DA1B6AC05D00D10E17 /* CEFRunFileDialogCallback.g.swift in Sources */,
 				E88B86751B6EA08A00D10E17 /* CEFContextMenuEditStateFlags.g.swift in Sources */,
+				E81F6B591B7A323000311F4B /* CEFFindHandler.swift in Sources */,
 				E84249ED1B753F1A000F23C1 /* CEFRequestHandler.g.swift in Sources */,
 				E88B85D21B6ABF3100D10E17 /* CEFLifeSpanHandler.g.swift in Sources */,
 				E890E99F1B72AC64007DB9C6 /* CEFRequestCallback.swift in Sources */,
@@ -1016,6 +1023,7 @@
 				E8898B161B69654C009E0DFF /* CEFMarshaller.swift in Sources */,
 				E88B867B1B6EA08A00D10E17 /* CEFDOMEventCategory.g.swift in Sources */,
 				E88B85C71B6ABAED00D10E17 /* CEFWindowInfo.swift in Sources */,
+				E81F6B5D1B7A383100311F4B /* CEFFindHandler.g.swift in Sources */,
 				E8621C581B7644A100944CEE /* CEFGetGeolocationCallback.swift in Sources */,
 				E88B868A1B6EA08A00D10E17 /* CEFMenuID.g.swift in Sources */,
 				E88B85F11B6D423B00D10E17 /* CEFV8StackTrace.swift in Sources */,
