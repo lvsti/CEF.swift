@@ -31,16 +31,16 @@ extension cef_life_span_handler_t: CEFCallbackMarshalling {
 
 func CEFLifeSpanHandler_onBeforePopup(ptr: UnsafeMutablePointer<cef_life_span_handler_t>,
                                       browser: UnsafeMutablePointer<cef_browser_t>,
-    frame: UnsafeMutablePointer<cef_frame_t>,
-    url: UnsafePointer<cef_string_t>,
-    frameName: UnsafePointer<cef_string_t>,
-    disposition: cef_window_open_disposition_t,
-    userGesture: Int32,
-    features: UnsafePointer<cef_popup_features_t>,
-    windowInfo: UnsafeMutablePointer<cef_window_info_t>,
-    cefClient: UnsafeMutablePointer<UnsafeMutablePointer<cef_client_t>>,
-    cefSettings: UnsafeMutablePointer<cef_browser_settings_t>,
-noJSAccess: UnsafeMutablePointer<Int32>) -> Int32 {
+                                      frame: UnsafeMutablePointer<cef_frame_t>,
+                                      url: UnsafePointer<cef_string_t>,
+                                      frameName: UnsafePointer<cef_string_t>,
+                                      disposition: cef_window_open_disposition_t,
+                                      userGesture: Int32,
+                                      features: UnsafePointer<cef_popup_features_t>,
+                                      windowInfo: UnsafeMutablePointer<cef_window_info_t>,
+                                      cefClient: UnsafeMutablePointer<UnsafeMutablePointer<cef_client_t>>,
+                                      cefSettings: UnsafeMutablePointer<cef_browser_settings_t>,
+                                      noJSAccess: UnsafeMutablePointer<Int32>) -> Int32 {
     guard let obj = CEFLifeSpanHandlerMarshaller.get(ptr) else {
         return 0
     }
