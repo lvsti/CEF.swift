@@ -34,4 +34,15 @@ extension CEFKeyEvent {
         
         return cefStruct
     }
+    
+    static func fromCEF(value: cef_key_event_t) -> CEFKeyEvent {
+        return CEFKeyEvent(type: CEFKeyEventType.fromCEF(value.type),
+                           modifiers: CEFEventFlags.fromCEF(cef_event_flags_t(rawValue: value.modifiers)),
+                           windowsKeyCode: value.windows_key_code,
+                           nativeKeyCode: value.native_key_code,
+                           isSystemKey: value.is_system_key != 0,
+                           character: value.character,
+                           unmodifiedCharacter: value.unmodified_character,
+                           focusOnEditableField: value.focus_on_editable_field != 0)
+    }
 }
