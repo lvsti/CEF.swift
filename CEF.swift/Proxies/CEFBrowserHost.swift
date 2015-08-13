@@ -14,8 +14,6 @@ extension cef_browser_host_t: CEFObject {
 
 public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
 
-    public typealias CEFFindIdentifier = Int32
-    
     public static func createBrowser(windowInfo: CEFWindowInfo,
                                      client: CEFClient,
                                      url: NSURL,
@@ -145,7 +143,7 @@ public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
         cefObject.stop_finding(cefObjectPtr, clearSelection ? 1 : 0)
     }
     
-    public func showDevTools(windowInfo: CEFWindowInfo, client: CEFClient, settings: CEFBrowserSettings, inspectionPoint: CEFPoint) {
+    public func showDevTools(windowInfo: CEFWindowInfo, client: CEFClient, settings: CEFBrowserSettings, inspectionPoint: NSPoint) {
         var cefSettings = settings.toCEF()
         var cefPoint = inspectionPoint.toCEF()
         var cefWinInfo = windowInfo.toCEF()
