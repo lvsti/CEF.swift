@@ -14,3 +14,4 @@
 #include "include/capi/cef_parser_capi.h"
 #include "include/capi/cef_path_util_capi.h"
 #include "include/capi/cef_zip_reader_capi.h"
+#include "include/capi/cef_xml_reader_capi.h"
