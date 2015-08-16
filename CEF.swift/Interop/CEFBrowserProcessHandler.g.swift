@@ -24,6 +24,7 @@ extension cef_browser_process_handler_t: CEFCallbackMarshalling {
         on_context_initialized = CEFBrowserProcessHandler_onContextInitialized
         on_before_child_process_launch = CEFBrowserProcessHandler_onBeforeChildProcessLaunch
         on_render_process_thread_created = CEFBrowserProcessHandler_onRenderProcessThreadCreated
+        get_print_handler = CEFBrowserProcessHandler_getPrintHandler
     }
 }
 
@@ -52,12 +53,16 @@ func CEFBrowserProcessHandler_onRenderProcessThreadCreated(ptr: UnsafeMutablePoi
     
     obj.onRenderProcessThreadCreated(CEFListValue.fromCEF(userInfo)!)
 }
-//
-//func CEFBrowserProcessHandler_getPrintHandler(ptr: UnsafeMutablePointer<cef_browser_process_handler_t>) -> UnsafeMutablePointer<cef_print_handler_t> {
-//    guard let obj = CEFBrowserProcessHandlerMarshaller.get(ptr) else {
-//        return nil
-//    }
-//
-//    return obj.getPrintHandler()
-//}
+
+func CEFBrowserProcessHandler_getPrintHandler(ptr: UnsafeMutablePointer<cef_browser_process_handler_t>) -> UnsafeMutablePointer<cef_print_handler_t> {
+    guard let obj = CEFBrowserProcessHandlerMarshaller.get(ptr) else {
+        return nil
+    }
+
+    if let handler = obj.getPrintHandler() {
+        return handler.toCEF()
+    }
+    
+    return nil
+}
 

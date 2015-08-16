@@ -13,11 +13,7 @@ public protocol CEFBrowserProcessHandler {
     func onContextInitialized()
     func onBeforeChildProcessLaunch(commandLine: CEFCommandLine)
     func onRenderProcessThreadCreated(userInfo: CEFListValue)
-    
-    // TODO:
-//    func getPrintHandler() -> CEFPrintHandler? {
-//        return nil
-//    }
+    func getPrintHandler() -> CEFPrintHandler?
 
 }
 
@@ -30,6 +26,10 @@ public extension CEFBrowserProcessHandler {
     }
     
     func onRenderProcessThreadCreated(userInfo: CEFListValue) {
+    }
+
+    func getPrintHandler() -> CEFPrintHandler? {
+        return nil
     }
 
 }
