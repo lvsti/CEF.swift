@@ -235,15 +235,15 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
         return CEFStringListToSwiftArray(cefKeys)
     }
     
-    // TODO:
-//    public func setUserData(userData: CEFBase?) -> Bool {
-//        let cefUserData
-//        return cefObject.set_user_data(cefObjectPtr, cefUserData) != 0
-//    }
-//    
-//    public func getUserData() -> CEFBase? {
-//        let cefUserData = cefObject.get_user_data(cefObjectPtr)
-//    }
+    public func setUserData(userData: CEFUserData?) -> Bool {
+        let cefUserData = userData != nil ? userData!.toCEF() : nil
+        return cefObject.set_user_data(cefObjectPtr, cefUserData) != 0
+    }
+    
+    public func getUserData() -> CEFUserData? {
+        let cefUserData = cefObject.get_user_data(cefObjectPtr)
+        return CEFUserData.fromCEF(cefUserData)
+    }
     
     public func getExternallyAllocatedMemory() -> Int {
         return Int(cefObject.get_externally_allocated_memory(cefObjectPtr))
