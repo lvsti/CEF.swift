@@ -48,8 +48,8 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
         return CEFV8Value.fromCEF(cef_v8value_create_date(cefTimePtr))
     }
     
-    public static func createString(value: String) -> CEFV8Value? {
-        let cefStrPtr = CEFStringPtrCreateFromSwiftString(value)
+    public static func createString(value: String?) -> CEFV8Value? {
+        let cefStrPtr = value != nil ? CEFStringPtrCreateFromSwiftString(value!) : nil
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFV8Value.fromCEF(cef_v8value_create_string(cefStrPtr))
     }
@@ -176,8 +176,8 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
         return cefObject.set_rethrow_exceptions(cefObjectPtr, value ? 1 : 0) != 0
     }
 
-    public func hasValue(forKey key: String) -> Bool {
-        let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
+    public func hasValue(forKey key: String?) -> Bool {
+        let cefKeyPtr = key != nil ? CEFStringPtrCreateFromSwiftString(key!) : nil
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.has_value_bykey(cefObjectPtr, cefKeyPtr) != 0
     }
@@ -186,8 +186,8 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
         return cefObject.has_value_byindex(cefObjectPtr, Int32(index)) != 0
     }
     
-    public func deleteValue(forKey key: String) -> Bool {
-        let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
+    public func deleteValue(forKey key: String?) -> Bool {
+        let cefKeyPtr = key != nil ? CEFStringPtrCreateFromSwiftString(key!) : nil
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.delete_value_bykey(cefObjectPtr, cefKeyPtr) != 0
     }
@@ -196,8 +196,8 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
         return cefObject.delete_value_byindex(cefObjectPtr, Int32(index)) != 0
     }
 
-    public func getValue(forKey key: String) -> CEFV8Value? {
-        let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
+    public func getValue(forKey key: String?) -> CEFV8Value? {
+        let cefKeyPtr = key != nil ? CEFStringPtrCreateFromSwiftString(key!) : nil
         defer { CEFStringPtrRelease(cefKeyPtr) }
         let cefValue = cefObject.get_value_bykey(cefObjectPtr, cefKeyPtr)
         return CEFV8Value.fromCEF(cefValue)
@@ -208,8 +208,8 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
         return CEFV8Value.fromCEF(cefValue)
     }
 
-    public func setValue(value: CEFV8Value, forKey key: String, attribute: PropertyAttribute) -> Bool {
-        let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
+    public func setValue(value: CEFV8Value, forKey key: String?, attribute: PropertyAttribute) -> Bool {
+        let cefKeyPtr = key != nil ? CEFStringPtrCreateFromSwiftString(key!) : nil
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.set_value_bykey(cefObjectPtr, cefKeyPtr, value.toCEF(), attribute.toCEF()) != 0
     }
@@ -218,8 +218,8 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
         return cefObject.set_value_byindex(cefObjectPtr, Int32(index), value.toCEF()) != 0
     }
     
-    public func setValue(forKey key: String, access: AccessControl, attribute: PropertyAttribute) -> Bool {
-        let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
+    public func setValue(forKey key: String?, access: AccessControl, attribute: PropertyAttribute) -> Bool {
+        let cefKeyPtr = key != nil ? CEFStringPtrCreateFromSwiftString(key!) : nil
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.set_value_byaccessor(cefObjectPtr, cefKeyPtr, access.toCEF(), attribute.toCEF()) != 0
     }
@@ -272,7 +272,8 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
         return cefHandler.toSwift()
     }
     
-    public func executeFunction(object: CEFV8Value, arguments: [CEFV8Value]) -> CEFV8Value? {
+    public func executeFunction(object: CEFV8Value?, arguments: [CEFV8Value]) -> CEFV8Value? {
+        let cefV8Obj = object != nil ? object!.toCEF() : nil
         let cefArgs = UnsafeMutablePointer<UnsafeMutablePointer<cef_v8value_t>>.alloc(arguments.count)
         defer { cefArgs.dealloc(arguments.count) }
         
@@ -281,11 +282,12 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
             cefArgs.advancedBy(i).initialize(cefArg)
         }
         
-        let cefValue = cefObject.execute_function(cefObjectPtr, object.toCEF(), arguments.count, cefArgs)
+        let cefValue = cefObject.execute_function(cefObjectPtr, cefV8Obj, arguments.count, cefArgs)
         return CEFV8Value.fromCEF(cefValue)
     }
     
-    public func executeFunctionWithContext(context: CEFV8Context, object: CEFV8Value, arguments: [CEFV8Value]) -> CEFV8Value? {
+    public func executeFunctionWithContext(context: CEFV8Context, object: CEFV8Value?, arguments: [CEFV8Value]) -> CEFV8Value? {
+        let cefV8Obj = object != nil ? object!.toCEF() : nil
         let cefArgs = UnsafeMutablePointer<UnsafeMutablePointer<cef_v8value_t>>.alloc(arguments.count)
         defer { cefArgs.dealloc(arguments.count) }
         
@@ -296,7 +298,7 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
         
         let cefValue = cefObject.execute_function_with_context(cefObjectPtr,
                                                                context.toCEF(),
-                                                               object.toCEF(),
+                                                               cefV8Obj,
                                                                arguments.count,
                                                                cefArgs)
         return CEFV8Value.fromCEF(cefValue)

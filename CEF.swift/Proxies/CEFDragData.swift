@@ -130,7 +130,7 @@ public class CEFDragData: CEFProxy<cef_drag_data_t> {
     // NULL this method will return the size of the file contents in bytes.
     // Call GetFileName() to get a suggested name for the file.
     ///
-    public func getFileContents(writer: CEFStreamWriter?) -> size_t {
+    public func getFileContents(writer: CEFStreamWriter? = nil) -> size_t {
         let cefWriter: UnsafeMutablePointer<cef_stream_writer_t> =
             writer != nil ? writer!.toCEF() : nil
         return cefObject.get_file_contents(cefObjectPtr, cefWriter)
@@ -219,7 +219,7 @@ public class CEFDragData: CEFProxy<cef_drag_data_t> {
     ///
     // Add a file that is being dragged into the webview.
     ///
-    public func addFile(path: String, displayName: String?)  {
+    public func addFile(path: String, displayName: String? = nil)  {
         let cefPathPtr = CEFStringPtrCreateFromSwiftString(path)
         let cefNamePtr: UnsafeMutablePointer<cef_string_t> =
             displayName != nil ? CEFStringPtrCreateFromSwiftString(displayName!) : nil

@@ -49,7 +49,7 @@ public struct CEFCrossOriginWhitelist {
     ///
     public static func addEntry(origin: NSURL,
                                 targetScheme: String,
-                                targetDomain: String?,
+                                targetDomain: String? = nil,
                                 allowTargetSubdomains: Bool) -> Bool {
         let cefOriginPtr = CEFStringPtrCreateFromSwiftString(origin.absoluteString)
         let cefSchemePtr = CEFStringPtrCreateFromSwiftString(targetScheme)
@@ -73,7 +73,7 @@ public struct CEFCrossOriginWhitelist {
     ///
     public static func removeEntry(origin: NSURL,
                                    targetScheme: String,
-                                   targetDomain: String?,
+                                   targetDomain: String? = nil,
                                    allowTargetSubdomains: Bool) -> Bool {
         let cefOriginPtr = CEFStringPtrCreateFromSwiftString(origin.absoluteString)
         let cefSchemePtr = CEFStringPtrCreateFromSwiftString(targetScheme)

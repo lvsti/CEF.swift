@@ -79,9 +79,9 @@ public class CEFFrame: CEFProxy<cef_frame_t> {
         cefObject.load_string(cefObjectPtr, cefStrPtr, cefURLPtr)
     }
 
-    public func executeJavaScript(code: String, scriptURL: NSURL, startLine: Int) {
+    public func executeJavaScript(code: String, scriptURL: NSURL? = nil, startLine: Int) {
         let cefCodePtr = CEFStringPtrCreateFromSwiftString(code)
-        let cefURLPtr = CEFStringPtrCreateFromSwiftString(scriptURL.absoluteString)
+        let cefURLPtr = scriptURL != nil ? CEFStringPtrCreateFromSwiftString(scriptURL!.absoluteString) : nil
         defer {
             CEFStringPtrRelease(cefCodePtr)
             CEFStringPtrRelease(cefURLPtr)

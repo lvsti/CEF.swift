@@ -104,13 +104,13 @@ public class CEFDictionaryValue: CEFProxy<cef_dictionary_value_t> {
         return cefObject.get_double(cefObjectPtr, cefKeyPtr)
     }
     
-    public func getString(key: String) -> String {
+    public func getString(key: String) -> String? {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         let cefStrPtr = cefObject.get_string(cefObjectPtr, cefKeyPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
 
-        return CEFStringToSwiftString(cefStrPtr.memory)
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.memory) : nil
     }
 
     public func getBinary(key: String) -> CEFBinaryValue? {
@@ -164,9 +164,9 @@ public class CEFDictionaryValue: CEFProxy<cef_dictionary_value_t> {
         return cefObject.set_double(cefObjectPtr, cefKeyPtr, value) != 0
     }
 
-    public func setString(key: String, string: String) -> Bool {
+    public func setString(key: String, string: String?) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
-        let cefStrPtr = CEFStringPtrCreateFromSwiftString(string)
+        let cefStrPtr = string != nil ? CEFStringPtrCreateFromSwiftString(string!) : nil
         defer {
             CEFStringPtrRelease(cefKeyPtr)
             CEFStringPtrRelease(cefStrPtr)

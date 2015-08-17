@@ -67,7 +67,7 @@ import Foundation
 //   example.test.increment();
 // </pre>
 ///
-public func CEFRegisterExtension(name: String, code: String, handler: CEFV8Handler?) -> Bool {
+public func CEFRegisterExtension(name: String, code: String, handler: CEFV8Handler? = nil) -> Bool {
     let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
     let cefCodePtr = CEFStringPtrCreateFromSwiftString(code)
     defer {

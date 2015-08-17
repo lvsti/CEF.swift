@@ -20,7 +20,7 @@ import Foundation
 // |windows_sandbox_info| parameter is only used on Windows and may be NULL (see
 // cef_sandbox_win.h for details).
 ///
-public func CEFExecuteProcess(args: CEFMainArgs, app: CEFApp? = nil, winSandboxInfo: UnsafeMutablePointer<Int8> = nil) -> Int {
+public func CEFExecuteProcess(args: CEFMainArgs, app: CEFApp? = nil, winSandboxInfo: UnsafeMutablePointer<Void> = nil) -> Int {
     var cefArgs = args.toCEF()
     defer { cefArgs.clear() }
     return Int(cef_execute_process(&cefArgs,
@@ -35,14 +35,17 @@ public func CEFExecuteProcess(args: CEFMainArgs, app: CEFApp? = nil, winSandboxI
 // The |windows_sandbox_info| parameter is only used on Windows and may be NULL
 // (see cef_sandbox_win.h for details).
 ///
-public func CEFInitialize(args: CEFMainArgs, settings: CEFSettings, app: CEFApp? = nil) -> Int {
+public func CEFInitialize(args: CEFMainArgs,
+                          settings: CEFSettings,
+                          app: CEFApp? = nil,
+                          winSandboxInfo: UnsafeMutablePointer<Void> = nil) -> Int {
     var cefArgs = args.toCEF()
     var cefSettings = settings.toCEF()
     defer {
         cefArgs.clear()
         cefSettings.clear()
     }
-    return Int(cef_initialize(&cefArgs, &cefSettings, app != nil ? app!.toCEF() : nil, nil))
+    return Int(cef_initialize(&cefArgs, &cefSettings, app != nil ? app!.toCEF() : nil, winSandboxInfo))
 }
 
 ///

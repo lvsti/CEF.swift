@@ -15,14 +15,15 @@ extension cef_browser_host_t: CEFObject {
 public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
 
     public static func createBrowser(windowInfo: CEFWindowInfo,
-                                     client: CEFClient,
-                                     url: NSURL,
+                                     client: CEFClient? = nil,
+                                     url: NSURL? = nil,
                                      settings: CEFBrowserSettings,
-                                     requestContext: CEFRequestContext?) -> Bool {
+                                     requestContext: CEFRequestContext? = nil) -> Bool {
         var cefSettings = settings.toCEF()
-        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
+        let cefURLPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString) : nil
         var cefWinInfo = windowInfo.toCEF()
-        let cefReqCtxPtr: UnsafeMutablePointer<cef_request_context_t> = requestContext != nil ? requestContext!.toCEF() : nil
+        let cefClient = client != nil ? client!.toCEF() : nil
+        let cefReqCtx = requestContext != nil ? requestContext!.toCEF() : nil
         
         defer {
             cefSettings.clear()
@@ -30,18 +31,19 @@ public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
             cefWinInfo.clear()
         }
         
-        return cef_browser_host_create_browser(&cefWinInfo, client.toCEF(), cefURLPtr, &cefSettings, cefReqCtxPtr) != 0
+        return cef_browser_host_create_browser(&cefWinInfo, cefClient, cefURLPtr, &cefSettings, cefReqCtx) != 0
     }
 
     public static func createBrowserSync(windowInfo: CEFWindowInfo,
-                                         client: CEFClient,
-                                         url: NSURL,
+                                         client: CEFClient? = nil,
+                                         url: NSURL? = nil,
                                          settings: CEFBrowserSettings,
-                                         requestContext: CEFRequestContext?) -> CEFBrowser? {
+                                         requestContext: CEFRequestContext? = nil) -> CEFBrowser? {
         var cefSettings = settings.toCEF()
-        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
+        let cefURLPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString) : nil
         var cefWinInfo = windowInfo.toCEF()
-        let cefReqCtxPtr: UnsafeMutablePointer<cef_request_context_t> = requestContext != nil ? requestContext!.toCEF() : nil
+        let cefClient = client != nil ? client!.toCEF() : nil
+        let cefReqCtx = requestContext != nil ? requestContext!.toCEF() : nil
         
         defer {
             cefSettings.clear()
@@ -49,7 +51,7 @@ public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
             cefWinInfo.clear()
         }
         
-        let cefBrowser = cef_browser_host_create_browser_sync(&cefWinInfo, client.toCEF(), cefURLPtr, &cefSettings, cefReqCtxPtr)
+        let cefBrowser = cef_browser_host_create_browser_sync(&cefWinInfo, cefClient, cefURLPtr, &cefSettings, cefReqCtx)
         return CEFBrowser.fromCEF(cefBrowser)
     }
 
@@ -143,15 +145,24 @@ public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
         cefObject.stop_finding(cefObjectPtr, clearSelection ? 1 : 0)
     }
     
-    public func showDevTools(windowInfo: CEFWindowInfo, client: CEFClient, settings: CEFBrowserSettings, inspectionPoint: NSPoint) {
+    public func showDevTools(windowInfo: CEFWindowInfo,
+                             client: CEFClient,
+                             settings: CEFBrowserSettings,
+                             inspectionPoint: NSPoint?) {
+        var cefPointPtr: UnsafeMutablePointer<cef_point_t> = nil
+        if let inspectionPoint = inspectionPoint {
+            cefPointPtr = UnsafeMutablePointer<cef_point_t>.alloc(1)
+            defer { cefPointPtr.destroy(1) }
+            cefPointPtr.initialize(inspectionPoint.toCEF())
+        }
+
         var cefSettings = settings.toCEF()
-        var cefPoint = inspectionPoint.toCEF()
         var cefWinInfo = windowInfo.toCEF()
         defer {
             cefSettings.clear()
             cefWinInfo.clear()
         }
-        cefObject.show_dev_tools(cefObjectPtr, &cefWinInfo, client.toCEF(), &cefSettings, &cefPoint)
+        cefObject.show_dev_tools(cefObjectPtr, &cefWinInfo, client.toCEF(), &cefSettings, cefPointPtr)
     }
     
     public func closeDevTools() {

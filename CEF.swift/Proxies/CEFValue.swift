@@ -59,12 +59,10 @@ public class CEFValue: CEFProxy<cef_value_t> {
         return cefObject.get_double(cefObjectPtr)
     }
     
-    public func getString() -> String {
+    public func getString() -> String? {
         let cefStrPtr = cefObject.get_string(cefObjectPtr)
-        let retval = CEFStringToSwiftString(cefStrPtr.memory)
-        CEFStringPtrRelease(cefStrPtr)
-        
-        return retval
+        defer { CEFStringPtrRelease(cefStrPtr) }
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.memory) : nil
     }
 
     public func getBinary() -> CEFBinaryValue? {
@@ -98,8 +96,8 @@ public class CEFValue: CEFProxy<cef_value_t> {
         return cefObject.set_double(cefObjectPtr, value) != 0
     }
 
-    public func setString(string: String) -> Bool {
-        let cefStrPtr = CEFStringPtrCreateFromSwiftString(string)
+    public func setString(string: String?) -> Bool {
+        let cefStrPtr = string != nil ? CEFStringPtrCreateFromSwiftString(string!) : nil
         let retval = cefObject.set_string(cefObjectPtr, cefStrPtr) != 0
         CEFStringPtrRelease(cefStrPtr)
         return retval

@@ -35,7 +35,6 @@ public class CEFURLRequest: CEFProxy<cef_urlrequest_t> {
     // render process |request_context| must be empty and the context associated
     // with the current renderer process' browser will be used.
     ///
-    /*--cef(optional_param=request_context)--*/
     public init?(request: CEFRequest, client: CEFURLRequestClient, context: CEFRequestContext? = nil) {
         super.init(ptr: cef_urlrequest_create(request.toCEF(),
                                               client.toCEF(),

@@ -74,17 +74,18 @@ public class CEFRequest: CEFProxy<cef_request_t> {
         cefObject.set_header_map(cefObjectPtr, cefHeaderMap)
     }
     
-    public func set(url: NSURL, method: String, postData: CEFPOSTData, headerMap: HeaderMap) {
+    public func set(url: NSURL, method: String, postData: CEFPOSTData? = nil, headerMap: HeaderMap) {
         let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
         let cefMethodPtr = CEFStringPtrCreateFromSwiftString(method)
         let cefHeaderMap = CEFStringMultimapCreateFromSwiftDictionaryOfArrays(headerMap)
+        let cefData = postData != nil ? postData!.toCEF() : nil
         defer {
             CEFStringPtrRelease(cefURLPtr)
             CEFStringPtrRelease(cefMethodPtr)
             cef_string_multimap_free(cefHeaderMap)
         }
         
-        cefObject.set(cefObjectPtr, cefURLPtr, cefMethodPtr, postData.toCEF(), cefHeaderMap)
+        cefObject.set(cefObjectPtr, cefURLPtr, cefMethodPtr, cefData, cefHeaderMap)
     }
     
     public func getFlags() -> RequestFlags {
