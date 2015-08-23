@@ -57,7 +57,7 @@ public class CEFRequestContext: CEFProxy<cef_request_context_t> {
     
     public func getHandler() -> CEFRequestContextHandler? {
         let cefHandler = cefObject.get_handler(cefObjectPtr)
-        return cefHandler.toSwift()
+        return CEFRequestContextHandlerMarshaller.take(cefHandler)
     }
 
     public func getCachePath() -> String {

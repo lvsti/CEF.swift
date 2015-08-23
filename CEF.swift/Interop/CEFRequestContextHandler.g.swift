@@ -11,10 +11,6 @@ import Foundation
 extension cef_request_context_handler_t: CEFObject {
 }
 
-extension cef_request_context_handler_t: CEFWrappable {
-    typealias WrapperType = CEFRequestContextHandler
-}
-
 typealias CEFRequestContextHandlerMarshaller = CEFMarshaller<CEFRequestContextHandler, cef_request_context_handler_t>
 
 extension CEFRequestContextHandler {

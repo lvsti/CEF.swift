@@ -11,10 +11,6 @@ import Foundation
 extension cef_v8handler_t: CEFObject {
 }
 
-extension cef_v8handler_t: CEFWrappable {
-    typealias WrapperType = CEFV8Handler
-}
-
 typealias CEFV8HandlerMarshaller = CEFMarshaller<CEFV8Handler, cef_v8handler_t>
 
 extension CEFV8Handler {

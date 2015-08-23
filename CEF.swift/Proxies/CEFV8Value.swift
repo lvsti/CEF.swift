@@ -269,7 +269,7 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
     
     public func getFunctionHandler() -> CEFV8Handler? {
         let cefHandler = cefObject.get_function_handler(cefObjectPtr)
-        return cefHandler.toSwift()
+        return CEFV8HandlerMarshaller.take(cefHandler)
     }
     
     public func executeFunction(object: CEFV8Value?, arguments: [CEFV8Value]) -> CEFV8Value? {

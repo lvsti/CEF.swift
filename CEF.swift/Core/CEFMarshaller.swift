@@ -17,16 +17,6 @@ protocol CEFCallbackMarshalling {
     mutating func marshalCallbacks()
 }
 
-protocol CEFWrappable {
-    typealias WrapperType
-}
-
-extension UnsafeMutablePointer where Memory : CEFWrappable, Memory : CEFObject, Memory : CEFCallbackMarshalling {
-    func toSwift() -> Memory.WrapperType? {
-        return CEFMarshaller<Memory.WrapperType, Memory>.take(self)
-    }
-}
-
 
 class CEFMarshallerBase {
     static var _registryLock: Lock = CEFMarshallerBase.createLock()
