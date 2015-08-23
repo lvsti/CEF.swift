@@ -19,41 +19,20 @@ protocol CEFCallbackMarshalling {
 
 
 class CEFMarshallerBase {
-    static var _registryLock: Lock = CEFMarshallerBase.createLock()
-    static var _registry = Dictionary<UnsafeMutablePointer<cef_base_t>, CEFMarshallerBase>()
+    static let kCEFMarshallerStructOffset = 16
     
-    static func register(ptr: UnsafeMutablePointer<cef_base_t>, forObject obj: CEFMarshallerBase) {
-        _registryLock.lock()
-        defer { _registryLock.unlock() }
-        
-        _registry[ptr] = obj
+    static func getBaseStructPtrFromMarshaller(marshaller: CEFMarshallerBase) -> UnsafeMutablePointer<cef_base_t> {
+        let unmanaged = Unmanaged<AnyObject>.passUnretained(marshaller)
+        let marshallerPtr = UnsafeMutablePointer<Int8>(unmanaged.toOpaque())
+        let structPtr = marshallerPtr.advancedBy(kCEFMarshallerStructOffset)
+        return UnsafeMutablePointer<cef_base_t>(structPtr)
     }
     
-    static func deregister(ptr: UnsafeMutablePointer<cef_base_t>) {
-        _registryLock.lock()
-        defer { _registryLock.unlock() }
-        
-        _registry.removeValueForKey(ptr)
-    }
-
-    static func lookup(ptr: UnsafeMutablePointer<cef_base_t>) -> CEFMarshallerBase? {
-        _registryLock.lock()
-        defer { _registryLock.unlock() }
-        
-        return _registry[ptr]
-    }
-    
-    static func createLock() -> Lock {
-        var mutex = pthread_mutex_t()
-        pthread_mutex_init(&mutex, nil)
-        return mutex
-    }
-    
-    static func destroyLock(lock: Lock) {
-        guard var mutex = lock as? pthread_mutex_t else {
-            return
-        }
-        pthread_mutex_destroy(&mutex)
+    static func getMarshallerFromBaseStructPtr(ptr: UnsafeMutablePointer<cef_base_t>) -> CEFMarshallerBase {
+        let rawPtr = UnsafeMutablePointer<Int8>(ptr)
+        let marshallerPtr = COpaquePointer(rawPtr.advancedBy(-kCEFMarshallerStructOffset))
+        let unmanaged = Unmanaged<CEFMarshallerBase>.fromOpaque(marshallerPtr)
+        return unmanaged.takeUnretainedValue()
     }
 }
 
@@ -64,16 +43,14 @@ class CEFMarshaller<TClass, TStruct where TStruct : CEFObject, TStruct : CEFCall
     var swiftObj: TClass
     
     static func get(ptr: UnsafeMutablePointer<TStruct>) -> TClass? {
-        let basePtr = UnsafeMutablePointer<cef_base_t>(ptr)
-        guard let marshaller = lookup(basePtr) as? InstanceType else {
+        guard let marshaller = getMarshallerFromBaseStructPtr(UnsafeMutablePointer<cef_base_t>(ptr)) as? InstanceType else {
             return nil
         }
         return marshaller.swiftObj
     }
     
     static func take(ptr: UnsafeMutablePointer<TStruct>) -> TClass? {
-        let basePtr = UnsafeMutablePointer<cef_base_t>(ptr)
-        guard let marshaller = lookup(basePtr) as? InstanceType else {
+        guard let marshaller = getMarshallerFromBaseStructPtr(UnsafeMutablePointer<cef_base_t>(ptr)) as? InstanceType else {
             return nil
         }
         marshaller.release()
@@ -84,14 +61,7 @@ class CEFMarshaller<TClass, TStruct where TStruct : CEFObject, TStruct : CEFCall
         let marshaller = CEFMarshaller(obj: obj)
         marshaller.addRef()
         
-        return UnsafeMutablePointer<TStruct>(getBasePtr(marshaller))
-    }
-    
-    static func getBasePtr(marshaller: CEFMarshaller) -> UnsafeMutablePointer<cef_base_t> {
-        let unmanaged = Unmanaged<AnyObject>.passUnretained(marshaller)
-        let marshallerPtr = UnsafeMutablePointer<Int8>(unmanaged.toOpaque())
-        let structPtr = marshallerPtr.advancedBy(16)
-        return UnsafeMutablePointer<cef_base_t>(structPtr)
+        return UnsafeMutablePointer<TStruct>(getBaseStructPtrFromMarshaller(marshaller))
     }
     
     required init(obj: TClass) {
@@ -106,10 +76,24 @@ class CEFMarshaller<TClass, TStruct where TStruct : CEFObject, TStruct : CEFCall
         cefStruct.base.has_one_ref = CEFMarshaller_hasOneRef
 
         cefStruct.marshalCallbacks()
+        
+        super.init()
+
+#if DEBUG
+        let marshallerPtr = UnsafePointer<Int8>(unsafeAddressOf(self))
+        let basePtr = CEFMarshaller.getBasePtr(self)
+        let ptr = UnsafePointer<Int8>(basePtr)
+        assert(ptr.distanceTo(marshallerPtr) == kCEFMarshallerStructOffset)
+        var offset = strideof(size_t)
+        while offset < cefStruct.base.size {
+            let fptr = UnsafePointer<UnsafePointer<Void>>(ptr.advancedBy(offset))
+            assert(fptr.memory != nil, "uninitialized field at offset \(offset) in \(TStruct.self)")
+            offset += strideof(UnsafePointer<Void>)
+        }
+#endif
     }
     
     deinit {
-        print("\(self) deinit\n")
         pthread_mutex_destroy(&_refCountMutex)
     }
     
@@ -119,10 +103,6 @@ class CEFMarshaller<TClass, TStruct where TStruct : CEFObject, TStruct : CEFCall
         _refCountMutex.lock()
         defer { _refCountMutex.unlock() }
         ++_refCount
-        if _refCount == 1 {
-            let basePtr = CEFMarshaller.getBasePtr(self)
-            CEFMarshaller.register(basePtr, forObject: self)
-        }
         _self = self
     }
     
@@ -133,8 +113,6 @@ class CEFMarshaller<TClass, TStruct where TStruct : CEFObject, TStruct : CEFCall
         let shouldRelease = _refCount == 0
         if shouldRelease {
             _self = nil
-            let basePtr = CEFMarshaller.getBasePtr(self)
-            CEFMarshaller.deregister(basePtr)
         }
         return shouldRelease
     }
@@ -151,21 +129,21 @@ class CEFMarshaller<TClass, TStruct where TStruct : CEFObject, TStruct : CEFCall
 }
 
 func CEFMarshaller_addRef(ptr: UnsafeMutablePointer<cef_base_t>) {
-    guard let marshaller = CEFMarshallerBase.lookup(ptr) as? CEFRefCounting else {
+    guard let marshaller = CEFMarshallerBase.getMarshallerFromBaseStructPtr(ptr) as? CEFRefCounting else {
         return
     }
     marshaller.addRef()
 }
 
 func CEFMarshaller_release(ptr: UnsafeMutablePointer<cef_base_t>) -> Int32 {
-    guard let marshaller = CEFMarshallerBase.lookup(ptr) as? CEFRefCounting else {
+    guard let marshaller = CEFMarshallerBase.getMarshallerFromBaseStructPtr(ptr) as? CEFRefCounting else {
         return 0
     }
     return marshaller.release() ? 1 : 0
 }
 
 func CEFMarshaller_hasOneRef(ptr: UnsafeMutablePointer<cef_base_t>) -> Int32 {
-    guard let marshaller = CEFMarshallerBase.lookup(ptr) as? CEFRefCounting else {
+    guard let marshaller = CEFMarshallerBase.getMarshallerFromBaseStructPtr(ptr) as? CEFRefCounting else {
         return 0
     }
     return marshaller.hasOneRef() ? 1 : 0
