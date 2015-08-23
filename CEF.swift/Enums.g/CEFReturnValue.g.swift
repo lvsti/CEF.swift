@@ -7,24 +7,16 @@
 
 import Foundation
 
-///
-// Return value types.
-///
+/// Return value types.
 public enum CEFReturnValue: Int32 {
 
-    ///
-    // Cancel immediately.
-    ///
+    /// Cancel immediately.
     case Cancel = 0
 
-    ///
-    // Continue immediately.
-    ///
+    /// Continue immediately.
     case Continue
 
-    ///
-    // Continue asynchronously (usually via a callback).
-    ///
+    /// Continue asynchronously (usually via a callback).
     case ContinueAsync
 }
 

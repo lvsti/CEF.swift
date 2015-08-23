@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// Navigation types.
-///
+/// Navigation types.
 public enum CEFNavigationType: Int32 {
     case LinkClicked = 0
     case FormSubmitted

@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// Geoposition error codes.
-///
+/// Geoposition error codes.
 public enum CEFGeopositionErrorCode: Int32 {
     case None = 0
     case PermissionDenied

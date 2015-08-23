@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// Error codes that can be returned from CefParseJSONAndReturnError.
-///
+/// Error codes that can be returned from CefParseJSONAndReturnError.
 public enum CEFJSONParserError: Int32 {
     case NoError = 0
     case InvalidEscape

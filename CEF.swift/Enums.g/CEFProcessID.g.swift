@@ -7,19 +7,13 @@
 
 import Foundation
 
-///
-// Existing process IDs.
-///
+/// Existing process IDs.
 public enum CEFProcessID: Int32 {
 
-    ///
-    // Browser process.
-    ///
+    /// Browser process.
     case Browser
 
-    ///
-    // Renderer process.
-    ///
+    /// Renderer process.
     case Renderer
 }
 

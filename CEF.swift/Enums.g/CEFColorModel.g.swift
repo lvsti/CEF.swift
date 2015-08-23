@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// Print job color mode values.
-///
+/// Print job color mode values.
 public enum CEFColorModel: Int32 {
     case Unknown
     case Gray

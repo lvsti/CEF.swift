@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// DOM event processing phases.
-///
+/// DOM event processing phases.
 public enum CEFDOMEventPhase: Int32 {
     case Unknown = 0
     case Capturing

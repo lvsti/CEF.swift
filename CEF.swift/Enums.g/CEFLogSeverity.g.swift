@@ -7,39 +7,25 @@
 
 import Foundation
 
-///
-// Log severity levels.
-///
+/// Log severity levels.
 public enum CEFLogSeverity: Int32 {
 
-    ///
-    // Default logging (currently INFO logging).
-    ///
+    /// Default logging (currently INFO logging).
     case Default
 
-    ///
-    // Verbose logging.
-    ///
+    /// Verbose logging.
     case Verbose
 
-    ///
-    // INFO logging.
-    ///
+    /// INFO logging.
     case Info
 
-    ///
-    // WARNING logging.
-    ///
+    /// WARNING logging.
     case Warning
 
-    ///
-    // ERROR logging.
-    ///
+    /// ERROR logging.
     case Error
 
-    ///
-    // Completely disable logging.
-    ///
+    /// Completely disable logging.
     case Disable = 99
 }
 

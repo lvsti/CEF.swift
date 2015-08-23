@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// The manner in which a link click should be opened.
-///
+/// The manner in which a link click should be opened.
 public enum CEFWindowOpenDisposition: Int32 {
     case Unknown
     case SuppressOpen

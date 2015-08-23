@@ -7,10 +7,8 @@
 
 import Foundation
 
-///
-// Supported menu IDs. Non-English translations can be provided for the
-// IDS_MENU_* strings in CefResourceBundleHandler::GetLocalizedString().
-///
+/// Supported menu IDs. Non-English translations can be provided for the
+/// IDS_MENU_* strings in CefResourceBundleHandler::GetLocalizedString().
 public struct CEFMenuID: RawRepresentable {
     public let rawValue: Int32
     public init(rawValue: Int32) {

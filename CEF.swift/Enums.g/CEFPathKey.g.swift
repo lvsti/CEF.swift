@@ -7,52 +7,34 @@
 
 import Foundation
 
-///
-// Path key values.
-///
+/// Path key values.
 public enum CEFPathKey: Int32 {
 
-    ///
-    // Current directory.
-    ///
+    /// Current directory.
     case DirCurrent
 
-    ///
-    // Directory containing PK_FILE_EXE.
-    ///
+    /// Directory containing PK_FILE_EXE.
     case DirExe
 
-    ///
-    // Directory containing PK_FILE_MODULE.
-    ///
+    /// Directory containing PK_FILE_MODULE.
     case DirModule
 
-    ///
-    // Temporary directory.
-    ///
+    /// Temporary directory.
     case DirTemp
 
-    ///
-    // Path and filename of the current executable.
-    ///
+    /// Path and filename of the current executable.
     case FileExe
 
-    ///
-    // Path and filename of the module containing the CEF code (usually the libcef
-    // module).
-    ///
+    /// Path and filename of the module containing the CEF code (usually the libcef
+    /// module).
     case FileModule
 
-    ///
-    // "Local Settings\Application Data" directory under the user profile
-    // directory on Windows.
-    ///
+    /// "Local Settings\Application Data" directory under the user profile
+    /// directory on Windows.
     case LocalAppData
 
-    ///
-    // "Application Data" directory under the user profile directory on Windows
-    // and "~/Library/Application Support" directory on Mac OS X.
-    ///
+    /// "Application Data" directory under the user profile directory on Windows
+    /// and "~/Library/Application Support" directory on Mac OS X.
     case UserData
 }
 

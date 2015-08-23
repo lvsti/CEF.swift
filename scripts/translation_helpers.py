@@ -21,3 +21,35 @@ def indent_multiline_string(mls, level):
         retval += "\t".expandtabs(4*level) + line.lstrip()
     return retval
 
+def strip_c_comment_prefix(mls):
+    retval = ""
+    for line in mls.splitlines(True):
+        stripped = line.lstrip()
+        if len(stripped) >= 2 and stripped[:2] == "//":
+            retval += stripped[2:].lstrip()
+            
+    return retval
+
+def make_swiftdoc_comment(desc, params = None, returns = None):
+    retval = ""
+    if desc != None:
+        retval += indent_multiline_string(desc, 0)
+    
+    if params != None:
+        if desc != None:
+            retval += "\n\n"
+        for param_name in params:
+            retval += ":param: " + param_name + " " + params[param_name].lstrip() + "\n"
+        retval = retval.rstrip()
+    
+    if returns != None:
+        if params != None or desc != None:
+            retval += "\n\n"
+        retval += ":returns: " + returns.lstrip() + "\n"
+    
+    swiftdoc = ""
+    for line in retval.splitlines(True):
+        swiftdoc += "/// " + line
+
+    return swiftdoc
+

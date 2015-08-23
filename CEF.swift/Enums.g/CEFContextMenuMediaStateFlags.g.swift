@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// Supported context menu media state bit flags.
-///
+/// Supported context menu media state bit flags.
 public struct CEFContextMenuMediaStateFlags: OptionSetType {
     public let rawValue: UInt32
     public init(rawValue: UInt32) {

@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// V8 access control values.
-///
+/// V8 access control values.
 public struct CEFV8AccessControl: OptionSetType {
     public let rawValue: UInt32
     public init(rawValue: UInt32) {

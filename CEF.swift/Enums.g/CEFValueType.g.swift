@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// Supported value types.
-///
+/// Supported value types.
 public enum CEFValueType: Int32 {
     case Invalid = 0
     case Null

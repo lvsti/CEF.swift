@@ -7,35 +7,23 @@
 
 import Foundation
 
-///
-// Flags that represent CefURLRequest status.
-///
+/// Flags that represent CefURLRequest status.
 public enum CEFURLRequestStatus: Int32 {
 
-    ///
-    // Unknown status.
-    ///
+    /// Unknown status.
     case Unknown = 0
 
-    ///
-    // Request succeeded.
-    ///
+    /// Request succeeded.
     case Success
 
-    ///
-    // An IO request is pending, and the caller will be informed when it is
-    // completed.
-    ///
+    /// An IO request is pending, and the caller will be informed when it is
+    /// completed.
     case IOPending
 
-    ///
-    // Request was canceled programatically.
-    ///
+    /// Request was canceled programatically.
     case Canceled
 
-    ///
-    // Request failed for some reason.
-    ///
+    /// Request failed for some reason.
     case Failed
 }
 

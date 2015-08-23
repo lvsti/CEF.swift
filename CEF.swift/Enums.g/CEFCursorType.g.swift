@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// Cursor type values.
-///
+/// Cursor type values.
 public enum CEFCursorType: Int32 {
     case Pointer = 0
     case Cross

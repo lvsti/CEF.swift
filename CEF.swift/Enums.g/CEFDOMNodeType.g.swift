@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// DOM node types.
-///
+/// DOM node types.
 public enum CEFDOMNodeType: Int32 {
     case Unsupported = 0
     case Element

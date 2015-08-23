@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// Supported JavaScript dialog types.
-///
+/// Supported JavaScript dialog types.
 public enum CEFJSDialogType: Int32 {
     case Alert = 0
     case Confirm

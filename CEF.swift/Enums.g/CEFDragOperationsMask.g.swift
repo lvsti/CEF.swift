@@ -7,11 +7,9 @@
 
 import Foundation
 
-///
-// "Verb" of a drag-and-drop operation as negotiated between the source and
-// destination. These constants match their equivalents in WebCore's
-// DragActions.h and should not be renumbered.
-///
+/// "Verb" of a drag-and-drop operation as negotiated between the source and
+/// destination. These constants match their equivalents in WebCore's
+/// DragActions.h and should not be renumbered.
 public struct CEFDragOperationsMask: OptionSetType {
     public let rawValue: UInt32
     public init(rawValue: UInt32) {

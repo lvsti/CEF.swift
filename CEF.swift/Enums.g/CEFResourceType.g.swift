@@ -7,90 +7,56 @@
 
 import Foundation
 
-///
-// Resource type for a request.
-///
+/// Resource type for a request.
 public enum CEFResourceType: Int32 {
 
-    ///
-    // Top level page.
-    ///
+    /// Top level page.
     case MainFrame = 0
 
-    ///
-    // Frame or iframe.
-    ///
+    /// Frame or iframe.
     case Subframe
 
-    ///
-    // CSS stylesheet.
-    ///
+    /// CSS stylesheet.
     case StyleSheet
 
-    ///
-    // External script.
-    ///
+    /// External script.
     case Script
 
-    ///
-    // Image (jpg/gif/png/etc).
-    ///
+    /// Image (jpg/gif/png/etc).
     case Image
 
-    ///
-    // Font.
-    ///
+    /// Font.
     case FontResource
 
-    ///
-    // Some other subresource. This is the default type if the actual type is
-    // unknown.
-    ///
+    /// Some other subresource. This is the default type if the actual type is
+    /// unknown.
     case Subresource
 
-    ///
-    // Object (or embed) tag for a plugin, or a resource that a plugin requested.
-    ///
+    /// Object (or embed) tag for a plugin, or a resource that a plugin requested.
     case Object
 
-    ///
-    // Media resource.
-    ///
+    /// Media resource.
     case Media
 
-    ///
-    // Main resource of a dedicated worker.
-    ///
+    /// Main resource of a dedicated worker.
     case Worker
 
-    ///
-    // Main resource of a shared worker.
-    ///
+    /// Main resource of a shared worker.
     case SharedWorker
 
-    ///
-    // Explicitly requested prefetch.
-    ///
+    /// Explicitly requested prefetch.
     case Prefetch
 
-    ///
-    // Favicon.
-    ///
+    /// Favicon.
     case Favicon
 
-    ///
-    // XMLHttpRequest.
-    ///
+    /// XMLHttpRequest.
     case XHR
 
-    ///
-    // A request for a <ping>
-    ///
+    /// A request for a <ping>
     case Ping
 
-    ///
-    // Main resource of a service worker.
-    ///
+    /// Main resource of a service worker.
     case ServiceWorker
 }
 

@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// DOM document types.
-///
+/// DOM document types.
 public enum CEFDOMDocumentType: Int32 {
     case Unknown = 0
     case HTML

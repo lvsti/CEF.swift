@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// XML node types.
-///
+/// XML node types.
 public enum CEFXMLNodeType: Int32 {
     case Unsupported = 0
     case ProcessingInstruction

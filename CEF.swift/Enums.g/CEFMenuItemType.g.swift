@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// Supported menu item types.
-///
+/// Supported menu item types.
 public enum CEFMenuItemType: Int32 {
     case None
     case Command

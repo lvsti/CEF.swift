@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// Supported context menu type flags.
-///
+/// Supported context menu type flags.
 public struct CEFContextMenuTypeFlags: OptionSetType {
     public let rawValue: UInt32
     public init(rawValue: UInt32) {
@@ -17,39 +15,25 @@ public struct CEFContextMenuTypeFlags: OptionSetType {
     }
 
 
-    ///
-    // No node is selected.
-    ///
+    /// No node is selected.
     public static let None = CEFContextMenuTypeFlags(rawValue: 0)
 
-    ///
-    // The top page is selected.
-    ///
+    /// The top page is selected.
     public static let Page = CEFContextMenuTypeFlags(rawValue: 1 << 0)
 
-    ///
-    // A subframe page is selected.
-    ///
+    /// A subframe page is selected.
     public static let Frame = CEFContextMenuTypeFlags(rawValue: 1 << 1)
 
-    ///
-    // A link is selected.
-    ///
+    /// A link is selected.
     public static let Link = CEFContextMenuTypeFlags(rawValue: 1 << 2)
 
-    ///
-    // A media node is selected.
-    ///
+    /// A media node is selected.
     public static let Media = CEFContextMenuTypeFlags(rawValue: 1 << 3)
 
-    ///
-    // There is a textual or mixed selection that is selected.
-    ///
+    /// There is a textual or mixed selection that is selected.
     public static let Selection = CEFContextMenuTypeFlags(rawValue: 1 << 4)
 
-    ///
-    // An editable element is selected.
-    ///
+    /// An editable element is selected.
     public static let Editable = CEFContextMenuTypeFlags(rawValue: 1 << 5)
 }
 

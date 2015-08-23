@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// V8 property attribute values.
-///
+/// V8 property attribute values.
 public struct CEFV8PropertyAttribute: OptionSetType {
     public let rawValue: UInt32
     public init(rawValue: UInt32) {

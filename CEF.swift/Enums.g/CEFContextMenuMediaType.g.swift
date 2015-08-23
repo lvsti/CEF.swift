@@ -7,39 +7,25 @@
 
 import Foundation
 
-///
-// Supported context menu media types.
-///
+/// Supported context menu media types.
 public enum CEFContextMenuMediaType: Int32 {
 
-    ///
-    // No special node is in context.
-    ///
+    /// No special node is in context.
     case None
 
-    ///
-    // An image node is selected.
-    ///
+    /// An image node is selected.
     case Image
 
-    ///
-    // A video node is selected.
-    ///
+    /// A video node is selected.
     case Video
 
-    ///
-    // An audio node is selected.
-    ///
+    /// An audio node is selected.
     case Audio
 
-    ///
-    // A file node is selected.
-    ///
+    /// A file node is selected.
     case File
 
-    ///
-    // A plugin node is selected.
-    ///
+    /// A plugin node is selected.
     case Plugin
 }
 

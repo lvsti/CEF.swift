@@ -7,24 +7,16 @@
 
 import Foundation
 
-///
-// Represents the state of a setting.
-///
+/// Represents the state of a setting.
 public enum CEFState: Int32 {
 
-    ///
-    // Use the default state for the setting.
-    ///
+    /// Use the default state for the setting.
     case Default = 0
 
-    ///
-    // Enable or allow the setting.
-    ///
+    /// Enable or allow the setting.
     case Enabled
 
-    ///
-    // Disable or disallow the setting.
-    ///
+    /// Disable or disallow the setting.
     case Disabled
 }
 

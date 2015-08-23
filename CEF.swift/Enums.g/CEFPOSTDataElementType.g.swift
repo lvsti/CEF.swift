@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// Post data elements may represent either bytes or files.
-///
+/// Post data elements may represent either bytes or files.
 public enum CEFPOSTDataElementType: Int32 {
     case Empty = 0
     case Bytes

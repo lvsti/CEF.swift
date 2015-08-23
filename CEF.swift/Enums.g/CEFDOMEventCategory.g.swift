@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// DOM event category flags.
-///
+/// DOM event category flags.
 public struct CEFDOMEventCategory: OptionSetType {
     public let rawValue: UInt32
     public init(rawValue: UInt32) {

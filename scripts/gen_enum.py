@@ -37,8 +37,8 @@ def common_prefix(m):
     return s1    
 
 
-enum_type_pattern = re.compile("(\/\/\/\s*\n(?:\s*\/\/(?!\/)[^\n]*\n)+\s*\/\/\/\s*)\s*typedef\s+enum\s*{\s*([^}]*?)\s*}\s*([^;]+);", re.S)
-enum_value_pattern = re.compile("(\/\/\/\s*\n(?:\s*\/\/(?!\/)[^\n]*\n)+\s*\/\/\/\s*)?(?:^|\n)\s*(\w+)\s*(?:=\s*([^,\/]+)\s*)?,?\s*((?:\s*\/\/(?!\/)[^\n]*)*)(?=(?:\n|$))", re.S)
+enum_type_pattern = re.compile("\/\/\/\s*\n((?:\s*\/\/(?!\/)[^\n]*\n)+)\s*\/\/\/\s*\s*typedef\s+enum\s*{\s*([^}]*?)\s*}\s*([^;]+);", re.S)
+enum_value_pattern = re.compile("(?:\/\/\/\s*\n((?:\s*\/\/(?!\/)[^\n]*\n)+)\s*\/\/\/\s*)?(?:^|\n)\s*(\w+)\s*(?:=\s*([^,\/]+)\s*)?,?\s*((?:\s*\/\/(?!\/)[^\n]*)*)(?=(?:\n|$))", re.S)
 
 def make_enum(cef_capi_name, cef_body):
     result = ""
@@ -59,7 +59,7 @@ def make_enum(cef_capi_name, cef_body):
     prefix = string.join(common_prefix(names).split("_")[:-1], "_")
     for i in range(0, len(names)):
         if head_comments[i] != None:
-            result += "\n" + indent_multiline_string(head_comments[i], 1) + "\n"
+            result += "\n" + indent_multiline_string(make_swiftdoc_comment(strip_c_comment_prefix(head_comments[i])), 1)
         elif inline_comments[i] != None and len(inline_comments[i].strip()) > 0:
             result += "\n" + indent_multiline_string("///\n" + inline_comments[i] + "\n///", 1) + "\n"
             
@@ -112,7 +112,7 @@ def make_option_set(cef_capi_name, cef_body):
     prefix = string.join(common_prefix(names).split("_")[:-1], "_")
     for i in range(0, len(names)):
         if head_comments[i] != None:
-            result += "\n" + indent_multiline_string(head_comments[i], 1) + "\n"
+            result += "\n" + indent_multiline_string(make_swiftdoc_comment(strip_c_comment_prefix(head_comments[i])), 1)
         elif inline_comments[i] != None and len(inline_comments[i].strip()) > 0:
             result += "\n" + indent_multiline_string("///\n" + inline_comments[i] + "\n///", 1) + "\n"
             
@@ -159,7 +159,7 @@ def make_const_collection(cef_capi_name, cef_header_name):
     prefix = string.join(common_prefix(names).split("_")[:-1], "_")
     for i in range(0, len(names)):
         if head_comments[i] != None:
-            result += "\n" + indent_multiline_string(head_comments[i], 1) + "\n"
+            result += "\n" + indent_multiline_string(make_swiftdoc_comment(strip_c_comment_prefix(head_comments[i])), 1)
         elif inline_comments[i] != None and len(inline_comments[i].strip()) > 0:
             result += "\n" + indent_multiline_string("///\n" + inline_comments[i] + "\n///", 1) + "\n"
             
@@ -215,7 +215,7 @@ for type_match in re.finditer(enum_type_pattern, infile_contents):
     type_name = type_match.group(3)
     
     result = ""
-    result += indent_multiline_string(type_comment, 0)
+    result += indent_multiline_string(make_swiftdoc_comment(strip_c_comment_prefix(type_comment)), 0)
     
     if type_name in cef_enums:
         result += make_enum(type_name, type_body)

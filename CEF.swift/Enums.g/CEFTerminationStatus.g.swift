@@ -7,24 +7,16 @@
 
 import Foundation
 
-///
-// Process termination status values.
-///
+/// Process termination status values.
 public enum CEFTerminationStatus: Int32 {
 
-    ///
-    // Non-zero exit status.
-    ///
+    /// Non-zero exit status.
     case AbnormalTermination
 
-    ///
-    // SIGKILL or task manager kill.
-    ///
+    /// SIGKILL or task manager kill.
     case ProcessWasKilled
 
-    ///
-    // Segmentation fault.
-    ///
+    /// Segmentation fault.
     case ProcessCrashed
 }
 

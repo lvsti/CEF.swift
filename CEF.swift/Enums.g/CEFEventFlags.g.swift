@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// Supported event bit flags.
-///
+/// Supported event bit flags.
 public struct CEFEventFlags: OptionSetType {
     public let rawValue: UInt32
     public init(rawValue: UInt32) {

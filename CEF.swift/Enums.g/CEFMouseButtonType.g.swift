@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// Mouse button types.
-///
+/// Mouse button types.
 public enum CEFMouseButtonType: Int32 {
     case Left = 0
     case Middle

@@ -7,10 +7,8 @@
 
 import Foundation
 
-///
-// Supported error code values. See net\base\net_error_list.h for complete
-// descriptions of the error codes.
-///
+/// Supported error code values. See net\base\net_error_list.h for complete
+/// descriptions of the error codes.
 public struct CEFErrorCode: RawRepresentable {
     public let rawValue: Int32
     public init(rawValue: Int32) {

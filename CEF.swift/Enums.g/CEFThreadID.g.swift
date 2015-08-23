@@ -7,52 +7,34 @@
 
 import Foundation
 
-///
-// Existing thread IDs.
-///
+/// Existing thread IDs.
 public enum CEFThreadID: Int32 {
 
-    ///
-    // The main thread in the browser. This will be the same as the main
-    // application thread if CefInitialize() is called with a
-    // CefSettings.multi_threaded_message_loop value of false.
-    ///
+    /// The main thread in the browser. This will be the same as the main
+    /// application thread if CefInitialize() is called with a
+    /// CefSettings.multi_threaded_message_loop value of false.
     case UI
 
-    ///
-    // Used to interact with the database.
-    ///
+    /// Used to interact with the database.
     case DB
 
-    ///
-    // Used to interact with the file system.
-    ///
+    /// Used to interact with the file system.
     case File
 
-    ///
-    // Used for file system operations that block user interactions.
-    // Responsiveness of this thread affects users.
-    ///
+    /// Used for file system operations that block user interactions.
+    /// Responsiveness of this thread affects users.
     case FileUserBlocking
 
-    ///
-    // Used to launch and terminate browser processes.
-    ///
+    /// Used to launch and terminate browser processes.
     case ProcessLauncher
 
-    ///
-    // Used to handle slow HTTP cache operations.
-    ///
+    /// Used to handle slow HTTP cache operations.
     case Cache
 
-    ///
-    // Used to process IPC and network messages.
-    ///
+    /// Used to process IPC and network messages.
     case IO
 
-    ///
-    // The main thread in the renderer. Used for all WebKit and V8 interaction.
-    ///
+    /// The main thread in the renderer. Used for all WebKit and V8 interaction.
     case Renderer
 }
 

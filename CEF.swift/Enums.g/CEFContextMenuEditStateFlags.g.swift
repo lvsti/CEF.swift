@@ -7,9 +7,7 @@
 
 import Foundation
 
-///
-// Supported context menu edit state bit flags.
-///
+/// Supported context menu edit state bit flags.
 public struct CEFContextMenuEditStateFlags: OptionSetType {
     public let rawValue: UInt32
     public init(rawValue: UInt32) {
