@@ -16,6 +16,10 @@ public func CEFVisitWebPluginInfo(visitor: CEFWebPluginInfoVisitor) {
     cef_visit_web_plugin_info(visitor.toCEF())
 }
 
+public func CEFVisitWebPluginInfo(block: CEFWebPluginInfoVisitorVisitBlock) {
+    CEFVisitWebPluginInfo(CEFWebPluginInfoVisitorBridge(block: block))
+}
+
 ///
 // Cause the plugin list to refresh the next time it is accessed regardless
 // of whether it has already been loaded. Can be called on any thread in the
@@ -97,5 +101,9 @@ public func CEFIsWebPluginUnstable(path: String, callback: CEFWebPluginUnstableC
     let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
     defer { CEFStringPtrRelease(cefStrPtr) }
     cef_is_web_plugin_unstable(cefStrPtr, callback.toCEF())
+}
+
+public func CEFIsWebPluginUnstable(path: String, block: CEFWebPluginUnstableCallbackIsUnstableBlock) {
+    CEFIsWebPluginUnstable(path, callback: CEFWebPluginUnstableCallbackBridge(block: block))
 }
 

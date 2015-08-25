@@ -142,3 +142,20 @@ public class CEFFrame: CEFProxy<cef_frame_t> {
         return CEFFrame(ptr: ptr)
     }
 }
+
+
+public extension CEFFrame {
+    
+    public func visitDOM(block: CEFDOMVisitorVisitBlock) {
+        visitDOM(CEFDOMVisitorBridge(block: block))
+    }
+
+    public func getSource(block: CEFStringVisitorVisitBlock) {
+        getSource(CEFStringVisitorBridge(block: block))
+    }
+
+    public func getText(block: CEFStringVisitorVisitBlock) {
+        getText(CEFStringVisitorBridge(block: block))
+    }
+    
+}

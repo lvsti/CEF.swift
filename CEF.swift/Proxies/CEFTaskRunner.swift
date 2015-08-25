@@ -53,3 +53,16 @@ public class CEFTaskRunner: CEFProxy<cef_task_runner_t> {
     }
 }
 
+
+public extension CEFTaskRunner {
+    
+    public func postTask(block: CEFTaskExecuteBlock) -> Bool {
+        return postTask(CEFTaskBridge(block: block))
+    }
+    
+    public func postDelayedTask(delayInMsec delay: Int64, block: CEFTaskExecuteBlock) -> Bool {
+        return postDelayedTask(CEFTaskBridge(block: block), delayInMsec: delay)
+    }
+    
+}
+

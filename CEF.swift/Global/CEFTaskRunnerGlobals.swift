@@ -24,6 +24,10 @@ public func CEFPostTask(onThread threadID: CEFThreadID, task: CEFTask) -> Bool {
     return cef_post_task(threadID.toCEF(), task.toCEF()) != 0
 }
 
+public func CEFPostTask(onThread threadID: CEFThreadID, block: CEFTaskExecuteBlock) -> Bool {
+    return CEFPostTask(onThread: threadID, task: CEFTaskBridge(block: block))
+}
+
 ///
 // Post a task for delayed execution on the specified thread. Equivalent to
 // using CefTaskRunner::GetForThread(threadId)->PostDelayedTask(task, delay_ms).
@@ -32,3 +36,6 @@ public func CEFPostDelayedTask(onThread threadID: CEFThreadID, task: CEFTask, de
     return cef_post_delayed_task(threadID.toCEF(), task.toCEF(), delay) != 0
 }
 
+public func CEFPostDelayedTask(onThread threadID: CEFThreadID, delayInMsec delay: Int64, block: CEFTaskExecuteBlock) -> Bool {
+    return CEFPostDelayedTask(onThread: threadID, task: CEFTaskBridge(block: block), delayInMsec: delay)
+}

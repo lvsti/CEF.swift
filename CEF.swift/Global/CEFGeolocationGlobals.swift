@@ -16,3 +16,7 @@ import Foundation
 public func CEFGetGeolocation(callback: CEFGetGeolocationCallback) -> Bool {
     return cef_get_geolocation(callback.toCEF()) != 0
 }
+
+public func CEFGetGeolocation(block: CEFGetGeolocationCallbackOnLocationUpdateBlock) -> Bool {
+    return CEFGetGeolocation(CEFGetGeolocationCallbackBridge(block: block))
+}

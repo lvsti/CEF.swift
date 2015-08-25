@@ -298,4 +298,26 @@ public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
         return CEFBrowserHost(ptr: ptr)
     }
 
-};
+}
+
+
+public extension CEFBrowserHost {
+    public func getNavigationEntries(currentOnly: Bool, block: CEFNavigationEntryVisitorVisitBlock) {
+        getNavigationEntries(CEFNavigationEntryVisitorBridge(block: block), currentOnly: currentOnly)
+    }
+
+    public func runFileDialog(mode: CEFFileDialogMode,
+                              title: String?,
+                              defaultPath: String?,
+                              acceptFilters: [String],
+                              selectedFilterIndex: Int,
+                              block: CEFRunFileDialogCallbackOnFileDialogDismissedBlock) {
+        runFileDialog(mode,
+                      title: title,
+                      defaultPath: defaultPath,
+                      acceptFilters: acceptFilters,
+                      selectedFilterIndex: selectedFilterIndex,
+                      callback: CEFRunFileDialogCallbackBridge(block: block))
+    }
+}
+

@@ -51,6 +51,10 @@ public func CEFEndTracing(tracingFilePath: String? = nil, callback: CEFEndTracin
     return cef_end_tracing(cefStrPtr, callback != nil ? callback!.toCEF() : nil) != 0
 }
 
+public func CEFEndTracing(tracingFilePath: String? = nil, block: CEFEndTracingCallbackOnEndTracingCompleteBlock) -> Bool {
+    return CEFEndTracing(tracingFilePath, callback: CEFEndTracingCallbackBridge(block: block))
+}
+
 ///
 // Returns the current system trace time or, if none is defined, the current
 // high-res time. Can be used by clients to synchronize with the time

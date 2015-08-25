@@ -11,7 +11,6 @@ import Foundation
 extension cef_cookie_manager_t: CEFObject {
 }
 
-
 public class CEFCookieManager: CEFProxy<cef_cookie_manager_t> {
 
     public static func getGlobalManager(callback: CEFCompletionCallback? = nil) -> CEFCookieManager? {
@@ -23,7 +22,7 @@ public class CEFCookieManager: CEFProxy<cef_cookie_manager_t> {
         let cefCookieMgr = cef_cookie_manager_get_global_manager(cefCallbackPtr)
         return CEFCookieManager.fromCEF(cefCookieMgr)
     }
-
+    
     public static func createManager(path: String? = nil,
                                      persistSessionCookies: Bool,
                                      callback: CEFCompletionCallback? = nil) -> CEFCookieManager? {
@@ -123,3 +122,53 @@ public class CEFCookieManager: CEFProxy<cef_cookie_manager_t> {
         return CEFCookieManager(ptr: ptr)
     }
 }
+
+
+public extension CEFCookieManager {
+
+    public static func getGlobalManager(block: CEFCompletionCallbackOnCompleteBlock) -> CEFCookieManager? {
+        return CEFCookieManager.getGlobalManager(CEFCompletionCallbackBridge(block: block))
+    }
+
+    public static func createManager(path: String? = nil,
+                                     persistSessionCookies: Bool,
+                                     block: CEFCompletionCallbackOnCompleteBlock) -> CEFCookieManager? {
+        return CEFCookieManager.createManager(path,
+                                              persistSessionCookies: persistSessionCookies,
+                                              callback: CEFCompletionCallbackBridge(block: block))
+    }
+
+    public func setSupportedSchemes(schemes: [String], block: CEFCompletionCallbackOnCompleteBlock) {
+        return setSupportedSchemes(schemes, callback: CEFCompletionCallbackBridge(block: block))
+    }
+
+    public func visitAllCookies(block: CEFCookieVisitorVisitBlock) -> Bool {
+        return visitAllCookies(CEFCookieVisitorBridge(block: block))
+    }
+    
+    public func visitURLCookies(url: NSURL, includeHTTPOnly: Bool, block: CEFCookieVisitorVisitBlock) -> Bool {
+        return visitURLCookies(url, includeHTTPOnly: includeHTTPOnly, visitor: CEFCookieVisitorBridge(block: block))
+    }
+
+    public func setCookie(url: NSURL, cookie: CEFCookie, block: CEFSetCookieCallbackOnCompleteBlock) -> Bool {
+        return setCookie(url, cookie: cookie, callback: CEFSetCookieCallbackBridge(block: block))
+    }
+    
+    public func deleteCookies(url: NSURL? = nil, name: String? = nil, block: CEFDeleteCookiesCallbackOnCompleteBlock) -> Bool {
+        return deleteCookies(url,
+                             name: name,
+                             callback: CEFDeleteCookiesCallbackBridge(block: block))
+    }
+
+    public func setStoragePath(path: String? = nil, persistSessionCookies: Bool, block: CEFCompletionCallbackOnCompleteBlock) -> Bool {
+        return setStoragePath(path,
+                              persistSessionCookies: persistSessionCookies,
+                              callback: CEFCompletionCallbackBridge(block: block))
+    }
+
+    public func flushStore(block: CEFCompletionCallbackOnCompleteBlock) -> Bool {
+        return flushStore(CEFCompletionCallbackBridge(block: block))
+    }
+
+}
+
