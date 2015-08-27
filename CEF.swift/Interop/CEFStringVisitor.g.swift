@@ -31,6 +31,6 @@ func CEFStringVisitor_visit(ptr: UnsafeMutablePointer<cef_string_visitor_t>,
         return
     }
     
-    obj.visit(CEFStringToSwiftString(string.memory))
+    obj.visit(string != nil ? CEFStringToSwiftString(string.memory) : nil)
 }
 

@@ -13,6 +13,10 @@ import Foundation
 ///
 public struct CEFMainArgs {
     public let arguments: [String]
+    
+    public init(arguments: [String]) {
+        self.arguments = arguments
+    }
 }
 
 

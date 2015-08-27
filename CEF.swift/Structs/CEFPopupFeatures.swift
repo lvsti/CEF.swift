@@ -12,19 +12,19 @@ import Foundation
 // Popup window features.
 ///
 public struct CEFPopupFeatures {
-    public var rect: NSRect
-    public var rectSet: NSRect
+    public let rect: NSRect
+    public let rectSet: NSRect
 
-    public var menuBarVisible: Bool
-    public var statusBarVisible: Bool
-    public var toolBarVisible: Bool
-    public var locationBarVisible: Bool
-    public var scrollbarsVisible: Bool
-    public var isResizable: Bool
-    public var isFullscreen: Bool
-    public var isDialog: Bool
+    public let menuBarVisible: Bool
+    public let statusBarVisible: Bool
+    public let toolBarVisible: Bool
+    public let locationBarVisible: Bool
+    public let scrollbarsVisible: Bool
+    public let isResizable: Bool
+    public let isFullscreen: Bool
+    public let isDialog: Bool
     
-    public var additionalFeatures: [String]
+    public let additionalFeatures: [String]
 }
 
 extension CEFPopupFeatures {

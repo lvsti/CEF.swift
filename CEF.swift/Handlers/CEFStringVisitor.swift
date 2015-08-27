@@ -16,14 +16,14 @@ public protocol CEFStringVisitor {
     ///
     // Method that will be executed.
     ///
-    func visit(string: String)
+    func visit(string: String?)
 
 }
 
 
 public extension CEFStringVisitor {
     
-    func visit(string: String) {
+    func visit(string: String?) {
     }
     
 }

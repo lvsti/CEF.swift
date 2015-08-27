@@ -21,7 +21,6 @@ public class CEFMenuModel: CEFProxy<cef_menu_model_t> {
 
     public typealias CommandID = CEFMenuID
     public typealias GroupID = Int32
-    public typealias MenuItemType = CEFMenuItemType
 
     ///
     // Clears the menu. Returns true on success.
@@ -210,17 +209,17 @@ public class CEFMenuModel: CEFProxy<cef_menu_model_t> {
     ///
     // Returns the item type for the specified |command_id|.
     ///
-    public func getType(commandID: CommandID) -> MenuItemType {
+    public func getType(commandID: CommandID) -> CEFMenuItemType {
         let cefType = cefObject.get_type(cefObjectPtr, commandID.toCEF())
-        return MenuItemType.fromCEF(cefType)
+        return CEFMenuItemType.fromCEF(cefType)
     }
 
     ///
     // Returns the item type at the specified |index|.
     ///
-    public func getTypeAt(index: Int32) -> MenuItemType {
+    public func getTypeAt(index: Int32) -> CEFMenuItemType {
         let cefType = cefObject.get_type_at(cefObjectPtr, index)
-        return MenuItemType.fromCEF(cefType)
+        return CEFMenuItemType.fromCEF(cefType)
     }
     
     ///

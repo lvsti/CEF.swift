@@ -13,6 +13,9 @@ import Foundation
 ///
 public struct CEFFileDialogMode: RawRepresentable {
     public let rawValue: UInt32
+    public init(rawValue: UInt32) {
+        self.rawValue = rawValue
+    }
     
     public enum Type: UInt8 {
         ///
@@ -57,10 +60,6 @@ public struct CEFFileDialogMode: RawRepresentable {
     
     public var type: Type { get { return Type(rawValue: UInt8(rawValue & FILE_DIALOG_TYPE_MASK.rawValue))! } }
     public var flags: Flags { get { return Flags(rawValue: rawValue & ~FILE_DIALOG_TYPE_MASK.rawValue) } }
-    
-    public init(rawValue: UInt32) {
-        self.rawValue = rawValue
-    }
 }
 
 extension CEFFileDialogMode {

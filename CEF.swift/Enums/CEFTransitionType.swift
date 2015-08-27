@@ -14,7 +14,10 @@ import Foundation
 ///
 public struct CEFTransitionType: RawRepresentable {
     public let rawValue: UInt
-    
+    public init(rawValue: UInt) {
+        self.rawValue = rawValue
+    }
+
     public enum Source: UInt8 {
         ///
         // Source is a link click or the JavaScript window.open function. This is
@@ -107,11 +110,9 @@ public struct CEFTransitionType: RawRepresentable {
     
     public var source: Source { get { return Source(rawValue: UInt8(UInt32(rawValue) & TT_SOURCE_MASK.rawValue))! } }
     public var flags: Flags { get { return Flags(rawValue: UInt(UInt32(rawValue) & TT_QUALIFIER_MASK.rawValue)) } }
-    
-    public init(rawValue: UInt) {
-        self.rawValue = rawValue
-    }
-    
+}
+
+extension CEFTransitionType {
     static func fromCEF(value: cef_transition_type_t) -> CEFTransitionType {
         return CEFTransitionType(rawValue: UInt(value.rawValue))
     }

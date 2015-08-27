@@ -38,7 +38,7 @@ func CEFApp_onBeforeCommandLineProcessing(ptr: UnsafeMutablePointer<cef_app_t>,
     }
     
     let processType: String? = procType != nil ? CEFStringToSwiftString(procType.memory) : nil
-    obj.onBeforeCommandLineProcessing(processType: processType,
+    obj.onBeforeCommandLineProcessing(processType,
                                       commandLine: CEFCommandLine.fromCEF(cmdLine)!)
 }
 

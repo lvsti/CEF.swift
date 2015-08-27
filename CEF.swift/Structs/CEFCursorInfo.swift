@@ -14,10 +14,10 @@ import Foundation
 // an upper-left origin.
 ///
 public struct CEFCursorInfo {
-    public var hotspot: NSPoint
-    public var scaleFactor: Double
-    public var buffer: UnsafeMutablePointer<Void>
-    public var size: NSSize
+    public let hotspot: NSPoint
+    public let scaleFactor: Double
+    public let buffer: UnsafeMutablePointer<Void>
+    public let size: NSSize
 }
 
 extension CEFCursorInfo {
