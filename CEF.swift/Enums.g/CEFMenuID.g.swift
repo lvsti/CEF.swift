@@ -20,9 +20,7 @@ public struct CEFMenuID: RawRepresentable {
     public static let Reload = CEFMenuID(rawValue: 102)
     public static let ReloadNoCache = CEFMenuID(rawValue: 103)
 
-    ///
-    // Editing.
-    ///
+    /// Editing.
     public static let StopLoad = CEFMenuID(rawValue: 104)
     public static let Undo = CEFMenuID(rawValue: 110)
     public static let Redo = CEFMenuID(rawValue: 111)
@@ -31,16 +29,12 @@ public struct CEFMenuID: RawRepresentable {
     public static let Paste = CEFMenuID(rawValue: 114)
     public static let Delete = CEFMenuID(rawValue: 115)
 
-    ///
-    // Miscellaneous.
-    ///
+    /// Miscellaneous.
     public static let SelectAll = CEFMenuID(rawValue: 116)
     public static let Find = CEFMenuID(rawValue: 130)
     public static let Print = CEFMenuID(rawValue: 131)
 
-    ///
-    // Spell checking word correction suggestions.
-    ///
+    /// Spell checking word correction suggestions.
     public static let ViewSource = CEFMenuID(rawValue: 132)
     public static let SpellcheckSuggestion0 = CEFMenuID(rawValue: 200)
     public static let SpellcheckSuggestion1 = CEFMenuID(rawValue: 201)
@@ -50,11 +44,9 @@ public struct CEFMenuID: RawRepresentable {
     public static let SpellcheckSuggestionLast = CEFMenuID(rawValue: 204)
     public static let NoSpellingSuggestions = CEFMenuID(rawValue: 205)
 
-    ///
-    // All user-defined menu IDs should come between MENU_ID_USER_FIRST and
-    // MENU_ID_USER_LAST to avoid overlapping the Chromium and CEF ID ranges
-    // defined in the tools/gritsettings/resource_ids file.
-    ///
+    /// All user-defined menu IDs should come between MENU_ID_USER_FIRST and
+    /// MENU_ID_USER_LAST to avoid overlapping the Chromium and CEF ID ranges
+    /// defined in the tools/gritsettings/resource_ids file.
     public static let AddToDictionary = CEFMenuID(rawValue: 206)
     public static let UserFirst = CEFMenuID(rawValue: 26500)
     public static let UserLast = CEFMenuID(rawValue: 28500)

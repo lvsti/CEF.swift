@@ -8,63 +8,41 @@
 
 import Foundation
 
-///
-// Cookie information.
-///
+/// Cookie information.
 public struct CEFCookie {
-    ///
-    // The cookie name.
-    ///
+    /// The cookie name.
     public var name: String = ""
 
-    ///
-    // The cookie value.
-    ///
+    /// The cookie value.
     public var value: String = ""
     
-    ///
-    // If |domain| is empty a host cookie will be created instead of a domain
-    // cookie. Domain cookies are stored with a leading "." and are visible to
-    // sub-domains whereas host cookies are not.
-    ///
+    /// If |domain| is empty a host cookie will be created instead of a domain
+    /// cookie. Domain cookies are stored with a leading "." and are visible to
+    /// sub-domains whereas host cookies are not.
     public var domain: String = ""
     
-    ///
-    // If |path| is non-empty only URLs at or below the path will get the cookie
-    // value.
-    ///
+    /// If |path| is non-empty only URLs at or below the path will get the cookie
+    /// value.
     public var path: String = ""
     
-    ///
-    // If |secure| is true the cookie will only be sent for HTTPS requests.
-    ///
+    /// If |secure| is true the cookie will only be sent for HTTPS requests.
     public var secure: Bool = false
     
-    ///
-    // If |httponly| is true the cookie will only be sent for HTTP requests.
-    ///
+    /// If |httponly| is true the cookie will only be sent for HTTP requests.
     public var httpOnly: Bool = false
     
-    ///
-    // The cookie creation date. This is automatically populated by the system on
-    // cookie creation.
-    ///
+    /// The cookie creation date. This is automatically populated by the system on
+    /// cookie creation.
     public var creation: NSDate = NSDate()
     
-    ///
-    // The cookie last access date. This is automatically populated by the system
-    // on access.
-    ///
+    /// The cookie last access date. This is automatically populated by the system
+    /// on access.
     public var lastAccess: NSDate = NSDate()
     
-    ///
-    // The cookie expiration date is only valid if |has_expires| is true.
-    ///
+    /// The cookie expiration date is only valid if |has_expires| is true.
     public var hasExpires: Bool = false
     
-    ///
-    // Cookie expiration date
-    ///
+    /// Cookie expiration date
     public var expires: NSDate = NSDate()
     
     public init() {

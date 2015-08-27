@@ -22,9 +22,7 @@ public struct CEFEventFlags: OptionSetType {
     public static let LeftMouseButton = CEFEventFlags(rawValue: 1 << 4)
     public static let MiddleMouseButton = CEFEventFlags(rawValue: 1 << 5)
 
-    ///
-    // Mac OS-X command key.
-    ///
+    /// Mac OS-X command key.
     public static let RightMouseButton = CEFEventFlags(rawValue: 1 << 6)
     public static let CommandDown = CEFEventFlags(rawValue: 1 << 7)
     public static let NumLockOn = CEFEventFlags(rawValue: 1 << 8)

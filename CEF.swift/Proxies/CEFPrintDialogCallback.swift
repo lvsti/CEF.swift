@@ -11,21 +11,15 @@ import Foundation
 extension cef_print_dialog_callback_t: CEFObject {
 }
 
-///
-// Callback interface for asynchronous continuation of print dialog requests.
-///
+/// Callback interface for asynchronous continuation of print dialog requests.
 public class CEFPrintDialogCallback: CEFProxy<cef_print_dialog_callback_t> {
 
-    ///
-    // Continue printing with the specified |settings|.
-    ///
+    /// Continue printing with the specified |settings|.
     public func doContinue(settings: CEFPrintSettings) {
         cefObject.cont(cefObjectPtr, settings.toCEF())
     }
     
-    ///
-    // Cancel the printing.
-    ///
+    /// Cancel the printing.
     public func doCancel() {
         cefObject.cancel(cefObjectPtr)
     }

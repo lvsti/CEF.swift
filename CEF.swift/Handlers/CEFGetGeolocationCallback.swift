@@ -8,16 +8,12 @@
 
 import Foundation
 
-///
-// Implement this interface to receive geolocation updates. The methods of this
-// class will be called on the browser process UI thread.
-///
+/// Implement this interface to receive geolocation updates. The methods of this
+/// class will be called on the browser process UI thread.
 public protocol CEFGetGeolocationCallback {
     
-    ///
-    // Called with the 'best available' location information or, if the location
-    // update failed, with error information.
-    ///
+    /// Called with the 'best available' location information or, if the location
+    /// update failed, with error information.
     func onLocationUpdate(position: CEFGeoposition)
 
 }

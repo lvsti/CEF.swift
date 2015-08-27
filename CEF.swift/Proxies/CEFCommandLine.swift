@@ -12,90 +12,70 @@ extension cef_command_line_t: CEFObject {
 }
 
 
-///
-// Class used to create and/or parse command line arguments. Arguments with
-// '--', '-' and, on Windows, '/' prefixes are considered switches. Switches
-// will always precede any arguments without switch prefixes. Switches can
-// optionally have a value specified using the '=' delimiter (e.g.
-// "-switch=value"). An argument of "--" will terminate switch parsing with all
-// subsequent tokens, regardless of prefix, being interpreted as non-switch
-// arguments. Switch names are considered case-insensitive. This class can be
-// used before CefInitialize() is called.
-///
+/// Class used to create and/or parse command line arguments. Arguments with
+/// '--', '-' and, on Windows, '/' prefixes are considered switches. Switches
+/// will always precede any arguments without switch prefixes. Switches can
+/// optionally have a value specified using the '=' delimiter (e.g.
+/// "-switch=value"). An argument of "--" will terminate switch parsing with all
+/// subsequent tokens, regardless of prefix, being interpreted as non-switch
+/// arguments. Switch names are considered case-insensitive. This class can be
+/// used before CefInitialize() is called.
 public class CEFCommandLine: CEFProxy<cef_command_line_t> {
     
-    ///
-    // Returns the singleton global CefCommandLine object. The returned object
-    // will be read-only.
-    ///
+    /// Returns the singleton global CefCommandLine object. The returned object
+    /// will be read-only.
     public static func getGlobal() -> CEFCommandLine? {
         return CEFCommandLine(ptr: cef_command_line_get_global())
     }
     
-    ///
-    // Create a new CefCommandLine instance.
-    ///
+    /// Create a new CefCommandLine instance.
     public init?() {
         super.init(ptr: cef_command_line_create())
     }
     
-    ///
-    // Returns true if this object is valid. Do not call any other methods if this
-    // function returns false.
-    ///
+    /// Returns true if this object is valid. Do not call any other methods if this
+    /// function returns false.
     public func isValid() -> Bool {
         return cefObject.is_valid(cefObjectPtr) != 0
     }
     
-    ///
-    // Returns true if the values of this object are read-only. Some APIs may
-    // expose read-only objects.
-    ///
+    /// Returns true if the values of this object are read-only. Some APIs may
+    /// expose read-only objects.
     public func isReadOnly() -> Bool {
         return cefObject.is_read_only(cefObjectPtr) != 0
     }
     
-    ///
-    // Returns a writable copy of this object.
-    ///
+    /// Returns a writable copy of this object.
     public func copy() -> CEFCommandLine? {
         let copiedObj = cefObject.copy(cefObjectPtr)
         return CEFCommandLine.fromCEF(copiedObj)
     }
 
-    ///
-    // Initialize the command line with the specified |argc| and |argv| values.
-    // The first argument must be the name of the program. This method is only
-    // supported on non-Windows platforms.
-    ///
+    /// Initialize the command line with the specified |argc| and |argv| values.
+    /// The first argument must be the name of the program. This method is only
+    /// supported on non-Windows platforms.
     public func initFromArguments(arguments: [String]) {
         let argv = CEFArgVFromArguments(arguments)
         cefObject.init_from_argv(cefObjectPtr, Int32(arguments.count), argv)
         argv.dealloc(arguments.count)
     }
     
-    ///
-    // Initialize the command line with the string returned by calling
-    // GetCommandLineW(). This method is only supported on Windows.
-    ///
+    /// Initialize the command line with the string returned by calling
+    /// GetCommandLineW(). This method is only supported on Windows.
     public func initFromString(commandLine: String) {
         let cefCmdLinePtr = CEFStringPtrCreateFromSwiftString(commandLine)
         defer { CEFStringPtrRelease(cefCmdLinePtr) }
         cefObject.init_from_string(cefObjectPtr, cefCmdLinePtr)
     }
     
-    ///
-    // Reset the command-line switches and arguments but leave the program
-    // component unchanged.
-    ///
+    /// Reset the command-line switches and arguments but leave the program
+    /// component unchanged.
     public func reset() {
         cefObject.reset(cefObjectPtr)
     }
     
-    ///
-    // Retrieve the original command line string as a vector of strings.
-    // The argv array: { program, [(--|-|/)switch[=value]]*, [--], [argument]* }
-    ///
+    /// Retrieve the original command line string as a vector of strings.
+    /// The argv array: { program, [(--|-|/)switch[=value]]*, [--], [argument]* }
     public func getArgV() -> [String] {
         var argv = [String]()
         let cefList = cef_string_list_alloc()
@@ -114,54 +94,42 @@ public class CEFCommandLine: CEFProxy<cef_command_line_t> {
         return argv
     }
     
-    ///
-    // Constructs and returns the represented command line string. Use this method
-    // cautiously because quoting behavior is unclear.
-    ///
+    /// Constructs and returns the represented command line string. Use this method
+    /// cautiously because quoting behavior is unclear.
     public func getCommandLineString() -> String {
         let cefCmdLinePtr = cefObject.get_command_line_string(cefObjectPtr)
         defer { CEFStringPtrRelease(cefCmdLinePtr) }
         return CEFStringToSwiftString(cefCmdLinePtr.memory)
     }
     
-    ///
-    // Get the program part of the command line string (the first item).
-    ///
+    /// Get the program part of the command line string (the first item).
     public func getProgram() -> String {
         let cefProgramPtr = cefObject.get_program(cefObjectPtr)
         defer { CEFStringPtrRelease(cefProgramPtr) }
         return CEFStringToSwiftString(cefProgramPtr.memory)
     }
 
-    ///
-    // Set the program part of the command line string (the first item).
-    ///
+    /// Set the program part of the command line string (the first item).
     public func setProgram(program: String) {
         let cefProgramPtr = CEFStringPtrCreateFromSwiftString(program)
         defer { CEFStringPtrRelease(cefProgramPtr) }
         cefObject.set_program(cefObjectPtr, cefProgramPtr)
     }
     
-    ///
-    // Returns true if the command line has switches.
-    ///
+    /// Returns true if the command line has switches.
     public func hasSwitches() -> Bool {
         return cefObject.has_switches(cefObjectPtr) != 0
     }
     
-    ///
-    // Returns true if the command line contains the given switch.
-    ///
+    /// Returns true if the command line contains the given switch.
     public func hasSwitch(name: String) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefObject.has_switch(cefObjectPtr, cefStrPtr) != 0
     }
     
-    ///
-    // Returns the value associated with the given switch. If the switch has no
-    // value or isn't present this method returns the empty string.
-    ///
+    /// Returns the value associated with the given switch. If the switch has no
+    /// value or isn't present this method returns the empty string.
     public func getSwitchValue(name: String) -> String {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
         let cefValuePtr = cefObject.get_switch_value(cefObjectPtr, cefStrPtr)
@@ -172,10 +140,8 @@ public class CEFCommandLine: CEFProxy<cef_command_line_t> {
         return cefValuePtr != nil ? CEFStringToSwiftString(cefValuePtr.memory) : ""
     }
     
-    ///
-    // Returns the map of switch names and values. If a switch has no value an
-    // empty string is returned.
-    ///
+    /// Returns the map of switch names and values. If a switch has no value an
+    /// empty string is returned.
     public func getSwitches() -> [String: String] {
         let cefMap = cef_string_map_alloc()
         defer { cef_string_map_free(cefMap) }
@@ -183,19 +149,15 @@ public class CEFCommandLine: CEFProxy<cef_command_line_t> {
         return CEFStringMapToSwiftDictionary(cefMap)
     }
     
-    ///
-    // Add a switch to the end of the command line. If the switch has no value
-    // pass an empty value string.
-    ///
+    /// Add a switch to the end of the command line. If the switch has no value
+    /// pass an empty value string.
     public func appendSwitch(name: String) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
         defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.append_switch(cefObjectPtr, cefStrPtr)
     }
     
-    ///
-    // Add a switch with the specified value to the end of the command line.
-    ///
+    /// Add a switch with the specified value to the end of the command line.
     public func appendSwitchWithValue(name: String, value: String) {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
         let cefValuePtr = CEFStringPtrCreateFromSwiftString(value)
@@ -206,16 +168,12 @@ public class CEFCommandLine: CEFProxy<cef_command_line_t> {
         cefObject.append_switch_with_value(cefObjectPtr, cefNamePtr, cefValuePtr)
     }
     
-    ///
-    // True if there are remaining command line arguments.
-    ///
+    /// True if there are remaining command line arguments.
     public func hasArguments() -> Bool {
         return cefObject.has_arguments(cefObjectPtr) != 0
     }
     
-    ///
-    // Get the remaining command line arguments.
-    ///
+    /// Get the remaining command line arguments.
     public func getArguments() -> [String] {
         let cefList = cef_string_list_alloc()
         defer { cef_string_list_free(cefList) }
@@ -223,19 +181,15 @@ public class CEFCommandLine: CEFProxy<cef_command_line_t> {
         return CEFStringListToSwiftArray(cefList)
     }
     
-    ///
-    // Add an argument to the end of the command line.
-    ///
+    /// Add an argument to the end of the command line.
     public func appendArgument(arg: String) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(arg)
         defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.append_argument(cefObjectPtr, cefStrPtr)
     }
     
-    ///
-    // Insert a command before the current command.
-    // Common for debuggers, like "valgrind" or "gdb --args".
-    ///
+    /// Insert a command before the current command.
+    /// Common for debuggers, like "valgrind" or "gdb --args".
     public func prependWrapper(wrapper: String) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(wrapper)
         defer { CEFStringPtrRelease(cefStrPtr) }

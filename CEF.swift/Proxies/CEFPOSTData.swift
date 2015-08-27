@@ -11,36 +11,26 @@ import Foundation
 extension cef_post_data_t: CEFObject {
 }
 
-///
-// Class used to represent post data for a web request. The methods of this
-// class may be called on any thread.
-///
+/// Class used to represent post data for a web request. The methods of this
+/// class may be called on any thread.
 public class CEFPOSTData: CEFProxy<cef_post_data_t> {
     
-    ///
-    // Create a new CefPostData object.
-    ///
+    /// Create a new CefPostData object.
     public init?() {
         super.init(ptr: cef_post_data_create())
     }
     
-    ///
-    // Returns true if this object is read-only.
-    ///
+    /// Returns true if this object is read-only.
     public func isReadOnly() -> Bool {
         return cefObject.is_read_only(cefObjectPtr) != 0
     }
 
-    ///
-    // Returns the number of existing post data elements.
-    ///
+    /// Returns the number of existing post data elements.
     public func getElementCount() -> size_t {
         return cefObject.get_element_count(cefObjectPtr)
     }
     
-    ///
-    // Retrieve the post data elements.
-    ///
+    /// Retrieve the post data elements.
     public func getElements() -> [CEFPOSTDataElement] {
         var count:size_t = 0
         var cefElements = UnsafeMutablePointer<cef_post_data_element_t>()
@@ -58,24 +48,18 @@ public class CEFPOSTData: CEFProxy<cef_post_data_t> {
         return elements
     }
     
-    ///
-    // Remove the specified post data element.  Returns true if the removal
-    // succeeds.
-    ///
+    /// Remove the specified post data element.  Returns true if the removal
+    /// succeeds.
     public func removeElement(element: CEFPOSTDataElement) {
         cefObject.remove_element(cefObjectPtr, element.toCEF())
     }
     
-    ///
-    // Add the specified post data element.  Returns true if the add succeeds.
-    ///
+    /// Add the specified post data element.  Returns true if the add succeeds.
     public func addElement(element: CEFPOSTDataElement) {
         cefObject.add_element(cefObjectPtr, element.toCEF())
     }
     
-    ///
-    // Remove all existing post data elements.
-    ///
+    /// Remove all existing post data elements.
     public func removeElements() {
         cefObject.remove_elements(cefObjectPtr)
     }

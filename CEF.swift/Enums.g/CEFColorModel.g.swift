@@ -16,9 +16,7 @@ public enum CEFColorModel: Int32 {
     case CMY
     case KCMY
 
-    ///
-    // CMY_K represents CMY+K.
-    ///
+    /// CMY_K represents CMY+K.
     case CMYPlusK
     case Black
     case Grayscale
@@ -26,49 +24,31 @@ public enum CEFColorModel: Int32 {
     case RGB16
     case RGBA
 
-    ///
-    // Used in samsung printer ppds.
-    ///
+    /// Used in samsung printer ppds.
     case ColorModeColor
 
-    ///
-    // Used in samsung printer ppds.
-    ///
+    /// Used in samsung printer ppds.
     case ColorModeMonochrome
 
-    ///
-    // Used in HP color printer ppds.
-    ///
+    /// Used in HP color printer ppds.
     case HPColorColor
 
-    ///
-    // Used in HP color printer ppds.
-    ///
+    /// Used in HP color printer ppds.
     case HPColorBlack
 
-    ///
-    // Used in foomatic ppds.
-    ///
+    /// Used in foomatic ppds.
     case PrintoutModeNormal
 
-    ///
-    // Used in foomatic ppds.
-    ///
+    /// Used in foomatic ppds.
     case PrintoutModeNormalGray
 
-    ///
-    // Used in canon printer ppds.
-    ///
+    /// Used in canon printer ppds.
     case ProcessColorModelCMYK
 
-    ///
-    // Used in canon printer ppds.
-    ///
+    /// Used in canon printer ppds.
     case ProcessColorModelGrayscale
 
-    ///
-    // Used in canon printer ppds
-    ///
+    /// Used in canon printer ppds
     case ProcessColorModelRGB
 }
 

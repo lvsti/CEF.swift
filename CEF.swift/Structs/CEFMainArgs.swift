@@ -8,9 +8,7 @@
 
 import Foundation
 
-///
-// Structure representing CefExecuteProcess arguments.
-///
+/// Structure representing CefExecuteProcess arguments.
 public struct CEFMainArgs {
     public let arguments: [String]
     

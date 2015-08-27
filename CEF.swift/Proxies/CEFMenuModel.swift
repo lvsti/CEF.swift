@@ -11,41 +11,31 @@ import Foundation
 extension cef_menu_model_t: CEFObject {
 }
 
-///
-// Supports creation and modification of menus. See cef_menu_id_t for the
-// command ids that have default implementations. All user-defined command ids
-// should be between MENU_ID_USER_FIRST and MENU_ID_USER_LAST. The methods of
-// this class can only be accessed on the browser process the UI thread.
-///
+/// Supports creation and modification of menus. See cef_menu_id_t for the
+/// command ids that have default implementations. All user-defined command ids
+/// should be between MENU_ID_USER_FIRST and MENU_ID_USER_LAST. The methods of
+/// this class can only be accessed on the browser process the UI thread.
 public class CEFMenuModel: CEFProxy<cef_menu_model_t> {
 
     public typealias CommandID = CEFMenuID
     public typealias GroupID = Int32
 
-    ///
-    // Clears the menu. Returns true on success.
-    ///
+    /// Clears the menu. Returns true on success.
     public func clear() -> Bool {
         return cefObject.clear(cefObjectPtr) != 0
     }
     
-    ///
-    // Returns the number of items in this menu.
-    ///
+    /// Returns the number of items in this menu.
     public func getCount() -> Int {
         return Int(cefObject.get_count(cefObjectPtr))
     }
 
-    ///
-    // Add a separator to the menu. Returns true on success.
-    ///
+    /// Add a separator to the menu. Returns true on success.
     public func addSeparator() -> Bool {
         return cefObject.add_separator(cefObjectPtr) != 0
     }
     
-    ///
-    // Add an item to the menu. Returns true on success.
-    ///
+    /// Add an item to the menu. Returns true on success.
     public func addItem(commandID: CommandID, label: String) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(label)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -131,136 +121,102 @@ public class CEFMenuModel: CEFProxy<cef_menu_model_t> {
         return CEFMenuModel.fromCEF(cefMenu)
     }
     
-    ///
-    // Removes the item with the specified |command_id|. Returns true on success.
-    ///
+    /// Removes the item with the specified |command_id|. Returns true on success.
     public func remove(commandID: CommandID) -> Bool {
         return cefObject.remove(cefObjectPtr, commandID.toCEF()) != 0
     }
 
-    ///
-    // Removes the item at the specified |index|. Returns true on success.
-    ///
+    /// Removes the item at the specified |index|. Returns true on success.
     public func removeAt(index: Int32) -> Bool {
         return cefObject.remove_at(cefObjectPtr, index) != 0
     }
     
-    ///
-    // Returns the index associated with the specified |command_id| or -1 if not
-    // found due to the command id not existing in the menu.
-    ///
+    /// Returns the index associated with the specified |command_id| or -1 if not
+    /// found due to the command id not existing in the menu.
     public func getIndexOf(commandID: CommandID) -> Int32 {
         return cefObject.get_index_of(cefObjectPtr, commandID.toCEF())
     }
     
-    ///
-    // Returns the command id at the specified |index| or -1 if not found due to
-    // invalid range or the index being a separator.
-    ///
+    /// Returns the command id at the specified |index| or -1 if not found due to
+    /// invalid range or the index being a separator.
     public func getCommandIDAt(index: Int32) -> CommandID {
         let cefID = cefObject.get_command_id_at(cefObjectPtr, index)
         return CommandID.fromCEF(cefID)
     }
     
-    ///
-    // Sets the command id at the specified |index|. Returns true on success.
-    ///
+    /// Sets the command id at the specified |index|. Returns true on success.
     public func setCommandIDAt(index: Int32, commandID: CommandID) -> Bool {
         return cefObject.set_command_id_at(cefObjectPtr, index, commandID.toCEF()) != 0
     }
     
-    ///
-    // Returns the label for the specified |command_id| or empty if not found.
-    ///
+    /// Returns the label for the specified |command_id| or empty if not found.
     public func getLabel(commandID: CommandID) -> String {
         let cefStrPtr = cefObject.get_label(cefObjectPtr, commandID.toCEF())
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.memory)
     }
     
-    ///
-    // Returns the label at the specified |index| or empty if not found due to
-    // invalid range or the index being a separator.
-    ///
+    /// Returns the label at the specified |index| or empty if not found due to
+    /// invalid range or the index being a separator.
     public func getLabelAt(index: Int32) -> String {
         let cefStrPtr = cefObject.get_label_at(cefObjectPtr, index)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.memory)
     }
     
-    ///
-    // Sets the label for the specified |command_id|. Returns true on success.
-    ///
+    /// Sets the label for the specified |command_id|. Returns true on success.
     public func setLabel(commandID: CommandID, label: String) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(label)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefObject.set_label(cefObjectPtr, commandID.toCEF(), cefStrPtr) != 0
     }
     
-    ///
-    // Set the label at the specified |index|. Returns true on success.
-    ///
+    /// Set the label at the specified |index|. Returns true on success.
     public func setLabelAt(index: Int32, label: String) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(label)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefObject.set_label_at(cefObjectPtr, index, cefStrPtr) != 0
     }
     
-    ///
-    // Returns the item type for the specified |command_id|.
-    ///
+    /// Returns the item type for the specified |command_id|.
     public func getType(commandID: CommandID) -> CEFMenuItemType {
         let cefType = cefObject.get_type(cefObjectPtr, commandID.toCEF())
         return CEFMenuItemType.fromCEF(cefType)
     }
 
-    ///
-    // Returns the item type at the specified |index|.
-    ///
+    /// Returns the item type at the specified |index|.
     public func getTypeAt(index: Int32) -> CEFMenuItemType {
         let cefType = cefObject.get_type_at(cefObjectPtr, index)
         return CEFMenuItemType.fromCEF(cefType)
     }
     
-    ///
-    // Returns the group id for the specified |command_id| or -1 if invalid.
-    ///
+    /// Returns the group id for the specified |command_id| or -1 if invalid.
     public func getGroupID(commandID: CommandID) -> GroupID {
         return cefObject.get_group_id(cefObjectPtr, commandID.toCEF())
     }
     
-    ///
-    // Returns the group id at the specified |index| or -1 if invalid.
-    ///
+    /// Returns the group id at the specified |index| or -1 if invalid.
     public func getGroupIDAt(index: Int32) -> GroupID {
         return cefObject.get_group_id_at(cefObjectPtr, index)
     }
     
-    ///
-    // Sets the group id for the specified |command_id|. Returns true on success.
-    ///
+    /// Sets the group id for the specified |command_id|. Returns true on success.
     public func setGroupID(commandID: CommandID, groupID: GroupID) -> Bool {
         return cefObject.set_group_id(cefObjectPtr, commandID.toCEF(), groupID) != 0
     }
     
-    ///
-    // Sets the group id at the specified |index|. Returns true on success.
-    ///
+    /// Sets the group id at the specified |index|. Returns true on success.
     public func setGroupIDAt(index: Int32, groupID: GroupID) -> Bool {
         return cefObject.set_group_id_at(cefObjectPtr, index, groupID) != 0
     }
     
-    ///
-    // Returns the submenu for the specified |command_id| or empty if invalid.
-    ///
+    /// Returns the submenu for the specified |command_id| or empty if invalid.
     public func getSubmenu(commandID: CommandID) -> CEFMenuModel? {
         let cefMenu = cefObject.get_sub_menu(cefObjectPtr, commandID.toCEF())
         return CEFMenuModel.fromCEF(cefMenu)
     }
 
-    ///
-    // Returns the submenu at the specified |index| or empty if invalid.
-    ///
+    /// Returns the submenu at the specified |index| or empty if invalid.
     public func getSubmenuAt(index: Int32) -> CEFMenuModel? {
         let cefMenu = cefObject.get_sub_menu_at(cefObjectPtr, index)
         return CEFMenuModel.fromCEF(cefMenu)

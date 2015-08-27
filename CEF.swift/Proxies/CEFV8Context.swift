@@ -12,117 +12,91 @@ extension cef_v8context_t: CEFObject {
 }
 
 
-///
-// Class representing a V8 context handle. V8 handles can only be accessed from
-// the thread on which they are created. Valid threads for creating a V8 handle
-// include the render process main thread (TID_RENDERER) and WebWorker threads.
-// A task runner for posting tasks on the associated thread can be retrieved via
-// the CefV8Context::GetTaskRunner() method.
-///
+/// Class representing a V8 context handle. V8 handles can only be accessed from
+/// the thread on which they are created. Valid threads for creating a V8 handle
+/// include the render process main thread (TID_RENDERER) and WebWorker threads.
+/// A task runner for posting tasks on the associated thread can be retrieved via
+/// the CefV8Context::GetTaskRunner() method.
 public class CEFV8Context: CEFProxy<cef_v8context_t> {
     
-    ///
-    // Returns the current (top) context object in the V8 context stack.
-    ///
+    /// Returns the current (top) context object in the V8 context stack.
     public static func getCurrentContext() -> CEFV8Context? {
         let cefCtx = cef_v8context_get_current_context()
         return CEFV8Context.fromCEF(cefCtx)
     }
     
-    ///
-    // Returns the entered (bottom) context object in the V8 context stack.
-    ///
+    /// Returns the entered (bottom) context object in the V8 context stack.
     public static func getEnteredContext() -> CEFV8Context? {
         let cefCtx = cef_v8context_get_entered_context()
         return CEFV8Context.fromCEF(cefCtx)
     }
 
-    ///
-    // Returns true if V8 is currently inside a context.
-    ///
+    /// Returns true if V8 is currently inside a context.
     public static func inContext() -> Bool {
         return cef_v8context_in_context() != 0
     }
 
-    ///
-    // Returns the task runner associated with this context. V8 handles can only
-    // be accessed from the thread on which they are created. This method can be
-    // called on any render process thread.
-    ///
+    /// Returns the task runner associated with this context. V8 handles can only
+    /// be accessed from the thread on which they are created. This method can be
+    /// called on any render process thread.
     public func getTaskRunner() -> CEFTaskRunner? {
         let cefTaskRunner = cefObject.get_task_runner(cefObjectPtr)
         return CEFTaskRunner.fromCEF(cefTaskRunner)
     }
     
-    ///
-    // Returns true if the underlying handle is valid and it can be accessed on
-    // the current thread. Do not call any other methods if this method returns
-    // false.
-    ///
+    /// Returns true if the underlying handle is valid and it can be accessed on
+    /// the current thread. Do not call any other methods if this method returns
+    /// false.
     public func isValid() -> Bool {
         return cefObject.is_valid(cefObjectPtr) != 0
     }
 
-    ///
-    // Returns the browser for this context. This method will return an empty
-    // reference for WebWorker contexts.
-    ///
+    /// Returns the browser for this context. This method will return an empty
+    /// reference for WebWorker contexts.
     public func getBrowser() -> CEFBrowser? {
         let cefBrowser = cefObject.get_browser(cefObjectPtr)
         return CEFBrowser.fromCEF(cefBrowser)
     }
 
-    ///
-    // Returns the frame for this context. This method will return an empty
-    // reference for WebWorker contexts.
-    ///
+    /// Returns the frame for this context. This method will return an empty
+    /// reference for WebWorker contexts.
     public func getFrame() -> CEFFrame? {
         let cefFrame = cefObject.get_frame(cefObjectPtr)
         return CEFFrame.fromCEF(cefFrame)
     }
     
-    ///
-    // Returns the global object for this context. The context must be entered
-    // before calling this method.
-    ///
+    /// Returns the global object for this context. The context must be entered
+    /// before calling this method.
     public func getGlobal() -> CEFV8Value? {
         let cefValue = cefObject.get_global(cefObjectPtr)
         return CEFV8Value.fromCEF(cefValue)
     }
     
-    ///
-    // Enter this context. A context must be explicitly entered before creating a
-    // V8 Object, Array, Function or Date asynchronously. Exit() must be called
-    // the same number of times as Enter() before releasing this context. V8
-    // objects belong to the context in which they are created. Returns true if
-    // the scope was entered successfully.
-    ///
+    /// Enter this context. A context must be explicitly entered before creating a
+    /// V8 Object, Array, Function or Date asynchronously. Exit() must be called
+    /// the same number of times as Enter() before releasing this context. V8
+    /// objects belong to the context in which they are created. Returns true if
+    /// the scope was entered successfully.
     public func enter() -> Bool {
         return cefObject.enter(cefObjectPtr) != 0
     }
 
-    ///
-    // Exit this context. Call this method only after calling Enter(). Returns
-    // true if the scope was exited successfully.
-    ///
+    /// Exit this context. Call this method only after calling Enter(). Returns
+    /// true if the scope was exited successfully.
     public func exit() -> Bool {
         return cefObject.exit(cefObjectPtr) != 0
     }
     
-    ///
-    // Returns true if this object is pointing to the same handle as |that|
-    // object.
-    ///
+    /// Returns true if this object is pointing to the same handle as |that|
+    /// object.
     public func isSame(other: CEFV8Context) -> Bool {
         return cefObject.is_same(cefObjectPtr, other.toCEF()) != 0
     }
 
-    ///
-    // Evaluates the specified JavaScript code using this context's global object.
-    // On success |retval| will be set to the return value, if any, and the
-    // function will return true. On failure |exception| will be set to the
-    // exception, if any, and the function will return false.
-    ///
+    /// Evaluates the specified JavaScript code using this context's global object.
+    /// On success |retval| will be set to the return value, if any, and the
+    /// function will return true. On failure |exception| will be set to the
+    /// exception, if any, and the function will return false.
     public func eval(code: String, inout retval: CEFV8Value, inout exception: CEFV8Exception) -> Bool {
         let cefCodePtr = CEFStringPtrCreateFromSwiftString(code)
         defer { CEFStringPtrRelease(cefCodePtr) }

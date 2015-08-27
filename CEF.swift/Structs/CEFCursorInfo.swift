@@ -8,11 +8,9 @@
 
 import Foundation
 
-///
-// Structure representing cursor information. |buffer| will be
-// |size.width|*|size.height|*4 bytes in size and represents a BGRA image with
-// an upper-left origin.
-///
+/// Structure representing cursor information. |buffer| will be
+/// |size.width|*|size.height|*4 bytes in size and represents a BGRA image with
+/// an upper-left origin.
 public struct CEFCursorInfo {
     public let hotspot: NSPoint
     public let scaleFactor: Double

@@ -11,16 +11,12 @@ import Foundation
 extension cef_jsdialog_callback_t: CEFObject {
 }
 
-///
-// Callback interface used for asynchronous continuation of JavaScript dialog
-// requests.
-///
+/// Callback interface used for asynchronous continuation of JavaScript dialog
+/// requests.
 public class CEFJSDialogCallback: CEFProxy<cef_jsdialog_callback_t> {
     
-    ///
-    // Continue the JS dialog request. Set |success| to true if the OK button was
-    // pressed. The |user_input| value should be specified for prompt dialogs.
-    ///
+    /// Continue the JS dialog request. Set |success| to true if the OK button was
+    /// pressed. The |user_input| value should be specified for prompt dialogs.
     public func doContinue(success: Bool, userInput: String? = nil) {
         let cefStrPtr: UnsafeMutablePointer<cef_string_t> =
             userInput != nil ? CEFStringPtrCreateFromSwiftString(userInput!) : nil

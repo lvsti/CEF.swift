@@ -11,14 +11,10 @@ import Foundation
 extension cef_print_job_callback_t: CEFObject {
 }
 
-///
-// Callback interface for asynchronous continuation of print job requests.
-///
+/// Callback interface for asynchronous continuation of print job requests.
 public class CEFPrintJobCallback: CEFProxy<cef_print_job_callback_t> {
 
-    ///
-    // Indicate completion of the print job.
-    ///
+    /// Indicate completion of the print job.
     public func doContinue() {
         cefObject.cont(cefObjectPtr)
     }

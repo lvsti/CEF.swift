@@ -11,41 +11,31 @@ import Foundation
 extension cef_web_plugin_info_t: CEFObject {
 }
 
-///
-// Information about a specific web plugin.
-///
+/// Information about a specific web plugin.
 public class CEFWebPluginInfo: CEFProxy<cef_web_plugin_info_t> {
 
-    ///
-    // Returns the plugin name (i.e. Flash).
-    ///
+    /// Returns the plugin name (i.e. Flash).
     public func getName() -> String {
         let cefStrPtr = cefObject.get_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.memory)
     }
     
-    ///
-    // Returns the plugin file path (DLL/bundle/library).
-    ///
+    /// Returns the plugin file path (DLL/bundle/library).
     public func getPath() -> String {
         let cefStrPtr = cefObject.get_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.memory)
     }
     
-    ///
-    // Returns the version of the plugin (may be OS-specific).
-    ///
+    /// Returns the version of the plugin (may be OS-specific).
     public func getVersion() -> String {
         let cefStrPtr = cefObject.get_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.memory)
     }
     
-    ///
-    // Returns a description of the plugin from the version information.
-    ///
+    /// Returns a description of the plugin from the version information.
     public func getDescription() -> String {
         let cefStrPtr = cefObject.get_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }

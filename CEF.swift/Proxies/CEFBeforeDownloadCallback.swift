@@ -11,17 +11,13 @@ import Foundation
 extension cef_before_download_callback_t: CEFObject {
 }
 
-///
-// Callback interface used to asynchronously continue a download.
-///
+/// Callback interface used to asynchronously continue a download.
 public class CEFBeforeDownloadCallback: CEFProxy<cef_before_download_callback_t> {
     
-    ///
-    // Call to continue the download. Set |download_path| to the full file path
-    // for the download including the file name or leave blank to use the
-    // suggested name and the default temp directory. Set |show_dialog| to true
-    // if you do wish to show the default "Save As" dialog.
-    ///
+    /// Call to continue the download. Set |download_path| to the full file path
+    /// for the download including the file name or leave blank to use the
+    /// suggested name and the default temp directory. Set |show_dialog| to true
+    /// if you do wish to show the default "Save As" dialog.
     public func doContinue(downloadPath: String?, showDialog: Bool) {
         let cefStrPtr: UnsafeMutablePointer<cef_string_t> =
             downloadPath != nil ? CEFStringPtrCreateFromSwiftString(downloadPath!) : nil

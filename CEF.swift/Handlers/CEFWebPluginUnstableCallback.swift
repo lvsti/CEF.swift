@@ -8,17 +8,13 @@
 
 import Foundation
 
-///
-// Interface to implement for receiving unstable plugin information. The methods
-// of this class will be called on the browser process IO thread.
-///
+/// Interface to implement for receiving unstable plugin information. The methods
+/// of this class will be called on the browser process IO thread.
 public protocol CEFWebPluginUnstableCallback {
     
-    ///
-    // Method that will be called for the requested plugin. |unstable| will be
-    // true if the plugin has reached the crash count threshold of 3 times in 120
-    // seconds.
-    ///
+    /// Method that will be called for the requested plugin. |unstable| will be
+    /// true if the plugin has reached the crash count threshold of 3 times in 120
+    /// seconds.
     func isUnstable(path: String, unstable: Bool)
     
 }

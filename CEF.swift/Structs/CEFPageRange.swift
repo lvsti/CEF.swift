@@ -8,9 +8,7 @@
 
 import Foundation
 
-///
-// Structure representing a print job page range.
-///
+/// Structure representing a print job page range.
 public struct CEFPageRange {
     public let from: Int
     public let to: Int

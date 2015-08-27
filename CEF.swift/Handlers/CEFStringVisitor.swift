@@ -8,14 +8,10 @@
 
 import Foundation
 
-///
-// Implement this interface to receive string values asynchronously.
-///
+/// Implement this interface to receive string values asynchronously.
 public protocol CEFStringVisitor {
 
-    ///
-    // Method that will be executed.
-    ///
+    /// Method that will be executed.
     func visit(string: String?)
 
 }

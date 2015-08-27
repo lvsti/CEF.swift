@@ -8,10 +8,8 @@
 
 import Foundation
 
-///
-// Implement this interface to handle events related to keyboard input. The
-// methods of this class will be called on the UI thread.
-///
+/// Implement this interface to handle events related to keyboard input. The
+/// methods of this class will be called on the UI thread.
 public protocol CEFKeyboardHandler {
     
     // Called before a keyboard event is sent to the renderer. |event| contains
@@ -24,12 +22,10 @@ public protocol CEFKeyboardHandler {
                        osEvent: CEFEventHandle,
                        inout isShortcut: Bool) -> Bool
     
-    ///
-    // Called after the renderer and JavaScript in the page has had a chance to
-    // handle the event. |event| contains information about the keyboard event.
-    // |os_event| is the operating system event message, if any. Return true if
-    // the keyboard event was handled or false otherwise.
-    ///
+    /// Called after the renderer and JavaScript in the page has had a chance to
+    /// handle the event. |event| contains information about the keyboard event.
+    /// |os_event| is the operating system event message, if any. Return true if
+    /// the keyboard event was handled or false otherwise.
     func onKeyEvent(browser: CEFBrowser, event: CEFKeyEvent, osEvent: CEFEventHandle) -> Bool
 
 }

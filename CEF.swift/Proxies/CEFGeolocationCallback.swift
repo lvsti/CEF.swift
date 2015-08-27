@@ -11,15 +11,11 @@ import Foundation
 extension cef_geolocation_callback_t: CEFObject {
 }
 
-///
-// Callback interface used for asynchronous continuation of geolocation
-// permission requests.
-///
+/// Callback interface used for asynchronous continuation of geolocation
+/// permission requests.
 public class CEFGeolocationCallback: CEFProxy<cef_geolocation_callback_t> {
     
-    ///
-    // Call to allow or deny geolocation access.
-    ///
+    /// Call to allow or deny geolocation access.
     public func doContinue(allow: Bool) {
         cefObject.cont(cefObjectPtr, allow ? 1 : 0)
     }

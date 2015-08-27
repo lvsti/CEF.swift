@@ -15,25 +15,17 @@ public struct CEFV8PropertyAttribute: OptionSetType {
     }
 
 
-    ///
-    // Writeable, Enumerable,
-    //   Configurable
-    ///
+    /// Writeable, Enumerable,
+    /// Configurable
     public static let None = CEFV8PropertyAttribute(rawValue: 0)
 
-    ///
-    // Not writeable
-    ///
+    /// Not writeable
     public static let ReadOnly = CEFV8PropertyAttribute(rawValue: 1 << 0)
 
-    ///
-    // Not enumerable
-    ///
+    /// Not enumerable
     public static let DontEnumerate = CEFV8PropertyAttribute(rawValue: 1 << 1)
 
-    ///
-    // Not configurable
-    ///
+    /// Not configurable
     public static let DontDelete = CEFV8PropertyAttribute(rawValue: 1 << 2)
 }
 

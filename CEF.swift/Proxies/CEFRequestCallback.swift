@@ -11,22 +11,16 @@ import Foundation
 extension cef_request_callback_t: CEFObject {
 }
 
-///
-// Callback interface used for asynchronous continuation of url requests.
-///
+/// Callback interface used for asynchronous continuation of url requests.
 public class CEFRequestCallback: CEFProxy<cef_request_callback_t> {
     
-    ///
-    // Continue the url request. If |allow| is true the request will be continued.
-    // Otherwise, the request will be canceled.
-    ///
+    /// Continue the url request. If |allow| is true the request will be continued.
+    /// Otherwise, the request will be canceled.
     func doContinue(allow: Bool) {
         cefObject.cont(cefObjectPtr, allow ? 1 : 0)
     }
     
-    ///
-    // Cancel the url request.
-    ///
+    /// Cancel the url request.
     func doCancel() {
         cefObject.cancel(cefObjectPtr)
     }

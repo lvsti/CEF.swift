@@ -8,9 +8,7 @@
 
 import Foundation
 
-///
-// Popup window features.
-///
+/// Popup window features.
 public struct CEFPopupFeatures {
     public let rect: NSRect
     public let rectSet: NSRect

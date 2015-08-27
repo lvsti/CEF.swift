@@ -8,18 +8,14 @@
 
 import Foundation
 
-///
-// Implement this interface to provide handler implementations. The handler
-// instance will not be released until all objects related to the context have
-// been destroyed.
-///
+/// Implement this interface to provide handler implementations. The handler
+/// instance will not be released until all objects related to the context have
+/// been destroyed.
 public protocol CEFRequestContextHandler {
     
-    ///
-    // Called on the IO thread to retrieve the cookie manager. If this method
-    // returns NULL the default cookie manager retrievable via
-    // CefRequestContext::GetDefaultCookieManager() will be used.
-    ///
+    /// Called on the IO thread to retrieve the cookie manager. If this method
+    /// returns NULL the default cookie manager retrievable via
+    /// CefRequestContext::GetDefaultCookieManager() will be used.
     func getCookieManager() -> CEFCookieManager?
     
 }
