@@ -8,8 +8,16 @@
 
 import Foundation
 
+///
+// Interface to implement to be notified of asynchronous completion via
+// CefCookieManager::SetCookie().
+///
 public protocol CEFSetCookieCallback {
     
+    ///
+    // Method that will be called upon completion. |success| will be true if the
+    // cookie was set successfully.
+    ///
     func onComplete(success: Bool)
     
 }

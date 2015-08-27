@@ -8,8 +8,16 @@
 
 import Foundation
 
+///
+// Interface to implement to be notified of asynchronous completion via
+// CefCookieManager::DeleteCookies().
+///
 public protocol CEFDeleteCookiesCallback {
     
+    ///
+    // Method that will be called upon completion. |num_deleted| will be the
+    // number of cookies that were deleted or -1 if unknown.
+    ///
     func onComplete(deletedCount: Int?)
     
 }

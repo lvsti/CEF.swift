@@ -8,8 +8,14 @@
 
 import Foundation
 
+///
+// Generic callback interface used for asynchronous completion.
+///
 public protocol CEFCompletionCallback {
     
+    ///
+    // Method that will be called once the task is complete.
+    ///
     func onComplete()
     
 }

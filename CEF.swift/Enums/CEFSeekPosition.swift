@@ -8,7 +8,7 @@
 
 import Foundation
 
-// typed version of SEEK_{SET,CUR,END}
+/// typed version of SEEK_{SET,CUR,END}
 public enum CEFSeekPosition: Int32 {
     case Set = 0
     case Current

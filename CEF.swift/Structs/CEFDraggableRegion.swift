@@ -8,8 +8,18 @@
 
 import Foundation
 
+///
+// Structure representing a draggable region.
+///
 public struct CEFDraggableRegion {
+    ///
+    // Bounds of the region.
+    ///
     public let bounds: NSRect
+
+    ///
+    // True (1) this this region is draggable and false (0) otherwise.
+    ///
     public let isDraggable: Bool
 }
 

@@ -8,16 +8,16 @@
 
 import Foundation
 
-typealias CEFArgV = UnsafeMutablePointer<UnsafePointer<Int8>>
-typealias CEFMutableArgV = UnsafeMutablePointer<UnsafeMutablePointer<Int8>>
-
+///
+// Structure representing CefExecuteProcess arguments.
+///
 public struct CEFMainArgs {
     public let arguments: [String]
-    
-    public init(arguments: [String]) {
-        self.arguments = arguments
-    }
 }
+
+
+typealias CEFArgV = UnsafeMutablePointer<UnsafePointer<Int8>>
+typealias CEFMutableArgV = UnsafeMutablePointer<UnsafeMutablePointer<Int8>>
 
 extension CEFMainArgs {
     func toCEF() -> cef_main_args_t {

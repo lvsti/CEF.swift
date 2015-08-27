@@ -11,12 +11,21 @@ import Foundation
 extension cef_callback_t: CEFObject {
 }
 
+///
+// Generic callback interface used for asynchronous continuation.
+///
 public class CEFCallback: CEFProxy<cef_callback_t> {
 
+    ///
+    // Continue processing.
+    ///
     public func doContinue() {
         cefObject.cont(cefObjectPtr)
     }
     
+    ///
+    // Cancel processing.
+    ///
     public func doCancel() {
         cefObject.cancel(cefObjectPtr)
     }

@@ -8,9 +8,24 @@
 
 import Foundation
 
+///
+// Structure representing mouse event information.
+///
 public struct CEFMouseEvent {
+    ///
+    // X coordinate relative to the left side of the view.
+    ///
     public var x: Int32 = 0
+
+    ///
+    // Y coordinate relative to the top side of the view.
+    ///
     public var y: Int32 = 0
+    
+    ///
+    // Bit flags describing any pressed modifier keys. See
+    // cef_event_flags_t for values.
+    ///
     public var modifiers: CEFEventFlags = .None
 }
 

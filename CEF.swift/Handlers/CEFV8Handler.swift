@@ -8,8 +8,19 @@
 
 import Foundation
 
+///
+// Interface that should be implemented to handle V8 function calls. The methods
+// of this class will be called on the thread associated with the V8 function.
+///
 public protocol CEFV8Handler {
     
+    ///
+    // Handle execution of the function identified by |name|. |object| is the
+    // receiver ('this' object) of the function. |arguments| is the list of
+    // arguments passed to the function. If execution succeeds set |retval| to the
+    // function return value. If execution fails set |exception| to the exception
+    // that will be thrown. Return true if execution was handled.
+    ///
     func execute(name: String,
                  object: CEFV8Value,
                  arguments: [CEFV8Value],
