@@ -12,7 +12,7 @@ import Foundation
 /// Class representing window information.
 public struct CEFWindowInfo {
     public var windowName: String = ""
-    public var rect: NSRect = NSRect.zeroRect
+    public var rect: NSRect = NSRect.zero
 
     /// Set to true (1) to create the view initially hidden.
     public var isHidden: Bool = false
