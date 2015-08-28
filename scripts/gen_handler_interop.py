@@ -34,7 +34,7 @@ extension %s {
     }
 }
 
-''' % (swift_name, swift_name, cef_capi_name, cef_capi_name, cef_capi_name, swift_name)
+''' % (swift_name, swift_name, cef_capi_name, swift_name, cef_capi_name, swift_name)
 
 
 def make_cefcallbackmarshalling_conformance(cef_capi_name, swift_name, cef_class):
