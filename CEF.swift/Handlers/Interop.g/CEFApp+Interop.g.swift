@@ -11,7 +11,7 @@ extension cef_app_t: CEFObject {}
 
 typealias CEFAppMarshaller = CEFMarshaller<CEFApp, cef_app_t>
 
-extension cef_app_t {
+extension CEFApp {
     func toCEF() -> UnsafeMutablePointer<cef_app_t> {
         return CEFAppMarshaller.pass(self)
     }

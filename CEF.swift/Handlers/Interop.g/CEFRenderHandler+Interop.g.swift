@@ -11,7 +11,7 @@ extension cef_render_handler_t: CEFObject {}
 
 typealias CEFRenderHandlerMarshaller = CEFMarshaller<CEFRenderHandler, cef_render_handler_t>
 
-extension cef_render_handler_t {
+extension CEFRenderHandler {
     func toCEF() -> UnsafeMutablePointer<cef_render_handler_t> {
         return CEFRenderHandlerMarshaller.pass(self)
     }

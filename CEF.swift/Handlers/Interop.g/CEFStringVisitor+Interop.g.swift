@@ -11,7 +11,7 @@ extension cef_string_visitor_t: CEFObject {}
 
 typealias CEFStringVisitorMarshaller = CEFMarshaller<CEFStringVisitor, cef_string_visitor_t>
 
-extension cef_string_visitor_t {
+extension CEFStringVisitor {
     func toCEF() -> UnsafeMutablePointer<cef_string_visitor_t> {
         return CEFStringVisitorMarshaller.pass(self)
     }

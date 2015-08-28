@@ -11,7 +11,7 @@ extension cef_context_menu_handler_t: CEFObject {}
 
 typealias CEFContextMenuHandlerMarshaller = CEFMarshaller<CEFContextMenuHandler, cef_context_menu_handler_t>
 
-extension cef_context_menu_handler_t {
+extension CEFContextMenuHandler {
     func toCEF() -> UnsafeMutablePointer<cef_context_menu_handler_t> {
         return CEFContextMenuHandlerMarshaller.pass(self)
     }

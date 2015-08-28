@@ -11,7 +11,7 @@ extension cef_keyboard_handler_t: CEFObject {}
 
 typealias CEFKeyboardHandlerMarshaller = CEFMarshaller<CEFKeyboardHandler, cef_keyboard_handler_t>
 
-extension cef_keyboard_handler_t {
+extension CEFKeyboardHandler {
     func toCEF() -> UnsafeMutablePointer<cef_keyboard_handler_t> {
         return CEFKeyboardHandlerMarshaller.pass(self)
     }

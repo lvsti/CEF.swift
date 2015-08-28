@@ -11,7 +11,7 @@ extension cef_web_plugin_unstable_callback_t: CEFObject {}
 
 typealias CEFWebPluginUnstableCallbackMarshaller = CEFMarshaller<CEFWebPluginUnstableCallback, cef_web_plugin_unstable_callback_t>
 
-extension cef_web_plugin_unstable_callback_t {
+extension CEFWebPluginUnstableCallback {
     func toCEF() -> UnsafeMutablePointer<cef_web_plugin_unstable_callback_t> {
         return CEFWebPluginUnstableCallbackMarshaller.pass(self)
     }

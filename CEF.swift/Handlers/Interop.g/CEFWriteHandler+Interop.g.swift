@@ -11,7 +11,7 @@ extension cef_write_handler_t: CEFObject {}
 
 typealias CEFWriteHandlerMarshaller = CEFMarshaller<CEFWriteHandler, cef_write_handler_t>
 
-extension cef_write_handler_t {
+extension CEFWriteHandler {
     func toCEF() -> UnsafeMutablePointer<cef_write_handler_t> {
         return CEFWriteHandlerMarshaller.pass(self)
     }

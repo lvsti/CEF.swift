@@ -11,7 +11,7 @@ extension cef_request_handler_t: CEFObject {}
 
 typealias CEFRequestHandlerMarshaller = CEFMarshaller<CEFRequestHandler, cef_request_handler_t>
 
-extension cef_request_handler_t {
+extension CEFRequestHandler {
     func toCEF() -> UnsafeMutablePointer<cef_request_handler_t> {
         return CEFRequestHandlerMarshaller.pass(self)
     }

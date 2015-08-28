@@ -11,7 +11,7 @@ extension cef_request_context_handler_t: CEFObject {}
 
 typealias CEFRequestContextHandlerMarshaller = CEFMarshaller<CEFRequestContextHandler, cef_request_context_handler_t>
 
-extension cef_request_context_handler_t {
+extension CEFRequestContextHandler {
     func toCEF() -> UnsafeMutablePointer<cef_request_context_handler_t> {
         return CEFRequestContextHandlerMarshaller.pass(self)
     }

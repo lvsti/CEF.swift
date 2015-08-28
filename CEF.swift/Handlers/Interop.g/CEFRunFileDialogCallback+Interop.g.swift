@@ -11,7 +11,7 @@ extension cef_run_file_dialog_callback_t: CEFObject {}
 
 typealias CEFRunFileDialogCallbackMarshaller = CEFMarshaller<CEFRunFileDialogCallback, cef_run_file_dialog_callback_t>
 
-extension cef_run_file_dialog_callback_t {
+extension CEFRunFileDialogCallback {
     func toCEF() -> UnsafeMutablePointer<cef_run_file_dialog_callback_t> {
         return CEFRunFileDialogCallbackMarshaller.pass(self)
     }

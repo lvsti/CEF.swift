@@ -11,7 +11,7 @@ extension cef_jsdialog_handler_t: CEFObject {}
 
 typealias CEFJSDialogHandlerMarshaller = CEFMarshaller<CEFJSDialogHandler, cef_jsdialog_handler_t>
 
-extension cef_jsdialog_handler_t {
+extension CEFJSDialogHandler {
     func toCEF() -> UnsafeMutablePointer<cef_jsdialog_handler_t> {
         return CEFJSDialogHandlerMarshaller.pass(self)
     }

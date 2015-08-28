@@ -11,7 +11,7 @@ extension cef_browser_process_handler_t: CEFObject {}
 
 typealias CEFBrowserProcessHandlerMarshaller = CEFMarshaller<CEFBrowserProcessHandler, cef_browser_process_handler_t>
 
-extension cef_browser_process_handler_t {
+extension CEFBrowserProcessHandler {
     func toCEF() -> UnsafeMutablePointer<cef_browser_process_handler_t> {
         return CEFBrowserProcessHandlerMarshaller.pass(self)
     }

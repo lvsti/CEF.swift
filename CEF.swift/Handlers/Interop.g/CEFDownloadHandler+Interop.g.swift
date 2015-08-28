@@ -11,7 +11,7 @@ extension cef_download_handler_t: CEFObject {}
 
 typealias CEFDownloadHandlerMarshaller = CEFMarshaller<CEFDownloadHandler, cef_download_handler_t>
 
-extension cef_download_handler_t {
+extension CEFDownloadHandler {
     func toCEF() -> UnsafeMutablePointer<cef_download_handler_t> {
         return CEFDownloadHandlerMarshaller.pass(self)
     }

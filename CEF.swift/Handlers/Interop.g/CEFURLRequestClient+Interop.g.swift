@@ -11,7 +11,7 @@ extension cef_urlrequest_client_t: CEFObject {}
 
 typealias CEFURLRequestClientMarshaller = CEFMarshaller<CEFURLRequestClient, cef_urlrequest_client_t>
 
-extension cef_urlrequest_client_t {
+extension CEFURLRequestClient {
     func toCEF() -> UnsafeMutablePointer<cef_urlrequest_client_t> {
         return CEFURLRequestClientMarshaller.pass(self)
     }

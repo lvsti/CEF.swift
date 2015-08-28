@@ -11,7 +11,7 @@ extension cef_render_process_handler_t: CEFObject {}
 
 typealias CEFRenderProcessHandlerMarshaller = CEFMarshaller<CEFRenderProcessHandler, cef_render_process_handler_t>
 
-extension cef_render_process_handler_t {
+extension CEFRenderProcessHandler {
     func toCEF() -> UnsafeMutablePointer<cef_render_process_handler_t> {
         return CEFRenderProcessHandlerMarshaller.pass(self)
     }

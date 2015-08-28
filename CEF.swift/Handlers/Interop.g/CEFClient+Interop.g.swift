@@ -11,7 +11,7 @@ extension cef_client_t: CEFObject {}
 
 typealias CEFClientMarshaller = CEFMarshaller<CEFClient, cef_client_t>
 
-extension cef_client_t {
+extension CEFClient {
     func toCEF() -> UnsafeMutablePointer<cef_client_t> {
         return CEFClientMarshaller.pass(self)
     }

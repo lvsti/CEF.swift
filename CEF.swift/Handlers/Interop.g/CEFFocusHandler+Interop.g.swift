@@ -11,7 +11,7 @@ extension cef_focus_handler_t: CEFObject {}
 
 typealias CEFFocusHandlerMarshaller = CEFMarshaller<CEFFocusHandler, cef_focus_handler_t>
 
-extension cef_focus_handler_t {
+extension CEFFocusHandler {
     func toCEF() -> UnsafeMutablePointer<cef_focus_handler_t> {
         return CEFFocusHandlerMarshaller.pass(self)
     }

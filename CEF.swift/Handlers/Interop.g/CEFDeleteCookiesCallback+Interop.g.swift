@@ -11,7 +11,7 @@ extension cef_delete_cookies_callback_t: CEFObject {}
 
 typealias CEFDeleteCookiesCallbackMarshaller = CEFMarshaller<CEFDeleteCookiesCallback, cef_delete_cookies_callback_t>
 
-extension cef_delete_cookies_callback_t {
+extension CEFDeleteCookiesCallback {
     func toCEF() -> UnsafeMutablePointer<cef_delete_cookies_callback_t> {
         return CEFDeleteCookiesCallbackMarshaller.pass(self)
     }

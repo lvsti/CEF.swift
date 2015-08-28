@@ -11,7 +11,7 @@ extension cef_end_tracing_callback_t: CEFObject {}
 
 typealias CEFEndTracingCallbackMarshaller = CEFMarshaller<CEFEndTracingCallback, cef_end_tracing_callback_t>
 
-extension cef_end_tracing_callback_t {
+extension CEFEndTracingCallback {
     func toCEF() -> UnsafeMutablePointer<cef_end_tracing_callback_t> {
         return CEFEndTracingCallbackMarshaller.pass(self)
     }

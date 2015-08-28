@@ -11,7 +11,7 @@ extension cef_geolocation_handler_t: CEFObject {}
 
 typealias CEFGeolocationHandlerMarshaller = CEFMarshaller<CEFGeolocationHandler, cef_geolocation_handler_t>
 
-extension cef_geolocation_handler_t {
+extension CEFGeolocationHandler {
     func toCEF() -> UnsafeMutablePointer<cef_geolocation_handler_t> {
         return CEFGeolocationHandlerMarshaller.pass(self)
     }

@@ -11,7 +11,7 @@ extension cef_scheme_handler_factory_t: CEFObject {}
 
 typealias CEFSchemeHandlerFactoryMarshaller = CEFMarshaller<CEFSchemeHandlerFactory, cef_scheme_handler_factory_t>
 
-extension cef_scheme_handler_factory_t {
+extension CEFSchemeHandlerFactory {
     func toCEF() -> UnsafeMutablePointer<cef_scheme_handler_factory_t> {
         return CEFSchemeHandlerFactoryMarshaller.pass(self)
     }

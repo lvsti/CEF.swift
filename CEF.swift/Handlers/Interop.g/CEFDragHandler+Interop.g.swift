@@ -11,7 +11,7 @@ extension cef_drag_handler_t: CEFObject {}
 
 typealias CEFDragHandlerMarshaller = CEFMarshaller<CEFDragHandler, cef_drag_handler_t>
 
-extension cef_drag_handler_t {
+extension CEFDragHandler {
     func toCEF() -> UnsafeMutablePointer<cef_drag_handler_t> {
         return CEFDragHandlerMarshaller.pass(self)
     }

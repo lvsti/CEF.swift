@@ -11,7 +11,7 @@ extension cef_cookie_visitor_t: CEFObject {}
 
 typealias CEFCookieVisitorMarshaller = CEFMarshaller<CEFCookieVisitor, cef_cookie_visitor_t>
 
-extension cef_cookie_visitor_t {
+extension CEFCookieVisitor {
     func toCEF() -> UnsafeMutablePointer<cef_cookie_visitor_t> {
         return CEFCookieVisitorMarshaller.pass(self)
     }

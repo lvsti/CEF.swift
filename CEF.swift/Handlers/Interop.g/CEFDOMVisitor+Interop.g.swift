@@ -11,7 +11,7 @@ extension cef_domvisitor_t: CEFObject {}
 
 typealias CEFDOMVisitorMarshaller = CEFMarshaller<CEFDOMVisitor, cef_domvisitor_t>
 
-extension cef_domvisitor_t {
+extension CEFDOMVisitor {
     func toCEF() -> UnsafeMutablePointer<cef_domvisitor_t> {
         return CEFDOMVisitorMarshaller.pass(self)
     }

@@ -11,7 +11,7 @@ extension cef_web_plugin_info_visitor_t: CEFObject {}
 
 typealias CEFWebPluginInfoVisitorMarshaller = CEFMarshaller<CEFWebPluginInfoVisitor, cef_web_plugin_info_visitor_t>
 
-extension cef_web_plugin_info_visitor_t {
+extension CEFWebPluginInfoVisitor {
     func toCEF() -> UnsafeMutablePointer<cef_web_plugin_info_visitor_t> {
         return CEFWebPluginInfoVisitorMarshaller.pass(self)
     }

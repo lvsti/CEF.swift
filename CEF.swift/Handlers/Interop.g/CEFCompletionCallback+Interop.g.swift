@@ -11,7 +11,7 @@ extension cef_completion_callback_t: CEFObject {}
 
 typealias CEFCompletionCallbackMarshaller = CEFMarshaller<CEFCompletionCallback, cef_completion_callback_t>
 
-extension cef_completion_callback_t {
+extension CEFCompletionCallback {
     func toCEF() -> UnsafeMutablePointer<cef_completion_callback_t> {
         return CEFCompletionCallbackMarshaller.pass(self)
     }

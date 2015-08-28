@@ -11,7 +11,7 @@ extension cef_life_span_handler_t: CEFObject {}
 
 typealias CEFLifeSpanHandlerMarshaller = CEFMarshaller<CEFLifeSpanHandler, cef_life_span_handler_t>
 
-extension cef_life_span_handler_t {
+extension CEFLifeSpanHandler {
     func toCEF() -> UnsafeMutablePointer<cef_life_span_handler_t> {
         return CEFLifeSpanHandlerMarshaller.pass(self)
     }

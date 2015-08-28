@@ -11,7 +11,7 @@ extension cef_print_handler_t: CEFObject {}
 
 typealias CEFPrintHandlerMarshaller = CEFMarshaller<CEFPrintHandler, cef_print_handler_t>
 
-extension cef_print_handler_t {
+extension CEFPrintHandler {
     func toCEF() -> UnsafeMutablePointer<cef_print_handler_t> {
         return CEFPrintHandlerMarshaller.pass(self)
     }

@@ -11,7 +11,7 @@ extension cef_resource_handler_t: CEFObject {}
 
 typealias CEFResourceHandlerMarshaller = CEFMarshaller<CEFResourceHandler, cef_resource_handler_t>
 
-extension cef_resource_handler_t {
+extension CEFResourceHandler {
     func toCEF() -> UnsafeMutablePointer<cef_resource_handler_t> {
         return CEFResourceHandlerMarshaller.pass(self)
     }

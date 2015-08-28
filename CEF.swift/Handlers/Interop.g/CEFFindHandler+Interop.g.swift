@@ -11,7 +11,7 @@ extension cef_find_handler_t: CEFObject {}
 
 typealias CEFFindHandlerMarshaller = CEFMarshaller<CEFFindHandler, cef_find_handler_t>
 
-extension cef_find_handler_t {
+extension CEFFindHandler {
     func toCEF() -> UnsafeMutablePointer<cef_find_handler_t> {
         return CEFFindHandlerMarshaller.pass(self)
     }

@@ -11,7 +11,7 @@ extension cef_task_t: CEFObject {}
 
 typealias CEFTaskMarshaller = CEFMarshaller<CEFTask, cef_task_t>
 
-extension cef_task_t {
+extension CEFTask {
     func toCEF() -> UnsafeMutablePointer<cef_task_t> {
         return CEFTaskMarshaller.pass(self)
     }
