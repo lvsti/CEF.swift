@@ -2,6 +2,19 @@
 
 from translation_rules import *
 
+def cef_capi_func_name_to_swift_func_name(capi_func_name):
+    parts = capi_func_name.split("_")
+    retval = parts[0].lower()
+
+    for word in parts[1:]:
+        if word.lower() in abbreviations:
+            retval += word.upper()
+        else:
+            retval += word.capitalize()
+    
+    return retval
+
+
 def cef_capi_type_to_swift(capi_type):
     if capi_type in typename_overrides:
         return typename_overrides[capi_type]
@@ -15,11 +28,13 @@ def cef_capi_type_to_swift(capi_type):
     
     return retval
 
+
 def indent_multiline_string(mls, level):
     retval = ""
     for line in mls.splitlines(True):
         retval += "\t".expandtabs(4*level) + line.lstrip()
     return retval
+
 
 def strip_c_comment_prefix(mls):
     retval = ""
@@ -29,6 +44,7 @@ def strip_c_comment_prefix(mls):
             retval += stripped[2:].lstrip()
             
     return retval
+
 
 def make_swiftdoc_comment(desc, params = None, returns = None):
     retval = ""

@@ -7,16 +7,16 @@ abbreviations = [
 ]
 
 typename_overrides = {
+    # enums
     'cef_v8_accesscontrol_t': 'CEFV8AccessControl',
     'cef_v8_propertyattribute_t': 'CEFV8PropertyAttribute',
     'cef_postdataelement_type_t': 'CEFPOSTDataElementType',
-    'cef_post_data_element_t': 'CEFPOSTDataElement',
-    'cef_post_data_t': 'CEFPOSTData',
     'cef_urlrequest_flags_t': 'CEFURLRequestFlags',
     'cef_urlrequest_status_t': 'CEFURLRequestStatus',
     'cef_jsdialog_type_t': 'CEFJSDialogType',
     'cef_errorcode_t': 'CEFErrorCode',
     
+    # proxies
     'cef_urlrequest_t': 'CEFURLRequest',
     'cef_v8value_t': 'CEFV8Value',
     'cef_v8stack_trace_t': 'CEFV8StackTrace',
@@ -27,7 +27,16 @@ typename_overrides = {
     'cef_sslcert_principal_t': 'CEFSSLCertPrincipal',
     'cef_jsdialog_callback_t': 'CEFJSDialogCallback',
     'cef_domnode_t': 'CEFDOMNode',
-    'cef_domdocument_t': 'CEFDOMDocument'
+    'cef_domdocument_t': 'CEFDOMDocument',
+    'cef_post_data_element_t': 'CEFPOSTDataElement',
+    'cef_post_data_t': 'CEFPOSTData',
+
+    # handlers
+    'cef_urlrequest_client_t': 'CEFURLRequestClient',
+    'cef_v8accessor_t': 'CEFV8Accessor',
+    'cef_v8handler_t': 'CEFV8Accessor',
+    'cef_domvisitor_t': 'CEFDOMVisitor',
+    'cef_jsdialog_handler_t': 'CEFJSDialogHandler'
 }
 
 entryname_overrides = {
@@ -101,7 +110,6 @@ cef_enums = [
     'cef_termination_status_t',
     'cef_path_key_t',
     'cef_storage_type_t',
-    'cef_errorcode_t',
     'cef_window_open_disposition_t',
     'cef_postdataelement_type_t',
     'cef_resource_type_t',
@@ -145,7 +153,8 @@ cef_option_sets = [
 ]
 
 cef_const_collections = {
-    'cef_menu_id_t': 'Int32'
+    'cef_menu_id_t': 'Int32',
+    'cef_errorcode_t': 'Int32'
 }
 
 cef_hybrid_enums = [
