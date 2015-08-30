@@ -70,6 +70,7 @@ public func CEFRegisterExtension(name: String, code: String, handler: CEFV8Handl
         CEFStringPtrRelease(cefNamePtr)
         CEFStringPtrRelease(cefCodePtr)
     }
-    return cef_register_extension(cefNamePtr, cefCodePtr, handler != nil ? handler!.toCEF() : nil) != 0
+    let cefHandler = handler != nil ? handler!.toCEF() : nil
+    return cef_register_extension(cefNamePtr, cefCodePtr, cefHandler) != 0
 }
 
