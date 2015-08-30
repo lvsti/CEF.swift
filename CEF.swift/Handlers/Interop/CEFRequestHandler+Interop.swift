@@ -23,12 +23,12 @@ func CEFRequestHandler_on_before_browse(ptr: UnsafeMutablePointer<cef_request_ha
                               isRedirect: isRedirect != 0) ? 1 : 0
 }
 
-func CEFRequestHandler_on_open_url_from_tab(ptr: UnsafeMutablePointer<cef_request_handler_t>,
-                                            browser: UnsafeMutablePointer<cef_browser_t>,
-                                            frame: UnsafeMutablePointer<cef_frame_t>,
-                                            url: UnsafePointer<cef_string_t>,
-                                            disposition: cef_window_open_disposition_t,
-                                            gesture: Int32) -> Int32 {
+func CEFRequestHandler_on_open_urlfrom_tab(ptr: UnsafeMutablePointer<cef_request_handler_t>,
+                                           browser: UnsafeMutablePointer<cef_browser_t>,
+                                           frame: UnsafeMutablePointer<cef_frame_t>,
+                                           url: UnsafePointer<cef_string_t>,
+                                           disposition: cef_window_open_disposition_t,
+                                           gesture: Int32) -> Int32 {
     guard let obj = CEFRequestHandlerMarshaller.get(ptr) else {
         return 0
     }
@@ -209,8 +209,8 @@ func CEFRequestHandler_on_plugin_crashed(ptr: UnsafeMutablePointer<cef_request_h
                         pluginPath: CEFStringToSwiftString(path.memory))
 }
 
-func CEFRequestHandler_onRenderViewReady(ptr: UnsafeMutablePointer<cef_request_handler_t>,
-                                         browser: UnsafeMutablePointer<cef_browser_t>) {
+func CEFRequestHandler_on_render_view_ready(ptr: UnsafeMutablePointer<cef_request_handler_t>,
+                                            browser: UnsafeMutablePointer<cef_browser_t>) {
     guard let obj = CEFRequestHandlerMarshaller.get(ptr) else {
         return
     }
