@@ -8,9 +8,9 @@
 
 import Foundation
 
-func CEFWebPluginUnstableCallback_isUnstable(ptr: UnsafeMutablePointer<cef_web_plugin_unstable_callback_t>,
-                                             path: UnsafePointer<cef_string_t>,
-                                             unstable: Int32) {
+func CEFWebPluginUnstableCallback_is_unstable(ptr: UnsafeMutablePointer<cef_web_plugin_unstable_callback_t>,
+                                              path: UnsafePointer<cef_string_t>,
+                                              unstable: Int32) {
     guard let obj = CEFWebPluginUnstableCallbackMarshaller.get(ptr) else {
         return
     }

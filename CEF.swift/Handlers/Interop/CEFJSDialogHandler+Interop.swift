@@ -8,15 +8,15 @@
 
 import Foundation
 
-func CEFJSDialogHandler_onJSDialog(ptr: UnsafeMutablePointer<cef_jsdialog_handler_t>,
-                                   browser: UnsafeMutablePointer<cef_browser_t>,
-                                   origin: UnsafePointer<cef_string_t>,
-                                   acceptLanguage: UnsafePointer<cef_string_t>,
-                                   type: cef_jsdialog_type_t,
-                                   message: UnsafePointer<cef_string_t>,
-                                   prompt: UnsafePointer<cef_string_t>,
-                                   callback: UnsafeMutablePointer<cef_jsdialog_callback_t>,
-                                   shouldSuppress: UnsafeMutablePointer<Int32>) -> Int32 {
+func CEFJSDialogHandler_on_jsdialog(ptr: UnsafeMutablePointer<cef_jsdialog_handler_t>,
+                                    browser: UnsafeMutablePointer<cef_browser_t>,
+                                    origin: UnsafePointer<cef_string_t>,
+                                    acceptLanguage: UnsafePointer<cef_string_t>,
+                                    type: cef_jsdialog_type_t,
+                                    message: UnsafePointer<cef_string_t>,
+                                    prompt: UnsafePointer<cef_string_t>,
+                                    callback: UnsafeMutablePointer<cef_jsdialog_callback_t>,
+                                    shouldSuppress: UnsafeMutablePointer<Int32>) -> Int32 {
     guard let obj = CEFJSDialogHandlerMarshaller.get(ptr) else {
         return 0
     }
@@ -37,11 +37,11 @@ func CEFJSDialogHandler_onJSDialog(ptr: UnsafeMutablePointer<cef_jsdialog_handle
     return retval ? 1 : 0
 }
 
-func CEFJSDialogHandler_onBeforeUnloadDialog(ptr: UnsafeMutablePointer<cef_jsdialog_handler_t>,
-                                             browser: UnsafeMutablePointer<cef_browser_t>,
-                                             message: UnsafePointer<cef_string_t>,
-                                             isReload: Int32,
-                                             callback: UnsafeMutablePointer<cef_jsdialog_callback_t>) -> Int32 {
+func CEFJSDialogHandler_on_before_unload_dialog(ptr: UnsafeMutablePointer<cef_jsdialog_handler_t>,
+                                                browser: UnsafeMutablePointer<cef_browser_t>,
+                                                message: UnsafePointer<cef_string_t>,
+                                                isReload: Int32,
+                                                callback: UnsafeMutablePointer<cef_jsdialog_callback_t>) -> Int32 {
     guard let obj = CEFJSDialogHandlerMarshaller.get(ptr) else {
         return 0
     }
@@ -52,8 +52,8 @@ func CEFJSDialogHandler_onBeforeUnloadDialog(ptr: UnsafeMutablePointer<cef_jsdia
                                     callback: CEFJSDialogCallback.fromCEF(callback)!) ? 1 : 0
 }
 
-func CEFJSDialogHandler_onResetDialogState(ptr: UnsafeMutablePointer<cef_jsdialog_handler_t>,
-                                           browser: UnsafeMutablePointer<cef_browser_t>) {
+func CEFJSDialogHandler_on_reset_dialog_state(ptr: UnsafeMutablePointer<cef_jsdialog_handler_t>,
+                                              browser: UnsafeMutablePointer<cef_browser_t>) {
     guard let obj = CEFJSDialogHandlerMarshaller.get(ptr) else {
         return
     }
@@ -61,8 +61,8 @@ func CEFJSDialogHandler_onResetDialogState(ptr: UnsafeMutablePointer<cef_jsdialo
     obj.onResetDialogState(CEFBrowser.fromCEF(browser)!)
 }
 
-func CEFJSDialogHandler_onDialogClosed(ptr: UnsafeMutablePointer<cef_jsdialog_handler_t>,
-                                       browser: UnsafeMutablePointer<cef_browser_t>) {
+func CEFJSDialogHandler_on_dialog_closed(ptr: UnsafeMutablePointer<cef_jsdialog_handler_t>,
+                                         browser: UnsafeMutablePointer<cef_browser_t>) {
     guard let obj = CEFJSDialogHandlerMarshaller.get(ptr) else {
         return
     }

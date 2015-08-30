@@ -45,7 +45,7 @@ func CEFWriteHandler_flush(ptr: UnsafeMutablePointer<cef_write_handler_t>) -> In
     return obj.flush() ? 1 : 0
 }
 
-func CEFWriteHandler_mayBlock(ptr: UnsafeMutablePointer<cef_write_handler_t>) -> Int32 {
+func CEFWriteHandler_may_block(ptr: UnsafeMutablePointer<cef_write_handler_t>) -> Int32 {
     guard let obj = CEFWriteHandlerMarshaller.get(ptr) else {
         return 0
     }

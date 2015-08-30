@@ -8,9 +8,9 @@
 
 import Foundation
 
-func CEFResourceHandler_processRequest(ptr: UnsafeMutablePointer<cef_resource_handler_t>,
-                                       request: UnsafeMutablePointer<cef_request_t>,
-                                       callback: UnsafeMutablePointer<cef_callback_t>) -> Int32 {
+func CEFResourceHandler_process_request(ptr: UnsafeMutablePointer<cef_resource_handler_t>,
+                                        request: UnsafeMutablePointer<cef_request_t>,
+                                        callback: UnsafeMutablePointer<cef_callback_t>) -> Int32 {
     guard let obj = CEFResourceHandlerMarshaller.get(ptr) else {
         return 0
     }
@@ -18,10 +18,10 @@ func CEFResourceHandler_processRequest(ptr: UnsafeMutablePointer<cef_resource_ha
     return obj.processRequest(CEFRequest.fromCEF(request)!, callback: CEFCallback.fromCEF(callback)!) ? 1 : 0
 }
 
-func CEFResourceHandler_getResponseHeaders(ptr: UnsafeMutablePointer<cef_resource_handler_t>,
-                                           response: UnsafeMutablePointer<cef_response_t>,
-                                           responseLength: UnsafeMutablePointer<int64>,
-                                           redirectURL: UnsafeMutablePointer<cef_string_t>) {
+func CEFResourceHandler_get_response_headers(ptr: UnsafeMutablePointer<cef_resource_handler_t>,
+                                             response: UnsafeMutablePointer<cef_response_t>,
+                                             responseLength: UnsafeMutablePointer<int64>,
+                                             redirectURL: UnsafeMutablePointer<cef_string_t>) {
     guard let obj = CEFResourceHandlerMarshaller.get(ptr) else {
         return
     }
@@ -39,11 +39,11 @@ func CEFResourceHandler_getResponseHeaders(ptr: UnsafeMutablePointer<cef_resourc
     }
 }
 
-func CEFResourceHandler_readResponse(ptr: UnsafeMutablePointer<cef_resource_handler_t>,
-                                     buffer: UnsafeMutablePointer<Void>,
-                                     bufferLength: Int32,
-                                     actualLength: UnsafeMutablePointer<Int32>,
-                                     callback: UnsafeMutablePointer<cef_callback_t>) -> Int32 {
+func CEFResourceHandler_read_response(ptr: UnsafeMutablePointer<cef_resource_handler_t>,
+                                      buffer: UnsafeMutablePointer<Void>,
+                                      bufferLength: Int32,
+                                      actualLength: UnsafeMutablePointer<Int32>,
+                                      callback: UnsafeMutablePointer<cef_callback_t>) -> Int32 {
     guard let obj = CEFResourceHandlerMarshaller.get(ptr) else {
         return 0
     }
@@ -58,8 +58,8 @@ func CEFResourceHandler_readResponse(ptr: UnsafeMutablePointer<cef_resource_hand
     return retval ? 1 : 0
 }
 
-func CEFResourceHandler_canGetCookie(ptr: UnsafeMutablePointer<cef_resource_handler_t>,
-                                     cookie: UnsafePointer<cef_cookie_t>) -> Int32 {
+func CEFResourceHandler_can_get_cookie(ptr: UnsafeMutablePointer<cef_resource_handler_t>,
+                                       cookie: UnsafePointer<cef_cookie_t>) -> Int32 {
     guard let obj = CEFResourceHandlerMarshaller.get(ptr) else {
         return 1
     }
@@ -67,8 +67,8 @@ func CEFResourceHandler_canGetCookie(ptr: UnsafeMutablePointer<cef_resource_hand
     return obj.canGetCookie(CEFCookie.fromCEF(cookie.memory)) ? 1 : 0
 }
 
-func CEFResourceHandler_canSetCookie(ptr: UnsafeMutablePointer<cef_resource_handler_t>,
-                                     cookie: UnsafePointer<cef_cookie_t>) -> Int32 {
+func CEFResourceHandler_can_set_cookie(ptr: UnsafeMutablePointer<cef_resource_handler_t>,
+                                       cookie: UnsafePointer<cef_cookie_t>) -> Int32 {
     guard let obj = CEFResourceHandlerMarshaller.get(ptr) else {
         return 1
     }

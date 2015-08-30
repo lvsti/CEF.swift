@@ -8,7 +8,7 @@
 
 import Foundation
 
-func CEFRequestContextHandler_getCookieManager(ptr: UnsafeMutablePointer<cef_request_context_handler_t>) -> UnsafeMutablePointer<cef_cookie_manager_t> {
+func CEFRequestContextHandler_get_cookie_manager(ptr: UnsafeMutablePointer<cef_request_context_handler_t>) -> UnsafeMutablePointer<cef_cookie_manager_t> {
     guard let obj = CEFRequestContextHandlerMarshaller.get(ptr) else {
         return nil
     }

@@ -8,9 +8,9 @@
 
 import Foundation
 
-func CEFPrintHandler_onPrintSettings(ptr: UnsafeMutablePointer<cef_print_handler_t>,
-                         settings: UnsafeMutablePointer<cef_print_settings_t>,
-                         getDefaults: Int32) {
+func CEFPrintHandler_on_print_settings(ptr: UnsafeMutablePointer<cef_print_handler_t>,
+                                       settings: UnsafeMutablePointer<cef_print_settings_t>,
+                                       getDefaults: Int32) {
     guard let obj = CEFPrintHandlerMarshaller.get(ptr) else {
         return
     }
@@ -18,8 +18,8 @@ func CEFPrintHandler_onPrintSettings(ptr: UnsafeMutablePointer<cef_print_handler
     obj.onPrintSettings(CEFPrintSettings.fromCEF(settings)!, defaults: getDefaults != 0)
 }
 
-func CEFPrintHandler_onPrintDialog(ptr: UnsafeMutablePointer<cef_print_handler_t>,
-                         hasSelection: Int32,
+func CEFPrintHandler_on_print_dialog(ptr: UnsafeMutablePointer<cef_print_handler_t>,
+                                     hasSelection: Int32,
     callback: UnsafeMutablePointer<cef_print_dialog_callback_t>) -> Int32 {
     guard let obj = CEFPrintHandlerMarshaller.get(ptr) else {
         return 0
@@ -28,8 +28,8 @@ func CEFPrintHandler_onPrintDialog(ptr: UnsafeMutablePointer<cef_print_handler_t
     return obj.onPrintDialog(hasSelection != 0, callback: CEFPrintDialogCallback.fromCEF(callback)!) ? 1 : 0
 }
 
-func CEFPrintHandler_onPrintJob(ptr: UnsafeMutablePointer<cef_print_handler_t>,
-                         name: UnsafePointer<cef_string_t>,
+func CEFPrintHandler_on_print_job(ptr: UnsafeMutablePointer<cef_print_handler_t>,
+                                  name: UnsafePointer<cef_string_t>,
     pdfPath: UnsafePointer<cef_string_t>,
     callback: UnsafeMutablePointer<cef_print_job_callback_t>) -> Int32 {
     guard let obj = CEFPrintHandlerMarshaller.get(ptr) else {
@@ -41,7 +41,7 @@ func CEFPrintHandler_onPrintJob(ptr: UnsafeMutablePointer<cef_print_handler_t>,
                           callback: CEFPrintJobCallback.fromCEF(callback)!) ? 1 : 0
 }
 
-func CEFPrintHandler_onPrintReset(ptr: UnsafeMutablePointer<cef_print_handler_t>) {
+func CEFPrintHandler_on_print_reset(ptr: UnsafeMutablePointer<cef_print_handler_t>) {
     guard let obj = CEFPrintHandlerMarshaller.get(ptr) else {
         return
     }

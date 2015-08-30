@@ -8,18 +8,18 @@
 
 import Foundation
 
-func CEFLifeSpanHandler_onBeforePopup(ptr: UnsafeMutablePointer<cef_life_span_handler_t>,
-                                      browser: UnsafeMutablePointer<cef_browser_t>,
-                                      frame: UnsafeMutablePointer<cef_frame_t>,
-                                      url: UnsafePointer<cef_string_t>,
-                                      frameName: UnsafePointer<cef_string_t>,
-                                      disposition: cef_window_open_disposition_t,
-                                      userGesture: Int32,
-                                      features: UnsafePointer<cef_popup_features_t>,
-                                      windowInfo: UnsafeMutablePointer<cef_window_info_t>,
-                                      cefClient: UnsafeMutablePointer<UnsafeMutablePointer<cef_client_t>>,
-                                      cefSettings: UnsafeMutablePointer<cef_browser_settings_t>,
-                                      noJSAccess: UnsafeMutablePointer<Int32>) -> Int32 {
+func CEFLifeSpanHandler_on_before_popup(ptr: UnsafeMutablePointer<cef_life_span_handler_t>,
+                                        browser: UnsafeMutablePointer<cef_browser_t>,
+                                        frame: UnsafeMutablePointer<cef_frame_t>,
+                                        url: UnsafePointer<cef_string_t>,
+                                        frameName: UnsafePointer<cef_string_t>,
+                                        disposition: cef_window_open_disposition_t,
+                                        userGesture: Int32,
+                                        features: UnsafePointer<cef_popup_features_t>,
+                                        windowInfo: UnsafeMutablePointer<cef_window_info_t>,
+                                        cefClient: UnsafeMutablePointer<UnsafeMutablePointer<cef_client_t>>,
+                                        cefSettings: UnsafeMutablePointer<cef_browser_settings_t>,
+                                        noJSAccess: UnsafeMutablePointer<Int32>) -> Int32 {
     guard let obj = CEFLifeSpanHandlerMarshaller.get(ptr) else {
         return 0
     }
@@ -50,8 +50,8 @@ func CEFLifeSpanHandler_onBeforePopup(ptr: UnsafeMutablePointer<cef_life_span_ha
 }
 
 
-func CEFLifeSpanHandler_onAfterCreated(ptr: UnsafeMutablePointer<cef_life_span_handler_t>,
-                                       browser: UnsafeMutablePointer<cef_browser_t>) {
+func CEFLifeSpanHandler_on_after_created(ptr: UnsafeMutablePointer<cef_life_span_handler_t>,
+                                         browser: UnsafeMutablePointer<cef_browser_t>) {
     guard let obj = CEFLifeSpanHandlerMarshaller.get(ptr) else {
         return
     }
@@ -59,8 +59,8 @@ func CEFLifeSpanHandler_onAfterCreated(ptr: UnsafeMutablePointer<cef_life_span_h
     obj.onAfterCreated(CEFBrowser.fromCEF(browser)!)
 }
 
-func CEFLifeSpanHandler_runModal(ptr: UnsafeMutablePointer<cef_life_span_handler_t>,
-                                 browser: UnsafeMutablePointer<cef_browser_t>) -> Int32 {
+func CEFLifeSpanHandler_run_modal(ptr: UnsafeMutablePointer<cef_life_span_handler_t>,
+                                  browser: UnsafeMutablePointer<cef_browser_t>) -> Int32 {
     guard let obj = CEFLifeSpanHandlerMarshaller.get(ptr) else {
         return 0
     }
@@ -68,8 +68,8 @@ func CEFLifeSpanHandler_runModal(ptr: UnsafeMutablePointer<cef_life_span_handler
     return obj.runModal(CEFBrowser.fromCEF(browser)!) ? 1 : 0
 }
 
-func CEFLifeSpanHandler_doClose(ptr: UnsafeMutablePointer<cef_life_span_handler_t>,
-                                browser: UnsafeMutablePointer<cef_browser_t>) -> Int32 {
+func CEFLifeSpanHandler_do_close(ptr: UnsafeMutablePointer<cef_life_span_handler_t>,
+                                 browser: UnsafeMutablePointer<cef_browser_t>) -> Int32 {
     guard let obj = CEFLifeSpanHandlerMarshaller.get(ptr) else {
         return 0
     }
@@ -77,8 +77,8 @@ func CEFLifeSpanHandler_doClose(ptr: UnsafeMutablePointer<cef_life_span_handler_
     return obj.doClose(CEFBrowser.fromCEF(browser)!) ? 1 : 0
 }
 
-func CEFLifeSpanHandler_onBeforeClose(ptr: UnsafeMutablePointer<cef_life_span_handler_t>,
-                                      browser: UnsafeMutablePointer<cef_browser_t>) {
+func CEFLifeSpanHandler_on_before_close(ptr: UnsafeMutablePointer<cef_life_span_handler_t>,
+                                        browser: UnsafeMutablePointer<cef_browser_t>) {
     guard let obj = CEFLifeSpanHandlerMarshaller.get(ptr) else {
         return
     }

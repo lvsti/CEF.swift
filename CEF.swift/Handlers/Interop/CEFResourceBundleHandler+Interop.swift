@@ -8,9 +8,9 @@
 
 import Foundation
 
-func CEFResourceBundleHandler_getLocalizedString(ptr: UnsafeMutablePointer<cef_resource_bundle_handler_t>,
-                                                 stringID: Int32,
-                                                 cefStrPtr: UnsafeMutablePointer<cef_string_t>) -> Int32 {
+func CEFResourceBundleHandler_get_localized_string(ptr: UnsafeMutablePointer<cef_resource_bundle_handler_t>,
+                                                   stringID: Int32,
+                                                   cefStrPtr: UnsafeMutablePointer<cef_string_t>) -> Int32 {
     guard let obj = CEFResourceBundleHandlerMarshaller.get(ptr) else {
         return 0
     }
@@ -23,10 +23,10 @@ func CEFResourceBundleHandler_getLocalizedString(ptr: UnsafeMutablePointer<cef_r
     return 0
 }
 
-func CEFResourceBundleHandler_getDataResource(ptr: UnsafeMutablePointer<cef_resource_bundle_handler_t>,
-                                              resourceID: Int32,
-                                              dataBufferPtr: UnsafeMutablePointer<UnsafeMutablePointer<Void>>,
-                                              dataSizePtr: UnsafeMutablePointer<size_t>) -> Int32 {
+func CEFResourceBundleHandler_get_data_resource(ptr: UnsafeMutablePointer<cef_resource_bundle_handler_t>,
+                                                resourceID: Int32,
+                                                dataBufferPtr: UnsafeMutablePointer<UnsafeMutablePointer<Void>>,
+                                                dataSizePtr: UnsafeMutablePointer<size_t>) -> Int32 {
     guard let obj = CEFResourceBundleHandlerMarshaller.get(ptr) else {
         return 0
     }

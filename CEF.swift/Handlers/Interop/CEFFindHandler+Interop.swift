@@ -8,14 +8,14 @@
 
 import Foundation
 
-func CEFFindHandler_onFindResult(ptr: UnsafeMutablePointer<cef_find_handler_t>,
-                                 browser: UnsafeMutablePointer<cef_browser_t>,
-                                 identifier: Int32,
-                                 count: Int32,
-                                 rect: UnsafePointer<cef_rect_t>,
-                                 currentIndex: Int32,
-                                 isLastUpdate: Int32) {
-    guard let obj = CEFindHandlerMarshaller.get(ptr) else {
+func CEFFindHandler_on_find_result(ptr: UnsafeMutablePointer<cef_find_handler_t>,
+                                   browser: UnsafeMutablePointer<cef_browser_t>,
+                                   identifier: Int32,
+                                   count: Int32,
+                                   rect: UnsafePointer<cef_rect_t>,
+                                   currentIndex: Int32,
+                                   isLastUpdate: Int32) {
+    guard let obj = CEFFindHandlerMarshaller.get(ptr) else {
         return
     }
     

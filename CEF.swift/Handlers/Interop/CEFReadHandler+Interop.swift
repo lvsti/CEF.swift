@@ -37,7 +37,7 @@ func CEFReadHandler_tell(ptr: UnsafeMutablePointer<cef_read_handler_t>) -> Int64
     return obj.tell()
 }
 
-func CEFReadHandler_isEOF(ptr: UnsafeMutablePointer<cef_read_handler_t>) -> Int32 {
+func CEFReadHandler_eof(ptr: UnsafeMutablePointer<cef_read_handler_t>) -> Int32 {
     guard let obj = CEFReadHandlerMarshaller.get(ptr) else {
         return 1
     }
@@ -45,7 +45,7 @@ func CEFReadHandler_isEOF(ptr: UnsafeMutablePointer<cef_read_handler_t>) -> Int3
     return obj.isEOF() ? 1 : 0
 }
 
-func CEFReadHandler_mayBlock(ptr: UnsafeMutablePointer<cef_read_handler_t>) -> Int32 {
+func CEFReadHandler_may_block(ptr: UnsafeMutablePointer<cef_read_handler_t>) -> Int32 {
     guard let obj = CEFReadHandlerMarshaller.get(ptr) else {
         return 0
     }

@@ -8,8 +8,8 @@
 
 import Foundation
 
-func CEFURLRequestClient_onRequestComplete(ptr: UnsafeMutablePointer<cef_urlrequest_client_t>,
-                                           request: UnsafeMutablePointer<cef_urlrequest_t>) {
+func CEFURLRequestClient_on_request_complete(ptr: UnsafeMutablePointer<cef_urlrequest_client_t>,
+                                             request: UnsafeMutablePointer<cef_urlrequest_t>) {
     guard let obj = CEFURLRequestClientMarshaller.get(ptr) else {
         return
     }
@@ -17,10 +17,10 @@ func CEFURLRequestClient_onRequestComplete(ptr: UnsafeMutablePointer<cef_urlrequ
     obj.onRequestComplete(CEFURLRequest.fromCEF(request)!)
 }
 
-func CEFURLRequestClient_onUploadProgress(ptr: UnsafeMutablePointer<cef_urlrequest_client_t>,
-                                          request: UnsafeMutablePointer<cef_urlrequest_t>,
-                                          sent: Int64,
-                                          total: Int64) {
+func CEFURLRequestClient_on_upload_progress(ptr: UnsafeMutablePointer<cef_urlrequest_client_t>,
+                                            request: UnsafeMutablePointer<cef_urlrequest_t>,
+                                            sent: Int64,
+                                            total: Int64) {
     guard let obj = CEFURLRequestClientMarshaller.get(ptr) else {
         return
     }
@@ -28,10 +28,10 @@ func CEFURLRequestClient_onUploadProgress(ptr: UnsafeMutablePointer<cef_urlreque
     obj.onUploadProgress(CEFURLRequest.fromCEF(request)!, sentCount: sent, totalCount: total)
 }
 
-func CEFURLRequestClient_onDownloadProgress(ptr: UnsafeMutablePointer<cef_urlrequest_client_t>,
-                                            request: UnsafeMutablePointer<cef_urlrequest_t>,
-                                            received: Int64,
-                                            total: Int64) {
+func CEFURLRequestClient_on_download_progress(ptr: UnsafeMutablePointer<cef_urlrequest_client_t>,
+                                              request: UnsafeMutablePointer<cef_urlrequest_t>,
+                                              received: Int64,
+                                              total: Int64) {
     guard let obj = CEFURLRequestClientMarshaller.get(ptr) else {
         return
     }
@@ -39,10 +39,10 @@ func CEFURLRequestClient_onDownloadProgress(ptr: UnsafeMutablePointer<cef_urlreq
     obj.onDownloadProgress(CEFURLRequest.fromCEF(request)!, receivedCount: received, totalCount: total)
 }
 
-func CEFURLRequestClient_onDownloadData(ptr: UnsafeMutablePointer<cef_urlrequest_client_t>,
-                                        request: UnsafeMutablePointer<cef_urlrequest_t>,
-                                        data: UnsafePointer<Void>,
-                                        size: size_t) {
+func CEFURLRequestClient_on_download_data(ptr: UnsafeMutablePointer<cef_urlrequest_client_t>,
+                                          request: UnsafeMutablePointer<cef_urlrequest_t>,
+                                          data: UnsafePointer<Void>,
+                                          size: size_t) {
     guard let obj = CEFURLRequestClientMarshaller.get(ptr) else {
         return
     }
@@ -51,13 +51,13 @@ func CEFURLRequestClient_onDownloadData(ptr: UnsafeMutablePointer<cef_urlrequest
                        chunk: NSData(bytesNoCopy: UnsafeMutablePointer<Void>(data), length: size, freeWhenDone: false))
 }
 
-func CEFURLRequestClient_getAuthCredentials(ptr: UnsafeMutablePointer<cef_urlrequest_client_t>,
-                                            isProxy: Int32,
-                                            host: UnsafePointer<cef_string_t>,
-                                            port: Int32,
-                                            realm: UnsafePointer<cef_string_t>,
-                                            scheme: UnsafePointer<cef_string_t>,
-                                            callback: UnsafeMutablePointer<cef_auth_callback_t>) -> Int32 {
+func CEFURLRequestClient_get_auth_credentials(ptr: UnsafeMutablePointer<cef_urlrequest_client_t>,
+                                              isProxy: Int32,
+                                              host: UnsafePointer<cef_string_t>,
+                                              port: Int32,
+                                              realm: UnsafePointer<cef_string_t>,
+                                              scheme: UnsafePointer<cef_string_t>,
+                                              callback: UnsafeMutablePointer<cef_auth_callback_t>) -> Int32 {
     guard let obj = CEFURLRequestClientMarshaller.get(ptr) else {
         return 0
     }

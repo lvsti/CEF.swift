@@ -8,14 +8,14 @@
 
 import Foundation
 
-func CEFDialogHandler_onFileDialog(ptr: UnsafeMutablePointer<cef_dialog_handler_t>,
-                                   browser: UnsafeMutablePointer<cef_browser_t>,
-                                   mode: cef_file_dialog_mode_t,
-                                   title: UnsafePointer<cef_string_t>,
-                                   path: UnsafePointer<cef_string_t>,
-                                   filters: cef_string_list_t,
-                                   selectedIndex: Int32,
-                                   callback: UnsafeMutablePointer<cef_file_dialog_callback_t>) -> Int32 {
+func CEFDialogHandler_on_file_dialog(ptr: UnsafeMutablePointer<cef_dialog_handler_t>,
+                                     browser: UnsafeMutablePointer<cef_browser_t>,
+                                     mode: cef_file_dialog_mode_t,
+                                     title: UnsafePointer<cef_string_t>,
+                                     path: UnsafePointer<cef_string_t>,
+                                     filters: cef_string_list_t,
+                                     selectedIndex: Int32,
+                                     callback: UnsafeMutablePointer<cef_file_dialog_callback_t>) -> Int32 {
     guard let obj = CEFDialogHandlerMarshaller.get(ptr) else {
         return 0
     }

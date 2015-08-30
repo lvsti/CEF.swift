@@ -8,9 +8,9 @@
 
 import Foundation
 
-func CEFFocusHandler_onTakeFocus(ptr: UnsafeMutablePointer<cef_focus_handler_t>,
-                                 browser: UnsafeMutablePointer<cef_browser_t>,
-                                 next: Int32) {
+func CEFFocusHandler_on_take_focus(ptr: UnsafeMutablePointer<cef_focus_handler_t>,
+                                   browser: UnsafeMutablePointer<cef_browser_t>,
+                                   next: Int32) {
     guard let obj = CEFFocusHandlerMarshaller.get(ptr) else {
         return
     }
@@ -18,9 +18,9 @@ func CEFFocusHandler_onTakeFocus(ptr: UnsafeMutablePointer<cef_focus_handler_t>,
     obj.onTakeFocus(CEFBrowser.fromCEF(browser)!, next: next != 0)
 }
 
-func CEFFocusHandler_onSetFocus(ptr: UnsafeMutablePointer<cef_focus_handler_t>,
-                                 browser: UnsafeMutablePointer<cef_browser_t>,
-                                 source: cef_focus_source_t) -> Int32 {
+func CEFFocusHandler_on_set_focus(ptr: UnsafeMutablePointer<cef_focus_handler_t>,
+                                  browser: UnsafeMutablePointer<cef_browser_t>,
+                                  source: cef_focus_source_t) -> Int32 {
     guard let obj = CEFFocusHandlerMarshaller.get(ptr) else {
         return 0
     }
@@ -29,8 +29,8 @@ func CEFFocusHandler_onSetFocus(ptr: UnsafeMutablePointer<cef_focus_handler_t>,
                           source: CEFFocusSource.fromCEF(source)) ? 1 : 0
 }
 
-func CEFFocusHandler_onGotFocus(ptr: UnsafeMutablePointer<cef_focus_handler_t>,
-                                browser: UnsafeMutablePointer<cef_browser_t>) {
+func CEFFocusHandler_on_got_focus(ptr: UnsafeMutablePointer<cef_focus_handler_t>,
+                                  browser: UnsafeMutablePointer<cef_browser_t>) {
     guard let obj = CEFFocusHandlerMarshaller.get(ptr) else {
         return
     }

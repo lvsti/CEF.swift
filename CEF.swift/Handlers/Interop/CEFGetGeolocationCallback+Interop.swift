@@ -8,8 +8,8 @@
 
 import Foundation
 
-func CEFGetGeolocationCallback_onLocationUpdate(ptr: UnsafeMutablePointer<cef_get_geolocation_callback_t>,
-                                                position: UnsafePointer<cef_geoposition_t>) {
+func CEFGetGeolocationCallback_on_location_update(ptr: UnsafeMutablePointer<cef_get_geolocation_callback_t>,
+                                                  position: UnsafePointer<cef_geoposition_t>) {
     guard let obj = CEFGetGeolocationCallbackMarshaller.get(ptr) else {
         return
     }

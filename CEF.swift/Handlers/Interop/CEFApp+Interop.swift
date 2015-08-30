@@ -8,9 +8,9 @@
 
 import Foundation
 
-func CEFApp_onBeforeCommandLineProcessing(ptr: UnsafeMutablePointer<cef_app_t>,
-                                          procType: UnsafePointer<cef_string_t>,
-                                          cmdLine: UnsafeMutablePointer<cef_command_line_t>) {
+func CEFApp_on_before_command_line_processing(ptr: UnsafeMutablePointer<cef_app_t>,
+                                              procType: UnsafePointer<cef_string_t>,
+                                              cmdLine: UnsafeMutablePointer<cef_command_line_t>) {
     guard let obj = CEFAppMarshaller.get(ptr) else {
         return
     }
@@ -20,8 +20,8 @@ func CEFApp_onBeforeCommandLineProcessing(ptr: UnsafeMutablePointer<cef_app_t>,
                                       commandLine: CEFCommandLine.fromCEF(cmdLine)!)
 }
 
-func CEFApp_onRegisterCustomSchemes(ptr: UnsafeMutablePointer<cef_app_t>,
-                                    registrar: UnsafeMutablePointer<cef_scheme_registrar_t>) {
+func CEFApp_on_register_custom_schemes(ptr: UnsafeMutablePointer<cef_app_t>,
+                                       registrar: UnsafeMutablePointer<cef_scheme_registrar_t>) {
     guard let obj = CEFAppMarshaller.get(ptr) else {
         return
     }
@@ -29,7 +29,7 @@ func CEFApp_onRegisterCustomSchemes(ptr: UnsafeMutablePointer<cef_app_t>,
     obj.onRegisterCustomSchemes(CEFSchemeRegistrar.fromCEF(registrar)!)
 }
 
-func CEFApp_getResourceBundleHandler(ptr: UnsafeMutablePointer<cef_app_t>) -> UnsafeMutablePointer<cef_resource_bundle_handler_t> {
+func CEFApp_get_resource_bundle_handler(ptr: UnsafeMutablePointer<cef_app_t>) -> UnsafeMutablePointer<cef_resource_bundle_handler_t> {
     guard let obj = CEFAppMarshaller.get(ptr) else {
         return nil
     }
@@ -41,7 +41,7 @@ func CEFApp_getResourceBundleHandler(ptr: UnsafeMutablePointer<cef_app_t>) -> Un
     return nil
 }
 
-func CEFApp_getBrowserProcessHandler(ptr: UnsafeMutablePointer<cef_app_t>) -> UnsafeMutablePointer<cef_browser_process_handler_t> {
+func CEFApp_get_browser_process_handler(ptr: UnsafeMutablePointer<cef_app_t>) -> UnsafeMutablePointer<cef_browser_process_handler_t> {
     guard let obj = CEFAppMarshaller.get(ptr) else {
         return nil
     }
@@ -53,7 +53,7 @@ func CEFApp_getBrowserProcessHandler(ptr: UnsafeMutablePointer<cef_app_t>) -> Un
     return nil
 }
 
-func CEFApp_getRenderProcessHandler(ptr: UnsafeMutablePointer<cef_app_t>) -> UnsafeMutablePointer<cef_render_process_handler_t> {
+func CEFApp_get_render_process_handler(ptr: UnsafeMutablePointer<cef_app_t>) -> UnsafeMutablePointer<cef_render_process_handler_t> {
     guard let obj = CEFAppMarshaller.get(ptr) else {
         return nil
     }

@@ -8,11 +8,11 @@
 
 import Foundation
 
-func CEFDownloadHandler_onBeforeDownload(ptr: UnsafeMutablePointer<cef_download_handler_t>,
-                                         browser: UnsafeMutablePointer<cef_browser_t>,
-                                         item: UnsafeMutablePointer<cef_download_item_t>,
-                                         name: UnsafePointer<cef_string_t>,
-                                         callback: UnsafeMutablePointer<cef_before_download_callback_t>) {
+func CEFDownloadHandler_on_before_download(ptr: UnsafeMutablePointer<cef_download_handler_t>,
+                                           browser: UnsafeMutablePointer<cef_browser_t>,
+                                           item: UnsafeMutablePointer<cef_download_item_t>,
+                                           name: UnsafePointer<cef_string_t>,
+                                           callback: UnsafeMutablePointer<cef_before_download_callback_t>) {
     guard let obj = CEFDownloadHandlerMarshaller.get(ptr) else {
         return
     }
@@ -23,10 +23,10 @@ func CEFDownloadHandler_onBeforeDownload(ptr: UnsafeMutablePointer<cef_download_
                          callback: CEFBeforeDownloadCallback.fromCEF(callback)!)
 }
 
-func CEFDownloadHandler_onDownloadUpdated(ptr: UnsafeMutablePointer<cef_download_handler_t>,
-                                          browser: UnsafeMutablePointer<cef_browser_t>,
-                                          item: UnsafeMutablePointer<cef_download_item_t>,
-                                          callback: UnsafeMutablePointer<cef_download_item_callback_t>) {
+func CEFDownloadHandler_on_download_updated(ptr: UnsafeMutablePointer<cef_download_handler_t>,
+                                            browser: UnsafeMutablePointer<cef_browser_t>,
+                                            item: UnsafeMutablePointer<cef_download_item_t>,
+                                            callback: UnsafeMutablePointer<cef_download_item_callback_t>) {
     guard let obj = CEFDownloadHandlerMarshaller.get(ptr) else {
         return
     }

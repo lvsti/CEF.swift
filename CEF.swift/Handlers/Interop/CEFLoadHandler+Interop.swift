@@ -8,11 +8,11 @@
 
 import Foundation
 
-func CEFLoadHandler_onLoadingStateChange(ptr: UnsafeMutablePointer<cef_load_handler_t>,
-                                         browser: UnsafeMutablePointer<cef_browser_t>,
-                                         isLoading: Int32,
-                                         canGoBack: Int32,
-                                         canGoForward: Int32) {
+func CEFLoadHandler_on_loading_state_change(ptr: UnsafeMutablePointer<cef_load_handler_t>,
+                                            browser: UnsafeMutablePointer<cef_browser_t>,
+                                            isLoading: Int32,
+                                            canGoBack: Int32,
+                                            canGoForward: Int32) {
     guard let obj = CEFLoadHandlerMarshaller.get(ptr) else {
         return
     }
@@ -23,9 +23,9 @@ func CEFLoadHandler_onLoadingStateChange(ptr: UnsafeMutablePointer<cef_load_hand
                              canGoForward: canGoForward != 0)
 }
 
-func CEFLoadHandler_onLoadStart(ptr: UnsafeMutablePointer<cef_load_handler_t>,
-                                browser: UnsafeMutablePointer<cef_browser_t>,
-                                frame: UnsafeMutablePointer<cef_frame_t>) {
+func CEFLoadHandler_on_load_start(ptr: UnsafeMutablePointer<cef_load_handler_t>,
+                                  browser: UnsafeMutablePointer<cef_browser_t>,
+                                  frame: UnsafeMutablePointer<cef_frame_t>) {
     guard let obj = CEFLoadHandlerMarshaller.get(ptr) else {
         return
     }
@@ -33,10 +33,10 @@ func CEFLoadHandler_onLoadStart(ptr: UnsafeMutablePointer<cef_load_handler_t>,
     obj.onLoadStart(CEFBrowser.fromCEF(browser)!, frame: CEFFrame.fromCEF(frame)!)
 }
 
-func CEFLoadHandler_onLoadEnd(ptr: UnsafeMutablePointer<cef_load_handler_t>,
-                              browser: UnsafeMutablePointer<cef_browser_t>,
-                              frame: UnsafeMutablePointer<cef_frame_t>,
-                              statusCode: Int32) {
+func CEFLoadHandler_on_load_end(ptr: UnsafeMutablePointer<cef_load_handler_t>,
+                                browser: UnsafeMutablePointer<cef_browser_t>,
+                                frame: UnsafeMutablePointer<cef_frame_t>,
+                                statusCode: Int32) {
     guard let obj = CEFLoadHandlerMarshaller.get(ptr) else {
         return
     }
@@ -46,12 +46,12 @@ func CEFLoadHandler_onLoadEnd(ptr: UnsafeMutablePointer<cef_load_handler_t>,
                   statusCode: Int(statusCode))
 }
 
-func CEFLoadHandler_onLoadError(ptr: UnsafeMutablePointer<cef_load_handler_t>,
-                                browser: UnsafeMutablePointer<cef_browser_t>,
-                                frame: UnsafeMutablePointer<cef_frame_t>,
-                                errorCode: cef_errorcode_t,
-                                errorMsg: UnsafePointer<cef_string_t>,
-                                url: UnsafePointer<cef_string_t>) {
+func CEFLoadHandler_on_load_error(ptr: UnsafeMutablePointer<cef_load_handler_t>,
+                                  browser: UnsafeMutablePointer<cef_browser_t>,
+                                  frame: UnsafeMutablePointer<cef_frame_t>,
+                                  errorCode: cef_errorcode_t,
+                                  errorMsg: UnsafePointer<cef_string_t>,
+                                  url: UnsafePointer<cef_string_t>) {
     guard let obj = CEFLoadHandlerMarshaller.get(ptr) else {
         return
     }

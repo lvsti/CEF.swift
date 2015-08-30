@@ -8,8 +8,8 @@
 
 import Foundation
 
-func CEFRenderProcessHandler_onRenderThreadCreated(ptr: UnsafeMutablePointer<cef_render_process_handler_t>,
-                                                   info: UnsafeMutablePointer<cef_list_value_t>) {
+func CEFRenderProcessHandler_on_render_thread_created(ptr: UnsafeMutablePointer<cef_render_process_handler_t>,
+                                                      info: UnsafeMutablePointer<cef_list_value_t>) {
     guard let obj = CEFRenderProcessHandlerMarshaller.get(ptr) else {
         return
     }
@@ -17,7 +17,7 @@ func CEFRenderProcessHandler_onRenderThreadCreated(ptr: UnsafeMutablePointer<cef
     obj.onRenderThreadCreated(CEFListValue.fromCEF(info)!)
 }
 
-func CEFRenderProcessHandler_onWebKitInitialized(ptr: UnsafeMutablePointer<cef_render_process_handler_t>) {
+func CEFRenderProcessHandler_on_web_kit_initialized(ptr: UnsafeMutablePointer<cef_render_process_handler_t>) {
     guard let obj = CEFRenderProcessHandlerMarshaller.get(ptr) else {
         return
     }
@@ -25,8 +25,8 @@ func CEFRenderProcessHandler_onWebKitInitialized(ptr: UnsafeMutablePointer<cef_r
     obj.onWebKitInitialized()
 }
 
-func CEFRenderProcessHandler_onBrowserCreated(ptr: UnsafeMutablePointer<cef_render_process_handler_t>,
-                                              browser: UnsafeMutablePointer<cef_browser_t>) {
+func CEFRenderProcessHandler_on_browser_created(ptr: UnsafeMutablePointer<cef_render_process_handler_t>,
+                                                browser: UnsafeMutablePointer<cef_browser_t>) {
     guard let obj = CEFRenderProcessHandlerMarshaller.get(ptr) else {
         return
     }
@@ -34,8 +34,8 @@ func CEFRenderProcessHandler_onBrowserCreated(ptr: UnsafeMutablePointer<cef_rend
     obj.onBrowserCreated(CEFBrowser.fromCEF(browser)!)
 }
 
-func CEFRenderProcessHandler_onBrowserDestroyed(ptr: UnsafeMutablePointer<cef_render_process_handler_t>,
-                                                browser: UnsafeMutablePointer<cef_browser_t>) {
+func CEFRenderProcessHandler_on_browser_destroyed(ptr: UnsafeMutablePointer<cef_render_process_handler_t>,
+                                                  browser: UnsafeMutablePointer<cef_browser_t>) {
     guard let obj = CEFRenderProcessHandlerMarshaller.get(ptr) else {
         return
     }
@@ -43,7 +43,7 @@ func CEFRenderProcessHandler_onBrowserDestroyed(ptr: UnsafeMutablePointer<cef_re
     obj.onBrowserDestroyed(CEFBrowser.fromCEF(browser)!)
 }
 
-func CEFRenderProcessHandler_getLoadHandler(ptr: UnsafeMutablePointer<cef_render_process_handler_t>) -> UnsafeMutablePointer<cef_load_handler_t> {
+func CEFRenderProcessHandler_get_load_handler(ptr: UnsafeMutablePointer<cef_render_process_handler_t>) -> UnsafeMutablePointer<cef_load_handler_t> {
     guard let obj = CEFRenderProcessHandlerMarshaller.get(ptr) else {
         return nil
     }
@@ -55,12 +55,12 @@ func CEFRenderProcessHandler_getLoadHandler(ptr: UnsafeMutablePointer<cef_render
     return nil
 }
 
-func CEFRenderProcessHandler_onBeforeNavigation(ptr: UnsafeMutablePointer<cef_render_process_handler_t>,
-                                                browser: UnsafeMutablePointer<cef_browser_t>,
-                                                frame: UnsafeMutablePointer<cef_frame_t>,
-                                                request: UnsafeMutablePointer<cef_request_t>,
-                                                navType: cef_navigation_type_t,
-                                                isRedirect: Int32) -> Int32 {
+func CEFRenderProcessHandler_on_before_navigation(ptr: UnsafeMutablePointer<cef_render_process_handler_t>,
+                                                  browser: UnsafeMutablePointer<cef_browser_t>,
+                                                  frame: UnsafeMutablePointer<cef_frame_t>,
+                                                  request: UnsafeMutablePointer<cef_request_t>,
+                                                  navType: cef_navigation_type_t,
+                                                  isRedirect: Int32) -> Int32 {
     guard let obj = CEFRenderProcessHandlerMarshaller.get(ptr) else {
         return 0
     }
@@ -72,10 +72,10 @@ func CEFRenderProcessHandler_onBeforeNavigation(ptr: UnsafeMutablePointer<cef_re
                                   isRedirect: isRedirect != 0) ? 1 : 0
 }
 
-func CEFRenderProcessHandler_onContextCreated(ptr: UnsafeMutablePointer<cef_render_process_handler_t>,
-                                              browser: UnsafeMutablePointer<cef_browser_t>,
-                                              frame: UnsafeMutablePointer<cef_frame_t>,
-                                              context: UnsafeMutablePointer<cef_v8context_t>) {
+func CEFRenderProcessHandler_on_context_created(ptr: UnsafeMutablePointer<cef_render_process_handler_t>,
+                                                browser: UnsafeMutablePointer<cef_browser_t>,
+                                                frame: UnsafeMutablePointer<cef_frame_t>,
+                                                context: UnsafeMutablePointer<cef_v8context_t>) {
     guard let obj = CEFRenderProcessHandlerMarshaller.get(ptr) else {
         return
     }
@@ -85,10 +85,10 @@ func CEFRenderProcessHandler_onContextCreated(ptr: UnsafeMutablePointer<cef_rend
                          context: CEFV8Context.fromCEF(context)!)
 }
 
-func CEFRenderProcessHandler_onContextReleased(ptr: UnsafeMutablePointer<cef_render_process_handler_t>,
-                                               browser: UnsafeMutablePointer<cef_browser_t>,
-                                               frame: UnsafeMutablePointer<cef_frame_t>,
-                                               context: UnsafeMutablePointer<cef_v8context_t>) {
+func CEFRenderProcessHandler_on_context_released(ptr: UnsafeMutablePointer<cef_render_process_handler_t>,
+                                                 browser: UnsafeMutablePointer<cef_browser_t>,
+                                                 frame: UnsafeMutablePointer<cef_frame_t>,
+                                                 context: UnsafeMutablePointer<cef_v8context_t>) {
     guard let obj = CEFRenderProcessHandlerMarshaller.get(ptr) else {
         return
     }
@@ -98,12 +98,12 @@ func CEFRenderProcessHandler_onContextReleased(ptr: UnsafeMutablePointer<cef_ren
                           context: CEFV8Context.fromCEF(context)!)
 }
 
-func CEFRenderProcessHandler_onUncaughtException(ptr: UnsafeMutablePointer<cef_render_process_handler_t>,
-                                                 browser: UnsafeMutablePointer<cef_browser_t>,
-                                                 frame: UnsafeMutablePointer<cef_frame_t>,
-                                                 context: UnsafeMutablePointer<cef_v8context_t>,
-                                                 exception: UnsafeMutablePointer<cef_v8exception_t>,
-                                                 trace: UnsafeMutablePointer<cef_v8stack_trace_t>) {
+func CEFRenderProcessHandler_on_uncaught_exception(ptr: UnsafeMutablePointer<cef_render_process_handler_t>,
+                                                   browser: UnsafeMutablePointer<cef_browser_t>,
+                                                   frame: UnsafeMutablePointer<cef_frame_t>,
+                                                   context: UnsafeMutablePointer<cef_v8context_t>,
+                                                   exception: UnsafeMutablePointer<cef_v8exception_t>,
+                                                   trace: UnsafeMutablePointer<cef_v8stack_trace_t>) {
     guard let obj = CEFRenderProcessHandlerMarshaller.get(ptr) else {
         return
     }
@@ -115,10 +115,10 @@ func CEFRenderProcessHandler_onUncaughtException(ptr: UnsafeMutablePointer<cef_r
                             stackTrace: CEFV8StackTrace.fromCEF(trace)!)
 }
 
-func CEFRenderProcessHandler_onFocusedNodeChanged(ptr: UnsafeMutablePointer<cef_render_process_handler_t>,
-                                                  browser: UnsafeMutablePointer<cef_browser_t>,
-                                                  frame: UnsafeMutablePointer<cef_frame_t>,
-                                                  node: UnsafeMutablePointer<cef_domnode_t>) {
+func CEFRenderProcessHandler_on_focused_node_changed(ptr: UnsafeMutablePointer<cef_render_process_handler_t>,
+                                                     browser: UnsafeMutablePointer<cef_browser_t>,
+                                                     frame: UnsafeMutablePointer<cef_frame_t>,
+                                                     node: UnsafeMutablePointer<cef_domnode_t>) {
     guard let obj = CEFRenderProcessHandlerMarshaller.get(ptr) else {
         return
     }
@@ -128,10 +128,10 @@ func CEFRenderProcessHandler_onFocusedNodeChanged(ptr: UnsafeMutablePointer<cef_
         node: CEFDOMNode.fromCEF(node))
 }
 
-func CEFRenderProcessHandler_onProcessMessageReceived(ptr: UnsafeMutablePointer<cef_render_process_handler_t>,
-                                                      browser: UnsafeMutablePointer<cef_browser_t>,
-                                                      processID: cef_process_id_t,
-                                                      message:UnsafeMutablePointer<cef_process_message_t>) -> Int32 {
+func CEFRenderProcessHandler_on_process_message_received(ptr: UnsafeMutablePointer<cef_render_process_handler_t>,
+                                                         browser: UnsafeMutablePointer<cef_browser_t>,
+                                                         processID: cef_process_id_t,
+                                                         message:UnsafeMutablePointer<cef_process_message_t>) -> Int32 {
     guard let obj = CEFRenderProcessHandlerMarshaller.get(ptr) else {
         return 0
     }
