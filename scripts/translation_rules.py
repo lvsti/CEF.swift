@@ -34,7 +34,7 @@ typename_overrides = {
     # handlers
     'cef_urlrequest_client_t': 'CEFURLRequestClient',
     'cef_v8accessor_t': 'CEFV8Accessor',
-    'cef_v8handler_t': 'CEFV8Accessor',
+    'cef_v8handler_t': 'CEFV8Handler',
     'cef_domvisitor_t': 'CEFDOMVisitor',
     'cef_jsdialog_handler_t': 'CEFJSDialogHandler'
 }
