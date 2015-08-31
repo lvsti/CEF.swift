@@ -1,0 +1,6 @@
+
+module ChromiumEmbedded {
+    umbrella header "ChromiumEmbedded.h"
+    link framework "Chromium Embedded Framework"
+    export *
+}

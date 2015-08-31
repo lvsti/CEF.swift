@@ -28,7 +28,7 @@
 		E84249E61B753B04000F23C1 /* CEFWebPluginUnstableCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84249E51B753B04000F23C1 /* CEFWebPluginUnstableCallback.swift */; };
 		E84249EB1B753CAB000F23C1 /* CEFWebPluginGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84249EA1B753CAB000F23C1 /* CEFWebPluginGlobals.swift */; };
 		E84249EF1B754F39000F23C1 /* CEFDisplayHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84249EE1B754F39000F23C1 /* CEFDisplayHandler.swift */; };
-		E8456E141B52C29700AE93DC /* CEF.swift.h in Headers */ = {isa = PBXBuildFile; fileRef = E8456E131B52C29700AE93DC /* CEF.swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E8456E141B52C29700AE93DC /* CEFswift.h in Headers */ = {isa = PBXBuildFile; fileRef = E8456E131B52C29700AE93DC /* CEFswift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E8519EFF1B7D2A92003CE7C5 /* CEFReadHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8519EFE1B7D2A92003CE7C5 /* CEFReadHandler.swift */; };
 		E8519F011B7D2C43003CE7C5 /* CEFSeekPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8519F001B7D2C43003CE7C5 /* CEFSeekPosition.swift */; };
 		E8519F051B7D2FAB003CE7C5 /* CEFStreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8519F041B7D2FAB003CE7C5 /* CEFStreamReader.swift */; };
@@ -39,7 +39,6 @@
 		E8519F111B7E6AF4003CE7C5 /* CEFPathUtilGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8519F101B7E6AF4003CE7C5 /* CEFPathUtilGlobals.swift */; };
 		E8519F131B7E6BEF003CE7C5 /* CEFZipReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8519F121B7E6BEF003CE7C5 /* CEFZipReader.swift */; };
 		E8613E241B52C51F009BDAC9 /* Chromium Embedded Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8613E231B52C51F009BDAC9 /* Chromium Embedded Framework.framework */; };
-		E8613E261B52C5B1009BDAC9 /* CEF.swift-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = E8613E251B52C5B1009BDAC9 /* CEF.swift-Bridging-Header.h */; };
 		E8621C461B76260F00944CEE /* CEFBeforeDownloadCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8621C451B76260F00944CEE /* CEFBeforeDownloadCallback.swift */; };
 		E8621C481B76270400944CEE /* CEFDownloadItemCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8621C471B76270400944CEE /* CEFDownloadItemCallback.swift */; };
 		E8621C4A1B76279800944CEE /* CEFDownloadHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8621C491B76279800944CEE /* CEFDownloadHandler.swift */; };
@@ -52,7 +51,8 @@
 		E8621C5E1B7649F100944CEE /* CEFGeolocationGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8621C5D1B7649F100944CEE /* CEFGeolocationGlobals.swift */; };
 		E8621C601B764BD400944CEE /* CEFGeolocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8621C5F1B764BD400944CEE /* CEFGeolocationHandler.swift */; };
 		E8621C621B764C7300944CEE /* CEFGeolocationCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8621C611B764C7300944CEE /* CEFGeolocationCallback.swift */; };
-		E8732E031B5BEEF90068F130 /* Chromium Embedded Framework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E8613E231B52C51F009BDAC9 /* Chromium Embedded Framework.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E8732E031B5BEEF90068F130 /* Chromium Embedded Framework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E8613E231B52C51F009BDAC9 /* Chromium Embedded Framework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E87836A01B94FA0800555EC2 /* CEFswift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E8456E101B52C29700AE93DC /* CEFswift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E87E2ECF1B7F2AFD00480AD3 /* CEFXMLReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87E2ECE1B7F2AFD00480AD3 /* CEFXMLReader.swift */; };
 		E87E2ED31B808E6F00480AD3 /* CEFURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87E2ED21B808E6F00480AD3 /* CEFURLRequest.swift */; };
 		E87E2ED51B8090B000480AD3 /* CEFURLRequestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87E2ED41B8090B000480AD3 /* CEFURLRequestClient.swift */; };
@@ -308,6 +308,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				E87836A01B94FA0800555EC2 /* CEFswift.framework in CopyFiles */,
 				E8732E031B5BEEF90068F130 /* Chromium Embedded Framework.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -336,8 +337,10 @@
 		E84249E51B753B04000F23C1 /* CEFWebPluginUnstableCallback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFWebPluginUnstableCallback.swift; sourceTree = "<group>"; };
 		E84249EA1B753CAB000F23C1 /* CEFWebPluginGlobals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFWebPluginGlobals.swift; sourceTree = "<group>"; };
 		E84249EE1B754F39000F23C1 /* CEFDisplayHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFDisplayHandler.swift; sourceTree = "<group>"; };
+		E84545CC1B94FD0F005CC3D0 /* ChromiumEmbedded.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChromiumEmbedded.h; sourceTree = "<group>"; };
+		E84545CD1B94FD0F005CC3D0 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		E8456E101B52C29700AE93DC /* CEFswift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CEFswift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E8456E131B52C29700AE93DC /* CEF.swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEF.swift.h; sourceTree = "<group>"; };
+		E8456E131B52C29700AE93DC /* CEFswift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEFswift.h; sourceTree = "<group>"; };
 		E8456E151B52C29700AE93DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8519EFE1B7D2A92003CE7C5 /* CEFReadHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFReadHandler.swift; sourceTree = "<group>"; };
 		E8519F001B7D2C43003CE7C5 /* CEFSeekPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFSeekPosition.swift; sourceTree = "<group>"; };
@@ -349,7 +352,6 @@
 		E8519F101B7E6AF4003CE7C5 /* CEFPathUtilGlobals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFPathUtilGlobals.swift; sourceTree = "<group>"; };
 		E8519F121B7E6BEF003CE7C5 /* CEFZipReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFZipReader.swift; sourceTree = "<group>"; };
 		E8613E231B52C51F009BDAC9 /* Chromium Embedded Framework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Chromium Embedded Framework.framework"; path = "External/cef_binary/Debug/Chromium Embedded Framework.framework"; sourceTree = SOURCE_ROOT; };
-		E8613E251B52C5B1009BDAC9 /* CEF.swift-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CEF.swift-Bridging-Header.h"; sourceTree = "<group>"; };
 		E8621C451B76260F00944CEE /* CEFBeforeDownloadCallback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFBeforeDownloadCallback.swift; sourceTree = "<group>"; };
 		E8621C471B76270400944CEE /* CEFDownloadItemCallback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFDownloadItemCallback.swift; sourceTree = "<group>"; };
 		E8621C491B76279800944CEE /* CEFDownloadHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFDownloadHandler.swift; sourceTree = "<group>"; };
@@ -640,12 +642,30 @@
 			path = Global;
 			sourceTree = "<group>";
 		};
+		E84545CA1B94FD0F005CC3D0 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				E84545CB1B94FD0F005CC3D0 /* ChromiumEmbedded */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		E84545CB1B94FD0F005CC3D0 /* ChromiumEmbedded */ = {
+			isa = PBXGroup;
+			children = (
+				E84545CC1B94FD0F005CC3D0 /* ChromiumEmbedded.h */,
+				E84545CD1B94FD0F005CC3D0 /* module.modulemap */,
+			);
+			path = ChromiumEmbedded;
+			sourceTree = "<group>";
+		};
 		E8456E061B52C29700AE93DC = {
 			isa = PBXGroup;
 			children = (
 				E8613E231B52C51F009BDAC9 /* Chromium Embedded Framework.framework */,
 				E8456E121B52C29700AE93DC /* CEF.swift */,
 				E8CC9D2F1B5AF47B002948BD /* CEFDemo */,
+				E84545CA1B94FD0F005CC3D0 /* Modules */,
 				E8456E111B52C29700AE93DC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -670,8 +690,7 @@
 				E8898AF81B69654C009E0DFF /* Proxies */,
 				E8898B0A1B69654C009E0DFF /* Structs */,
 				E8898B0F1B69654C009E0DFF /* Utils */,
-				E8613E251B52C5B1009BDAC9 /* CEF.swift-Bridging-Header.h */,
-				E8456E131B52C29700AE93DC /* CEF.swift.h */,
+				E8456E131B52C29700AE93DC /* CEFswift.h */,
 				E8456E151B52C29700AE93DC /* Info.plist */,
 			);
 			path = CEF.swift;
@@ -1033,8 +1052,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8456E141B52C29700AE93DC /* CEF.swift.h in Headers */,
-				E8613E261B52C5B1009BDAC9 /* CEF.swift-Bridging-Header.h in Headers */,
+				E8456E141B52C29700AE93DC /* CEFswift.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1584,7 +1602,7 @@
 				PRODUCT_NAME = CEFswift;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "CEF.swift/CEF.swift-Bridging-Header.h";
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Modules/ChromiumEmbedded";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -1609,7 +1627,7 @@
 				PRODUCT_NAME = CEFswift;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "CEF.swift/CEF.swift-Bridging-Header.h";
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Modules/ChromiumEmbedded";
 			};
 			name = Release;
 		};

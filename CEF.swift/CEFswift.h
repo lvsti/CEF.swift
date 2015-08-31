@@ -9,11 +9,12 @@
 #import <Cocoa/Cocoa.h>
 
 //! Project version number for CEF.swift.
-FOUNDATION_EXPORT double CEF_swiftVersionNumber;
+FOUNDATION_EXPORT double CEFswiftVersionNumber;
 
 //! Project version string for CEF.swift.
-FOUNDATION_EXPORT const unsigned char CEF_swiftVersionString[];
+FOUNDATION_EXPORT const unsigned char CEFswiftVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <CEF_swift/PublicHeader.h>
 
+@import ChromiumEmbedded;
 
