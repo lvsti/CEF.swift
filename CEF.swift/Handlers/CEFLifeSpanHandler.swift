@@ -119,9 +119,9 @@ public extension CEFLifeSpanHandler {
                        targetDisposition: CEFWindowOpenDisposition,
                        userGesture: Bool,
                        popupFeatures: CEFPopupFeatures,
-                       windowInfo: CEFWindowInfo,
-                       client: CEFClient,
-                       settings: CEFBrowserSettings,
+                       inout windowInfo: CEFWindowInfo,
+                       inout client: CEFClient,
+                       inout settings: CEFBrowserSettings,
                        inout jsAccess: Bool) -> Bool {
         return false
     }
