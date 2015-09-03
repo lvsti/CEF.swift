@@ -39,7 +39,7 @@ func CEFBrowserProcessHandler_get_print_handler(ptr: UnsafeMutablePointer<cef_br
         return nil
     }
 
-    if let handler = obj.getPrintHandler() {
+    if let handler = obj.printHandler {
         return handler.toCEF()
     }
     

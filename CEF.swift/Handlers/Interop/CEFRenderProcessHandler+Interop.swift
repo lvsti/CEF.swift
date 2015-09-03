@@ -48,7 +48,7 @@ func CEFRenderProcessHandler_get_load_handler(ptr: UnsafeMutablePointer<cef_rend
         return nil
     }
 
-    if let handler = obj.getLoadHandler() {
+    if let handler = obj.loadHandler {
         return handler.toCEF()
     }
     

@@ -13,7 +13,7 @@ func CEFClient_get_context_menu_handler(ptr: UnsafeMutablePointer<cef_client_t>)
         return nil
     }
     
-    if let handler = obj.getContextMenuHandler() {
+    if let handler = obj.contextMenuHandler {
         return handler.toCEF()
     }
     
@@ -25,7 +25,7 @@ func CEFClient_get_display_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> U
         return nil
     }
     
-    if let handler = obj.getDisplayHandler() {
+    if let handler = obj.displayHandler {
         return handler.toCEF()
     }
     
@@ -37,7 +37,7 @@ func CEFClient_get_dialog_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> Un
         return nil
     }
     
-    if let handler = obj.getDialogHandler() {
+    if let handler = obj.dialogHandler {
         return handler.toCEF()
     }
     
@@ -49,7 +49,7 @@ func CEFClient_get_download_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> 
         return nil
     }
     
-    if let handler = obj.getDownloadHandler() {
+    if let handler = obj.downloadHandler {
         return handler.toCEF()
     }
     
@@ -61,7 +61,7 @@ func CEFClient_get_drag_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> Unsa
         return nil
     }
     
-    if let handler = obj.getDragHandler() {
+    if let handler = obj.dragHandler {
         return handler.toCEF()
     }
     
@@ -73,7 +73,7 @@ func CEFClient_get_find_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> Unsa
         return nil
     }
     
-    if let handler = obj.getFindHandler() {
+    if let handler = obj.findHandler {
         return handler.toCEF()
     }
     
@@ -85,7 +85,7 @@ func CEFClient_get_focus_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> Uns
         return nil
     }
     
-    if let handler = obj.getFocusHandler() {
+    if let handler = obj.focusHandler {
         return handler.toCEF()
     }
     
@@ -97,7 +97,7 @@ func CEFClient_get_geolocation_handler(ptr: UnsafeMutablePointer<cef_client_t>) 
         return nil
     }
     
-    if let handler = obj.getGeolocationHandler() {
+    if let handler = obj.geolocationHandler {
         return handler.toCEF()
     }
     
@@ -109,7 +109,7 @@ func CEFClient_get_jsdialog_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> 
         return nil
     }
     
-    if let handler = obj.getJSDialogHandler() {
+    if let handler = obj.jsDialogHandler {
         return handler.toCEF()
     }
     
@@ -121,7 +121,7 @@ func CEFClient_get_keyboard_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> 
         return nil
     }
     
-    if let handler = obj.getKeyboardHandler() {
+    if let handler = obj.keyboardHandler {
         return handler.toCEF()
     }
     
@@ -133,7 +133,7 @@ func CEFClient_get_life_span_handler(ptr: UnsafeMutablePointer<cef_client_t>) ->
         return nil
     }
     
-    if let handler = obj.getLifeSpanHandler() {
+    if let handler = obj.lifeSpanHandler {
         return handler.toCEF()
     }
     
@@ -145,7 +145,7 @@ func CEFClient_get_load_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> Unsa
         return nil
     }
     
-    if let handler = obj.getLoadHandler() {
+    if let handler = obj.loadHandler {
         return handler.toCEF()
     }
     
@@ -157,7 +157,7 @@ func CEFClient_get_render_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> Un
         return nil
     }
     
-    if let handler = obj.getRenderHandler() {
+    if let handler = obj.renderHandler {
         return handler.toCEF()
     }
     
@@ -169,7 +169,7 @@ func CEFClient_get_request_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> U
         return nil
     }
     
-    if let handler = obj.getRequestHandler() {
+    if let handler = obj.requestHandler {
         return handler.toCEF()
     }
     

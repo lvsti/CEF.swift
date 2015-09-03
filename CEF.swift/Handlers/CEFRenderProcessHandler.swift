@@ -31,7 +31,7 @@ public protocol CEFRenderProcessHandler {
     func onBrowserDestroyed(browser: CEFBrowser)
     
     /// Return the handler for browser load status events.
-    func getLoadHandler() -> CEFLoadHandler?
+    var loadHandler: CEFLoadHandler? { get }
     
     /// Called before browser navigation. Return true to cancel the navigation or
     /// false to allow the navigation to proceed. The |request| object cannot be
@@ -99,9 +99,7 @@ public extension CEFRenderProcessHandler {
     func onBrowserDestroyed(browser: CEFBrowser) {
     }
     
-    func getLoadHandler() -> CEFLoadHandler? {
-        return nil
-    }
+    var loadHandler: CEFLoadHandler? { return nil }
     
     func onBeforeNavigation(browser: CEFBrowser,
                             frame: CEFFrame,

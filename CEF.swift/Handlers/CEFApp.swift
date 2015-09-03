@@ -32,15 +32,15 @@ public protocol CEFApp {
     /// CefSettings.pack_loading_disabled is true a handler must be returned. If no
     /// handler is returned resources will be loaded from pack files. This method
     /// is called by the browser and render processes on multiple threads.
-    func getResourceBundleHandler() -> CEFResourceBundleHandler?
+    var resourceBundleHandler: CEFResourceBundleHandler? { get }
     
     /// Return the handler for functionality specific to the browser process. This
     /// method is called on multiple threads in the browser process.
-    func getBrowserProcessHandler() -> CEFBrowserProcessHandler?
+    var browserProcessHandler: CEFBrowserProcessHandler? { get }
     
     /// Return the handler for functionality specific to the render process. This
     /// method is called on the render process main thread.
-    func getRenderProcessHandler() -> CEFRenderProcessHandler?
+    var renderProcessHandler: CEFRenderProcessHandler? { get }
 }
 
 public extension CEFApp {
@@ -51,17 +51,8 @@ public extension CEFApp {
     func onRegisterCustomSchemes(registrar: CEFSchemeRegistrar) {
     }
     
-    func getResourceBundleHandler() -> CEFResourceBundleHandler? {
-        return nil
-    }
-    
-    func getBrowserProcessHandler() -> CEFBrowserProcessHandler? {
-        return nil
-    }
-    
-    func getRenderProcessHandler() -> CEFRenderProcessHandler? {
-        return nil
-    }
-    
+    var resourceBundleHandler: CEFResourceBundleHandler? { return nil }
+    var browserProcessHandler: CEFBrowserProcessHandler? { return nil }
+    var renderProcessHandler: CEFRenderProcessHandler? { return nil }
 }
 

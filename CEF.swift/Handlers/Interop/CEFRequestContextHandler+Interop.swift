@@ -13,7 +13,7 @@ func CEFRequestContextHandler_get_cookie_manager(ptr: UnsafeMutablePointer<cef_r
         return nil
     }
 
-    if let manager = obj.getCookieManager() {
+    if let manager = obj.cookieManager {
         return manager.toCEF()
     }
     

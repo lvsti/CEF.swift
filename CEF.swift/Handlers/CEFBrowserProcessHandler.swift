@@ -32,7 +32,7 @@ public protocol CEFBrowserProcessHandler {
     
     /// Return the handler for printing on Linux. If a print handler is not
     /// provided then printing will not be supported on the Linux platform.
-    func getPrintHandler() -> CEFPrintHandler?
+    var printHandler: CEFPrintHandler? { get }
 
 }
 
@@ -47,8 +47,6 @@ public extension CEFBrowserProcessHandler {
     func onRenderProcessThreadCreated(userInfo: CEFListValue) {
     }
 
-    func getPrintHandler() -> CEFPrintHandler? {
-        return nil
-    }
-
+    var printHandler: CEFPrintHandler? { return nil }
+    
 }

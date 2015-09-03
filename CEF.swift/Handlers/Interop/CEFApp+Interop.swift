@@ -34,7 +34,7 @@ func CEFApp_get_resource_bundle_handler(ptr: UnsafeMutablePointer<cef_app_t>) ->
         return nil
     }
     
-    if let handler = obj.getResourceBundleHandler() {
+    if let handler = obj.resourceBundleHandler {
         return handler.toCEF()
     }
     
@@ -46,7 +46,7 @@ func CEFApp_get_browser_process_handler(ptr: UnsafeMutablePointer<cef_app_t>) ->
         return nil
     }
     
-    if let handler = obj.getBrowserProcessHandler() {
+    if let handler = obj.browserProcessHandler {
         return handler.toCEF()
     }
     
@@ -58,7 +58,7 @@ func CEFApp_get_render_process_handler(ptr: UnsafeMutablePointer<cef_app_t>) -> 
         return nil
     }
     
-    if let handler = obj.getRenderProcessHandler() {
+    if let handler = obj.renderProcessHandler {
         return handler.toCEF()
     }
     

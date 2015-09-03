@@ -16,16 +16,14 @@ public protocol CEFRequestContextHandler {
     /// Called on the IO thread to retrieve the cookie manager. If this method
     /// returns NULL the default cookie manager retrievable via
     /// CefRequestContext::GetDefaultCookieManager() will be used.
-    func getCookieManager() -> CEFCookieManager?
+    var cookieManager: CEFCookieManager? { get }
     
 }
 
 
 public extension CEFRequestContextHandler {
     
-    public func getCookieManager() -> CEFCookieManager? {
-        return nil
-    }
+    var cookieManager: CEFCookieManager? { return nil }
     
 }
 
