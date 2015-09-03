@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias CEFSetCookieCallbackOnCompleteBlock = (success: Bool) -> ()
+public typealias CEFSetCookieCallbackOnCompleteBlock = (success: Bool) -> Void
 
 class CEFSetCookieCallbackBridge: CEFSetCookieCallback {
     let block: CEFSetCookieCallbackOnCompleteBlock

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias CEFEndTracingCallbackOnEndTracingCompleteBlock = (traceFilePath: String) -> ()
+public typealias CEFEndTracingCallbackOnEndTracingCompleteBlock = (traceFilePath: String) -> Void
 
 class CEFEndTracingCallbackBridge: CEFEndTracingCallback {
     let block: CEFEndTracingCallbackOnEndTracingCompleteBlock

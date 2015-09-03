@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias CEFGetGeolocationCallbackOnLocationUpdateBlock = (position: CEFGeoposition) -> ()
+public typealias CEFGetGeolocationCallbackOnLocationUpdateBlock = (position: CEFGeoposition) -> Void
 
 class CEFGetGeolocationCallbackBridge: CEFGetGeolocationCallback {
     let block: CEFGetGeolocationCallbackOnLocationUpdateBlock

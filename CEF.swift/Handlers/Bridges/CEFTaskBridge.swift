@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias CEFTaskExecuteBlock = () -> ()
+public typealias CEFTaskExecuteBlock = () -> Void
 
 class CEFTaskBridge: CEFTask {
     let block: CEFTaskExecuteBlock

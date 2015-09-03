@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias CEFCompletionCallbackOnCompleteBlock = () -> ()
+public typealias CEFCompletionCallbackOnCompleteBlock = () -> Void
 
 class CEFCompletionCallbackBridge: CEFCompletionCallback {
     let block: CEFCompletionCallbackOnCompleteBlock

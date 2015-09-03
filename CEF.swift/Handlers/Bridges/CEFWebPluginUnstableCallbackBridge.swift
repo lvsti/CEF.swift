@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias CEFWebPluginUnstableCallbackIsUnstableBlock = (path: String, unstable: Bool) -> ()
+public typealias CEFWebPluginUnstableCallbackIsUnstableBlock = (path: String, unstable: Bool) -> Void
 
 class CEFWebPluginUnstableCallbackBridge: CEFWebPluginUnstableCallback {
     let block: CEFWebPluginUnstableCallbackIsUnstableBlock

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias CEFStringVisitorVisitBlock = (string: String) -> ()
+public typealias CEFStringVisitorVisitBlock = (string: String) -> Void
 
 class CEFStringVisitorBridge: CEFStringVisitor {
     let block: CEFStringVisitorVisitBlock

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias CEFDeleteCookiesCallbackOnCompleteBlock = (deletedCount: Int?) -> ()
+public typealias CEFDeleteCookiesCallbackOnCompleteBlock = (deletedCount: Int?) -> Void
 
 class CEFDeleteCookiesCallbackBridge: CEFDeleteCookiesCallback {
     let block: CEFDeleteCookiesCallbackOnCompleteBlock

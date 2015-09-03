@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias CEFDOMVisitorVisitBlock = (document: CEFDOMDocument) -> ()
+public typealias CEFDOMVisitorVisitBlock = (document: CEFDOMDocument) -> Void
 
 class CEFDOMVisitorBridge: CEFDOMVisitor {
     let block: CEFDOMVisitorVisitBlock

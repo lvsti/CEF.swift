@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias CEFRunFileDialogCallbackOnFileDialogDismissedBlock = (filterIndex: Int, filePaths: [String]) -> ()
+public typealias CEFRunFileDialogCallbackOnFileDialogDismissedBlock = (filterIndex: Int, filePaths: [String]) -> Void
 
 class CEFRunFileDialogCallbackBridge: CEFRunFileDialogCallback {
     let block: CEFRunFileDialogCallbackOnFileDialogDismissedBlock
