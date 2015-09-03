@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// Method that will be called upon completion. |num_deleted| will be the
+/// number of cookies that were deleted or -1 if unknown.
 public typealias CEFDeleteCookiesCallbackOnCompleteBlock = (deletedCount: Int?) -> Void
 
 class CEFDeleteCookiesCallbackBridge: CEFDeleteCookiesCallback {

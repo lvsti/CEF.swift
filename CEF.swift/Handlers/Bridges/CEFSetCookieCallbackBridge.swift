@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// Method that will be called upon completion. |success| will be true if the
+/// cookie was set successfully.
 public typealias CEFSetCookieCallbackOnCompleteBlock = (success: Bool) -> Void
 
 class CEFSetCookieCallbackBridge: CEFSetCookieCallback {

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Method that will be executed.
 public typealias CEFStringVisitorVisitBlock = (string: String) -> Void
 
 class CEFStringVisitorBridge: CEFStringVisitor {

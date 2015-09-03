@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Method that will be called once the task is complete.
 public typealias CEFCompletionCallbackOnCompleteBlock = () -> Void
 
 class CEFCompletionCallbackBridge: CEFCompletionCallback {

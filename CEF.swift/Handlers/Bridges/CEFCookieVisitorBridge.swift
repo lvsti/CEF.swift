@@ -8,6 +8,11 @@
 
 import Foundation
 
+/// Method that will be called once for each cookie. |count| is the 0-based
+/// index for the current cookie. |total| is the total number of cookies.
+/// Set |deleteCookie| to true to delete the cookie currently being visited.
+/// Return false to stop visiting cookies. This method may never be called if
+/// no cookies are found.
 public typealias CEFCookieVisitorVisitBlock = (cookie: CEFCookie, index: Int, count: Int, inout shouldDelete: Bool) -> Bool
 
 class CEFCookieVisitorBridge: CEFCookieVisitor {

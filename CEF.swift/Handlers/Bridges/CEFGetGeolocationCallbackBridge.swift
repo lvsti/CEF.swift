@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// Called with the 'best available' location information or, if the location
+/// update failed, with error information.
 public typealias CEFGetGeolocationCallbackOnLocationUpdateBlock = (position: CEFGeoposition) -> Void
 
 class CEFGetGeolocationCallbackBridge: CEFGetGeolocationCallback {

@@ -14,6 +14,8 @@ public func CEFVisitWebPluginInfo(visitor: CEFWebPluginInfoVisitor) {
     cef_visit_web_plugin_info(visitor.toCEF())
 }
 
+/// Visit web plugin information. Can be called on any thread in the browser
+/// process.
 public func CEFVisitWebPluginInfo(block: CEFWebPluginInfoVisitorVisitBlock) {
     CEFVisitWebPluginInfo(CEFWebPluginInfoVisitorBridge(block: block))
 }
@@ -85,6 +87,8 @@ public func CEFIsWebPluginUnstable(path: String, callback: CEFWebPluginUnstableC
     cef_is_web_plugin_unstable(cefStrPtr, callback.toCEF())
 }
 
+/// Query if a plugin is unstable. Can be called on any thread in the browser
+/// process.
 public func CEFIsWebPluginUnstable(path: String, block: CEFWebPluginUnstableCallbackIsUnstableBlock) {
     CEFIsWebPluginUnstable(path, callback: CEFWebPluginUnstableCallbackBridge(block: block))
 }

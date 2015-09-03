@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Method that will be executed on the target thread.
 public typealias CEFTaskExecuteBlock = () -> Void
 
 class CEFTaskBridge: CEFTask {

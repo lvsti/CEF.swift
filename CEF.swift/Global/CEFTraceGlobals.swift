@@ -40,6 +40,14 @@ public func CEFEndTracing(tracingFilePath: String? = nil, callback: CEFEndTracin
     return cef_end_tracing(cefStrPtr, callback != nil ? callback!.toCEF() : nil) != 0
 }
 
+/// Stop tracing events on all processes.
+/// This function will fail and return false if a previous call to
+/// CefEndTracingAsync is already pending or if CefBeginTracing was not called.
+/// |tracing_file| is the path at which tracing data will be written and
+/// |callback| is the callback that will be executed once all processes have
+/// sent their trace data. If |tracing_file| is empty a new temporary file path
+/// will be used. If |callback| is empty no trace data will be written.
+/// This function must be called on the browser process UI thread.
 public func CEFEndTracing(tracingFilePath: String? = nil, block: CEFEndTracingCallbackOnEndTracingCompleteBlock) -> Bool {
     return CEFEndTracing(tracingFilePath, callback: CEFEndTracingCallbackBridge(block: block))
 }
