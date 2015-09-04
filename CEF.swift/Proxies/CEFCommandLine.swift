@@ -35,13 +35,13 @@ public class CEFCommandLine: CEFProxy<cef_command_line_t> {
     
     /// Returns true if this object is valid. Do not call any other methods if this
     /// function returns false.
-    public func isValid() -> Bool {
+    public var isValid: Bool {
         return cefObject.is_valid(cefObjectPtr) != 0
     }
     
     /// Returns true if the values of this object are read-only. Some APIs may
     /// expose read-only objects.
-    public func isReadOnly() -> Bool {
+    public var isReadOnly: Bool {
         return cefObject.is_read_only(cefObjectPtr) != 0
     }
     
@@ -76,7 +76,7 @@ public class CEFCommandLine: CEFProxy<cef_command_line_t> {
     
     /// Retrieve the original command line string as a vector of strings.
     /// The argv array: { program, [(--|-|/)switch[=value]]*, [--], [argument]* }
-    public func getArgV() -> [String] {
+    public var argv: [String] {
         var argv = [String]()
         let cefList = cef_string_list_alloc()
         defer { cef_string_list_free(cefList) }
@@ -96,28 +96,28 @@ public class CEFCommandLine: CEFProxy<cef_command_line_t> {
     
     /// Constructs and returns the represented command line string. Use this method
     /// cautiously because quoting behavior is unclear.
-    public func getCommandLineString() -> String {
+    public var commandLineString: String {
         let cefCmdLinePtr = cefObject.get_command_line_string(cefObjectPtr)
         defer { CEFStringPtrRelease(cefCmdLinePtr) }
         return CEFStringToSwiftString(cefCmdLinePtr.memory)
     }
     
-    /// Get the program part of the command line string (the first item).
-    public func getProgram() -> String {
-        let cefProgramPtr = cefObject.get_program(cefObjectPtr)
-        defer { CEFStringPtrRelease(cefProgramPtr) }
-        return CEFStringToSwiftString(cefProgramPtr.memory)
-    }
-
-    /// Set the program part of the command line string (the first item).
-    public func setProgram(program: String) {
-        let cefProgramPtr = CEFStringPtrCreateFromSwiftString(program)
-        defer { CEFStringPtrRelease(cefProgramPtr) }
-        cefObject.set_program(cefObjectPtr, cefProgramPtr)
+    /// The program part of the command line string (the first item).
+    public var program: String {
+        get {
+            let cefProgramPtr = cefObject.get_program(cefObjectPtr)
+            defer { CEFStringPtrRelease(cefProgramPtr) }
+            return CEFStringToSwiftString(cefProgramPtr.memory)
+        }
+        set {
+            let cefProgramPtr = CEFStringPtrCreateFromSwiftString(newValue)
+            defer { CEFStringPtrRelease(cefProgramPtr) }
+            cefObject.set_program(cefObjectPtr, cefProgramPtr)
+        }
     }
     
     /// Returns true if the command line has switches.
-    public func hasSwitches() -> Bool {
+    public var hasSwitches: Bool {
         return cefObject.has_switches(cefObjectPtr) != 0
     }
     
@@ -142,7 +142,7 @@ public class CEFCommandLine: CEFProxy<cef_command_line_t> {
     
     /// Returns the map of switch names and values. If a switch has no value an
     /// empty string is returned.
-    public func getSwitches() -> [String: String] {
+    public var allSwitches: [String: String] {
         let cefMap = cef_string_map_alloc()
         defer { cef_string_map_free(cefMap) }
         cefObject.get_switches(cefObjectPtr, cefMap)
@@ -169,12 +169,12 @@ public class CEFCommandLine: CEFProxy<cef_command_line_t> {
     }
     
     /// True if there are remaining command line arguments.
-    public func hasArguments() -> Bool {
+    public var hasArguments: Bool {
         return cefObject.has_arguments(cefObjectPtr) != 0
     }
     
     /// Get the remaining command line arguments.
-    public func getArguments() -> [String] {
+    public var arguments: [String] {
         let cefList = cef_string_list_alloc()
         defer { cef_string_list_free(cefList) }
         cefObject.get_arguments(cefObjectPtr, cefList)

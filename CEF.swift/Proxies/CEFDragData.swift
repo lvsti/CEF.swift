@@ -27,55 +27,55 @@ public class CEFDragData: CEFProxy<cef_drag_data_t> {
     }
 
     /// Returns true if this object is read-only.
-    public func isReadOnly() -> Bool {
+    public var isReadOnly: Bool {
         return cefObject.is_read_only(cefObjectPtr) != 0
     }
 
     /// Returns true if the drag data is a link.
-    public func isLink() -> Bool {
+    public var isLink: Bool {
         return cefObject.is_link(cefObjectPtr) != 0
     }
 
     /// Returns true if the drag data is a text or html fragment.
-    public func isFragment() -> Bool {
+    public var isFragment: Bool {
         return cefObject.is_fragment(cefObjectPtr) != 0
     }
     
     /// Returns true if the drag data is a file.
-    public func isFile() -> Bool {
+    public var isFile: Bool {
         return cefObject.is_file(cefObjectPtr) != 0
     }
 
     /// Return the link URL that is being dragged.
-    public func getLinkURL() -> NSURL? {
+    public var linkURL: NSURL? {
         let cefStrPtr = cefObject.get_link_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefStrPtr != nil ? NSURL(string: CEFStringToSwiftString(cefStrPtr.memory))! : nil
     }
 
     /// Return the title associated with the link being dragged.
-    public func getLinkTitle() -> String? {
+    public var linkTitle: String? {
         let cefStrPtr = cefObject.get_link_title(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.memory) : nil
     }
     
     /// Return the metadata, if any, associated with the link being dragged.
-    public func getLinkMetadata() -> String? {
+    public var linkMetadata: String? {
         let cefStrPtr = cefObject.get_link_metadata(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.memory) : nil
     }
     
     /// Return the plain text fragment that is being dragged.
-    public func getFragmentText() -> String {
+    public var fragmentText: String {
         let cefStrPtr = cefObject.get_fragment_text(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.memory)
     }
     
     /// Return the text/html fragment that is being dragged.
-    public func getFragmentHTML() -> String {
+    public var fragmentHTML: String {
         let cefStrPtr = cefObject.get_fragment_html(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.memory)
@@ -83,14 +83,14 @@ public class CEFDragData: CEFProxy<cef_drag_data_t> {
     
     /// Return the base URL that the fragment came from. This value is used for
     /// resolving relative URLs and may be empty.
-    public func getFragmentBaseURL() -> NSURL? {
+    public var fragmentBaseURL: NSURL? {
         let cefStrPtr = cefObject.get_fragment_base_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return NSURL(string: CEFStringToSwiftString(cefStrPtr.memory))
     }
     
     /// Return the name of the file being dragged out of the browser window.
-    public func getFileName() -> String {
+    public var fileName: String {
         let cefStrPtr = cefObject.get_file_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.memory)
@@ -108,11 +108,11 @@ public class CEFDragData: CEFProxy<cef_drag_data_t> {
     
     /// Retrieve the list of file names that are being dragged into the browser
     /// window.
-    public func getFileNames() -> [String]? {
+    public var fileNames: [String] {
         let cefList = cef_string_list_alloc()
         defer { CEFStringListRelease(cefList) }
-        let retval = cefObject.get_file_names(cefObjectPtr, cefList)
-        return retval != 0 ? CEFStringListToSwiftArray(cefList) : nil
+        cefObject.get_file_names(cefObjectPtr, cefList)
+        return CEFStringListToSwiftArray(cefList)
     }
     
     /// Set the link URL that is being dragged.
@@ -171,7 +171,7 @@ public class CEFDragData: CEFProxy<cef_drag_data_t> {
     }
 
     /// Add a file that is being dragged into the webview.
-    public func addFile(path: String, displayName: String? = nil)  {
+    public func addFileWithPath(path: String, displayName: String? = nil)  {
         let cefPathPtr = CEFStringPtrCreateFromSwiftString(path)
         let cefNamePtr: UnsafeMutablePointer<cef_string_t> =
             displayName != nil ? CEFStringPtrCreateFromSwiftString(displayName!) : nil

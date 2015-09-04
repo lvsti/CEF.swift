@@ -20,13 +20,13 @@ public class CEFBrowser : CEFProxy<cef_browser_t> {
     
     /// Returns the browser host object. This method can only be called in the
     /// browser process.
-    public func getHost() -> CEFBrowserHost? {
+    public var host: CEFBrowserHost? {
         let cefHost = cefObject.get_host(cefObjectPtr)
         return CEFBrowserHost.fromCEF(cefHost)
     }
     
     /// Returns true if the browser can navigate backwards.
-    public func canGoBack() -> Bool {
+    public var canGoBack: Bool {
         return cefObject.can_go_back(cefObjectPtr) != 0
     }
 
@@ -36,7 +36,7 @@ public class CEFBrowser : CEFProxy<cef_browser_t> {
     }
     
     /// Returns true if the browser can navigate forwards.
-    public func canGoForward() -> Bool {
+    public var canGoForward: Bool {
         return cefObject.can_go_forward(cefObjectPtr) != 0
     }
 
@@ -46,13 +46,13 @@ public class CEFBrowser : CEFProxy<cef_browser_t> {
     }
     
     /// Returns true if the browser is currently loading.
-    public func isLoading() -> Bool {
+    public var isLoading: Bool {
         return cefObject.is_loading(cefObjectPtr) != 0
     }
 
     /// Reload the current page.
-    public func reload(ignoringCache: Bool = false) {
-        if ignoringCache {
+    public func reload(ignoringCache ignore: Bool = false) {
+        if ignore {
             cefObject.reload_ignore_cache(cefObjectPtr)
         }
         else {
@@ -66,7 +66,7 @@ public class CEFBrowser : CEFProxy<cef_browser_t> {
     }
 
     /// Returns the globally unique identifier for this browser.
-    public func getIdentifier() -> Identifier {
+    public var identifier: Identifier {
         return cefObject.get_identifier(cefObjectPtr)
     }
 
@@ -77,23 +77,25 @@ public class CEFBrowser : CEFProxy<cef_browser_t> {
     }
 
     /// Returns true if the window is a popup window.
-    public func isPopup() -> Bool {
+    public var isPopup: Bool {
         return cefObject.is_popup(cefObjectPtr) != 0
     }
     
     /// Returns true if a document has been loaded in the browser.
-    public func hasDocument() -> Bool {
+    public var hasDocument: Bool {
         return cefObject.has_document(cefObjectPtr) != 0
     }
     
     /// Returns the main (top-level) frame for the browser window.
-    public func getMainFrame() -> CEFFrame? {
+    public var mainFrame: CEFFrame? {
+        // TODO: audit nonnull
         let cefFrame = cefObject.get_main_frame(cefObjectPtr)
         return CEFFrame.fromCEF(cefFrame)
     }
     
     /// Returns the focused frame for the browser window.
-    public func getFocusedFrame() -> CEFFrame? {
+    public var focusedFrame: CEFFrame? {
+        // TODO: audit nonnull
         let cefFrame = cefObject.get_focused_frame(cefObjectPtr)
         return CEFFrame.fromCEF(cefFrame)
     }
@@ -114,12 +116,12 @@ public class CEFBrowser : CEFProxy<cef_browser_t> {
     }
 
     /// Returns the number of frames that currently exist.
-    public func getFrameCount() -> size_t {
-        return cefObject.get_frame_count(cefObjectPtr)
+    public var frameCount: Int {
+        return Int(cefObject.get_frame_count(cefObjectPtr))
     }
 
     /// Returns the identifiers of all existing frames.
-    public func getFrameIDs() -> [CEFFrame.Identifier] {
+    public var frameIDs: [CEFFrame.Identifier] {
         var idCount:size_t = 0
         let idsPtr:UnsafeMutablePointer<CEFFrame.Identifier> = nil
         cefObject.get_frame_identifiers(cefObjectPtr, &idCount, idsPtr)
@@ -132,7 +134,7 @@ public class CEFBrowser : CEFProxy<cef_browser_t> {
     }
 
     /// Returns the names of all existing frames.
-    public func getFrameNames() -> [String] {
+    public var frameNames: [String] {
         let cefList = cef_string_list_alloc()
         defer { cef_string_list_free(cefList) }
         
@@ -140,10 +142,8 @@ public class CEFBrowser : CEFProxy<cef_browser_t> {
         return CEFStringListToSwiftArray(cefList)
     }
 
-    //
-    // Send a message to the specified |target_process|. Returns true if the
-    // message was sent successfully.
-    ///
+    /// Send a message to the specified |target_process|. Returns true if the
+    /// message was sent successfully.
     public func sendProcessMessage(targetProcessID: CEFProcessID, message: CEFProcessMessage) -> Bool {
         return cefObject.send_process_message(cefObjectPtr, targetProcessID.toCEF(), message.toCEF()) != 0
     }

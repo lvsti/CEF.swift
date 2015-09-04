@@ -39,34 +39,34 @@ public class CEFURLRequest: CEFProxy<cef_urlrequest_t> {
     
     /// Returns the request object used to create this URL request. The returned
     /// object is read-only and should not be modified.
-    public func getRequest() -> CEFRequest {
+    public var request: CEFRequest {
         let cefReq = cefObject.get_request(cefObjectPtr)
         return CEFRequest.fromCEF(cefReq)!
     }
     
     /// Returns the client.
-    public func getClient() -> CEFURLRequestClient {
+    public var client: CEFURLRequestClient {
         let cefClient = cefObject.get_client(cefObjectPtr)
         return CEFURLRequestClientMarshaller.take(cefClient)!
     }
     
     /// Returns the request status.
-    public func getRequestStatus() -> CEFURLRequestStatus {
+    public var requestStatus: CEFURLRequestStatus {
         let cefStatus = cefObject.get_request_status(cefObjectPtr)
         return CEFURLRequestStatus.fromCEF(cefStatus)
     }
 
     /// Returns the request error if status is UR_CANCELED or UR_FAILED, or 0
     /// otherwise.
-    public func getRequestError() -> CEFErrorCode {
+    public var requestError: CEFErrorCode? {
         let cefError = cefObject.get_request_error(cefObjectPtr)
-        return CEFErrorCode.fromCEF(cefError.rawValue)
+        return cefError.rawValue != 0 ? CEFErrorCode.fromCEF(cefError.rawValue) : nil
     }
 
     /// Returns the response, or NULL if no response information is available.
     /// Response information will only be available after the upload has completed.
     /// The returned object is read-only and should not be modified.
-    public func getResponse() -> CEFResponse? {
+    public var response: CEFResponse? {
         let cefResp = cefObject.get_response(cefObjectPtr)
         return CEFResponse.fromCEF(cefResp)
     }

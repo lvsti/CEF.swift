@@ -39,7 +39,7 @@ public class CEFTaskRunner: CEFProxy<cef_task_runner_t> {
     }
 
     /// Returns true if this task runner belongs to the current thread.
-    public func belongsToCurrentThread() -> Bool {
+    public var belongsToCurrentThread: Bool {
         return cefObject.belongs_to_current_thread(cefObjectPtr) != 0
     }
 

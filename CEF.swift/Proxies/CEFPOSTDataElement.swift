@@ -21,7 +21,7 @@ public class CEFPOSTDataElement: CEFProxy<cef_post_data_element_t> {
     }
     
     /// Returns true if this object is read-only.
-    public func isReadOnly() -> Bool {
+    public var isReadOnly: Bool {
         return cefObject.is_read_only(cefObjectPtr) != 0
     }
 
@@ -44,20 +44,20 @@ public class CEFPOSTDataElement: CEFProxy<cef_post_data_element_t> {
     }
     
     /// Return the type of this post data element.
-    public func getType() -> CEFPOSTDataElementType {
+    public var type: CEFPOSTDataElementType {
         let cefType = cefObject.get_type(cefObjectPtr)
         return CEFPOSTDataElementType.fromCEF(cefType)
     }
     
     /// Return the file name.
-    public func getFile() -> String {
+    public var file: String {
         let cefStrPtr = cefObject.get_file(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.memory)
     }
     
     /// Return the number of bytes.
-    public func getBytesCount() -> size_t {
+    public var size: size_t {
         return cefObject.get_bytes_count(cefObjectPtr)
     }
     

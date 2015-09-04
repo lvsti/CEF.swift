@@ -21,18 +21,18 @@ public class CEFPOSTData: CEFProxy<cef_post_data_t> {
     }
     
     /// Returns true if this object is read-only.
-    public func isReadOnly() -> Bool {
+    public var isReadOnly: Bool {
         return cefObject.is_read_only(cefObjectPtr) != 0
     }
 
     /// Returns the number of existing post data elements.
-    public func getElementCount() -> size_t {
+    public var elementCount: Int {
         return cefObject.get_element_count(cefObjectPtr)
     }
     
     /// Retrieve the post data elements.
-    public func getElements() -> [CEFPOSTDataElement] {
-        var count:size_t = 0
+    public var elements: [CEFPOSTDataElement] {
+        var count: size_t = 0
         var cefElements = UnsafeMutablePointer<cef_post_data_element_t>()
         
         cefObject.get_elements(cefObjectPtr, &count, &cefElements)
@@ -50,17 +50,17 @@ public class CEFPOSTData: CEFProxy<cef_post_data_t> {
     
     /// Remove the specified post data element.  Returns true if the removal
     /// succeeds.
-    public func removeElement(element: CEFPOSTDataElement) {
-        cefObject.remove_element(cefObjectPtr, element.toCEF())
+    public func removeElement(element: CEFPOSTDataElement) -> Bool {
+        return cefObject.remove_element(cefObjectPtr, element.toCEF()) != 0
     }
     
     /// Add the specified post data element.  Returns true if the add succeeds.
-    public func addElement(element: CEFPOSTDataElement) {
-        cefObject.add_element(cefObjectPtr, element.toCEF())
+    public func addElement(element: CEFPOSTDataElement) -> Bool {
+        return cefObject.add_element(cefObjectPtr, element.toCEF()) != 0
     }
     
     /// Remove all existing post data elements.
-    public func removeElements() {
+    public func removeAllElements() {
         cefObject.remove_elements(cefObjectPtr)
     }
 

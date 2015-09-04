@@ -16,14 +16,14 @@ extension cef_v8exception_t: CEFObject {
 public class CEFV8Exception: CEFProxy<cef_v8exception_t> {
     
     /// Returns the exception message.
-    public func getMessage() -> String {
+    public var message: String {
         let cefStrPtr = cefObject.get_message(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.memory)
     }
 
     /// Returns the line of source code that the exception occurred within.
-    public func getSourceLine() -> String {
+    public var sourceLine: String {
         let cefStrPtr = cefObject.get_source_line(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.memory)
@@ -31,7 +31,7 @@ public class CEFV8Exception: CEFProxy<cef_v8exception_t> {
     
     /// Returns the resource name for the script from where the function causing
     /// the error originates.
-    public func getScriptResourceName() -> String {
+    public var scriptResourceName: String {
         let cefStrPtr = cefObject.get_script_resource_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.memory)
@@ -39,31 +39,31 @@ public class CEFV8Exception: CEFProxy<cef_v8exception_t> {
     
     /// Returns the 1-based number of the line where the error occurred or 0 if the
     /// line number is unknown.
-    public func getLineNumber() -> Int {
+    public var lineNumber: Int {
         return Int(cefObject.get_line_number(cefObjectPtr))
     }
 
     /// Returns the index within the script of the first character where the error
     /// occurred.
-    public func getStartPosition() -> Int {
+    public var startPosition: Int {
         return Int(cefObject.get_start_position(cefObjectPtr))
     }
     
     /// Returns the index within the script of the last character where the error
     /// occurred.
-    public func getEndPosition() -> Int {
+    public var endPosition: Int {
         return Int(cefObject.get_end_position(cefObjectPtr))
     }
     
     /// Returns the index within the line of the first character where the error
     /// occurred.
-    public func getStartColumn() -> Int {
+    public var startColumn: Int {
         return Int(cefObject.get_start_column(cefObjectPtr))
     }
     
     /// Returns the index within the line of the last character where the error
     /// occurred.
-    public func getEndColumn() -> Int {
+    public var endColumn: Int {
         return Int(cefObject.get_end_column(cefObjectPtr))
     }
     

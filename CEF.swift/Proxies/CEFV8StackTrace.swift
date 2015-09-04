@@ -28,17 +28,17 @@ public class CEFV8StackTrace: CEFProxy<cef_v8stack_trace_t> {
     /// Returns true if the underlying handle is valid and it can be accessed on
     /// the current thread. Do not call any other methods if this method returns
     /// false.
-    public func isValid() -> Bool {
+    public var isValid: Bool {
         return cefObject.is_valid(cefObjectPtr) != 0
     }
 
     /// Returns the number of stack frames.
-    public func getFrameCount() -> Int {
+    public var frameCount: Int {
         return Int(cefObject.get_frame_count(cefObjectPtr))
     }
 
     /// Returns the stack frame at the specified 0-based index.
-    public func getFrame(atIndex index: Int) -> CEFV8StackFrame? {
+    public func frameAtIndex(index: Int) -> CEFV8StackFrame? {
         let cefFrame = cefObject.get_frame(cefObjectPtr, Int32(index))
         return CEFV8StackFrame.fromCEF(cefFrame)
     }

@@ -32,14 +32,14 @@ public class CEFV8Context: CEFProxy<cef_v8context_t> {
     }
 
     /// Returns true if V8 is currently inside a context.
-    public static func inContext() -> Bool {
+    public static var isV8InContext: Bool {
         return cef_v8context_in_context() != 0
     }
 
     /// Returns the task runner associated with this context. V8 handles can only
     /// be accessed from the thread on which they are created. This method can be
     /// called on any render process thread.
-    public func getTaskRunner() -> CEFTaskRunner? {
+    public var taskRunner: CEFTaskRunner? {
         let cefTaskRunner = cefObject.get_task_runner(cefObjectPtr)
         return CEFTaskRunner.fromCEF(cefTaskRunner)
     }
@@ -47,27 +47,27 @@ public class CEFV8Context: CEFProxy<cef_v8context_t> {
     /// Returns true if the underlying handle is valid and it can be accessed on
     /// the current thread. Do not call any other methods if this method returns
     /// false.
-    public func isValid() -> Bool {
+    public var isValid: Bool {
         return cefObject.is_valid(cefObjectPtr) != 0
     }
 
     /// Returns the browser for this context. This method will return an empty
     /// reference for WebWorker contexts.
-    public func getBrowser() -> CEFBrowser? {
+    public var browser: CEFBrowser? {
         let cefBrowser = cefObject.get_browser(cefObjectPtr)
         return CEFBrowser.fromCEF(cefBrowser)
     }
 
     /// Returns the frame for this context. This method will return an empty
     /// reference for WebWorker contexts.
-    public func getFrame() -> CEFFrame? {
+    public var frame: CEFFrame? {
         let cefFrame = cefObject.get_frame(cefObjectPtr)
         return CEFFrame.fromCEF(cefFrame)
     }
     
     /// Returns the global object for this context. The context must be entered
     /// before calling this method.
-    public func getGlobal() -> CEFV8Value? {
+    public var globalObject: CEFV8Value? {
         let cefValue = cefObject.get_global(cefObjectPtr)
         return CEFV8Value.fromCEF(cefValue)
     }

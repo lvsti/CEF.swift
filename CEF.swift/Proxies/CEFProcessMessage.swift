@@ -24,13 +24,13 @@ public class CEFProcessMessage: CEFProxy<cef_process_message_t> {
 
     /// Returns true if this object is valid. Do not call any other methods if this
     /// function returns false.
-    public func isValid() -> Bool {
+    public var isValid: Bool {
         return cefObject.is_valid(cefObjectPtr) != 0
     }
 
     /// Returns true if the values of this object are read-only. Some APIs may
     /// expose read-only objects.
-    public func isReadOnly() -> Bool {
+    public var isReadOnly: Bool {
         return cefObject.is_read_only(cefObjectPtr) != 0
     }
 
@@ -41,7 +41,7 @@ public class CEFProcessMessage: CEFProxy<cef_process_message_t> {
     }
 
     /// Returns the message name.
-    public func getName() -> String {
+    public var name: String {
         let cefNamePtr = cefObject.get_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefNamePtr) }
         
@@ -49,7 +49,7 @@ public class CEFProcessMessage: CEFProxy<cef_process_message_t> {
     }
 
     /// Returns the list of arguments.
-    public func getArgumentList() -> CEFListValue? {
+    public var argumentList: CEFListValue? {
         let cefList = cefObject.get_argument_list(cefObjectPtr)
         return CEFListValue.fromCEF(cefList)
     }

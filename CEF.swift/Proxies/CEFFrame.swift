@@ -20,7 +20,7 @@ public class CEFFrame: CEFProxy<cef_frame_t> {
     public typealias Identifier = Int64
     
     /// True if this object is currently attached to a valid frame.
-    public func isValid() -> Bool {
+    public var isValid: Bool {
         return cefObject.is_valid(cefObjectPtr) != 0
     }
 
@@ -108,7 +108,7 @@ public class CEFFrame: CEFProxy<cef_frame_t> {
     /// The renderer may request this URL to show the developer the source of the
     /// error.  The |start_line| parameter is the base line number to use for error
     /// reporting.
-    public func executeJavaScript(code: String, scriptURL: NSURL? = nil, startLine: Int) {
+    public func executeJavaScript(code: String, scriptURL: NSURL? = nil, startLine: Int = 1) {
         let cefCodePtr = CEFStringPtrCreateFromSwiftString(code)
         let cefURLPtr = scriptURL != nil ? CEFStringPtrCreateFromSwiftString(scriptURL!.absoluteString) : nil
         defer {
@@ -119,12 +119,12 @@ public class CEFFrame: CEFProxy<cef_frame_t> {
     }
 
     /// Returns true if this is the main (top-level) frame.
-    public func isMain() -> Bool {
+    public var isMain: Bool {
         return cefObject.is_main(cefObjectPtr) != 0
     }
     
     /// Returns true if this is the focused frame.
-    public func isFocused() -> Bool {
+    public var isFocused: Bool {
         return cefObject.is_focused(cefObjectPtr) != 0
     }
     
@@ -133,40 +133,40 @@ public class CEFFrame: CEFProxy<cef_frame_t> {
     /// returned. Otherwise a unique name will be constructed based on the frame
     /// parent hierarchy. The main (top-level) frame will always have an empty name
     /// value.
-    public func getName() -> String {
+    public var name: String {
         let cefStrPtr = cefObject.get_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.memory)
     }
     
     /// Returns the globally unique identifier for this frame.
-    public func getIdentifier() -> Identifier {
+    public var identifier: Identifier {
         return cefObject.get_identifier(cefObjectPtr)
     }
 
     /// Returns the parent of this frame or NULL if this is the main (top-level)
     /// frame.
-    public func getParent() -> CEFFrame? {
+    public var parent: CEFFrame? {
         let cefFrame = cefObject.get_parent(cefObjectPtr)
         return CEFFrame.fromCEF(cefFrame)
     }
     
     /// Returns the URL currently loaded in this frame.
-    public func getURL() -> NSURL {
+    public var url: NSURL {
         let cefURLPtr = cefObject.get_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
         return NSURL(string: CEFStringToSwiftString(cefURLPtr.memory))!
     }
     
     /// Returns the browser that this frame belongs to.
-    public func getBrowser() -> CEFBrowser {
+    public var browser: CEFBrowser {
         let cefBrowser = cefObject.get_browser(cefObjectPtr)
         return CEFBrowser.fromCEF(cefBrowser)!
     }
 
     /// Get the V8 context associated with the frame. This method can only be
     /// called from the render process.
-    public func getV8Context() -> CEFV8Context {
+    public var v8Context: CEFV8Context {
         let cefV8Ctx = cefObject.get_v8context(cefObjectPtr)
         return CEFV8Context.fromCEF(cefV8Ctx)!
     }

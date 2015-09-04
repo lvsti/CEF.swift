@@ -25,12 +25,12 @@ public class CEFBinaryValue: CEFProxy<cef_binary_value_t> {
     /// the underlying data is owned by another object (e.g. list or dictionary)
     /// and that other object is then modified or destroyed. Do not call any other
     /// methods if this method returns false.
-    public func isValid() -> Bool {
+    public var isValid: Bool {
         return cefObject.is_valid(cefObjectPtr) != 0
     }
     
     /// Returns true if this object is currently owned by another object.
-    public func isOwned() -> Bool {
+    public var isOwned: Bool {
         return cefObject.is_owned(cefObjectPtr) != 0
     }
     
@@ -53,7 +53,7 @@ public class CEFBinaryValue: CEFProxy<cef_binary_value_t> {
     }
     
     /// Returns the data size.
-    public func getSize() -> size_t {
+    public var length: size_t {
         return cefObject.get_size(cefObjectPtr)
     }
     

@@ -100,62 +100,62 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
     /// Returns true if the underlying handle is valid and it can be accessed on
     /// the current thread. Do not call any other methods if this method returns
     /// false.
-    public func isValid() -> Bool {
+    public var isValid: Bool {
         return cefObject.is_valid(cefObjectPtr) != 0
     }
 
     /// True if the value type is undefined.
-    public func isUndefined() -> Bool {
+    public var isUndefined: Bool {
         return cefObject.is_undefined(cefObjectPtr) != 0
     }
 
     /// True if the value type is null.
-    public func isNull() -> Bool {
+    public var isNull: Bool {
         return cefObject.is_null(cefObjectPtr) != 0
     }
 
     /// True if the value type is bool.
-    public func isBool() -> Bool {
+    public var isBool: Bool {
         return cefObject.is_bool(cefObjectPtr) != 0
     }
     
     /// True if the value type is int.
-    public func isInt() -> Bool {
+    public var isInt: Bool {
         return cefObject.is_int(cefObjectPtr) != 0
     }
     
     /// True if the value type is unsigned int.
-    public func isUInt() -> Bool {
+    public var isUInt: Bool {
         return cefObject.is_uint(cefObjectPtr) != 0
     }
 
     /// True if the value type is double.
-    public func isDouble() -> Bool {
+    public var isDouble: Bool {
         return cefObject.is_double(cefObjectPtr) != 0
     }
     
     /// True if the value type is Date.
-    public func isDate() -> Bool {
+    public var isDate: Bool {
         return cefObject.is_date(cefObjectPtr) != 0
     }
 
     /// True if the value type is string.
-    public func isString() -> Bool {
+    public var isString: Bool {
         return cefObject.is_string(cefObjectPtr) != 0
     }
     
     /// True if the value type is object.
-    public func isObject() -> Bool {
+    public var isObject: Bool {
         return cefObject.is_object(cefObjectPtr) != 0
     }
     
     /// True if the value type is array.
-    public func isArray() -> Bool {
+    public var isArray: Bool {
         return cefObject.is_array(cefObjectPtr) != 0
     }
 
     /// True if the value type is function.
-    public func isFunction() -> Bool {
+    public var isFunction: Bool {
         return cefObject.is_function(cefObjectPtr) != 0
     }
 
@@ -167,38 +167,38 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
     
     /// Return a bool value.  The underlying data will be converted to if
     /// necessary.
-    public func getBoolValue() -> Bool {
+    public var boolValue: Bool {
         return cefObject.get_bool_value(cefObjectPtr) != 0
     }
     
     /// Return an int value.  The underlying data will be converted to if
     /// necessary.
-    public func getIntValue() -> Int {
+    public var intValue: Int {
         return Int(cefObject.get_int_value(cefObjectPtr))
     }
     
     /// Return an unisgned int value.  The underlying data will be converted to if
     /// necessary.
-    public func getUIntValue() -> UInt {
+    public var uintValue: UInt {
         return UInt(cefObject.get_uint_value(cefObjectPtr))
     }
     
     /// Return a double value.  The underlying data will be converted to if
     /// necessary.
-    public func getDoubleValue() -> Double {
+    public var doubleValue: Double {
         return cefObject.get_double_value(cefObjectPtr)
     }
 
     /// Return a Date value.  The underlying data will be converted to if
     /// necessary.
-    public func getDateValue() -> NSDate {
+    public var dateValue: NSDate {
         let cefTime = cefObject.get_date_value(cefObjectPtr)
         return CEFTimeToNSDate(cefTime)
     }
 
     /// Return a string value.  The underlying data will be converted to if
     /// necessary.
-    public func getStringValue() -> String {
+    public var stringValue: String {
         let cefStrPtr = cefObject.get_string_value(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.memory)
@@ -209,19 +209,19 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
     // interchangably with the framework converting between them as necessary.
     
     /// Returns true if this is a user created object.
-    public func isUserCreated() -> Bool {
+    public var isUserCreated: Bool {
         return cefObject.is_user_created(cefObjectPtr) != 0
     }
 
     /// Returns true if the last method call resulted in an exception. This
     /// attribute exists only in the scope of the current CEF value object.
-    public func hasException() -> Bool {
+    public var hasException: Bool {
         return cefObject.has_exception(cefObjectPtr) != 0
     }
     
     /// Returns the exception resulting from the last method call. This attribute
     /// exists only in the scope of the current CEF value object.
-    public func getException() -> CEFV8Exception? {
+    public var exception: CEFV8Exception? {
         let cefExc = cefObject.get_exception(cefObjectPtr)
         return CEFV8Exception.fromCEF(cefExc)
     }
@@ -231,10 +231,14 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
         return cefObject.clear_exception(cefObjectPtr) != 0
     }
     
-    /// Returns true if this object will re-throw future exceptions. This attribute
-    /// exists only in the scope of the current CEF value object.
-    public func willRethrowExceptions() -> Bool {
-        return cefObject.will_rethrow_exceptions(cefObjectPtr) != 0
+    /// Whether this object will re-throw future exceptions. By default
+    /// exceptions are not re-thrown. If a exception is re-thrown the current
+    /// context should not be accessed again until after the exception has been
+    /// caught and not re-thrown. Returns true on success. This attribute exists
+    /// only in the scope of the current CEF value object.
+    public var rethrowsExceptions: Bool {
+        get { return cefObject.will_rethrow_exceptions(cefObjectPtr) != 0 }
+        set { cefObject.set_rethrow_exceptions(cefObjectPtr, newValue ? 1 : 0) }
     }
     
     /// Set whether this object will re-throw future exceptions. By default
@@ -242,19 +246,19 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
     /// context should not be accessed again until after the exception has been
     /// caught and not re-thrown. Returns true on success. This attribute exists
     /// only in the scope of the current CEF value object.
-    public func setRethrowExcepions(value: Bool) -> Bool {
+    public func setRethrowsExcepions(value: Bool) -> Bool {
         return cefObject.set_rethrow_exceptions(cefObjectPtr, value ? 1 : 0) != 0
     }
 
     /// Returns true if the object has a value with the specified identifier.
-    public func hasValue(forKey key: String?) -> Bool {
-        let cefKeyPtr = key != nil ? CEFStringPtrCreateFromSwiftString(key!) : nil
+    public func hasValueForKey(key: String) -> Bool {
+        let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.has_value_bykey(cefObjectPtr, cefKeyPtr) != 0
     }
 
     /// Returns true if the object has a value with the specified identifier.
-    public func hasValue(atIndex index: Int) -> Bool {
+    public func hasValueAtIndex(index: Int) -> Bool {
         return cefObject.has_value_byindex(cefObjectPtr, Int32(index)) != 0
     }
     
@@ -262,8 +266,8 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
     /// success. Returns false if this method is called incorrectly or an exception
     /// is thrown. For read-only and don't-delete values this method will return
     /// true even though deletion failed.
-    public func deleteValue(forKey key: String?) -> Bool {
-        let cefKeyPtr = key != nil ? CEFStringPtrCreateFromSwiftString(key!) : nil
+    public func removeValueForKey(key: String) -> Bool {
+        let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.delete_value_bykey(cefObjectPtr, cefKeyPtr) != 0
     }
@@ -272,14 +276,14 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
     /// success. Returns false if this method is called incorrectly, deletion fails
     /// or an exception is thrown. For read-only and don't-delete values this
     /// method will return true even though deletion failed.
-    public func deleteValue(atIndex index: Int) -> Bool {
+    public func removeValueAtIndex(index: Int) -> Bool {
         return cefObject.delete_value_byindex(cefObjectPtr, Int32(index)) != 0
     }
 
     /// Returns the value with the specified identifier on success. Returns NULL
     /// if this method is called incorrectly or an exception is thrown.
-    public func getValue(forKey key: String?) -> CEFV8Value? {
-        let cefKeyPtr = key != nil ? CEFStringPtrCreateFromSwiftString(key!) : nil
+    public func valueForKey(key: String) -> CEFV8Value? {
+        let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         let cefValue = cefObject.get_value_bykey(cefObjectPtr, cefKeyPtr)
         return CEFV8Value.fromCEF(cefValue)
@@ -287,7 +291,7 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
 
     /// Returns the value with the specified identifier on success. Returns NULL
     /// if this method is called incorrectly or an exception is thrown.
-    public func getValue(atIndex index: Int) -> CEFV8Value? {
+    public func valueAtIndex(index: Int) -> CEFV8Value? {
         let cefValue = cefObject.get_value_byindex(cefObjectPtr, Int32(index))
         return CEFV8Value.fromCEF(cefValue)
     }
@@ -323,34 +327,28 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
     
     /// Read the keys for the object's values into the specified vector. Integer-
     /// based keys will also be returned as strings.
-    public func getKeys() -> [String]? {
+    public var allKeys: [String] {
         let cefKeys = cef_string_list_alloc()
         defer { cef_string_list_free(cefKeys) }
-        
-        guard cefObject.get_keys(cefObjectPtr, cefKeys) != 0 else {
-            return nil
-        }
-        
+        cefObject.get_keys(cefObjectPtr, cefKeys)
         return CEFStringListToSwiftArray(cefKeys)
     }
     
-    /// Sets the user data for this object and returns true on success. Returns
-    /// false if this method is called incorrectly. This method can only be called
-    /// on user created objects.
-    public func setUserData(userData: CEFUserData?) -> Bool {
-        let cefUserData = userData != nil ? userData!.toCEF() : nil
-        return cefObject.set_user_data(cefObjectPtr, cefUserData) != 0
-    }
-    
-    /// Returns the user data, if any, assigned to this object.
-    public func getUserData() -> CEFUserData? {
-        let cefUserData = cefObject.get_user_data(cefObjectPtr)
-        return CEFUserData.fromCEF(cefUserData)
+    /// The user data for this object
+    public var userData: CEFUserData? {
+        get {
+            let cefUserData = cefObject.get_user_data(cefObjectPtr)
+            return CEFUserData.fromCEF(cefUserData)
+        }
+        set {
+            let cefUserData = newValue != nil ? newValue!.toCEF() : nil
+            cefObject.set_user_data(cefObjectPtr, cefUserData)
+        }
     }
     
     /// Returns the amount of externally allocated memory registered for the
     /// object.
-    public func getExternallyAllocatedMemory() -> Int {
+    public var externallyAllocatedMemory: Int {
         return Int(cefObject.get_externally_allocated_memory(cefObjectPtr))
     }
     
@@ -370,21 +368,21 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
     // ARRAY METHODS - These methods are only available on arrays.
     
     /// Returns the number of elements in the array.
-    public func getArrayLength() -> Int {
+    public var arrayLength: Int {
         return Int(cefObject.get_array_length(cefObjectPtr))
     }
     
     // FUNCTION METHODS - These methods are only available on functions.
     
     /// Returns the function name.
-    public func getFunctionName() -> String {
+    public var functionName: String {
         let cefStrPtr = cefObject.get_function_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.memory)
     }
     
     /// Returns the function handler or NULL if not a CEF-created function.
-    public func getFunctionHandler() -> CEFV8Handler? {
+    public var functionHandler: CEFV8Handler? {
         let cefHandler = cefObject.get_function_handler(cefObjectPtr)
         return CEFV8HandlerMarshaller.take(cefHandler)
     }

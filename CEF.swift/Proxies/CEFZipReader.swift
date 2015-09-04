@@ -51,19 +51,19 @@ public class CEFZipReader: CEFProxy<cef_zip_reader_t> {
     // The below methods act on the file at the current cursor position.
     
     /// Returns the name of the file.
-    public func getFileName() -> String {
+    public var fileName: String {
         let cefStrPtr = cefObject.get_file_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.memory)
     }
 
     /// Returns the uncompressed size of the file.
-    public func getFileSize() -> Int64 {
+    public var fileSize: Int64 {
         return cefObject.get_file_size(cefObjectPtr)
     }
     
     /// Returns the last modified timestamp for the file.
-    public func getFileLastModified() -> NSDate {
+    public var fileLastModified: NSDate {
         let timestamp = cefObject.get_file_last_modified(cefObjectPtr)
         return NSDate(timeIntervalSince1970: NSTimeInterval(timestamp))
     }

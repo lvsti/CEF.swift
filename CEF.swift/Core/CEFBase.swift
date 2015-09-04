@@ -36,12 +36,12 @@ protocol CEFRefCounting: class {
 
 
 public class CEFProxy<T : CEFObject>: CEFRefCounting {
-    public typealias ObjectType = T
-    public typealias ObjectPtrType = UnsafeMutablePointer<T>
+    typealias ObjectType = T
+    typealias ObjectPtrType = UnsafeMutablePointer<T>
     
     private let _cefPtr: ObjectPtrType
-    var cefObjectPtr: UnsafeMutablePointer<ObjectType> { get { return _cefPtr } set {} }
-    var cefObject: ObjectType { get { return _cefPtr.memory } set {} }
+    var cefObjectPtr: UnsafeMutablePointer<ObjectType> { return _cefPtr }
+    var cefObject: ObjectType { return _cefPtr.memory }
     
     init?(ptr: ObjectPtrType) {
         if ptr == nil {
@@ -72,9 +72,5 @@ public class CEFProxy<T : CEFObject>: CEFRefCounting {
         addRef()
         return cefObjectPtr
     }
-}
-
-
-public class CEFHandler {
 }
 

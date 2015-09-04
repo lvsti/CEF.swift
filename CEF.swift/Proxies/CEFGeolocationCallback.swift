@@ -16,8 +16,8 @@ extension cef_geolocation_callback_t: CEFObject {
 public class CEFGeolocationCallback: CEFProxy<cef_geolocation_callback_t> {
     
     /// Call to allow or deny geolocation access.
-    public func doContinue(allow: Bool) {
-        cefObject.cont(cefObjectPtr, allow ? 1 : 0)
+    public func doContinue(allowAccess: Bool) {
+        cefObject.cont(cefObjectPtr, allowAccess ? 1 : 0)
     }
     
     // private

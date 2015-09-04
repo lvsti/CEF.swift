@@ -18,100 +18,101 @@ public class CEFDownloadItem: CEFProxy<cef_download_item_t> {
     
     /// Returns true if this object is valid. Do not call any other methods if this
     /// function returns false.
-    public func isValid() -> Bool {
+    public var isValid: Bool {
         return cefObject.is_valid(cefObjectPtr) != 0
     }
 
     /// Returns true if the download is in progress.
-    public func isInProgress() -> Bool {
+    public var isInProgress: Bool {
         return cefObject.is_in_progress(cefObjectPtr) != 0
     }
 
     /// Returns true if the download is complete.
-    public func isComplete() -> Bool {
+    public var isComplete: Bool {
         return cefObject.is_complete(cefObjectPtr) != 0
     }
 
     /// Returns true if the download has been canceled or interrupted.
-    public func isCanceled() -> Bool {
+    public var isCanceled: Bool {
         return cefObject.is_canceled(cefObjectPtr) != 0
     }
 
     /// Returns a simple speed estimate in bytes/s.
-    public func getCurrentSpeed() -> Int64 {
+    public var currentSpeed: Int64 {
         return cefObject.get_current_speed(cefObjectPtr)
     }
 
     /// Returns the rough percent complete or -1 if the receive total size is
     /// unknown.
-    public func getPercentComplete() -> Int {
-        return Int(cefObject.get_percent_complete(cefObjectPtr))
+    public var percentComplete: Int? {
+        let percent = cefObject.get_percent_complete(cefObjectPtr)
+        return percent >= 0 ? Int(percent) : nil
     }
 
     /// Returns the total number of bytes.
-    public func getTotalBytes() -> Int64 {
+    public var totalBytes: Int64 {
         return cefObject.get_total_bytes(cefObjectPtr)
     }
 
     /// Returns the number of received bytes.
-    public func getReceivedBytes() -> Int64 {
+    public var receivedBytes: Int64 {
         return cefObject.get_received_bytes(cefObjectPtr)
     }
     
     /// Returns the time that the download started.
-    public func getStartTime() -> NSDate {
+    public var startTime: NSDate {
         let cefTime = cefObject.get_start_time(cefObjectPtr)
         return CEFTimeToNSDate(cefTime)
     }
 
     /// Returns the time that the download ended.
-    public func getEndTime() -> NSDate {
+    public var endTime: NSDate {
         let cefTime = cefObject.get_end_time(cefObjectPtr)
         return CEFTimeToNSDate(cefTime)
     }
     
     /// Returns the full path to the downloaded or downloading file.
-    public func getFullPath() -> String {
+    public var fullPath: String {
         let cefStrPtr = cefObject.get_full_path(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.memory)
     }
     
     /// Returns the unique identifier for this download.
-    public func getID() -> Identifier {
+    public var identifier: Identifier {
         return cefObject.get_id(cefObjectPtr)
     }
 
     /// Returns the URL.
-    public func getURL() -> NSURL {
+    public var url: NSURL {
         let cefStrPtr = cefObject.get_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return NSURL(string: CEFStringToSwiftString(cefStrPtr.memory))!
     }
     
     /// Returns the original URL before any redirections.
-    public func getOriginalURL() -> NSURL {
+    public var originalURL: NSURL {
         let cefStrPtr = cefObject.get_original_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return NSURL(string: CEFStringToSwiftString(cefStrPtr.memory))!
     }
     
     /// Returns the suggested file name.
-    public func getSuggestedFileName() -> String {
+    public var suggestedFileName: String {
         let cefStrPtr = cefObject.get_suggested_file_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.memory)
     }
     
     /// Returns the content disposition.
-    public func getContentDisposition() -> String {
+    public var contentDisposition: String {
         let cefStrPtr = cefObject.get_content_disposition(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.memory)
     }
     
     /// Returns the mime type.
-    public func getMIMEType() -> String {
+    public var mimeType: String {
         let cefStrPtr = cefObject.get_mime_type(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.memory)

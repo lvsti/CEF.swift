@@ -23,50 +23,46 @@ public class CEFResponse: CEFProxy<cef_response_t> {
     }
     
     /// Returns true if this object is read-only.
-    public func isReadOnly() -> Bool {
+    public var isReadOnly: Bool {
         return cefObject.is_read_only(cefObjectPtr) != 0
     }
 
-    /// Get the response status code.
-    public func getStatus() -> Int {
-        return Int(cefObject.get_status(cefObjectPtr))
-    }
-    
-    /// Set the response status code.
-    public func setStatus(status: Int) {
-        cefObject.set_status(cefObjectPtr, Int32(status))
-    }
-    
-    /// Get the response status text.
-    public func getStatusText() -> String {
-        let cefStrPtr = cefObject.get_status_text(cefObjectPtr)
-        defer { CEFStringPtrRelease(cefStrPtr)}
-        return CEFStringToSwiftString(cefStrPtr.memory)
+    /// Response status code.
+    public var status: Int {
+        get { return Int(cefObject.get_status(cefObjectPtr)) }
+        set { cefObject.set_status(cefObjectPtr, Int32(status)) }
     }
 
-    /// Set the response status text.
-    public func setStatusText(statusText: String) {
-        let cefStrPtr = CEFStringPtrCreateFromSwiftString(statusText)
-        defer { CEFStringPtrRelease(cefStrPtr)}
-        cefObject.set_status_text(cefObjectPtr, cefStrPtr)
+    /// Response status text.
+    public var statusText: String {
+        get {
+            let cefStrPtr = cefObject.get_status_text(cefObjectPtr)
+            defer { CEFStringPtrRelease(cefStrPtr)}
+            return CEFStringToSwiftString(cefStrPtr.memory)
+        }
+        set {
+            let cefStrPtr = CEFStringPtrCreateFromSwiftString(newValue)
+            defer { CEFStringPtrRelease(cefStrPtr)}
+            cefObject.set_status_text(cefObjectPtr, cefStrPtr)
+        }
     }
 
     /// Get the response mime type.
-    public func getMimeType() -> String {
-        let cefStrPtr = cefObject.get_status_text(cefObjectPtr)
-        defer { CEFStringPtrRelease(cefStrPtr)}
-        return CEFStringToSwiftString(cefStrPtr.memory)
+    public var mimeType: String {
+        get {
+            let cefStrPtr = cefObject.get_status_text(cefObjectPtr)
+            defer { CEFStringPtrRelease(cefStrPtr)}
+            return CEFStringToSwiftString(cefStrPtr.memory)
+        }
+        set {
+            let cefStrPtr = CEFStringPtrCreateFromSwiftString(newValue)
+            defer { CEFStringPtrRelease(cefStrPtr)}
+            cefObject.set_status_text(cefObjectPtr, cefStrPtr)
+        }
     }
     
-    /// Set the response mime type.
-    public func setMimeType(mimeType: String) {
-        let cefStrPtr = CEFStringPtrCreateFromSwiftString(mimeType)
-        defer { CEFStringPtrRelease(cefStrPtr)}
-        cefObject.set_status_text(cefObjectPtr, cefStrPtr)
-    }
-
     /// Get the value for the specified response header field.
-    public func getHeader(forKey key: String) -> String {
+    public func headerForKey(key: String) -> String? {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         let cefHeaderPtr = cefObject.get_header(cefObjectPtr, cefKeyPtr)
         defer {
@@ -74,23 +70,23 @@ public class CEFResponse: CEFProxy<cef_response_t> {
             CEFStringPtrRelease(cefHeaderPtr)
         }
         
-        return CEFStringToSwiftString(cefHeaderPtr.memory)
+        return cefHeaderPtr != nil ? CEFStringToSwiftString(cefHeaderPtr.memory) : nil
     }
     
-    /// Get all response header fields.
-    public func getHeaderMap() -> HeaderMap {
-        let cefHeaderMap = cef_string_multimap_alloc()
-        defer { cef_string_multimap_free(cefHeaderMap) }
+    /// Response header fields.
+    public var headers: HeaderMap {
+        get {
+            let cefHeaderMap = cef_string_multimap_alloc()
+            defer { cef_string_multimap_free(cefHeaderMap) }
 
-        cefObject.get_header_map(cefObjectPtr, cefHeaderMap)
-        return CEFStringMultimapToSwiftDictionaryOfArrays(cefHeaderMap)
-    }
-    
-    /// Set all response header fields.
-    public func setHeaderMap(headerMap: HeaderMap) {
-        let cefHeaderMap = CEFStringMultimapCreateFromSwiftDictionaryOfArrays(headerMap)
-        defer { cef_string_multimap_free(cefHeaderMap) }
-        cefObject.set_header_map(cefObjectPtr, cefHeaderMap)
+            cefObject.get_header_map(cefObjectPtr, cefHeaderMap)
+            return CEFStringMultimapToSwiftDictionaryOfArrays(cefHeaderMap)
+        }
+        set {
+            let cefHeaderMap = CEFStringMultimapCreateFromSwiftDictionaryOfArrays(newValue)
+            defer { cef_string_multimap_free(cefHeaderMap) }
+            cefObject.set_header_map(cefObjectPtr, cefHeaderMap)
+        }
     }
 
     // private

@@ -17,27 +17,27 @@ public class CEFSSLInfo: CEFProxy<cef_sslinfo_t> {
     /// Returns the subject of the X.509 certificate. For HTTPS server
     /// certificates this represents the web server.  The common name of the
     /// subject should match the host name of the web server.
-    public func getSubject() -> CEFSSLCertPrincipal? {
+    public var subject: CEFSSLCertPrincipal? {
         let cefCert = cefObject.get_subject(cefObjectPtr)
         return CEFSSLCertPrincipal.fromCEF(cefCert)
     }
     
     /// Returns the issuer of the X.509 certificate.
-    public func getIssuer() -> CEFSSLCertPrincipal? {
+    public var issuer: CEFSSLCertPrincipal? {
         let cefCert = cefObject.get_issuer(cefObjectPtr)
         return CEFSSLCertPrincipal.fromCEF(cefCert)
     }
     
     /// Returns the DER encoded serial number for the X.509 certificate. The value
     /// possibly includes a leading 00 byte.
-    public func getSerialNumber() -> CEFBinaryValue? {
+    public var serialNumber: CEFBinaryValue? {
         let cefBinary = cefObject.get_serial_number(cefObjectPtr)
         return CEFBinaryValue.fromCEF(cefBinary)
     }
     
     /// Returns the date before which the X.509 certificate is invalid.
     /// CefTime.GetTimeT() will return 0 if no date was specified.
-    public func getValidStart() -> NSDate? {
+    public var validFrom: NSDate? {
         var cefTime = cefObject.get_valid_start(cefObjectPtr)
         var time: time_t = 0;
         cef_time_to_timet(&cefTime, &time)
@@ -46,7 +46,7 @@ public class CEFSSLInfo: CEFProxy<cef_sslinfo_t> {
     
     /// Returns the date after which the X.509 certificate is invalid.
     /// CefTime.GetTimeT() will return 0 if no date was specified.
-    public func getValidExpiry() -> NSDate? {
+    public var validUntil: NSDate? {
         var cefTime = cefObject.get_valid_expiry(cefObjectPtr)
         var time: time_t = 0;
         cef_time_to_timet(&cefTime, &time)
@@ -54,13 +54,13 @@ public class CEFSSLInfo: CEFProxy<cef_sslinfo_t> {
     }
     
     /// Returns the DER encoded data for the X.509 certificate.
-    public func getDEREncoded() -> CEFBinaryValue? {
+    public var derEncoded: CEFBinaryValue? {
         let cefBinary = cefObject.get_derencoded(cefObjectPtr)
         return CEFBinaryValue.fromCEF(cefBinary)
     }
     
     /// Returns the PEM encoded data for the X.509 certificate.
-    public func getPEMEncoded() -> CEFBinaryValue? {
+    public var pemEncoded: CEFBinaryValue? {
         let cefBinary = cefObject.get_pemencoded(cefObjectPtr)
         return CEFBinaryValue.fromCEF(cefBinary)
     }

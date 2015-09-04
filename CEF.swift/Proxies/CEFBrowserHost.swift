@@ -69,7 +69,8 @@ public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
     }
 
     /// Returns the hosted browser object.
-    public func getBrowser() -> CEFBrowser? {
+    public var browser: CEFBrowser? {
+        // TODO: audit nonnull
         let cefBrowser = cefObject.get_browser(cefObjectPtr)
         return CEFBrowser.fromCEF(cefBrowser)
     }
@@ -82,7 +83,7 @@ public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
     /// event handler allows the close or if |force_close| is true. See
     /// CefLifeSpanHandler::DoClose() documentation for additional usage
     /// information.
-    public func closeBrowser(force: Bool) {
+    public func closeBrowser(force force: Bool) {
         cefObject.close_browser(cefObjectPtr, force ? 1 : 0)
     }
 
@@ -98,7 +99,7 @@ public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
     }
 
     /// Retrieve the window handle for this browser.
-    public func getWindowHandle() -> CEFWindowHandle {
+    public var windowHandle: CEFWindowHandle {
         let rawHandle:UnsafeMutablePointer<Void> = cefObject.get_window_handle(cefObjectPtr)
         return Unmanaged<CEFWindowHandle>.fromOpaque(COpaquePointer(rawHandle)).takeUnretainedValue()
     }
@@ -106,37 +107,41 @@ public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
     /// Retrieve the window handle of the browser that opened this browser. Will
     /// return NULL for non-popup windows. This method can be used in combination
     /// with custom handling of modal windows.
-    public func getOpenerWindowHandle() -> CEFWindowHandle {
+    public var openerWindowHandle: CEFWindowHandle {
         let rawHandle:UnsafeMutablePointer<Void> = cefObject.get_opener_window_handle(cefObjectPtr)
         return Unmanaged<CEFWindowHandle>.fromOpaque(COpaquePointer(rawHandle)).takeUnretainedValue()
     }
     
     /// Returns the client for this browser.
-    public func getClient() -> CEFClient? {
+    public var client: CEFClient? {
+        // TODO: audit nonnull
         let cefClient = cefObject.get_client(cefObjectPtr)
         return CEFClientMarshaller.take(cefClient)
     }
 
     /// Returns the request context for this browser.
-    public func getRequestContext() -> CEFRequestContext? {
+    public var requestContext: CEFRequestContext? {
+        // TODO: audit nonnull
         let cefCtx = cefObject.get_request_context(cefObjectPtr)
         return CEFRequestContext.fromCEF(cefCtx)
     }
 
+    /// Zoom level.
+    ///
+    /// :getter:
     /// Get the current zoom level. The default zoom level is 0.0. This method can
     /// only be called on the UI thread.
-    public func getZoomLevel() -> Double {
-        return cefObject.get_zoom_level(cefObjectPtr)
-    }
-    
+    ///
+    /// :setter:
     /// Change the zoom level to the specified value. Specify 0.0 to reset the
     /// zoom level. If called on the UI thread the change will be applied
     /// immediately. Otherwise, the change will be applied asynchronously on the
     /// UI thread.
-    public func setZoomLevel(zoomLevel: Double) {
-        cefObject.set_zoom_level(cefObjectPtr, zoomLevel)
+    public var zoomLevel: Double {
+        get { return cefObject.get_zoom_level(cefObjectPtr) }
+        set { cefObject.set_zoom_level(cefObjectPtr, zoomLevel) }
     }
-
+    
     /// Call to run a file chooser dialog. Only a single file chooser dialog may be
     /// pending at any given time. |mode| represents the type of dialog to display.
     /// |title| to the title to be used for the dialog and may be empty to show the
@@ -201,7 +206,7 @@ public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
     }
     
     /// Cancel all searches that are currently going on.
-    public func stopFinding(clearSelection: Bool) {
+    public func stopFinding(clearSelection clearSelection: Bool) {
         cefObject.stop_finding(cefObjectPtr, clearSelection ? 1 : 0)
     }
     
@@ -240,16 +245,12 @@ public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
         cefObject.get_navigation_entries(cefObjectPtr, visitor.toCEF(), currentOnly ? 1 : 0)
     }
     
-    /// Set whether mouse cursor change is disabled.
-    public func setMouseCursorChangeDisabled(value: Bool) {
-        cefObject.set_mouse_cursor_change_disabled(cefObjectPtr, value ? 1 : 0)
+    /// Whether mouse cursor change is disabled.
+    public var mouseCursorChangeDisabled: Bool {
+        get { return cefObject.is_mouse_cursor_change_disabled(cefObjectPtr) != 0 }
+        set { cefObject.set_mouse_cursor_change_disabled(cefObjectPtr, newValue ? 1 : 0) }
     }
     
-    /// Returns true if mouse cursor change is disabled.
-    public func isMouseCursorChangeDisabled() -> Bool {
-        return cefObject.is_mouse_cursor_change_disabled(cefObjectPtr) != 0
-    }
-
     /// If a misspelled word is currently selected in an editable node calling
     /// this method will replace it with the specified |word|.
     public func replaceMisspelling(replacementWord: String) {
@@ -266,7 +267,7 @@ public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
     }
     
     /// Returns true if window rendering is disabled.
-    public func isWindowRenderingDisabled() -> Bool {
+    public var isWindowRenderingDisabled: Bool {
         return cefObject.is_window_rendering_disabled(cefObjectPtr) != 0
     }
     
@@ -350,7 +351,7 @@ public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
     
     /// Get the NSTextInputContext implementation for enabling IME on Mac when
     /// window rendering is disabled.
-    public func getNSTextInputContext() -> CEFTextInputContext {
+    public var textInputContext: CEFTextInputContext {
         let rawHandle:UnsafeMutablePointer<Void> = cefObject.get_nstext_input_context(cefObjectPtr)
         return Unmanaged<CEFTextInputContext>.fromOpaque(COpaquePointer(rawHandle)).takeUnretainedValue()
     }

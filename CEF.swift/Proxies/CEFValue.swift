@@ -27,18 +27,18 @@ public class CEFValue: CEFProxy<cef_value_t> {
     /// dictionary) and that other object is then modified or destroyed. This value
     /// object can be re-used by calling Set*() even if the underlying data is
     /// invalid.
-    public func isValid() -> Bool {
+    public var isValid: Bool {
         return cefObject.is_valid(cefObjectPtr) != 0
     }
 
     /// Returns true if the underlying data is owned by another object.
-    public func isOwned() -> Bool {
+    public var isOwned: Bool {
         return cefObject.is_owned(cefObjectPtr) != 0
     }
 
     /// Returns true if the underlying data is read-only. Some APIs may expose
     /// read-only objects.
-    public func isReadOnly() -> Bool {
+    public var isReadOnly: Bool {
         return cefObject.is_read_only(cefObjectPtr) != 0
     }
     
@@ -62,28 +62,28 @@ public class CEFValue: CEFProxy<cef_value_t> {
     }
 
     /// Returns the underlying value type.
-    public func getType() -> CEFValueType {
+    public var type: CEFValueType {
         let cefType = cefObject.get_type(cefObjectPtr)
         return CEFValueType.fromCEF(cefType)
     }
 
     /// Returns the underlying value as type bool.
-    public func getBool() -> Bool {
+    public var boolValue: Bool {
         return cefObject.get_bool(cefObjectPtr) != 0
     }
 
     /// Returns the underlying value as type int.
-    public func getInt() -> Int {
+    public var intValue: Int {
         return Int(cefObject.get_int(cefObjectPtr))
     }
 
     /// Returns the underlying value as type double.
-    public func getDouble() -> Double {
+    public var doubleValue: Double {
         return cefObject.get_double(cefObjectPtr)
     }
     
     /// Returns the underlying value as type string.
-    public func getString() -> String? {
+    public var stringValue: String? {
         let cefStrPtr = cefObject.get_string(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.memory) : nil
@@ -95,7 +95,7 @@ public class CEFValue: CEFProxy<cef_value_t> {
     /// the value after assigning ownership to a dictionary or list pass this
     /// object to the SetValue() method instead of passing the returned reference
     /// to SetBinary().
-    public func getBinary() -> CEFBinaryValue? {
+    public var binaryValue: CEFBinaryValue? {
         let cefBinary = cefObject.get_binary(cefObjectPtr)
         return CEFBinaryValue.fromCEF(cefBinary)
     }
@@ -106,7 +106,7 @@ public class CEFValue: CEFProxy<cef_value_t> {
     /// the value after assigning ownership to a dictionary or list pass this
     /// object to the SetValue() method instead of passing the returned reference
     /// to SetDictionary().
-    public func getDictionary() -> CEFDictionaryValue? {
+    public var dictionaryValue: CEFDictionaryValue? {
         let cefDict = cefObject.get_dictionary(cefObjectPtr)
         return CEFDictionaryValue.fromCEF(cefDict)
     }
@@ -117,7 +117,7 @@ public class CEFValue: CEFProxy<cef_value_t> {
     /// the value after assigning ownership to a dictionary or list pass this
     /// object to the SetValue() method instead of passing the returned reference
     /// to SetList().
-    public func getList() -> CEFListValue? {
+    public var listValue: CEFListValue? {
         let cefList = cefObject.get_list(cefObjectPtr)
         return CEFListValue.fromCEF(cefList)
     }
@@ -148,11 +148,10 @@ public class CEFValue: CEFProxy<cef_value_t> {
 
     /// Sets the underlying value as type string. Returns true if the value was set
     /// successfully.
-    public func setString(string: String?) -> Bool {
-        let cefStrPtr = string != nil ? CEFStringPtrCreateFromSwiftString(string!) : nil
-        let retval = cefObject.set_string(cefObjectPtr, cefStrPtr) != 0
-        CEFStringPtrRelease(cefStrPtr)
-        return retval
+    public func setString(string: String) -> Bool {
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(string)
+        defer { CEFStringPtrRelease(cefStrPtr) }
+        return cefObject.set_string(cefObjectPtr, cefStrPtr) != 0
     }
 
     /// Sets the underlying value as type binary. Returns true if the value was set

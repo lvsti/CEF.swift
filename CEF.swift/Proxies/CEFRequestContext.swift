@@ -69,29 +69,29 @@ public class CEFRequestContext: CEFProxy<cef_request_context_t> {
     }
 
     /// Returns true if this object is sharing the same storage as |that| object.
-    public func isSharingWith(other: CEFRequestContext) -> Bool {
+    public func isSharingStorageWithContext(other: CEFRequestContext) -> Bool {
         return cefObject.is_sharing_with(cefObjectPtr, other.toCEF()) != 0
     }
     
     /// Returns true if this object is the global context. The global context is
     /// used by default when creating a browser or URL request with a NULL context
     /// argument.
-    public func isGlobal() -> Bool {
+    public var isGlobal: Bool {
         return cefObject.is_global(cefObjectPtr) != 0
     }
     
     /// Returns the handler for this context if any.
-    public func getHandler() -> CEFRequestContextHandler? {
+    public var handler: CEFRequestContextHandler? {
         let cefHandler = cefObject.get_handler(cefObjectPtr)
         return CEFRequestContextHandlerMarshaller.take(cefHandler)
     }
 
     /// Returns the cache path for this object. If empty an "incognito mode"
     /// in-memory cache is being used.
-    public func getCachePath() -> String {
+    public var cachePath: String? {
         let cefStrPtr = cefObject.get_cache_path(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.memory)
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.memory) : nil
     }
     
     /// Returns the default cookie manager for this object. This will be the global
