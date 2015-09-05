@@ -19,9 +19,7 @@ class SimpleApp: CEFApp, CEFBrowserProcessHandler {
     }
     
     // cefapp
-    func getBrowserProcessHandler() -> CEFBrowserProcessHandler? {
-        return self
-    }
+    var browserProcessHandler: CEFBrowserProcessHandler? { return self }
     
     // cefbrowserprocesshandler
     func onContextInitialized() {

@@ -58,8 +58,8 @@ public class CEFTaskRunner: CEFProxy<cef_task_runner_t> {
     /// runner. Execution will occur asynchronously. Delayed tasks are not
     /// supported on V8 WebWorker threads and will be executed without the
     /// specified delay.
-    public func postDelayedTask(task: CEFTask, delayInMsec delay: Int64) -> Bool {
-        return cefObject.post_delayed_task(cefObjectPtr, task.toCEF(), delay) != 0
+    public func postTask(task: CEFTask, withDelay delay: NSTimeInterval) -> Bool {
+        return cefObject.post_delayed_task(cefObjectPtr, task.toCEF(), Int64(delay * 1000)) != 0
     }
     
     // private
@@ -79,15 +79,17 @@ public extension CEFTaskRunner {
     /// Post a task for execution on the thread associated with this task runner.
     /// Execution will occur asynchronously.
     public func postTask(block: CEFTaskExecuteBlock) -> Bool {
-        return postTask(CEFTaskBridge(block: block))
+        let task = CEFTaskBridge(block: block)
+        return cefObject.post_task(cefObjectPtr, task.toCEF()) != 0
     }
     
     /// Post a task for delayed execution on the thread associated with this task
     /// runner. Execution will occur asynchronously. Delayed tasks are not
     /// supported on V8 WebWorker threads and will be executed without the
     /// specified delay.
-    public func postDelayedTask(delayInMsec delay: Int64, block: CEFTaskExecuteBlock) -> Bool {
-        return postDelayedTask(CEFTaskBridge(block: block), delayInMsec: delay)
+    public func postTaskWithDelay(delay: NSTimeInterval, block: CEFTaskExecuteBlock) -> Bool {
+        let task = CEFTaskBridge(block: block)
+        return cefObject.post_delayed_task(cefObjectPtr, task.toCEF(), Int64(delay * 1000)) != 0
     }
     
 }

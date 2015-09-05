@@ -11,7 +11,7 @@ import Foundation
 
 /// Returns the mime type for the specified file extension or an empty string if
 /// unknown.
-public func CEFGetMIMEType(fileExt: String) -> String {
+public func CEFGetMIMETypeForExtension(fileExt: String) -> String {
     let cefStrPtr = CEFStringPtrCreateFromSwiftString(fileExt)
     defer { CEFStringPtrRelease(cefStrPtr) }
     let cefType = cef_get_mime_type(cefStrPtr)
@@ -97,7 +97,7 @@ public func CEFParseJSON(jsonString: String, options: CEFJSONParserOptions) -> C
 public func CEFParseJSONAndReturnError(jsonString: String,
                                        options: CEFJSONParserOptions,
                                        inout errorCode: CEFJSONParserError?,
-inout errorMsg: String?) -> CEFValue? {
+                                       inout errorMsg: String?) -> CEFValue? {
     let cefStrPtr = CEFStringPtrCreateFromSwiftString(jsonString)
     defer { CEFStringPtrRelease(cefStrPtr) }
     var code = CEFJSONParserError.NoError.toCEF()
