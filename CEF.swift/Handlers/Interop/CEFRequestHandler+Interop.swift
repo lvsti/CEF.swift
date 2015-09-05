@@ -123,14 +123,14 @@ func CEFRequestHandler_get_auth_credentials(ptr: UnsafeMutablePointer<cef_reques
         return 0
     }
     
-    return obj.getAuthCredentials(CEFBrowser.fromCEF(browser)!,
-                                  frame: CEFFrame.fromCEF(frame)!,
-                                  isProxy: isProxy != 0,
-                                  host: CEFStringToSwiftString(host.memory),
-                                  port: UInt16(port),
-                                  realm: CEFStringToSwiftString(realm.memory),
-                                  scheme: CEFStringToSwiftString(scheme.memory),
-                                  callback: CEFAuthCallback.fromCEF(callback)!) ? 1 : 0
+    return obj.onAuthCredentialsRequired(CEFBrowser.fromCEF(browser)!,
+                                         frame: CEFFrame.fromCEF(frame)!,
+                                         isProxy: isProxy != 0,
+                                         host: CEFStringToSwiftString(host.memory),
+                                         port: UInt16(port),
+                                         realm: CEFStringToSwiftString(realm.memory),
+                                         scheme: CEFStringToSwiftString(scheme.memory),
+                                         callback: CEFAuthCallback.fromCEF(callback)!) ? 1 : 0
 }
 
 

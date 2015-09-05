@@ -17,27 +17,23 @@ func CEFV8Accessor_get(ptr: UnsafeMutablePointer<cef_v8accessor_t>,
         return 0
     }
 
-    var retval: CEFV8Value? = nil
-    var excStr: String? = nil
+    let optResult = obj.get(CEFStringToSwiftString(name.memory),
+                            object: CEFV8Value.fromCEF(object)!)
     
-    let result = obj.get(CEFStringToSwiftString(name.memory),
-                         object: CEFV8Value.fromCEF(object)!,
-                         retval: &retval,
-                         exception: &excStr)
-    
-    if result {
-        if let retval = retval {
-            retvalPtr.memory = retval.toCEF()
-        } else {
-            retvalPtr.memory = nil
-        }
+    guard let result = optResult else {
+        return 0
     }
     
-    if let excStr = excStr {
+    switch result {
+    case .Success(let retval):
+        retvalPtr.memory = retval.toCEF()
+        break
+    case .Failure(let excStr):
         CEFStringSetFromSwiftString(excStr, cefString: excStrPtr)
+        break
     }
     
-    return result ? 1 : 0
+    return 1
 }
 
 func CEFV8Accessor_set(ptr: UnsafeMutablePointer<cef_v8accessor_t>,
@@ -49,17 +45,18 @@ func CEFV8Accessor_set(ptr: UnsafeMutablePointer<cef_v8accessor_t>,
         return 0
     }
 
-    var excStr: String? = nil
+    let optResult = obj.set(CEFStringToSwiftString(name.memory),
+                            object: CEFV8Value.fromCEF(object)!,
+                            value: CEFV8Value.fromCEF(value)!)
+
+    guard let result = optResult else {
+        return 0
+    }
     
-    let result = obj.set(CEFStringToSwiftString(name.memory),
-                         object: CEFV8Value.fromCEF(object)!,
-                         value: CEFV8Value.fromCEF(value)!,
-                         exception: &excStr)
-    
-    if let excStr = excStr {
+    if case .Failure(let excStr) = result {
         CEFStringSetFromSwiftString(excStr, cefString: excStrPtr)
     }
     
-    return result ? 1 : 0
+    return 1
 }
 

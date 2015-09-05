@@ -14,11 +14,13 @@ func CEFRenderHandler_get_root_screen_rect(ptr: UnsafeMutablePointer<cef_render_
     guard let obj = CEFRenderHandlerMarshaller.get(ptr) else {
         return 0
     }
+
+    let rect = obj.rootScreenRectForBrowser(CEFBrowser.fromCEF(browser)!)
+    if let rect = rect {
+        cefRect.memory = rect.toCEF()
+    }
     
-    var rect = NSRect()
-    defer { cefRect.memory = rect.toCEF() }
-    
-    return obj.getRootScreenRect(CEFBrowser.fromCEF(browser)!, rect: &rect) ? 1 : 0
+    return rect != nil ? 1 : 0
 }
 
 func CEFRenderHandler_get_view_rect(ptr: UnsafeMutablePointer<cef_render_handler_t>,
@@ -28,10 +30,12 @@ func CEFRenderHandler_get_view_rect(ptr: UnsafeMutablePointer<cef_render_handler
         return 0
     }
 
-    var rect = NSRect()
-    defer { cefRect.memory = rect.toCEF() }
+    let rect = obj.viewRectForBrowser(CEFBrowser.fromCEF(browser)!)
+    if let rect = rect {
+        cefRect.memory = rect.toCEF()
+    }
     
-    return obj.getRootScreenRect(CEFBrowser.fromCEF(browser)!, rect: &rect) ? 1 : 0
+    return rect != nil ? 1 : 0
 }
 
 func CEFRenderHandler_get_screen_point(ptr: UnsafeMutablePointer<cef_render_handler_t>,
@@ -44,15 +48,14 @@ func CEFRenderHandler_get_screen_point(ptr: UnsafeMutablePointer<cef_render_hand
         return 0
     }
     
-    var screenPoint = NSPoint()
-    defer {
-        screenX.memory = Int32(screenPoint.x)
-        screenY.memory = Int32(screenPoint.y)
+    let point = obj.screenPointForBrowser(CEFBrowser.fromCEF(browser)!,
+                                          viewPoint: NSPoint(x: Int(viewX), y: Int(viewY)))
+    if let point = point {
+        screenX.memory = Int32(point.x)
+        screenY.memory = Int32(point.y)
     }
     
-    return obj.getScreenPoint(CEFBrowser.fromCEF(browser)!,
-                              viewPoint: NSPoint(x: Int(viewX), y: Int(viewY)),
-                              screenPoint: &screenPoint) ? 1 : 0
+    return point != nil ? 1 : 0
 }
 
 func CEFRenderHandler_get_screen_info(ptr: UnsafeMutablePointer<cef_render_handler_t>,
@@ -62,10 +65,12 @@ func CEFRenderHandler_get_screen_info(ptr: UnsafeMutablePointer<cef_render_handl
         return 0
     }
     
-    var info = CEFScreenInfo.fromCEF(cefInfo.memory)
-    defer { cefInfo.memory = info.toCEF() }
+    let info = obj.screenInfoForBrowser(CEFBrowser.fromCEF(browser)!)
+    if let info = info {
+        cefInfo.memory = info.toCEF()
+    }
     
-    return obj.getScreenInfo(CEFBrowser.fromCEF(browser)!, screenInfo: &info) ? 1 : 0
+    return info != nil ? 1 : 0
 }
 
 func CEFRenderHandler_on_popup_show(ptr: UnsafeMutablePointer<cef_render_handler_t>,
@@ -106,10 +111,10 @@ func CEFRenderHandler_on_paint(ptr: UnsafeMutablePointer<cef_render_handler_t>,
     }
     
     obj.onPaint(CEFBrowser.fromCEF(browser)!,
-        type: CEFPaintElementType.fromCEF(type),
-        dirtyRects: rects,
-        buffer: buffer,
-        size: NSSize(width: Int(width), height: Int(height)))
+                type: CEFPaintElementType.fromCEF(type),
+                dirtyRects: rects,
+                buffer: buffer,
+                size: NSSize(width: Int(width), height: Int(height)))
 }
 
 func CEFRenderHandler_on_cursor_change(ptr: UnsafeMutablePointer<cef_render_handler_t>,
@@ -122,9 +127,9 @@ func CEFRenderHandler_on_cursor_change(ptr: UnsafeMutablePointer<cef_render_hand
     }
     
     obj.onCursorChange(CEFBrowser.fromCEF(browser)!,
-        cursor: Unmanaged<CEFCursorHandle>.fromOpaque(COpaquePointer(cursor)).takeUnretainedValue(),
-        type: CEFCursorType.fromCEF(type),
-        cursorInfo: info != nil ? CEFCursorInfo.fromCEF(info.memory) : nil)
+                       cursor: Unmanaged<CEFCursorHandle>.fromOpaque(COpaquePointer(cursor)).takeUnretainedValue(),
+                       type: CEFCursorType.fromCEF(type),
+                       cursorInfo: info != nil ? CEFCursorInfo.fromCEF(info.memory) : nil)
 }
 
 func CEFRenderHandler_start_dragging(ptr: UnsafeMutablePointer<cef_render_handler_t>,
@@ -137,10 +142,10 @@ func CEFRenderHandler_start_dragging(ptr: UnsafeMutablePointer<cef_render_handle
         return 0
     }
     
-    return obj.startDragging(CEFBrowser.fromCEF(browser)!,
-        dragData: CEFDragData.fromCEF(dragData)!,
-        operationMask: CEFDragOperationsMask.fromCEF(opMask),
-        location: NSPoint(x: Int(x), y: Int(y))) ? 1 : 0
+    return obj.onStartDragging(CEFBrowser.fromCEF(browser)!,
+                               dragData: CEFDragData.fromCEF(dragData)!,
+                               operationMask: CEFDragOperationsMask.fromCEF(opMask),
+                               location: NSPoint(x: Int(x), y: Int(y))) ? 1 : 0
 }
 
 func CEFRenderHandler_update_drag_cursor(ptr: UnsafeMutablePointer<cef_render_handler_t>,
@@ -150,7 +155,7 @@ func CEFRenderHandler_update_drag_cursor(ptr: UnsafeMutablePointer<cef_render_ha
         return
     }
     
-    obj.updateDragCursor(CEFBrowser.fromCEF(browser)!, operation: CEFDragOperationsMask.fromCEF(opMask))
+    obj.onUpdateDragCursor(CEFBrowser.fromCEF(browser)!, operation: CEFDragOperationsMask.fromCEF(opMask))
 }
 
 func CEFRenderHandler_on_scroll_offset_changed(ptr: UnsafeMutablePointer<cef_render_handler_t>,

@@ -39,12 +39,12 @@ public protocol CEFURLRequestClient {
     /// request and call CefAuthCallback::Continue() when the authentication
     /// information is available. Return false to cancel the request. This method
     /// will only be called for requests initiated from the browser process.
-    func getAuthCredentials(isProxy: Bool,
-                            host: String,
-                            port: UInt16,
-                            realm: String?,
-                            scheme: String,
-                            callback: CEFAuthCallback) -> Bool
+    func onAuthCredentialsRequired(isProxy: Bool,
+                                   host: String,
+                                   port: UInt16,
+                                   realm: String?,
+                                   scheme: String,
+                                   callback: CEFAuthCallback) -> Bool
 }
 
 public extension CEFURLRequestClient {
@@ -60,12 +60,12 @@ public extension CEFURLRequestClient {
     func onDownloadData(request: CEFURLRequest, chunk: NSData) {
     }
     
-    func getAuthCredentials(isProxy: Bool,
-                            host: String,
-                            port: UInt16,
-                            realm: String?,
-                            scheme: String,
-                            callback: CEFAuthCallback) -> Bool {
+    func onAuthCredentialsRequired(isProxy: Bool,
+                                   host: String,
+                                   port: UInt16,
+                                   realm: String?,
+                                   scheme: String,
+                                   callback: CEFAuthCallback) -> Bool {
         return false
     }
 }

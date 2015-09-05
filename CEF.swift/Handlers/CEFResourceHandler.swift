@@ -17,7 +17,7 @@ public protocol CEFResourceHandler {
     /// (CefCallback::Continue() can also be called from inside this method if
     /// header information is available immediately). To cancel the request return
     /// false.
-    func processRequest(request: CEFRequest, callback: CEFCallback) -> Bool
+    func onProcessRequest(request: CEFRequest, callback: CEFCallback) -> Bool
 
     /// Retrieve response header information. If the response length is not known
     /// set |response_length| to -1 and ReadResponse() will be called until it
@@ -46,13 +46,13 @@ public protocol CEFResourceHandler {
     func canSetCookie(cookie: CEFCookie) -> Bool
     
     /// Request processing has been canceled.
-    func cancel()
+    func onRequestCanceled()
 
 }
 
 public extension CEFResourceHandler {
     
-    func processRequest(request: CEFRequest, callback: CEFCallback) -> Bool {
+    func onProcessRequest(request: CEFRequest, callback: CEFCallback) -> Bool {
         return false
     }
     
@@ -71,7 +71,7 @@ public extension CEFResourceHandler {
         return true
     }
     
-    func cancel() {
+    func onRequestCanceled() {
     }
     
 }

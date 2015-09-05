@@ -19,9 +19,7 @@ public protocol CEFV8Handler {
     /// that will be thrown. Return true if execution was handled.
     func execute(name: String,
                  object: CEFV8Value,
-                 arguments: [CEFV8Value],
-                 inout retval: CEFV8Value?,
-                 inout exception: String?) -> Bool
+                 arguments: [CEFV8Value]) -> CEFV8Result?
 
 }
 
@@ -29,10 +27,8 @@ public extension CEFV8Handler {
     
     func execute(name: String,
                  object: CEFV8Value,
-                 arguments: [CEFV8Value],
-                 inout retval: CEFV8Value?,
-                 inout exception: String?) -> Bool {
-        return false
+                 arguments: [CEFV8Value]) -> CEFV8Result? {
+        return nil
     }
     
 }

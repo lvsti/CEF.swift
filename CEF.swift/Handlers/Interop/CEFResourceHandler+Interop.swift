@@ -15,7 +15,7 @@ func CEFResourceHandler_process_request(ptr: UnsafeMutablePointer<cef_resource_h
         return 0
     }
     
-    return obj.processRequest(CEFRequest.fromCEF(request)!, callback: CEFCallback.fromCEF(callback)!) ? 1 : 0
+    return obj.onProcessRequest(CEFRequest.fromCEF(request)!, callback: CEFCallback.fromCEF(callback)!) ? 1 : 0
 }
 
 func CEFResourceHandler_get_response_headers(ptr: UnsafeMutablePointer<cef_resource_handler_t>,
@@ -81,5 +81,5 @@ func CEFResourceHandler_cancel(ptr: UnsafeMutablePointer<cef_resource_handler_t>
         return
     }
 
-    obj.cancel()
+    obj.onRequestCanceled()
 }

@@ -18,25 +18,25 @@ public protocol CEFV8Accessor {
     /// |retval| to the return value. If retrieval fails set |exception| to the
     /// exception that will be thrown. Return true if accessor retrieval was
     /// handled.
-    func get(name: String, object: CEFV8Value, inout retval: CEFV8Value?, inout exception: String?) -> Bool
+    func get(name: String, object: CEFV8Value) -> CEFV8Result?
 
     /// Handle assignment of the accessor value identified by |name|. |object| is
     /// the receiver ('this' object) of the accessor. |value| is the new value
     /// being assigned to the accessor. If assignment fails set |exception| to the
     /// exception that will be thrown. Return true if accessor assignment was
     /// handled.
-    func set(name: String, object: CEFV8Value, value: CEFV8Value, inout exception: String?) -> Bool
+    func set(name: String, object: CEFV8Value, value: CEFV8Value) -> CEFV8VoidResult?
     
 }
 
 public extension CEFV8Accessor {
 
-    func get(name: String, object: CEFV8Value, inout retval: CEFV8Value?, inout exception: String?) -> Bool {
-        return false
+    func get(name: String, object: CEFV8Value) -> CEFV8Result? {
+        return nil
     }
     
-    func set(name: String, object: CEFV8Value, value: CEFV8Value, inout exception: String?) -> Bool {
-        return false
+    func set(name: String, object: CEFV8Value, value: CEFV8Value) -> CEFV8VoidResult? {
+        return nil
     }
     
 }

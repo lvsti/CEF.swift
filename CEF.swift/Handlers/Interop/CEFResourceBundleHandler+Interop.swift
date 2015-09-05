@@ -15,7 +15,7 @@ func CEFResourceBundleHandler_get_localized_string(ptr: UnsafeMutablePointer<cef
         return 0
     }
                                                     
-    if let str = obj.getLocalizedString(Int(stringID)) {
+    if let str = obj.localizedStringForID(Int(stringID)) {
         CEFStringSetFromSwiftString(str, cefString: cefStrPtr)
         return 1
     }
@@ -31,7 +31,7 @@ func CEFResourceBundleHandler_get_data_resource(ptr: UnsafeMutablePointer<cef_re
         return 0
     }
     
-    if let (bufferPtr, size) = obj.getDataResource(Int(resourceID)) {
+    if let (bufferPtr, size) = obj.dataResourceForID(Int(resourceID)) {
         dataBufferPtr.memory = bufferPtr
         dataSizePtr.memory = size
         return 1

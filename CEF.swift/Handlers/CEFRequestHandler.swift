@@ -84,14 +84,14 @@ public protocol CEFRequestHandler {
     /// request and call CefAuthCallback::Continue() either in this method or
     /// at a later time when the authentication information is available. Return
     /// false to cancel the request immediately.
-    func getAuthCredentials(browser: CEFBrowser,
-                            frame: CEFFrame,
-                            isProxy: Bool,
-                            host: String,
-                            port: UInt16,
-                            realm: String,
-                            scheme: String,
-                            callback: CEFAuthCallback) -> Bool
+    func onAuthCredentialsRequired(browser: CEFBrowser,
+                                   frame: CEFFrame,
+                                   isProxy: Bool,
+                                   host: String,
+                                   port: UInt16,
+                                   realm: String,
+                                   scheme: String,
+                                   callback: CEFAuthCallback) -> Bool
     
     /// Called on the IO thread when JavaScript requests a specific storage quota
     /// size via the webkitStorageInfo.requestQuota function. |origin_url| is the
@@ -187,14 +187,14 @@ public extension CEFRequestHandler {
         return false
     }
     
-    func getAuthCredentials(browser: CEFBrowser,
-                            frame: CEFFrame,
-                            isProxy: Bool,
-                            host: String,
-                            port: UInt16,
-                            realm: String,
-                            scheme: String,
-                            callback: CEFAuthCallback) -> Bool {
+    func onAuthCredentialsRequired(browser: CEFBrowser,
+                                   frame: CEFFrame,
+                                   isProxy: Bool,
+                                   host: String,
+                                   port: UInt16,
+                                   realm: String,
+                                   scheme: String,
+                                   callback: CEFAuthCallback) -> Bool {
         return false
     }
 

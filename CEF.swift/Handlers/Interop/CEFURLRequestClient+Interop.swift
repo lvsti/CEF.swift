@@ -62,11 +62,11 @@ func CEFURLRequestClient_get_auth_credentials(ptr: UnsafeMutablePointer<cef_urlr
         return 0
     }
     
-    return obj.getAuthCredentials(isProxy != 0,
-                                  host: CEFStringToSwiftString(host.memory),
-                                  port: UInt16(port),
-                                  realm: realm != nil ? CEFStringToSwiftString(realm.memory) : nil,
-                                  scheme: CEFStringToSwiftString(scheme.memory),
-                                  callback: CEFAuthCallback.fromCEF(callback)!) ? 1 : 0
+    return obj.onAuthCredentialsRequired(isProxy != 0,
+                                         host: CEFStringToSwiftString(host.memory),
+                                         port: UInt16(port),
+                                         realm: realm != nil ? CEFStringToSwiftString(realm.memory) : nil,
+                                         scheme: CEFStringToSwiftString(scheme.memory),
+                                         callback: CEFAuthCallback.fromCEF(callback)!) ? 1 : 0
 }
 

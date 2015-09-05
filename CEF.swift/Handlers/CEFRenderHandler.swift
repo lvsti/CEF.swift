@@ -14,15 +14,15 @@ public protocol CEFRenderHandler {
     
     /// Called to retrieve the root window rectangle in screen coordinates. Return
     /// true if the rectangle was provided.
-    func getRootScreenRect(browser: CEFBrowser, inout rect: NSRect) -> Bool
+    func rootScreenRectForBrowser(browser: CEFBrowser) -> NSRect?
     
     /// Called to retrieve the view rectangle which is relative to screen
     /// coordinates. Return true if the rectangle was provided.
-    func getViewRect(browser: CEFBrowser, inout rect: NSRect) -> Bool
+    func viewRectForBrowser(browser: CEFBrowser) -> NSRect?
     
     /// Called to retrieve the translation from view coordinates to actual screen
     /// coordinates. Return true if the screen coordinates were provided.
-    func getScreenPoint(browser: CEFBrowser, viewPoint: NSPoint, inout screenPoint: NSPoint) -> Bool
+    func screenPointForBrowser(browser: CEFBrowser, viewPoint: NSPoint) -> NSPoint?
     
     /// Called to allow the client to fill in the CefScreenInfo object with
     /// appropriate values. Return true if the |screen_info| structure has been
@@ -30,7 +30,7 @@ public protocol CEFRenderHandler {
     /// If the screen info rectangle is left empty the rectangle from GetViewRect
     /// will be used. If the rectangle is still empty or invalid popups may not be
     /// drawn correctly.
-    func getScreenInfo(browser: CEFBrowser, inout screenInfo: CEFScreenInfo) -> Bool
+    func screenInfoForBrowser(browser: CEFBrowser) -> CEFScreenInfo?
     
     /// Called when the browser wants to show or hide the popup widget. The popup
     /// should be shown if |show| is true and hidden if |show| is false.
@@ -72,15 +72,15 @@ public protocol CEFRenderHandler {
     /// CefBrowserHost::DragSourceEndedAt and DragSourceSystemDragEnded either
     /// synchronously or asynchronously to inform the web view that the drag
     /// operation has ended.
-    func startDragging(browser: CEFBrowser,
-                       dragData: CEFDragData,
-                       operationMask: CEFDragOperationsMask,
-                       location: NSPoint) -> Bool
+    func onStartDragging(browser: CEFBrowser,
+                         dragData: CEFDragData,
+                         operationMask: CEFDragOperationsMask,
+                         location: NSPoint) -> Bool
     
     /// Called when the web view wants to update the mouse cursor during a
     /// drag & drop operation. |operation| describes the allowed operation
     /// (none, move, copy, link).
-    func updateDragCursor(browser: CEFBrowser, operation: CEFDragOperationsMask)
+    func onUpdateDragCursor(browser: CEFBrowser, operation: CEFDragOperationsMask)
     
     /// Called when the scroll offset has changed.
     func onScrollOffsetChanged(browser: CEFBrowser, offset: NSPoint)
@@ -89,20 +89,20 @@ public protocol CEFRenderHandler {
 
 public extension CEFRenderHandler {
     
-    func getRootScreenRect(browser: CEFBrowser, inout rect: NSRect) -> Bool {
-        return false
+    func rootScreenRectForBrowser(browser: CEFBrowser) -> NSRect? {
+        return nil
     }
 
-    func getViewRect(browser: CEFBrowser, inout rect: NSRect) -> Bool {
-        return false
+    func viewRectForBrowser(browser: CEFBrowser) -> NSRect? {
+        return nil
     }
 
-    func getScreenPoint(browser: CEFBrowser, viewPoint: NSPoint, inout screenPoint: NSPoint) -> Bool {
-        return false
+    func screenPointForBrowser(browser: CEFBrowser, viewPoint: NSPoint) -> NSPoint? {
+        return nil
     }
     
-    func getScreenInfo(browser: CEFBrowser, inout screenInfo: CEFScreenInfo) -> Bool {
-        return false
+    func screenInfoForBrowser(browser: CEFBrowser) -> CEFScreenInfo? {
+        return nil
     }
 
     func onPopupShow(browser: CEFBrowser, showing: Bool) {
@@ -124,14 +124,14 @@ public extension CEFRenderHandler {
                         cursorInfo: CEFCursorInfo?) {
     }
 
-    func startDragging(browser: CEFBrowser,
-                       dragData: CEFDragData,
-                       operationMask: CEFDragOperationsMask,
-                       location: NSPoint) -> Bool {
+    func onStartDragging(browser: CEFBrowser,
+                         dragData: CEFDragData,
+                         operationMask: CEFDragOperationsMask,
+                         location: NSPoint) -> Bool {
         return false
     }
 
-    func updateDragCursor(browser: CEFBrowser, operation: CEFDragOperationsMask) {
+    func onUpdateDragCursor(browser: CEFBrowser, operation: CEFDragOperationsMask) {
     }
 
     func onScrollOffsetChanged(browser: CEFBrowser, offset: NSPoint) {
