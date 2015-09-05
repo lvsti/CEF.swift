@@ -37,14 +37,49 @@ class SimpleApp: CEFApp, CEFBrowserProcessHandler {
 }
 
 
-class SimpleHandler: CEFClient {
+class SimpleHandler: CEFClient, CEFLifeSpanHandler {
+    
     static var instance = SimpleHandler()
     
+    private var _browserList = [CEFBrowser]()
     private var _isClosing: Bool = false
     var isClosing: Bool { get { return _isClosing } }
     
-    func closeAllBrowsers(force: Bool) {
+    // from CEFClient
+    var lifeSpanHandler: CEFLifeSpanHandler? {
+        return self
+    }
+    
+    // from CEFLifeSpanHandler
+    func onAfterCreated(browser: CEFBrowser) {
+        _browserList.append(browser)
+    }
+    
+    func doClose(browser: CEFBrowser) -> Bool {
+        if _browserList.count == 1 {
+            _isClosing = true
+        }
+        return false
+    }
+    
+    func onBeforeClose(browser: CEFBrowser) {
+        for (index, value) in _browserList.enumerate() {
+            if value.isSame(browser) {
+                _browserList.removeAtIndex(index)
+                break
+            }
+        }
         
+        if _browserList.isEmpty {
+            CEFQuitMessageLoop()
+        }
+    }
+    
+    // new methods
+    func closeAllBrowsers(force: Bool) {
+        _browserList.forEach { browser in
+            browser.host?.closeBrowser(force: force)
+        }
     }
 }
 
