@@ -3,7 +3,7 @@
 abbreviations = [
     'cef', 'http', 'https', 'ssl', 'url', 'uri', 'json', 'html', 'xhtml', 'v8', 'dom',
     'cdata', 'utf8', 'utf16le', 'utf16be', 'ascii', 'io', 'ui', 'db', '5xx', 'xhr',
-    'cmy', 'cmyk', 'kcmy', 'rgb', 'rgba', 'rgb16', 'hp', 'rfc', 'id', 'js', 'xml'
+    'cmy', 'cmyk', 'kcmy', 'rgb', 'rgba', 'rgb16', 'hp', 'rfc', 'id', 'js', 'xml', 'pdf'
 ]
 
 typename_overrides = {
@@ -104,6 +104,7 @@ entryvalue_overrides = {
 }
 
 cef_enums = [
+    # branch 2357
     'cef_log_severity_t',
     'cef_state_t',
     'cef_return_value_t',
@@ -135,6 +136,9 @@ cef_enums = [
     'cef_duplex_mode_t',
     'cef_cursor_type_t',
     'cef_json_parser_error_t',
+    
+    # branch 2454
+    'cef_pdf_print_margin_type_t'
 ]
 
 cef_option_sets = [
