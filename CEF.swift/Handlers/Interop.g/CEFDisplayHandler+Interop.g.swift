@@ -22,6 +22,7 @@ extension cef_display_handler_t: CEFCallbackMarshalling {
         on_address_change = CEFDisplayHandler_on_address_change
         on_title_change = CEFDisplayHandler_on_title_change
         on_favicon_urlchange = CEFDisplayHandler_on_favicon_urlchange
+        on_fullscreen_mode_change = CEFDisplayHandler_on_fullscreen_mode_change
         on_tooltip = CEFDisplayHandler_on_tooltip
         on_status_message = CEFDisplayHandler_on_status_message
         on_console_message = CEFDisplayHandler_on_console_message

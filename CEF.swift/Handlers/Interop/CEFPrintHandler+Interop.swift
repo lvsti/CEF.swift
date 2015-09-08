@@ -30,8 +30,8 @@ func CEFPrintHandler_on_print_dialog(ptr: UnsafeMutablePointer<cef_print_handler
 
 func CEFPrintHandler_on_print_job(ptr: UnsafeMutablePointer<cef_print_handler_t>,
                                   name: UnsafePointer<cef_string_t>,
-    pdfPath: UnsafePointer<cef_string_t>,
-    callback: UnsafeMutablePointer<cef_print_job_callback_t>) -> Int32 {
+                                  pdfPath: UnsafePointer<cef_string_t>,
+                                  callback: UnsafeMutablePointer<cef_print_job_callback_t>) -> Int32 {
     guard let obj = CEFPrintHandlerMarshaller.get(ptr) else {
         return 0
     }
@@ -48,4 +48,15 @@ func CEFPrintHandler_on_print_reset(ptr: UnsafeMutablePointer<cef_print_handler_
     
     obj.onPrintReset()
 }
+
+func CEFPrintHandler_get_pdf_paper_size(ptr: UnsafeMutablePointer<cef_print_handler_t>,
+                                        dpi: Int32) -> cef_size_t {
+    guard let obj = CEFPrintHandlerMarshaller.get(ptr) else {
+        return cef_size_t()
+    }
+    
+    let size = obj.pdfPaperSizeForDPI(Int(dpi))
+    return size.toCEF()
+}
+
 

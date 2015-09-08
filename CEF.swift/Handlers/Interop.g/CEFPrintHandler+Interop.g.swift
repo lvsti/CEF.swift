@@ -23,5 +23,6 @@ extension cef_print_handler_t: CEFCallbackMarshalling {
         on_print_dialog = CEFPrintHandler_on_print_dialog
         on_print_job = CEFPrintHandler_on_print_job
         on_print_reset = CEFPrintHandler_on_print_reset
+        get_pdf_paper_size = CEFPrintHandler_get_pdf_paper_size
     }
 }

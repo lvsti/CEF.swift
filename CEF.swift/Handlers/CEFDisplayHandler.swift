@@ -20,6 +20,13 @@ public protocol CEFDisplayHandler {
     /// Called when the page icon changes.
     func onFaviconURLChange(browser: CEFBrowser, iconURLs: [NSURL]?)
     
+    /// Called when web content in the page has toggled fullscreen mode. If
+    /// |fullscreen| is true (1) the content will automatically be sized to fill
+    /// the browser content area. If |fullscreen| is false (0) the content will
+    /// automatically return to its original size and position. The client is
+    /// responsible for resizing the browser if desired.
+    func onFullscreenModeChange(browser: CEFBrowser, fullscreen: Bool)
+    
     /// Called when the browser is about to display a tooltip. |text| contains the
     /// text that will be displayed in the tooltip. To handle the display of the
     /// tooltip yourself return true. Otherwise, you can optionally modify |text|
@@ -48,7 +55,10 @@ public extension CEFDisplayHandler {
     
     func onFaviconURLChange(browser: CEFBrowser, iconURLs: [NSURL]?) {
     }
-    
+
+    func onFullscreenModeChange(browser: CEFBrowser, fullscreen: Bool) {
+    }
+
     func onTooltip(browser: CEFBrowser, inout text: String?) -> Bool {
         return false
     }

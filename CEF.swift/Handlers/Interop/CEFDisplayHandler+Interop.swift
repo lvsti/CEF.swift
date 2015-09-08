@@ -45,6 +45,16 @@ func CEFDisplayHandler_on_favicon_urlchange(ptr: UnsafeMutablePointer<cef_displa
                            iconURLs: urlStrings?.map { NSURL(string: $0)! })
 }
 
+func CEFDisplayHandler_on_fullscreen_mode_change(ptr: UnsafeMutablePointer<cef_display_handler_t>,
+                                                 browser: UnsafeMutablePointer<cef_browser_t>,
+                                                 fullscreen: Int32) {
+    guard let obj = CEFDisplayHandlerMarshaller.get(ptr) else {
+        return
+    }
+    
+    obj.onFullscreenModeChange(CEFBrowser.fromCEF(browser)!, fullscreen: fullscreen != 0)
+}
+
 func CEFDisplayHandler_on_tooltip(ptr: UnsafeMutablePointer<cef_display_handler_t>,
                                   browser: UnsafeMutablePointer<cef_browser_t>,
                                   textPtr: UnsafeMutablePointer<cef_string_t>) -> Int32 {
