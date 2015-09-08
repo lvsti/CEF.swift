@@ -24,6 +24,7 @@
 		E81F6B811B7A973A00311F4B /* CEFPopupFeatures.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F6B801B7A973A00311F4B /* CEFPopupFeatures.swift */; };
 		E835BB2E1B82907400BAF692 /* CEFSchemeGlobals.swift in Sources */ = {isa = PBXBuildFile; fileRef = E835BB2D1B82907400BAF692 /* CEFSchemeGlobals.swift */; };
 		E835FD421B9B798500121BF8 /* CEFV8Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = E835FD411B9B798500121BF8 /* CEFV8Result.swift */; settings = {ASSET_TAGS = (); }; };
+		E835FD441B9F844000121BF8 /* CEFPDFPrintMarginType.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E835FD431B9F844000121BF8 /* CEFPDFPrintMarginType.g.swift */; settings = {ASSET_TAGS = (); }; };
 		E84249E01B7538CD000F23C1 /* CEFWebPluginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84249DF1B7538CD000F23C1 /* CEFWebPluginInfo.swift */; };
 		E84249E21B753988000F23C1 /* CEFWebPluginInfoVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84249E11B753988000F23C1 /* CEFWebPluginInfoVisitor.swift */; };
 		E84249E61B753B04000F23C1 /* CEFWebPluginUnstableCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84249E51B753B04000F23C1 /* CEFWebPluginUnstableCallback.swift */; };
@@ -303,6 +304,7 @@
 		E81F6B801B7A973A00311F4B /* CEFPopupFeatures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFPopupFeatures.swift; sourceTree = "<group>"; };
 		E835BB2D1B82907400BAF692 /* CEFSchemeGlobals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFSchemeGlobals.swift; sourceTree = "<group>"; };
 		E835FD411B9B798500121BF8 /* CEFV8Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFV8Result.swift; sourceTree = "<group>"; };
+		E835FD431B9F844000121BF8 /* CEFPDFPrintMarginType.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFPDFPrintMarginType.g.swift; sourceTree = "<group>"; };
 		E84249DF1B7538CD000F23C1 /* CEFWebPluginInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFWebPluginInfo.swift; sourceTree = "<group>"; };
 		E84249E11B753988000F23C1 /* CEFWebPluginInfoVisitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFWebPluginInfoVisitor.swift; sourceTree = "<group>"; };
 		E84249E51B753B04000F23C1 /* CEFWebPluginUnstableCallback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFWebPluginUnstableCallback.swift; sourceTree = "<group>"; };
@@ -835,6 +837,7 @@
 				E88B86601B6EA08A00D10E17 /* CEFNavigationType.g.swift */,
 				E88B86611B6EA08A00D10E17 /* CEFPaintElementType.g.swift */,
 				E88B86621B6EA08A00D10E17 /* CEFPathKey.g.swift */,
+				E835FD431B9F844000121BF8 /* CEFPDFPrintMarginType.g.swift */,
 				E88B86631B6EA08A00D10E17 /* CEFPOSTDataElementType.g.swift */,
 				E88B86641B6EA08A00D10E17 /* CEFProcessID.g.swift */,
 				E88B86651B6EA08A00D10E17 /* CEFResourceType.g.swift */,
@@ -1102,6 +1105,7 @@
 				E8898B181B69654C009E0DFF /* CEFBrowserProcessHandler.swift in Sources */,
 				E8E53C261B910BE800A4A6C6 /* CEFRenderHandler+Interop.g.swift in Sources */,
 				E81F6B611B7A3BD600311F4B /* CEFFileDialogCallback.swift in Sources */,
+				E835FD441B9F844000121BF8 /* CEFPDFPrintMarginType.g.swift in Sources */,
 				E88B86981B6EA08A00D10E17 /* CEFURIUnescapeRule.g.swift in Sources */,
 				E8898B2D1B69654C009E0DFF /* CEFResponse.swift in Sources */,
 				E88B868B1B6EA08A00D10E17 /* CEFMenuItemType.g.swift in Sources */,
