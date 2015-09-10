@@ -61,14 +61,6 @@ public class CEFNavigationEntry: CEFProxy<cef_navigation_entry_t> {
         return cefObject.has_post_data(cefObjectPtr) != 0
     }
 
-    /// Returns the name of the sub-frame that navigated or an empty value if the
-    /// main frame navigated.
-    public var frameName: String {
-        let cefStrPtr = cefObject.get_frame_name(cefObjectPtr)
-        defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.memory)
-    }
-    
     /// Returns the time for the last known successful navigation completion. A
     /// navigation may be completed more than once if the page is reloaded. May be
     /// 0 if the navigation has not yet completed.

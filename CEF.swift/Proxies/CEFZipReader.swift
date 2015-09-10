@@ -64,8 +64,8 @@ public class CEFZipReader: CEFProxy<cef_zip_reader_t> {
     
     /// Returns the last modified timestamp for the file.
     public var fileLastModified: NSDate {
-        let timestamp = cefObject.get_file_last_modified(cefObjectPtr)
-        return NSDate(timeIntervalSince1970: NSTimeInterval(timestamp))
+        let cefTime = cefObject.get_file_last_modified(cefObjectPtr)
+        return CEFTimeToNSDate(cefTime)
     }
     
     /// Opens the file for reading of uncompressed data. A read password may

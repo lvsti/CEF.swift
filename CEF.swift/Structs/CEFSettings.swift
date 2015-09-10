@@ -32,7 +32,8 @@ public struct CEFSettings {
     
     /// Set to true (1) to have the browser process message loop run in a separate
     /// thread. If false (0) than the CefDoMessageLoopWork() function must be
-    /// called from your application message loop.
+    /// called from your application message loop. This option is only supported on
+    /// Windows.
     public var multiThreadedMessageLoop: Bool = false
     
     /// Set to true (1) to enable windowless (off-screen) rendering support. Do not

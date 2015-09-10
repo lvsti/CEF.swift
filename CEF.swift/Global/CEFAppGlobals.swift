@@ -83,3 +83,10 @@ public func CEFSetOSModalLoop(modal: Bool) {
     cef_set_osmodal_loop(modal ? 1 : 0)
 }
 
+/// Call during process startup to enable High-DPI support on Windows 7 or newer.
+/// Older versions of Windows should be left DPI-unaware because they do not
+/// support DirectWrite and GDI fonts are kerned very badly.
+public func CEFEnableHighDPISupport() {
+    cef_enable_highdpi_support()
+}
+
