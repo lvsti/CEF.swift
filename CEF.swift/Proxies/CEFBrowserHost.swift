@@ -193,6 +193,20 @@ public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
         cefObject.print(cefObjectPtr)
     }
 
+    /// Print the current browser contents to the PDF file specified by |path| and
+    /// execute |callback| on completion. The caller is responsible for deleting
+    /// |path| when done. For PDF printing to work on Linux you must implement the
+    /// CefPrintHandler::GetPdfPaperSize method.
+    func printToPDFAtPath(path: String, settings: CEFPDFPrintSettings, callback: CEFPDFPrintCallback? = nil) {
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
+        var cefSettings = settings.toCEF()
+        defer {
+            CEFStringPtrRelease(cefStrPtr)
+            cefSettings.clear()
+        }
+        cefObject.print_to_pdf(cefObjectPtr, cefStrPtr, &cefSettings, callback != nil ? callback!.toCEF() : nil)
+    }
+    
     /// Search for |searchText|. |identifier| can be used to have multiple searches
     /// running simultaniously. |forward| indicates whether to search forward or
     /// backward within the page. |matchCase| indicates whether the search should
@@ -477,6 +491,14 @@ public extension CEFBrowserHost {
                       acceptFilters: acceptFilters,
                       selectedFilterIndex: selectedFilterIndex,
                       callback: CEFRunFileDialogCallbackBridge(block: block))
+    }
+
+    /// Print the current browser contents to the PDF file specified by |path| and
+    /// execute |callback| on completion. The caller is responsible for deleting
+    /// |path| when done. For PDF printing to work on Linux you must implement the
+    /// CefPrintHandler::GetPdfPaperSize method.
+    func printToPDFAtPath(path: String, settings: CEFPDFPrintSettings, block: CEFPDFPrintCallbackOnPDFPrintFinishedBlock) {
+        printToPDFAtPath(path, settings: settings, callback: CEFPDFPrintCallbackBridge(block: block))
     }
 }
 
