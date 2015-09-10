@@ -135,10 +135,7 @@ cef_enums = [
     'cef_color_model_t',
     'cef_duplex_mode_t',
     'cef_cursor_type_t',
-    'cef_json_parser_error_t',
-    
-    # branch 2454
-    'cef_pdf_print_margin_type_t'
+    'cef_json_parser_error_t'
 ]
 
 cef_option_sets = [
@@ -164,6 +161,9 @@ cef_const_collections = {
 cef_hybrid_enums = [
     'cef_transition_type_t',
     'cef_file_dialog_mode_t',
+
+    # branch 2454
+    'cef_pdf_print_margin_type_t'
 ]
 
 pod_type_map = {
