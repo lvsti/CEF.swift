@@ -104,7 +104,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E87836771B93B26500555EC2 /* Build configuration list for PBXNativeTarget "CEFDemo" */;
 			buildPhases = (
-				E84545D11B9652A2005CC3D0 /* ShellScript */,
 				E87836661B93B26400555EC2 /* Sources */,
 				E87836671B93B26400555EC2 /* Frameworks */,
 				E87836681B93B26400555EC2 /* Resources */,
@@ -166,19 +165,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		E84545D11B9652A2005CC3D0 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#install_name_tool -change \"@executable_path/../Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework\" \"@executable_path/../../../Chromium Embedded Framework.framework/Chromium Embedded Framework\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/Contents/Frameworks/cefsimple Helper.app/Contents/MacOS/cefsimple Helper\"\n\n\n";
-		};
 		E84545D31B9655EE005CC3D0 /* Copy helpers */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
