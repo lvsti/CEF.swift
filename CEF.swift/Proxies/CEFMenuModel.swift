@@ -374,7 +374,7 @@ public class CEFMenuModel: CEFProxy<cef_menu_model_t> {
     // Retrieves the keyboard accelerator for the specified |command_id|. Returns
     // true on success.
     ///
-    public func getAcceleratorForCommandID(commandID: CommandID) -> CEFMenuItemAccelerator? {
+    public func acceleratorForCommandID(commandID: CommandID) -> CEFMenuItemAccelerator? {
         var keyCode: Int32 = 0
         var shift: Int32 = 0
         var control: Int32 = 0
@@ -393,7 +393,7 @@ public class CEFMenuModel: CEFProxy<cef_menu_model_t> {
     // Retrieves the keyboard accelerator for the specified |index|. Returns true
     // on success.
     ///
-    public func getAcceleratorAtIndex(index: Int32) -> CEFMenuItemAccelerator? {
+    public func acceleratorAtIndex(index: Int32) -> CEFMenuItemAccelerator? {
         var keyCode: Int32 = 0
         var shift: Int32 = 0
         var control: Int32 = 0

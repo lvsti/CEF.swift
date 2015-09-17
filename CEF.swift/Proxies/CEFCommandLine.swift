@@ -24,7 +24,7 @@ public class CEFCommandLine: CEFProxy<cef_command_line_t> {
     
     /// Returns the singleton global CefCommandLine object. The returned object
     /// will be read-only.
-    public static func getGlobal() -> CEFCommandLine? {
+    public static func globalCommandLine() -> CEFCommandLine? {
         return CEFCommandLine(ptr: cef_command_line_get_global())
     }
     
@@ -130,7 +130,7 @@ public class CEFCommandLine: CEFProxy<cef_command_line_t> {
     
     /// Returns the value associated with the given switch. If the switch has no
     /// value or isn't present this method returns the empty string.
-    public func getSwitchValue(name: String) -> String {
+    public func valueForSwitchNamed(name: String) -> String {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
         let cefValuePtr = cefObject.get_switch_value(cefObjectPtr, cefStrPtr)
         defer {

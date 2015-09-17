@@ -68,13 +68,13 @@ public class CEFFrame: CEFProxy<cef_frame_t> {
 
     /// Retrieve this frame's HTML source as a string sent to the specified
     /// visitor.
-    public func getSource(visitor: CEFStringVisitor) {
+    public func getSourceUsingVisitor(visitor: CEFStringVisitor) {
         cefObject.get_source(cefObjectPtr, visitor.toCEF())
     }
 
     /// Retrieve this frame's display text as a string sent to the specified
     /// visitor.
-    public func getText(visitor: CEFStringVisitor) {
+    public func getTextUsingVisitor(visitor: CEFStringVisitor) {
         cefObject.get_text(cefObjectPtr, visitor.toCEF())
     }
     
@@ -173,7 +173,7 @@ public class CEFFrame: CEFProxy<cef_frame_t> {
 
     /// Visit the DOM document. This method can only be called from the render
     /// process.
-    public func visitDOM(visitor: CEFDOMVisitor) {
+    public func getDOMDocumentUsingVisitor(visitor: CEFDOMVisitor) {
         return cefObject.visit_dom(cefObjectPtr, visitor.toCEF())
     }
     
@@ -193,20 +193,20 @@ public extension CEFFrame {
     
     /// Visit the DOM document. This method can only be called from the render
     /// process.
-    public func visitDOM(block: CEFDOMVisitorVisitBlock) {
-        visitDOM(CEFDOMVisitorBridge(block: block))
+    public func withDOMDocument(block: CEFDOMVisitorVisitBlock) {
+        getDOMDocumentUsingVisitor(CEFDOMVisitorBridge(block: block))
     }
 
     /// Retrieve this frame's HTML source as a string sent to the specified
     /// visitor.
-    public func getSource(block: CEFStringVisitorVisitBlock) {
-        getSource(CEFStringVisitorBridge(block: block))
+    public func withSource(block: CEFStringVisitorVisitBlock) {
+        getSourceUsingVisitor(CEFStringVisitorBridge(block: block))
     }
 
     /// Retrieve this frame's display text as a string sent to the specified
     /// visitor.
-    public func getText(block: CEFStringVisitorVisitBlock) {
-        getText(CEFStringVisitorBridge(block: block))
+    public func withText(block: CEFStringVisitorVisitBlock) {
+        getTextUsingVisitor(CEFStringVisitorBridge(block: block))
     }
 
 }

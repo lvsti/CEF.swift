@@ -101,13 +101,13 @@ public class CEFBrowser : CEFProxy<cef_browser_t> {
     }
     
     /// Returns the frame with the specified identifier, or NULL if not found.
-    public func getFrame(byID id: CEFFrame.Identifier) -> CEFFrame? {
+    public func frameForID(id: CEFFrame.Identifier) -> CEFFrame? {
         let cefFrame = cefObject.get_frame_byident(cefObjectPtr, id)
         return CEFFrame.fromCEF(cefFrame)
     }
 
     /// Returns the frame with the specified name, or NULL if not found.
-    public func getFrame(byName name: String) -> CEFFrame? {
+    public func frameForName(name: String) -> CEFFrame? {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
         defer { CEFStringPtrRelease(cefNamePtr) }
         

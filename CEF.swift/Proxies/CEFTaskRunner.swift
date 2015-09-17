@@ -23,12 +23,12 @@ public class CEFTaskRunner: CEFProxy<cef_task_runner_t> {
     /// Returns the task runner for the current thread. Only CEF threads will have
     /// task runners. An empty reference will be returned if this method is called
     /// on an invalid thread.
-    public static func getForCurrentThread() -> CEFTaskRunner? {
+    public static func taskRunnerForCurrentThread() -> CEFTaskRunner? {
         return CEFTaskRunner.fromCEF(cef_task_runner_get_for_current_thread())
     }
     
     /// Returns the task runner for the specified CEF thread.
-    public static func getForThread(threadID: CEFThreadID) -> CEFTaskRunner? {
+    public static func taskRunnerForThread(threadID: CEFThreadID) -> CEFTaskRunner? {
         return CEFTaskRunner.fromCEF(cef_task_runner_get_for_thread(threadID.toCEF()))
     }
 
