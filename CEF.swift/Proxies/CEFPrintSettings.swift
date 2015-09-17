@@ -84,7 +84,7 @@ public class CEFPrintSettings: CEFProxy<cef_print_settings_t> {
     }
     
     /// Returns the number of page ranges that currently exist.
-    public func getPageRangesCount() -> size_t {
+    public func pageRangesCount() -> size_t {
         return cefObject.get_page_ranges_count(cefObjectPtr)
     }
 

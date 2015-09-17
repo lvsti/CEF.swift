@@ -28,7 +28,7 @@ func CEFResourceHandler_get_response_headers(ptr: UnsafeMutablePointer<cef_resou
 
     var length: Int64? = nil
     var url: NSURL? = nil
-    obj.getResponseHeaders(CEFResponse.fromCEF(response)!, responseLength: &length, redirectURL: &url)
+    obj.onGetResponseHeaders(CEFResponse.fromCEF(response)!, responseLength: &length, redirectURL: &url)
     
     if let length = length {
         responseLength.memory = length
@@ -49,10 +49,10 @@ func CEFResourceHandler_read_response(ptr: UnsafeMutablePointer<cef_resource_han
     }
     
     var length: Int = 0
-    let retval = obj.readResponse(buffer,
-                                  bufferLength: Int(bufferLength),
-                                  actualLength: &length,
-                                  callback: CEFCallback.fromCEF(callback)!)
+    let retval = obj.onReadResponse(buffer,
+                                    bufferLength: Int(bufferLength),
+                                    actualLength: &length,
+                                    callback: CEFCallback.fromCEF(callback)!)
     
     actualLength.memory = Int32(length)
     return retval ? 1 : 0

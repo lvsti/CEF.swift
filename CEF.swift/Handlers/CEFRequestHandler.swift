@@ -56,9 +56,9 @@ public protocol CEFRequestHandler {
     /// to load normally return NULL. To specify a handler for the resource return
     /// a CefResourceHandler object. The |request| object should not be modified in
     /// this callback.
-    func getResourceHandler(browser: CEFBrowser,
-                            frame: CEFFrame,
-                            request: CEFRequest) -> CEFResourceHandler?
+    func resourceHandlerForBrowser(browser: CEFBrowser,
+                                   frame: CEFFrame,
+                                   request: CEFRequest) -> CEFResourceHandler?
     
     /// Called on the IO thread when a resource load is redirected. The |request|
     /// parameter will contain the old URL and other request-related information.
@@ -168,9 +168,9 @@ public extension CEFRequestHandler {
         return .Continue
     }
 
-    func getResourceHandler(browser: CEFBrowser,
-                            frame: CEFFrame,
-                            request: CEFRequest) -> CEFResourceHandler? {
+    func resourceHandlerForBrowser(browser: CEFBrowser,
+                                   frame: CEFFrame,
+                                   request: CEFRequest) -> CEFResourceHandler? {
         return nil
     }
 

@@ -65,9 +65,9 @@ func CEFRequestHandler_get_resource_handler(ptr: UnsafeMutablePointer<cef_reques
         return nil
     }
     
-    if let handler = obj.getResourceHandler(CEFBrowser.fromCEF(browser)!,
-                                            frame: CEFFrame.fromCEF(frame)!,
-                                            request: CEFRequest.fromCEF(request)!) {
+    if let handler = obj.resourceHandlerForBrowser(CEFBrowser.fromCEF(browser)!,
+                                                   frame: CEFFrame.fromCEF(frame)!,
+                                                   request: CEFRequest.fromCEF(request)!) {
         return handler.toCEF()
     }
     

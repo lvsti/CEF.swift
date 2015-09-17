@@ -28,15 +28,14 @@ extension cef_request_context_t: CEFObject {
 public class CEFRequestContext: CEFProxy<cef_request_context_t> {
 
     /// Returns the global context object.
-    public static func getGlobalContext() -> CEFRequestContext? {
+    public static func globalContext() -> CEFRequestContext? {
         let cefCtx = cef_request_context_get_global_context()
         return CEFRequestContext.fromCEF(cefCtx)
     }
 
     /// Creates a new context object with the specified |settings| and optional
     /// |handler|.
-    public static func createContext(settings: CEFRequestContextSettings,
-                                     handler: CEFRequestContextHandler? = nil) -> CEFRequestContext? {
+    public init?(settings: CEFRequestContextSettings, handler: CEFRequestContextHandler? = nil) {
         var cefSettings = settings.toCEF()
         defer { cefSettings.clear() }
 
@@ -46,13 +45,13 @@ public class CEFRequestContext: CEFProxy<cef_request_context_t> {
         }
 
         let cefCtx = cef_request_context_create_context(&cefSettings, cefHandlerPtr)
-        return CEFRequestContext.fromCEF(cefCtx)
+        super.init(ptr: cefCtx)
     }
 
     /// Creates a new context object that shares storage with |other| and uses an
     /// optional |handler|.
-    public static func createSharedContext(context: CEFRequestContext,
-                                           handler: CEFRequestContextHandler? = nil) -> CEFRequestContext? {
+    public static func createSharedWithContext(context: CEFRequestContext,
+                                               handler: CEFRequestContextHandler? = nil) -> CEFRequestContext? {
         var cefHandlerPtr: UnsafeMutablePointer<cef_request_context_handler_t> = nil
         if let handler = handler {
             cefHandlerPtr = handler.toCEF()
@@ -97,10 +96,19 @@ public class CEFRequestContext: CEFProxy<cef_request_context_t> {
     /// Returns the default cookie manager for this object. This will be the global
     /// cookie manager if this object is the global request context. Otherwise,
     /// this will be the default cookie manager used when this request context does
+    /// not receive a value via CefRequestContextHandler::GetCookieManager().
+    public var defaultCookieManager: CEFCookieManager? {
+        let cefCookieMgr = cefObject.get_default_cookie_manager(cefObjectPtr, nil)
+        return CEFCookieManager.fromCEF(cefCookieMgr)
+    }
+    
+    /// Returns the default cookie manager for this object. This will be the global
+    /// cookie manager if this object is the global request context. Otherwise,
+    /// this will be the default cookie manager used when this request context does
     /// not receive a value via CefRequestContextHandler::GetCookieManager(). If
     /// |callback| is non-NULL it will be executed asnychronously on the IO thread
     /// after the manager's storage has been initialized.
-    public func getDefaultCookieManager(callback: CEFCompletionCallback? = nil) -> CEFCookieManager? {
+    public func getDefaultCookieManagerWithCallback(callback: CEFCompletionCallback? = nil) -> CEFCookieManager? {
         var cefCallbackPtr: UnsafeMutablePointer<cef_completion_callback_t> = nil
         if let callback = callback {
             cefCallbackPtr = callback.toCEF()
@@ -162,8 +170,8 @@ public extension CEFRequestContext {
     /// not receive a value via CefRequestContextHandler::GetCookieManager(). If
     /// |callback| is non-NULL it will be executed asnychronously on the IO thread
     /// after the manager's storage has been initialized.
-    public func getDefaultCookieManager(block: CEFCompletionCallbackOnCompleteBlock) -> CEFCookieManager? {
-        return getDefaultCookieManager(CEFCompletionCallbackBridge(block: block))
+    public func defaultCookieManager(block: CEFCompletionCallbackOnCompleteBlock) -> CEFCookieManager? {
+        return getDefaultCookieManagerWithCallback(CEFCompletionCallbackBridge(block: block))
     }
     
 }

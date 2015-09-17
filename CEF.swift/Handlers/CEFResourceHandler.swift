@@ -27,14 +27,14 @@ public protocol CEFResourceHandler {
     /// object to set the mime type, http status code and other optional header
     /// values. To redirect the request to a new URL set |redirectUrl| to the new
     /// URL.
-    func getResponseHeaders(response: CEFResponse, inout responseLength: Int64?, inout redirectURL: NSURL?)
+    func onGetResponseHeaders(response: CEFResponse, inout responseLength: Int64?, inout redirectURL: NSURL?)
     
     /// Read response data. If data is available immediately copy up to
     /// |bytes_to_read| bytes into |data_out|, set |bytes_read| to the number of
     /// bytes copied, and return true. To read the data at a later time set
     /// |bytes_read| to 0, return true and call CefCallback::Continue() when the
     /// data is available. To indicate response completion return false.
-    func readResponse(buffer: UnsafeMutablePointer<Void>, bufferLength: Int, inout actualLength: Int, callback: CEFCallback) -> Bool
+    func onReadResponse(buffer: UnsafeMutablePointer<Void>, bufferLength: Int, inout actualLength: Int, callback: CEFCallback) -> Bool
     
     /// Return true if the specified cookie can be sent with the request or false
     /// otherwise. If false is returned for any cookie then no cookies will be sent
@@ -56,10 +56,10 @@ public extension CEFResourceHandler {
         return false
     }
     
-    func getResponseHeaders(response: CEFResponse, inout responseLength: Int64?, inout redirectURL: NSURL?) {
+    func onGetResponseHeaders(response: CEFResponse, inout responseLength: Int64?, inout redirectURL: NSURL?) {
     }
     
-    func readResponse(buffer: UnsafeMutablePointer<Void>, bufferLength: Int, inout actualLength: Int, callback: CEFCallback) -> Bool {
+    func onReadResponse(buffer: UnsafeMutablePointer<Void>, bufferLength: Int, inout actualLength: Int, callback: CEFCallback) -> Bool {
         return false
     }
     

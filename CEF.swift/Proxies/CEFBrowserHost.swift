@@ -255,7 +255,7 @@ public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
     /// Retrieve a snapshot of current navigation entries as values sent to the
     /// specified visitor. If |current_only| is true only the current navigation
     /// entry will be sent, otherwise all navigation entries will be sent.
-    public func getNavigationEntries(visitor: CEFNavigationEntryVisitor, currentOnly: Bool) {
+    public func enumerateNavigationEntriesUsingVisitor(visitor: CEFNavigationEntryVisitor, currentOnly: Bool) {
         cefObject.get_navigation_entries(cefObjectPtr, visitor.toCEF(), currentOnly ? 1 : 0)
     }
     
@@ -472,8 +472,8 @@ public extension CEFBrowserHost {
     /// Retrieve a snapshot of current navigation entries as values sent to the
     /// specified visitor. If |current_only| is true only the current navigation
     /// entry will be sent, otherwise all navigation entries will be sent.
-    public func getNavigationEntries(currentOnly: Bool, block: CEFNavigationEntryVisitorVisitBlock) {
-        getNavigationEntries(CEFNavigationEntryVisitorBridge(block: block), currentOnly: currentOnly)
+    public func enumerateNavigationEntries(currentOnly: Bool, block: CEFNavigationEntryVisitorVisitBlock) {
+        enumerateNavigationEntriesUsingVisitor(CEFNavigationEntryVisitorBridge(block: block), currentOnly: currentOnly)
     }
 
     /// Call to run a file chooser dialog. Only a single file chooser dialog may be

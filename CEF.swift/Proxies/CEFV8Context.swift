@@ -20,13 +20,13 @@ extension cef_v8context_t: CEFObject {
 public class CEFV8Context: CEFProxy<cef_v8context_t> {
     
     /// Returns the current (top) context object in the V8 context stack.
-    public static func getCurrentContext() -> CEFV8Context? {
+    public static func currentContext() -> CEFV8Context? {
         let cefCtx = cef_v8context_get_current_context()
         return CEFV8Context.fromCEF(cefCtx)
     }
     
     /// Returns the entered (bottom) context object in the V8 context stack.
-    public static func getEnteredContext() -> CEFV8Context? {
+    public static func enteredContext() -> CEFV8Context? {
         let cefCtx = cef_v8context_get_entered_context()
         return CEFV8Context.fromCEF(cefCtx)
     }

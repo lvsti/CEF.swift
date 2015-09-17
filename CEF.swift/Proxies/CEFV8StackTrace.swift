@@ -20,7 +20,7 @@ public class CEFV8StackTrace: CEFProxy<cef_v8stack_trace_t> {
     
     /// Returns the stack trace for the currently active context. |frame_limit| is
     /// the maximum number of frames that will be captured.
-    public static func getCurrent(frameLimit: Int) -> CEFV8StackTrace? {
+    public static func currentTraceWithLimit(frameLimit: Int) -> CEFV8StackTrace? {
         let cefTrace = cef_v8stack_trace_get_current(Int32(frameLimit))
         return CEFV8StackTrace.fromCEF(cefTrace)
     }
