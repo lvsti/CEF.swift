@@ -161,7 +161,7 @@ public class CEFV8Value: CEFProxy<cef_v8value_t> {
 
     /// Returns true if this object is pointing to the same handle as |that|
     /// object.
-    public func isSame(other: CEFV8Value) -> Bool {
+    public func isSameAs(other: CEFV8Value) -> Bool {
         return cefObject.is_same(cefObjectPtr, other.toCEF()) != 0
     }
     

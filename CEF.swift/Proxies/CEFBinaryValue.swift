@@ -36,13 +36,13 @@ public class CEFBinaryValue: CEFProxy<cef_binary_value_t> {
     
     /// Returns true if this object and |that| object have the same underlying
     /// data.
-    public func isSame(other: CEFBinaryValue) -> Bool {
+    public func isSameAs(other: CEFBinaryValue) -> Bool {
         return cefObject.is_same(cefObjectPtr, other.toCEF()) != 0
     }
     
     /// Returns true if this object and |that| object have an equivalent underlying
     /// value but are not necessarily the same object.
-    public func isEqual(other: CEFBinaryValue) -> Bool {
+    public func isEqualTo(other: CEFBinaryValue) -> Bool {
         return cefObject.is_equal(cefObjectPtr, other.toCEF()) != 0
     }
     

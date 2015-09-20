@@ -45,13 +45,13 @@ public class CEFValue: CEFProxy<cef_value_t> {
     /// Returns true if this object and |that| object have the same underlying
     /// data. If true modifications to this object will also affect |that| object
     /// and vice-versa.
-    public func isSame(other: CEFValue) -> Bool {
+    public func isSameAs(other: CEFValue) -> Bool {
         return cefObject.is_same(cefObjectPtr, other.toCEF()) != 0
     }
 
     /// Returns true if this object and |that| object have an equivalent underlying
     /// value but are not necessarily the same object.
-    public func isEqual(other: CEFValue) -> Bool {
+    public func isEqualTo(other: CEFValue) -> Bool {
         return cefObject.is_equal(cefObjectPtr, other.toCEF()) != 0
     }
 
