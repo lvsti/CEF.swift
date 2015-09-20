@@ -44,7 +44,7 @@ public protocol CEFURLRequestClient {
                                    port: UInt16,
                                    realm: String?,
                                    scheme: String,
-                                   callback: CEFAuthCallback) -> Bool
+                                   callback: CEFAuthCallback) -> CEFOnAuthCredentialsRequiredAction
 }
 
 public extension CEFURLRequestClient {
@@ -65,8 +65,8 @@ public extension CEFURLRequestClient {
                                    port: UInt16,
                                    realm: String?,
                                    scheme: String,
-                                   callback: CEFAuthCallback) -> Bool {
-        return false
+                                   callback: CEFAuthCallback) -> CEFOnAuthCredentialsRequiredAction {
+        return .Cancel
     }
 }
 

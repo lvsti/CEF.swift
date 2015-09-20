@@ -8,6 +8,18 @@
 
 import Foundation
 
+public enum CEFOnSetFocusAction {
+    /// Allow focus to be set
+    case Accept
+    
+    /// Cancel setting the focus
+    case Cancel
+}
+
+extension CEFOnSetFocusAction: BooleanType {
+    public var boolValue: Bool { return self == .Cancel }
+}
+
 /// Implement this interface to handle events related to focus. The methods of
 /// this class will be called on the UI thread.
 public protocol CEFFocusHandler {
@@ -21,7 +33,7 @@ public protocol CEFFocusHandler {
     /// Called when the browser component is requesting focus. |source| indicates
     /// where the focus request is originating from. Return false to allow the
     /// focus to be set or true to cancel setting the focus.
-    func onSetFocus(browser: CEFBrowser, source: CEFFocusSource) -> Bool
+    func onSetFocus(browser: CEFBrowser, source: CEFFocusSource) -> CEFOnSetFocusAction
     
     /// Called when the browser component has received focus.
     func onGotFocus(browser: CEFBrowser)
@@ -33,8 +45,8 @@ public extension CEFFocusHandler {
     func onTakeFocus(browser: CEFBrowser, next: Bool) {
     }
     
-    func onSetFocus(browser: CEFBrowser, source: CEFFocusSource) -> Bool {
-        return false
+    func onSetFocus(browser: CEFBrowser, source: CEFFocusSource) -> CEFOnSetFocusAction {
+        return .Accept
     }
     
     func onGotFocus(browser: CEFBrowser) {

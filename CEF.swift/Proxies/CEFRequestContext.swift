@@ -63,7 +63,7 @@ public class CEFRequestContext: CEFProxy<cef_request_context_t> {
     
     /// Returns true if this object is pointing to the same context as |that|
     /// object.
-    public func isSame(other: CEFRequestContext) -> Bool {
+    public func isSameAs(other: CEFRequestContext) -> Bool {
         return cefObject.is_same(cefObjectPtr, other.toCEF()) != 0
     }
 

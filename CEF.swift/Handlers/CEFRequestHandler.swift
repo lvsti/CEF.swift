@@ -8,6 +8,70 @@
 
 import Foundation
 
+public enum CEFOnBeforeBrowseAction {
+    case Allow
+    case Cancel
+}
+
+extension CEFOnBeforeBrowseAction: BooleanType {
+    public var boolValue: Bool { return self == .Cancel }
+}
+
+public enum CEFOnOpenURLFromTabAction {
+    case Allow
+    case Cancel
+}
+
+extension CEFOnOpenURLFromTabAction: BooleanType {
+    public var boolValue: Bool { return self == .Cancel }
+}
+
+public enum CEFOnResourceResponseAction {
+    case Continue
+    case Redirect
+    case Retry
+}
+
+extension CEFOnResourceResponseAction: BooleanType {
+    public var boolValue: Bool { return self == .Redirect || self == .Retry }
+}
+
+public enum CEFOnAuthCredentialsRequiredAction {
+    case Allow
+    case Cancel
+}
+
+extension CEFOnAuthCredentialsRequiredAction: BooleanType {
+    public var boolValue: Bool { return self == .Allow }
+}
+
+public enum CEFOnQuotaRequestAction {
+    case Allow
+    case Cancel
+}
+
+extension CEFOnQuotaRequestAction: BooleanType {
+    public var boolValue: Bool { return self == .Allow }
+}
+
+public enum CEFOnCertificateErrorAction {
+    case Allow
+    case Cancel
+}
+
+extension CEFOnCertificateErrorAction: BooleanType {
+    public var boolValue: Bool { return self == .Allow }
+}
+
+public enum CEFOnBeforePluginLoadAction {
+    case Allow
+    case Cancel
+}
+
+extension CEFOnBeforePluginLoadAction: BooleanType {
+    public var boolValue: Bool { return self == .Cancel }
+}
+
 /// Implement this interface to handle events related to browser requests. The
 /// methods of this class will be called on the thread indicated.
 public protocol CEFRequestHandler {
@@ -20,7 +84,10 @@ public protocol CEFRequestHandler {
     /// CefLoadHandler::OnLoadEnd will be called. If the navigation is canceled
     /// CefLoadHandler::OnLoadError will be called with an |errorCode| value of
     /// ERR_ABORTED.
-    func onBeforeBrowse(browser: CEFBrowser, frame: CEFFrame, request: CEFRequest, isRedirect: Bool) -> Bool
+    func onBeforeBrowse(browser: CEFBrowser,
+                        frame: CEFFrame,
+                        request: CEFRequest,
+                        isRedirect: Bool) -> CEFOnBeforeBrowseAction
     
     /// Called on the UI thread before OnBeforeBrowse in certain limited cases
     /// where navigating a new or different browser might be desirable. This
@@ -40,7 +107,7 @@ public protocol CEFRequestHandler {
                           frame: CEFFrame,
                           url: NSURL,
                           targetDisposition: CEFWindowOpenDisposition,
-                          userGesture: Bool) -> Bool
+                          userGesture: Bool) -> CEFOnOpenURLFromTabAction
     
     /// Called on the IO thread before a resource request is loaded. The |request|
     /// object may be modified. Return RV_CONTINUE to continue the request
@@ -76,7 +143,7 @@ public protocol CEFRequestHandler {
     func onResourceResponse(browser: CEFBrowser,
                             frame: CEFFrame,
                             request: CEFRequest,
-                            response: CEFResponse) -> Bool
+                            response: CEFResponse) -> CEFOnResourceResponseAction
     
     /// Called on the IO thread when the browser needs credentials from the user.
     /// |isProxy| indicates whether the host is a proxy server. |host| contains the
@@ -91,7 +158,7 @@ public protocol CEFRequestHandler {
                                    port: UInt16,
                                    realm: String,
                                    scheme: String,
-                                   callback: CEFAuthCallback) -> Bool
+                                   callback: CEFAuthCallback) -> CEFOnAuthCredentialsRequiredAction
     
     /// Called on the IO thread when JavaScript requests a specific storage quota
     /// size via the webkitStorageInfo.requestQuota function. |origin_url| is the
@@ -102,7 +169,7 @@ public protocol CEFRequestHandler {
     func onQuotaRequest(browser: CEFBrowser,
                         origin: NSURL,
                         newSize: Int64,
-                        callback: CEFRequestCallback) -> Bool
+                        callback: CEFRequestCallback) -> CEFOnQuotaRequestAction
     
     /// Called on the UI thread to handle requests for URLs with an unknown
     /// protocol component. Set |allow_os_execution| to true to attempt execution
@@ -122,11 +189,14 @@ public protocol CEFRequestHandler {
                             errorCode: CEFErrorCode,
                             url: NSURL,
                             sslInfo: CEFSSLInfo,
-                            callback: CEFRequestCallback) -> Bool
+                            callback: CEFRequestCallback) -> CEFOnCertificateErrorAction
     
     /// Called on the browser process IO thread before a plugin is loaded. Return
     /// true to block loading of the plugin.
-    func onBeforePluginLoad(browser: CEFBrowser, url: NSURL?, policyURL: NSURL?, pluginInfo: CEFWebPluginInfo) -> Bool
+    func onBeforePluginLoad(browser: CEFBrowser,
+                            url: NSURL?,
+                            policyURL: NSURL?,
+                            pluginInfo: CEFWebPluginInfo) -> CEFOnBeforePluginLoadAction
     
     /// Called on the browser process UI thread when a plugin has crashed.
     /// |plugin_path| is the path of the plugin that crashed.
@@ -149,16 +219,16 @@ public extension CEFRequestHandler {
     func onBeforeBrowse(browser: CEFBrowser,
                         frame: CEFFrame,
                         request: CEFRequest,
-                        isRedirect: Bool) -> Bool {
-        return false
+                        isRedirect: Bool) -> CEFOnBeforeBrowseAction {
+        return .Allow
     }
 
     func onOpenURLFromTab(browser: CEFBrowser,
                           frame: CEFFrame,
                           url: NSURL,
                           targetDisposition: CEFWindowOpenDisposition,
-                          userGesture: Bool) -> Bool {
-        return false
+                          userGesture: Bool) -> CEFOnOpenURLFromTabAction {
+        return .Allow
     }
 
     func onBeforeResourceLoad(browser: CEFBrowser,
@@ -183,8 +253,8 @@ public extension CEFRequestHandler {
     func onResourceResponse(browser: CEFBrowser,
                             frame: CEFFrame,
                             request: CEFRequest,
-                            response: CEFResponse) -> Bool {
-        return false
+                            response: CEFResponse) -> CEFOnResourceResponseAction {
+        return .Continue
     }
     
     func onAuthCredentialsRequired(browser: CEFBrowser,
@@ -194,15 +264,15 @@ public extension CEFRequestHandler {
                                    port: UInt16,
                                    realm: String,
                                    scheme: String,
-                                   callback: CEFAuthCallback) -> Bool {
-        return false
+                                   callback: CEFAuthCallback) -> CEFOnAuthCredentialsRequiredAction {
+        return .Cancel
     }
 
     func onQuotaRequest(browser: CEFBrowser,
                         origin: NSURL,
                         newSize: Int64,
-                        callback: CEFRequestCallback) -> Bool {
-            return false
+                        callback: CEFRequestCallback) -> CEFOnQuotaRequestAction {
+        return .Cancel
     }
 
     func onProtocolExecution(browser: CEFBrowser, url: NSURL, inout allowExecution: Bool) {
@@ -212,12 +282,15 @@ public extension CEFRequestHandler {
                             errorCode: CEFErrorCode,
                             url: NSURL,
                             sslInfo: CEFSSLInfo,
-                            callback: CEFRequestCallback) -> Bool {
-        return false
+                            callback: CEFRequestCallback) -> CEFOnCertificateErrorAction {
+        return .Cancel
     }
 
-    func onBeforePluginLoad(browser: CEFBrowser, url: NSURL?, policyURL: NSURL?, pluginInfo: CEFWebPluginInfo) -> Bool {
-        return false
+    func onBeforePluginLoad(browser: CEFBrowser,
+                            url: NSURL?,
+                            policyURL: NSURL?,
+                            pluginInfo: CEFWebPluginInfo) -> CEFOnBeforePluginLoadAction {
+        return .Allow
     }
 
     func onPluginCrashed(browser: CEFBrowser, pluginPath: String) {

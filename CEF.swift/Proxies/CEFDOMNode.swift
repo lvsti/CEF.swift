@@ -50,7 +50,7 @@ public class CEFDOMNode: CEFProxy<cef_domnode_t> {
     
     /// Returns true if this object is pointing to the same handle as |that|
     /// object.
-    public func isSame(other: CEFDOMNode) -> Bool {
+    public func isSameAs(other: CEFDOMNode) -> Bool {
         return cefObject.is_same(cefObjectPtr, other.toCEF()) != 0
     }
     

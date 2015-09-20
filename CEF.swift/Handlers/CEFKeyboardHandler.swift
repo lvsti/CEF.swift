@@ -8,6 +8,25 @@
 
 import Foundation
 
+public enum CEFOnPreKeyEventAction {
+    case Consume
+    case PassThrough
+    case PassAsShortcut
+}
+
+extension CEFOnPreKeyEventAction: BooleanType {
+    public var boolValue: Bool { return self == .Consume }
+}
+
+public enum CEFOnKeyEventAction {
+    case Consume
+    case PassThrough
+}
+
+extension CEFOnKeyEventAction: BooleanType {
+    public var boolValue: Bool { return self == .Consume }
+}
+
 /// Implement this interface to handle events related to keyboard input. The
 /// methods of this class will be called on the UI thread.
 public protocol CEFKeyboardHandler {
@@ -19,14 +38,13 @@ public protocol CEFKeyboardHandler {
     // shortcut set |is_keyboard_shortcut| to true and return false.
     func onPreKeyEvent(browser: CEFBrowser,
                        event: CEFKeyEvent,
-                       osEvent: CEFEventHandle,
-                       inout isShortcut: Bool) -> Bool
+                       osEvent: CEFEventHandle) -> CEFOnPreKeyEventAction
     
     /// Called after the renderer and JavaScript in the page has had a chance to
     /// handle the event. |event| contains information about the keyboard event.
     /// |os_event| is the operating system event message, if any. Return true if
     /// the keyboard event was handled or false otherwise.
-    func onKeyEvent(browser: CEFBrowser, event: CEFKeyEvent, osEvent: CEFEventHandle) -> Bool
+    func onKeyEvent(browser: CEFBrowser, event: CEFKeyEvent, osEvent: CEFEventHandle) -> CEFOnKeyEventAction
 
 }
 
@@ -34,13 +52,12 @@ public extension CEFKeyboardHandler {
     
     func onPreKeyEvent(browser: CEFBrowser,
                        event: CEFKeyEvent,
-                       osEvent: CEFEventHandle,
-                       inout isShortcut: Bool) -> Bool {
-        return false
+                       osEvent: CEFEventHandle) -> CEFOnPreKeyEventAction {
+        return .PassThrough
     }
     
-    func onKeyEvent(browser: CEFBrowser, event: CEFKeyEvent, osEvent: CEFEventHandle) -> Bool {
-        return false
+    func onKeyEvent(browser: CEFBrowser, event: CEFKeyEvent, osEvent: CEFEventHandle) -> CEFOnKeyEventAction {
+        return .PassThrough
     }
     
 }

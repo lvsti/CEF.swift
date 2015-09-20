@@ -8,6 +8,34 @@
 
 import Foundation
 
+public enum CEFOnJSDialogAction {
+    /// Suppress the message
+    case Suppress
+    
+    /// Use the default implementation
+    case ShowDefault
+    
+    /// Show a custom dialog
+    case ShowCustom
+    
+    /// Consume the event, no dialog is shown
+    case Consume
+}
+
+extension CEFOnJSDialogAction: BooleanType {
+    public var boolValue: Bool { return self == .ShowCustom || self == .Consume }
+}
+
+public enum CEFOnBeforeUnloadDialogAction {
+    case ShowDefault
+    case ShowCustom
+    case Consume
+}
+
+extension CEFOnBeforeUnloadDialogAction: BooleanType {
+    public var boolValue: Bool { return self == .ShowCustom || self == .Consume }
+}
+
 /// Implement this interface to handle events related to JavaScript dialogs. The
 /// methods of this class will be called on the UI thread.
 public protocol CEFJSDialogHandler {
@@ -30,8 +58,7 @@ public protocol CEFJSDialogHandler {
                     type: CEFJSDialogType,
                     message: String?,
                     prompt: String?,
-                    callback: CEFJSDialogCallback,
-                    inout shouldSuppress: Bool) -> Bool
+                    callback: CEFJSDialogCallback) -> CEFOnJSDialogAction
     
     /// Called to run a dialog asking the user if they want to leave a page. Return
     /// false to use the default dialog implementation. Return true if the
@@ -42,7 +69,7 @@ public protocol CEFJSDialogHandler {
     func onBeforeUnloadDialog(browser: CEFBrowser,
                               message: String?,
                               isReload: Bool,
-                              callback: CEFJSDialogCallback) -> Bool
+                              callback: CEFJSDialogCallback) -> CEFOnBeforeUnloadDialogAction
     
     /// Called to cancel any pending dialogs and reset any saved dialog state. Will
     /// be called due to events like page navigation irregardless of whether any
@@ -62,16 +89,15 @@ public extension CEFJSDialogHandler {
                     type: CEFJSDialogType,
                     message: String?,
                     prompt: String?,
-                    callback: CEFJSDialogCallback,
-                    inout shouldSuppress: Bool) -> Bool {
-        return false
+                    callback: CEFJSDialogCallback) -> CEFOnJSDialogAction {
+        return .ShowDefault
     }
 
     func onBeforeUnloadDialog(browser: CEFBrowser,
                               message: String?,
                               isReload: Bool,
-                              callback: CEFJSDialogCallback) -> Bool {
-        return false
+                              callback: CEFJSDialogCallback) -> CEFOnBeforeUnloadDialogAction {
+        return .ShowDefault
     }
 
     func onResetDialogState(browser: CEFBrowser) {

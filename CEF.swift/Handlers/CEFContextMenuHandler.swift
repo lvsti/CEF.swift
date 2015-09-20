@@ -8,6 +8,15 @@
 
 import Foundation
 
+public enum CEFOnContextMenuCommandAction {
+    case Consume
+    case PassThrough
+}
+
+extension CEFOnContextMenuCommandAction: BooleanType {
+    public var boolValue: Bool { return self == .Consume }
+}
+
 /// Implement this interface to handle context menu events. The methods of this
 /// class will be called on the UI thread.
 public protocol CEFContextMenuHandler {
@@ -33,7 +42,7 @@ public protocol CEFContextMenuHandler {
                               frame: CEFFrame,
                               params: CEFContextMenuParams,
                               commandID: CEFMenuID,
-                              eventFlags: CEFEventFlags) -> Bool
+                              eventFlags: CEFEventFlags) -> CEFOnContextMenuCommandAction
 
     /// Called when the context menu is dismissed irregardless of whether the menu
     /// was empty or a command was selected.
@@ -52,8 +61,8 @@ public extension CEFContextMenuHandler {
                               frame: CEFFrame,
                               params: CEFContextMenuParams,
                               commandID: CEFMenuID,
-                              eventFlags: CEFEventFlags) -> Bool {
-        return false
+                              eventFlags: CEFEventFlags) -> CEFOnContextMenuCommandAction {
+        return .PassThrough
     }
     
     func onContextMenuDismissed(browser: CEFBrowser, frame: CEFFrame) {

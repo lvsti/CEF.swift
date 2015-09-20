@@ -8,6 +8,33 @@
 
 import Foundation
 
+public enum CEFOnBeforePopupAction {
+    case Allow
+    case Cancel
+}
+
+extension CEFOnBeforePopupAction: BooleanType {
+    public var boolValue: Bool { return self == .Cancel }
+}
+
+public enum CEFOnRunModalAction {
+    case RunDefaultLoop
+    case RunCustomLoop
+}
+
+extension CEFOnRunModalAction: BooleanType {
+    public var boolValue: Bool { return self == .RunCustomLoop }
+}
+
+public enum CEFOnDoCloseAction {
+    case Allow
+    case Defer
+}
+
+extension CEFOnDoCloseAction: BooleanType {
+    public var boolValue: Bool { return self == .Defer }
+}
+
 /// Implement this interface to handle events related to browser life span. The
 /// methods of this class will be called on the UI thread unless otherwise
 /// indicated.
@@ -39,7 +66,7 @@ public protocol CEFLifeSpanHandler {
                        inout windowInfo: CEFWindowInfo,
                        inout client: CEFClient,
                        inout settings: CEFBrowserSettings,
-                       inout jsAccess: Bool) -> Bool
+                       inout jsAccess: Bool) -> CEFOnBeforePopupAction
 
     /// Called after a new browser is created.
     func onAfterCreated(browser: CEFBrowser)
@@ -47,7 +74,7 @@ public protocol CEFLifeSpanHandler {
     /// Called when a modal window is about to display and the modal loop should
     /// begin running. Return false to use the default modal loop implementation or
     /// true to use a custom implementation.
-    func runModal(browser: CEFBrowser) -> Bool
+    func onRunModal(browser: CEFBrowser) -> CEFOnRunModalAction
     
     /// Called when a browser has recieved a request to close. This may result
     /// directly from a call to CefBrowserHost::CloseBrowser() or indirectly if the
@@ -98,7 +125,7 @@ public protocol CEFLifeSpanHandler {
     /// the browser object is destroyed.
     /// 11. Application exits by calling CefQuitMessageLoop() if no other browsers
     /// exist.
-    func doClose(browser: CEFBrowser) -> Bool
+    func onDoClose(browser: CEFBrowser) -> CEFOnDoCloseAction
     
     /// Called just before a browser is destroyed. Release all references to the
     /// browser object and do not attempt to execute any methods on the browser
@@ -122,19 +149,19 @@ public extension CEFLifeSpanHandler {
                        inout windowInfo: CEFWindowInfo,
                        inout client: CEFClient,
                        inout settings: CEFBrowserSettings,
-                       inout jsAccess: Bool) -> Bool {
-        return false
+                       inout jsAccess: Bool) -> CEFOnBeforePopupAction {
+        return .Allow
     }
 
     func onAfterCreated(browser: CEFBrowser) {
     }
     
-    func runModal(browser: CEFBrowser) -> Bool {
-        return false
+    func onRunModal(browser: CEFBrowser) -> CEFOnRunModalAction {
+        return .RunDefaultLoop
     }
 
-    func doClose(browser: CEFBrowser) -> Bool {
-        return false
+    func onDoClose(browser: CEFBrowser) -> CEFOnDoCloseAction {
+        return .Allow
     }
     
     func onBeforeClose(browser: CEFBrowser) {

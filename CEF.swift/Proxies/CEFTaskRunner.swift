@@ -34,7 +34,7 @@ public class CEFTaskRunner: CEFProxy<cef_task_runner_t> {
 
     /// Returns true if this object is pointing to the same task runner as |that|
     /// object.
-    public func isSame(other: CEFTaskRunner) -> Bool {
+    public func isSameAs(other: CEFTaskRunner) -> Bool {
         return cefObject.is_same(cefObjectPtr, other.toCEF()) != 0
     }
 

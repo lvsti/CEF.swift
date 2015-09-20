@@ -96,7 +96,7 @@ public class CEFCommandLine: CEFProxy<cef_command_line_t> {
     
     /// Constructs and returns the represented command line string. Use this method
     /// cautiously because quoting behavior is unclear.
-    public var commandLineString: String {
+    public var stringValue: String {
         let cefCmdLinePtr = cefObject.get_command_line_string(cefObjectPtr)
         defer { CEFStringPtrRelease(cefCmdLinePtr) }
         return CEFStringToSwiftString(cefCmdLinePtr.memory)
@@ -130,7 +130,7 @@ public class CEFCommandLine: CEFProxy<cef_command_line_t> {
     
     /// Returns the value associated with the given switch. If the switch has no
     /// value or isn't present this method returns the empty string.
-    public func valueForSwitchNamed(name: String) -> String {
+    public func valueForSwitch(name: String) -> String {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
         let cefValuePtr = cefObject.get_switch_value(cefObjectPtr, cefStrPtr)
         defer {
@@ -158,7 +158,7 @@ public class CEFCommandLine: CEFProxy<cef_command_line_t> {
     }
     
     /// Add a switch with the specified value to the end of the command line.
-    public func appendSwitchWithValue(name: String, value: String) {
+    public func appendSwitch(name: String, value: String) {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
         let cefValuePtr = CEFStringPtrCreateFromSwiftString(value)
         defer {

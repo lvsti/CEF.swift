@@ -8,6 +8,18 @@
 
 import Foundation
 
+public enum CEFOnDragEnterAction {
+    /// Perform the default drag handling behavior
+    case Accept
+    
+    /// Cancel the drag event
+    case Cancel
+}
+
+extension CEFOnDragEnterAction: BooleanType {
+    public var boolValue: Bool { return self == .Cancel }
+}
+
 /// Implement this interface to handle events related to dragging. The methods of
 /// this class will be called on the UI thread.
 public protocol CEFDragHandler {
@@ -16,7 +28,9 @@ public protocol CEFDragHandler {
     /// contains the drag event data and |mask| represents the type of drag
     /// operation. Return false for default drag handling behavior or true to
     /// cancel the drag event.
-    func onDragEnter(browser: CEFBrowser, dragData: CEFDragData, operationMask: CEFDragOperationsMask) -> Bool
+    func onDragEnter(browser: CEFBrowser,
+                     dragData: CEFDragData,
+                     operationMask: CEFDragOperationsMask) -> CEFOnDragEnterAction
     
     /// Called whenever draggable regions for the browser window change. These can
     /// be specified using the '-webkit-app-region: drag/no-drag' CSS-property. If
@@ -29,8 +43,10 @@ public protocol CEFDragHandler {
 
 public extension CEFDragHandler {
     
-    func onDragEnter(browser: CEFBrowser, dragData: CEFDragData, operationMask: CEFDragOperationsMask) -> Bool {
-        return false
+    func onDragEnter(browser: CEFBrowser,
+                     dragData: CEFDragData,
+                     operationMask: CEFDragOperationsMask) -> CEFOnDragEnterAction {
+        return .Accept
     }
     
     func onDraggableRegionsChanged(browser: CEFBrowser, regions: [CEFDraggableRegion]) {
