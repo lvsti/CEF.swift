@@ -8,6 +8,15 @@
 
 import Foundation
 
+public enum CEFOnStartDraggingAction {
+    case Allow
+    case Cancel
+}
+
+extension CEFOnStartDraggingAction: BooleanType {
+    public var boolValue: Bool { return self == .Allow }
+}
+
 /// Implement this interface to handle events when window rendering is disabled.
 /// The methods of this class will be called on the UI thread.
 public protocol CEFRenderHandler {
@@ -75,7 +84,7 @@ public protocol CEFRenderHandler {
     func onStartDragging(browser: CEFBrowser,
                          dragData: CEFDragData,
                          operationMask: CEFDragOperationsMask,
-                         location: NSPoint) -> Bool
+                         location: NSPoint) -> CEFOnStartDraggingAction
     
     /// Called when the web view wants to update the mouse cursor during a
     /// drag & drop operation. |operation| describes the allowed operation
@@ -127,8 +136,8 @@ public extension CEFRenderHandler {
     func onStartDragging(browser: CEFBrowser,
                          dragData: CEFDragData,
                          operationMask: CEFDragOperationsMask,
-                         location: NSPoint) -> Bool {
-        return false
+                         location: NSPoint) -> CEFOnStartDraggingAction {
+        return .Cancel
     }
 
     func onUpdateDragCursor(browser: CEFBrowser, operation: CEFDragOperationsMask) {

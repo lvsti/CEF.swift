@@ -65,7 +65,7 @@ func CEFLifeSpanHandler_run_modal(ptr: UnsafeMutablePointer<cef_life_span_handle
         return 0
     }
     
-    return obj.runModal(CEFBrowser.fromCEF(browser)!) ? 1 : 0
+    return obj.onRunModal(CEFBrowser.fromCEF(browser)!) ? 1 : 0
 }
 
 func CEFLifeSpanHandler_do_close(ptr: UnsafeMutablePointer<cef_life_span_handler_t>,
@@ -74,7 +74,7 @@ func CEFLifeSpanHandler_do_close(ptr: UnsafeMutablePointer<cef_life_span_handler
         return 0
     }
     
-    return obj.doClose(CEFBrowser.fromCEF(browser)!) ? 1 : 0
+    return obj.onDoClose(CEFBrowser.fromCEF(browser)!) ? 1 : 0
 }
 
 func CEFLifeSpanHandler_on_before_close(ptr: UnsafeMutablePointer<cef_life_span_handler_t>,

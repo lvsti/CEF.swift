@@ -8,6 +8,15 @@
 
 import Foundation
 
+public enum CEFOnFileDialogAction {
+    case ShowDefault
+    case ShowCustom
+}
+
+extension CEFOnFileDialogAction: BooleanType {
+    public var boolValue: Bool { return self == .ShowCustom }
+}
+
 /// Implement this interface to handle dialog events. The methods of this class
 /// will be called on the browser process UI thread.
 public protocol CEFDialogHandler {
@@ -31,7 +40,7 @@ public protocol CEFDialogHandler {
                       defaultPath: String?,
                       acceptFilters: [String],
                       selectedFilterIndex: Int,
-                      callback: CEFFileDialogCallback) -> Bool
+                      callback: CEFFileDialogCallback) -> CEFOnFileDialogAction
 
 }
 
@@ -43,8 +52,8 @@ public extension CEFDialogHandler {
                       defaultPath: String?,
                       acceptFilters: [String],
                       selectedFilterIndex: Int,
-                      callback: CEFFileDialogCallback) -> Bool {
-        return false
+                      callback: CEFFileDialogCallback) -> CEFOnFileDialogAction {
+        return .ShowDefault
     }
 }
 

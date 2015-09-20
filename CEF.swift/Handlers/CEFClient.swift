@@ -63,7 +63,7 @@ public protocol CEFClient {
     /// or attempt to access the message outside of this callback.
     func onProcessMessageReceived(browser: CEFBrowser,
                                   processID: CEFProcessID,
-                                  message: CEFProcessMessage) -> Bool
+                                  message: CEFProcessMessage) -> CEFOnProcessMessageReceivedAction
     
 }
 
@@ -86,8 +86,8 @@ public extension CEFClient {
     
     func onProcessMessageReceived(browser: CEFBrowser,
                                   processID: CEFProcessID,
-                                  message: CEFProcessMessage) -> Bool {
-        return false
+                                  message: CEFProcessMessage) -> CEFOnProcessMessageReceivedAction {
+        return .PassThrough
     }
 
 }

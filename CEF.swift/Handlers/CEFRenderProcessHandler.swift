@@ -8,6 +8,24 @@
 
 import Foundation
 
+public enum CEFOnBeforeNavigationAction {
+    case Allow
+    case Cancel
+}
+
+extension CEFOnBeforeNavigationAction: BooleanType {
+    public var boolValue: Bool { return self == .Cancel }
+}
+
+public enum CEFOnProcessMessageReceivedAction {
+    case Consume
+    case PassThrough
+}
+
+extension CEFOnProcessMessageReceivedAction: BooleanType {
+    public var boolValue: Bool { return self == .Consume }
+}
+
 /// Class used to implement render process callbacks. The methods of this class
 /// will be called on the render process main thread (TID_RENDERER) unless
 /// otherwise indicated.
@@ -40,7 +58,7 @@ public protocol CEFRenderProcessHandler {
                             frame: CEFFrame,
                             request: CEFRequest,
                             navigationType: CEFNavigationType,
-                            isRedirect: Bool) -> Bool
+                            isRedirect: Bool) -> CEFOnBeforeNavigationAction
     
     /// Called immediately after the V8 context for a frame has been created. To
     /// retrieve the JavaScript 'window' object use the CefV8Context::GetGlobal()
@@ -81,7 +99,7 @@ public protocol CEFRenderProcessHandler {
     /// or attempt to access the message outside of this callback.
     func onProcessMessageReceived(browser: CEFBrowser,
                                   processID: CEFProcessID,
-                                  message: CEFProcessMessage) -> Bool
+                                  message: CEFProcessMessage) -> CEFOnProcessMessageReceivedAction
     
 }
 
@@ -105,8 +123,8 @@ public extension CEFRenderProcessHandler {
                             frame: CEFFrame,
                             request: CEFRequest,
                             navigationType: CEFNavigationType,
-                            isRedirect: Bool) -> Bool {
-        return false
+                            isRedirect: Bool) -> CEFOnBeforeNavigationAction {
+        return .Allow
     }
     
     func onContextCreated(browser: CEFBrowser,
@@ -133,8 +151,8 @@ public extension CEFRenderProcessHandler {
     
     func onProcessMessageReceived(browser: CEFBrowser,
                                   processID: CEFProcessID,
-                                  message: CEFProcessMessage) -> Bool {
-        return false
+                                  message: CEFProcessMessage) -> CEFOnProcessMessageReceivedAction {
+        return .PassThrough
     }
     
 }

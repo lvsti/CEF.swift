@@ -17,16 +17,14 @@ func CEFKeyboardHandler_on_pre_key_event(ptr: UnsafeMutablePointer<cef_keyboard_
         return 0
     }
     
-    var flag = false
-    let retval = obj.onPreKeyEvent(CEFBrowser.fromCEF(browser)!,
+    let action = obj.onPreKeyEvent(CEFBrowser.fromCEF(browser)!,
                                    event: CEFKeyEvent.fromCEF(event.memory),
-                                   osEvent: Unmanaged<CEFEventHandle>.fromOpaque(COpaquePointer(osEvent)).takeUnretainedValue(),
-                                   isShortcut: &flag)
-    if isShortcut != nil {
-        isShortcut.memory = flag ? 1 : 0
+                                   osEvent: Unmanaged<CEFEventHandle>.fromOpaque(COpaquePointer(osEvent)).takeUnretainedValue())
+    if case .PassAsShortcut = action {
+        isShortcut.memory = 1
     }
     
-    return retval ? 1 : 0
+    return action ? 1 : 0
 }
 
 func CEFKeyboardHandler_on_key_event(ptr: UnsafeMutablePointer<cef_keyboard_handler_t>,

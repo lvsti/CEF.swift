@@ -48,14 +48,15 @@ func CEFResourceHandler_read_response(ptr: UnsafeMutablePointer<cef_resource_han
         return 0
     }
     
-    var length: Int = 0
-    let retval = obj.onReadResponse(buffer,
+    let action = obj.onReadResponse(buffer,
                                     bufferLength: Int(bufferLength),
-                                    actualLength: &length,
                                     callback: CEFCallback.fromCEF(callback)!)
+                                        
+    if case .Read(let length) = action {
+        actualLength.memory = Int32(length)
+    }
     
-    actualLength.memory = Int32(length)
-    return retval ? 1 : 0
+    return action ? 1 : 0
 }
 
 func CEFResourceHandler_can_get_cookie(ptr: UnsafeMutablePointer<cef_resource_handler_t>,

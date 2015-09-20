@@ -8,6 +8,35 @@
 
 import Foundation
 
+public enum CEFOnProcessRequestAction {
+    case Allow
+    case Cancel
+}
+
+extension CEFOnProcessRequestAction: BooleanType {
+    public var boolValue: Bool { return self == .Allow }
+}
+
+public enum CEFOnReadResponseAction {
+    /// Data is available immediately, associated value shows the number of bytes read
+    case Read(Int)
+    
+    /// Data will be provided asynchronously
+    case ReadAsync
+    
+    /// No bytes left
+    case Complete
+}
+
+extension CEFOnReadResponseAction: BooleanType {
+    public var boolValue: Bool {
+        switch self {
+        case .Complete: return false
+        default: return true
+        }
+    }
+}
+
 /// Class used to implement a custom request handler interface. The methods of
 /// this class will always be called on the IO thread.
 public protocol CEFResourceHandler {
@@ -17,7 +46,7 @@ public protocol CEFResourceHandler {
     /// (CefCallback::Continue() can also be called from inside this method if
     /// header information is available immediately). To cancel the request return
     /// false.
-    func onProcessRequest(request: CEFRequest, callback: CEFCallback) -> Bool
+    func onProcessRequest(request: CEFRequest, callback: CEFCallback) -> CEFOnProcessRequestAction
 
     /// Retrieve response header information. If the response length is not known
     /// set |response_length| to -1 and ReadResponse() will be called until it
@@ -34,7 +63,9 @@ public protocol CEFResourceHandler {
     /// bytes copied, and return true. To read the data at a later time set
     /// |bytes_read| to 0, return true and call CefCallback::Continue() when the
     /// data is available. To indicate response completion return false.
-    func onReadResponse(buffer: UnsafeMutablePointer<Void>, bufferLength: Int, inout actualLength: Int, callback: CEFCallback) -> Bool
+    func onReadResponse(buffer: UnsafeMutablePointer<Void>,
+                        bufferLength: Int,
+                        callback: CEFCallback) -> CEFOnReadResponseAction
     
     /// Return true if the specified cookie can be sent with the request or false
     /// otherwise. If false is returned for any cookie then no cookies will be sent
@@ -52,15 +83,17 @@ public protocol CEFResourceHandler {
 
 public extension CEFResourceHandler {
     
-    func onProcessRequest(request: CEFRequest, callback: CEFCallback) -> Bool {
-        return false
+    func onProcessRequest(request: CEFRequest, callback: CEFCallback) -> CEFOnProcessRequestAction {
+        return .Cancel
     }
     
     func onGetResponseHeaders(response: CEFResponse, inout responseLength: Int64?, inout redirectURL: NSURL?) {
     }
     
-    func onReadResponse(buffer: UnsafeMutablePointer<Void>, bufferLength: Int, inout actualLength: Int, callback: CEFCallback) -> Bool {
-        return false
+    func onReadResponse(buffer: UnsafeMutablePointer<Void>,
+                        bufferLength: Int,
+                        callback: CEFCallback) -> CEFOnReadResponseAction {
+        return .Complete
     }
     
     func canGetCookie(cookie: CEFCookie) -> Bool {
