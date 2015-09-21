@@ -635,14 +635,14 @@
 		E8456E121B52C29700AE93DC /* CEF.swift */ = {
 			isa = PBXGroup;
 			children = (
-				E84249E91B753CA0000F23C1 /* Global */,
 				E8898AEC1B69654C009E0DFF /* Core */,
 				E88B86A11B6EA0CC00D10E17 /* Enums */,
 				E88B86461B6EA08A00D10E17 /* Enums.g */,
+				E84249E91B753CA0000F23C1 /* Global */,
 				E8898AEF1B69654C009E0DFF /* Handlers */,
+				E8898B0F1B69654C009E0DFF /* Internal */,
 				E8898AF81B69654C009E0DFF /* Proxies */,
 				E8898B0A1B69654C009E0DFF /* Structs */,
-				E8898B0F1B69654C009E0DFF /* Utils */,
 				E8456E131B52C29700AE93DC /* CEFswift.h */,
 				E8456E151B52C29700AE93DC /* Info.plist */,
 			);
@@ -792,7 +792,7 @@
 			path = Structs;
 			sourceTree = "<group>";
 		};
-		E8898B0F1B69654C009E0DFF /* Utils */ = {
+		E8898B0F1B69654C009E0DFF /* Internal */ = {
 			isa = PBXGroup;
 			children = (
 				E8898B101B69654C009E0DFF /* CEFString.swift */,
@@ -801,7 +801,7 @@
 				E8898B131B69654C009E0DFF /* CEFStringMultimap.swift */,
 				E8898B141B69654C009E0DFF /* CEFTime.swift */,
 			);
-			path = Utils;
+			path = Internal;
 			sourceTree = "<group>";
 		};
 		E88B86461B6EA08A00D10E17 /* Enums.g */ = {
