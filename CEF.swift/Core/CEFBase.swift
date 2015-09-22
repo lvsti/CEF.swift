@@ -35,7 +35,7 @@ protocol CEFRefCounting: class {
 }
 
 
-public class CEFProxy<T : CEFObject>: CEFRefCounting {
+public class Proxy<T : CEFObject>: CEFRefCounting {
     typealias ObjectType = T
     typealias ObjectPtrType = UnsafeMutablePointer<T>
     
