@@ -1,5 +1,5 @@
 //
-//  CEFBrowserSettings.swift
+//  BrowserSettings.swift
 //  CEF.swift
 //
 //  Created by Tamas Lustyik on 2015. 07. 25..
@@ -12,7 +12,7 @@ import Foundation
 /// default values. The consequences of using custom values may not be well
 /// tested. Many of these and other settings can also configured using command-
 /// line switches.
-public struct CEFBrowserSettings {
+public struct BrowserSettings {
     /// The maximum rate in frames per second (fps) that CefRenderHandler::OnPaint
     /// will be called for a windowless browser. The actual fps may be lower if
     /// the browser cannot generate frames at the requested rate. The minimum
@@ -143,7 +143,7 @@ public struct CEFBrowserSettings {
     }
 }
 
-extension CEFBrowserSettings {
+extension BrowserSettings {
     func toCEF() -> cef_browser_settings_t {
         var cefStruct = cef_browser_settings_t()
         
@@ -187,8 +187,8 @@ extension CEFBrowserSettings {
         return cefStruct
     }
     
-    static func fromCEF(value: cef_browser_settings_t) -> CEFBrowserSettings {
-        var settings = CEFBrowserSettings()
+    static func fromCEF(value: cef_browser_settings_t) -> BrowserSettings {
+        var settings = BrowserSettings()
         
         settings.windowlessFrameRate = value.windowless_frame_rate
         settings.standardFontFamily = CEFStringToSwiftString(value.standard_font_family)
@@ -202,26 +202,26 @@ extension CEFBrowserSettings {
         settings.minimumFontSize = value.minimum_font_size
         settings.minimumLogicalFontSize = value.minimum_logical_font_size
         settings.defaultEncoding = CEFStringToSwiftString(value.default_encoding)
-        settings.remoteFonts = CEFState.fromCEF(value.remote_fonts)
-        settings.javascript = CEFState.fromCEF(value.javascript)
-        settings.javascriptOpenWindows = CEFState.fromCEF(value.javascript_open_windows)
-        settings.javascriptCloseWindows = CEFState.fromCEF(value.javascript_close_windows)
-        settings.javascriptAccessClipboard = CEFState.fromCEF(value.javascript_access_clipboard)
-        settings.javascriptDOMPaste = CEFState.fromCEF(value.javascript_dom_paste)
-        settings.caretBrowsing = CEFState.fromCEF(value.caret_browsing)
-        settings.java = CEFState.fromCEF(value.java)
-        settings.plugins = CEFState.fromCEF(value.plugins)
-        settings.universalAccessFromFileURLs = CEFState.fromCEF(value.universal_access_from_file_urls)
-        settings.fileAccessFromFileURLs = CEFState.fromCEF(value.file_access_from_file_urls)
-        settings.webSecurity = CEFState.fromCEF(value.web_security)
-        settings.imageLoading = CEFState.fromCEF(value.image_loading)
-        settings.imageShrinkStandaloneToFit = CEFState.fromCEF(value.image_shrink_standalone_to_fit)
-        settings.textAreaResize = CEFState.fromCEF(value.text_area_resize)
-        settings.tabToLinks = CEFState.fromCEF(value.tab_to_links)
-        settings.localStorage = CEFState.fromCEF(value.local_storage)
-        settings.databases = CEFState.fromCEF(value.databases)
-        settings.applicationCache = CEFState.fromCEF(value.application_cache)
-        settings.webGL = CEFState.fromCEF(value.webgl)
+        settings.remoteFonts = State.fromCEF(value.remote_fonts)
+        settings.javascript = State.fromCEF(value.javascript)
+        settings.javascriptOpenWindows = State.fromCEF(value.javascript_open_windows)
+        settings.javascriptCloseWindows = State.fromCEF(value.javascript_close_windows)
+        settings.javascriptAccessClipboard = State.fromCEF(value.javascript_access_clipboard)
+        settings.javascriptDOMPaste = State.fromCEF(value.javascript_dom_paste)
+        settings.caretBrowsing = State.fromCEF(value.caret_browsing)
+        settings.java = State.fromCEF(value.java)
+        settings.plugins = State.fromCEF(value.plugins)
+        settings.universalAccessFromFileURLs = State.fromCEF(value.universal_access_from_file_urls)
+        settings.fileAccessFromFileURLs = State.fromCEF(value.file_access_from_file_urls)
+        settings.webSecurity = State.fromCEF(value.web_security)
+        settings.imageLoading = State.fromCEF(value.image_loading)
+        settings.imageShrinkStandaloneToFit = State.fromCEF(value.image_shrink_standalone_to_fit)
+        settings.textAreaResize = State.fromCEF(value.text_area_resize)
+        settings.tabToLinks = State.fromCEF(value.tab_to_links)
+        settings.localStorage = State.fromCEF(value.local_storage)
+        settings.databases = State.fromCEF(value.databases)
+        settings.applicationCache = State.fromCEF(value.application_cache)
+        settings.webGL = State.fromCEF(value.webgl)
         settings.backgroundColor = CEFColor(argb: value.background_color)
         settings.acceptLanguageList = CEFStringToSwiftString(value.accept_language_list)
         

@@ -1,5 +1,5 @@
 //
-//  CEFRequestContextSettings.swift
+//  RequestContextSettings.swift
 //  CEF.swift
 //
 //  Created by Tamas Lustyik on 2015. 08. 02..
@@ -10,7 +10,7 @@ import Foundation
 
 /// Request context initialization settings. Specify NULL or 0 to get the
 /// recommended default values.
-public struct CEFRequestContextSettings {
+public struct RequestContextSettings {
     /// The location where cache data will be stored on disk. If empty then
     /// browsers will be created in "incognito mode" where in-memory caches are
     /// used for storage and no data is persisted to disk. HTML5 databases such as
@@ -47,7 +47,7 @@ public struct CEFRequestContextSettings {
     }
 }
 
-extension CEFRequestContextSettings {
+extension RequestContextSettings {
     func toCEF() -> cef_request_context_settings_t {
         var cefStruct = cef_request_context_settings_t()
         

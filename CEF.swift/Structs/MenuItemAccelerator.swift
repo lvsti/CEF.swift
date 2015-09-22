@@ -1,5 +1,5 @@
 //
-//  CEFMenuItemAccelerator.swift
+//  MenuItemAccelerator.swift
 //  CEF.swift
 //
 //  Created by Tamas Lustyik on 2015. 08. 04..
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct CEFMenuItemAccelerator {
+public struct MenuItemAccelerator {
     public var keyCode: Int32 = 0
     public var shift: Bool = false
     public var control: Bool = false

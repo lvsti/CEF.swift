@@ -1,5 +1,5 @@
 //
-//  CEFPoint.swift
+//  Point.swift
 //  CEF.swift
 //
 //  Created by Tamas Lustyik on 2015. 07. 30..

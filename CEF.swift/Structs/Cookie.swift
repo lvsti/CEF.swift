@@ -1,5 +1,5 @@
 //
-//  CEFCookie.swift
+//  Cookie.swift
 //  CEF.swift
 //
 //  Created by Tamas Lustyik on 2015. 08. 02..
@@ -9,7 +9,7 @@
 import Foundation
 
 /// Cookie information.
-public struct CEFCookie {
+public struct Cookie {
     /// The cookie name.
     public var name: String = ""
 
@@ -49,7 +49,7 @@ public struct CEFCookie {
     }
 }
 
-extension CEFCookie {
+extension Cookie {
     func toCEF() -> cef_cookie_t {
         var cefStruct = cef_cookie_t()
 
@@ -67,8 +67,8 @@ extension CEFCookie {
         return cefStruct
     }
     
-    static func fromCEF(cefStruct: cef_cookie_t) -> CEFCookie {
-        var cookie = CEFCookie()
+    static func fromCEF(cefStruct: cef_cookie_t) -> Cookie {
+        var cookie = Cookie()
         
         cookie.name = CEFStringToSwiftString(cefStruct.name)
         cookie.value = CEFStringToSwiftString(cefStruct.value)

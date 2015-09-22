@@ -1,5 +1,5 @@
 //
-//  CEFKeyEvent.swift
+//  KeyEvent.swift
 //  CEF.swift
 //
 //  Created by Tamas Lustyik on 2015. 07. 30..
@@ -9,13 +9,13 @@
 import Foundation
 
 /// Structure representing keyboard event information.
-public struct CEFKeyEvent {
+public struct KeyEvent {
     /// The type of keyboard event.
-    public var type: CEFKeyEventType = .RawKeyDown
+    public var type: KeyEventType = .RawKeyDown
 
     /// Bit flags describing any pressed modifier keys. See
     /// cef_event_flags_t for values.
-    public var modifiers: CEFEventFlags = .None
+    public var modifiers: EventFlags = .None
 
     /// The Windows key code for the key event. This value is used by the DOM
     /// specification. Sometimes it comes directly from the event (i.e. on
@@ -43,7 +43,7 @@ public struct CEFKeyEvent {
     public var focusOnEditableField: Bool = false
 }
 
-extension CEFKeyEvent {
+extension KeyEvent {
     func toCEF() -> cef_key_event_t {
         var cefStruct = cef_key_event_t()
         
@@ -59,14 +59,16 @@ extension CEFKeyEvent {
         return cefStruct
     }
     
-    static func fromCEF(value: cef_key_event_t) -> CEFKeyEvent {
-        return CEFKeyEvent(type: CEFKeyEventType.fromCEF(value.type),
-                           modifiers: CEFEventFlags.fromCEF(cef_event_flags_t(rawValue: value.modifiers)),
-                           windowsKeyCode: value.windows_key_code,
-                           nativeKeyCode: value.native_key_code,
-                           isSystemKey: value.is_system_key != 0,
-                           character: value.character,
-                           unmodifiedCharacter: value.unmodified_character,
-                           focusOnEditableField: value.focus_on_editable_field != 0)
+    static func fromCEF(value: cef_key_event_t) -> KeyEvent {
+        return KeyEvent(
+            type: KeyEventType.fromCEF(value.type),
+            modifiers: EventFlags.fromCEF(cef_event_flags_t(rawValue: value.modifiers)),
+            windowsKeyCode: value.windows_key_code,
+            nativeKeyCode: value.native_key_code,
+            isSystemKey: value.is_system_key != 0,
+            character: value.character,
+            unmodifiedCharacter: value.unmodified_character,
+            focusOnEditableField: value.focus_on_editable_field != 0
+        )
     }
 }

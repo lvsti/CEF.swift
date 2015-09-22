@@ -12,7 +12,7 @@ import Foundation
 /// Initialization settings. Specify NULL or 0 to get the recommended default
 /// values. Many of these and other settings can also configured using command-
 /// line switches.
-public struct CEFSettings {
+public struct Settings {
     /// Set to true (1) to use a single process for the browser and renderer. This
     /// run mode is not officially supported by Chromium and is less stable than
     /// the multi-process default. Also configurable using the "single-process"
@@ -100,7 +100,7 @@ public struct CEFSettings {
     /// logged. Also configurable using the "log-severity" command-line switch with
     /// a value of "verbose", "info", "warning", "error", "error-report" or
     /// "disable".
-    public var logSeverity: CEFLogSeverity = .Default
+    public var logSeverity: LogSeverity = .Default
     
     /// Custom flags that will be used when initializing the V8 JavaScript engine.
     /// The consequences of using custom flags may not be well tested. Also
@@ -157,7 +157,7 @@ public struct CEFSettings {
     /// specifying a value of -1.
     /// Also configurable using the "context-safety-implementation" command-line
     /// switch.
-    public var contextSafetyImplementation: CEFV8ContextSafetyImplementation = .Default
+    public var contextSafetyImplementation: V8ContextSafetyImplementation = .Default
     
     /// Set to true (1) to ignore errors related to invalid SSL certificates.
     /// Enabling this setting can lead to potential security vulnerabilities like
@@ -172,7 +172,7 @@ public struct CEFSettings {
     /// background color will be white. Only the RGB compontents of the specified
     /// value will be used. The alpha component must greater than 0 to enable use
     /// of the background color but will be otherwise ignored.
-    public var backgroundColor: CEFColor = CEFColor(argb: 0)
+    public var backgroundColor: Color = Color(argb: 0)
     
     /// Comma delimited ordered list of language codes without any whitespace that
     /// will be used in the "Accept-Language" HTTP header. May be overridden on a
@@ -186,7 +186,7 @@ public struct CEFSettings {
     }
 }
 
-extension CEFSettings {
+extension Settings {
     func toCEF() -> cef_settings_t {
         var cefStruct = cef_settings_t()
         

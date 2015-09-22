@@ -1,5 +1,5 @@
 //
-//  CEFMainArgs.swift
+//  MainArgs.swift
 //  CEF.swift
 //
 //  Created by Tamas Lustyik on 2015. 07. 13..
@@ -9,7 +9,7 @@
 import Foundation
 
 /// Structure representing CefExecuteProcess arguments.
-public struct CEFMainArgs {
+public struct MainArgs {
     public let arguments: [String]
     
     public init(arguments: [String]) {
@@ -18,13 +18,13 @@ public struct CEFMainArgs {
 }
 
 
-typealias CEFArgV = UnsafeMutablePointer<UnsafePointer<Int8>>
-typealias CEFMutableArgV = UnsafeMutablePointer<UnsafeMutablePointer<Int8>>
+typealias ArgV = UnsafeMutablePointer<UnsafePointer<Int8>>
+typealias MutableArgV = UnsafeMutablePointer<UnsafeMutablePointer<Int8>>
 
-extension CEFMainArgs {
+extension MainArgs {
     func toCEF() -> cef_main_args_t {
         return cef_main_args_t(argc: Int32(arguments.count),
-                               argv: CEFMutableArgV(CEFArgVFromArguments(arguments)))
+                               argv: MutableArgV(ArgVFromArguments(arguments)))
     }
 }
 
@@ -46,8 +46,8 @@ extension cef_main_args_t {
     }
 }
 
-func CEFArgVFromArguments(arguments: [String]) -> CEFArgV {
-    let argv = CEFArgV.alloc(arguments.count)
+func ArgVFromArguments(arguments: [String]) -> ArgV {
+    let argv = ArgV.alloc(arguments.count)
     
     for i in 0..<arguments.count {
         let utf8ByteCount = arguments[i].lengthOfBytesUsingEncoding(NSUTF8StringEncoding) + 1

@@ -1,5 +1,5 @@
 //
-//  CEFGeoposition.swift
+//  Geoposition.swift
 //  CEF.swift
 //
 //  Created by Tamas Lustyik on 2015. 08. 08..
@@ -9,7 +9,7 @@
 import Foundation
 
 /// Class representing a geoposition.
-public struct CEFGeoposition {
+public struct Geoposition {
     /// Latitude in decimal degrees north (WGS84 coordinate frame).
     public let latitude: Double
     
@@ -36,16 +36,16 @@ public struct CEFGeoposition {
     public let timestamp: NSDate
     
     /// Error code, see enum above.
-    public let errorCode: CEFGeopositionErrorCode
+    public let errorCode: GeopositionErrorCode
     
     /// Human-readable error message.
     public let errorMessage: String?
 
 }
 
-extension CEFGeoposition {
-    static func fromCEF(cefStruct: cef_geoposition_t) -> CEFGeoposition {
-        return CEFGeoposition(
+extension Geoposition {
+    static func fromCEF(cefStruct: cef_geoposition_t) -> Geoposition {
+        return Geoposition(
             latitude: cefStruct.latitude,
             longitude: cefStruct.longitude,
             altitude: cefStruct.altitude,
@@ -54,7 +54,7 @@ extension CEFGeoposition {
             heading: cefStruct.heading,
             speed: cefStruct.speed,
             timestamp: CEFTimeToNSDate(cefStruct.timestamp),
-            errorCode: CEFGeopositionErrorCode.fromCEF(cefStruct.error_code),
+            errorCode: GeopositionErrorCode.fromCEF(cefStruct.error_code),
             errorMessage: cefStruct.error_message.str != nil ? CEFStringToSwiftString(cefStruct.error_message) : nil
         )
     }

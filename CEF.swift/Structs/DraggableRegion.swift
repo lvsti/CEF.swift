@@ -1,5 +1,5 @@
 //
-//  CEFDraggableRegion.swift
+//  DraggableRegion.swift
 //  CEF.swift
 //
 //  Created by Tamas Lustyik on 2015. 08. 11..
@@ -9,7 +9,7 @@
 import Foundation
 
 /// Structure representing a draggable region.
-public struct CEFDraggableRegion {
+public struct DraggableRegion {
     /// Bounds of the region.
     public let bounds: NSRect
 
@@ -17,10 +17,10 @@ public struct CEFDraggableRegion {
     public let isDraggable: Bool
 }
 
-extension CEFDraggableRegion {
-    static func fromCEF(value: cef_draggable_region_t) -> CEFDraggableRegion {
-        return CEFDraggableRegion(bounds: NSRect.fromCEF(value.bounds),
-                                  isDraggable: value.draggable != 0)
+extension DraggableRegion {
+    static func fromCEF(value: cef_draggable_region_t) -> DraggableRegion {
+        return DraggableRegion(bounds: NSRect.fromCEF(value.bounds),
+                               isDraggable: value.draggable != 0)
     }
 }
 

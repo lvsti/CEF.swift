@@ -1,5 +1,5 @@
 //
-//  CEFMouseEvent.swift
+//  MouseEvent.swift
 //  CEF.swift
 //
 //  Created by Tamas Lustyik on 2015. 07. 30..
@@ -9,7 +9,7 @@
 import Foundation
 
 /// Structure representing mouse event information.
-public struct CEFMouseEvent {
+public struct MouseEvent {
     /// X coordinate relative to the left side of the view.
     public var x: Int32 = 0
 
@@ -21,7 +21,7 @@ public struct CEFMouseEvent {
     public var modifiers: CEFEventFlags = .None
 }
 
-extension CEFMouseEvent {
+extension MouseEvent {
     func toCEF() -> cef_mouse_event_t {
         var cefStruct = cef_mouse_event_t()
         cefStruct.x = x

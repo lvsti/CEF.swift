@@ -1,5 +1,5 @@
 //
-//  CEFWindowInfo.swift
+//  WindowInfo.swift
 //  CEF.swift
 //
 //  Created by Tamas Lustyik on 2015. 07. 30..
@@ -10,7 +10,7 @@ import Foundation
 
 
 /// Class representing window information.
-public struct CEFWindowInfo {
+public struct WindowInfo {
     public var windowName: String = ""
     public var rect: NSRect = NSRect.zero
 
@@ -18,7 +18,7 @@ public struct CEFWindowInfo {
     public var isHidden: Bool = false
     
     /// NSView pointer for the parent view.
-    public var parentView: CEFWindowHandle? = nil
+    public var parentView: WindowHandle? = nil
     
     /// Set to true (1) to create the browser using windowless (off-screen)
     /// rendering. No view will be created for the browser and all rendering will
@@ -37,13 +37,13 @@ public struct CEFWindowInfo {
     public var transparentPaintingEnabled: Bool = false
     
     /// NSView pointer for the new browser view. Only used with windowed rendering.
-    public var view: CEFWindowHandle? = nil
+    public var view: WindowHandle? = nil
     
     public init() {
     }
 }
 
-extension CEFWindowInfo {
+extension WindowInfo {
     func toCEF() -> cef_window_info_t {
         var cefStruct = cef_window_info_t()
         
@@ -55,7 +55,7 @@ extension CEFWindowInfo {
         cefStruct.hidden = isHidden ? 1 : 0
         
         if let parentView = parentView {
-            cefStruct.parent_view = UnsafeMutablePointer<Void>(Unmanaged<CEFWindowHandle>.passUnretained(parentView).toOpaque())
+            cefStruct.parent_view = UnsafeMutablePointer<Void>(Unmanaged<WindowHandle>.passUnretained(parentView).toOpaque())
         } else {
             cefStruct.parent_view = nil
         }
@@ -64,7 +64,7 @@ extension CEFWindowInfo {
         cefStruct.transparent_painting_enabled = transparentPaintingEnabled ? 1 : 0
         
         if let view = view {
-            cefStruct.view = UnsafeMutablePointer<Void>(Unmanaged<CEFWindowHandle>.passUnretained(view).toOpaque())
+            cefStruct.view = UnsafeMutablePointer<Void>(Unmanaged<WindowHandle>.passUnretained(view).toOpaque())
         } else {
             cefStruct.view = nil
         }
@@ -72,15 +72,15 @@ extension CEFWindowInfo {
         return cefStruct
     }
     
-    static func fromCEF(value: cef_window_info_t) -> CEFWindowInfo {
-        var winInfo = CEFWindowInfo()
+    static func fromCEF(value: cef_window_info_t) -> WindowInfo {
+        var winInfo = WindowInfo()
         winInfo.windowName = CEFStringToSwiftString(value.window_name)
         winInfo.rect = NSRect(x: Int(value.x), y: Int(value.y), width: Int(value.width), height: Int(value.height))
         winInfo.isHidden = value.hidden != 0
-        winInfo.parentView = Unmanaged<CEFWindowHandle>.fromOpaque(COpaquePointer(value.parent_view)).takeUnretainedValue()
+        winInfo.parentView = Unmanaged<WindowHandle>.fromOpaque(COpaquePointer(value.parent_view)).takeUnretainedValue()
         winInfo.windowlessRenderingEnabled = value.windowless_rendering_enabled != 0
         winInfo.transparentPaintingEnabled = value.transparent_painting_enabled != 0
-        winInfo.view = Unmanaged<CEFWindowHandle>.fromOpaque(COpaquePointer(value.view)).takeUnretainedValue()
+        winInfo.view = Unmanaged<WindowHandle>.fromOpaque(COpaquePointer(value.view)).takeUnretainedValue()
         
         return winInfo
     }

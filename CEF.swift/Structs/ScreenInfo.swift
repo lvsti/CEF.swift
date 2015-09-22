@@ -1,5 +1,5 @@
 //
-//  CEFScreenInfo.swift
+//  ScreenInfo.swift
 //  CEF.swift
 //
 //  Created by Tamas Lustyik on 2015. 08. 11..
@@ -11,7 +11,7 @@ import Foundation
 /// Screen information used when window rendering is disabled. This structure is
 /// passed as a parameter to CefRenderHandler::GetScreenInfo and should be filled
 /// in by the client.
-public struct CEFScreenInfo {
+public struct ScreenInfo {
     /// Device scale factor. Specifies the ratio between physical and logical
     /// pixels.
     public var scaleFactor: Double
@@ -49,23 +49,27 @@ public struct CEFScreenInfo {
 
 }
 
-extension CEFScreenInfo {
+extension ScreenInfo {
     func toCEF() -> cef_screen_info_t {
-        return cef_screen_info_t(device_scale_factor: Float(scaleFactor),
-                                 depth: Int32(depth),
-                                 depth_per_component: Int32(depthPerComponent),
-                                 is_monochrome: isMonochrome ? 1 : 0,
-                                 rect: rect.toCEF(),
-                                 available_rect: availableRect.toCEF())
+        return cef_screen_info_t(
+            device_scale_factor: Float(scaleFactor),
+            depth: Int32(depth),
+            depth_per_component: Int32(depthPerComponent),
+            is_monochrome: isMonochrome ? 1 : 0,
+            rect: rect.toCEF(),
+            available_rect: availableRect.toCEF()
+        )
     }
     
-    static func fromCEF(value: cef_screen_info_t) -> CEFScreenInfo {
-        return CEFScreenInfo(scaleFactor: Double(value.device_scale_factor),
-                             depth: Int(value.depth),
-                             depthPerComponent: Int(value.depth_per_component),
-                             isMonochrome: value.is_monochrome != 0,
-                             rect: NSRect.fromCEF(value.rect),
-                             availableRect: NSRect.fromCEF(value.available_rect))
+    static func fromCEF(value: cef_screen_info_t) -> ScreenInfo {
+        return ScreenInfo(
+            scaleFactor: Double(value.device_scale_factor),
+            depth: Int(value.depth),
+            depthPerComponent: Int(value.depth_per_component),
+            isMonochrome: value.is_monochrome != 0,
+            rect: NSRect.fromCEF(value.rect),
+            availableRect: NSRect.fromCEF(value.available_rect)
+        )
     }
 }
 

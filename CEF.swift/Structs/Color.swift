@@ -1,5 +1,5 @@
 //
-//  CEFColor.swift
+//  Color.swift
 //  CEF.swift
 //
 //  Created by Tamas Lustyik on 2015. 08. 03..
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct CEFColor {
+public struct Color {
     public var r: UInt8
     public var g: UInt8
     public var b: UInt8
@@ -29,16 +29,16 @@ public struct CEFColor {
         self.a = a
     }
     
-    public static let Transparent = CEFColor(argb: 0)
+    public static let Transparent = Color(argb: 0)
 }
 
-extension CEFColor {
+extension Color {
     func toCEF() -> cef_color_t {
         return cef_color_t(argb)
     }
     
-    static func fromCEF(value: cef_color_t) -> CEFColor {
-        return CEFColor(argb: value)
+    static func fromCEF(value: cef_color_t) -> Color {
+        return Color(argb: value)
     }
 }
 
