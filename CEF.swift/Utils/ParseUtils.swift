@@ -57,7 +57,7 @@ public struct ParseUtils {
     /// convertable into UTF-8 it will be returned as converted. Otherwise the
     /// initial decoded result will be returned.  The |unescape_rule| parameter
     /// supports further customization the decoding process.
-    public static func uriDecode(text: String, convertToUTF8: Bool, unescapeRule: CEFURIUnescapeRule) -> String {
+    public static func uriDecode(text: String, convertToUTF8: Bool, unescapeRule: URIUnescapeRule) -> String {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(text)
         let cefDecodedPtr = cef_uridecode(cefStrPtr, convertToUTF8 ? 1 : 0, unescapeRule.toCEF())
         defer {
@@ -71,24 +71,24 @@ public struct ParseUtils {
     /// strict parsing rules will be applied. Returns true on success or false on
     /// error. If parsing succeeds |color| will be set to the color value otherwise
     /// |color| will remain unchanged.
-    public static func parseCSSColor(string: String, isStrict: Bool) -> CEFColor? {
+    public static func parseCSSColor(string: String, isStrict: Bool) -> Color? {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(string)
         defer { CEFStringPtrRelease(cefStrPtr) }
         var cefColor: cef_color_t = 0
         
         if cef_parse_csscolor(cefStrPtr, isStrict ? 1 : 0, &cefColor) != 0 {
-            return CEFColor.fromCEF(cefColor)
+            return Color.fromCEF(cefColor)
         }
         return nil
     }
 
     // Parses the specified |json_string| and returns a dictionary or list
     // representation. If JSON parsing fails this method returns NULL.
-    public static func parseJSON(jsonString: String, options: CEFJSONParserOptions) -> CEFValue? {
+    public static func parseJSON(jsonString: String, options: JSONParserOptions) -> Value? {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(jsonString)
         defer { CEFStringPtrRelease(cefStrPtr) }
         let cefValue = cef_parse_json(cefStrPtr, options.toCEF())
-        return CEFValue.fromCEF(cefValue)
+        return Value.fromCEF(cefValue)
     }
 
     // Parses the specified |json_string| and returns a dictionary or list
@@ -96,27 +96,27 @@ public struct ParseUtils {
     // |error_code_out| and |error_msg_out| with an error code and a formatted error
     // message respectively.
     public static func parseJSONAndReturnError(jsonString: String,
-                                               options: CEFJSONParserOptions,
-                                               inout errorCode: CEFJSONParserError?,
-                                               inout errorMsg: String?) -> CEFValue? {
+                                               options: JSONParserOptions,
+                                               inout errorCode: JSONParserError?,
+                                               inout errorMsg: String?) -> Value? {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(jsonString)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        var code = CEFJSONParserError.NoError.toCEF()
+        var code = JSONParserError.NoError.toCEF()
         var msg = cef_string_t()
         
         let cefValue = cef_parse_jsonand_return_error(cefStrPtr, options.toCEF(), &code, &msg)
         if cefValue != nil {
-            errorCode = CEFJSONParserError.fromCEF(code)
+            errorCode = JSONParserError.fromCEF(code)
             errorMsg = CEFStringToSwiftString(msg)
         }
         
-        return CEFValue.fromCEF(cefValue)
+        return Value.fromCEF(cefValue)
     }
 
     // Generates a JSON string from the specified root |node| which should be a
     // dictionary or list value. Returns an empty string on failure. This method
     // requires exclusive access to |node| including any underlying data.
-    public static func writeJSON(value: CEFValue, options: CEFJSONWriterOptions) -> String? {
+    public static func writeJSON(value: Value, options: JSONWriterOptions) -> String? {
         let cefStrPtr = cef_write_json(value.toCEF(), options.toCEF())
         defer { CEFStringPtrRelease(cefStrPtr) }
         

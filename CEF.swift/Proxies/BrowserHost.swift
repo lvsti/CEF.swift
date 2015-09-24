@@ -241,7 +241,7 @@ public class BrowserHost : Proxy<cef_browser_host_t> {
     /// Retrieve a snapshot of current navigation entries as values sent to the
     /// specified visitor. If |current_only| is true only the current navigation
     /// entry will be sent, otherwise all navigation entries will be sent.
-    public func enumerateNavigationEntriesUsingVisitor(visitor: CEFNavigationEntryVisitor, currentOnly: Bool) {
+    public func enumerateNavigationEntriesUsingVisitor(visitor: NavigationEntryVisitor, currentOnly: Bool) {
         cefObject.get_navigation_entries(cefObjectPtr, visitor.toCEF(), currentOnly ? 1 : 0)
     }
     

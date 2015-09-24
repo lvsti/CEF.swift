@@ -12,14 +12,14 @@ public struct WebPluginUtils {
     
     /// Visit web plugin information. Can be called on any thread in the browser
     /// process.
-    public static func enumerateWebPluginsUsingVisitor(visitor: CEFWebPluginInfoVisitor) {
+    public static func enumerateWebPluginsUsingVisitor(visitor: WebPluginInfoVisitor) {
         cef_visit_web_plugin_info(visitor.toCEF())
     }
 
     /// Visit web plugin information. Can be called on any thread in the browser
     /// process.
-    public static func enumerateWebPlugins(block: CEFWebPluginInfoVisitorVisitBlock) {
-        let visitor = CEFWebPluginInfoVisitorBridge(block: block)
+    public static func enumerateWebPlugins(block: WebPluginInfoVisitorVisitBlock) {
+        let visitor = WebPluginInfoVisitorBridge(block: block)
         cef_visit_web_plugin_info(visitor.toCEF())
     }
 
@@ -84,7 +84,7 @@ public struct WebPluginUtils {
 
     /// Query if a plugin is unstable. Can be called on any thread in the browser
     /// process.
-    public static func isUnstableWebPluginAtPath(path: String, callback: CEFWebPluginUnstableCallback) {
+    public static func isUnstableWebPluginAtPath(path: String, callback: WebPluginUnstableCallback) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
         defer { CEFStringPtrRelease(cefStrPtr) }
         cef_is_web_plugin_unstable(cefStrPtr, callback.toCEF())
@@ -92,10 +92,10 @@ public struct WebPluginUtils {
 
     /// Query if a plugin is unstable. Can be called on any thread in the browser
     /// process.
-    public static func isUnstableWebPluginAtPath(path: String, block: CEFWebPluginUnstableCallbackIsUnstableBlock) {
+    public static func isUnstableWebPluginAtPath(path: String, block: WebPluginUnstableCallbackIsUnstableBlock) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        let callback = CEFWebPluginUnstableCallbackBridge(block: block)
+        let callback = WebPluginUnstableCallbackBridge(block: block)
         cef_is_web_plugin_unstable(cefStrPtr, callback.toCEF())
     }
 

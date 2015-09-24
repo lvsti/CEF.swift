@@ -66,7 +66,7 @@ public struct V8Utils {
     ///   // Call another function.
     ///   example.test.increment();
     /// </pre>
-    public static func registerExtensionWithName(name: String, code: String, handler: CEFV8Handler? = nil) -> Bool {
+    public static func registerExtensionWithName(name: String, code: String, handler: V8Handler? = nil) -> Bool {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
         let cefCodePtr = CEFStringPtrCreateFromSwiftString(code)
         defer {

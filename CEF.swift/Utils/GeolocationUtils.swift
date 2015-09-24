@@ -13,15 +13,15 @@ public struct GeolocationUtils {
     /// Request a one-time geolocation update. This function bypasses any user
     /// permission checks so should only be used by code that is allowed to access
     /// location information.
-    public static func getGeolocation(callback: CEFGetGeolocationCallback) -> Bool {
+    public static func getGeolocation(callback: GetGeolocationCallback) -> Bool {
         return cef_get_geolocation(callback.toCEF()) != 0
     }
 
     /// Request a one-time geolocation update. This function bypasses any user
     /// permission checks so should only be used by code that is allowed to access
     /// location information.
-    public static func getGeolocation(block: CEFGetGeolocationCallbackOnLocationUpdateBlock) -> Bool {
-        return getGeolocation(CEFGetGeolocationCallbackBridge(block: block))
+    public static func getGeolocation(block: GetGeolocationCallbackOnLocationUpdateBlock) -> Bool {
+        return getGeolocation(GetGeolocationCallbackBridge(block: block))
     }
 
 }

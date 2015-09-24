@@ -1,5 +1,5 @@
 //
-//  CEFSettings.swift
+//  Settings.swift
 //  CEF.swift
 //
 //  Created by Tamas Lustyik on 2015. 07. 13..

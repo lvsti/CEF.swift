@@ -37,101 +37,101 @@ public struct BrowserSettings {
     
     /// Controls the loading of fonts from remote sources. Also configurable using
     /// the "disable-remote-fonts" command-line switch.
-    public var remoteFonts: CEFState = .Default
+    public var remoteFonts: State = .Default
     
     /// Controls whether JavaScript can be executed. Also configurable using the
     /// "disable-javascript" command-line switch.
-    public var javascript: CEFState = .Default
+    public var javascript: State = .Default
     
     /// Controls whether JavaScript can be used for opening windows. Also
     /// configurable using the "disable-javascript-open-windows" command-line
     /// switch.
-    public var javascriptOpenWindows: CEFState = .Default
+    public var javascriptOpenWindows: State = .Default
     
     /// Controls whether JavaScript can be used to close windows that were not
     /// opened via JavaScript. JavaScript can still be used to close windows that
     /// were opened via JavaScript or that have no back/forward history. Also
     /// configurable using the "disable-javascript-close-windows" command-line
     /// switch.
-    public var javascriptCloseWindows: CEFState = .Default
+    public var javascriptCloseWindows: State = .Default
     
     /// Controls whether JavaScript can access the clipboard. Also configurable
     /// using the "disable-javascript-access-clipboard" command-line switch.
-    public var javascriptAccessClipboard: CEFState = .Default
+    public var javascriptAccessClipboard: State = .Default
     
     /// Controls whether DOM pasting is supported in the editor via
     /// execCommand("paste"). The |javascript_access_clipboard| setting must also
     /// be enabled. Also configurable using the "disable-javascript-dom-paste"
     /// command-line switch.
-    public var javascriptDOMPaste: CEFState = .Default
+    public var javascriptDOMPaste: State = .Default
     
     /// Controls whether the caret position will be drawn. Also configurable using
     /// the "enable-caret-browsing" command-line switch.
-    public var caretBrowsing: CEFState = .Default
+    public var caretBrowsing: State = .Default
     
     /// Controls whether the Java plugin will be loaded. Also configurable using
     /// the "disable-java" command-line switch.
-    public var java: CEFState = .Default
+    public var java: State = .Default
     
     /// Controls whether any plugins will be loaded. Also configurable using the
     /// "disable-plugins" command-line switch.
-    public var plugins: CEFState = .Default
+    public var plugins: State = .Default
     
     /// Controls whether file URLs will have access to all URLs. Also configurable
     /// using the "allow-universal-access-from-files" command-line switch.
-    public var universalAccessFromFileURLs: CEFState = .Default
+    public var universalAccessFromFileURLs: State = .Default
     
     /// Controls whether file URLs will have access to other file URLs. Also
     /// configurable using the "allow-access-from-files" command-line switch.
-    public var fileAccessFromFileURLs: CEFState = .Default
+    public var fileAccessFromFileURLs: State = .Default
 
     /// Controls whether web security restrictions (same-origin policy) will be
     /// enforced. Disabling this setting is not recommend as it will allow risky
     /// security behavior such as cross-site scripting (XSS). Also configurable
     /// using the "disable-web-security" command-line switch.
-    public var webSecurity: CEFState = .Default
+    public var webSecurity: State = .Default
     
     /// Controls whether image URLs will be loaded from the network. A cached image
     /// will still be rendered if requested. Also configurable using the
     /// "disable-image-loading" command-line switch.
-    public var imageLoading: CEFState = .Default
+    public var imageLoading: State = .Default
     
     /// Controls whether standalone images will be shrunk to fit the page. Also
     /// configurable using the "image-shrink-standalone-to-fit" command-line
     /// switch.
-    public var imageShrinkStandaloneToFit: CEFState = .Default
+    public var imageShrinkStandaloneToFit: State = .Default
     
     /// Controls whether text areas can be resized. Also configurable using the
     /// "disable-text-area-resize" command-line switch.
-    public var textAreaResize: CEFState = .Default
+    public var textAreaResize: State = .Default
     
     /// Controls whether the tab key can advance focus to links. Also configurable
     /// using the "disable-tab-to-links" command-line switch.
-    public var tabToLinks: CEFState = .Default
+    public var tabToLinks: State = .Default
     
     /// Controls whether local storage can be used. Also configurable using the
     /// "disable-local-storage" command-line switch.
-    public var localStorage: CEFState = .Default
+    public var localStorage: State = .Default
     
     /// Controls whether databases can be used. Also configurable using the
     /// "disable-databases" command-line switch.
-    public var databases: CEFState = .Default
+    public var databases: State = .Default
     
     /// Controls whether the application cache can be used. Also configurable using
     /// the "disable-application-cache" command-line switch.
-    public var applicationCache: CEFState = .Default
+    public var applicationCache: State = .Default
     
     /// Controls whether WebGL can be used. Note that WebGL requires hardware
     /// support and may not work on all systems even when enabled. Also
     /// configurable using the "disable-webgl" command-line switch.
-    public var webGL: CEFState = .Default
+    public var webGL: State = .Default
     
     /// Opaque background color used for the browser before a document is loaded
     /// and when no document color is specified. By default the background color
     /// will be the same as CefSettings.background_color. Only the RGB compontents
     /// of the specified value will be used. The alpha component must greater than
     /// 0 to enable use of the background color but will be otherwise ignored.
-    public var backgroundColor: CEFColor = CEFColor(argb: 0)
+    public var backgroundColor: Color = Color(argb: 0)
     
     /// Comma delimited ordered list of language codes without any whitespace that
     /// will be used in the "Accept-Language" HTTP header. May be set globally
@@ -222,7 +222,7 @@ extension BrowserSettings {
         settings.databases = State.fromCEF(value.databases)
         settings.applicationCache = State.fromCEF(value.application_cache)
         settings.webGL = State.fromCEF(value.webgl)
-        settings.backgroundColor = CEFColor(argb: value.background_color)
+        settings.backgroundColor = Color(argb: value.background_color)
         settings.acceptLanguageList = CEFStringToSwiftString(value.accept_language_list)
         
         return settings

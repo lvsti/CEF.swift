@@ -28,7 +28,7 @@ public class StreamReader: Proxy<cef_stream_reader_t> {
     }
     
     /// Create a new CefStreamReader object from a custom handler.
-    public init?(handler: CEFReadHandler) {
+    public init?(handler: ReadHandler) {
         super.init(ptr: cef_stream_reader_create_for_handler(handler.toCEF()))
     }
     
@@ -68,6 +68,6 @@ public class StreamReader: Proxy<cef_stream_reader_t> {
     }
     
     static func fromCEF(ptr: ObjectPtrType) -> StreamReader? {
-        return CEFStreamReader(ptr: ptr)
+        return StreamReader(ptr: ptr)
     }
 }

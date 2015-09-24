@@ -22,7 +22,7 @@ public class StreamWriter: Proxy<cef_stream_writer_t> {
     }
 
     /// Create a new CefStreamWriter object for a custom handler.
-    public init?(handler: CEFWriteHandler) {
+    public init?(handler: WriteHandler) {
         super.init(ptr: cef_stream_writer_create_for_handler(handler.toCEF()))
     }
     

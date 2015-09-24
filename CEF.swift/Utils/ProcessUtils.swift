@@ -20,8 +20,8 @@ public struct ProcessUtils {
     /// the process exit code. The |application| parameter may be empty. The
     /// |windows_sandbox_info| parameter is only used on Windows and may be NULL (see
     /// cef_sandbox_win.h for details).
-    public static func executeProcessWithArgs(args: CEFMainArgs,
-                                              app: CEFApp? = nil,
+    public static func executeProcessWithArgs(args: MainArgs,
+                                              app: App? = nil,
                                               winSandboxInfo: UnsafeMutablePointer<Void> = nil) -> Int {
         var cefArgs = args.toCEF()
         defer { cefArgs.clear() }
@@ -33,9 +33,9 @@ public struct ProcessUtils {
     /// value of true indicates that it succeeded and false indicates that it failed.
     /// The |windows_sandbox_info| parameter is only used on Windows and may be NULL
     /// (see cef_sandbox_win.h for details).
-    public static func initializeWithArgs(args: CEFMainArgs,
-                                          settings: CEFSettings,
-                                          app: CEFApp? = nil,
+    public static func initializeWithArgs(args: MainArgs,
+                                          settings: Settings,
+                                          app: App? = nil,
                                           winSandboxInfo: UnsafeMutablePointer<Void> = nil) -> Bool {
         var cefArgs = args.toCEF()
         var cefSettings = settings.toCEF()

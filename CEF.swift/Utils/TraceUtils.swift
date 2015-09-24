@@ -22,7 +22,7 @@ public struct TraceUtils {
     /// Example: "test_MyTest*,test_OtherStuff"
     /// Example: "-excluded_category1,-excluded_category2"
     /// This function must be called on the browser process UI thread.
-    public static func beginTracingWithCategories(categories: String? = nil, callback: CEFCompletionCallback? = nil) -> Bool {
+    public static func beginTracingWithCategories(categories: String? = nil, callback: CompletionCallback? = nil) -> Bool {
         let cefStrPtr = categories != nil ? CEFStringPtrCreateFromSwiftString(categories!) : nil
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cef_begin_tracing(cefStrPtr, callback != nil ? callback!.toCEF() : nil) != 0
@@ -36,7 +36,7 @@ public struct TraceUtils {
     /// sent their trace data. If |tracing_file| is empty a new temporary file path
     /// will be used. If |callback| is empty no trace data will be written.
     /// This function must be called on the browser process UI thread.
-    public static func endTracingWithOutputFilePath(path: String? = nil, callback: CEFEndTracingCallback? = nil) -> Bool {
+    public static func endTracingWithOutputFilePath(path: String? = nil, callback: EndTracingCallback? = nil) -> Bool {
         let cefStrPtr = path != nil ? CEFStringPtrCreateFromSwiftString(path!) : nil
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cef_end_tracing(cefStrPtr, callback != nil ? callback!.toCEF() : nil) != 0
@@ -50,8 +50,8 @@ public struct TraceUtils {
     /// sent their trace data. If |tracing_file| is empty a new temporary file path
     /// will be used. If |callback| is empty no trace data will be written.
     /// This function must be called on the browser process UI thread.
-    public static func endTracingWithOutputFilePath(path: String? = nil, block: CEFEndTracingCallbackOnEndTracingCompleteBlock) -> Bool {
-        return endTracingWithOutputFilePath(path, callback: CEFEndTracingCallbackBridge(block: block))
+    public static func endTracingWithOutputFilePath(path: String? = nil, block: EndTracingCallbackOnEndTracingCompleteBlock) -> Bool {
+        return endTracingWithOutputFilePath(path, callback: EndTracingCallbackBridge(block: block))
     }
 
     /// Returns the current system trace time or, if none is defined, the current

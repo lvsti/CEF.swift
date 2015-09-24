@@ -68,13 +68,13 @@ public class Frame: Proxy<cef_frame_t> {
 
     /// Retrieve this frame's HTML source as a string sent to the specified
     /// visitor.
-    public func getSourceUsingVisitor(visitor: CEFStringVisitor) {
+    public func getSourceUsingVisitor(visitor: StringVisitor) {
         cefObject.get_source(cefObjectPtr, visitor.toCEF())
     }
 
     /// Retrieve this frame's display text as a string sent to the specified
     /// visitor.
-    public func getTextUsingVisitor(visitor: CEFStringVisitor) {
+    public func getTextUsingVisitor(visitor: StringVisitor) {
         cefObject.get_text(cefObjectPtr, visitor.toCEF())
     }
     
@@ -173,7 +173,7 @@ public class Frame: Proxy<cef_frame_t> {
 
     /// Visit the DOM document. This method can only be called from the render
     /// process.
-    public func getDOMDocumentUsingVisitor(visitor: CEFDOMVisitor) {
+    public func getDOMDocumentUsingVisitor(visitor: DOMVisitor) {
         return cefObject.visit_dom(cefObjectPtr, visitor.toCEF())
     }
     

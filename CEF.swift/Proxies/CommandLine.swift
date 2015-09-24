@@ -55,7 +55,7 @@ public class CommandLine: Proxy<cef_command_line_t> {
     /// The first argument must be the name of the program. This method is only
     /// supported on non-Windows platforms.
     public func initFromArguments(arguments: [String]) {
-        let argv = CEFArgVFromArguments(arguments)
+        let argv = ArgVFromArguments(arguments)
         cefObject.init_from_argv(cefObjectPtr, Int32(arguments.count), argv)
         argv.dealloc(arguments.count)
     }

@@ -47,7 +47,7 @@ public class URLRequest: Proxy<cef_urlrequest_t> {
     /// Returns the client.
     public var client: URLRequestClient {
         let cefClient = cefObject.get_client(cefObjectPtr)
-        return CEFURLRequestClientMarshaller.take(cefClient)!
+        return URLRequestClientMarshaller.take(cefClient)!
     }
     
     /// Returns the request status.

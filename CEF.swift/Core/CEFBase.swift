@@ -28,14 +28,14 @@ public protocol CEFObject: DefaultInitializable {
     var base: cef_base_t { get set }
 }
 
-protocol CEFRefCounting: class {
+protocol RefCounting: class {
     func addRef()
     func release() -> Bool
     func hasOneRef() -> Bool
 }
 
 
-public class Proxy<T : CEFObject>: CEFRefCounting {
+public class Proxy<T : CEFObject>: RefCounting {
     typealias ObjectType = T
     typealias ObjectPtrType = UnsafeMutablePointer<T>
     

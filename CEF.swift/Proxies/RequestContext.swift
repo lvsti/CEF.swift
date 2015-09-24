@@ -129,7 +129,7 @@ public class RequestContext: Proxy<cef_request_context_t> {
     /// the factory that matches the specified |scheme_name| and optional
     /// |domain_name|. Returns false if an error occurs. This function may be
     /// called on any thread in the browser process.
-    public func registerSchemeHandlerFactory(scheme: String, domain: String? = nil, factory: CEFSchemeHandlerFactory? = nil) -> Bool {
+    public func registerSchemeHandlerFactory(scheme: String, domain: String? = nil, factory: SchemeHandlerFactory? = nil) -> Bool {
         let cefSchemePtr = CEFStringPtrCreateFromSwiftString(scheme)
         let cefDomainPtr = domain != nil ? CEFStringPtrCreateFromSwiftString(domain!) : nil
         defer {

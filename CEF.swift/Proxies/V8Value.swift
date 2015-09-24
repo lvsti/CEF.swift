@@ -300,7 +300,7 @@ public class V8Value: Proxy<cef_v8value_t> {
     /// success. Returns false if this method is called incorrectly or an exception
     /// is thrown. For read-only values this method will return true even though
     /// assignment failed.
-    public func setValue(value: V8Value, forKey key: String?, attribute: CEFV8PropertyAttribute) -> Bool {
+    public func setValue(value: V8Value, forKey key: String?, attribute: V8PropertyAttribute) -> Bool {
         let cefKeyPtr = key != nil ? CEFStringPtrCreateFromSwiftString(key!) : nil
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.set_value_bykey(cefObjectPtr, cefKeyPtr, value.toCEF(), attribute.toCEF()) != 0
@@ -319,7 +319,7 @@ public class V8Value: Proxy<cef_v8value_t> {
     /// V8Value::CreateObject(). Returns false if this method is called
     /// incorrectly or an exception is thrown. For read-only values this method
     /// will return true even though assignment failed.
-    public func setValue(forKey key: String?, access: CEFV8AccessControl, attribute: CEFV8PropertyAttribute) -> Bool {
+    public func setValue(forKey key: String?, access: V8AccessControl, attribute: V8PropertyAttribute) -> Bool {
         let cefKeyPtr = key != nil ? CEFStringPtrCreateFromSwiftString(key!) : nil
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.set_value_byaccessor(cefObjectPtr, cefKeyPtr, access.toCEF(), attribute.toCEF()) != 0

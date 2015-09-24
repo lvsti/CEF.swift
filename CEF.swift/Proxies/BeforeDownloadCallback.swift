@@ -34,7 +34,7 @@ public class BeforeDownloadCallback: Proxy<cef_before_download_callback_t> {
     }
     
     static func fromCEF(ptr: ObjectPtrType) -> BeforeDownloadCallback? {
-        return CEFBeforeDownloadCallback(ptr: ptr)
+        return BeforeDownloadCallback(ptr: ptr)
     }
 }
 

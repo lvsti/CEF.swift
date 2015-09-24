@@ -91,7 +91,7 @@ public class NavigationEntry: Proxy<cef_navigation_entry_t> {
     }
     
     static func fromCEF(ptr: ObjectPtrType) -> NavigationEntry? {
-        return CEFNavigationEntry(ptr: ptr)
+        return NavigationEntry(ptr: ptr)
     }
 }
 

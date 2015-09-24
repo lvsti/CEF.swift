@@ -37,7 +37,7 @@ public class PrintSettings: Proxy<cef_print_settings_t> {
     }
 
     /// Page orientation.
-    public var orientation: CEFPageOrientation {
+    public var orientation: PageOrientation {
         get { return cefObject.is_landscape(cefObjectPtr) != 0 ? .Landscape : .Portrait }
         set { cefObject.set_orientation(cefObjectPtr, newValue == .Landscape ? 1 : 0) }
     }

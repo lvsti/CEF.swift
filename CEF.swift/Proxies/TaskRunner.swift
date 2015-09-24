@@ -50,7 +50,7 @@ public class TaskRunner: Proxy<cef_task_runner_t> {
 
     /// Post a task for execution on the thread associated with this task runner.
     /// Execution will occur asynchronously.
-    public func postTask(task: CEFTask) -> Bool {
+    public func postTask(task: Task) -> Bool {
         return cefObject.post_task(cefObjectPtr, task.toCEF()) != 0
     }
 
@@ -58,7 +58,7 @@ public class TaskRunner: Proxy<cef_task_runner_t> {
     /// runner. Execution will occur asynchronously. Delayed tasks are not
     /// supported on V8 WebWorker threads and will be executed without the
     /// specified delay.
-    public func postTask(task: CEFTask, withDelay delay: NSTimeInterval) -> Bool {
+    public func postTask(task: Task, withDelay delay: NSTimeInterval) -> Bool {
         return cefObject.post_delayed_task(cefObjectPtr, task.toCEF(), Int64(delay * 1000)) != 0
     }
     
