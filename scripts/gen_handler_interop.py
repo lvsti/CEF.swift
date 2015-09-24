@@ -26,7 +26,7 @@ def make_cefobject_conformance(cef_capi_name):
 
 
 def make_marshaller(cef_capi_name, swift_name):
-    return '''typealias %sMarshaller = CEFMarshaller<%s, %s>
+    return '''typealias %sMarshaller = Marshaller<%s, %s>
 
 extension %s {
     func toCEF() -> UnsafeMutablePointer<%s> {
@@ -38,7 +38,7 @@ extension %s {
 
 
 def make_cefcallbackmarshalling_conformance(cef_capi_name, swift_name, cef_class):
-    retval = "extension " + cef_capi_name + ": CEFCallbackMarshalling {\n"
+    retval = "extension " + cef_capi_name + ": CallbackMarshalling {\n"
     retval += "    mutating func marshalCallbacks() {\n"
     for func in cef_class.get_virtual_funcs():
         retval += "        %s = %s_%s\n" % (func.get_capi_name(), swift_name, func.get_capi_name())

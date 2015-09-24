@@ -8,35 +8,35 @@ abbreviations = [
 
 typename_overrides = {
     # enums
-    'cef_v8_accesscontrol_t': 'CEFV8AccessControl',
-    'cef_v8_propertyattribute_t': 'CEFV8PropertyAttribute',
-    'cef_postdataelement_type_t': 'CEFPOSTDataElementType',
-    'cef_urlrequest_flags_t': 'CEFURLRequestFlags',
-    'cef_urlrequest_status_t': 'CEFURLRequestStatus',
-    'cef_jsdialog_type_t': 'CEFJSDialogType',
-    'cef_errorcode_t': 'CEFErrorCode',
+    'cef_v8_accesscontrol_t': 'V8AccessControl',
+    'cef_v8_propertyattribute_t': 'V8PropertyAttribute',
+    'cef_postdataelement_type_t': 'POSTDataElementType',
+    'cef_urlrequest_flags_t': 'URLRequestFlags',
+    'cef_urlrequest_status_t': 'URLRequestStatus',
+    'cef_jsdialog_type_t': 'JSDialogType',
+    'cef_errorcode_t': 'ErrorCode',
     
     # proxies
-    'cef_urlrequest_t': 'CEFURLRequest',
-    'cef_v8value_t': 'CEFV8Value',
-    'cef_v8stack_trace_t': 'CEFV8StackTrace',
-    'cef_v8stack_frame_t': 'CEFV8StackFrame',
-    'cef_v8exception_t': 'CEFV8Exception',
-    'cef_v8context_t': 'CEFV8Context',
-    'cef_sslinfo_t': 'CEFSSLInfo',
-    'cef_sslcert_principal_t': 'CEFSSLCertPrincipal',
-    'cef_jsdialog_callback_t': 'CEFJSDialogCallback',
-    'cef_domnode_t': 'CEFDOMNode',
-    'cef_domdocument_t': 'CEFDOMDocument',
-    'cef_post_data_element_t': 'CEFPOSTDataElement',
-    'cef_post_data_t': 'CEFPOSTData',
+    'cef_urlrequest_t': 'URLRequest',
+    'cef_v8value_t': 'V8Value',
+    'cef_v8stack_trace_t': 'V8StackTrace',
+    'cef_v8stack_frame_t': 'V8StackFrame',
+    'cef_v8exception_t': 'V8Exception',
+    'cef_v8context_t': 'V8Context',
+    'cef_sslinfo_t': 'SSLInfo',
+    'cef_sslcert_principal_t': 'SSLCertPrincipal',
+    'cef_jsdialog_callback_t': 'JSDialogCallback',
+    'cef_domnode_t': 'DOMNode',
+    'cef_domdocument_t': 'DOMDocument',
+    'cef_post_data_element_t': 'POSTDataElement',
+    'cef_post_data_t': 'POSTData',
 
     # handlers
-    'cef_urlrequest_client_t': 'CEFURLRequestClient',
-    'cef_v8accessor_t': 'CEFV8Accessor',
-    'cef_v8handler_t': 'CEFV8Handler',
-    'cef_domvisitor_t': 'CEFDOMVisitor',
-    'cef_jsdialog_handler_t': 'CEFJSDialogHandler'
+    'cef_urlrequest_client_t': 'URLRequestClient',
+    'cef_v8accessor_t': 'V8Accessor',
+    'cef_v8handler_t': 'V8Handler',
+    'cef_domvisitor_t': 'DOMVisitor',
+    'cef_jsdialog_handler_t': 'JSDialogHandler'
 }
 
 entryname_overrides = {

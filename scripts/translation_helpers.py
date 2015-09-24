@@ -19,7 +19,7 @@ def cef_capi_type_to_swift(capi_type):
     if capi_type in typename_overrides:
         return typename_overrides[capi_type]
     
-    retval = "CEF"
+    retval = ""
     for word in capi_type.split("_")[1:-1]:
         if word.lower() in abbreviations:
             retval += word.upper()
