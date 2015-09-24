@@ -580,7 +580,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E84249E91B753CA0000F23C1 /* Global */ = {
+		E84249E91B753CA0000F23C1 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				E81F6B7E1B7A715700311F4B /* CEFCrossOriginUtils.swift */,
@@ -594,7 +594,7 @@
 				E8621C551B763BEA00944CEE /* CEFV8Utils.swift */,
 				E84249EA1B753CAB000F23C1 /* CEFWebPluginUtils.swift */,
 			);
-			path = Global;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		E84545CA1B94FD0F005CC3D0 /* Modules */ = {
@@ -638,11 +638,11 @@
 				E8898AEC1B69654C009E0DFF /* Core */,
 				E88B86A11B6EA0CC00D10E17 /* Enums */,
 				E88B86461B6EA08A00D10E17 /* Enums.g */,
-				E84249E91B753CA0000F23C1 /* Global */,
 				E8898AEF1B69654C009E0DFF /* Handlers */,
 				E8898B0F1B69654C009E0DFF /* Internal */,
 				E8898AF81B69654C009E0DFF /* Proxies */,
 				E8898B0A1B69654C009E0DFF /* Structs */,
+				E84249E91B753CA0000F23C1 /* Utils */,
 				E8456E131B52C29700AE93DC /* CEFswift.h */,
 				E8456E151B52C29700AE93DC /* Info.plist */,
 			);
