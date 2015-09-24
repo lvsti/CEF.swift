@@ -10,7 +10,7 @@ import Cocoa
 import CEFswift
 
 
-class SimpleApp: CEFApp, CEFBrowserProcessHandler {
+class SimpleApp: App, BrowserProcessHandler {
 
     let client: SimpleHandler
     
@@ -19,50 +19,50 @@ class SimpleApp: CEFApp, CEFBrowserProcessHandler {
     }
     
     // cefapp
-    var browserProcessHandler: CEFBrowserProcessHandler? { return self }
+    var browserProcessHandler: BrowserProcessHandler? { return self }
     
     // cefbrowserprocesshandler
     func onContextInitialized() {
-        let winInfo = CEFWindowInfo()
-        let settings = CEFBrowserSettings()
+        let winInfo = WindowInfo()
+        let settings = BrowserSettings()
 
-        let cmdLine = CEFCommandLine.globalCommandLine()
+        let cmdLine = CommandLine.globalCommandLine()
         var url = NSURL(string: "http://www.google.com")!
         if let urlSwitch = cmdLine?.valueForSwitch("url") where !urlSwitch.isEmpty {
             url = NSURL(string: urlSwitch)!
         }
         
-        CEFBrowserHost.createBrowser(winInfo, client: client, url: url, settings: settings, requestContext: nil)
+        BrowserHost.createBrowser(winInfo, client: client, url: url, settings: settings, requestContext: nil)
     }
 }
 
 
-class SimpleHandler: CEFClient, CEFLifeSpanHandler {
+class SimpleHandler: Client, LifeSpanHandler {
     
     static var instance = SimpleHandler()
     
-    private var _browserList = [CEFBrowser]()
+    private var _browserList = [Browser]()
     private var _isClosing: Bool = false
     var isClosing: Bool { get { return _isClosing } }
     
     // from CEFClient
-    var lifeSpanHandler: CEFLifeSpanHandler? {
+    var lifeSpanHandler: LifeSpanHandler? {
         return self
     }
     
     // from CEFLifeSpanHandler
-    func onAfterCreated(browser: CEFBrowser) {
+    func onAfterCreated(browser: Browser) {
         _browserList.append(browser)
     }
     
-    func doClose(browser: CEFBrowser) -> Bool {
+    func doClose(browser: Browser) -> Bool {
         if _browserList.count == 1 {
             _isClosing = true
         }
         return false
     }
     
-    func onBeforeClose(browser: CEFBrowser) {
+    func onBeforeClose(browser: Browser) {
         for (index, value) in _browserList.enumerate() {
             if value.isSameAs(browser) {
                 _browserList.removeAtIndex(index)
@@ -71,7 +71,7 @@ class SimpleHandler: CEFClient, CEFLifeSpanHandler {
         }
         
         if _browserList.isEmpty {
-            CEFQuitMessageLoop()
+            ProcessUtils.quitMessageLoop()
         }
     }
     
@@ -118,20 +118,20 @@ class SimpleApplication : NSApplication, CefAppProtocol {
     }
 }
 
-let args = CEFMainArgs(arguments: Process.arguments)
+let args = MainArgs(arguments: Process.arguments)
 let app = SimpleApp()
 
 SimpleApplication.sharedApplication()
 
-let settings = CEFSettings()
+let settings = Settings()
 
-CEFInitialize(args, settings: settings, app: app)
+ProcessUtils.initializeWithArgs(args, settings: settings, app: app)
 
 let appDelegate = AppDelegate()
 appDelegate.createApplication()
 
-CEFRunMessageLoop()
-CEFShutdown()
+ProcessUtils.runMessageLoop()
+ProcessUtils.shutDown()
 
 exit(0)
 
