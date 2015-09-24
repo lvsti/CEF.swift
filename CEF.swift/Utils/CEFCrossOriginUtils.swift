@@ -1,5 +1,5 @@
 //
-//  CEFCrossOriginWhitelistGlobals.swift
+//  CEFCrossOriginUtils.swift
 //  CEF.swift
 //
 //  Created by Tamas Lustyik on 2015. 08. 11..
@@ -21,7 +21,7 @@ import Foundation
 /// document.domain value to the same domain suffix. For example,
 /// scheme://foo.example.com and scheme://bar.example.com can communicate using
 /// JavaScript if both domains set document.domain="example.com".
-public struct CEFCrossOriginWhitelist {
+public struct CEFCrossOriginUtils {
 
     /// Add an entry to the cross-origin access whitelist.
     /// This method is used to allow access to origins that would otherwise violate
@@ -39,10 +39,10 @@ public struct CEFCrossOriginWhitelist {
     /// information.
     /// This function may be called on any thread. Returns false if |source_origin|
     /// is invalid or the whitelist cannot be accessed.
-    public static func addEntry(origin: NSURL,
-                                targetScheme: String,
-                                targetDomain: String? = nil,
-                                allowTargetSubdomains: Bool) -> Bool {
+    public static func addWhitelistEntry(origin: NSURL,
+                                         targetScheme: String,
+                                         targetDomain: String? = nil,
+                                         allowTargetSubdomains: Bool) -> Bool {
         let cefOriginPtr = CEFStringPtrCreateFromSwiftString(origin.absoluteString)
         let cefSchemePtr = CEFStringPtrCreateFromSwiftString(targetScheme)
         let cefDomainPtr = targetDomain != nil ? CEFStringPtrCreateFromSwiftString(targetDomain!) : nil
@@ -61,10 +61,10 @@ public struct CEFCrossOriginWhitelist {
 
     /// Remove an entry from the cross-origin access whitelist. Returns false if
     /// |source_origin| is invalid or the whitelist cannot be accessed.
-    public static func removeEntry(origin: NSURL,
-                                   targetScheme: String,
-                                   targetDomain: String? = nil,
-                                   allowTargetSubdomains: Bool) -> Bool {
+    public static func removeWhitelistEntry(origin: NSURL,
+                                            targetScheme: String,
+                                            targetDomain: String? = nil,
+                                            allowTargetSubdomains: Bool) -> Bool {
         let cefOriginPtr = CEFStringPtrCreateFromSwiftString(origin.absoluteString)
         let cefSchemePtr = CEFStringPtrCreateFromSwiftString(targetScheme)
         let cefDomainPtr = targetDomain != nil ? CEFStringPtrCreateFromSwiftString(targetDomain!) : nil
@@ -83,7 +83,7 @@ public struct CEFCrossOriginWhitelist {
     
     /// Remove all entries from the cross-origin access whitelist. Returns false if
     /// the whitelist cannot be accessed.
-    public static func clear() -> Bool {
+    public static func clearWhitelist() -> Bool {
         return cef_clear_cross_origin_whitelist() != 0
     }
 

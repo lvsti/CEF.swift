@@ -71,7 +71,7 @@ class SimpleHandler: CEFClient, CEFLifeSpanHandler {
         }
         
         if _browserList.isEmpty {
-            CEFQuitMessageLoop()
+            CEFProcessUtils.quitMessageLoop()
         }
     }
     
@@ -125,13 +125,13 @@ SimpleApplication.sharedApplication()
 
 let settings = CEFSettings()
 
-CEFInitialize(args, settings: settings, app: app)
+CEFProcessUtils.initializeMainWithArgs(args, settings: settings, app: app)
 
 let appDelegate = AppDelegate()
 appDelegate.createApplication()
 
-CEFRunMessageLoop()
-CEFShutdown()
+CEFProcessUtils.runMessageLoop()
+CEFProcessUtils.shutDown()
 
 exit(0)
 
