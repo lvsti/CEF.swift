@@ -33,10 +33,10 @@ public struct CEFProcessUtils {
     /// value of true indicates that it succeeded and false indicates that it failed.
     /// The |windows_sandbox_info| parameter is only used on Windows and may be NULL
     /// (see cef_sandbox_win.h for details).
-    public static func initializeWithArgs(args: CEFMainArgs,
-                                          settings: CEFSettings,
-                                          app: CEFApp? = nil,
-                                          winSandboxInfo: UnsafeMutablePointer<Void> = nil) -> Bool {
+    public static func initializeMainWithArgs(args: CEFMainArgs,
+                                              settings: CEFSettings,
+                                              app: CEFApp? = nil,
+                                              winSandboxInfo: UnsafeMutablePointer<Void> = nil) -> Bool {
         var cefArgs = args.toCEF()
         var cefSettings = settings.toCEF()
         defer {
