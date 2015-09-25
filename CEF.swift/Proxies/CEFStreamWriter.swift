@@ -8,22 +8,18 @@
 
 import Foundation
 
-extension cef_stream_writer_t: CEFObject {
-}
-
-/// Class used to write data to a stream. The methods of this class may be called
-/// on any thread.
-public class CEFStreamWriter: CEFProxy<cef_stream_writer_t> {
+public extension CEFStreamWriter {
+    
     /// Create a new CefStreamWriter object for a file.
-    public init?(filePath: String) {
+    public convenience init?(filePath: String) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(filePath)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        super.init(ptr: cef_stream_writer_create_for_file(cefStrPtr))
+        self.init(ptr: cef_stream_writer_create_for_file(cefStrPtr))
     }
 
     /// Create a new CefStreamWriter object for a custom handler.
-    public init?(handler: CEFWriteHandler) {
-        super.init(ptr: cef_stream_writer_create_for_handler(handler.toCEF()))
+    public convenience init?(handler: CEFWriteHandler) {
+        self.init(ptr: cef_stream_writer_create_for_handler(handler.toCEF()))
     }
     
     /// Write raw binary data.
@@ -55,15 +51,5 @@ public class CEFStreamWriter: CEFProxy<cef_stream_writer_t> {
         return cefObject.may_block(cefObjectPtr) != 0
     }
     
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFStreamWriter? {
-        return CEFStreamWriter(ptr: ptr)
-    }
-
 }
 

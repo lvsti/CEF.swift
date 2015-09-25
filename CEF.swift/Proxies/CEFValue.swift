@@ -8,17 +8,11 @@
 
 import Foundation
 
-extension cef_value_t: CEFObject {
-}
-
-/// Class that wraps other data value types. Complex types (binary, dictionary
-/// and list) will be referenced but not owned by this object. Can be used on any
-/// process and thread.
-public class CEFValue: CEFProxy<cef_value_t> {
+public extension CEFValue {
 
     /// Creates a new object.
-    public init?() {
-        super.init(ptr: cef_value_create())
+    public convenience init?() {
+        self.init(ptr: cef_value_create())
     }
     
     /// Returns true if the underlying data is valid. This will always be true for
@@ -175,13 +169,4 @@ public class CEFValue: CEFProxy<cef_value_t> {
         return cefObject.set_list(cefObjectPtr, value.toCEF()) != 0
     }
 
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFValue? {
-        return CEFValue(ptr: ptr)
-    }
 }

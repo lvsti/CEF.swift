@@ -8,12 +8,7 @@
 
 import Foundation
 
-extension cef_context_menu_params_t: CEFObject {
-}
-
-/// Provides information about the context menu state. The ethods of this class
-/// can only be accessed on browser process the UI thread.
-public class CEFContextMenuParams: CEFProxy<cef_context_menu_params_t> {
+public extension CEFContextMenuParams {
     
     /// Returns the X coordinate of the mouse where the context menu was invoked.
     /// Coords are relative to the associated RenderView's origin.
@@ -156,14 +151,5 @@ public class CEFContextMenuParams: CEFProxy<cef_context_menu_params_t> {
         return CEFContextMenuEditStateFlags.fromCEF(cefFlags)
     }
 
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFContextMenuParams? {
-        return CEFContextMenuParams(ptr: ptr)
-    }
 }
 

@@ -8,11 +8,7 @@
 
 import Foundation
 
-extension cef_sslcert_principal_t: CEFObject {
-}
-
-/// Class representing the issuer or subject field of an X.509 certificate.
-public class CEFSSLCertPrincipal: CEFProxy<cef_sslcert_principal_t> {
+public extension CEFSSLCertPrincipal {
 
     /// Returns a name that can be used to represent the issuer.  It tries in this
     /// order: CN, O and OU and returns the first non-empty one found.
@@ -80,17 +76,6 @@ public class CEFSSLCertPrincipal: CEFProxy<cef_sslcert_principal_t> {
         defer { cef_string_list_free(cefList) }
         cefObject.get_domain_components(cefObjectPtr, cefList)
         return CEFStringListToSwiftArray(cefList)
-    }
-    
-    
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFSSLCertPrincipal? {
-        return CEFSSLCertPrincipal(ptr: ptr)
     }
     
 }

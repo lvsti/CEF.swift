@@ -8,18 +8,12 @@
 
 import Foundation
 
-extension cef_request_t: CEFObject {
-}
-
-
-/// Class used to represent a web request. The methods of this class may be
-/// called on any thread.
-public class CEFRequest: CEFProxy<cef_request_t> {
+public extension CEFRequest {
     public typealias HeaderMap = [String: [String]]
     
     /// Create a new CefRequest object.
-    public init?() {
-        super.init(ptr: cef_request_create())
+    public convenience init?() {
+        self.init(ptr: cef_request_create())
     }
     
     /// Returns true if this object is read-only.
@@ -174,14 +168,5 @@ public class CEFRequest: CEFProxy<cef_request_t> {
         return cefID != 0 ? cefID : nil
     }
 
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFRequest? {
-        return CEFRequest(ptr: ptr)
-    }
 }
 

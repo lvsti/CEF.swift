@@ -8,19 +8,7 @@
 
 import Foundation
 
-extension cef_command_line_t: CEFObject {
-}
-
-
-/// Class used to create and/or parse command line arguments. Arguments with
-/// '--', '-' and, on Windows, '/' prefixes are considered switches. Switches
-/// will always precede any arguments without switch prefixes. Switches can
-/// optionally have a value specified using the '=' delimiter (e.g.
-/// "-switch=value"). An argument of "--" will terminate switch parsing with all
-/// subsequent tokens, regardless of prefix, being interpreted as non-switch
-/// arguments. Switch names are considered case-insensitive. This class can be
-/// used before CefInitialize() is called.
-public class CEFCommandLine: CEFProxy<cef_command_line_t> {
+public extension CEFCommandLine {
     
     /// Returns the singleton global CefCommandLine object. The returned object
     /// will be read-only.
@@ -29,8 +17,8 @@ public class CEFCommandLine: CEFProxy<cef_command_line_t> {
     }
     
     /// Create a new CefCommandLine instance.
-    public init?() {
-        super.init(ptr: cef_command_line_create())
+    public convenience init?() {
+        self.init(ptr: cef_command_line_create())
     }
     
     /// Returns true if this object is valid. Do not call any other methods if this
@@ -196,14 +184,5 @@ public class CEFCommandLine: CEFProxy<cef_command_line_t> {
         cefObject.prepend_wrapper(cefObjectPtr, cefStrPtr)
     }
     
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFCommandLine? {
-        return CEFCommandLine(ptr: ptr)
-    }
 }
 

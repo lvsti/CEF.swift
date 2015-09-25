@@ -8,15 +8,11 @@
 
 import Foundation
 
-extension cef_dictionary_value_t: CEFObject {
-}
-
-/// Class representing a dictionary value. Can be used on any process and thread.
-public class CEFDictionaryValue: CEFProxy<cef_dictionary_value_t> {
+public extension CEFDictionaryValue {
 
     /// Creates a new object that is not owned by any other object.
-    public init?() {
-        super.init(ptr: cef_dictionary_value_create())
+    public convenience init?() {
+        self.init(ptr: cef_dictionary_value_create())
     }
     
     /// Returns true if this object is valid. This object may become invalid if
@@ -263,14 +259,5 @@ public class CEFDictionaryValue: CEFProxy<cef_dictionary_value_t> {
         return cefObject.set_list(cefObjectPtr, cefKeyPtr, value.toCEF()) != 0
     }
 
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFDictionaryValue? {
-        return CEFDictionaryValue(ptr: ptr)
-    }
 }
 

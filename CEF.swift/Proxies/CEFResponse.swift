@@ -8,18 +8,13 @@
 
 import Foundation
 
-extension cef_response_t: CEFObject {
-}
 
-
-/// Class used to represent a web response. The methods of this class may be
-/// called on any thread.
-public class CEFResponse: CEFProxy<cef_response_t> {
+public extension CEFResponse {
     public typealias HeaderMap = [String: [String]]
     
     /// Create a new CefResponse object.
-    public init?() {
-        super.init(ptr: cef_response_create())
+    public convenience init?() {
+        self.init(ptr: cef_response_create())
     }
     
     /// Returns true if this object is read-only.
@@ -89,13 +84,4 @@ public class CEFResponse: CEFProxy<cef_response_t> {
         }
     }
 
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFResponse? {
-        return CEFResponse(ptr: ptr)
-    }
 }

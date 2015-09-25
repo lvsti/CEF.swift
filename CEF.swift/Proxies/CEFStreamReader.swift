@@ -8,28 +8,23 @@
 
 import Foundation
 
-extension cef_stream_reader_t: CEFObject {
-}
-
-
-/// Class used to read data from a stream. The methods of this class may be
-/// called on any thread.
-public class CEFStreamReader: CEFProxy<cef_stream_reader_t> {
+public extension CEFStreamReader {
+    
     /// Create a new CefStreamReader object from a file.
-    public init?(filePath: String) {
+    public convenience init?(filePath: String) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(filePath)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        super.init(ptr: cef_stream_reader_create_for_file(cefStrPtr))
+        self.init(ptr: cef_stream_reader_create_for_file(cefStrPtr))
     }
     
     /// Create a new CefStreamReader object from data.
-    public init?(data: NSData) {
-        super.init(ptr: cef_stream_reader_create_for_data(UnsafeMutablePointer<Void>(data.bytes), data.length))
+    public convenience init?(data: NSData) {
+        self.init(ptr: cef_stream_reader_create_for_data(UnsafeMutablePointer<Void>(data.bytes), data.length))
     }
     
     /// Create a new CefStreamReader object from a custom handler.
-    public init?(handler: CEFReadHandler) {
-        super.init(ptr: cef_stream_reader_create_for_handler(handler.toCEF()))
+    public convenience init?(handler: CEFReadHandler) {
+        self.init(ptr: cef_stream_reader_create_for_handler(handler.toCEF()))
     }
     
     /// Read raw binary data.
@@ -61,13 +56,4 @@ public class CEFStreamReader: CEFProxy<cef_stream_reader_t> {
         return cefObject.may_block(cefObjectPtr) != 0
     }
 
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFStreamReader? {
-        return CEFStreamReader(ptr: ptr)
-    }
 }

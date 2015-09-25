@@ -8,16 +8,7 @@
 
 import Foundation
 
-extension cef_v8context_t: CEFObject {
-}
-
-
-/// Class representing a V8 context handle. V8 handles can only be accessed from
-/// the thread on which they are created. Valid threads for creating a V8 handle
-/// include the render process main thread (TID_RENDERER) and WebWorker threads.
-/// A task runner for posting tasks on the associated thread can be retrieved via
-/// the CefV8Context::GetTaskRunner() method.
-public class CEFV8Context: CEFProxy<cef_v8context_t> {
+public extension CEFV8Context {
     
     /// Returns the current (top) context object in the V8 context stack.
     public static func currentContext() -> CEFV8Context? {
@@ -114,14 +105,5 @@ public class CEFV8Context: CEFProxy<cef_v8context_t> {
         return result != 0
     }
     
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFV8Context? {
-        return CEFV8Context(ptr: ptr)
-    }
 }
 

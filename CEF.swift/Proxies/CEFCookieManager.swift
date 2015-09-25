@@ -8,12 +8,7 @@
 
 import Foundation
 
-extension cef_cookie_manager_t: CEFObject {
-}
-
-/// Class used for managing cookies. The methods of this class may be called on
-/// any thread unless otherwise indicated.
-public class CEFCookieManager: CEFProxy<cef_cookie_manager_t> {
+public extension CEFCookieManager {
 
     /// Returns the global cookie manager. By default data will be stored at
     /// CefSettings.cache_path if specified or in memory otherwise. If |callback|
@@ -37,9 +32,9 @@ public class CEFCookieManager: CEFProxy<cef_cookie_manager_t> {
     /// generally intended to be transient and most Web browsers do not persist
     /// them. If |callback| is non-NULL it will be executed asnychronously on the
     /// IO thread after the manager's storage has been initialized.
-    public init?(path: String? = nil,
-                 persistSessionCookies: Bool,
-                 callback: CEFCompletionCallback? = nil) {
+    public convenience init?(path: String? = nil,
+                             persistSessionCookies: Bool,
+                             callback: CEFCompletionCallback? = nil) {
         let cefPathPtr = path != nil ? CEFStringPtrCreateFromSwiftString(path!) : nil
         defer { CEFStringPtrRelease(cefPathPtr) }
                                         
@@ -49,7 +44,7 @@ public class CEFCookieManager: CEFProxy<cef_cookie_manager_t> {
         }
         
         let cefCookieMgr = cef_cookie_manager_create_manager(cefPathPtr, persistSessionCookies ? 1 : 0, cefCallbackPtr)
-        super.init(ptr: cefCookieMgr)
+        self.init(ptr: cefCookieMgr)
     }
     
     /// Set the schemes supported by this manager. By default only "http" and
@@ -165,15 +160,6 @@ public class CEFCookieManager: CEFProxy<cef_cookie_manager_t> {
         return cefObject.flush_store(cefObjectPtr, cefCallbackPtr) != 0
     }
     
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFCookieManager? {
-        return CEFCookieManager(ptr: ptr)
-    }
 }
 
 

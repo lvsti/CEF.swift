@@ -8,14 +8,7 @@
 
 import Foundation
 
-extension cef_menu_model_t: CEFObject {
-}
-
-/// Supports creation and modification of menus. See cef_menu_id_t for the
-/// command ids that have default implementations. All user-defined command ids
-/// should be between MENU_ID_USER_FIRST and MENU_ID_USER_LAST. The methods of
-/// this class can only be accessed on the browser process the UI thread.
-public class CEFMenuModel: CEFProxy<cef_menu_model_t> {
+public extension CEFMenuModel {
 
     public typealias CommandID = CEFMenuID
     public typealias GroupID = Int32
@@ -408,13 +401,4 @@ public class CEFMenuModel: CEFProxy<cef_menu_model_t> {
                                       alt: alt != 0)
     }
     
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFMenuModel? {
-        return CEFMenuModel(ptr: ptr)
-    }
 }

@@ -8,11 +8,7 @@
 
 import Foundation
 
-extension cef_before_download_callback_t: CEFObject {
-}
-
-/// Callback interface used to asynchronously continue a download.
-public class CEFBeforeDownloadCallback: CEFProxy<cef_before_download_callback_t> {
+public extension CEFBeforeDownloadCallback {
     
     /// Call to continue the download. Set |download_path| to the full file path
     /// for the download including the file name or leave blank to use the
@@ -26,15 +22,5 @@ public class CEFBeforeDownloadCallback: CEFProxy<cef_before_download_callback_t>
         cefObject.cont(cefObjectPtr, cefStrPtr, showDialog ? 1 : 0)
     }
 
-    
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFBeforeDownloadCallback? {
-        return CEFBeforeDownloadCallback(ptr: ptr)
-    }
 }
 

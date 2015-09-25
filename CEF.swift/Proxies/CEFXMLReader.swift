@@ -8,20 +8,14 @@
 
 import Foundation
 
-extension cef_xml_reader_t: CEFObject {
-}
-
-/// Class that supports the reading of XML data via the libxml streaming API.
-/// The methods of this class should only be called on the thread that creates
-/// the object.
-public class CEFXMLReader: CEFProxy<cef_xml_reader_t> {
+public extension CEFXMLReader {
 
     /// Create a new CefXmlReader object. The returned object's methods can only
     /// be called from the thread that created the object.
-    public init?(stream: CEFStreamReader, encoding: CEFXMLEncodingType, uri: NSURL) {
+    public convenience init?(stream: CEFStreamReader, encoding: CEFXMLEncodingType, uri: NSURL) {
         let cefURLPtr = CEFStringPtrCreateFromSwiftString(uri.absoluteString)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        super.init(ptr: cef_xml_reader_create(stream.toCEF(), encoding.toCEF(), cefURLPtr))
+        self.init(ptr: cef_xml_reader_create(stream.toCEF(), encoding.toCEF(), cefURLPtr))
     }
     
     /// Moves the cursor to the next node in the document. This method must be
@@ -239,13 +233,4 @@ public class CEFXMLReader: CEFProxy<cef_xml_reader_t> {
         return cefObject.move_to_carrying_element(cefObjectPtr) != 0
     }
 
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFXMLReader? {
-        return CEFXMLReader(ptr: ptr)
-    }
 }

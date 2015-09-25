@@ -39,11 +39,11 @@ public class CEFProxy<T : CEFObject>: CEFRefCounting {
     typealias ObjectType = T
     typealias ObjectPtrType = UnsafeMutablePointer<T>
     
-    private let _cefPtr: ObjectPtrType
+    private let _cefPtr: UnsafeMutablePointer<T>
     var cefObjectPtr: UnsafeMutablePointer<ObjectType> { return _cefPtr }
     var cefObject: ObjectType { return _cefPtr.memory }
     
-    init?(ptr: ObjectPtrType) {
+    init?(ptr: UnsafeMutablePointer<T>) {
         if ptr == nil {
             _cefPtr = nil
             return nil

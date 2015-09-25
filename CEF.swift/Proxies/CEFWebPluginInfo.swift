@@ -8,11 +8,7 @@
 
 import Foundation
 
-extension cef_web_plugin_info_t: CEFObject {
-}
-
-/// Information about a specific web plugin.
-public class CEFWebPluginInfo: CEFProxy<cef_web_plugin_info_t> {
+public extension CEFWebPluginInfo {
 
     /// Returns the plugin name (i.e. Flash).
     public var name: String {
@@ -42,14 +38,5 @@ public class CEFWebPluginInfo: CEFProxy<cef_web_plugin_info_t> {
         return CEFStringToSwiftString(cefStrPtr.memory)
     }
 
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFWebPluginInfo? {
-        return CEFWebPluginInfo(ptr: ptr)
-    }
 }
 

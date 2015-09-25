@@ -9,14 +9,7 @@
 import Foundation
 
 
-extension cef_browser_host_t: CEFObject {
-}
-
-/// Class used to represent the browser process aspects of a browser window. The
-/// methods of this class can only be called in the browser process. They may be
-/// called on any thread in that process unless otherwise indicated in the
-/// comments.
-public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
+public extension CEFBrowserHost {
 
     /// Create a new browser window using the window parameters specified by
     /// |windowInfo|. All values will be copied internally and the actual window
@@ -428,16 +421,6 @@ public class CEFBrowserHost : CEFProxy<cef_browser_host_t> {
     /// This method is only used when window rendering is disabled.
     public func dragSourceSystemDragEnded() {
         cefObject.drag_source_system_drag_ended(cefObjectPtr)
-    }
-
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFBrowserHost? {
-        return CEFBrowserHost(ptr: ptr)
     }
 
 }

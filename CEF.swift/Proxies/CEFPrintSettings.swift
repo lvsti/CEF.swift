@@ -8,14 +8,11 @@
 
 import Foundation
 
-extension cef_print_settings_t: CEFObject {
-}
-
-/// Class representing print settings.
-public class CEFPrintSettings: CEFProxy<cef_print_settings_t> {
+public extension CEFPrintSettings {
+    
     /// Create a new CefPrintSettings object.
-    public init?() {
-        super.init(ptr: cef_print_settings_create())
+    public convenience init?() {
+        self.init(ptr: cef_print_settings_create())
     }
     
     /// Returns true if this object is valid. Do not call any other methods if this
@@ -144,14 +141,5 @@ public class CEFPrintSettings: CEFProxy<cef_print_settings_t> {
         set { cefObject.set_duplex_mode(cefObjectPtr, newValue.toCEF()) }
     }
     
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFPrintSettings? {
-        return CEFPrintSettings(ptr: ptr)
-    }
 }
 

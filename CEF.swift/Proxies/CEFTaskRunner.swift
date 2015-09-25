@@ -8,17 +8,7 @@
 
 import Foundation
 
-extension cef_task_runner_t: CEFObject {
-}
-
-
-/// Class that asynchronously executes tasks on the associated thread. It is safe
-/// to call the methods of this class on any thread.
-/// CEF maintains multiple internal threads that are used for handling different
-/// types of tasks in different processes. The cef_thread_id_t definitions in
-/// cef_types.h list the common CEF threads. Task runners are also available for
-/// other CEF threads as appropriate (for example, V8 WebWorker threads).
-public class CEFTaskRunner: CEFProxy<cef_task_runner_t> {
+public extension CEFTaskRunner {
 
     /// Returns the task runner for the current thread. Only CEF threads will have
     /// task runners. An empty reference will be returned if this method is called
@@ -62,15 +52,6 @@ public class CEFTaskRunner: CEFProxy<cef_task_runner_t> {
         return cefObject.post_delayed_task(cefObjectPtr, task.toCEF(), Int64(delay * 1000)) != 0
     }
     
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFTaskRunner? {
-        return CEFTaskRunner(ptr: ptr)
-    }
 }
 
 
