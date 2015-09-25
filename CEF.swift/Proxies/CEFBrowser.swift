@@ -8,14 +8,7 @@
 
 import Foundation
 
-extension cef_browser_t: CEFObject {
-}
-
-/// Class used to represent a browser window. When used in the browser process
-/// the methods of this class may be called on any thread unless otherwise
-/// indicated in the comments. When used in the render process the methods of
-/// this class may only be called on the main thread.
-public class CEFBrowser : CEFProxy<cef_browser_t> {
+public extension CEFBrowser {
     public typealias Identifier = Int32
     
     /// Returns the browser host object. This method can only be called in the
@@ -146,16 +139,6 @@ public class CEFBrowser : CEFProxy<cef_browser_t> {
     /// message was sent successfully.
     public func sendProcessMessage(targetProcessID: CEFProcessID, message: CEFProcessMessage) -> Bool {
         return cefObject.send_process_message(cefObjectPtr, targetProcessID.toCEF(), message.toCEF()) != 0
-    }
-
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFBrowser? {
-        return CEFBrowser(ptr: ptr)
     }
 
 }

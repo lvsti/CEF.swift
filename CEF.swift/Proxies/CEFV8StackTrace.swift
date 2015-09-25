@@ -8,15 +8,7 @@
 
 import Foundation
 
-extension cef_v8stack_trace_t: CEFObject {
-}
-
-/// Class representing a V8 stack trace handle. V8 handles can only be accessed
-/// from the thread on which they are created. Valid threads for creating a V8
-/// handle include the render process main thread (TID_RENDERER) and WebWorker
-/// threads. A task runner for posting tasks on the associated thread can be
-/// retrieved via the CefV8Context::GetTaskRunner() method.
-public class CEFV8StackTrace: CEFProxy<cef_v8stack_trace_t> {
+public extension CEFV8StackTrace {
     
     /// Returns the stack trace for the currently active context. |frame_limit| is
     /// the maximum number of frames that will be captured.
@@ -43,14 +35,5 @@ public class CEFV8StackTrace: CEFProxy<cef_v8stack_trace_t> {
         return CEFV8StackFrame.fromCEF(cefFrame)
     }
     
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFV8StackTrace? {
-        return CEFV8StackTrace(ptr: ptr)
-    }
 }
 

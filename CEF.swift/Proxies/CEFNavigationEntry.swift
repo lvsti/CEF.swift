@@ -8,11 +8,7 @@
 
 import Foundation
 
-extension cef_navigation_entry_t: CEFObject {
-}
-
-/// Class used to represent an entry in navigation history.
-public class CEFNavigationEntry: CEFProxy<cef_navigation_entry_t> {
+public extension CEFNavigationEntry {
 
     /// Returns true if this object is valid. Do not call any other methods if this
     /// function returns false.
@@ -76,14 +72,5 @@ public class CEFNavigationEntry: CEFProxy<cef_navigation_entry_t> {
         return Int(cefObject.get_http_status_code(cefObjectPtr))
     }
 
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFNavigationEntry? {
-        return CEFNavigationEntry(ptr: ptr)
-    }
 }
 

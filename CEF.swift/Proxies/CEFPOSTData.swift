@@ -8,16 +8,11 @@
 
 import Foundation
 
-extension cef_post_data_t: CEFObject {
-}
-
-/// Class used to represent post data for a web request. The methods of this
-/// class may be called on any thread.
-public class CEFPOSTData: CEFProxy<cef_post_data_t> {
+public extension CEFPOSTData {
     
     /// Create a new CefPostData object.
-    public init?() {
-        super.init(ptr: cef_post_data_create())
+    public convenience init?() {
+        self.init(ptr: cef_post_data_create())
     }
     
     /// Returns true if this object is read-only.
@@ -64,13 +59,4 @@ public class CEFPOSTData: CEFProxy<cef_post_data_t> {
         cefObject.remove_elements(cefObjectPtr)
     }
 
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFPOSTData? {
-        return CEFPOSTData(ptr: ptr)
-    }
 }

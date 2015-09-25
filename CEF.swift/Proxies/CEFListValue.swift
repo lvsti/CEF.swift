@@ -8,15 +8,11 @@
 
 import Foundation
 
-extension cef_list_value_t: CEFObject {
-}
-
-/// Class representing a list value. Can be used on any process and thread.
-public class CEFListValue: CEFProxy<cef_list_value_t> {
+public extension CEFListValue {
 
     /// Creates a new object that is not owned by any other object.
-    public init?() {
-        super.init(ptr: cef_list_value_create())
+    public convenience init?() {
+        self.init(ptr: cef_list_value_create())
     }
     
     /// Returns true if this object is valid. This object may become invalid if
@@ -210,14 +206,5 @@ public class CEFListValue: CEFProxy<cef_list_value_t> {
         return cefObject.set_list(cefObjectPtr, Int32(index), value.toCEF()) != 0
     }
 
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFListValue? {
-        return CEFListValue(ptr: ptr)
-    }
 }
 

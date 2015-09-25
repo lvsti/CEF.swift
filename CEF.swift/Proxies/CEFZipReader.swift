@@ -8,17 +8,11 @@
 
 import Foundation
 
-extension cef_zip_reader_t: CEFObject {
-}
-
-/// Class that supports the reading of zip archives via the zlib unzip API.
-/// The methods of this class should only be called on the thread that creates
-/// the object.
-public class CEFZipReader: CEFProxy<cef_zip_reader_t> {
+public extension CEFZipReader {
     /// Create a new CefZipReader object. The returned object's methods can only
     /// be called from the thread that created the object.
-    public init?(stream: CEFStreamReader) {
-        super.init(ptr: cef_zip_reader_create(stream.toCEF()))
+    public convenience init?(stream: CEFStreamReader) {
+        self.init(ptr: cef_zip_reader_create(stream.toCEF()))
     }
     
     /// Moves the cursor to the first file in the archive. Returns true if the
@@ -103,14 +97,5 @@ public class CEFZipReader: CEFProxy<cef_zip_reader_t> {
         return cefObject.eof(cefObjectPtr) != 0
     }
     
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFZipReader? {
-        return CEFZipReader(ptr: ptr)
-    }
 }
 

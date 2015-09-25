@@ -9,16 +9,12 @@
 import Foundation
 
 
-extension cef_binary_value_t: CEFObject {
-}
-
-/// Class representing a binary value. Can be used on any process and thread.
-public class CEFBinaryValue: CEFProxy<cef_binary_value_t> {
+public extension CEFBinaryValue {
     
     /// Creates a new object that is not owned by any other object. The specified
     /// |data| will be copied.
-    public init?(data: UnsafePointer<Void>, size: size_t) {
-        super.init(ptr: cef_binary_value_create(data, size))
+    public convenience init?(data: UnsafePointer<Void>, size: size_t) {
+        self.init(ptr: cef_binary_value_create(data, size))
     }
     
     /// Returns true if this object is valid. This object may become invalid if
@@ -63,14 +59,5 @@ public class CEFBinaryValue: CEFProxy<cef_binary_value_t> {
         return cefObject.get_data(cefObjectPtr, buffer, size, offset)
     }
     
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFBinaryValue? {
-        return CEFBinaryValue(ptr: ptr)
-    }
 }
 

@@ -8,15 +8,10 @@
 
 import Foundation
 
-extension cef_auth_callback_t: CEFObject {
-}
-
-/// Callback interface used for asynchronous continuation of authentication
-/// requests.
-public class CEFAuthCallback: CEFProxy<cef_auth_callback_t> {
+public extension CEFAuthCallback {
     
     /// Continue the authentication request.
-    func doContinue(username: String, password: String) {
+    public func doContinue(username: String, password: String) {
         let cefUserPtr = CEFStringPtrCreateFromSwiftString(username)
         let cefPassPtr = CEFStringPtrCreateFromSwiftString(password)
         defer {
@@ -27,18 +22,8 @@ public class CEFAuthCallback: CEFProxy<cef_auth_callback_t> {
     }
     
     /// Cancel the authentication request.
-    func doCancel() {
+    public func doCancel() {
         cefObject.cancel(cefObjectPtr)
-    }
-    
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFAuthCallback? {
-        return CEFAuthCallback(ptr: ptr)
     }
     
 }

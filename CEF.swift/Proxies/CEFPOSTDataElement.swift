@@ -8,16 +8,11 @@
 
 import Foundation
 
-extension cef_post_data_element_t: CEFObject {
-}
-
-/// Class used to represent a single element in the request post data. The
-/// methods of this class may be called on any thread.
-public class CEFPOSTDataElement: CEFProxy<cef_post_data_element_t> {
+public extension CEFPOSTDataElement {
 
     /// Create a new CefPostDataElement object.
-    public init?() {
-        super.init(ptr: cef_post_data_element_create())
+    public convenience init?() {
+        self.init(ptr: cef_post_data_element_create())
     }
     
     /// Returns true if this object is read-only.
@@ -70,14 +65,5 @@ public class CEFPOSTDataElement: CEFProxy<cef_post_data_element_t> {
         return data
     }
     
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFPOSTDataElement? {
-        return CEFPOSTDataElement(ptr: ptr)
-    }
 }
 

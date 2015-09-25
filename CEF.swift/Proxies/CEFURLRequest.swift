@@ -8,15 +8,7 @@
 
 import Foundation
 
-extension cef_urlrequest_t: CEFObject {
-}
-
-/// Class used to make a URL request. URL requests are not associated with a
-/// browser instance so no CefClient callbacks will be executed. URL requests
-/// can be created on any valid CEF thread in either the browser or render
-/// process. Once created the methods of the URL request object must be accessed
-/// on the same thread that created it.
-public class CEFURLRequest: CEFProxy<cef_urlrequest_t> {
+public extension CEFURLRequest {
     
     /// Create a new URL request. Only GET, POST, HEAD, DELETE and PUT request
     /// methods are supported. Multiple post data elements are not supported and
@@ -31,10 +23,10 @@ public class CEFURLRequest: CEFProxy<cef_urlrequest_t> {
     /// |request_context| is empty the global request context will be used. In the
     /// render process |request_context| must be empty and the context associated
     /// with the current renderer process' browser will be used.
-    public init?(request: CEFRequest, client: CEFURLRequestClient, context: CEFRequestContext? = nil) {
-        super.init(ptr: cef_urlrequest_create(request.toCEF(),
-                                              client.toCEF(),
-                                              context != nil ? context!.toCEF() : nil))
+    public convenience init?(request: CEFRequest, client: CEFURLRequestClient, context: CEFRequestContext? = nil) {
+        self.init(ptr: cef_urlrequest_create(request.toCEF(),
+                                             client.toCEF(),
+                                             context != nil ? context!.toCEF() : nil))
     }
     
     /// Returns the request object used to create this URL request. The returned
@@ -76,13 +68,4 @@ public class CEFURLRequest: CEFProxy<cef_urlrequest_t> {
         cefObject.cancel(cefObjectPtr)
     }
 
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFURLRequest? {
-        return CEFURLRequest(ptr: ptr)
-    }
 }

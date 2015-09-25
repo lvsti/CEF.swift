@@ -8,11 +8,7 @@
 
 import Foundation
 
-extension cef_file_dialog_callback_t: CEFObject {
-}
-
-/// Callback interface for asynchronous continuation of file dialog requests.
-public class CEFFileDialogCallback: CEFProxy<cef_file_dialog_callback_t> {
+public extension CEFFileDialogCallback {
     
     /// Continue the file selection. |selected_accept_filter| should be the 0-based
     /// index of the value selected from the accept filters array passed to
@@ -28,16 +24,6 @@ public class CEFFileDialogCallback: CEFProxy<cef_file_dialog_callback_t> {
     /// Cancel the file selection.
     public func doCancel() {
         cefObject.cancel(cefObjectPtr)
-    }
-    
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFFileDialogCallback? {
-        return CEFFileDialogCallback(ptr: ptr)
     }
     
 }

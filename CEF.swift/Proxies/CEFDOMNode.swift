@@ -8,12 +8,7 @@
 
 import Foundation
 
-extension cef_domnode_t: CEFObject {
-}
-
-/// Class used to represent a DOM node. The methods of this class should only be
-/// called on the render process main thread.
-public class CEFDOMNode: CEFProxy<cef_domnode_t> {
+public extension CEFDOMNode {
 
     /// Returns the type for this node.
     public var type: CEFDOMNodeType {
@@ -183,14 +178,5 @@ public class CEFDOMNode: CEFProxy<cef_domnode_t> {
         return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.memory) : nil
     }
 
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFDOMNode? {
-        return CEFDOMNode(ptr: ptr)
-    }
 }
 

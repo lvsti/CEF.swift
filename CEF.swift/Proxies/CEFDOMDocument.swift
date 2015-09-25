@@ -8,12 +8,7 @@
 
 import Foundation
 
-extension cef_domdocument_t: CEFObject {
-}
-
-/// Class used to represent a DOM document. The methods of this class should only
-/// be called on the render process main thread thread.
-public class CEFDOMDocument: CEFProxy<cef_domdocument_t> {
+public extension CEFDOMDocument {
     
     /// Returns the document type.
     public var type: CEFDOMDocumentType {
@@ -108,14 +103,5 @@ public class CEFDOMDocument: CEFProxy<cef_domdocument_t> {
         return NSURL(string: CEFStringToSwiftString(cefURLPtr.memory))!
     }
     
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFDOMDocument? {
-        return CEFDOMDocument(ptr: ptr)
-    }
 }
 

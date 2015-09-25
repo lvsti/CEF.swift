@@ -8,24 +8,7 @@
 
 import Foundation
 
-extension cef_request_context_t: CEFObject {
-}
-
-/// A request context provides request handling for a set of related browser
-/// or URL request objects. A request context can be specified when creating a
-/// new browser via the CefBrowserHost static factory methods or when creating a
-/// new URL request via the CefURLRequest static factory methods. Browser objects
-/// with different request contexts will never be hosted in the same render
-/// process. Browser objects with the same request context may or may not be
-/// hosted in the same render process depending on the process model. Browser
-/// objects created indirectly via the JavaScript window.open function or
-/// targeted links will share the same render process and the same request
-/// context as the source browser. When running in single-process mode there is
-/// only a single render process (the main process) and so all browsers created
-/// in single-process mode will share the same request context. This will be the
-/// first request context passed into a CefBrowserHost static factory method and
-/// all other request context objects will be ignored.
-public class CEFRequestContext: CEFProxy<cef_request_context_t> {
+public extension CEFRequestContext {
 
     /// Returns the global context object.
     public static func globalContext() -> CEFRequestContext? {
@@ -35,7 +18,7 @@ public class CEFRequestContext: CEFProxy<cef_request_context_t> {
 
     /// Creates a new context object with the specified |settings| and optional
     /// |handler|.
-    public init?(settings: CEFRequestContextSettings, handler: CEFRequestContextHandler? = nil) {
+    public convenience init?(settings: CEFRequestContextSettings, handler: CEFRequestContextHandler? = nil) {
         var cefSettings = settings.toCEF()
         defer { cefSettings.clear() }
 
@@ -45,7 +28,7 @@ public class CEFRequestContext: CEFProxy<cef_request_context_t> {
         }
 
         let cefCtx = cef_request_context_create_context(&cefSettings, cefHandlerPtr)
-        super.init(ptr: cefCtx)
+        self.init(ptr: cefCtx)
     }
 
     /// Creates a new context object that shares storage with |other| and uses an
@@ -151,15 +134,6 @@ public class CEFRequestContext: CEFProxy<cef_request_context_t> {
         return cefObject.clear_scheme_handler_factories(cefObjectPtr) != 0
     }
 
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFRequestContext? {
-        return CEFRequestContext(ptr: ptr)
-    }
 }
 
 public extension CEFRequestContext {

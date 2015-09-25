@@ -21,10 +21,6 @@ import Foundation
 ''' % (swift_classname, cef_filename)
 
 
-def make_cefobject_conformance(cef_capi_name):
-    return "extension " + cef_capi_name + ": CEFObject {}\n\n"
-
-
 def make_marshaller(cef_capi_name, swift_name):
     return '''typealias %sMarshaller = CEFMarshaller<%s, %s>
 

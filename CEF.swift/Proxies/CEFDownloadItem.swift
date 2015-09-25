@@ -8,11 +8,7 @@
 
 import Foundation
 
-extension cef_download_item_t: CEFObject {
-}
-
-/// Class used to represent a download item.
-public class CEFDownloadItem: CEFProxy<cef_download_item_t> {
+public extension CEFDownloadItem {
     
     public typealias Identifier = UInt32
     
@@ -118,14 +114,5 @@ public class CEFDownloadItem: CEFProxy<cef_download_item_t> {
         return CEFStringToSwiftString(cefStrPtr.memory)
     }
     
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFDownloadItem? {
-        return CEFDownloadItem(ptr: ptr)
-    }
 }
 

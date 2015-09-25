@@ -8,12 +8,7 @@
 
 import Foundation
 
-extension cef_v8exception_t: CEFObject {
-}
-
-/// Class representing a V8 exception. The methods of this class may be called on
-/// any render process thread.
-public class CEFV8Exception: CEFProxy<cef_v8exception_t> {
+public extension CEFV8Exception {
     
     /// Returns the exception message.
     public var message: String {
@@ -67,14 +62,5 @@ public class CEFV8Exception: CEFProxy<cef_v8exception_t> {
         return Int(cefObject.get_end_column(cefObjectPtr))
     }
     
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFV8Exception? {
-        return CEFV8Exception(ptr: ptr)
-    }
 }
 

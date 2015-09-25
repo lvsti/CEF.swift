@@ -8,16 +8,11 @@
 
 import Foundation
 
-extension cef_drag_data_t: CEFObject {
-}
-
-/// Class used to represent drag data. The methods of this class may be called
-/// on any thread.
-public class CEFDragData: CEFProxy<cef_drag_data_t> {
+public extension CEFDragData {
 
     /// Create a new CefDragData object.
-    public init?() {
-        super.init(ptr: cef_drag_data_create())
+    public convenience init?() {
+        self.init(ptr: cef_drag_data_create())
     }
     
     /// Returns a copy of the current object.
@@ -182,13 +177,4 @@ public class CEFDragData: CEFProxy<cef_drag_data_t> {
         cefObject.add_file(cefObjectPtr, cefPathPtr, cefNamePtr)
     }
 
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFDragData? {
-        return CEFDragData(ptr: ptr)
-    }
 }

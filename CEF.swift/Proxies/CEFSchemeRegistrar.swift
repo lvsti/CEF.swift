@@ -8,11 +8,7 @@
 
 import Foundation
 
-extension cef_scheme_registrar_t: CEFObject {
-}
-
-/// Class that manages custom scheme registrations.
-public class CEFSchemeRegistrar: CEFProxy<cef_scheme_registrar_t> {
+public extension CEFSchemeRegistrar {
     
     /// Register a custom scheme. This method should not be called for the built-in
     /// HTTP, HTTPS, FILE, FTP, ABOUT and DATA schemes.
@@ -58,13 +54,4 @@ public class CEFSchemeRegistrar: CEFProxy<cef_scheme_registrar_t> {
         return cefObject.add_custom_scheme(cefObjectPtr, cefStrPtr, isStandard ? 1 : 0, isLocal ? 1 : 0, isDisplayIsolated ? 1 : 0) != 0
     }
     
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFSchemeRegistrar? {
-        return CEFSchemeRegistrar(ptr: ptr)
-    }
 }

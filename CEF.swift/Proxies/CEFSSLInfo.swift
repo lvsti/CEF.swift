@@ -8,11 +8,7 @@
 
 import Foundation
 
-extension cef_sslinfo_t: CEFObject {
-}
-
-/// Class representing SSL information.
-public class CEFSSLInfo: CEFProxy<cef_sslinfo_t> {
+public extension CEFSSLInfo {
 
     /// Returns the subject of the X.509 certificate. For HTTPS server
     /// certificates this represents the web server.  The common name of the
@@ -63,16 +59,6 @@ public class CEFSSLInfo: CEFProxy<cef_sslinfo_t> {
     public var pemEncoded: CEFBinaryValue? {
         let cefBinary = cefObject.get_pemencoded(cefObjectPtr)
         return CEFBinaryValue.fromCEF(cefBinary)
-    }
-    
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFSSLInfo? {
-        return CEFSSLInfo(ptr: ptr)
     }
 
 }

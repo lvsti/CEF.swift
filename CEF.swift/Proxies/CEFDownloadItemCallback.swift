@@ -8,12 +8,7 @@
 
 import Foundation
 
-
-extension cef_download_item_callback_t: CEFObject {
-}
-
-/// Callback interface used to asynchronously cancel a download.
-public class CEFDownloadItemCallback: CEFProxy<cef_download_item_callback_t> {
+public extension CEFDownloadItemCallback {
     
     /// Call to cancel the download.
     public func doCancel() {
@@ -30,14 +25,5 @@ public class CEFDownloadItemCallback: CEFProxy<cef_download_item_callback_t> {
         cefObject.resume(cefObjectPtr)
     }
     
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFDownloadItemCallback? {
-        return CEFDownloadItemCallback(ptr: ptr)
-    }
 }
 

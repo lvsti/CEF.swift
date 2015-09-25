@@ -8,15 +8,8 @@
 
 import Foundation
 
-extension cef_frame_t: CEFObject {
-}
+public extension CEFFrame {
 
-/// Class used to represent a frame in the browser window. When used in the
-/// browser process the methods of this class may be called on any thread unless
-/// otherwise indicated in the comments. When used in the render process the
-/// methods of this class may only be called on the main thread.
-public class CEFFrame: CEFProxy<cef_frame_t> {
-    
     public typealias Identifier = Int64
     
     /// True if this object is currently attached to a valid frame.
@@ -177,20 +170,11 @@ public class CEFFrame: CEFProxy<cef_frame_t> {
         return cefObject.visit_dom(cefObjectPtr, visitor.toCEF())
     }
     
-    // private
-    
-    override init?(ptr: ObjectPtrType) {
-        super.init(ptr: ptr)
-    }
-    
-    static func fromCEF(ptr: ObjectPtrType) -> CEFFrame? {
-        return CEFFrame(ptr: ptr)
-    }
 }
 
 
 public extension CEFFrame {
-    
+
     /// Visit the DOM document. This method can only be called from the render
     /// process.
     public func withDOMDocument(block: CEFDOMVisitorVisitBlock) {
