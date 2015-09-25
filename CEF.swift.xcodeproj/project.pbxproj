@@ -1668,7 +1668,7 @@
 		E8456E191B52C29700AE93DC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CEF_BINARY_ROOT = "$(SRCROOT)/External/cef_binary.2357";
+				CEF_BINARY_ROOT = "$(SRCROOT)/External/cef_binary";
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -1694,7 +1694,7 @@
 		E8456E1A1B52C29700AE93DC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CEF_BINARY_ROOT = "$(SRCROOT)/External/cef_binary.2357";
+				CEF_BINARY_ROOT = "$(SRCROOT)/External/cef_binary";
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
