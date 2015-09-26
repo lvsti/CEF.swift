@@ -95,10 +95,8 @@ public struct CEFParseUtils {
     // representation. If JSON parsing fails this method returns NULL and populates
     // |error_code_out| and |error_msg_out| with an error code and a formatted error
     // message respectively.
-    public static func parseJSONAndReturnError(jsonString: String,
-                                               options: CEFJSONParserOptions,
-                                               inout errorCode: CEFJSONParserError?,
-                                               inout errorMsg: String?) -> CEFValue? {
+    public static func parseJSONToResult(jsonString: String,
+                                         options: CEFJSONParserOptions) -> CEFJSONParseResult {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(jsonString)
         defer { CEFStringPtrRelease(cefStrPtr) }
         var code = CEFJSONParserError.NoError.toCEF()
@@ -106,11 +104,10 @@ public struct CEFParseUtils {
         
         let cefValue = cef_parse_jsonand_return_error(cefStrPtr, options.toCEF(), &code, &msg)
         if cefValue != nil {
-            errorCode = CEFJSONParserError.fromCEF(code)
-            errorMsg = CEFStringToSwiftString(msg)
+            return .Failure(CEFJSONParserError.fromCEF(code), CEFStringToSwiftString(msg))
         }
         
-        return CEFValue.fromCEF(cefValue)
+        return .Success(CEFValue.fromCEF(cefValue)!)
     }
 
     // Generates a JSON string from the specified root |node| which should be a

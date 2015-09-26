@@ -13,7 +13,7 @@ public extension CEFTaskRunner {
     /// Returns the task runner for the current thread. Only CEF threads will have
     /// task runners. An empty reference will be returned if this method is called
     /// on an invalid thread.
-    public static func taskRunnerForCurrentThread() -> CEFTaskRunner? {
+    public static var taskRunnerForCurrentThread: CEFTaskRunner? {
         return CEFTaskRunner.fromCEF(cef_task_runner_get_for_current_thread())
     }
     

@@ -18,3 +18,7 @@ public enum CEFV8VoidResult {
     case Failure(String)
 }
 
+public enum CEFV8EvalResult {
+    case Success(CEFV8Value)
+    case Failure(CEFV8Exception)
+}

@@ -11,7 +11,7 @@ import Foundation
 public extension CEFRequestContext {
 
     /// Returns the global context object.
-    public static func globalContext() -> CEFRequestContext? {
+    public static var globalContext: CEFRequestContext? {
         let cefCtx = cef_request_context_get_global_context()
         return CEFRequestContext.fromCEF(cefCtx)
     }
