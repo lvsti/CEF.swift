@@ -12,7 +12,7 @@ public extension CEFCommandLine {
     
     /// Returns the singleton global CefCommandLine object. The returned object
     /// will be read-only.
-    public static func globalCommandLine() -> CEFCommandLine? {
+    public static var globalCommandLine: CEFCommandLine? {
         return CEFCommandLine(ptr: cef_command_line_get_global())
     }
     

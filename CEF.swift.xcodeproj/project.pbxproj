@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E812A5771BB6D7F90054821A /* CEFJSONParseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E812A5761BB6D7F90054821A /* CEFJSONParseResult.swift */; settings = {ASSET_TAGS = (); }; };
 		E81F6B591B7A323000311F4B /* CEFFindHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F6B581B7A323000311F4B /* CEFFindHandler.swift */; };
 		E81F6B5B1B7A334E00311F4B /* CEFRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F6B5A1B7A334E00311F4B /* CEFRect.swift */; };
 		E81F6B5F1B7A3AB200311F4B /* CEFDialogHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F6B5E1B7A3AB200311F4B /* CEFDialogHandler.swift */; };
@@ -334,6 +335,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E812A5761BB6D7F90054821A /* CEFJSONParseResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFJSONParseResult.swift; sourceTree = "<group>"; };
 		E81F6B581B7A323000311F4B /* CEFFindHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFFindHandler.swift; sourceTree = "<group>"; };
 		E81F6B5A1B7A334E00311F4B /* CEFRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFRect.swift; sourceTree = "<group>"; };
 		E81F6B5E1B7A3AB200311F4B /* CEFDialogHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFDialogHandler.swift; sourceTree = "<group>"; };
@@ -1012,6 +1014,7 @@
 			isa = PBXGroup;
 			children = (
 				E88B86A61B6EA0CC00D10E17 /* CEFFileDialogMode.swift */,
+				E812A5761BB6D7F90054821A /* CEFJSONParseResult.swift */,
 				E84545D51B9A4360005CC3D0 /* CEFPageOrientation.swift */,
 				E8519F001B7D2C43003CE7C5 /* CEFSeekPosition.swift */,
 				E88B86AE1B6EA0CC00D10E17 /* CEFTransitionType.swift */,
@@ -1368,6 +1371,7 @@
 				E8E53C1E1B910BE800A4A6C6 /* CEFGetGeolocationCallback+Interop.g.swift in Sources */,
 				E8E53C2B1B910BE800A4A6C6 /* CEFResourceHandler+Interop.g.swift in Sources */,
 				E88B85C51B6ABAD600D10E17 /* CEFMouseEvent.swift in Sources */,
+				E812A5771BB6D7F90054821A /* CEFJSONParseResult.swift in Sources */,
 				E88B86861B6EA08A00D10E17 /* CEFJSONParserOptions.g.swift in Sources */,
 				E88B867F1B6EA08A00D10E17 /* CEFDuplexMode.g.swift in Sources */,
 				E8E53C0F1B910BE800A4A6C6 /* CEFBrowserProcessHandler+Interop.g.swift in Sources */,

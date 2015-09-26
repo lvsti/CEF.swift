@@ -11,13 +11,13 @@ import Foundation
 public extension CEFV8Context {
     
     /// Returns the current (top) context object in the V8 context stack.
-    public static func currentContext() -> CEFV8Context? {
+    public static var currentContext: CEFV8Context? {
         let cefCtx = cef_v8context_get_current_context()
         return CEFV8Context.fromCEF(cefCtx)
     }
     
     /// Returns the entered (bottom) context object in the V8 context stack.
-    public static func enteredContext() -> CEFV8Context? {
+    public static var enteredContext: CEFV8Context? {
         let cefCtx = cef_v8context_get_entered_context()
         return CEFV8Context.fromCEF(cefCtx)
     }
@@ -88,7 +88,7 @@ public extension CEFV8Context {
     /// On success |retval| will be set to the return value, if any, and the
     /// function will return true. On failure |exception| will be set to the
     /// exception, if any, and the function will return false.
-    public func eval(code: String, inout retval: CEFV8Value, inout exception: CEFV8Exception) -> Bool {
+    public func eval(code: String) -> CEFV8EvalResult {
         let cefCodePtr = CEFStringPtrCreateFromSwiftString(code)
         defer { CEFStringPtrRelease(cefCodePtr) }
         
@@ -97,12 +97,10 @@ public extension CEFV8Context {
         let result = cefObject.eval(cefObjectPtr, cefCodePtr, &cefRetval, &cefExc)
         
         if result != 0 {
-            retval = CEFV8Value.fromCEF(cefRetval)!
-        } else {
-            exception = CEFV8Exception.fromCEF(cefExc)!
+            return .Success(CEFV8Value.fromCEF(cefRetval)!)
         }
         
-        return result != 0
+        return .Failure(CEFV8Exception.fromCEF(cefExc)!)
     }
     
 }

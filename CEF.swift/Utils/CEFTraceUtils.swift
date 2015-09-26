@@ -57,7 +57,7 @@ public struct CEFTraceUtils {
     /// Returns the current system trace time or, if none is defined, the current
     /// high-res time. Can be used by clients to synchronize with the time
     /// information in trace events.
-    public static func systemTraceTime() -> Int64 {
+    public static var systemTraceTime: Int64 {
         return cef_now_from_system_trace_time()
     }
 
