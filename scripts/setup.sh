@@ -2,10 +2,18 @@
 
 set -x
 
-REF=$(git rev-parse --abbrev-ref HEAD)
-echo "on ref ${REF}"
-CEF_BRANCH=$(git rev-parse --abbrev-ref HEAD | cut -d_ -f2)
-echo "on branch ${CEF_BRANCH}"
+if [ "${TRAVIS}" = "true" ]; then
+    BRANCH="${TRAVIS_BRANCH}"
+else
+    BRANCH=$(git rev-parse --abbrev-ref HEAD)
+fi
+
+if [ "${BRANCH%_*}" != "cef" ]; then
+    echo "ERROR: this script must be run from one of the cef_XXXX branches!"
+    exit 1
+fi
+
+CEF_BRANCH="${BRANCH##_*}"
 
 if [ -z "$(which 7z)" ]; then
     echo "ERROR: 7zip not found; brew install p7zip"
@@ -23,13 +31,7 @@ if [ -z "$(which cmake)" ]; then
 fi
 
 
-if [ "${CEF_BRANCH%_*}" != "cef" ]; then
-    echo "ERROR: this script must be run from one of the cef_XXXX branches!"
-    exit 1
-fi
-
 echo "preconditions have been met"
-exit 0
 
 # fetch CEF binary distribution package
 CEF_BUILD_S3_KEY=$(curl https://cefbuilds.com |
@@ -44,10 +46,12 @@ S3_BUCKET_URL="https://cefbuilds.s3.amazonaws.com"
 
 curl "${S3_BUCKET_URL}/${CEF_BUILD_S3_KEY}" -o "${CEFBUILD_TEMP_PATH}"
 
+exit 0
+
 CEFBUILD_BASE="${CEFBUILD_NAME%.*}"
 CEFBUILD_EXT="${CEFBUILD_NAME##*.}"
 
-if [ "${CEFBUILD_EXT}" == "7z" ]; then
+if [ "${CEFBUILD_EXT}" = "7z" ]; then
     mkdir -p External
     7z x -oExternal "${CEFBUILD_TEMP_PATH}"
 fi
