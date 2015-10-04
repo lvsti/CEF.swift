@@ -24,6 +24,9 @@ if [ "${CEF_BRANCH%_*}" != "cef" ]; then
     exit 1
 fi
 
+echo "preconditions have been met"
+exit 0
+
 # fetch CEF binary distribution package
 CEF_BUILD_S3_KEY=$(curl https://cefbuilds.com |
                    scripts/cefbuilds.py -x --platforms=mac64 --branches=${CEF_BRANCH} - | \
