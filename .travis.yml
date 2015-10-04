@@ -20,6 +20,4 @@ before_install:
 
 install: ./scripts/setup.sh
 
-script: 
-  - xcodebuild -project CEF.swift.xcodeproj -list
-  - xcodebuild clean build -project CEF.swift.xcodeproj -scheme CEF.swift
+script: xcodebuild clean build -project CEF.swift.xcodeproj -scheme CEF.swift

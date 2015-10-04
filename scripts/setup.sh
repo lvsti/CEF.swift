@@ -44,8 +44,6 @@ S3_BUCKET_URL="https://cefbuilds.s3.amazonaws.com"
 
 curl "${S3_BUCKET_URL}/${CEF_BUILD_S3_KEY}" -o "${CEFBUILD_TEMP_PATH}"
 
-exit 0
-
 CEFBUILD_BASE="${CEFBUILD_NAME%.*}"
 CEFBUILD_EXT="${CEFBUILD_NAME##*.}"
 
