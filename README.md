@@ -9,7 +9,7 @@ Xcode 7, Swift 2.0
 ### How to build
 
 1. fetch this repo
-2. grab a CEF binary distribution package from [cefbuilds.com]() and shove its contents into the `<repo_root>/External/cef_binary` folder
+2. grab a CEF binary distribution package from [cefbuilds.com](https://cefbuilds.com/) and shove its contents into the `<repo_root>/External/cef_binary` folder
 3. following the instructions in the package, build the `cefsimple` app
 4. switch to the appropriate branch in CEF.swift to match the CEF distribution (see notes below)
 5. now you are ready to compile the CEF.swift framework
