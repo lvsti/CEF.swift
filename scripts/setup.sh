@@ -1,6 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
-set -ex
+set -x
+
+REF=$(git rev-parse --abbrev-ref HEAD)
+echo "on ref ${REF}"
+CEF_BRANCH=$(git rev-parse --abbrev-ref HEAD | cut -d_ -f2)
+echo "on branch ${CEF_BRANCH}"
 
 if [ -z "$(which 7z)" ]; then
     echo "ERROR: 7zip not found; brew install p7zip"
@@ -17,7 +22,6 @@ if [ -z "$(which cmake)" ]; then
     exit 1
 fi
 
-CEF_BRANCH=$(git rev-parse --abbrev-ref HEAD | cut -d_ -f2)
 
 if [ "${CEF_BRANCH%_*}" != "cef" ]; then
     echo "ERROR: this script must be run from one of the cef_XXXX branches!"
