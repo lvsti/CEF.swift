@@ -13,7 +13,7 @@ if [ "${BRANCH%_*}" != "cef" ]; then
     exit 1
 fi
 
-CEF_BRANCH="${BRANCH##_*}"
+CEF_BRANCH="${BRANCH##*_}"
 
 if [ -z "$(which 7z)" ]; then
     echo "ERROR: 7zip not found; brew install p7zip"
@@ -30,8 +30,6 @@ if [ -z "$(which cmake)" ]; then
     exit 1
 fi
 
-
-echo "preconditions have been met"
 
 # fetch CEF binary distribution package
 CEF_BUILD_S3_KEY=$(curl https://cefbuilds.com |
