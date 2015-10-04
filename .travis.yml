@@ -14,6 +14,7 @@ before_install:
   - brew update
   - brew install p7zip
   - brew install jq
+  - brew install cmake
 
 install: ./scripts/setup.sh
 
