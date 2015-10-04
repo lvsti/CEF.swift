@@ -1,6 +1,19 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
-set -ex
+set -x
+
+if [ "${TRAVIS}" = "true" ]; then
+    BRANCH="${TRAVIS_BRANCH}"
+else
+    BRANCH=$(git rev-parse --abbrev-ref HEAD)
+fi
+
+if [ "${BRANCH%_*}" != "cef" ]; then
+    echo "ERROR: this script must be run from one of the cef_XXXX branches!"
+    exit 1
+fi
+
+CEF_BRANCH="${BRANCH##*_}"
 
 if [ -z "$(which 7z)" ]; then
     echo "ERROR: 7zip not found; brew install p7zip"
@@ -17,12 +30,6 @@ if [ -z "$(which cmake)" ]; then
     exit 1
 fi
 
-CEF_BRANCH=$(git rev-parse --abbrev-ref HEAD | cut -d_ -f2)
-
-if [ "${CEF_BRANCH%_*}" != "cef" ]; then
-    echo "ERROR: this script must be run from one of the cef_XXXX branches!"
-    exit 1
-fi
 
 # fetch CEF binary distribution package
 CEF_BUILD_S3_KEY=$(curl https://cefbuilds.com |
@@ -40,7 +47,7 @@ curl "${S3_BUCKET_URL}/${CEF_BUILD_S3_KEY}" -o "${CEFBUILD_TEMP_PATH}"
 CEFBUILD_BASE="${CEFBUILD_NAME%.*}"
 CEFBUILD_EXT="${CEFBUILD_NAME##*.}"
 
-if [ "${CEFBUILD_EXT}" == "7z" ]; then
+if [ "${CEFBUILD_EXT}" = "7z" ]; then
     mkdir -p External
     7z x -oExternal "${CEFBUILD_TEMP_PATH}"
 fi
