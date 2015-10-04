@@ -1,10 +1,10 @@
 language: objective-c
- 
+
 branches:
   only:
     - cef_2357
     - cef_2454
- 
+
 xcode_project: CEF.swift.xcodeproj
 xcode_scheme: CEF.swift
 osx_image: xcode7
@@ -14,7 +14,9 @@ before_install:
   - brew update
   - brew install p7zip
   - brew install jq
+  - brew install cmake
+  - sudo gem install xcpretty-travis-formatter --no-doc
 
 install: ./scripts/setup.sh
 
-script: xcodebuild clean build -project CEF.swift.xcodeproj -scheme CEF.swift
+script: set -o pipefail && xcodebuild clean build -project CEF.swift.xcodeproj -scheme CEF.swift | xcpretty -c -f `xcpretty-travis-formatter`
