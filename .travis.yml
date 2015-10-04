@@ -1,5 +1,3 @@
-sudo: false
-
 language: objective-c
 
 branches:
@@ -17,7 +15,8 @@ before_install:
   - brew install p7zip
   - brew install jq
   - brew install cmake
+  - sudo gem install xcpretty-travis-formatter --no-doc
 
 install: ./scripts/setup.sh
 
-script: xcodebuild clean build -project CEF.swift.xcodeproj -scheme CEF.swift
+script: set -o pipefail && xcodebuild clean build -project CEF.swift.xcodeproj -scheme CEF.swift | xcpretty -c -f `xcpretty-travis-formatter`
