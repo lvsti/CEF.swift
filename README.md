@@ -6,17 +6,18 @@ Swift bindings for the [Chromium Embedded Framework](https://bitbucket.org/chrom
 
 Xcode 7, Swift 2.0
 
+tools: cmake, jq, p7zip
+
 ### How to build
 
 1. fetch this repo
-2. grab a CEF binary distribution package from [cefbuilds.com](https://cefbuilds.com/) and shove its contents into the `<repo_root>/External/cef_binary` folder
-3. following the instructions in the package, build the `cefsimple` app
-4. switch to the appropriate branch in CEF.swift to match the CEF distribution (see notes below)
-5. now you are ready to compile the CEF.swift framework
+2. switch to the appropriate branch in CEF.swift to match the CEF distribution (see notes below)
+3. run `scripts/setup.sh` from the repo root
+4. now you are ready to compile the CEF.swift framework
 
 ### CEF branches
 
-CEF is developed on multiple branches simultaneously, which differ in API and functionality (see [cefbuilds.com]()). CEF.swift aims at supporting the most recent stable branches; supporting dev trunk is out of scope for now, however. For any CEF branch `NNNN`, the corresponding CEF.swift branch is named `cef_NNNN`.
+CEF is developed on multiple branches simultaneously, which differ in API and functionality (see [cefbuilds.com](https://cefbuilds.com)). CEF.swift aims at supporting the current stable and dev release branches; supporting dev trunk is out of scope for now, however. For any CEF branch `NNNN`, the corresponding CEF.swift branch is named `cef_NNNN`.
 
 Currently supported branches: 
 
