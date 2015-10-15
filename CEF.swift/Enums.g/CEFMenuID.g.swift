@@ -43,11 +43,16 @@ public struct CEFMenuID: RawRepresentable {
     public static let SpellcheckSuggestion4 = CEFMenuID(rawValue: 204)
     public static let SpellcheckSuggestionLast = CEFMenuID(rawValue: 204)
     public static let NoSpellingSuggestions = CEFMenuID(rawValue: 205)
+    public static let AddToDictionary = CEFMenuID(rawValue: 206)
+
+    /// Custom menu items originating from the renderer process. For example,
+    /// plugin placeholder menu items or Flash menu items.
+    public static let CustomFirst = CEFMenuID(rawValue: 220)
+    public static let CustomLast = CEFMenuID(rawValue: 250)
 
     /// All user-defined menu IDs should come between MENU_ID_USER_FIRST and
     /// MENU_ID_USER_LAST to avoid overlapping the Chromium and CEF ID ranges
     /// defined in the tools/gritsettings/resource_ids file.
-    public static let AddToDictionary = CEFMenuID(rawValue: 206)
     public static let UserFirst = CEFMenuID(rawValue: 26500)
     public static let UserLast = CEFMenuID(rawValue: 28500)
 }
