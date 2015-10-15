@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import ChromiumEmbedded
 
 extension cef_frame_t: CEFObject {}
 
@@ -23,3 +22,4 @@ public class CEFFrame: CEFProxy<cef_frame_t> {
         return CEFFrame(ptr: ptr)
     }
 }
+
