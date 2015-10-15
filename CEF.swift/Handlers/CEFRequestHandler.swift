@@ -63,15 +63,6 @@ extension CEFOnCertificateErrorAction: BooleanType {
     public var boolValue: Bool { return self == .Allow }
 }
 
-public enum CEFOnBeforePluginLoadAction {
-    case Allow
-    case Cancel
-}
-
-extension CEFOnBeforePluginLoadAction: BooleanType {
-    public var boolValue: Bool { return self == .Cancel }
-}
-
 /// Implement this interface to handle events related to browser requests. The
 /// methods of this class will be called on the thread indicated.
 public protocol CEFRequestHandler {
@@ -191,13 +182,6 @@ public protocol CEFRequestHandler {
                             sslInfo: CEFSSLInfo,
                             callback: CEFRequestCallback) -> CEFOnCertificateErrorAction
     
-    /// Called on the browser process IO thread before a plugin is loaded. Return
-    /// true to block loading of the plugin.
-    func onBeforePluginLoad(browser: CEFBrowser,
-                            url: NSURL?,
-                            policyURL: NSURL?,
-                            pluginInfo: CEFWebPluginInfo) -> CEFOnBeforePluginLoadAction
-    
     /// Called on the browser process UI thread when a plugin has crashed.
     /// |plugin_path| is the path of the plugin that crashed.
     func onPluginCrashed(browser: CEFBrowser, pluginPath: String)
@@ -284,13 +268,6 @@ public extension CEFRequestHandler {
                             sslInfo: CEFSSLInfo,
                             callback: CEFRequestCallback) -> CEFOnCertificateErrorAction {
         return .Cancel
-    }
-
-    func onBeforePluginLoad(browser: CEFBrowser,
-                            url: NSURL?,
-                            policyURL: NSURL?,
-                            pluginInfo: CEFWebPluginInfo) -> CEFOnBeforePluginLoadAction {
-        return .Allow
     }
 
     func onPluginCrashed(browser: CEFBrowser, pluginPath: String) {

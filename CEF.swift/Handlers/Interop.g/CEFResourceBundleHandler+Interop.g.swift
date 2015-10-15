@@ -21,5 +21,6 @@ extension cef_resource_bundle_handler_t: CEFCallbackMarshalling {
     mutating func marshalCallbacks() {
         get_localized_string = CEFResourceBundleHandler_get_localized_string
         get_data_resource = CEFResourceBundleHandler_get_data_resource
+        get_data_resource_for_scale = CEFResourceBundleHandler_get_data_resource_for_scale
     }
 }

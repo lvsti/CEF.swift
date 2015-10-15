@@ -8,6 +8,15 @@
 
 import Foundation
 
+func CEFPrintHandler_on_print_start(ptr: UnsafeMutablePointer<cef_print_handler_t>,
+                                    browser: UnsafeMutablePointer<cef_browser_t>) {
+    guard let obj = CEFPrintHandlerMarshaller.get(ptr) else {
+        return
+    }
+    
+    obj.onPrintStart(CEFBrowser.fromCEF(browser)!)
+}
+
 func CEFPrintHandler_on_print_settings(ptr: UnsafeMutablePointer<cef_print_handler_t>,
                                        settings: UnsafeMutablePointer<cef_print_settings_t>,
                                        getDefaults: Int32) {

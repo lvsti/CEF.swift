@@ -20,6 +20,7 @@ extension CEFContextMenuHandler {
 extension cef_context_menu_handler_t: CEFCallbackMarshalling {
     mutating func marshalCallbacks() {
         on_before_context_menu = CEFContextMenuHandler_on_before_context_menu
+        run_context_menu = CEFContextMenuHandler_run_context_menu
         on_context_menu_command = CEFContextMenuHandler_on_context_menu_command
         on_context_menu_dismissed = CEFContextMenuHandler_on_context_menu_dismissed
     }

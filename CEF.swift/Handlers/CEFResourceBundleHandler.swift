@@ -25,6 +25,14 @@ public protocol CEFResourceBundleHandler {
     /// in memory. Supported resource IDs are listed in cef_pack_resources.h.
     func dataResourceForID(resourceID: Int) -> (dataBufferPtr: UnsafeMutablePointer<Void>, dataSize: size_t)?
     
+    /// Called to retrieve data for the specified |resource_id| nearest the scale
+    /// factor |scale_factor|. To provide the resource data set |data| and
+    /// |data_size| to the data pointer and size respectively and return true. To
+    /// use the default resource data return false. The resource data will not be
+    /// copied and must remain resident in memory. Include cef_pack_resources.h for
+    /// a listing of valid resource ID values.
+    func dataResourceForID(resourceID: Int, scale: CEFScaleFactor) -> (dataBufferPtr: UnsafeMutablePointer<Void>, dataSize: size_t)?
+
 }
 
 
@@ -37,6 +45,10 @@ public extension CEFResourceBundleHandler {
     public func dataResourceForID(resourceID: Int) -> (dataBufferPtr: UnsafeMutablePointer<Void>, dataSize: size_t)? {
         return nil
     }
-    
+
+    func dataResourceForID(resourceID: Int, scale: CEFScaleFactor) -> (dataBufferPtr: UnsafeMutablePointer<Void>, dataSize: size_t)? {
+        return nil
+    }
+
 }
 

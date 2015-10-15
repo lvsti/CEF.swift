@@ -29,6 +29,12 @@ extension CEFOnPrintJobAction: BooleanType {
 /// Implement this interface to handle printing on Linux. The methods of this
 /// class will be called on the browser process UI thread.
 public protocol CEFPrintHandler {
+    /// Called when printing has started for the specified |browser|. This method
+    /// will be called before the other OnPrint*() methods and irrespective of how
+    /// printing was initiated (e.g. CefBrowserHost::Print(), JavaScript
+    /// window.print() or PDF extension print button).
+    func onPrintStart(browser: CEFBrowser)
+    
     /// Synchronize |settings| with client state. If |get_defaults| is true then
     /// populate |settings| with the default print settings. Do not keep a
     /// reference to |settings| outside of this callback.
@@ -53,6 +59,9 @@ public protocol CEFPrintHandler {
 }
 
 public extension CEFPrintHandler {
+    func onPrintStart(browser: CEFBrowser) {
+    }
+
     func onPrintSettings(settings: CEFPrintSettings, defaults: Bool) {
     }
     

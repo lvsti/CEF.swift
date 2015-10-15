@@ -29,7 +29,6 @@ extension cef_request_handler_t: CEFCallbackMarshalling {
         on_quota_request = CEFRequestHandler_on_quota_request
         on_protocol_execution = CEFRequestHandler_on_protocol_execution
         on_certificate_error = CEFRequestHandler_on_certificate_error
-        on_before_plugin_load = CEFRequestHandler_on_before_plugin_load
         on_plugin_crashed = CEFRequestHandler_on_plugin_crashed
         on_render_view_ready = CEFRequestHandler_on_render_view_ready
         on_render_process_terminated = CEFRequestHandler_on_render_process_terminated

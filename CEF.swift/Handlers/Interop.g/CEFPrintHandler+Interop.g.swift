@@ -19,6 +19,7 @@ extension CEFPrintHandler {
 
 extension cef_print_handler_t: CEFCallbackMarshalling {
     mutating func marshalCallbacks() {
+        on_print_start = CEFPrintHandler_on_print_start
         on_print_settings = CEFPrintHandler_on_print_settings
         on_print_dialog = CEFPrintHandler_on_print_dialog
         on_print_job = CEFPrintHandler_on_print_job

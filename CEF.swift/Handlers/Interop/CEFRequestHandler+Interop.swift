@@ -182,22 +182,6 @@ func CEFRequestHandler_on_certificate_error(ptr: UnsafeMutablePointer<cef_reques
                                   callback: CEFRequestCallback.fromCEF(callback)!) ? 1 : 0
 }
 
-func CEFRequestHandler_on_before_plugin_load(ptr: UnsafeMutablePointer<cef_request_handler_t>,
-                                             browser: UnsafeMutablePointer<cef_browser_t>,
-                                             url: UnsafePointer<cef_string_t>,
-                                             policyURL: UnsafePointer<cef_string_t>,
-                                             pluginInfo: UnsafeMutablePointer<cef_web_plugin_info_t>) -> Int32 {
-    guard let obj = CEFRequestHandlerMarshaller.get(ptr) else {
-        return 0
-    }
-
-    return obj.onBeforePluginLoad(CEFBrowser.fromCEF(browser)!,
-                                  url: url != nil ? NSURL(string: CEFStringToSwiftString(url.memory))! : nil,
-                                  policyURL: policyURL != nil ? NSURL(string: CEFStringToSwiftString(policyURL.memory))! : nil,
-                                  pluginInfo: CEFWebPluginInfo.fromCEF(pluginInfo)!) ? 1 : 0
-}
-
-
 func CEFRequestHandler_on_plugin_crashed(ptr: UnsafeMutablePointer<cef_request_handler_t>,
                                          browser: UnsafeMutablePointer<cef_browser_t>,
                                          path: UnsafePointer<cef_string_t>) {
