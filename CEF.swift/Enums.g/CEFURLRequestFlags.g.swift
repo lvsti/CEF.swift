@@ -28,9 +28,6 @@ public struct CEFURLRequestFlags: OptionSetType {
     /// If set upload progress events will be generated when a request has a body.
     public static let ReportUploadProgress = CEFURLRequestFlags(rawValue: 1 << 3)
 
-    /// If set the headers sent and received for the request will be recorded.
-    public static let ReportRawHeaders = CEFURLRequestFlags(rawValue: 1 << 5)
-
     /// If set the CefURLRequestClient::OnDownloadData method will not be called.
     public static let NoDownloadData = CEFURLRequestFlags(rawValue: 1 << 6)
 

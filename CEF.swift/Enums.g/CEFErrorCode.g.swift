@@ -42,6 +42,7 @@ public struct CEFErrorCode: RawRepresentable {
     public static let SSLVersionOrCipherMismatch = CEFErrorCode(rawValue: -113)
     public static let SSLRenegotiationRequested = CEFErrorCode(rawValue: -114)
     public static let CertCommonNameInvalid = CEFErrorCode(rawValue: -200)
+    public static let CertBegin = CertCommonNameInvalid;
     public static let CertDateInvalid = CEFErrorCode(rawValue: -201)
     public static let CertAuthorityInvalid = CEFErrorCode(rawValue: -202)
     public static let CertContainsErrors = CEFErrorCode(rawValue: -203)
@@ -49,7 +50,13 @@ public struct CEFErrorCode: RawRepresentable {
     public static let CertUnableToCheckRevocation = CEFErrorCode(rawValue: -205)
     public static let CertRevoked = CEFErrorCode(rawValue: -206)
     public static let CertInvalid = CEFErrorCode(rawValue: -207)
-    public static let CertEnd = CEFErrorCode(rawValue: -208)
+    public static let CertWeakSignatureAlgorithm = CEFErrorCode(rawValue: -208)
+    // -209 is available: was ERR_CERT_NOT_IN_DNS.
+    public static let CertNonUniqueName = CEFErrorCode(rawValue: -210)
+    public static let CertWeakKey = CEFErrorCode(rawValue: -211)
+    public static let CertNameConstraintViolation = CEFErrorCode(rawValue: -212)
+    public static let CertValidityTooLong = CEFErrorCode(rawValue: -213)
+    public static let CertEnd = CertValidityTooLong;
     public static let InvalidURL = CEFErrorCode(rawValue: -300)
     public static let DisallowedURLScheme = CEFErrorCode(rawValue: -301)
     public static let UnknownURLScheme = CEFErrorCode(rawValue: -302)
