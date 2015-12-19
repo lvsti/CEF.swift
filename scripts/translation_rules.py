@@ -91,7 +91,16 @@ entryname_overrides = {
     'KEYEVENT_KEYUP': 'KeyUp',
     'DOM_EVENT_CATEGORY_XMLHTTPREQUEST_PROGRESS': 'XMLHTTPRequestProgress',
     'ST_LOCALSTORAGE': 'LocalStorage',
-    'ST_SESSIONSTORAGE': 'SessionStorage'
+    'ST_SESSIONSTORAGE': 'SessionStorage',
+    'SCALE_FACTOR_100P': 'Scale100Percent',
+    'SCALE_FACTOR_125P': 'Scale125Percent',
+    'SCALE_FACTOR_133P': 'Scale133Percent',
+    'SCALE_FACTOR_140P': 'Scale140Percent',
+    'SCALE_FACTOR_150P': 'Scale150Percent',
+    'SCALE_FACTOR_180P': 'Scale180Percent',
+    'SCALE_FACTOR_200P': 'Scale200Percent',
+    'SCALE_FACTOR_250P': 'Scale250Percent',
+    'SCALE_FACTOR_300P': 'Scale300Percent'
 }
 
 entrytype_tocef_cast_overrides = {
@@ -135,7 +144,9 @@ cef_enums = [
     'cef_color_model_t',
     'cef_duplex_mode_t',
     'cef_cursor_type_t',
-    'cef_json_parser_error_t'
+    'cef_json_parser_error_t',
+    'cef_scale_factor_t',
+    'cef_plugin_policy_t'
 ]
 
 cef_option_sets = [
