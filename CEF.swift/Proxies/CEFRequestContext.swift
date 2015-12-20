@@ -134,6 +134,67 @@ public extension CEFRequestContext {
         return cefObject.clear_scheme_handler_factories(cefObjectPtr) != 0
     }
 
+    /// Tells all renderer processes associated with this context to throw away
+    /// their plugin list cache. If |reload_pages| is true they will also reload
+    /// all pages with plugins. CefRequestContextHandler::OnBeforePluginLoad may
+    /// be called to rebuild the plugin list cache.
+    public func purgePluginListCacheWithReload(reload: Bool) {
+        cefObject.purge_plugin_list_cache(cefObjectPtr, reload ? 1 : 0)
+    }
+    
+    /// Returns true if a preference with the specified |name| exists. This method
+    /// must be called on the browser process UI thread.
+    public func hasPreference(name: String) -> Bool {
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
+        defer { CEFStringPtrRelease(cefStrPtr) }
+        return cefObject.has_preference(cefObjectPtr, cefStrPtr) != 0
+    }
+    
+    /// Returns the value for the preference with the specified |name|. Returns
+    /// NULL if the preference does not exist. The returned object contains a copy
+    /// of the underlying preference value and modifications to the returned object
+    /// will not modify the underlying preference value. This method must be called
+    /// on the browser process UI thread.
+    public func valueForPreference(name: String) -> CEFValue? {
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
+        defer { CEFStringPtrRelease(cefStrPtr) }
+        let cefValue = cefObject.get_preference(cefObjectPtr, cefStrPtr)
+        return CEFValue.fromCEF(cefValue)
+    }
+    
+    /// Returns all preferences as a dictionary. If |include_defaults| is true then
+    /// preferences currently at their default value will be included. The returned
+    /// object contains a copy of the underlying preference values and
+    /// modifications to the returned object will not modify the underlying
+    /// preference values. This method must be called on the browser process UI
+    /// thread.
+    public func allPreferencesIncludingDefaults(includeDefaults: Bool) -> CEFDictionaryValue {
+        let cefDict = cefObject.get_all_preferences(cefObjectPtr, includeDefaults ? 1 : 0)
+        return CEFDictionaryValue.fromCEF(cefDict)!
+    }
+    
+    /// Returns true if the preference with the specified |name| can be modified
+    /// using SetPreference. As one example preferences set via the command-line
+    /// usually cannot be modified. This method must be called on the browser
+    /// process UI thread.
+    public func canSetPreference(name: String) -> Bool {
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
+        defer { CEFStringPtrRelease(cefStrPtr) }
+        return cefObject.can_set_preference(cefObjectPtr, cefStrPtr) != 0
+    }
+    
+    /// Set the |value| associated with preference |name|. Returns true if the
+    /// value is set successfully and false otherwise. If |value| is NULL the
+    /// preference will be restored to its default value. If setting the preference
+    /// fails then |error| will be populated with a detailed description of the
+    /// problem. This method must be called on the browser process UI thread.
+    public func setValue(value: CEFValue?, forPreference name: String) -> Bool {
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
+        defer { CEFStringPtrRelease(cefStrPtr) }
+        let cefValue = value != nil ? value!.toCEF() : nil
+        return cefObject.set_preference(cefObjectPtr, cefStrPtr, cefValue, nil) != 0
+    }
+
 }
 
 public extension CEFRequestContext {

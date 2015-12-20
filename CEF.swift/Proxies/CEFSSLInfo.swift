@@ -10,6 +10,24 @@ import Foundation
 
 public extension CEFSSLInfo {
 
+    /// Returns a bitmask containing any and all problems verifying the server
+    /// certificate.
+    public var certStatus: CEFCertStatus {
+        let cefStatus = cefObject.get_cert_status(cefObjectPtr)
+        return CEFCertStatus.fromCEF(cefStatus)
+    }
+    
+    /// Returns true if the certificate status has any error, major or minor.
+    public var isCertStatusError: Bool {
+        return cefObject.is_cert_status_error(cefObjectPtr) != 0
+    }
+    
+    /// Returns true if the certificate status represents only minor errors
+    /// (e.g. failure to verify certificate revocation).
+    public var isCertStatusMinorError: Bool {
+        return cefObject.is_cert_status_minor_error(cefObjectPtr) != 0
+    }
+
     /// Returns the subject of the X.509 certificate. For HTTPS server
     /// certificates this represents the web server.  The common name of the
     /// subject should match the host name of the web server.
@@ -59,6 +77,46 @@ public extension CEFSSLInfo {
     public var pemEncoded: CEFBinaryValue? {
         let cefBinary = cefObject.get_pemencoded(cefObjectPtr)
         return CEFBinaryValue.fromCEF(cefBinary)
+    }
+
+    /// Returns the number of certificates in the issuer chain.
+    /// If 0, the certificate is self-signed.
+    public var issuerChainSize: size_t {
+        return cefObject.get_issuer_chain_size(cefObjectPtr)
+    }
+    
+    /// Returns the DER encoded data for the certificate issuer chain.
+    /// If we failed to encode a certificate in the chain it is still
+    /// present in the array but is an empty string.
+    public var derEncodedIssuerChain: [CEFBinaryValue] {
+        var chainLength: size_t = 0
+        var cefChain: UnsafeMutablePointer<cef_binary_value_t> = nil
+        cefObject.get_derencoded_issuer_chain(cefObjectPtr, &chainLength, &cefChain)
+        
+        var chain: [CEFBinaryValue] = []
+        for i in 0..<chainLength {
+            let cefBinary = cefChain.advancedBy(i)
+            chain.append(CEFBinaryValue.fromCEF(cefBinary)!)
+        }
+        
+        return chain
+    }
+    
+    /// Returns the PEM encoded data for the certificate issuer chain.
+    /// If we failed to encode a certificate in the chain it is still
+    /// present in the array but is an empty string.
+    public var pemEncodedIssuerChain: [CEFBinaryValue] {
+        var chainLength: size_t = 0
+        var cefChain: UnsafeMutablePointer<cef_binary_value_t> = nil
+        cefObject.get_pemencoded_issuer_chain(cefObjectPtr, &chainLength, &cefChain)
+        
+        var chain: [CEFBinaryValue] = []
+        for i in 0..<chainLength {
+            let cefBinary = cefChain.advancedBy(i)
+            chain.append(CEFBinaryValue.fromCEF(cefBinary)!)
+        }
+        
+        return chain
     }
 
 }

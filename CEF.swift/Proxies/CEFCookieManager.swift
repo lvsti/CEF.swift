@@ -189,10 +189,10 @@ public extension CEFCookieManager {
                   callback: CEFCompletionCallbackBridge(block: block))
     }
 
-    /// Set the schemes supported by this manager. By default only "http" and
-    /// "https" schemes are supported. If |callback| is non-NULL it will be
-    /// executed asnychronously on the IO thread after the change has been applied.
-    /// Must be called before any cookies are accessed.
+    /// Set the schemes supported by this manager. The default schemes ("http",
+    /// "https", "ws" and "wss") will always be supported. If |callback| is non-
+    /// NULL it will be executed asnychronously on the IO thread after the change
+    /// has been applied. Must be called before any cookies are accessed.
     public func setSupportedSchemes(schemes: [String], block: CEFCompletionCallbackOnCompleteBlock) {
         return setSupportedSchemes(schemes, callback: CEFCompletionCallbackBridge(block: block))
     }

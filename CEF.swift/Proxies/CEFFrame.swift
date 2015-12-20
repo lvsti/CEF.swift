@@ -132,7 +132,8 @@ public extension CEFFrame {
         return CEFStringToSwiftString(cefStrPtr.memory)
     }
     
-    /// Returns the globally unique identifier for this frame.
+    /// Returns the globally unique identifier for this frame or < 0 if the
+    /// underlying frame does not yet exist.
     public var identifier: Identifier {
         return cefObject.get_identifier(cefObjectPtr)
     }

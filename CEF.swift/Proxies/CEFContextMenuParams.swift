@@ -151,5 +151,16 @@ public extension CEFContextMenuParams {
         return CEFContextMenuEditStateFlags.fromCEF(cefFlags)
     }
 
+    /// Returns true if the context menu contains items specified by the renderer
+    /// process (for example, plugin placeholder or pepper plugin menu items).
+    public var isCustomMenu: Bool {
+        return cefObject.is_custom_menu(cefObjectPtr) != 0
+    }
+    
+    /// Returns true if the context menu was invoked from a pepper plugin.
+    public var isPepperMenu: Bool {
+        return cefObject.is_pepper_menu(cefObjectPtr) != 0
+    }
+
 }
 

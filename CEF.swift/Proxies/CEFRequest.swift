@@ -65,6 +65,37 @@ public extension CEFRequest {
         cefObject.set_method(cefObjectPtr, cefMethodPtr)
     }
     
+    /// Set the referrer URL and policy. If non-empty the referrer URL must be
+    /// fully qualified with an HTTP or HTTPS scheme component. Any username,
+    /// password or ref component will be removed.
+    public var referrerURL: NSURL? {
+        get { return getReferrerURL() }
+        set { setReferrerURL(newValue, policy: self.referrerPolicy) }
+    }
+    
+    /// Get the referrer policy.
+    public var referrerPolicy: CEFReferrerPolicy {
+        get { return getReferrerPolicy() }
+        set { setReferrerURL(self.referrerURL, policy: newValue) }
+    }
+    
+    private func getReferrerURL() -> NSURL? {
+        let cefURLPtr = cefObject.get_referrer_url(cefObjectPtr)
+        defer { CEFStringPtrRelease(cefURLPtr) }
+        return cefURLPtr != nil ? NSURL(string: CEFStringToSwiftString(cefURLPtr.memory)) : nil
+    }
+    
+    private func getReferrerPolicy() -> CEFReferrerPolicy {
+        let cefPolicy = cefObject.get_referrer_policy(cefObjectPtr)
+        return CEFReferrerPolicy.fromCEF(cefPolicy)
+    }
+    
+    private func setReferrerURL(url: NSURL?, policy: CEFReferrerPolicy) {
+        let cefURLPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString) : nil
+        defer { CEFStringPtrRelease(cefURLPtr) }
+        cefObject.set_referrer(cefObjectPtr, cefURLPtr, policy.toCEF())
+    }
+
     /// Get the post data.
     public var postData: CEFPOSTData? {
         get {
@@ -74,13 +105,13 @@ public extension CEFRequest {
         set { cefObject.set_post_data(cefObjectPtr, newValue != nil ? newValue!.toCEF() : nil) }
     }
     
-    /// Header values
+    /// Header values. Will not include the Referer value if any.
     public var headers: HeaderMap {
         get { return getHeaderMap() }
         set { setHeaderMap(newValue) }
     }
     
-    /// Get the header values.
+    /// Get the header values. Will not include the Referer value if any.
     private func getHeaderMap() -> HeaderMap {
         let cefHeaderMap = cef_string_multimap_alloc()
         defer { cef_string_multimap_free(cefHeaderMap) }
@@ -88,7 +119,8 @@ public extension CEFRequest {
         return CEFStringMultimapToSwiftDictionaryOfArrays(cefHeaderMap)
     }
     
-    /// Set the header values.
+    /// Set the header values. If a Referer value exists in the header map it will
+    /// be removed and ignored.
     private func setHeaderMap(headerMap: HeaderMap) {
         let cefHeaderMap = CEFStringMultimapCreateFromSwiftDictionaryOfArrays(headerMap)
         defer { cef_string_multimap_free(cefHeaderMap) }

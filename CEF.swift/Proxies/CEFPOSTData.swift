@@ -20,6 +20,14 @@ public extension CEFPOSTData {
         return cefObject.is_read_only(cefObjectPtr) != 0
     }
 
+    /// Returns true if the underlying POST data includes elements that are not
+    /// represented by this CefPostData object (for example, multi-part file upload
+    /// data). Modifying CefPostData objects with excluded elements may result in
+    /// the request failing.
+    public var hasExcludedElements: Bool {
+        return cefObject.has_excluded_elements(cefObjectPtr) != 0
+    }
+    
     /// Returns the number of existing post data elements.
     public var elementCount: Int {
         return cefObject.get_element_count(cefObjectPtr)
