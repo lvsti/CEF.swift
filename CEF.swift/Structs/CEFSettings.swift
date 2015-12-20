@@ -65,13 +65,21 @@ public struct CEFSettings {
     
     /// To persist session cookies (cookies without an expiry date or validity
     /// interval) by default when using the global cookie manager set this value to
-    /// true. Session cookies are generally intended to be transient and most Web
-    /// browsers do not persist them. A |cache_path| value must also be specified
-    /// to enable this feature. Also configurable using the
+    /// true (1). Session cookies are generally intended to be transient and most
+    /// Web browsers do not persist them. A |cache_path| value must also be
+    /// specified to enable this feature. Also configurable using the
     /// "persist-session-cookies" command-line switch. Can be overridden for
     /// individual CefRequestContext instances via the
     /// CefRequestContextSettings.persist_session_cookies value.
     public var persistSessionCookies: Bool = false
+    
+    /// To persist user preferences as a JSON file in the cache path directory set
+    /// this value to true (1). A |cache_path| value must also be specified
+    /// to enable this feature. Also configurable using the
+    /// "persist-user-preferences" command-line switch. Can be overridden for
+    /// individual CefRequestContext instances via the
+    /// CefRequestContextSettings.persist_user_preferences value.
+    public var persistUserPreferences: Bool = false
     
     /// Value that will be returned as the User-Agent HTTP header. If empty the
     /// default User-Agent string will be used. Also configurable using the
@@ -91,10 +99,12 @@ public struct CEFSettings {
     /// command-line switch.
     public var locale: String = ""
     
-    /// The directory and file name to use for the debug log. If empty, the
-    /// default name of "debug.log" will be used and the file will be written
-    /// to the application directory. Also configurable using the "log-file"
-    /// command-line switch.
+    /// The directory and file name to use for the debug log. If empty a default
+    /// log file name and location will be used. On Windows and Linux a "debug.log"
+    /// file will be written in the main executable directory. On Mac OS X a
+    /// "~/Library/Logs/<app name>_debug.log" file will be written where <app name>
+    /// is the name of the main app executable. Also configurable using the
+    /// "log-file" command-line switch.
     public var logFile: String = ""
     
     /// The log severity. Only messages of this severity level or higher will be
@@ -201,6 +211,7 @@ extension CEFSettings {
         CEFStringSetFromSwiftString(cachePath, cefString: &cefStruct.cache_path)
         CEFStringSetFromSwiftString(userDataPath, cefString: &cefStruct.user_data_path)
         cefStruct.persist_session_cookies = persistSessionCookies ? 1 : 0
+        cefStruct.persist_user_preferences = persistUserPreferences ? 1 : 0
         CEFStringSetFromSwiftString(userAgent, cefString: &cefStruct.user_agent)
         CEFStringSetFromSwiftString(productVersion, cefString: &cefStruct.product_version)
         CEFStringSetFromSwiftString(locale, cefString: &cefStruct.locale)

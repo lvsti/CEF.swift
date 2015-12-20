@@ -21,12 +21,18 @@ public struct CEFRequestContextSettings {
 
     /// To persist session cookies (cookies without an expiry date or validity
     /// interval) by default when using the global cookie manager set this value to
-    /// true. Session cookies are generally intended to be transient and most Web
-    /// browsers do not persist them. Can be set globally using the
+    /// true (1). Session cookies are generally intended to be transient and most
+    /// Web browsers do not persist them. Can be set globally using the
     /// CefSettings.persist_session_cookies value. This value will be ignored if
     /// |cache_path| is empty or if it matches the CefSettings.cache_path value.
     public var persistSessionCookies: Bool = false
     
+    /// To persist user preferences as a JSON file in the cache path directory set
+    /// this value to true (1). Can be set globally using the
+    /// CefSettings.persist_user_preferences value. This value will be ignored if
+    /// |cache_path| is empty or if it matches the CefSettings.cache_path value.
+    public var persistUserPreferences: Bool = false
+
     /// Set to true (1) to ignore errors related to invalid SSL certificates.
     /// Enabling this setting can lead to potential security vulnerabilities like
     /// "man in the middle" attacks. Applications that load content from the
@@ -53,6 +59,7 @@ extension CEFRequestContextSettings {
         
         CEFStringSetFromSwiftString(cachePath, cefString: &cefStruct.cache_path)
         cefStruct.persist_session_cookies = persistSessionCookies ? 1 : 0
+        cefStruct.persist_user_preferences = persistUserPreferences ? 1 : 0
         cefStruct.ignore_certificate_errors = ignoreCertificateErrors ? 1 : 0
         CEFStringSetFromSwiftString(acceptLanguageList, cefString: &cefStruct.accept_language_list)
         
