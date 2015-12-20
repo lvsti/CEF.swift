@@ -8,21 +8,23 @@
 
 import Foundation
 
-/// Class used to implement a custom resource bundle interface. The methods of
+/// Class used to implement a custom resource bundle interface. See CefSettings
+/// for additional options related to resource bundle loading. The methods of
 /// this class may be called on multiple threads.
 public protocol CEFResourceBundleHandler {
     
-    /// Called to retrieve a localized translation for the string specified by
-    /// |message_id|. To provide the translation set |string| to the translation
-    /// string and return true. To use the default translation return false.
-    /// Supported message IDs are listed in cef_pack_strings.h.
+    /// Called to retrieve a localized translation for the specified |string_id|.
+    /// To provide the translation set |string| to the translation string and
+    /// return true. To use the default translation return false. Include
+    /// cef_pack_strings.h for a listing of valid string ID values.
     func localizedStringForID(stringID: Int) -> String?
 
-    /// Called to retrieve data for the resource specified by |resource_id|. To
-    /// provide the resource data set |data| and |data_size| to the data pointer
+    /// Called to retrieve data for the specified scale independent |resource_id|.
+    /// To provide the resource data set |data| and |data_size| to the data pointer
     /// and size respectively and return true. To use the default resource data
     /// return false. The resource data will not be copied and must remain resident
-    /// in memory. Supported resource IDs are listed in cef_pack_resources.h.
+    /// in memory. Include cef_pack_resources.h for a listing of valid resource ID
+    /// values.
     func dataResourceForID(resourceID: Int) -> (dataBufferPtr: UnsafeMutablePointer<Void>, dataSize: size_t)?
     
     /// Called to retrieve data for the specified |resource_id| nearest the scale

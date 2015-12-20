@@ -135,20 +135,42 @@ public protocol CEFRequestHandler {
                             frame: CEFFrame,
                             request: CEFRequest,
                             response: CEFResponse) -> CEFOnResourceResponseAction
+
+    /// Called on the IO thread to optionally filter resource response content.
+    /// |request| and |response| represent the request and response respectively
+    /// and cannot be modified in this callback.
+    func onResourceResponseFilter(browser: CEFBrowser,
+                                  frame: CEFFrame,
+                                  request: CEFRequest,
+                                  response: CEFResponse) -> CEFResponseFilter?
     
+    /// Called on the IO thread when a resource load has completed. |request| and
+    /// |response| represent the request and response respectively and cannot be
+    /// modified in this callback. |status| indicates the load completion status.
+    /// |received_content_length| is the number of response bytes actually read.
+    func onResourceLoadComplete(browser: CEFBrowser,
+                                frame: CEFFrame,
+                                request: CEFRequest,
+                                response: CEFResponse,
+                                status: CEFURLRequestStatus,
+                                contentLength: Int64)
+
     /// Called on the IO thread when the browser needs credentials from the user.
     /// |isProxy| indicates whether the host is a proxy server. |host| contains the
-    /// hostname and |port| contains the port number. Return true to continue the
-    /// request and call CefAuthCallback::Continue() either in this method or
-    /// at a later time when the authentication information is available. Return
-    /// false to cancel the request immediately.
+    /// hostname and |port| contains the port number. |realm| is the realm of the
+    /// challenge and may be empty. |scheme| is the authentication scheme used,
+    /// such as "basic" or "digest", and will be empty if the source of the request
+    /// is an FTP server. Return true to continue the request and call
+    /// CefAuthCallback::Continue() either in this method or at a later time when
+    /// the authentication information is available. Return false to cancel the
+    /// request immediately.
     func onAuthCredentialsRequired(browser: CEFBrowser,
                                    frame: CEFFrame,
                                    isProxy: Bool,
                                    host: String,
                                    port: UInt16,
-                                   realm: String,
-                                   scheme: String,
+                                   realm: String?,
+                                   scheme: String?,
                                    callback: CEFAuthCallback) -> CEFOnAuthCredentialsRequiredAction
     
     /// Called on the IO thread when JavaScript requests a specific storage quota
@@ -239,6 +261,21 @@ public extension CEFRequestHandler {
                             request: CEFRequest,
                             response: CEFResponse) -> CEFOnResourceResponseAction {
         return .Continue
+    }
+    
+    func onResourceResponseFilter(browser: CEFBrowser,
+                                  frame: CEFFrame,
+                                  request: CEFRequest,
+                                  response: CEFResponse) -> CEFResponseFilter? {
+        return nil
+    }
+
+    func onResourceLoadComplete(browser: CEFBrowser,
+                                frame: CEFFrame,
+                                request: CEFRequest,
+                                response: CEFResponse,
+                                status: CEFURLRequestStatus,
+                                contentLength: Int64) {
     }
     
     func onAuthCredentialsRequired(browser: CEFBrowser,
