@@ -10,6 +10,25 @@ import Foundation
 
 public struct CEFParseUtils {
     
+    /// This is a convenience function for formatting a URL in a concise and human-
+    /// friendly way to help users make security-related decisions (or in other
+    /// circumstances when people need to distinguish sites, origins, or otherwise-
+    /// simplified URLs from each other). Internationalized domain names (IDN) may be
+    /// presented in Unicode if |languages| accepts the Unicode representation. The
+    /// returned value will (a) omit the path for standard schemes, excepting file
+    /// and filesystem, and (b) omit the port if it is the default for the scheme. Do
+    /// not use this for URLs which will be parsed or sent to other applications.
+    public static func formatURLForSecurityDisplay(url: NSURL, languages: String? = nil) -> String {
+        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
+        defer { CEFStringPtrRelease(cefURLPtr) }
+        let cefLangsPtr = languages != nil ? CEFStringPtrCreateFromSwiftString(languages!) : nil
+        defer { CEFStringPtrRelease(cefLangsPtr) }
+        
+        let cefStrPtr = cef_format_url_for_security_display(cefURLPtr, cefLangsPtr)
+        defer { CEFStringPtrRelease(cefStrPtr) }
+        return CEFStringToSwiftString(cefStrPtr.memory)
+    }
+
     /// Returns the mime type for the specified file extension or an empty string if
     /// unknown.
     public static func mimeTypeForExtension(fileExt: String) -> String? {
