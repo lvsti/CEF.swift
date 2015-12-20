@@ -3,7 +3,8 @@
 abbreviations = [
     'cef', 'http', 'https', 'ssl', 'url', 'uri', 'json', 'html', 'xhtml', 'v8', 'dom',
     'cdata', 'utf8', 'utf16le', 'utf16be', 'ascii', 'io', 'ui', 'db', '5xx', 'xhr',
-    'cmy', 'cmyk', 'kcmy', 'rgb', 'rgba', 'rgb16', 'hp', 'rfc', 'id', 'js', 'xml', 'pdf'
+    'cmy', 'cmyk', 'kcmy', 'rgb', 'rgba', 'rgb16', 'hp', 'rfc', 'id', 'js', 'xml', 'pdf',
+    'ev', 'ct', 'sha1'
 ]
 
 typename_overrides = {
@@ -100,7 +101,10 @@ entryname_overrides = {
     'SCALE_FACTOR_180P': 'Scale180Percent',
     'SCALE_FACTOR_200P': 'Scale200Percent',
     'SCALE_FACTOR_250P': 'Scale250Percent',
-    'SCALE_FACTOR_300P': 'Scale300Percent'
+    'SCALE_FACTOR_300P': 'Scale300Percent',
+    'CERT_STATUS_IS_EV': 'IsEV',
+    'CERT_STATUS_REV_CHECKING_ENABLED': 'RevocationCheckingEnabled',
+    
 }
 
 entrytype_tocef_cast_overrides = {
@@ -146,7 +150,11 @@ cef_enums = [
     'cef_cursor_type_t',
     'cef_json_parser_error_t',
     'cef_scale_factor_t',
-    'cef_plugin_policy_t'
+    'cef_plugin_policy_t',
+    
+    # branch 2526
+    'cef_referrer_policy_t',
+    'cef_response_filter_status_t'
 ]
 
 cef_option_sets = [
@@ -161,7 +169,10 @@ cef_option_sets = [
     'cef_dom_event_category_t',
     'cef_uri_unescape_rule_t',
     'cef_json_parser_options_t',
-    'cef_json_writer_options_t'
+    'cef_json_writer_options_t',
+    
+    # branch 2526
+    'cef_cert_status_t'
 ]
 
 cef_const_collections = {
