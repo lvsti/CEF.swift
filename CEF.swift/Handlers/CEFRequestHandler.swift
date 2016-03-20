@@ -194,10 +194,9 @@ public protocol CEFRequestHandler {
     /// Called on the UI thread to handle requests for URLs with an invalid
     /// SSL certificate. Return true and call CefRequestCallback::Continue() either
     /// in this method or at a later time to continue or cancel the request. Return
-    /// false to cancel the request immediately. If |callback| is empty the error
-    /// cannot be recovered from and the request will be canceled automatically.
-    /// If CefSettings.ignore_certificate_errors is set all invalid certificates
-    /// will be accepted without calling this method.
+    /// false to cancel the request immediately. If
+    /// CefSettings.ignore_certificate_errors is set all invalid certificates will
+    /// be accepted without calling this method.
     func onCertificateError(browser: CEFBrowser,
                             errorCode: CEFErrorCode,
                             url: NSURL,
