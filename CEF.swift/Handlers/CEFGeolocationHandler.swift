@@ -35,11 +35,9 @@ public protocol CEFGeolocationHandler {
                                         requestID: CEFGeolocationRequestID,
                                         callback: CEFGeolocationCallback) -> CEFOnRequestGeolocationPermissionAction
     
-    /// Called when a geolocation access request is canceled. |requesting_url| is
-    /// the URL that originally requested permission and |request_id| is the unique
-    /// ID for the permission request.
+    /// Called when a geolocation access request is canceled. |request_id| is the
+    /// unique ID for the permission request.
     func onCancelGeolocationPermission(browser: CEFBrowser,
-                                       url: NSURL,
                                        requestID: CEFGeolocationRequestID)
 
 }
@@ -54,7 +52,6 @@ public extension CEFGeolocationHandler {
     }
 
     func onCancelGeolocationPermission(browser: CEFBrowser,
-                                       url: NSURL,
                                        requestID: CEFGeolocationRequestID) {
     }
     

@@ -25,14 +25,12 @@ func CEFGeolocationHandler_on_request_geolocation_permission(ptr: UnsafeMutableP
 
 func CEFGeolocationHandler_on_cancel_geolocation_permission(ptr: UnsafeMutablePointer<cef_geolocation_handler_t>,
                                                             browser: UnsafeMutablePointer<cef_browser_t>,
-                                                            url: UnsafePointer<cef_string_t>,
                                                             requestID: Int32) {
     guard let obj = CEFGeolocationHandlerMarshaller.get(ptr) else {
         return
     }
     
     obj.onCancelGeolocationPermission(CEFBrowser.fromCEF(browser)!,
-                                      url: NSURL(string: CEFStringToSwiftString(url.memory))!,
                                       requestID: requestID)
 }
 
