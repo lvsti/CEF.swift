@@ -58,6 +58,12 @@ public enum CEFResourceType: Int32 {
 
     /// Main resource of a service worker.
     case ServiceWorker
+    
+    /// A report of Content Security Policy violations.
+    case CSPReport
+    
+    /// A resource that a plugin requested.
+    case PluginResource
 }
 
 extension CEFResourceType {
