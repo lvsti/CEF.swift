@@ -195,6 +195,58 @@ public extension CEFRequestContext {
         return cefObject.set_preference(cefObjectPtr, cefStrPtr, cefValue, nil) != 0
     }
 
+    /// Clears all certificate exceptions that were added as part of handling
+    /// CefRequestHandler::OnCertificateError(). If you call this it is
+    /// recommended that you also call CloseAllConnections() or you risk not
+    /// being prompted again for server certificates if you reconnect quickly.
+    /// If |callback| is non-NULL it will be executed on the UI thread after
+    /// completion.
+    public func clearCertificateExceptions(callback: CEFCompletionCallback? = nil) {
+        var cefCallbackPtr: UnsafeMutablePointer<cef_completion_callback_t> = nil
+        if let callback = callback {
+            cefCallbackPtr = callback.toCEF()
+        }
+        
+        cefObject.clear_certificate_exceptions(cefObjectPtr, cefCallbackPtr)
+    }
+    
+    /// Clears all active and idle connections that Chromium currently has.
+    /// This is only recommended if you have released all other CEF objects but
+    /// don't yet want to call CefShutdown(). If |callback| is non-NULL it will be
+    /// executed on the UI thread after completion.
+    public func closeAllConnections(callback: CEFCompletionCallback? = nil) {
+        var cefCallbackPtr: UnsafeMutablePointer<cef_completion_callback_t> = nil
+        if let callback = callback {
+            cefCallbackPtr = callback.toCEF()
+        }
+        
+        cefObject.close_all_connections(cefObjectPtr, cefCallbackPtr)
+    }
+    
+    /// Attempts to resolve |origin| to a list of associated IP addresses.
+    /// |callback| will be executed on the UI thread after completion.
+    public func resolveHost(hostName: String, callback: CEFResolveCallback) {
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(hostName)
+        defer { CEFStringPtrRelease(cefStrPtr) }
+        cefObject.resolve_host(cefObjectPtr, cefStrPtr, callback.toCEF())
+    }
+    
+    /// Attempts to resolve |origin| to a list of associated IP addresses using
+    /// cached data. |resolved_ips| will be populated with the list of resolved IP
+    /// addresses or empty if no cached data is available. Returns ERR_NONE on
+    /// success. This method must be called on the browser process IO thread.
+    public func resolveCachedHost(hostName: String) -> [String]? {
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(hostName)
+        let cefList = cef_string_list_alloc()
+        defer {
+            CEFStringPtrRelease(cefStrPtr)
+            CEFStringListRelease(cefList)
+        }
+        let errorCode = cefObject.resolve_host_cached(cefObjectPtr, cefStrPtr, cefList)
+        
+        return errorCode == ERR_NONE ? CEFStringListToSwiftArray(cefList) : nil
+    }
+
 }
 
 public extension CEFRequestContext {
@@ -209,5 +261,28 @@ public extension CEFRequestContext {
         return getDefaultCookieManagerWithCallback(CEFCompletionCallbackBridge(block: block))
     }
     
+    /// Clears all certificate exceptions that were added as part of handling
+    /// CefRequestHandler::OnCertificateError(). If you call this it is
+    /// recommended that you also call CloseAllConnections() or you risk not
+    /// being prompted again for server certificates if you reconnect quickly.
+    /// If |callback| is non-NULL it will be executed on the UI thread after
+    /// completion.
+    func clearCertificateExceptions(block: CEFCompletionCallbackOnCompleteBlock) {
+        clearCertificateExceptions(CEFCompletionCallbackBridge(block: block))
+    }
+    
+    /// Clears all active and idle connections that Chromium currently has.
+    /// This is only recommended if you have released all other CEF objects but
+    /// don't yet want to call CefShutdown(). If |callback| is non-NULL it will be
+    /// executed on the UI thread after completion.
+    public func closeAllConnections(block: CEFCompletionCallbackOnCompleteBlock) {
+        closeAllConnections(CEFCompletionCallbackBridge(block: block))
+    }
+    
+    /// Attempts to resolve |origin| to a list of associated IP addresses.
+    /// |callback| will be executed on the UI thread after completion.
+    public func resolveHost(hostName: String, block: CEFResolveCallbackOnResolveCompletedBlock) {
+        resolveHost(hostName, callback: CEFResolveCallbackBridge(block: block))
+    }
 }
 
