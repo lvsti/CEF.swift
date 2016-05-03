@@ -14,17 +14,15 @@ public struct CEFParseUtils {
     /// friendly way to help users make security-related decisions (or in other
     /// circumstances when people need to distinguish sites, origins, or otherwise-
     /// simplified URLs from each other). Internationalized domain names (IDN) may be
-    /// presented in Unicode if |languages| accepts the Unicode representation. The
-    /// returned value will (a) omit the path for standard schemes, excepting file
-    /// and filesystem, and (b) omit the port if it is the default for the scheme. Do
-    /// not use this for URLs which will be parsed or sent to other applications.
-    public static func formatURLForSecurityDisplay(url: NSURL, languages: String? = nil) -> String {
+    /// presented in Unicode if the conversion is considered safe. The returned value
+    /// will (a) omit the path for standard schemes, excepting file and filesystem,
+    /// and (b) omit the port if it is the default for the scheme. Do not use this
+    /// for URLs which will be parsed or sent to other applications.
+    public static func formatURLForSecurityDisplay(url: NSURL) -> String {
         let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        let cefLangsPtr = languages != nil ? CEFStringPtrCreateFromSwiftString(languages!) : nil
-        defer { CEFStringPtrRelease(cefLangsPtr) }
         
-        let cefStrPtr = cef_format_url_for_security_display(cefURLPtr, cefLangsPtr)
+        let cefStrPtr = cef_format_url_for_security_display(cefURLPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.memory)
     }
@@ -84,21 +82,6 @@ public struct CEFParseUtils {
             CEFStringPtrRelease(cefDecodedPtr)
         }
         return CEFStringToSwiftString(cefDecodedPtr.memory)
-    }
-
-    /// Parses |string| which represents a CSS color value. If |strict| is true
-    /// strict parsing rules will be applied. Returns true on success or false on
-    /// error. If parsing succeeds |color| will be set to the color value otherwise
-    /// |color| will remain unchanged.
-    public static func parseCSSColor(string: String, isStrict: Bool) -> CEFColor? {
-        let cefStrPtr = CEFStringPtrCreateFromSwiftString(string)
-        defer { CEFStringPtrRelease(cefStrPtr) }
-        var cefColor: cef_color_t = 0
-        
-        if cef_parse_csscolor(cefStrPtr, isStrict ? 1 : 0, &cefColor) != 0 {
-            return CEFColor.fromCEF(cefColor)
-        }
-        return nil
     }
 
     // Parses the specified |json_string| and returns a dictionary or list

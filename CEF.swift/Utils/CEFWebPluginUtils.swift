@@ -30,33 +30,6 @@ public struct CEFWebPluginUtils {
         cef_refresh_web_plugins()
     }
 
-    /// Add a plugin path (directory + file). This change may not take affect until
-    /// after CefRefreshWebPlugins() is called. Can be called on any thread in the
-    /// browser process.
-    public static func addWebPluginWithPath(path: String) {
-        let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
-        defer { CEFStringPtrRelease(cefStrPtr) }
-        cef_add_web_plugin_path(cefStrPtr)
-    }
-
-    /// Add a plugin directory. This change may not take affect until after
-    /// CefRefreshWebPlugins() is called. Can be called on any thread in the browser
-    /// process.
-    public static func addWebPluginWithDirectory(dir: String) {
-        let cefStrPtr = CEFStringPtrCreateFromSwiftString(dir)
-        defer { CEFStringPtrRelease(cefStrPtr) }
-        cef_add_web_plugin_directory(cefStrPtr)
-    }
-
-    /// Remove a plugin path (directory + file). This change may not take affect
-    /// until after CefRefreshWebPlugins() is called. Can be called on any thread in
-    /// the browser process.
-    public static func removeWebPluginAtPath(path: String) {
-        let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
-        defer { CEFStringPtrRelease(cefStrPtr) }
-        cef_remove_web_plugin_path(cefStrPtr)
-    }
-
     /// Unregister an internal plugin. This may be undone the next time
     /// CefRefreshWebPlugins() is called. Can be called on any thread in the browser
     /// process.
@@ -64,14 +37,6 @@ public struct CEFWebPluginUtils {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
         defer { CEFStringPtrRelease(cefStrPtr) }
         cef_unregister_internal_web_plugin(cefStrPtr)
-    }
-
-    /// Force a plugin to shutdown. Can be called on any thread in the browser
-    /// process but will be executed on the IO thread.
-    public static func forceShutDownWebPluginAtPath(path: String) {
-        let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
-        defer { CEFStringPtrRelease(cefStrPtr) }
-        cef_force_web_plugin_shutdown(cefStrPtr)
     }
 
     /// Register a plugin crash. Can be called on any thread in the browser process
