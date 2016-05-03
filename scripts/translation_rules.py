@@ -3,8 +3,8 @@
 abbreviations = [
     'cef', 'http', 'https', 'ssl', 'url', 'uri', 'json', 'html', 'xhtml', 'v8', 'dom',
     'cdata', 'utf8', 'utf16le', 'utf16be', 'ascii', 'io', 'ui', 'db', '5xx', 'xhr',
-    'cmy', 'cmyk', 'kcmy', 'rgb', 'rgba', 'rgb16', 'hp', 'rfc', 'id', 'js', 'xml', 'pdf',
-    'ev', 'ct', 'sha1'
+    'cmy', 'cmyk', 'kcmy', 'rgb', 'rgba', 'bgra', 'rgb16', 'hp', 'rfc', 'id', 'js', 'xml', 'pdf',
+    'ev', 'ct', 'sha1', 'csp'
 ]
 
 typename_overrides = {
@@ -104,7 +104,9 @@ entryname_overrides = {
     'SCALE_FACTOR_300P': 'Scale300Percent',
     'CERT_STATUS_IS_EV': 'IsEV',
     'CERT_STATUS_REV_CHECKING_ENABLED': 'RevocationCheckingEnabled',
-    
+    'CEF_MENU_ANCHOR_TOPLEFT': 'TopLeft',
+    'CEF_MENU_ANCHOR_TOPRIGHT': 'TopRight',
+    'CEF_MENU_ANCHOR_BOTTOMCENTER': 'BottomCenter'
 }
 
 entrytype_tocef_cast_overrides = {
@@ -154,7 +156,17 @@ cef_enums = [
     
     # branch 2526
     'cef_referrer_policy_t',
-    'cef_response_filter_status_t'
+    'cef_response_filter_status_t',
+    
+    # branch 2704
+    'cef_color_type_t',
+    'cef_alpha_type_t',
+    'cef_text_style_t',
+    'cef_main_axis_alignment_t',
+    'cef_cross_axis_alignment_t',
+    'cef_button_state_t',
+    'cef_horizontal_alignment_t',
+    'cef_menu_anchor_position_t'
 ]
 
 cef_option_sets = [
