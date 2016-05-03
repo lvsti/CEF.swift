@@ -59,15 +59,6 @@ func CEFLifeSpanHandler_on_after_created(ptr: UnsafeMutablePointer<cef_life_span
     obj.onAfterCreated(CEFBrowser.fromCEF(browser)!)
 }
 
-func CEFLifeSpanHandler_run_modal(ptr: UnsafeMutablePointer<cef_life_span_handler_t>,
-                                  browser: UnsafeMutablePointer<cef_browser_t>) -> Int32 {
-    guard let obj = CEFLifeSpanHandlerMarshaller.get(ptr) else {
-        return 0
-    }
-    
-    return obj.onRunModal(CEFBrowser.fromCEF(browser)!) ? 1 : 0
-}
-
 func CEFLifeSpanHandler_do_close(ptr: UnsafeMutablePointer<cef_life_span_handler_t>,
                                  browser: UnsafeMutablePointer<cef_browser_t>) -> Int32 {
     guard let obj = CEFLifeSpanHandlerMarshaller.get(ptr) else {

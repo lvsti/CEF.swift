@@ -11,7 +11,6 @@ import Foundation
 func CEFJSDialogHandler_on_jsdialog(ptr: UnsafeMutablePointer<cef_jsdialog_handler_t>,
                                     browser: UnsafeMutablePointer<cef_browser_t>,
                                     origin: UnsafePointer<cef_string_t>,
-                                    acceptLanguage: UnsafePointer<cef_string_t>,
                                     type: cef_jsdialog_type_t,
                                     message: UnsafePointer<cef_string_t>,
                                     prompt: UnsafePointer<cef_string_t>,
@@ -23,7 +22,6 @@ func CEFJSDialogHandler_on_jsdialog(ptr: UnsafeMutablePointer<cef_jsdialog_handl
 
     let action = obj.onJSDialog(CEFBrowser.fromCEF(browser)!,
                                 origin: origin != nil ? NSURL(string: CEFStringToSwiftString(origin.memory)) : nil,
-                                acceptLanguage: acceptLanguage != nil ? CEFStringToSwiftString(acceptLanguage.memory) : nil,
                                 type: CEFJSDialogType.fromCEF(type),
                                 message: message != nil ? CEFStringToSwiftString(message.memory) : nil,
                                 prompt: prompt != nil ? CEFStringToSwiftString(prompt.memory) : nil,

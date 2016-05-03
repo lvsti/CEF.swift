@@ -21,7 +21,6 @@ extension cef_life_span_handler_t: CEFCallbackMarshalling {
     mutating func marshalCallbacks() {
         on_before_popup = CEFLifeSpanHandler_on_before_popup
         on_after_created = CEFLifeSpanHandler_on_after_created
-        run_modal = CEFLifeSpanHandler_run_modal
         do_close = CEFLifeSpanHandler_do_close
         on_before_close = CEFLifeSpanHandler_on_before_close
     }
