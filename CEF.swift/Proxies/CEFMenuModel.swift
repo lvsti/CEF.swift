@@ -12,6 +12,15 @@ public extension CEFMenuModel {
 
     public typealias CommandID = CEFMenuID
     public typealias GroupID = Int32
+    
+    public convenience init?(delegate: CEFMenuModelDelegate? = nil) {
+        var cefDelegatePtr: UnsafeMutablePointer<cef_menu_model_delegate_t> = nil
+        if let delegate = delegate {
+            cefDelegatePtr = delegate.toCEF()
+        }
+        
+        self.init(ptr: cef_menu_model_create(cefDelegatePtr))
+    }
 
     /// Clears the menu. Returns true on success.
     public func clear() -> Bool {

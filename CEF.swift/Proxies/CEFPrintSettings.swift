@@ -69,8 +69,8 @@ public extension CEFPrintSettings {
     }
 
     /// Set the page ranges.
-    private func setPageRanges(ranges: [CEFPageRange]) {
-        let cefRangesPtr = UnsafeMutablePointer<cef_page_range_t>.alloc(ranges.count)
+    private func setPageRanges(ranges: [CEFRange]) {
+        let cefRangesPtr = UnsafeMutablePointer<cef_range_t>.alloc(ranges.count)
         defer { cefRangesPtr.dealloc(ranges.count) }
         
         for i in 0..<ranges.count {
@@ -86,21 +86,21 @@ public extension CEFPrintSettings {
     }
 
     /// Retrieve the page ranges.
-    private func getPageRanges() -> [CEFPageRange] {
+    private func getPageRanges() -> [CEFRange] {
         var count: size_t = 0
-        let cefRangesPtr: UnsafeMutablePointer<cef_page_range_t> = nil
+        let cefRangesPtr: UnsafeMutablePointer<cef_range_t> = nil
         cefObject.get_page_ranges(cefObjectPtr, &count, cefRangesPtr)
 
-        var ranges = [CEFPageRange]()
+        var ranges = [CEFRange]()
         for i in 0..<count {
-            ranges.append(CEFPageRange.fromCEF(cefRangesPtr.advancedBy(i).memory))
+            ranges.append(CEFRange.fromCEF(cefRangesPtr.advancedBy(i).memory))
         }
         
         return ranges
     }
     
     /// Page ranges.
-    public var pageRanges: [CEFPageRange] {
+    public var pageRanges: [CEFRange] {
         get { return getPageRanges() }
         set { setPageRanges(newValue) }
     }

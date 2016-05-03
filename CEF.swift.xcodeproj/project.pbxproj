@@ -284,6 +284,7 @@
 		E8CE3D3C1CD950560066BC53 /* CEFDownloadImageCallbackBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CE3D3B1CD950560066BC53 /* CEFDownloadImageCallbackBridge.swift */; };
 		E8CE3D3E1CD951670066BC53 /* CEFMenuModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CE3D3D1CD951670066BC53 /* CEFMenuModelDelegate.swift */; };
 		E8CE3D401CD952CA0066BC53 /* CEFMenuDelegate+Interop.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CE3D3F1CD952CA0066BC53 /* CEFMenuDelegate+Interop.swift */; };
+		E8CE3D421CD959680066BC53 /* CEFImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CE3D411CD959680066BC53 /* CEFImage.swift */; };
 		E8E53C0E1B910BE800A4A6C6 /* CEFApp+Interop.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E53BE61B910BE800A4A6C6 /* CEFApp+Interop.g.swift */; };
 		E8E53C0F1B910BE800A4A6C6 /* CEFBrowserProcessHandler+Interop.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E53BE71B910BE800A4A6C6 /* CEFBrowserProcessHandler+Interop.g.swift */; };
 		E8E53C101B910BE800A4A6C6 /* CEFClient+Interop.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E53BE81B910BE800A4A6C6 /* CEFClient+Interop.g.swift */; };
@@ -656,6 +657,7 @@
 		E8CE3D3B1CD950560066BC53 /* CEFDownloadImageCallbackBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFDownloadImageCallbackBridge.swift; sourceTree = "<group>"; };
 		E8CE3D3D1CD951670066BC53 /* CEFMenuModelDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFMenuModelDelegate.swift; sourceTree = "<group>"; };
 		E8CE3D3F1CD952CA0066BC53 /* CEFMenuDelegate+Interop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CEFMenuDelegate+Interop.swift"; sourceTree = "<group>"; };
+		E8CE3D411CD959680066BC53 /* CEFImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFImage.swift; sourceTree = "<group>"; };
 		E8E53BE61B910BE800A4A6C6 /* CEFApp+Interop.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CEFApp+Interop.g.swift"; sourceTree = "<group>"; };
 		E8E53BE71B910BE800A4A6C6 /* CEFBrowserProcessHandler+Interop.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CEFBrowserProcessHandler+Interop.g.swift"; sourceTree = "<group>"; };
 		E8E53BE81B910BE800A4A6C6 /* CEFClient+Interop.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CEFClient+Interop.g.swift"; sourceTree = "<group>"; };
@@ -973,6 +975,7 @@
 				E81F6B601B7A3BD600311F4B /* CEFFileDialogCallback.swift */,
 				E8898AFF1B69654C009E0DFF /* CEFFrame.swift */,
 				E8621C611B764C7300944CEE /* CEFGeolocationCallback.swift */,
+				E8CE3D411CD959680066BC53 /* CEFImage.swift */,
 				E81F6B681B7A4A8A00311F4B /* CEFJSDialogCallback.swift */,
 				E8898B001B69654C009E0DFF /* CEFListValue.swift */,
 				E890E98E1B700B93007DB9C6 /* CEFMenuModel.swift */,
@@ -1684,6 +1687,7 @@
 				E88B868A1B6EA08A00D10E17 /* CEFMenuID.g.swift in Sources */,
 				E88B85F11B6D423B00D10E17 /* CEFV8StackTrace.swift in Sources */,
 				E8898B2B1B69654C009E0DFF /* CEFRequest.swift in Sources */,
+				E8CE3D421CD959680066BC53 /* CEFImage.swift in Sources */,
 				E8E53CD91B910F6D00A4A6C6 /* CEFURLRequestClient+Interop.swift in Sources */,
 				E890E9891B70018F007DB9C6 /* CEFV8ContextSafetyImplementation.swift in Sources */,
 				E8E53CD61B910F6D00A4A6C6 /* CEFSetCookieCallback+Interop.swift in Sources */,

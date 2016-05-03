@@ -36,7 +36,7 @@ public extension CEFPOSTData {
     /// Retrieve the post data elements.
     public var elements: [CEFPOSTDataElement] {
         var count: size_t = 0
-        var cefElements = UnsafeMutablePointer<cef_post_data_element_t>()
+        var cefElements: UnsafeMutablePointer<cef_post_data_element_t> = nil
         
         cefObject.get_elements(cefObjectPtr, &count, &cefElements)
         

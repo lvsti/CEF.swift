@@ -80,29 +80,41 @@ public extension CEFBrowserHost {
         cefObject.close_browser(cefObjectPtr, force ? 1 : 0)
     }
 
+    /// Helper for closing a browser. Call this method from the top-level window
+    /// close handler. Internally this calls CloseBrowser(false) if the close has
+    /// not yet been initiated. This method returns false while the close is
+    /// pending and true after the close has completed. See CloseBrowser() and
+    /// CefLifeSpanHandler::DoClose() documentation for additional usage
+    /// information. This method must be called on the browser process UI thread.
+    func tryCloseBrowser() -> Bool {
+        return cefObject.try_close_browser(cefObjectPtr) != 0
+    }
+    
     /// Set whether the browser is focused.
     public func setFocused(focused: Bool) {
         cefObject.set_focus(cefObjectPtr, focused ? 1 : 0)
     }
 
-    /// Set whether the window containing the browser is visible
-    /// (minimized/unminimized, app hidden/unhidden, etc). Only used on Mac OS X.
-    public func setWindowVisibility(visible: Bool) {
-        cefObject.set_window_visibility(cefObjectPtr, visible ? 1 : 0)
-    }
-
-    /// Retrieve the window handle for this browser.
+    /// Retrieve the window handle for this browser. If this browser is wrapped in
+    /// a CefBrowserView this method should be called on the browser process UI
+    /// thread and it will return the handle for the top-level native window.
     public var windowHandle: CEFWindowHandle {
         let rawHandle:UnsafeMutablePointer<Void> = cefObject.get_window_handle(cefObjectPtr)
         return Unmanaged<CEFWindowHandle>.fromOpaque(COpaquePointer(rawHandle)).takeUnretainedValue()
     }
     
     /// Retrieve the window handle of the browser that opened this browser. Will
-    /// return NULL for non-popup windows. This method can be used in combination
-    /// with custom handling of modal windows.
+    /// return NULL for non-popup windows or if this browser is wrapped in a
+    /// CefBrowserView. This method can be used in combination with custom handling
+    /// of modal windows.
     public var openerWindowHandle: CEFWindowHandle {
         let rawHandle:UnsafeMutablePointer<Void> = cefObject.get_opener_window_handle(cefObjectPtr)
         return Unmanaged<CEFWindowHandle>.fromOpaque(COpaquePointer(rawHandle)).takeUnretainedValue()
+    }
+    
+    /// Returns true if this browser is wrapped in a CefBrowserView.
+    public var hasView: Bool {
+        return cefObject.has_view(cefObjectPtr) != 0
     }
     
     /// Returns the client for this browser.
@@ -180,6 +192,31 @@ public extension CEFBrowserHost {
         defer { CEFStringPtrRelease(cefURLPtr) }
         cefObject.start_download(cefObjectPtr, cefURLPtr)
     }
+    
+    /// Download |image_url| and execute |callback| on completion with the images
+    /// received from the renderer. If |is_favicon| is true then cookies are not
+    /// sent and not accepted during download. Images with density independent
+    /// pixel (DIP) sizes larger than |max_image_size| are filtered out from the
+    /// image results. Versions of the image at different scale factors may be
+    /// downloaded up to the maximum scale factor supported by the system. If there
+    /// are no image results <= |max_image_size| then the smallest image is resized
+    /// to |max_image_size| and is the only result. A |max_image_size| of 0 means
+    /// unlimited. If |bypass_cache| is true then |image_url| is requested from the
+    /// server even if it is present in the browser cache.
+    func downloadImage(url: NSURL,
+                       isFavicon: Bool,
+                       maxImageSize: UInt32,
+                       bypassCache: Bool,
+                       callback: CEFDownloadImageCallback) {
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
+        defer { CEFStringPtrRelease(cefStrPtr) }
+        cefObject.download_image(cefObjectPtr,
+                                 cefStrPtr,
+                                 isFavicon ? 1 : 0,
+                                 maxImageSize,
+                                 bypassCache ? 1 : 0,
+                                 callback.toCEF())
+    }
 
     /// Print the current browser contents.
     public func print() {
@@ -218,7 +255,9 @@ public extension CEFBrowserHost {
     }
     
     /// Open developer tools in its own window. If |inspect_element_at| is non-
-    /// empty the element at the specified (x,y) location will be inspected.
+    /// empty the element at the specified (x,y) location will be inspected. The
+    /// |windowInfo| parameter will be ignored if this browser is wrapped in a
+    /// CefBrowserView.
     public func showDevTools(windowInfo: CEFWindowInfo,
                              client: CEFClient,
                              settings: CEFBrowserSettings,
@@ -485,6 +524,28 @@ public extension CEFBrowserHost {
                       acceptFilters: acceptFilters,
                       selectedFilterIndex: selectedFilterIndex,
                       callback: CEFRunFileDialogCallbackBridge(block: block))
+    }
+
+    /// Download |image_url| and execute |callback| on completion with the images
+    /// received from the renderer. If |is_favicon| is true then cookies are not
+    /// sent and not accepted during download. Images with density independent
+    /// pixel (DIP) sizes larger than |max_image_size| are filtered out from the
+    /// image results. Versions of the image at different scale factors may be
+    /// downloaded up to the maximum scale factor supported by the system. If there
+    /// are no image results <= |max_image_size| then the smallest image is resized
+    /// to |max_image_size| and is the only result. A |max_image_size| of 0 means
+    /// unlimited. If |bypass_cache| is true then |image_url| is requested from the
+    /// server even if it is present in the browser cache.
+    func downloadImage(url: NSURL,
+                       isFavicon: Bool,
+                       maxImageSize: UInt32,
+                       bypassCache: Bool,
+                       block: CEFDownloadImageCallbackOnDownloadImageFinishedBlock) {
+        downloadImage(url,
+                      isFavicon: isFavicon,
+                      maxImageSize: maxImageSize,
+                      bypassCache: bypassCache,
+                      callback: CEFDownloadImageCallbackBridge(block: block))
     }
 
     /// Print the current browser contents to the PDF file specified by |path| and
