@@ -102,14 +102,14 @@ class CEFMarshaller<TClass, TStruct where TStruct : CEFObject, TStruct : CEFCall
     func addRef() {
         _refCountMutex.lock()
         defer { _refCountMutex.unlock() }
-        ++_refCount
+        _refCount += 1
         _self = self
     }
     
     func release() -> Bool {
         _refCountMutex.lock()
         defer { _refCountMutex.unlock() }
-        --_refCount
+        _refCount -= 1
         let shouldRelease = _refCount == 0
         if shouldRelease {
             _self = nil
