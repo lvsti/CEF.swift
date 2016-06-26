@@ -17,6 +17,23 @@ extension CEFOnProcessRequestAction: BooleanType {
     public var boolValue: Bool { return self == .Allow }
 }
 
+public enum CEFOnGetResponseHeadersAction {
+    /// Response length is unknown, ReadResponse() will be called until it
+    /// returns false
+    case ContinueWithUnknownResponseLength
+    
+    /// Response length is known, ReadResponse() will be called until it returns
+    /// false or the specified number of bytes have been read
+    case ContinueWithResponseLength(UInt64)
+    
+    /// Redirect request to the given URL
+    case Redirect(NSURL)
+    
+    /// Indicates an error while setting up the response, call SetError()
+    /// on the response object to specify
+    case Abort
+}
+
 public enum CEFOnReadResponseAction {
     /// Data is available immediately, associated value shows the number of bytes read
     case Read(Int)
@@ -55,8 +72,9 @@ public protocol CEFResourceHandler {
     /// false or the specified number of bytes have been read. Use the |response|
     /// object to set the mime type, http status code and other optional header
     /// values. To redirect the request to a new URL set |redirectUrl| to the new
-    /// URL.
-    func onGetResponseHeaders(response: CEFResponse, inout responseLength: Int64?, inout redirectURL: NSURL?)
+    /// URL. If an error occured while setting up the request you can call
+    /// SetError() on |response| to indicate the error condition.
+    func onGetResponseHeaders(response: CEFResponse) -> CEFOnGetResponseHeadersAction
     
     /// Read response data. If data is available immediately copy up to
     /// |bytes_to_read| bytes into |data_out|, set |bytes_read| to the number of
@@ -87,7 +105,8 @@ public extension CEFResourceHandler {
         return .Cancel
     }
     
-    func onGetResponseHeaders(response: CEFResponse, inout responseLength: Int64?, inout redirectURL: NSURL?) {
+    func onGetResponseHeaders(response: CEFResponse) -> CEFOnGetResponseHeadersAction {
+        return .ContinueWithUnknownResponseLength
     }
     
     func onReadResponse(buffer: UnsafeMutablePointer<Void>,
