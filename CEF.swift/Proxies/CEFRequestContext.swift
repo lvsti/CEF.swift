@@ -40,7 +40,7 @@ public extension CEFRequestContext {
             cefHandlerPtr = handler.toCEF()
         }
         
-        let cefCtx = create_context_shared(context.toCEF(), cefHandlerPtr)
+        let cefCtx = cef_create_context_shared(context.toCEF(), cefHandlerPtr)
         return CEFRequestContext.fromCEF(cefCtx)
     }
     

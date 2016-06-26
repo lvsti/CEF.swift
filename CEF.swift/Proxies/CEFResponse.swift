@@ -22,6 +22,20 @@ public extension CEFResponse {
         return cefObject.is_read_only(cefObjectPtr) != 0
     }
 
+    /// Set the response error code. This can be used by custom scheme handlers
+    /// to return errors during initial request processing.
+    public var error: CEFErrorCode? {
+        /// Get the response error code. Returns nil if there was no error.
+        get {
+            let cefError = cefObject.get_error(cefObjectPtr).rawValue
+            return cefError != 0 ? CEFErrorCode.fromCEF(cefError) : nil
+        }
+        set {
+            let cefError = newValue?.toCEF() ?? Int32(0)
+            cefObject.set_error(cefObjectPtr, cef_errorcode_t(cefError))
+        }
+    }
+
     /// Response status code.
     public var status: Int {
         get { return Int(cefObject.get_status(cefObjectPtr)) }

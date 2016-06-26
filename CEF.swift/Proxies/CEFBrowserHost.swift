@@ -254,10 +254,13 @@ public extension CEFBrowserHost {
         cefObject.stop_finding(cefObjectPtr, clearSelection ? 1 : 0)
     }
     
-    /// Open developer tools in its own window. If |inspect_element_at| is non-
-    /// empty the element at the specified (x,y) location will be inspected. The
-    /// |windowInfo| parameter will be ignored if this browser is wrapped in a
-    /// CefBrowserView.
+    /// Open developer tools (DevTools) in its own browser. The DevTools browser
+    /// will remain associated with this browser. If the DevTools browser is
+    /// already open then it will be focused, in which case the |windowInfo|,
+    /// |client| and |settings| parameters will be ignored. If |inspect_element_at|
+    /// is non-empty then the element at the specified (x,y) location will be
+    /// inspected. The |windowInfo| parameter will be ignored if this browser is
+    /// wrapped in a CefBrowserView.
     public func showDevTools(windowInfo: CEFWindowInfo,
                              client: CEFClient,
                              settings: CEFBrowserSettings,
@@ -278,12 +281,17 @@ public extension CEFBrowserHost {
         cefObject.show_dev_tools(cefObjectPtr, &cefWinInfo, client.toCEF(), &cefSettings, cefPointPtr)
     }
     
-    /// Explicitly close the developer tools window if one exists for this browser
-    /// instance.
+    /// Explicitly close the associated DevTools browser, if any.
     public func closeDevTools() {
         cefObject.close_dev_tools(cefObjectPtr)
     }
 
+    // Returns true if this browser currently has an associated DevTools browser.
+    // Must be called on the browser process UI thread.
+    public var hasDevTools: Bool {
+        return cefObject.has_dev_tools(cefObjectPtr) != 0
+    }
+    
     /// Retrieve a snapshot of current navigation entries as values sent to the
     /// specified visitor. If |current_only| is true only the current navigation
     /// entry will be sent, otherwise all navigation entries will be sent.
