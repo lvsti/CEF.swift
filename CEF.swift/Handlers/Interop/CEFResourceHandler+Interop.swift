@@ -26,17 +26,19 @@ func CEFResourceHandler_get_response_headers(ptr: UnsafeMutablePointer<cef_resou
         return
     }
 
-    var length: Int64? = nil
-    var url: NSURL? = nil
-    obj.onGetResponseHeaders(CEFResponse.fromCEF(response)!, responseLength: &length, redirectURL: &url)
+    let action = obj.onGetResponseHeaders(CEFResponse.fromCEF(response)!)
     
-    if let length = length {
-        responseLength.memory = length
-    }
-    
-    if let url = url {
+    switch action {
+    case .ContinueWithResponseLength(let length):
+        responseLength.memory = int64(length)
+    case .ContinueWithUnknownResponseLength:
+        responseLength.memory = -1
+    case .Redirect(let url):
         CEFStringSetFromSwiftString(url.absoluteString!, cefString: redirectURL)
+    default:
+        break
     }
+    
 }
 
 func CEFResourceHandler_read_response(ptr: UnsafeMutablePointer<cef_resource_handler_t>,
