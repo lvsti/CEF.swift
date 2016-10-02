@@ -13,16 +13,16 @@ import Foundation
 /// executed. DOM objects are only valid for the scope of this method. Do not
 /// keep references to or attempt to access any DOM objects outside the scope
 /// of this method.
-public typealias CEFDOMVisitorVisitBlock = (document: CEFDOMDocument) -> Void
+public typealias CEFDOMVisitorVisitBlock = (_ document: CEFDOMDocument) -> Void
 
 class CEFDOMVisitorBridge: CEFDOMVisitor {
     let block: CEFDOMVisitorVisitBlock
     
-    init(block: CEFDOMVisitorVisitBlock) {
+    init(block: @escaping CEFDOMVisitorVisitBlock) {
         self.block = block
     }
     
     func visit(document: CEFDOMDocument) {
-        block(document: document)
+        block(document)
     }
 }

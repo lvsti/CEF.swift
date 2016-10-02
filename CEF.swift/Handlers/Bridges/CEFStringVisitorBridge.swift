@@ -9,16 +9,16 @@
 import Foundation
 
 /// Method that will be executed.
-public typealias CEFStringVisitorVisitBlock = (string: String) -> Void
+public typealias CEFStringVisitorVisitBlock = (_ string: String) -> Void
 
 class CEFStringVisitorBridge: CEFStringVisitor {
     let block: CEFStringVisitorVisitBlock
     
-    init(block: CEFStringVisitorVisitBlock) {
+    init(block: @escaping CEFStringVisitorVisitBlock) {
         self.block = block
     }
     
     func visit(string: String) {
-        block(string: string)
+        block(string)
     }
 }

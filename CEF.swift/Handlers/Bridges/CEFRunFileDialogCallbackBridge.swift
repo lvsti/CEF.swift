@@ -13,17 +13,18 @@ import Foundation
 /// the accept filters array passed to CefBrowserHost::RunFileDialog.
 /// |file_paths| will be a single value or a list of values depending on the
 /// dialog mode. If the selection was cancelled |file_paths| will be empty.
-public typealias CEFRunFileDialogCallbackOnFileDialogDismissedBlock = (filterIndex: Int, filePaths: [String]) -> Void
+public typealias CEFRunFileDialogCallbackOnFileDialogDismissedBlock =
+    (_ filterIndex: Int, _ filePaths: [String]) -> Void
 
 class CEFRunFileDialogCallbackBridge: CEFRunFileDialogCallback {
     let block: CEFRunFileDialogCallbackOnFileDialogDismissedBlock
     
-    init(block: CEFRunFileDialogCallbackOnFileDialogDismissedBlock) {
+    init(block: @escaping CEFRunFileDialogCallbackOnFileDialogDismissedBlock) {
         self.block = block
     }
     
     func onFileDialogDismissed(filterIndex: Int, filePaths: [String]) {
-        block(filterIndex: filterIndex, filePaths: filePaths)
+        block(filterIndex, filePaths)
     }
 }
 

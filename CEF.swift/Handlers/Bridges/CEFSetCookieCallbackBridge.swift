@@ -10,16 +10,16 @@ import Foundation
 
 /// Method that will be called upon completion. |success| will be true if the
 /// cookie was set successfully.
-public typealias CEFSetCookieCallbackOnCompleteBlock = (success: Bool) -> Void
+public typealias CEFSetCookieCallbackOnCompleteBlock = (_ success: Bool) -> Void
 
 class CEFSetCookieCallbackBridge: CEFSetCookieCallback {
     let block: CEFSetCookieCallbackOnCompleteBlock
     
-    init(block: CEFSetCookieCallbackOnCompleteBlock) {
+    init(block: @escaping CEFSetCookieCallbackOnCompleteBlock) {
         self.block = block
     }
     
     func onComplete(success: Bool) {
-        block(success: success)
+        block(success)
     }
 }

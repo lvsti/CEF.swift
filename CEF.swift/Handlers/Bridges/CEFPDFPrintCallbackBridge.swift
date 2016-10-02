@@ -8,17 +8,17 @@
 
 import Foundation
 
-public typealias CEFPDFPrintCallbackOnPDFPrintFinishedBlock = (path: String, successfully: Bool) -> Void
+public typealias CEFPDFPrintCallbackOnPDFPrintFinishedBlock = (_ path: String, _ successfully: Bool) -> Void
 
 class CEFPDFPrintCallbackBridge: CEFPDFPrintCallback {
     let block: CEFPDFPrintCallbackOnPDFPrintFinishedBlock
     
-    init(block: CEFPDFPrintCallbackOnPDFPrintFinishedBlock) {
+    init(block: @escaping CEFPDFPrintCallbackOnPDFPrintFinishedBlock) {
         self.block = block
     }
     
     func onPDFPrintFinishedForPath(path: String, successfully: Bool) {
-        block(path: path, successfully: successfully)
+        block(path, successfully)
     }
 }
 

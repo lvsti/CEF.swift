@@ -14,7 +14,7 @@ public typealias CEFCompletionCallbackOnCompleteBlock = () -> Void
 class CEFCompletionCallbackBridge: CEFCompletionCallback {
     let block: CEFCompletionCallbackOnCompleteBlock
     
-    init(block: CEFCompletionCallbackOnCompleteBlock) {
+    init(block: @escaping CEFCompletionCallbackOnCompleteBlock) {
         self.block = block
     }
     

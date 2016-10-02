@@ -14,7 +14,7 @@ public typealias CEFTaskExecuteBlock = () -> Void
 class CEFTaskBridge: CEFTask {
     let block: CEFTaskExecuteBlock
     
-    init(block: CEFTaskExecuteBlock) {
+    init(block: @escaping CEFTaskExecuteBlock) {
         self.block = block
     }
     

@@ -14,16 +14,16 @@ import Foundation
 /// |index| is the 0-based index of this entry and |total| is the total number
 /// of entries.
 public typealias CEFNavigationEntryVisitorVisitBlock =
-    (entry: CEFNavigationEntry, isCurrent: Bool, index: Int, totalCount: Int) -> Bool
+    (_ entry: CEFNavigationEntry, _ isCurrent: Bool, _ index: Int, _ totalCount: Int) -> Bool
 
 class CEFNavigationEntryVisitorBridge: CEFNavigationEntryVisitor {
     let block: CEFNavigationEntryVisitorVisitBlock
     
-    init(block: CEFNavigationEntryVisitorVisitBlock) {
+    init(block: @escaping CEFNavigationEntryVisitorVisitBlock) {
         self.block = block
     }
     
     func visit(entry: CEFNavigationEntry, isCurrent: Bool, index: Int, totalCount: Int) -> Bool {
-        return block(entry: entry, isCurrent: isCurrent, index: index, totalCount: totalCount)
+        return block(entry, isCurrent, index, totalCount)
     }
 }

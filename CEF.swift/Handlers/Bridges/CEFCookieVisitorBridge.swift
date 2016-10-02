@@ -13,16 +13,17 @@ import Foundation
 /// Set |deleteCookie| to true to delete the cookie currently being visited.
 /// Return false to stop visiting cookies. This method may never be called if
 /// no cookies are found.
-public typealias CEFCookieVisitorVisitBlock = (cookie: CEFCookie, index: Int, count: Int, inout shouldDelete: Bool) -> Bool
+public typealias CEFCookieVisitorVisitBlock =
+    (_ cookie: CEFCookie, _ index: Int, _ count: Int, _ shouldDelete: inout Bool) -> Bool
 
 class CEFCookieVisitorBridge: CEFCookieVisitor {
     let block: CEFCookieVisitorVisitBlock
     
-    init(block: CEFCookieVisitorVisitBlock) {
+    init(block: @escaping CEFCookieVisitorVisitBlock) {
         self.block = block
     }
     
-    func visit(cookie: CEFCookie, index: Int, count: Int, inout shouldDelete: Bool) -> Bool {
-        return block(cookie: cookie, index: index, count: count, shouldDelete: &shouldDelete)
+    func visit(cookie: CEFCookie, index: Int, count: Int, shouldDelete: inout Bool) -> Bool {
+        return block(cookie, index, count, &shouldDelete)
     }
 }

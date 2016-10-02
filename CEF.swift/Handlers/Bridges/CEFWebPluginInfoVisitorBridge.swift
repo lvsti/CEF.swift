@@ -12,16 +12,17 @@ import Foundation
 /// index for the current plugin. |total| is the total number of plugins.
 /// Return false to stop visiting plugins. This method may never be called if
 /// no plugins are found.
-public typealias CEFWebPluginInfoVisitorVisitBlock = (pluginInfo: CEFWebPluginInfo, index: Int, totalCount: Int) -> Bool
+public typealias CEFWebPluginInfoVisitorVisitBlock =
+    (_ pluginInfo: CEFWebPluginInfo, _ index: Int, _ totalCount: Int) -> Bool
 
 class CEFWebPluginInfoVisitorBridge: CEFWebPluginInfoVisitor {
     let block: CEFWebPluginInfoVisitorVisitBlock
     
-    init(block: CEFWebPluginInfoVisitorVisitBlock) {
+    init(block: @escaping CEFWebPluginInfoVisitorVisitBlock) {
         self.block = block
     }
     
     func visit(pluginInfo: CEFWebPluginInfo, index: Int, totalCount: Int) -> Bool {
-        return block(pluginInfo: pluginInfo, index: index, totalCount: totalCount)
+        return block(pluginInfo, index, totalCount)
     }
 }

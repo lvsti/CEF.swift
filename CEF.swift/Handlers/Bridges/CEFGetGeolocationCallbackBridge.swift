@@ -10,16 +10,16 @@ import Foundation
 
 /// Called with the 'best available' location information or, if the location
 /// update failed, with error information.
-public typealias CEFGetGeolocationCallbackOnLocationUpdateBlock = (position: CEFGeoposition) -> Void
+public typealias CEFGetGeolocationCallbackOnLocationUpdateBlock = (_ position: CEFGeoposition) -> Void
 
 class CEFGetGeolocationCallbackBridge: CEFGetGeolocationCallback {
     let block: CEFGetGeolocationCallbackOnLocationUpdateBlock
     
-    init(block: CEFGetGeolocationCallbackOnLocationUpdateBlock) {
+    init(block: @escaping CEFGetGeolocationCallbackOnLocationUpdateBlock) {
         self.block = block
     }
     
     func onLocationUpdate(position: CEFGeoposition) {
-        block(position: position)
+        block(position)
     }
 }
