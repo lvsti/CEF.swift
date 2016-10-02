@@ -22,7 +22,7 @@ public enum CEFMainAxisAlignment: Int32 {
 }
 
 extension CEFMainAxisAlignment {
-    static func fromCEF(value: cef_main_axis_alignment_t) -> CEFMainAxisAlignment {
+    static func fromCEF(_ value: cef_main_axis_alignment_t) -> CEFMainAxisAlignment {
         return CEFMainAxisAlignment(rawValue: Int32(value.rawValue))!
     }
 

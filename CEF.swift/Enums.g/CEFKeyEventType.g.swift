@@ -28,7 +28,7 @@ public enum CEFKeyEventType: Int32 {
 }
 
 extension CEFKeyEventType {
-    static func fromCEF(value: cef_key_event_type_t) -> CEFKeyEventType {
+    static func fromCEF(_ value: cef_key_event_type_t) -> CEFKeyEventType {
         return CEFKeyEventType(rawValue: Int32(value.rawValue))!
     }
 

@@ -16,7 +16,7 @@ public class CEFDOMNode: CEFProxy<cef_domnode_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_domnode_t>) -> CEFDOMNode? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_domnode_t>) -> CEFDOMNode? {
         return CEFDOMNode(ptr: ptr)
     }
 }

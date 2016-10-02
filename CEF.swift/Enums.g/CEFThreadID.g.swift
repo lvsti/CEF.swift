@@ -39,7 +39,7 @@ public enum CEFThreadID: Int32 {
 }
 
 extension CEFThreadID {
-    static func fromCEF(value: cef_thread_id_t) -> CEFThreadID {
+    static func fromCEF(_ value: cef_thread_id_t) -> CEFThreadID {
         return CEFThreadID(rawValue: Int32(value.rawValue))!
     }
 

@@ -60,7 +60,7 @@ extension CEFBoxLayoutSettings {
         )
     }
     
-    static func fromCEF(value: cef_box_layout_settings_t) -> CEFBoxLayoutSettings {
+    static func fromCEF(_ value: cef_box_layout_settings_t) -> CEFBoxLayoutSettings {
         return CEFBoxLayoutSettings(
             horizontal: value.horizontal == 1,
             insideBorderHorizontalSpacing: Int(value.inside_border_horizontal_spacing),

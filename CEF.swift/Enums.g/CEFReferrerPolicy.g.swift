@@ -36,7 +36,7 @@ public enum CEFReferrerPolicy: Int32 {
 }
 
 extension CEFReferrerPolicy {
-    static func fromCEF(value: cef_referrer_policy_t) -> CEFReferrerPolicy {
+    static func fromCEF(_ value: cef_referrer_policy_t) -> CEFReferrerPolicy {
         return CEFReferrerPolicy(rawValue: Int32(value.rawValue))!
     }
 

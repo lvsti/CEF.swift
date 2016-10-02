@@ -16,7 +16,7 @@ public enum CEFMenuAnchorPosition: Int32 {
 }
 
 extension CEFMenuAnchorPosition {
-    static func fromCEF(value: cef_menu_anchor_position_t) -> CEFMenuAnchorPosition {
+    static func fromCEF(_ value: cef_menu_anchor_position_t) -> CEFMenuAnchorPosition {
         return CEFMenuAnchorPosition(rawValue: Int32(value.rawValue))!
     }
 

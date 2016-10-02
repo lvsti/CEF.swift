@@ -16,7 +16,7 @@ func CEFReadHandler_read(ptr: UnsafeMutablePointer<cef_read_handler_t>,
         return 0
     }
     
-    return obj.read(buffer, chunkSize: chunkSize, count: count)
+    return obj.read(buffer: buffer, chunkSize: chunkSize, count: count)
 }
 
 func CEFReadHandler_seek(ptr: UnsafeMutablePointer<cef_read_handler_t>,
@@ -26,7 +26,7 @@ func CEFReadHandler_seek(ptr: UnsafeMutablePointer<cef_read_handler_t>,
         return 1
     }
     
-    return obj.seek(offset, whence: CEFSeekPosition(rawValue: whence)!) ? 0 : 1
+    return obj.seek(offset: offset, whence: CEFSeekPosition(rawValue: whence)!) ? 0 : 1
 }
 
 func CEFReadHandler_tell(ptr: UnsafeMutablePointer<cef_read_handler_t>) -> Int64 {

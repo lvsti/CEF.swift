@@ -23,7 +23,7 @@ public enum CEFWindowOpenDisposition: Int32 {
 }
 
 extension CEFWindowOpenDisposition {
-    static func fromCEF(value: cef_window_open_disposition_t) -> CEFWindowOpenDisposition {
+    static func fromCEF(_ value: cef_window_open_disposition_t) -> CEFWindowOpenDisposition {
         return CEFWindowOpenDisposition(rawValue: Int32(value.rawValue))!
     }
 

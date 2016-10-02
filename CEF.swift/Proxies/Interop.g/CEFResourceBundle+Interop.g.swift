@@ -19,7 +19,7 @@ public class CEFResourceBundle: CEFProxy<cef_resource_bundle_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_resource_bundle_t>) -> CEFResourceBundle? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_resource_bundle_t>) -> CEFResourceBundle? {
         return CEFResourceBundle(ptr: ptr)
     }
 }

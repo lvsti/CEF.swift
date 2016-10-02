@@ -15,7 +15,7 @@ public class CEFSSLCertPrincipal: CEFProxy<cef_sslcert_principal_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_sslcert_principal_t>) -> CEFSSLCertPrincipal? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_sslcert_principal_t>) -> CEFSSLCertPrincipal? {
         return CEFSSLCertPrincipal(ptr: ptr)
     }
 }

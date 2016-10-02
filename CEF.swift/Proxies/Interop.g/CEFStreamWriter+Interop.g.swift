@@ -16,7 +16,7 @@ public class CEFStreamWriter: CEFProxy<cef_stream_writer_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_stream_writer_t>) -> CEFStreamWriter? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_stream_writer_t>) -> CEFStreamWriter? {
         return CEFStreamWriter(ptr: ptr)
     }
 }

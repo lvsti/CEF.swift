@@ -30,7 +30,7 @@ public struct CEFV8PropertyAttribute: OptionSet {
 }
 
 extension CEFV8PropertyAttribute {
-    static func fromCEF(value: cef_v8_propertyattribute_t) -> CEFV8PropertyAttribute {
+    static func fromCEF(_ value: cef_v8_propertyattribute_t) -> CEFV8PropertyAttribute {
         return CEFV8PropertyAttribute(rawValue: UInt32(value.rawValue))
     }
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-func CEFStringMultimapToSwiftDictionaryOfArrays(cefMultimap: cef_string_multimap_t) -> [String: [String]] {
+func CEFStringMultimapToSwiftDictionaryOfArrays(_ cefMultimap: cef_string_multimap_t) -> [String: [String]] {
     guard cefMultimap != nil else {
         return [:]
     }
@@ -35,7 +35,7 @@ func CEFStringMultimapToSwiftDictionaryOfArrays(cefMultimap: cef_string_multimap
     return multimap
 }
 
-func CEFStringMultimapCreateFromSwiftDictionaryOfArrays(dictionary: [String: [String]]) -> cef_string_multimap_t {
+func CEFStringMultimapCreateFromSwiftDictionaryOfArrays(_ dictionary: [String: [String]]) -> cef_string_multimap_t {
     let multimap = cef_string_multimap_alloc()
     
     var cefKey = cef_string_t()

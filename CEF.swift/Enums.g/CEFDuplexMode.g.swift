@@ -16,7 +16,7 @@ public enum CEFDuplexMode: Int32 {
 }
 
 extension CEFDuplexMode {
-    static func fromCEF(value: cef_duplex_mode_t) -> CEFDuplexMode {
+    static func fromCEF(_ value: cef_duplex_mode_t) -> CEFDuplexMode {
         return CEFDuplexMode(rawValue: Int32(value.rawValue))!
     }
 

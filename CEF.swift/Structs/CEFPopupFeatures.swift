@@ -26,7 +26,7 @@ public struct CEFPopupFeatures {
 }
 
 extension CEFPopupFeatures {
-    static func fromCEF(value: cef_popup_features_t) -> CEFPopupFeatures {
+    static func fromCEF(_ value: cef_popup_features_t) -> CEFPopupFeatures {
         return CEFPopupFeatures(rect: NSRect(x: Int(value.x), y: Int(value.y), width: Int(value.width), height: Int(value.height)),
                                 rectSet: NSRect(x: Int(value.xSet), y: Int(value.ySet), width: Int(value.widthSet), height: Int(value.heightSet)),
                                 menuBarVisible: value.menuBarVisible != 0,

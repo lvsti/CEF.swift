@@ -25,7 +25,7 @@ public enum CEFCrossAxisAlignment: Int32 {
 }
 
 extension CEFCrossAxisAlignment {
-    static func fromCEF(value: cef_cross_axis_alignment_t) -> CEFCrossAxisAlignment {
+    static func fromCEF(_ value: cef_cross_axis_alignment_t) -> CEFCrossAxisAlignment {
         return CEFCrossAxisAlignment(rawValue: Int32(value.rawValue))!
     }
 

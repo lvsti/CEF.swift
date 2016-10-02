@@ -36,7 +36,7 @@ public struct CEFJSONWriterOptions: OptionSet {
 }
 
 extension CEFJSONWriterOptions {
-    static func fromCEF(value: cef_json_writer_options_t) -> CEFJSONWriterOptions {
+    static func fromCEF(_ value: cef_json_writer_options_t) -> CEFJSONWriterOptions {
         return CEFJSONWriterOptions(rawValue: UInt32(value.rawValue))
     }
 

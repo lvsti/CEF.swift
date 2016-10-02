@@ -20,7 +20,7 @@ public enum CEFXMLEncodingType: Int32 {
 }
 
 extension CEFXMLEncodingType {
-    static func fromCEF(value: cef_xml_encoding_type_t) -> CEFXMLEncodingType {
+    static func fromCEF(_ value: cef_xml_encoding_type_t) -> CEFXMLEncodingType {
         return CEFXMLEncodingType(rawValue: Int32(value.rawValue))!
     }
 

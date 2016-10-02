@@ -18,7 +18,7 @@ func CEFContextMenuHandler_on_before_context_menu(ptr: UnsafeMutablePointer<cef_
         return
     }
 
-    obj.onBeforeContextMenu(CEFBrowser.fromCEF(browser)!,
+    obj.onBeforeContextMenu(browser: CEFBrowser.fromCEF(browser)!,
                             frame: CEFFrame.fromCEF(frame)!,
                             params: CEFContextMenuParams.fromCEF(params)!,
                             model: CEFMenuModel.fromCEF(model)!)
@@ -34,11 +34,12 @@ func CEFContextMenuHandler_run_context_menu(ptr: UnsafeMutablePointer<cef_contex
         return 0
     }
 
-    return obj.onRunContextMenu(CEFBrowser.fromCEF(browser)!,
-                                frame: CEFFrame.fromCEF(frame)!,
-                                params: CEFContextMenuParams.fromCEF(params)!,
-                                model: CEFMenuModel.fromCEF(model)!,
-                                callback: CEFRunContextMenuCallback.fromCEF(callback)!) ? 1 : 0
+    let action = obj.onRunContextMenu(browser: CEFBrowser.fromCEF(browser)!,
+                                      frame: CEFFrame.fromCEF(frame)!,
+                                      params: CEFContextMenuParams.fromCEF(params)!,
+                                      model: CEFMenuModel.fromCEF(model)!,
+                                      callback: CEFRunContextMenuCallback.fromCEF(callback)!)
+    return action == .showCustom ? 1 : 0
 }
 
 func CEFContextMenuHandler_on_context_menu_command(ptr: UnsafeMutablePointer<cef_context_menu_handler_t>,
@@ -51,11 +52,12 @@ func CEFContextMenuHandler_on_context_menu_command(ptr: UnsafeMutablePointer<cef
         return 0
     }
 
-    return obj.onContextMenuCommand(CEFBrowser.fromCEF(browser)!,
-                                    frame: CEFFrame.fromCEF(frame)!,
-                                    params: CEFContextMenuParams.fromCEF(params)!,
-                                    commandID: CEFMenuID.fromCEF(commandID),
-                                    eventFlags: CEFEventFlags.fromCEF(eventFlags)) ? 1 : 0
+    let action = obj.onContextMenuCommand(browser: CEFBrowser.fromCEF(browser)!,
+                                          frame: CEFFrame.fromCEF(frame)!,
+                                          params: CEFContextMenuParams.fromCEF(params)!,
+                                          commandID: CEFMenuID.fromCEF(commandID),
+                                          eventFlags: CEFEventFlags.fromCEF(eventFlags))
+    return action == .consume ? 1 : 0
 }
 
 func CEFContextMenuHandler_on_context_menu_dismissed(ptr: UnsafeMutablePointer<cef_context_menu_handler_t>,
@@ -65,6 +67,6 @@ func CEFContextMenuHandler_on_context_menu_dismissed(ptr: UnsafeMutablePointer<c
         return
     }
 
-    obj.onContextMenuDismissed(CEFBrowser.fromCEF(browser)!, frame: CEFFrame.fromCEF(frame)!)
+    obj.onContextMenuDismissed(browser: CEFBrowser.fromCEF(browser)!, frame: CEFFrame.fromCEF(frame)!)
 }
 

@@ -38,7 +38,7 @@ public struct CEFURLRequestFlags: OptionSet {
 }
 
 extension CEFURLRequestFlags {
-    static func fromCEF(value: cef_urlrequest_flags_t) -> CEFURLRequestFlags {
+    static func fromCEF(_ value: cef_urlrequest_flags_t) -> CEFURLRequestFlags {
         return CEFURLRequestFlags(rawValue: UInt32(value.rawValue))
     }
 

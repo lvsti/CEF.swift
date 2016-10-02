@@ -22,7 +22,7 @@ public enum CEFJSONParserError: Int32 {
 }
 
 extension CEFJSONParserError {
-    static func fromCEF(value: cef_json_parser_error_t) -> CEFJSONParserError {
+    static func fromCEF(_ value: cef_json_parser_error_t) -> CEFJSONParserError {
         return CEFJSONParserError(rawValue: Int32(value.rawValue))!
     }
 

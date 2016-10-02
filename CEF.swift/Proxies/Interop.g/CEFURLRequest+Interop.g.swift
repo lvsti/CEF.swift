@@ -19,7 +19,7 @@ public class CEFURLRequest: CEFProxy<cef_urlrequest_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_urlrequest_t>) -> CEFURLRequest? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_urlrequest_t>) -> CEFURLRequest? {
         return CEFURLRequest(ptr: ptr)
     }
 }

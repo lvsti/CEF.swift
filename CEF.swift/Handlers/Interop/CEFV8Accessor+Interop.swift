@@ -17,7 +17,7 @@ func CEFV8Accessor_get(ptr: UnsafeMutablePointer<cef_v8accessor_t>,
         return 0
     }
 
-    let optResult = obj.get(CEFStringToSwiftString(name.pointee),
+    let optResult = obj.get(name: CEFStringToSwiftString(name.pointee),
                             object: CEFV8Value.fromCEF(object)!)
     
     guard let result = optResult else {
@@ -45,7 +45,7 @@ func CEFV8Accessor_set(ptr: UnsafeMutablePointer<cef_v8accessor_t>,
         return 0
     }
 
-    let optResult = obj.set(CEFStringToSwiftString(name.pointee),
+    let optResult = obj.set(name: CEFStringToSwiftString(name.pointee),
                             object: CEFV8Value.fromCEF(object)!,
                             value: CEFV8Value.fromCEF(value)!)
 

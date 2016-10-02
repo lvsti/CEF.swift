@@ -8,7 +8,7 @@
 
 import Foundation
 
-func CEFStringMapToSwiftDictionary(cefMap: cef_string_map_t) -> [String:String] {
+func CEFStringMapToSwiftDictionary(_ cefMap: cef_string_map_t) -> [String:String] {
     guard cefMap != nil else {
         return [:]
     }
@@ -31,7 +31,7 @@ func CEFStringMapToSwiftDictionary(cefMap: cef_string_map_t) -> [String:String] 
     return map
 }
 
-func CEFStringMapCreateFromSwiftDictionary(dictionary: [String:String]) -> cef_string_map_t {
+func CEFStringMapCreateFromSwiftDictionary(_ dictionary: [String:String]) -> cef_string_map_t {
     let cefMap = cef_string_map_alloc()
     
     var cefKey = cef_string_t()

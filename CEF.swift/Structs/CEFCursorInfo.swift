@@ -19,7 +19,7 @@ public struct CEFCursorInfo {
 }
 
 extension CEFCursorInfo {
-    static func fromCEF(value: cef_cursor_info_t) -> CEFCursorInfo {
+    static func fromCEF(_ value: cef_cursor_info_t) -> CEFCursorInfo {
         return CEFCursorInfo(hotspot: NSPoint.fromCEF(value.hotspot),
                              scaleFactor: Double(value.image_scale_factor),
                              buffer: UnsafeMutablePointer<Void>(value.buffer),

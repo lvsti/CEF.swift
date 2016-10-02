@@ -20,7 +20,7 @@ func CEFJSDialogHandler_on_jsdialog(ptr: UnsafeMutablePointer<cef_jsdialog_handl
         return 0
     }
 
-    let action = obj.onJSDialog(CEFBrowser.fromCEF(browser)!,
+    let action = obj.onJSDialog(browser: CEFBrowser.fromCEF(browser)!,
                                 origin: origin != nil ? NSURL(string: CEFStringToSwiftString(origin.pointee)) : nil,
                                 type: CEFJSDialogType.fromCEF(type),
                                 message: message != nil ? CEFStringToSwiftString(message.pointee) : nil,
@@ -43,7 +43,7 @@ func CEFJSDialogHandler_on_before_unload_dialog(ptr: UnsafeMutablePointer<cef_js
         return 0
     }
 
-    let action = obj.onBeforeUnloadDialog(CEFBrowser.fromCEF(browser)!,
+    let action = obj.onBeforeUnloadDialog(browser: CEFBrowser.fromCEF(browser)!,
                                           message: message != nil ? CEFStringToSwiftString(message.pointee) : nil,
                                           isReload: isReload != 0,
                                           callback: CEFJSDialogCallback.fromCEF(callback)!)
@@ -56,7 +56,7 @@ func CEFJSDialogHandler_on_reset_dialog_state(ptr: UnsafeMutablePointer<cef_jsdi
         return
     }
 
-    obj.onResetDialogState(CEFBrowser.fromCEF(browser)!)
+    obj.onResetDialogState(browser: CEFBrowser.fromCEF(browser)!)
 }
 
 func CEFJSDialogHandler_on_dialog_closed(ptr: UnsafeMutablePointer<cef_jsdialog_handler_t>,
@@ -65,6 +65,6 @@ func CEFJSDialogHandler_on_dialog_closed(ptr: UnsafeMutablePointer<cef_jsdialog_
         return
     }
 
-    obj.onDialogClosed(CEFBrowser.fromCEF(browser)!)
+    obj.onDialogClosed(browser: CEFBrowser.fromCEF(browser)!)
 }
 

@@ -26,7 +26,7 @@ public struct CEFContextMenuEditStateFlags: OptionSet {
 }
 
 extension CEFContextMenuEditStateFlags {
-    static func fromCEF(value: cef_context_menu_edit_state_flags_t) -> CEFContextMenuEditStateFlags {
+    static func fromCEF(_ value: cef_context_menu_edit_state_flags_t) -> CEFContextMenuEditStateFlags {
         return CEFContextMenuEditStateFlags(rawValue: UInt32(value.rawValue))
     }
 

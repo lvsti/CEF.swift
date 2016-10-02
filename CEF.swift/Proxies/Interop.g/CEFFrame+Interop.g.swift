@@ -18,7 +18,7 @@ public class CEFFrame: CEFProxy<cef_frame_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_frame_t>) -> CEFFrame? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_frame_t>) -> CEFFrame? {
         return CEFFrame(ptr: ptr)
     }
 }

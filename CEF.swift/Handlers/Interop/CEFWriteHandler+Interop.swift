@@ -16,7 +16,7 @@ func CEFWriteHandler_write(ptr: UnsafeMutablePointer<cef_write_handler_t>,
         return 0
     }
     
-    return obj.write(buffer, chunkSize: chunkSize, count: count)
+    return obj.write(buffer: buffer, chunkSize: chunkSize, count: count)
 }
 
 func CEFWriteHandler_seek(ptr: UnsafeMutablePointer<cef_write_handler_t>,
@@ -26,7 +26,7 @@ func CEFWriteHandler_seek(ptr: UnsafeMutablePointer<cef_write_handler_t>,
         return 1
     }
     
-    return obj.seek(offset, whence: CEFSeekPosition(rawValue: whence)!) ? 0 : 1
+    return obj.seek(offset: offset, whence: CEFSeekPosition(rawValue: whence)!) ? 0 : 1
 }
 
 func CEFWriteHandler_tell(ptr: UnsafeMutablePointer<cef_write_handler_t>) -> Int64 {

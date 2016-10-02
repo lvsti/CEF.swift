@@ -25,7 +25,7 @@ func CEFResponseFilter_filter(ptr: UnsafeMutablePointer<cef_response_filter_t>,
                               dataOutSize: size_t,
                               dataOutWritten: UnsafeMutablePointer<size_t>) -> cef_response_filter_status_t {
     guard let obj = CEFResponseFilterMarshaller.get(ptr) else {
-        return CEFResponseFilterStatus.Error.toCEF()
+        return CEFResponseFilterStatus.error.toCEF()
     }
     
     let (bytesRead, bytesWritten, status) = obj.filterResponseChunk(dataIn,

@@ -30,7 +30,7 @@ public enum CEFLogSeverity: Int32 {
 }
 
 extension CEFLogSeverity {
-    static func fromCEF(value: cef_log_severity_t) -> CEFLogSeverity {
+    static func fromCEF(_ value: cef_log_severity_t) -> CEFLogSeverity {
         return CEFLogSeverity(rawValue: Int32(value.rawValue))!
     }
 

@@ -17,7 +17,7 @@ public class CEFValue: CEFProxy<cef_value_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_value_t>) -> CEFValue? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_value_t>) -> CEFValue? {
         return CEFValue(ptr: ptr)
     }
 }

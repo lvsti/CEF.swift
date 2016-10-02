@@ -15,7 +15,7 @@ public class CEFCallback: CEFProxy<cef_callback_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_callback_t>) -> CEFCallback? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_callback_t>) -> CEFCallback? {
         return CEFCallback(ptr: ptr)
     }
 }

@@ -22,7 +22,7 @@ public enum CEFDOMNodeType: Int32 {
 }
 
 extension CEFDOMNodeType {
-    static func fromCEF(value: cef_dom_node_type_t) -> CEFDOMNodeType {
+    static func fromCEF(_ value: cef_dom_node_type_t) -> CEFDOMNodeType {
         return CEFDOMNodeType(rawValue: Int32(value.rawValue))!
     }
 

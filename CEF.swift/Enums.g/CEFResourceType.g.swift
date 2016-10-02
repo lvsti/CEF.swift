@@ -67,7 +67,7 @@ public enum CEFResourceType: Int32 {
 }
 
 extension CEFResourceType {
-    static func fromCEF(value: cef_resource_type_t) -> CEFResourceType {
+    static func fromCEF(_ value: cef_resource_type_t) -> CEFResourceType {
         return CEFResourceType(rawValue: Int32(value.rawValue))!
     }
 

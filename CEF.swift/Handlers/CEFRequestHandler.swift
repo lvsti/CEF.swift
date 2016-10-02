@@ -101,7 +101,7 @@ public protocol CEFRequestHandler {
     func onResourceRedirect(browser: CEFBrowser,
                             frame: CEFFrame,
                             request: CEFRequest,
-                            inout newURL: NSURL)
+                            newURL: inout NSURL)
     
     /// Called on the IO thread when a resource response is received. To allow the
     /// resource to load normally return false. To redirect or retry the resource
@@ -165,7 +165,7 @@ public protocol CEFRequestHandler {
     /// via the registered OS protocol handler, if any.
     /// SECURITY WARNING: YOU SHOULD USE THIS METHOD TO ENFORCE RESTRICTIONS BASED
     /// ON SCHEME, HOST OR OTHER URL ANALYSIS BEFORE ALLOWING OS EXECUTION.
-    func onProtocolExecution(browser: CEFBrowser, url: NSURL, inout allowExecution: Bool)
+    func onProtocolExecution(browser: CEFBrowser, url: NSURL, allowExecution: inout Bool)
     
     /// Called on the UI thread to handle requests for URLs with an invalid
     /// SSL certificate. Return true and call CefRequestCallback::Continue() either
@@ -228,7 +228,7 @@ public extension CEFRequestHandler {
     func onResourceRedirect(browser: CEFBrowser,
                             frame: CEFFrame,
                             request: CEFRequest,
-                            inout newURL: NSURL) {
+                            newURL: inout NSURL) {
     }
     
     func onResourceResponse(browser: CEFBrowser,
@@ -271,7 +271,7 @@ public extension CEFRequestHandler {
         return .cancel
     }
 
-    func onProtocolExecution(browser: CEFBrowser, url: NSURL, inout allowExecution: Bool) {
+    func onProtocolExecution(browser: CEFBrowser, url: NSURL, allowExecution: inout Bool) {
     }
 
     func onCertificateError(browser: CEFBrowser,

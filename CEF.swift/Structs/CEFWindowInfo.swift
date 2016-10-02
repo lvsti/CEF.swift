@@ -72,7 +72,7 @@ extension CEFWindowInfo {
         return cefStruct
     }
     
-    static func fromCEF(value: cef_window_info_t) -> CEFWindowInfo {
+    static func fromCEF(_ value: cef_window_info_t) -> CEFWindowInfo {
         var winInfo = CEFWindowInfo()
         winInfo.windowName = CEFStringToSwiftString(value.window_name)
         winInfo.rect = NSRect(x: Int(value.x), y: Int(value.y), width: Int(value.width), height: Int(value.height))

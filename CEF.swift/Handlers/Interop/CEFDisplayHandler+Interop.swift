@@ -16,7 +16,7 @@ func CEFDisplayHandler_on_address_change(ptr: UnsafeMutablePointer<cef_display_h
         return
     }
     
-    obj.onAddressChange(CEFBrowser.fromCEF(browser)!,
+    obj.onAddressChange(browser: CEFBrowser.fromCEF(browser)!,
                         frame: CEFFrame.fromCEF(frame)!,
                         url: NSURL(string: CEFStringToSwiftString(url.pointee))!)
 }
@@ -28,7 +28,7 @@ func CEFDisplayHandler_on_title_change(ptr: UnsafeMutablePointer<cef_display_han
         return
     }
 
-    obj.onTitleChange(CEFBrowser.fromCEF(browser)!,
+    obj.onTitleChange(browser: CEFBrowser.fromCEF(browser)!,
                       title: title != nil ? CEFStringToSwiftString(title.pointee) : nil)
 }
 
@@ -41,7 +41,7 @@ func CEFDisplayHandler_on_favicon_urlchange(ptr: UnsafeMutablePointer<cef_displa
     
     let urlStrings: [String]? = urls != nil ? CEFStringListToSwiftArray(urls) : nil
     
-    obj.onFaviconURLChange(CEFBrowser.fromCEF(browser)!,
+    obj.onFaviconURLChange(browser: CEFBrowser.fromCEF(browser)!,
                            iconURLs: urlStrings?.map { NSURL(string: $0)! })
 }
 
@@ -52,7 +52,7 @@ func CEFDisplayHandler_on_fullscreen_mode_change(ptr: UnsafeMutablePointer<cef_d
         return
     }
     
-    obj.onFullscreenModeChange(CEFBrowser.fromCEF(browser)!, fullscreen: fullscreen != 0)
+    obj.onFullscreenModeChange(browser: CEFBrowser.fromCEF(browser)!, fullscreen: fullscreen != 0)
 }
 
 func CEFDisplayHandler_on_tooltip(ptr: UnsafeMutablePointer<cef_display_handler_t>,
@@ -63,7 +63,7 @@ func CEFDisplayHandler_on_tooltip(ptr: UnsafeMutablePointer<cef_display_handler_
     }
 
     var text: String? = textPtr != nil ? CEFStringToSwiftString(textPtr.pointee) : nil
-    let action = obj.onTooltip(CEFBrowser.fromCEF(browser)!, text: &text)
+    let action = obj.onTooltip(browser: CEFBrowser.fromCEF(browser)!, text: &text)
     
     if let text = text {
         CEFStringSetFromSwiftString(text, cefString: textPtr)
@@ -79,7 +79,7 @@ func CEFDisplayHandler_on_status_message(ptr: UnsafeMutablePointer<cef_display_h
         return
     }
 
-    obj.onStatusMessage(CEFBrowser.fromCEF(browser)!,
+    obj.onStatusMessage(browser: CEFBrowser.fromCEF(browser)!,
                         text: CEFStringToSwiftString(text.pointee))
 }
 
@@ -92,7 +92,7 @@ func CEFDisplayHandler_on_console_message(ptr: UnsafeMutablePointer<cef_display_
         return 0
     }
 
-    let action = obj.onConsoleMessage(CEFBrowser.fromCEF(browser)!,
+    let action = obj.onConsoleMessage(browser: CEFBrowser.fromCEF(browser)!,
                                       message: message != nil ? CEFStringToSwiftString(message.pointee) : nil,
                                       source: source != nil ? CEFStringToSwiftString(source.pointee) : nil,
                                       lineNumber: Int(line))

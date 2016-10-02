@@ -16,7 +16,7 @@ public class CEFJSDialogCallback: CEFProxy<cef_jsdialog_callback_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_jsdialog_callback_t>) -> CEFJSDialogCallback? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_jsdialog_callback_t>) -> CEFJSDialogCallback? {
         return CEFJSDialogCallback(ptr: ptr)
     }
 }

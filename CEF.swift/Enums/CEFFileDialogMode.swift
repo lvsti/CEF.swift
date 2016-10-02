@@ -53,7 +53,7 @@ extension CEFFileDialogMode {
         return cef_file_dialog_mode_t(rawValue: UInt32(type.rawValue) | flags.rawValue)
     }
     
-    static func fromCEF(value: cef_file_dialog_mode_t) -> CEFFileDialogMode {
+    static func fromCEF(_ value: cef_file_dialog_mode_t) -> CEFFileDialogMode {
         return CEFFileDialogMode(rawValue: value.rawValue)
     }
 }

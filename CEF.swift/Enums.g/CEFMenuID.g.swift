@@ -58,7 +58,7 @@ public struct CEFMenuID: RawRepresentable {
 }
 
 extension CEFMenuID {
-    static func fromCEF(value: Int32) -> CEFMenuID {
+    static func fromCEF(_ value: Int32) -> CEFMenuID {
         return CEFMenuID(rawValue: value)
     }
 

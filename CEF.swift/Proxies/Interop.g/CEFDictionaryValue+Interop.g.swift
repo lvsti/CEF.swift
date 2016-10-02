@@ -15,7 +15,7 @@ public class CEFDictionaryValue: CEFProxy<cef_dictionary_value_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_dictionary_value_t>) -> CEFDictionaryValue? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_dictionary_value_t>) -> CEFDictionaryValue? {
         return CEFDictionaryValue(ptr: ptr)
     }
 }

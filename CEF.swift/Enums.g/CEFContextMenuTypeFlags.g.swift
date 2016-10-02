@@ -38,7 +38,7 @@ public struct CEFContextMenuTypeFlags: OptionSet {
 }
 
 extension CEFContextMenuTypeFlags {
-    static func fromCEF(value: cef_context_menu_type_flags_t) -> CEFContextMenuTypeFlags {
+    static func fromCEF(_ value: cef_context_menu_type_flags_t) -> CEFContextMenuTypeFlags {
         return CEFContextMenuTypeFlags(rawValue: UInt32(value.rawValue))
     }
 

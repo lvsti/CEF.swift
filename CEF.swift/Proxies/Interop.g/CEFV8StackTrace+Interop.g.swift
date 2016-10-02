@@ -19,7 +19,7 @@ public class CEFV8StackTrace: CEFProxy<cef_v8stack_trace_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_v8stack_trace_t>) -> CEFV8StackTrace? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_v8stack_trace_t>) -> CEFV8StackTrace? {
         return CEFV8StackTrace(ptr: ptr)
     }
 }

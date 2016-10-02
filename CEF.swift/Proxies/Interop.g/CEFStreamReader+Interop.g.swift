@@ -16,7 +16,7 @@ public class CEFStreamReader: CEFProxy<cef_stream_reader_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_stream_reader_t>) -> CEFStreamReader? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_stream_reader_t>) -> CEFStreamReader? {
         return CEFStreamReader(ptr: ptr)
     }
 }

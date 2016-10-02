@@ -14,6 +14,6 @@ func CEFDOMVisitor_visit(ptr: UnsafeMutablePointer<cef_domvisitor_t>,
         return
     }
     
-    obj.visit(CEFDOMDocument.fromCEF(document)!)
+    obj.visit(document: CEFDOMDocument.fromCEF(document)!)
 }
 

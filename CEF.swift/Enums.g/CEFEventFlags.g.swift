@@ -32,7 +32,7 @@ public struct CEFEventFlags: OptionSet {
 }
 
 extension CEFEventFlags {
-    static func fromCEF(value: cef_event_flags_t) -> CEFEventFlags {
+    static func fromCEF(_ value: cef_event_flags_t) -> CEFEventFlags {
         return CEFEventFlags(rawValue: UInt32(value.rawValue))
     }
 

@@ -15,7 +15,7 @@ public class CEFPrintSettings: CEFProxy<cef_print_settings_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_print_settings_t>) -> CEFPrintSettings? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_print_settings_t>) -> CEFPrintSettings? {
         return CEFPrintSettings(ptr: ptr)
     }
 }

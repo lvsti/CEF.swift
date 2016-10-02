@@ -14,7 +14,7 @@ func CEFPrintHandler_on_print_start(ptr: UnsafeMutablePointer<cef_print_handler_
         return
     }
     
-    obj.onPrintStart(CEFBrowser.fromCEF(browser)!)
+    obj.onPrintStart(browser: CEFBrowser.fromCEF(browser)!)
 }
 
 func CEFPrintHandler_on_print_settings(ptr: UnsafeMutablePointer<cef_print_handler_t>,
@@ -24,7 +24,7 @@ func CEFPrintHandler_on_print_settings(ptr: UnsafeMutablePointer<cef_print_handl
         return
     }
     
-    obj.onPrintSettings(CEFPrintSettings.fromCEF(settings)!, defaults: getDefaults != 0)
+    obj.onPrintSettings(settings: CEFPrintSettings.fromCEF(settings)!, defaults: getDefaults != 0)
 }
 
 func CEFPrintHandler_on_print_dialog(ptr: UnsafeMutablePointer<cef_print_handler_t>,
@@ -34,7 +34,7 @@ func CEFPrintHandler_on_print_dialog(ptr: UnsafeMutablePointer<cef_print_handler
         return 0
     }
     
-    let action = obj.onPrintDialog(hasSelection != 0, callback: CEFPrintDialogCallback.fromCEF(callback)!)
+    let action = obj.onPrintDialog(hasSelection: hasSelection != 0, callback: CEFPrintDialogCallback.fromCEF(callback)!)
     return action == .allow ? 1 : 0
 }
 
@@ -46,7 +46,7 @@ func CEFPrintHandler_on_print_job(ptr: UnsafeMutablePointer<cef_print_handler_t>
         return 0
     }
     
-    let action = obj.onPrintJob(CEFStringToSwiftString(name.pointee),
+    let action = obj.onPrintJob(documentName: CEFStringToSwiftString(name.pointee),
                                 pdfFilePath: CEFStringToSwiftString(pdfPath.pointee),
                                 callback: CEFPrintJobCallback.fromCEF(callback)!)
     return action == .allow ? 1 : 0
@@ -66,7 +66,7 @@ func CEFPrintHandler_get_pdf_paper_size(ptr: UnsafeMutablePointer<cef_print_hand
         return cef_size_t()
     }
     
-    let size = obj.pdfPaperSizeForDPI(Int(dpi))
+    let size = obj.pdfPaperSizeForDPI(deviceUnitsPerInch: Int(dpi))
     return size.toCEF()
 }
 

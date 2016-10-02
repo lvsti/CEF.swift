@@ -18,7 +18,7 @@ public struct CEFDraggableRegion {
 }
 
 extension CEFDraggableRegion {
-    static func fromCEF(value: cef_draggable_region_t) -> CEFDraggableRegion {
+    static func fromCEF(_ value: cef_draggable_region_t) -> CEFDraggableRegion {
         return CEFDraggableRegion(bounds: NSRect.fromCEF(value.bounds),
                                   isDraggable: value.draggable != 0)
     }

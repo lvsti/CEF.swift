@@ -46,7 +46,7 @@ extension cef_main_args_t {
     }
 }
 
-func CEFArgVFromArguments(arguments: [String]) -> CEFArgV {
+func CEFArgVFromArguments(_ arguments: [String]) -> CEFArgV {
     let argv = CEFArgV.alloc(arguments.count)
     
     for i in 0..<arguments.count {

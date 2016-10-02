@@ -17,7 +17,7 @@ func CEFDownloadHandler_on_before_download(ptr: UnsafeMutablePointer<cef_downloa
         return
     }
     
-    obj.onBeforeDownload(CEFBrowser.fromCEF(browser)!,
+    obj.onBeforeDownload(browser: CEFBrowser.fromCEF(browser)!,
                          item: CEFDownloadItem.fromCEF(item)!,
                          suggestedName: CEFStringToSwiftString(name.pointee),
                          callback: CEFBeforeDownloadCallback.fromCEF(callback)!)
@@ -31,7 +31,7 @@ func CEFDownloadHandler_on_download_updated(ptr: UnsafeMutablePointer<cef_downlo
         return
     }
     
-    obj.onDownloadUpdated(CEFBrowser.fromCEF(browser)!,
+    obj.onDownloadUpdated(browser: CEFBrowser.fromCEF(browser)!,
                           item: CEFDownloadItem.fromCEF(item)!,
                           callback: CEFDownloadItemCallback.fromCEF(callback)!)
 }

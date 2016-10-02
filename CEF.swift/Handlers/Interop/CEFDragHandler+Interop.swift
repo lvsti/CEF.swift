@@ -16,7 +16,7 @@ func CEFDragHandler_on_drag_enter(ptr: UnsafeMutablePointer<cef_drag_handler_t>,
         return 0
     }
     
-    let action = obj.onDragEnter(CEFBrowser.fromCEF(browser)!,
+    let action = obj.onDragEnter(browser: CEFBrowser.fromCEF(browser)!,
                                  dragData: CEFDragData.fromCEF(dragData)!,
                                  operationMask: CEFDragOperationsMask.fromCEF(mask))
     return action == .cancel ? 1 : 0
@@ -35,6 +35,6 @@ func CEFDragHandler_on_draggable_regions_changed(ptr: UnsafeMutablePointer<cef_d
         regions.append(CEFDraggableRegion.fromCEF(cefRegions.advancedBy(i).pointee))
     }
     
-    obj.onDraggableRegionsChanged(CEFBrowser.fromCEF(browser)!, regions: regions)
+    obj.onDraggableRegionsChanged(browser: CEFBrowser.fromCEF(browser)!, regions: regions)
 }
 

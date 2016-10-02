@@ -17,7 +17,7 @@ public class CEFXMLReader: CEFProxy<cef_xml_reader_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_xml_reader_t>) -> CEFXMLReader? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_xml_reader_t>) -> CEFXMLReader? {
         return CEFXMLReader(ptr: ptr)
     }
 }

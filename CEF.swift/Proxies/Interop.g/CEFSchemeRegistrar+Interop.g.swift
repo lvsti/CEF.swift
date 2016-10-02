@@ -15,7 +15,7 @@ public class CEFSchemeRegistrar: CEFProxy<cef_scheme_registrar_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_scheme_registrar_t>) -> CEFSchemeRegistrar? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_scheme_registrar_t>) -> CEFSchemeRegistrar? {
         return CEFSchemeRegistrar(ptr: ptr)
     }
 }

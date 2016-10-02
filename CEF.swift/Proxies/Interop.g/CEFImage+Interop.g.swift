@@ -20,7 +20,7 @@ public class CEFImage: CEFProxy<cef_image_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_image_t>) -> CEFImage? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_image_t>) -> CEFImage? {
         return CEFImage(ptr: ptr)
     }
 }

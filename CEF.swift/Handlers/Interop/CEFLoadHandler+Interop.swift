@@ -17,7 +17,7 @@ func CEFLoadHandler_on_loading_state_change(ptr: UnsafeMutablePointer<cef_load_h
         return
     }
     
-    obj.onLoadingStateChange(CEFBrowser.fromCEF(browser)!,
+    obj.onLoadingStateChange(browser: CEFBrowser.fromCEF(browser)!,
 					         isLoading: isLoading != 0,
                              canGoBack: canGoBack != 0,
                              canGoForward: canGoForward != 0)
@@ -41,7 +41,7 @@ func CEFLoadHandler_on_load_end(ptr: UnsafeMutablePointer<cef_load_handler_t>,
         return
     }
     
-    obj.onLoadEnd(CEFBrowser.fromCEF(browser)!,
+    obj.onLoadEnd(browser: CEFBrowser.fromCEF(browser)!,
                   frame: CEFFrame.fromCEF(frame)!,
                   statusCode: Int(statusCode))
 }
@@ -56,7 +56,7 @@ func CEFLoadHandler_on_load_error(ptr: UnsafeMutablePointer<cef_load_handler_t>,
         return
     }
     
-    obj.onLoadError(CEFBrowser.fromCEF(browser)!,
+    obj.onLoadError(browser: CEFBrowser.fromCEF(browser)!,
                     frame: CEFFrame.fromCEF(frame)!,
                     errorCode: CEFErrorCode.fromCEF(errorCode.rawValue),
                     errorMessage: CEFStringToSwiftString(errorMsg.pointee),

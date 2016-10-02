@@ -16,7 +16,7 @@ extension CEFUserData {
         return CEFUserDataMarshaller.pass(self)
     }
 
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_base_t>) -> CEFUserData? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_base_t>) -> CEFUserData? {
         return CEFUserDataMarshaller.take(ptr)
     }
 }

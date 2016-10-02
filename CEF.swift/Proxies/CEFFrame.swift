@@ -61,23 +61,23 @@ public extension CEFFrame {
 
     /// Retrieve this frame's HTML source as a string sent to the specified
     /// visitor.
-    public func getSourceUsingVisitor(visitor: CEFStringVisitor) {
+    public func getSourceUsingVisitor(_ visitor: CEFStringVisitor) {
         cefObject.get_source(cefObjectPtr, visitor.toCEF())
     }
 
     /// Retrieve this frame's display text as a string sent to the specified
     /// visitor.
-    public func getTextUsingVisitor(visitor: CEFStringVisitor) {
+    public func getTextUsingVisitor(_ visitor: CEFStringVisitor) {
         cefObject.get_text(cefObjectPtr, visitor.toCEF())
     }
     
     /// Load the request represented by the |request| object.
-    public func loadRequest(request: CEFRequest) {
+    public func loadRequest(_ request: CEFRequest) {
         cefObject.load_request(cefObjectPtr, request.toCEF())
     }
     
     /// Load the specified |url|.
-    public func loadURL(url: NSURL) {
+    public func loadURL(_ url: NSURL) {
         let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString!)
         defer { CEFStringPtrRelease(cefURLPtr) }
         cefObject.load_url(cefObjectPtr, cefURLPtr)
@@ -86,7 +86,7 @@ public extension CEFFrame {
     /// Load the contents of |string_val| with the specified dummy |url|. |url|
     /// should have a standard scheme (for example, http scheme) or behaviors like
     /// link clicks and web security restrictions may not behave as expected.
-    public func loadString(str: String, url: NSURL) {
+    public func loadString(_ str: String, withURL url: NSURL) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(str)
         let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString!)
         defer {
@@ -167,7 +167,7 @@ public extension CEFFrame {
 
     /// Visit the DOM document. This method can only be called from the render
     /// process.
-    public func getDOMDocumentUsingVisitor(visitor: CEFDOMVisitor) {
+    public func getDOMDocumentUsingVisitor(_ visitor: CEFDOMVisitor) {
         return cefObject.visit_dom(cefObjectPtr, visitor.toCEF())
     }
     

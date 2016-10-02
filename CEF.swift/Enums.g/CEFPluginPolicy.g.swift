@@ -25,7 +25,7 @@ public enum CEFPluginPolicy: Int32 {
 }
 
 extension CEFPluginPolicy {
-    static func fromCEF(value: cef_plugin_policy_t) -> CEFPluginPolicy {
+    static func fromCEF(_ value: cef_plugin_policy_t) -> CEFPluginPolicy {
         return CEFPluginPolicy(rawValue: Int32(value.rawValue))!
     }
 

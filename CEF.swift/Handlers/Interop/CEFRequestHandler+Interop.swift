@@ -17,7 +17,7 @@ func CEFRequestHandler_on_before_browse(ptr: UnsafeMutablePointer<cef_request_ha
         return 0
     }
     
-    let action = obj.onBeforeBrowse(CEFBrowser.fromCEF(browser)!,
+    let action = obj.onBeforeBrowse(browser: CEFBrowser.fromCEF(browser)!,
                                     frame: CEFFrame.fromCEF(frame)!,
                                     request: CEFRequest.fromCEF(request)!,
                                     isRedirect: isRedirect != 0)
@@ -34,7 +34,7 @@ func CEFRequestHandler_on_open_urlfrom_tab(ptr: UnsafeMutablePointer<cef_request
         return 0
     }
     
-    let action = obj.onOpenURLFromTab(CEFBrowser.fromCEF(browser)!,
+    let action = obj.onOpenURLFromTab(browser: CEFBrowser.fromCEF(browser)!,
                                       frame: CEFFrame.fromCEF(frame)!,
                                       url: NSURL(string: CEFStringToSwiftString(url.pointee))!,
                                       targetDisposition: CEFWindowOpenDisposition.fromCEF(disposition),
@@ -48,10 +48,10 @@ func CEFRequestHandler_on_before_resource_load(ptr: UnsafeMutablePointer<cef_req
                                                request: UnsafeMutablePointer<cef_request_t>,
                                                callback: UnsafeMutablePointer<cef_request_callback_t>) -> cef_return_value_t {
     guard let obj = CEFRequestHandlerMarshaller.get(ptr) else {
-        return CEFReturnValue.Continue.toCEF()
+        return CEFReturnValue.continueNow.toCEF()
     }
     
-    let retval = obj.onBeforeResourceLoad(CEFBrowser.fromCEF(browser)!,
+    let retval = obj.onBeforeResourceLoad(browser: CEFBrowser.fromCEF(browser)!,
                                           frame: CEFFrame.fromCEF(frame)!,
                                           request: CEFRequest.fromCEF(request)!,
                                           callback: CEFRequestCallback.fromCEF(callback)!)
@@ -67,7 +67,7 @@ func CEFRequestHandler_get_resource_handler(ptr: UnsafeMutablePointer<cef_reques
         return nil
     }
     
-    if let handler = obj.resourceHandlerForBrowser(CEFBrowser.fromCEF(browser)!,
+    if let handler = obj.resourceHandlerForBrowser(browser: CEFBrowser.fromCEF(browser)!,
                                                    frame: CEFFrame.fromCEF(frame)!,
                                                    request: CEFRequest.fromCEF(request)!) {
         return handler.toCEF()
@@ -88,10 +88,10 @@ func CEFRequestHandler_on_resource_redirect(ptr: UnsafeMutablePointer<cef_reques
 
     var url = NSURL(string: CEFStringToSwiftString(newURL.pointee))!
 
-    obj.onResourceRedirect(CEFBrowser.fromCEF(browser)!,
-        frame: CEFFrame.fromCEF(frame)!,
-        request: CEFRequest.fromCEF(request)!,
-        newURL: &url)
+    obj.onResourceRedirect(browser: CEFBrowser.fromCEF(browser)!,
+                           frame: CEFFrame.fromCEF(frame)!,
+                           request: CEFRequest.fromCEF(request)!,
+                           newURL: &url)
     
     CEFStringSetFromSwiftString(url.absoluteString!, cefString: newURL)
 }
@@ -105,7 +105,7 @@ func CEFRequestHandler_on_resource_response(ptr: UnsafeMutablePointer<cef_reques
         return 0
     }
 
-    let action = obj.onResourceResponse(CEFBrowser.fromCEF(browser)!,
+    let action = obj.onResourceResponse(browser: CEFBrowser.fromCEF(browser)!,
                                         frame: CEFFrame.fromCEF(frame)!,
                                         request: CEFRequest.fromCEF(request)!,
                                         response: CEFResponse.fromCEF(response)!)
@@ -121,10 +121,10 @@ func CEFRequestHandler_get_resource_response_filter(ptr: UnsafeMutablePointer<ce
         return nil
     }
     
-    if let filter = obj.onResourceResponseFilter(CEFBrowser.fromCEF(browser)!,
-        frame: CEFFrame.fromCEF(frame)!,
-        request: CEFRequest.fromCEF(request)!,
-        response: CEFResponse.fromCEF(response)!) {
+    if let filter = obj.onResourceResponseFilter(browser: CEFBrowser.fromCEF(browser)!,
+                                                 frame: CEFFrame.fromCEF(frame)!,
+                                                 request: CEFRequest.fromCEF(request)!,
+                                                 response: CEFResponse.fromCEF(response)!) {
         return filter.toCEF()
     }
     
@@ -142,12 +142,12 @@ func CEFRequestHandler_on_resource_load_complete(ptr: UnsafeMutablePointer<cef_r
         return
     }
     
-    obj.onResourceLoadComplete(CEFBrowser.fromCEF(browser)!,
-        frame: CEFFrame.fromCEF(frame)!,
-        request: CEFRequest.fromCEF(request)!,
-        response: CEFResponse.fromCEF(response)!,
-        status: CEFURLRequestStatus.fromCEF(status),
-        contentLength: contentLength)
+    obj.onResourceLoadComplete(browser: CEFBrowser.fromCEF(browser)!,
+                               frame: CEFFrame.fromCEF(frame)!,
+                               request: CEFRequest.fromCEF(request)!,
+                               response: CEFResponse.fromCEF(response)!,
+                               status: CEFURLRequestStatus.fromCEF(status),
+                               contentLength: contentLength)
 }
 
 func CEFRequestHandler_get_auth_credentials(ptr: UnsafeMutablePointer<cef_request_handler_t>,
@@ -163,7 +163,7 @@ func CEFRequestHandler_get_auth_credentials(ptr: UnsafeMutablePointer<cef_reques
         return 0
     }
     
-    let action = obj.onAuthCredentialsRequired(CEFBrowser.fromCEF(browser)!,
+    let action = obj.onAuthCredentialsRequired(browser: CEFBrowser.fromCEF(browser)!,
                                                frame: CEFFrame.fromCEF(frame)!,
                                                isProxy: isProxy != 0,
                                                host: CEFStringToSwiftString(host.pointee),
@@ -184,7 +184,7 @@ func CEFRequestHandler_on_quota_request(ptr: UnsafeMutablePointer<cef_request_ha
         return 0
     }
     
-    let action = obj.onQuotaRequest(CEFBrowser.fromCEF(browser)!,
+    let action = obj.onQuotaRequest(browser: CEFBrowser.fromCEF(browser)!,
                                     origin: NSURL(string: CEFStringToSwiftString(origin.pointee))!,
                                     newSize: newSize,
                                     callback: CEFRequestCallback.fromCEF(callback)!)
@@ -201,7 +201,7 @@ func CEFRequestHandler_on_protocol_execution(ptr: UnsafeMutablePointer<cef_reque
     }
     
     var allowExecution: Bool = allow.pointee != 0
-    obj.onProtocolExecution(CEFBrowser.fromCEF(browser)!,
+    obj.onProtocolExecution(browser: CEFBrowser.fromCEF(browser)!,
                             url: NSURL(string: CEFStringToSwiftString(url.pointee))!,
                             allowExecution: &allowExecution)
     allow.pointee = allowExecution ? 1 : 0
@@ -217,7 +217,7 @@ func CEFRequestHandler_on_certificate_error(ptr: UnsafeMutablePointer<cef_reques
         return 0
     }
     
-    let action = obj.onCertificateError(CEFBrowser.fromCEF(browser)!,
+    let action = obj.onCertificateError(browser: CEFBrowser.fromCEF(browser)!,
                                         errorCode: CEFErrorCode.fromCEF(errorCode.rawValue),
                                         url: NSURL(string: CEFStringToSwiftString(url.pointee))!,
                                         sslInfo: CEFSSLInfo.fromCEF(sslInfo)!,
@@ -232,7 +232,7 @@ func CEFRequestHandler_on_plugin_crashed(ptr: UnsafeMutablePointer<cef_request_h
         return
     }
     
-    obj.onPluginCrashed(CEFBrowser.fromCEF(browser)!,
+    obj.onPluginCrashed(browser: CEFBrowser.fromCEF(browser)!,
                         pluginPath: CEFStringToSwiftString(path.pointee))
 }
 
@@ -242,7 +242,7 @@ func CEFRequestHandler_on_render_view_ready(ptr: UnsafeMutablePointer<cef_reques
         return
     }
     
-    obj.onRenderViewReady(CEFBrowser.fromCEF(browser)!)
+    obj.onRenderViewReady(browser: CEFBrowser.fromCEF(browser)!)
 }
 
 func CEFRequestHandler_on_render_process_terminated(ptr: UnsafeMutablePointer<cef_request_handler_t>,
@@ -252,7 +252,7 @@ func CEFRequestHandler_on_render_process_terminated(ptr: UnsafeMutablePointer<ce
         return
     }
     
-    obj.onRenderProcessTerminated(CEFBrowser.fromCEF(browser)!,
+    obj.onRenderProcessTerminated(browser: CEFBrowser.fromCEF(browser)!,
                                   status: CEFTerminationStatus.fromCEF(status))
 }
 

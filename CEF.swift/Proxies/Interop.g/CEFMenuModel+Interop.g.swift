@@ -18,7 +18,7 @@ public class CEFMenuModel: CEFProxy<cef_menu_model_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_menu_model_t>) -> CEFMenuModel? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_menu_model_t>) -> CEFMenuModel? {
         return CEFMenuModel(ptr: ptr)
     }
 }

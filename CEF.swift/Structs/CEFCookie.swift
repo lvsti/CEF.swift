@@ -67,19 +67,19 @@ extension CEFCookie {
         return cefStruct
     }
     
-    static func fromCEF(cefStruct: cef_cookie_t) -> CEFCookie {
+    static func fromCEF(_ value: cef_cookie_t) -> CEFCookie {
         var cookie = CEFCookie()
         
-        cookie.name = CEFStringToSwiftString(cefStruct.name)
-        cookie.value = CEFStringToSwiftString(cefStruct.value)
-        cookie.domain = CEFStringToSwiftString(cefStruct.domain)
-        cookie.path = CEFStringToSwiftString(cefStruct.path)
-        cookie.secure = cefStruct.secure != 0
-        cookie.httpOnly = cefStruct.httponly != 0
-        cookie.creation = CEFTimeToNSDate(cefStruct.creation)
-        cookie.lastAccess = CEFTimeToNSDate(cefStruct.last_access)
-        cookie.hasExpires = cefStruct.has_expires != 0
-        cookie.expires = CEFTimeToNSDate(cefStruct.expires)
+        cookie.name = CEFStringToSwiftString(value.name)
+        cookie.value = CEFStringToSwiftString(value.value)
+        cookie.domain = CEFStringToSwiftString(value.domain)
+        cookie.path = CEFStringToSwiftString(value.path)
+        cookie.secure = value.secure != 0
+        cookie.httpOnly = value.httponly != 0
+        cookie.creation = CEFTimeToNSDate(value.creation)
+        cookie.lastAccess = CEFTimeToNSDate(value.last_access)
+        cookie.hasExpires = value.has_expires != 0
+        cookie.expires = CEFTimeToNSDate(value.expires)
         
         return cookie
     }

@@ -23,7 +23,7 @@ public enum CEFResponseFilterStatus: Int32 {
 }
 
 extension CEFResponseFilterStatus {
-    static func fromCEF(value: cef_response_filter_status_t) -> CEFResponseFilterStatus {
+    static func fromCEF(_ value: cef_response_filter_status_t) -> CEFResponseFilterStatus {
         return CEFResponseFilterStatus(rawValue: Int32(value.rawValue))!
     }
 

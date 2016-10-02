@@ -59,7 +59,7 @@ extension CEFKeyEvent {
         return cefStruct
     }
     
-    static func fromCEF(value: cef_key_event_t) -> CEFKeyEvent {
+    static func fromCEF(_ value: cef_key_event_t) -> CEFKeyEvent {
         return CEFKeyEvent(type: CEFKeyEventType.fromCEF(value.type),
                            modifiers: CEFEventFlags.fromCEF(cef_event_flags_t(rawValue: value.modifiers)),
                            windowsKeyCode: value.windows_key_code,

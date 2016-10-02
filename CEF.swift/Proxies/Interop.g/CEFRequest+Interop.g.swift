@@ -16,7 +16,7 @@ public class CEFRequest: CEFProxy<cef_request_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_request_t>) -> CEFRequest? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_request_t>) -> CEFRequest? {
         return CEFRequest(ptr: ptr)
     }
 }

@@ -18,7 +18,7 @@ public enum CEFProcessID: Int32 {
 }
 
 extension CEFProcessID {
-    static func fromCEF(value: cef_process_id_t) -> CEFProcessID {
+    static func fromCEF(_ value: cef_process_id_t) -> CEFProcessID {
         return CEFProcessID(rawValue: Int32(value.rawValue))!
     }
 

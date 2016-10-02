@@ -16,7 +16,7 @@ func CEFApp_on_before_command_line_processing(ptr: UnsafeMutablePointer<cef_app_
     }
     
     let processType: String? = procType != nil ? CEFStringToSwiftString(procType.pointee) : nil
-    obj.onBeforeCommandLineProcessing(processType,
+    obj.onBeforeCommandLineProcessing(processType: processType,
                                       commandLine: CEFCommandLine.fromCEF(cmdLine)!)
 }
 
@@ -26,7 +26,7 @@ func CEFApp_on_register_custom_schemes(ptr: UnsafeMutablePointer<cef_app_t>,
         return
     }
     
-    obj.onRegisterCustomSchemes(CEFSchemeRegistrar.fromCEF(registrar)!)
+    obj.onRegisterCustomSchemes(registrar: CEFSchemeRegistrar.fromCEF(registrar)!)
 }
 
 func CEFApp_get_resource_bundle_handler(ptr: UnsafeMutablePointer<cef_app_t>) -> UnsafeMutablePointer<cef_resource_bundle_handler_t> {

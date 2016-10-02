@@ -53,7 +53,7 @@ public enum CEFColorModel: Int32 {
 }
 
 extension CEFColorModel {
-    static func fromCEF(value: cef_color_model_t) -> CEFColorModel {
+    static func fromCEF(_ value: cef_color_model_t) -> CEFColorModel {
         return CEFColorModel(rawValue: Int32(value.rawValue))!
     }
 

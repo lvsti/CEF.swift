@@ -13,7 +13,7 @@ extension NSPoint {
         return cef_point_t(x: Int32(self.x), y: Int32(self.y))
     }
     
-    static func fromCEF(value: cef_point_t) -> NSPoint {
+    static func fromCEF(_ value: cef_point_t) -> NSPoint {
         return NSPoint(x: Int(value.x), y: Int(value.y))
     }
 }

@@ -15,7 +15,7 @@ public enum CEFJSDialogType: Int32 {
 }
 
 extension CEFJSDialogType {
-    static func fromCEF(value: cef_jsdialog_type_t) -> CEFJSDialogType {
+    static func fromCEF(_ value: cef_jsdialog_type_t) -> CEFJSDialogType {
         return CEFJSDialogType(rawValue: Int32(value.rawValue))!
     }
 

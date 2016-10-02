@@ -18,7 +18,7 @@ public enum CEFColorType: Int32 {
 }
 
 extension CEFColorType {
-    static func fromCEF(value: cef_color_type_t) -> CEFColorType {
+    static func fromCEF(_ value: cef_color_type_t) -> CEFColorType {
         return CEFColorType(rawValue: Int32(value.rawValue))!
     }
 

@@ -19,7 +19,7 @@ public class CEFV8StackFrame: CEFProxy<cef_v8stack_frame_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_v8stack_frame_t>) -> CEFV8StackFrame? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_v8stack_frame_t>) -> CEFV8StackFrame? {
         return CEFV8StackFrame(ptr: ptr)
     }
 }

@@ -16,6 +16,8 @@ func CEFWebPluginInfoVisitor_visit(ptr: UnsafeMutablePointer<cef_web_plugin_info
         return 0
     }
 
-    return obj.visit(CEFWebPluginInfo.fromCEF(pluginInfo)!, index: Int(index), totalCount: Int(totalCount)) ? 1 : 0
+    return obj.visit(pluginInfo: CEFWebPluginInfo.fromCEF(pluginInfo)!,
+                     index: Int(index),
+                     totalCount: Int(totalCount)) ? 1 : 0
 }
 

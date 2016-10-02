@@ -19,7 +19,7 @@ func CEFFindHandler_on_find_result(ptr: UnsafeMutablePointer<cef_find_handler_t>
         return
     }
     
-    obj.onFindResult(CEFBrowser.fromCEF(browser)!,
+    obj.onFindResult(browser: CEFBrowser.fromCEF(browser)!,
                      identifier: identifier,
                      count: Int(count),
                      selectionRect: NSRect.fromCEF(rect.pointee),

@@ -16,7 +16,7 @@ public class CEFV8Exception: CEFProxy<cef_v8exception_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_v8exception_t>) -> CEFV8Exception? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_v8exception_t>) -> CEFV8Exception? {
         return CEFV8Exception(ptr: ptr)
     }
 }

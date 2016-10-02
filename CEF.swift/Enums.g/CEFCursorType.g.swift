@@ -56,7 +56,7 @@ public enum CEFCursorType: Int32 {
 }
 
 extension CEFCursorType {
-    static func fromCEF(value: cef_cursor_type_t) -> CEFCursorType {
+    static func fromCEF(_ value: cef_cursor_type_t) -> CEFCursorType {
         return CEFCursorType(rawValue: Int32(value.rawValue))!
     }
 

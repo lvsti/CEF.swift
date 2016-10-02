@@ -15,7 +15,7 @@ public class CEFProcessMessage: CEFProxy<cef_process_message_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_process_message_t>) -> CEFProcessMessage? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_process_message_t>) -> CEFProcessMessage? {
         return CEFProcessMessage(ptr: ptr)
     }
 }

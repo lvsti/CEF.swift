@@ -21,7 +21,7 @@ public enum CEFHorizontalAlignment: Int32 {
 }
 
 extension CEFHorizontalAlignment {
-    static func fromCEF(value: cef_horizontal_alignment_t) -> CEFHorizontalAlignment {
+    static func fromCEF(_ value: cef_horizontal_alignment_t) -> CEFHorizontalAlignment {
         return CEFHorizontalAlignment(rawValue: Int32(value.rawValue))!
     }
 

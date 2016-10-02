@@ -37,7 +37,7 @@ extension CEFColor {
         return cef_color_t(argb)
     }
     
-    static func fromCEF(value: cef_color_t) -> CEFColor {
+    static func fromCEF(_ value: cef_color_t) -> CEFColor {
         return CEFColor(argb: value)
     }
 }

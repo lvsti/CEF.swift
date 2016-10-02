@@ -59,7 +59,7 @@ public struct CEFURIUnescapeRule: OptionSet {
 }
 
 extension CEFURIUnescapeRule {
-    static func fromCEF(value: cef_uri_unescape_rule_t) -> CEFURIUnescapeRule {
+    static func fromCEF(_ value: cef_uri_unescape_rule_t) -> CEFURIUnescapeRule {
         return CEFURIUnescapeRule(rawValue: UInt32(value.rawValue))
     }
 

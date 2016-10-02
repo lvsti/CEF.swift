@@ -22,7 +22,7 @@ func CEFBrowserProcessHandler_on_before_child_process_launch(ptr: UnsafeMutableP
         return
     }
     
-    obj.onBeforeChildProcessLaunch(CEFCommandLine.fromCEF(commandLine)!)
+    obj.onBeforeChildProcessLaunch(commandLine: CEFCommandLine.fromCEF(commandLine)!)
 }
 
 func CEFBrowserProcessHandler_on_render_process_thread_created(ptr: UnsafeMutablePointer<cef_browser_process_handler_t>,
@@ -31,7 +31,7 @@ func CEFBrowserProcessHandler_on_render_process_thread_created(ptr: UnsafeMutabl
         return
     }
     
-    obj.onRenderProcessThreadCreated(CEFListValue.fromCEF(userInfo)!)
+    obj.onRenderProcessThreadCreated(userInfo: CEFListValue.fromCEF(userInfo)!)
 }
 
 func CEFBrowserProcessHandler_get_print_handler(ptr: UnsafeMutablePointer<cef_browser_process_handler_t>) -> UnsafeMutablePointer<cef_print_handler_t> {

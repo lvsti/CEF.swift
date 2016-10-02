@@ -16,7 +16,7 @@ public enum CEFDOMEventPhase: Int32 {
 }
 
 extension CEFDOMEventPhase {
-    static func fromCEF(value: cef_dom_event_phase_t) -> CEFDOMEventPhase {
+    static func fromCEF(_ value: cef_dom_event_phase_t) -> CEFDOMEventPhase {
         return CEFDOMEventPhase(rawValue: Int32(value.rawValue))!
     }
 

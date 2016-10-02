@@ -21,7 +21,7 @@ public enum CEFAlphaType: Int32 {
 }
 
 extension CEFAlphaType {
-    static func fromCEF(value: cef_alpha_type_t) -> CEFAlphaType {
+    static func fromCEF(_ value: cef_alpha_type_t) -> CEFAlphaType {
         return CEFAlphaType(rawValue: Int32(value.rawValue))!
     }
 

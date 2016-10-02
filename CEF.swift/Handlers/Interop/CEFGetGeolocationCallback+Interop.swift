@@ -14,5 +14,5 @@ func CEFGetGeolocationCallback_on_location_update(ptr: UnsafeMutablePointer<cef_
         return
     }
     
-    obj.onLocationUpdate(CEFGeoposition.fromCEF(position.pointee))
+    obj.onLocationUpdate(position: CEFGeoposition.fromCEF(position.pointee))
 }

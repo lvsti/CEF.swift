@@ -13,7 +13,7 @@ extension NSSize {
         return cef_size_t(width: Int32(self.width), height: Int32(self.height))
     }
     
-    static func fromCEF(value: cef_size_t) -> NSSize {
+    static func fromCEF(_ value: cef_size_t) -> NSSize {
         return NSSize(width: Int(value.width), height: Int(value.height))
     }
 }

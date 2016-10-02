@@ -39,7 +39,7 @@ public enum CEFPathKey: Int32 {
 }
 
 extension CEFPathKey {
-    static func fromCEF(value: cef_path_key_t) -> CEFPathKey {
+    static func fromCEF(_ value: cef_path_key_t) -> CEFPathKey {
         return CEFPathKey(rawValue: Int32(value.rawValue))!
     }
 

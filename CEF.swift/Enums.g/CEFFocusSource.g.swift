@@ -18,7 +18,7 @@ public enum CEFFocusSource: Int32 {
 }
 
 extension CEFFocusSource {
-    static func fromCEF(value: cef_focus_source_t) -> CEFFocusSource {
+    static func fromCEF(_ value: cef_focus_source_t) -> CEFFocusSource {
         return CEFFocusSource(rawValue: Int32(value.rawValue))!
     }
 

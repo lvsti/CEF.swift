@@ -44,18 +44,18 @@ public struct CEFGeoposition {
 }
 
 extension CEFGeoposition {
-    static func fromCEF(cefStruct: cef_geoposition_t) -> CEFGeoposition {
+    static func fromCEF(_ value: cef_geoposition_t) -> CEFGeoposition {
         return CEFGeoposition(
-            latitude: cefStruct.latitude,
-            longitude: cefStruct.longitude,
-            altitude: cefStruct.altitude,
-            accuracy: cefStruct.accuracy,
-            altitudeAccuracy: cefStruct.altitude_accuracy,
-            heading: cefStruct.heading,
-            speed: cefStruct.speed,
-            timestamp: CEFTimeToNSDate(cefStruct.timestamp),
-            errorCode: CEFGeopositionErrorCode.fromCEF(cefStruct.error_code),
-            errorMessage: cefStruct.error_message.str != nil ? CEFStringToSwiftString(cefStruct.error_message) : nil
+            latitude: value.latitude,
+            longitude: value.longitude,
+            altitude: value.altitude,
+            accuracy: value.accuracy,
+            altitudeAccuracy: value.altitude_accuracy,
+            heading: value.heading,
+            speed: value.speed,
+            timestamp: CEFTimeToNSDate(value.timestamp),
+            errorCode: CEFGeopositionErrorCode.fromCEF(value.error_code),
+            errorMessage: value.error_message.str != nil ? CEFStringToSwiftString(value.error_message) : nil
         )
     }
 }

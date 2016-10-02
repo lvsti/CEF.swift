@@ -183,7 +183,7 @@ extension CEFBrowserSettings {
         return cefStruct
     }
     
-    static func fromCEF(value: cef_browser_settings_t) -> CEFBrowserSettings {
+    static func fromCEF(_ value: cef_browser_settings_t) -> CEFBrowserSettings {
         var settings = CEFBrowserSettings()
         
         settings.windowlessFrameRate = value.windowless_frame_rate

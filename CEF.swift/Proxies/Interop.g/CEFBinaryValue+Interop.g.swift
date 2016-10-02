@@ -15,7 +15,7 @@ public class CEFBinaryValue: CEFProxy<cef_binary_value_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_binary_value_t>) -> CEFBinaryValue? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_binary_value_t>) -> CEFBinaryValue? {
         return CEFBinaryValue(ptr: ptr)
     }
 }

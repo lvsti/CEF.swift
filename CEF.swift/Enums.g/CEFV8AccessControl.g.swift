@@ -21,7 +21,7 @@ public struct CEFV8AccessControl: OptionSet {
 }
 
 extension CEFV8AccessControl {
-    static func fromCEF(value: cef_v8_accesscontrol_t) -> CEFV8AccessControl {
+    static func fromCEF(_ value: cef_v8_accesscontrol_t) -> CEFV8AccessControl {
         return CEFV8AccessControl(rawValue: UInt32(value.rawValue))
     }
 

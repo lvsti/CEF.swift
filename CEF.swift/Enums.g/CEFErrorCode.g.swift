@@ -74,7 +74,7 @@ public struct CEFErrorCode: RawRepresentable {
 }
 
 extension CEFErrorCode {
-    static func fromCEF(value: Int32) -> CEFErrorCode {
+    static func fromCEF(_ value: Int32) -> CEFErrorCode {
         return CEFErrorCode(rawValue: value)
     }
 

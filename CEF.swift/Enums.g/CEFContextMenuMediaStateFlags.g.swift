@@ -28,7 +28,7 @@ public struct CEFContextMenuMediaStateFlags: OptionSet {
 }
 
 extension CEFContextMenuMediaStateFlags {
-    static func fromCEF(value: cef_context_menu_media_state_flags_t) -> CEFContextMenuMediaStateFlags {
+    static func fromCEF(_ value: cef_context_menu_media_state_flags_t) -> CEFContextMenuMediaStateFlags {
         return CEFContextMenuMediaStateFlags(rawValue: UInt32(value.rawValue))
     }
 

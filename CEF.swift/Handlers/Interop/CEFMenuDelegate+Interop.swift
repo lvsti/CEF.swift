@@ -16,7 +16,7 @@ func CEFMenuModelDelegate_execute_command(ptr: UnsafeMutablePointer<cef_menu_mod
         return
     }
     
-    obj.onExecuteCommand(CEFMenuModel.fromCEF(menu)!,
+    obj.onExecuteCommand(menuModel: CEFMenuModel.fromCEF(menu)!,
                          commandID: CEFMenuID.fromCEF(commandID),
                          eventFlags: CEFEventFlags.fromCEF(flags))
 }
@@ -27,7 +27,7 @@ func CEFMenuModelDelegate_menu_will_show(ptr: UnsafeMutablePointer<cef_menu_mode
         return
     }
     
-    obj.onMenuWillShow(CEFMenuModel.fromCEF(menu)!)
+    obj.onMenuWillShow(menuModel: CEFMenuModel.fromCEF(menu)!)
 }
 
 // TODO: more to come

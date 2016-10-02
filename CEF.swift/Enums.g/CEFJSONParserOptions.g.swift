@@ -24,7 +24,7 @@ public struct CEFJSONParserOptions: OptionSet {
 }
 
 extension CEFJSONParserOptions {
-    static func fromCEF(value: cef_json_parser_options_t) -> CEFJSONParserOptions {
+    static func fromCEF(_ value: cef_json_parser_options_t) -> CEFJSONParserOptions {
         return CEFJSONParserOptions(rawValue: UInt32(value.rawValue))
     }
 

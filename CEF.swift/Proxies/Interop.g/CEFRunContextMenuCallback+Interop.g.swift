@@ -15,7 +15,7 @@ public class CEFRunContextMenuCallback: CEFProxy<cef_run_context_menu_callback_t
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_run_context_menu_callback_t>) -> CEFRunContextMenuCallback? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_run_context_menu_callback_t>) -> CEFRunContextMenuCallback? {
         return CEFRunContextMenuCallback(ptr: ptr)
     }
 }

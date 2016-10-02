@@ -59,7 +59,7 @@ extension CEFScreenInfo {
                                  available_rect: availableRect.toCEF())
     }
     
-    static func fromCEF(value: cef_screen_info_t) -> CEFScreenInfo {
+    static func fromCEF(_ value: cef_screen_info_t) -> CEFScreenInfo {
         return CEFScreenInfo(scaleFactor: Double(value.device_scale_factor),
                              depth: Int(value.depth),
                              depthPerComponent: Int(value.depth_per_component),

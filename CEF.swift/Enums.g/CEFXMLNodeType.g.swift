@@ -23,7 +23,7 @@ public enum CEFXMLNodeType: Int32 {
 }
 
 extension CEFXMLNodeType {
-    static func fromCEF(value: cef_xml_node_type_t) -> CEFXMLNodeType {
+    static func fromCEF(_ value: cef_xml_node_type_t) -> CEFXMLNodeType {
         return CEFXMLNodeType(rawValue: Int32(value.rawValue))!
     }
 

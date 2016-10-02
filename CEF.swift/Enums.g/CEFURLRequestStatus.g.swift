@@ -28,7 +28,7 @@ public enum CEFURLRequestStatus: Int32 {
 }
 
 extension CEFURLRequestStatus {
-    static func fromCEF(value: cef_urlrequest_status_t) -> CEFURLRequestStatus {
+    static func fromCEF(_ value: cef_urlrequest_status_t) -> CEFURLRequestStatus {
         return CEFURLRequestStatus(rawValue: Int32(value.rawValue))!
     }
 

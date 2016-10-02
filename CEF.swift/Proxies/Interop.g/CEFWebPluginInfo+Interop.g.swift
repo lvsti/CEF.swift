@@ -15,7 +15,7 @@ public class CEFWebPluginInfo: CEFProxy<cef_web_plugin_info_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_web_plugin_info_t>) -> CEFWebPluginInfo? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_web_plugin_info_t>) -> CEFWebPluginInfo? {
         return CEFWebPluginInfo(ptr: ptr)
     }
 }

@@ -66,7 +66,7 @@ public extension CEFURLRequestClient {
                                    realm: String?,
                                    scheme: String,
                                    callback: CEFAuthCallback) -> CEFOnAuthCredentialsRequiredAction {
-        return .Cancel
+        return .cancel
     }
 }
 

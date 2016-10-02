@@ -18,7 +18,7 @@ public enum CEFNavigationType: Int32 {
 }
 
 extension CEFNavigationType {
-    static func fromCEF(value: cef_navigation_type_t) -> CEFNavigationType {
+    static func fromCEF(_ value: cef_navigation_type_t) -> CEFNavigationType {
         return CEFNavigationType(rawValue: Int32(value.rawValue))!
     }
 

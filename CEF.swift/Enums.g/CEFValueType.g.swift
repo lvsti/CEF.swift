@@ -21,7 +21,7 @@ public enum CEFValueType: Int32 {
 }
 
 extension CEFValueType {
-    static func fromCEF(value: cef_value_type_t) -> CEFValueType {
+    static func fromCEF(_ value: cef_value_type_t) -> CEFValueType {
         return CEFValueType(rawValue: Int32(value.rawValue))!
     }
 

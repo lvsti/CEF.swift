@@ -15,7 +15,7 @@ public class CEFSSLInfo: CEFProxy<cef_sslinfo_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_sslinfo_t>) -> CEFSSLInfo? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_sslinfo_t>) -> CEFSSLInfo? {
         return CEFSSLInfo(ptr: ptr)
     }
 }

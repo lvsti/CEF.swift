@@ -21,7 +21,7 @@ public enum CEFState: Int32 {
 }
 
 extension CEFState {
-    static func fromCEF(value: cef_state_t) -> CEFState {
+    static func fromCEF(_ value: cef_state_t) -> CEFState {
         return CEFState(rawValue: Int32(value.rawValue))!
     }
 

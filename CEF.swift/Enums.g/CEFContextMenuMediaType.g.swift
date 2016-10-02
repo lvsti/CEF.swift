@@ -30,7 +30,7 @@ public enum CEFContextMenuMediaType: Int32 {
 }
 
 extension CEFContextMenuMediaType {
-    static func fromCEF(value: cef_context_menu_media_type_t) -> CEFContextMenuMediaType {
+    static func fromCEF(_ value: cef_context_menu_media_type_t) -> CEFContextMenuMediaType {
         return CEFContextMenuMediaType(rawValue: Int32(value.rawValue))!
     }
 

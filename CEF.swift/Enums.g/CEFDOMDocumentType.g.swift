@@ -16,7 +16,7 @@ public enum CEFDOMDocumentType: Int32 {
 }
 
 extension CEFDOMDocumentType {
-    static func fromCEF(value: cef_dom_document_type_t) -> CEFDOMDocumentType {
+    static func fromCEF(_ value: cef_dom_document_type_t) -> CEFDOMDocumentType {
         return CEFDOMDocumentType(rawValue: Int32(value.rawValue))!
     }
 

@@ -14,7 +14,7 @@ public enum CEFPaintElementType: Int32 {
 }
 
 extension CEFPaintElementType {
-    static func fromCEF(value: cef_paint_element_type_t) -> CEFPaintElementType {
+    static func fromCEF(_ value: cef_paint_element_type_t) -> CEFPaintElementType {
         return CEFPaintElementType(rawValue: Int32(value.rawValue))!
     }
 

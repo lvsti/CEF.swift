@@ -15,5 +15,5 @@ func CEFRunFileDialogCallback_on_file_dialog_dismissed(ptr: UnsafeMutablePointer
         return
     }
     
-    obj.onFileDialogDismissed(Int(filterIndex), filePaths: CEFStringListToSwiftArray(filePaths))
+    obj.onFileDialogDismissed(filterIndex: Int(filterIndex), filePaths: CEFStringListToSwiftArray(filePaths))
 }

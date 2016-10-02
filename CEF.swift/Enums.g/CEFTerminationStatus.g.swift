@@ -21,7 +21,7 @@ public enum CEFTerminationStatus: Int32 {
 }
 
 extension CEFTerminationStatus {
-    static func fromCEF(value: cef_termination_status_t) -> CEFTerminationStatus {
+    static func fromCEF(_ value: cef_termination_status_t) -> CEFTerminationStatus {
         return CEFTerminationStatus(rawValue: Int32(value.rawValue))!
     }
 

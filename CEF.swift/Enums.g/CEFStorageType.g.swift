@@ -14,7 +14,7 @@ public enum CEFStorageType: Int32 {
 }
 
 extension CEFStorageType {
-    static func fromCEF(value: cef_storage_type_t) -> CEFStorageType {
+    static func fromCEF(_ value: cef_storage_type_t) -> CEFStorageType {
         return CEFStorageType(rawValue: Int32(value.rawValue))!
     }
 

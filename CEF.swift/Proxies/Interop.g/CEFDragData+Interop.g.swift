@@ -16,7 +16,7 @@ public class CEFDragData: CEFProxy<cef_drag_data_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_drag_data_t>) -> CEFDragData? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_drag_data_t>) -> CEFDragData? {
         return CEFDragData(ptr: ptr)
     }
 }

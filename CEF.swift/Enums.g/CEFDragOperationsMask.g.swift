@@ -27,7 +27,7 @@ public struct CEFDragOperationsMask: OptionSet {
 }
 
 extension CEFDragOperationsMask {
-    static func fromCEF(value: cef_drag_operations_mask_t) -> CEFDragOperationsMask {
+    static func fromCEF(_ value: cef_drag_operations_mask_t) -> CEFDragOperationsMask {
         return CEFDragOperationsMask(rawValue: UInt32(value.rawValue))
     }
 

@@ -29,7 +29,7 @@ func CEFLifeSpanHandler_on_before_popup(ptr: UnsafeMutablePointer<cef_life_span_
     var settings = CEFBrowserSettings.fromCEF(cefSettings.pointee)
     var jsAccess = !(noJSAccess.pointee != 0)
     
-    let action = obj.onBeforePopup(CEFBrowser.fromCEF(browser)!,
+    let action = obj.onBeforePopup(browser: CEFBrowser.fromCEF(browser)!,
                                    frame: CEFFrame.fromCEF(frame)!,
                                    targetURL: url != nil ? NSURL(string: CEFStringToSwiftString(url.pointee)) : nil,
                                    targetFrameName: frameName != nil ? CEFStringToSwiftString(frameName.pointee) : nil,
@@ -56,7 +56,7 @@ func CEFLifeSpanHandler_on_after_created(ptr: UnsafeMutablePointer<cef_life_span
         return
     }
     
-    obj.onAfterCreated(CEFBrowser.fromCEF(browser)!)
+    obj.onAfterCreated(browser: CEFBrowser.fromCEF(browser)!)
 }
 
 func CEFLifeSpanHandler_do_close(ptr: UnsafeMutablePointer<cef_life_span_handler_t>,
@@ -65,7 +65,7 @@ func CEFLifeSpanHandler_do_close(ptr: UnsafeMutablePointer<cef_life_span_handler
         return 0
     }
     
-    let action = obj.onDoClose(CEFBrowser.fromCEF(browser)!)
+    let action = obj.onDoClose(browser: CEFBrowser.fromCEF(browser)!)
     return action == .deferClose ? 1 : 0
 }
 
@@ -75,6 +75,6 @@ func CEFLifeSpanHandler_on_before_close(ptr: UnsafeMutablePointer<cef_life_span_
         return
     }
     
-    obj.onBeforeClose(CEFBrowser.fromCEF(browser)!)
+    obj.onBeforeClose(browser: CEFBrowser.fromCEF(browser)!)
 }
 

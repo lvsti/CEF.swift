@@ -16,7 +16,7 @@ public class CEFCookieManager: CEFProxy<cef_cookie_manager_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_cookie_manager_t>) -> CEFCookieManager? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_cookie_manager_t>) -> CEFCookieManager? {
         return CEFCookieManager(ptr: ptr)
     }
 }

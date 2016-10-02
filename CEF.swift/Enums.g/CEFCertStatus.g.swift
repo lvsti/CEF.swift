@@ -52,7 +52,7 @@ public struct CEFCertStatus: OptionSet {
 }
 
 extension CEFCertStatus {
-    static func fromCEF(value: cef_cert_status_t) -> CEFCertStatus {
+    static func fromCEF(_ value: cef_cert_status_t) -> CEFCertStatus {
         return CEFCertStatus(rawValue: UInt32(value.rawValue))
     }
 

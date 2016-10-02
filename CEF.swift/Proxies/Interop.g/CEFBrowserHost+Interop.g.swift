@@ -18,7 +18,7 @@ public class CEFBrowserHost: CEFProxy<cef_browser_host_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_browser_host_t>) -> CEFBrowserHost? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_browser_host_t>) -> CEFBrowserHost? {
         return CEFBrowserHost(ptr: ptr)
     }
 }

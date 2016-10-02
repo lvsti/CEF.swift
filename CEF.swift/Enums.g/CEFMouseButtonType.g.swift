@@ -15,7 +15,7 @@ public enum CEFMouseButtonType: Int32 {
 }
 
 extension CEFMouseButtonType {
-    static func fromCEF(value: cef_mouse_button_type_t) -> CEFMouseButtonType {
+    static func fromCEF(_ value: cef_mouse_button_type_t) -> CEFMouseButtonType {
         return CEFMouseButtonType(rawValue: Int32(value.rawValue))!
     }
 

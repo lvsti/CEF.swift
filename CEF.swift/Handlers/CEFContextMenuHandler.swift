@@ -13,17 +13,9 @@ public enum CEFOnContextMenuCommandAction {
     case passThrough
 }
 
-extension CEFOnContextMenuCommandAction {
-    public var boolValue: Bool { return self == .consume }
-}
-
 public enum CEFOnRunContextMenuAction {
     case showDefault
     case showCustom
-}
-
-extension CEFOnRunContextMenuAction {
-    public var boolValue: Bool { return self == .showCustom }
 }
 
 /// Implement this interface to handle context menu events. The methods of this

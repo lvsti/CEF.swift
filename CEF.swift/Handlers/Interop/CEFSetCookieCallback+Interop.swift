@@ -14,5 +14,5 @@ func CEFSetCookieCallback_on_complete(ptr: UnsafeMutablePointer<cef_set_cookie_c
         return
     }
     
-    obj.onComplete(success != 0)
+    obj.onComplete(success: success != 0)
 }

@@ -20,7 +20,7 @@ func CEFDialogHandler_on_file_dialog(ptr: UnsafeMutablePointer<cef_dialog_handle
         return 0
     }
     
-    let action = obj.onFileDialog(CEFBrowser.fromCEF(browser)!,
+    let action = obj.onFileDialog(browser: CEFBrowser.fromCEF(browser)!,
                                   mode: CEFFileDialogMode.fromCEF(mode),
                                   title: title != nil ? CEFStringToSwiftString(title.pointee) : nil,
                                   defaultPath: path != nil ? CEFStringToSwiftString(path.pointee) : nil,

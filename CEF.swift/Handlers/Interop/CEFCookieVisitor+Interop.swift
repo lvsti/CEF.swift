@@ -18,7 +18,7 @@ func CEFCookieVisitor_visit(ptr: UnsafeMutablePointer<cef_cookie_visitor_t>,
     }
     
     var shouldDelete: Bool = false
-    let result = obj.visit(CEFCookie.fromCEF(cookie.pointee),
+    let result = obj.visit(cookie: CEFCookie.fromCEF(cookie.pointee),
                            index: Int(index),
                            count: Int(count),
                            shouldDelete: &shouldDelete)

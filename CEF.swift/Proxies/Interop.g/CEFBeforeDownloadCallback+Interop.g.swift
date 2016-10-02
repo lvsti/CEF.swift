@@ -15,7 +15,7 @@ public class CEFBeforeDownloadCallback: CEFProxy<cef_before_download_callback_t>
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_before_download_callback_t>) -> CEFBeforeDownloadCallback? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_before_download_callback_t>) -> CEFBeforeDownloadCallback? {
         return CEFBeforeDownloadCallback(ptr: ptr)
     }
 }

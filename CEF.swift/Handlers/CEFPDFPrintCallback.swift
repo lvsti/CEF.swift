@@ -15,13 +15,13 @@ public protocol CEFPDFPrintCallback {
     /// Method that will be executed when the PDF printing has completed. |path| is
     /// the output path. |ok| will be true (1) if the printing completed
     /// successfully or false (0) otherwise.
-    func onPDFPrintFinishedForPath(path: String, successfully: Bool)
+    func onPDFPrintFinished(path: String, successfully: Bool)
     
 }
 
 public extension CEFPDFPrintCallback {
 
-    func onPDFPrintFinishedForPath(path: String, successfully: Bool) {
+    func onPDFPrintFinished(path: String, successfully: Bool) {
     }
 
 }

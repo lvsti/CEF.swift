@@ -43,7 +43,7 @@ public protocol CEFDisplayHandler {
     /// and then return false to allow the browser to display the tooltip.
     /// When window rendering is disabled the application is responsible for
     /// drawing tooltips and the return value is ignored.
-    func onTooltip(browser: CEFBrowser, inout text: String?) -> CEFOnTooltipAction
+    func onTooltip(browser: CEFBrowser, text: inout String?) -> CEFOnTooltipAction
     
     /// Called when the browser receives a status message. |value| contains the
     /// text that will be displayed in the status message.

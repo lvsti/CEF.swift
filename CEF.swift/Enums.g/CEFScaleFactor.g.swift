@@ -24,7 +24,7 @@ public enum CEFScaleFactor: Int32 {
 }
 
 extension CEFScaleFactor {
-    static func fromCEF(value: cef_scale_factor_t) -> CEFScaleFactor {
+    static func fromCEF(_ value: cef_scale_factor_t) -> CEFScaleFactor {
         return CEFScaleFactor(rawValue: Int32(value.rawValue))!
     }
 

@@ -14,6 +14,6 @@ func CEFEndTracingCallback_on_end_tracing_complete(ptr: UnsafeMutablePointer<cef
         return
     }
     
-    obj.onEndTracingComplete(CEFStringToSwiftString(filePath.pointee))
+    obj.onEndTracingComplete(traceFilePath: CEFStringToSwiftString(filePath.pointee))
 }
 

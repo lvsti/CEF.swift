@@ -16,7 +16,7 @@ public class CEFContextMenuParams: CEFProxy<cef_context_menu_params_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_context_menu_params_t>) -> CEFContextMenuParams? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_context_menu_params_t>) -> CEFContextMenuParams? {
         return CEFContextMenuParams(ptr: ptr)
     }
 }

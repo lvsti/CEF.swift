@@ -17,7 +17,7 @@ public enum CEFTextStyle: Int32 {
 }
 
 extension CEFTextStyle {
-    static func fromCEF(value: cef_text_style_t) -> CEFTextStyle {
+    static func fromCEF(_ value: cef_text_style_t) -> CEFTextStyle {
         return CEFTextStyle(rawValue: Int32(value.rawValue))!
     }
 

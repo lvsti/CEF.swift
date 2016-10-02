@@ -22,7 +22,7 @@ public class CEFCommandLine: CEFProxy<cef_command_line_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_command_line_t>) -> CEFCommandLine? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_command_line_t>) -> CEFCommandLine? {
         return CEFCommandLine(ptr: ptr)
     }
 }

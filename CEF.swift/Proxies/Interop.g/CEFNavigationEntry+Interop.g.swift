@@ -15,7 +15,7 @@ public class CEFNavigationEntry: CEFProxy<cef_navigation_entry_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_navigation_entry_t>) -> CEFNavigationEntry? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_navigation_entry_t>) -> CEFNavigationEntry? {
         return CEFNavigationEntry(ptr: ptr)
     }
 }

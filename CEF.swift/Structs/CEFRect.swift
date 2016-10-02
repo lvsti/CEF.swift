@@ -16,7 +16,7 @@ extension NSRect {
                           height: Int32(self.size.height))
     }
     
-    static func fromCEF(value: cef_rect_t) -> NSRect {
+    static func fromCEF(_ value: cef_rect_t) -> NSRect {
         return NSRect(x: Int(value.x), y: Int(value.y), width: Int(value.width), height: Int(value.height))
     }
 }

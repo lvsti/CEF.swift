@@ -17,7 +17,7 @@ func CEFNavigationEntryVisitor_visit(ptr: UnsafeMutablePointer<cef_navigation_en
         return 0
     }
     
-    return obj.visit(CEFNavigationEntry.fromCEF(entry)!,
+    return obj.visit(entry: CEFNavigationEntry.fromCEF(entry)!,
                      isCurrent: isCurrent != 0,
                      index: Int(index),
                      totalCount: Int(totalCount)) ? 1 : 0

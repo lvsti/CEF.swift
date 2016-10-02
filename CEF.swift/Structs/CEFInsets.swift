@@ -21,7 +21,7 @@ extension CEFInsets {
         return cef_insets_t(top: Int32(top), left: Int32(left), bottom: Int32(bottom), right: Int32(right))
     }
     
-    static func fromCEF(value: cef_insets_t) -> CEFInsets {
+    static func fromCEF(_ value: cef_insets_t) -> CEFInsets {
         return CEFInsets(top: Int(value.top), left: Int(value.left), bottom: Int(value.bottom), right: Int(value.right))
     }
 }

@@ -19,7 +19,7 @@ extension CEFRange {
         return cef_range_t(from: Int32(from), to: Int32(to))
     }
     
-    static func fromCEF(value: cef_range_t) -> CEFRange {
+    static func fromCEF(_ value: cef_range_t) -> CEFRange {
         return CEFRange(from: Int(value.from), to: Int(value.to))
     }
 }

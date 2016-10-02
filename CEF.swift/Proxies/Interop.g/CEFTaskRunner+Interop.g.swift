@@ -20,7 +20,7 @@ public class CEFTaskRunner: CEFProxy<cef_task_runner_t> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_task_runner_t>) -> CEFTaskRunner? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_task_runner_t>) -> CEFTaskRunner? {
         return CEFTaskRunner(ptr: ptr)
     }
 }

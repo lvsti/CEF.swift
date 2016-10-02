@@ -15,7 +15,7 @@ public enum CEFPOSTDataElementType: Int32 {
 }
 
 extension CEFPOSTDataElementType {
-    static func fromCEF(value: cef_postdataelement_type_t) -> CEFPOSTDataElementType {
+    static func fromCEF(_ value: cef_postdataelement_type_t) -> CEFPOSTDataElementType {
         return CEFPOSTDataElementType(rawValue: Int32(value.rawValue))!
     }
 

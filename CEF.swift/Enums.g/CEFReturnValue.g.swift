@@ -21,7 +21,7 @@ public enum CEFReturnValue: Int32 {
 }
 
 extension CEFReturnValue {
-    static func fromCEF(value: cef_return_value_t) -> CEFReturnValue {
+    static func fromCEF(_ value: cef_return_value_t) -> CEFReturnValue {
         return CEFReturnValue(rawValue: Int32(value.rawValue))!
     }
 

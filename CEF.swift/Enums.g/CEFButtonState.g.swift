@@ -16,7 +16,7 @@ public enum CEFButtonState: Int32 {
 }
 
 extension CEFButtonState {
-    static func fromCEF(value: cef_button_state_t) -> CEFButtonState {
+    static func fromCEF(_ value: cef_button_state_t) -> CEFButtonState {
         return CEFButtonState(rawValue: Int32(value.rawValue))!
     }
 

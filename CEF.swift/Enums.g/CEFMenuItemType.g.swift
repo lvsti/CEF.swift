@@ -18,7 +18,7 @@ public enum CEFMenuItemType: Int32 {
 }
 
 extension CEFMenuItemType {
-    static func fromCEF(value: cef_menu_item_type_t) -> CEFMenuItemType {
+    static func fromCEF(_ value: cef_menu_item_type_t) -> CEFMenuItemType {
         return CEFMenuItemType(rawValue: Int32(value.rawValue))!
     }
 

@@ -34,7 +34,7 @@ public struct CEFDOMEventCategory: OptionSet {
 }
 
 extension CEFDOMEventCategory {
-    static func fromCEF(value: cef_dom_event_category_t) -> CEFDOMEventCategory {
+    static func fromCEF(_ value: cef_dom_event_category_t) -> CEFDOMEventCategory {
         return CEFDOMEventCategory(rawValue: UInt32(value.rawValue))
     }
 
