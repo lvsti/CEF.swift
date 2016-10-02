@@ -78,7 +78,7 @@ public extension CEFFrame {
     
     /// Load the specified |url|.
     public func loadURL(url: NSURL) {
-        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
+        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString!)
         defer { CEFStringPtrRelease(cefURLPtr) }
         cefObject.load_url(cefObjectPtr, cefURLPtr)
     }
@@ -88,7 +88,7 @@ public extension CEFFrame {
     /// link clicks and web security restrictions may not behave as expected.
     public func loadString(str: String, url: NSURL) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(str)
-        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
+        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString!)
         defer {
             CEFStringPtrRelease(cefStrPtr)
             CEFStringPtrRelease(cefURLPtr)
@@ -103,7 +103,7 @@ public extension CEFFrame {
     /// reporting.
     public func executeJavaScript(code: String, scriptURL: NSURL? = nil, startLine: Int = 1) {
         let cefCodePtr = CEFStringPtrCreateFromSwiftString(code)
-        let cefURLPtr = scriptURL != nil ? CEFStringPtrCreateFromSwiftString(scriptURL!.absoluteString) : nil
+        let cefURLPtr = scriptURL != nil ? CEFStringPtrCreateFromSwiftString(scriptURL!.absoluteString!) : nil
         defer {
             CEFStringPtrRelease(cefCodePtr)
             CEFStringPtrRelease(cefURLPtr)

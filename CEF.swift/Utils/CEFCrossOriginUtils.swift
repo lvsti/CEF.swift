@@ -43,7 +43,7 @@ public struct CEFCrossOriginUtils {
                                          targetScheme: String,
                                          targetDomain: String? = nil,
                                          allowTargetSubdomains: Bool) -> Bool {
-        let cefOriginPtr = CEFStringPtrCreateFromSwiftString(origin.absoluteString)
+        let cefOriginPtr = CEFStringPtrCreateFromSwiftString(origin.absoluteString!)
         let cefSchemePtr = CEFStringPtrCreateFromSwiftString(targetScheme)
         let cefDomainPtr = targetDomain != nil ? CEFStringPtrCreateFromSwiftString(targetDomain!) : nil
         
@@ -65,7 +65,7 @@ public struct CEFCrossOriginUtils {
                                             targetScheme: String,
                                             targetDomain: String? = nil,
                                             allowTargetSubdomains: Bool) -> Bool {
-        let cefOriginPtr = CEFStringPtrCreateFromSwiftString(origin.absoluteString)
+        let cefOriginPtr = CEFStringPtrCreateFromSwiftString(origin.absoluteString!)
         let cefSchemePtr = CEFStringPtrCreateFromSwiftString(targetScheme)
         let cefDomainPtr = targetDomain != nil ? CEFStringPtrCreateFromSwiftString(targetDomain!) : nil
         

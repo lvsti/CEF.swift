@@ -54,7 +54,7 @@ extension CEFPDFPrintSettings {
                 CEFStringSetFromSwiftString(headerFooter.title!, cefString: &cefStruct.header_footer_title)
             }
             if headerFooter.url != nil {
-                CEFStringSetFromSwiftString(headerFooter.url!.absoluteString, cefString: &cefStruct.header_footer_title)
+                CEFStringSetFromSwiftString(headerFooter.url!.absoluteString!, cefString: &cefStruct.header_footer_title)
             }
         }
         
