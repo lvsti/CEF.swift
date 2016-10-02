@@ -82,7 +82,7 @@ def make_enum(cef_capi_name, cef_body):
         cast = entrytype_tocef_cast_overrides[cef_capi_name]
     
     result += "extension " + swift_type_name + " {\n"
-    result += "    static func fromCEF(value: " + cef_capi_name + ") -> " + swift_type_name + " {\n"
+    result += "    static func fromCEF(_ value: " + cef_capi_name + ") -> " + swift_type_name + " {\n"
     result += "        return " + swift_type_name + "(rawValue: Int32(value.rawValue))!\n"
     result += "    }\n\n"
     result += "    func toCEF() -> " + cef_capi_name + " {\n"
@@ -128,7 +128,7 @@ def make_option_set(cef_capi_name, cef_body):
     result += "}\n\n"
 
     result += "extension " + swift_type_name + " {\n"
-    result += "    static func fromCEF(value: " + cef_capi_name + ") -> " + swift_type_name + " {\n"
+    result += "    static func fromCEF(_ value: " + cef_capi_name + ") -> " + swift_type_name + " {\n"
     result += "        return " + swift_type_name + "(rawValue: UInt32(value.rawValue))\n"
     result += "    }\n\n"
     result += "    func toCEF() -> " + cef_capi_name + " {\n"
@@ -175,7 +175,7 @@ def make_const_collection(cef_capi_name, cef_header_name):
     result += "}\n\n"
 
     result += "extension " + swift_type_name + " {\n"
-    result += "    static func fromCEF(value: " + swift_raw_type + ") -> " + swift_type_name + " {\n"
+    result += "    static func fromCEF(_ value: " + swift_raw_type + ") -> " + swift_type_name + " {\n"
     result += "        return " + swift_type_name + "(rawValue: value)\n"
     result += "    }\n\n"
     result += "    func toCEF() -> " + swift_raw_type + " {\n"

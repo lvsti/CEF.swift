@@ -28,7 +28,7 @@ public class %s: CEFProxy<%s> {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<%s>) -> %s? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<%s>) -> %s? {
         return %s(ptr: ptr)
     }
 }
