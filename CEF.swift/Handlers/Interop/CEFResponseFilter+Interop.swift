@@ -13,7 +13,8 @@ func CEFResponseFilter_init_filter(ptr: UnsafeMutablePointer<cef_response_filter
         return 0
     }
     
-    return obj.onFilterInit() ? 1 : 0
+    let action = obj.onFilterInit()
+    return action == .allow ? 1 : 0
 }
 
 func CEFResponseFilter_filter(ptr: UnsafeMutablePointer<cef_response_filter_t>,

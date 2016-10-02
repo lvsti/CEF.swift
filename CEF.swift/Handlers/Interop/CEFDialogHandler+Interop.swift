@@ -20,11 +20,12 @@ func CEFDialogHandler_on_file_dialog(ptr: UnsafeMutablePointer<cef_dialog_handle
         return 0
     }
     
-    return obj.onFileDialog(CEFBrowser.fromCEF(browser)!,
-                            mode: CEFFileDialogMode.fromCEF(mode),
-                            title: title != nil ? CEFStringToSwiftString(title.pointee) : nil,
-                            defaultPath: path != nil ? CEFStringToSwiftString(path.pointee) : nil,
-                            acceptFilters: CEFStringListToSwiftArray(filters),
-                            selectedFilterIndex: Int(selectedIndex),
-                            callback: CEFFileDialogCallback.fromCEF(callback)!) ? 1 : 0
+    let action = obj.onFileDialog(CEFBrowser.fromCEF(browser)!,
+                                  mode: CEFFileDialogMode.fromCEF(mode),
+                                  title: title != nil ? CEFStringToSwiftString(title.pointee) : nil,
+                                  defaultPath: path != nil ? CEFStringToSwiftString(path.pointee) : nil,
+                                  acceptFilters: CEFStringListToSwiftArray(filters),
+                                  selectedFilterIndex: Int(selectedIndex),
+                                  callback: CEFFileDialogCallback.fromCEF(callback)!)
+    return action == .showCustom ? 1 : 0
 }

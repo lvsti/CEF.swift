@@ -15,10 +15,6 @@ public enum CEFOnRequestGeolocationPermissionAction {
     case cancel
 }
 
-extension CEFOnRequestGeolocationPermissionAction {
-    public var boolValue: Bool { return self == .accept }
-}
-
 /// Implement this interface to handle events related to geolocation permission
 /// requests. The methods of this class will be called on the browser process UI
 /// thread.

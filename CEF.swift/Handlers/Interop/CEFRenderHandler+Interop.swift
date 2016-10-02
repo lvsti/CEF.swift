@@ -142,10 +142,11 @@ func CEFRenderHandler_start_dragging(ptr: UnsafeMutablePointer<cef_render_handle
         return 0
     }
     
-    return obj.onStartDragging(CEFBrowser.fromCEF(browser)!,
-                               dragData: CEFDragData.fromCEF(dragData)!,
-                               operationMask: CEFDragOperationsMask.fromCEF(opMask),
-                               location: NSPoint(x: Int(x), y: Int(y))) ? 1 : 0
+    let action = obj.onStartDragging(CEFBrowser.fromCEF(browser)!,
+                                     dragData: CEFDragData.fromCEF(dragData)!,
+                                     operationMask: CEFDragOperationsMask.fromCEF(opMask),
+                                     location: NSPoint(x: Int(x), y: Int(y)))
+    return action == .allow ? 1 : 0
 }
 
 func CEFRenderHandler_update_drag_cursor(ptr: UnsafeMutablePointer<cef_render_handler_t>,

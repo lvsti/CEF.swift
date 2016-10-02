@@ -14,17 +14,9 @@ public enum CEFOnPreKeyEventAction {
     case passAsShortcut
 }
 
-extension CEFOnPreKeyEventAction {
-    public var boolValue: Bool { return self == .consume }
-}
-
 public enum CEFOnKeyEventAction {
     case consume
     case passThrough
-}
-
-extension CEFOnKeyEventAction {
-    public var boolValue: Bool { return self == .consume }
 }
 
 /// Implement this interface to handle events related to keyboard input. The

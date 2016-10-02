@@ -13,17 +13,9 @@ public enum CEFOnBeforeBrowseAction {
     case cancel
 }
 
-extension CEFOnBeforeBrowseAction {
-    public var boolValue: Bool { return self == .cancel }
-}
-
 public enum CEFOnOpenURLFromTabAction {
     case allow
     case cancel
-}
-
-extension CEFOnOpenURLFromTabAction {
-    public var boolValue: Bool { return self == .cancel }
 }
 
 public enum CEFOnResourceResponseAction {
@@ -32,17 +24,9 @@ public enum CEFOnResourceResponseAction {
     case retry
 }
 
-extension CEFOnResourceResponseAction {
-    public var boolValue: Bool { return self == .redirect || self == .retry }
-}
-
 public enum CEFOnAuthCredentialsRequiredAction {
     case allow
     case cancel
-}
-
-extension CEFOnAuthCredentialsRequiredAction {
-    public var boolValue: Bool { return self == .allow }
 }
 
 public enum CEFOnQuotaRequestAction {
@@ -50,17 +34,9 @@ public enum CEFOnQuotaRequestAction {
     case cancel
 }
 
-extension CEFOnQuotaRequestAction {
-    public var boolValue: Bool { return self == .allow }
-}
-
 public enum CEFOnCertificateErrorAction {
     case allow
     case cancel
-}
-
-extension CEFOnCertificateErrorAction {
-    public var boolValue: Bool { return self == .allow }
 }
 
 /// Implement this interface to handle events related to browser requests. The

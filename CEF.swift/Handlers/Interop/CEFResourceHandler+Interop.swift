@@ -15,7 +15,8 @@ func CEFResourceHandler_process_request(ptr: UnsafeMutablePointer<cef_resource_h
         return 0
     }
     
-    return obj.onProcessRequest(CEFRequest.fromCEF(request)!, callback: CEFCallback.fromCEF(callback)!) ? 1 : 0
+    let action = obj.onProcessRequest(CEFRequest.fromCEF(request)!, callback: CEFCallback.fromCEF(callback)!)
+    return action == .allow ? 1 : 0
 }
 
 func CEFResourceHandler_get_response_headers(ptr: UnsafeMutablePointer<cef_resource_handler_t>,
@@ -54,11 +55,11 @@ func CEFResourceHandler_read_response(ptr: UnsafeMutablePointer<cef_resource_han
                                     bufferLength: Int(bufferLength),
                                     callback: CEFCallback.fromCEF(callback)!)
                                         
-    if case .Read(let length) = action {
+    if case .read(let length) = action {
         actualLength.pointee = Int32(length)
     }
     
-    return action ? 1 : 0
+    return action != .complete ? 1 : 0
 }
 
 func CEFResourceHandler_can_get_cookie(ptr: UnsafeMutablePointer<cef_resource_handler_t>,

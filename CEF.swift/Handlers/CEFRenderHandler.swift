@@ -13,10 +13,6 @@ public enum CEFOnStartDraggingAction {
     case cancel
 }
 
-extension CEFOnStartDraggingAction {
-    public var boolValue: Bool { return self == .allow }
-}
-
 /// Implement this interface to handle events when window rendering is disabled.
 /// The methods of this class will be called on the UI thread.
 public protocol CEFRenderHandler {

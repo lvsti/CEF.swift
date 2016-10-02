@@ -13,10 +13,6 @@ public enum CEFOnProcessRequestAction {
     case cancel
 }
 
-extension CEFOnProcessRequestAction {
-    public var boolValue: Bool { return self == .allow }
-}
-
 public enum CEFOnGetResponseHeadersAction {
     /// Response length is unknown, ReadResponse() will be called until it
     /// returns false
@@ -43,15 +39,6 @@ public enum CEFOnReadResponseAction {
     
     /// No bytes left
     case complete
-}
-
-extension CEFOnReadResponseAction {
-    public var boolValue: Bool {
-        switch self {
-        case .complete: return false
-        default: return true
-        }
-    }
 }
 
 /// Class used to implement a custom request handler interface. The methods of

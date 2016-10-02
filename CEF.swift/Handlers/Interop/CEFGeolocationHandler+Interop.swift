@@ -17,10 +17,11 @@ func CEFGeolocationHandler_on_request_geolocation_permission(ptr: UnsafeMutableP
         return 0
     }
 
-    return obj.onRequestGeolocationPermission(CEFBrowser.fromCEF(browser)!,
-                                              url: NSURL(string: CEFStringToSwiftString(url.pointee))!,
-                                              requestID: requestID,
-                                              callback: CEFGeolocationCallback.fromCEF(callback)!) ? 1 : 0
+    let action = obj.onRequestGeolocationPermission(CEFBrowser.fromCEF(browser)!,
+                                                    url: NSURL(string: CEFStringToSwiftString(url.pointee))!,
+                                                    requestID: requestID,
+                                                    callback: CEFGeolocationCallback.fromCEF(callback)!)
+    return action == .accept ? 1 : 0
 }
 
 func CEFGeolocationHandler_on_cancel_geolocation_permission(ptr: UnsafeMutablePointer<cef_geolocation_handler_t>,

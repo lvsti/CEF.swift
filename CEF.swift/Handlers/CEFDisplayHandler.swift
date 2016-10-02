@@ -13,17 +13,9 @@ public enum CEFOnConsoleMessageAction {
     case cancel
 }
 
-extension CEFOnConsoleMessageAction {
-    public var boolValue: Bool { return self == .cancel }
-}
-
 public enum CEFOnTooltipAction {
     case showDefault
     case showCustom
-}
-
-extension CEFOnTooltipAction {
-    public var boolValue: Bool { return self == .showCustom }
 }
 
 /// Implement this interface to handle events related to browser display state.

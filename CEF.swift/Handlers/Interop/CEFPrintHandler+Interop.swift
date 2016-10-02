@@ -34,7 +34,8 @@ func CEFPrintHandler_on_print_dialog(ptr: UnsafeMutablePointer<cef_print_handler
         return 0
     }
     
-    return obj.onPrintDialog(hasSelection != 0, callback: CEFPrintDialogCallback.fromCEF(callback)!) ? 1 : 0
+    let action = obj.onPrintDialog(hasSelection != 0, callback: CEFPrintDialogCallback.fromCEF(callback)!)
+    return action == .allow ? 1 : 0
 }
 
 func CEFPrintHandler_on_print_job(ptr: UnsafeMutablePointer<cef_print_handler_t>,
@@ -45,9 +46,10 @@ func CEFPrintHandler_on_print_job(ptr: UnsafeMutablePointer<cef_print_handler_t>
         return 0
     }
     
-    return obj.onPrintJob(CEFStringToSwiftString(name.pointee),
-                          pdfFilePath: CEFStringToSwiftString(pdfPath.pointee),
-                          callback: CEFPrintJobCallback.fromCEF(callback)!) ? 1 : 0
+    let action = obj.onPrintJob(CEFStringToSwiftString(name.pointee),
+                                pdfFilePath: CEFStringToSwiftString(pdfPath.pointee),
+                                callback: CEFPrintJobCallback.fromCEF(callback)!)
+    return action == .allow ? 1 : 0
 }
 
 func CEFPrintHandler_on_print_reset(ptr: UnsafeMutablePointer<cef_print_handler_t>) {

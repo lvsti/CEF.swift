@@ -31,7 +31,7 @@ func CEFJSDialogHandler_on_jsdialog(ptr: UnsafeMutablePointer<cef_jsdialog_handl
         shouldSuppress.pointee = 1
     }
     
-    return action ? 1 : 0
+    return action == .showCustom || action == .consume ? 1 : 0
 }
 
 func CEFJSDialogHandler_on_before_unload_dialog(ptr: UnsafeMutablePointer<cef_jsdialog_handler_t>,
@@ -43,10 +43,11 @@ func CEFJSDialogHandler_on_before_unload_dialog(ptr: UnsafeMutablePointer<cef_js
         return 0
     }
 
-    return obj.onBeforeUnloadDialog(CEFBrowser.fromCEF(browser)!,
-                                    message: message != nil ? CEFStringToSwiftString(message.pointee) : nil,
-                                    isReload: isReload != 0,
-                                    callback: CEFJSDialogCallback.fromCEF(callback)!) ? 1 : 0
+    let action = obj.onBeforeUnloadDialog(CEFBrowser.fromCEF(browser)!,
+                                          message: message != nil ? CEFStringToSwiftString(message.pointee) : nil,
+                                          isReload: isReload != 0,
+                                          callback: CEFJSDialogCallback.fromCEF(callback)!)
+    return action == .showCustom || action == .consume ? 1 : 0
 }
 
 func CEFJSDialogHandler_on_reset_dialog_state(ptr: UnsafeMutablePointer<cef_jsdialog_handler_t>,

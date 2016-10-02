@@ -30,13 +30,13 @@ func CEFRequestContextHandler_on_before_plugin_load(ptr: UnsafeMutablePointer<ce
         return 0
     }
 
-    let result = obj.onBeforePluginLoad(CEFStringToSwiftString(mimeType.pointee),
+    let action = obj.onBeforePluginLoad(CEFStringToSwiftString(mimeType.pointee),
                                         pluginURL: pluginURL != nil ? NSURL(string: CEFStringToSwiftString(pluginURL.pointee)) : nil,
                                         topOriginURL: topOriginURL != nil ? NSURL(string: CEFStringToSwiftString(topOriginURL.pointee)) : nil,
                                         pluginInfo: CEFWebPluginInfo.fromCEF(pluginInfo)!,
                                         defaultPolicy: CEFPluginPolicy.fromCEF(pluginPolicy.pointee))
     
-    if case .OverridePolicy(let policy) = result {
+    if case .overridePolicy(let policy) = action {
         pluginPolicy.pointee = policy.toCEF()
         return 1
     }

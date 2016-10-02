@@ -22,18 +22,10 @@ public enum CEFOnJSDialogAction {
     case consume
 }
 
-extension CEFOnJSDialogAction {
-    public var boolValue: Bool { return self == .showCustom || self == .consume }
-}
-
 public enum CEFOnBeforeUnloadDialogAction {
     case showDefault
     case showCustom
     case consume
-}
-
-extension CEFOnBeforeUnloadDialogAction {
-    public var boolValue: Bool { return self == .showCustom || self == .consume }
 }
 
 /// Implement this interface to handle events related to JavaScript dialogs. The

@@ -16,10 +16,6 @@ public enum CEFOnDragEnterAction {
     case cancel
 }
 
-extension CEFOnDragEnterAction {
-    public var boolValue: Bool { return self == .cancel }
-}
-
 /// Implement this interface to handle events related to dragging. The methods of
 /// this class will be called on the UI thread.
 public protocol CEFDragHandler {

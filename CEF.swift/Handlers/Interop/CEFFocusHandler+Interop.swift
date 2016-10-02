@@ -25,8 +25,9 @@ func CEFFocusHandler_on_set_focus(ptr: UnsafeMutablePointer<cef_focus_handler_t>
         return 0
     }
     
-    return obj.onSetFocus(CEFBrowser.fromCEF(browser)!,
-                          source: CEFFocusSource.fromCEF(source)) ? 1 : 0
+    let action = obj.onSetFocus(CEFBrowser.fromCEF(browser)!,
+                                source: CEFFocusSource.fromCEF(source))
+    return action == .cancel ? 1 : 0
 }
 
 func CEFFocusHandler_on_got_focus(ptr: UnsafeMutablePointer<cef_focus_handler_t>,

@@ -13,17 +13,9 @@ public enum CEFOnBeforeNavigationAction {
     case cancel
 }
 
-extension CEFOnBeforeNavigationAction {
-    public var boolValue: Bool { return self == .cancel }
-}
-
 public enum CEFOnProcessMessageReceivedAction {
     case consume
     case passThrough
-}
-
-extension CEFOnProcessMessageReceivedAction {
-    public var boolValue: Bool { return self == .consume }
 }
 
 /// Class used to implement render process callbacks. The methods of this class

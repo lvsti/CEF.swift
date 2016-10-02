@@ -13,10 +13,6 @@ public enum CEFResponseFilterInitAction {
     case cancel
 }
 
-extension CEFResponseFilterInitAction {
-    public var boolValue: Bool { return self == .allow }
-}
-
 
 /// Implement this interface to filter resource response content. The methods of
 /// this class will be called on the browser process IO thread.
@@ -60,7 +56,7 @@ public extension CEFResponseFilter {
                              ofSize: size_t,
                              intoBuffer: UnsafeMutablePointer<Void>,
                              ofCapacity: size_t) -> (bytesRead: size_t, bytesWriten: size_t, status: CEFResponseFilterStatus) {
-        return (0, 0, .Error)
+        return (0, 0, .error)
     }
     
 }

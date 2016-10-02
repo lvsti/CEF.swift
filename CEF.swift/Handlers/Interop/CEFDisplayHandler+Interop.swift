@@ -63,13 +63,13 @@ func CEFDisplayHandler_on_tooltip(ptr: UnsafeMutablePointer<cef_display_handler_
     }
 
     var text: String? = textPtr != nil ? CEFStringToSwiftString(textPtr.pointee) : nil
-    let retval = obj.onTooltip(CEFBrowser.fromCEF(browser)!, text: &text)
+    let action = obj.onTooltip(CEFBrowser.fromCEF(browser)!, text: &text)
     
     if let text = text {
         CEFStringSetFromSwiftString(text, cefString: textPtr)
     }
     
-    return retval ? 1 : 0
+    return action == .showCustom ? 1 : 0
 }
 
 func CEFDisplayHandler_on_status_message(ptr: UnsafeMutablePointer<cef_display_handler_t>,
@@ -92,9 +92,10 @@ func CEFDisplayHandler_on_console_message(ptr: UnsafeMutablePointer<cef_display_
         return 0
     }
 
-    return obj.onConsoleMessage(CEFBrowser.fromCEF(browser)!,
-                                message: message != nil ? CEFStringToSwiftString(message.pointee) : nil,
-                                source: source != nil ? CEFStringToSwiftString(source.pointee) : nil,
-                                lineNumber: Int(line)) ? 1 : 0
+    let action = obj.onConsoleMessage(CEFBrowser.fromCEF(browser)!,
+                                      message: message != nil ? CEFStringToSwiftString(message.pointee) : nil,
+                                      source: source != nil ? CEFStringToSwiftString(source.pointee) : nil,
+                                      lineNumber: Int(line))
+    return action == .cancel ? 1 : 0
 }
 

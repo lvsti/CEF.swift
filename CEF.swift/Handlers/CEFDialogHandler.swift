@@ -13,10 +13,6 @@ public enum CEFOnFileDialogAction {
     case showCustom
 }
 
-extension CEFOnFileDialogAction {
-    public var boolValue: Bool { return self == .showCustom }
-}
-
 /// Implement this interface to handle dialog events. The methods of this class
 /// will be called on the browser process UI thread.
 public protocol CEFDialogHandler {

@@ -17,10 +17,11 @@ func CEFRequestHandler_on_before_browse(ptr: UnsafeMutablePointer<cef_request_ha
         return 0
     }
     
-    return obj.onBeforeBrowse(CEFBrowser.fromCEF(browser)!,
-                              frame: CEFFrame.fromCEF(frame)!,
-                              request: CEFRequest.fromCEF(request)!,
-                              isRedirect: isRedirect != 0) ? 1 : 0
+    let action = obj.onBeforeBrowse(CEFBrowser.fromCEF(browser)!,
+                                    frame: CEFFrame.fromCEF(frame)!,
+                                    request: CEFRequest.fromCEF(request)!,
+                                    isRedirect: isRedirect != 0)
+    return action == .cancel ? 1 : 0
 }
 
 func CEFRequestHandler_on_open_urlfrom_tab(ptr: UnsafeMutablePointer<cef_request_handler_t>,
@@ -33,11 +34,12 @@ func CEFRequestHandler_on_open_urlfrom_tab(ptr: UnsafeMutablePointer<cef_request
         return 0
     }
     
-    return obj.onOpenURLFromTab(CEFBrowser.fromCEF(browser)!,
-                                frame: CEFFrame.fromCEF(frame)!,
-                                url: NSURL(string: CEFStringToSwiftString(url.pointee))!,
-                                targetDisposition: CEFWindowOpenDisposition.fromCEF(disposition),
-                                userGesture: gesture != 0) ? 1 : 0
+    let action = obj.onOpenURLFromTab(CEFBrowser.fromCEF(browser)!,
+                                      frame: CEFFrame.fromCEF(frame)!,
+                                      url: NSURL(string: CEFStringToSwiftString(url.pointee))!,
+                                      targetDisposition: CEFWindowOpenDisposition.fromCEF(disposition),
+                                      userGesture: gesture != 0)
+    return action == .cancel ? 1 : 0
 }
 
 func CEFRequestHandler_on_before_resource_load(ptr: UnsafeMutablePointer<cef_request_handler_t>,
@@ -103,10 +105,11 @@ func CEFRequestHandler_on_resource_response(ptr: UnsafeMutablePointer<cef_reques
         return 0
     }
 
-    return obj.onResourceResponse(CEFBrowser.fromCEF(browser)!,
-        frame: CEFFrame.fromCEF(frame)!,
-        request: CEFRequest.fromCEF(request)!,
-        response: CEFResponse.fromCEF(response)!) ? 1 : 0
+    let action = obj.onResourceResponse(CEFBrowser.fromCEF(browser)!,
+                                        frame: CEFFrame.fromCEF(frame)!,
+                                        request: CEFRequest.fromCEF(request)!,
+                                        response: CEFResponse.fromCEF(response)!)
+    return action == .redirect || action == .retry ? 1 : 0
 }
 
 func CEFRequestHandler_get_resource_response_filter(ptr: UnsafeMutablePointer<cef_request_handler_t>,
@@ -160,14 +163,15 @@ func CEFRequestHandler_get_auth_credentials(ptr: UnsafeMutablePointer<cef_reques
         return 0
     }
     
-    return obj.onAuthCredentialsRequired(CEFBrowser.fromCEF(browser)!,
-                                         frame: CEFFrame.fromCEF(frame)!,
-                                         isProxy: isProxy != 0,
-                                         host: CEFStringToSwiftString(host.pointee),
-                                         port: UInt16(port),
-                                         realm: realm != nil ? CEFStringToSwiftString(realm.pointee) : nil,
-                                         scheme: scheme != nil ? CEFStringToSwiftString(scheme.pointee) : nil,
-                                         callback: CEFAuthCallback.fromCEF(callback)!) ? 1 : 0
+    let action = obj.onAuthCredentialsRequired(CEFBrowser.fromCEF(browser)!,
+                                               frame: CEFFrame.fromCEF(frame)!,
+                                               isProxy: isProxy != 0,
+                                               host: CEFStringToSwiftString(host.pointee),
+                                               port: UInt16(port),
+                                               realm: realm != nil ? CEFStringToSwiftString(realm.pointee) : nil,
+                                               scheme: scheme != nil ? CEFStringToSwiftString(scheme.pointee) : nil,
+                                               callback: CEFAuthCallback.fromCEF(callback)!)
+    return action == .allow ? 1 : 0
 }
 
 
@@ -180,10 +184,11 @@ func CEFRequestHandler_on_quota_request(ptr: UnsafeMutablePointer<cef_request_ha
         return 0
     }
     
-    return obj.onQuotaRequest(CEFBrowser.fromCEF(browser)!,
-                              origin: NSURL(string: CEFStringToSwiftString(origin.pointee))!,
-                              newSize: newSize,
-                              callback: CEFRequestCallback.fromCEF(callback)!) ? 1 : 0
+    let action = obj.onQuotaRequest(CEFBrowser.fromCEF(browser)!,
+                                    origin: NSURL(string: CEFStringToSwiftString(origin.pointee))!,
+                                    newSize: newSize,
+                                    callback: CEFRequestCallback.fromCEF(callback)!)
+    return action == .allow ? 1 : 0
 }
 
 
@@ -212,11 +217,12 @@ func CEFRequestHandler_on_certificate_error(ptr: UnsafeMutablePointer<cef_reques
         return 0
     }
     
-    return obj.onCertificateError(CEFBrowser.fromCEF(browser)!,
-                                  errorCode: CEFErrorCode.fromCEF(errorCode.rawValue),
-                                  url: NSURL(string: CEFStringToSwiftString(url.pointee))!,
-                                  sslInfo: CEFSSLInfo.fromCEF(sslInfo)!,
-                                  callback: CEFRequestCallback.fromCEF(callback)!) ? 1 : 0
+    let action = obj.onCertificateError(CEFBrowser.fromCEF(browser)!,
+                                        errorCode: CEFErrorCode.fromCEF(errorCode.rawValue),
+                                        url: NSURL(string: CEFStringToSwiftString(url.pointee))!,
+                                        sslInfo: CEFSSLInfo.fromCEF(sslInfo)!,
+                                        callback: CEFRequestCallback.fromCEF(callback)!)
+    return action == .allow ? 1 : 0
 }
 
 func CEFRequestHandler_on_plugin_crashed(ptr: UnsafeMutablePointer<cef_request_handler_t>,

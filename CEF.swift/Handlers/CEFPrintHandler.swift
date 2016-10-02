@@ -13,17 +13,9 @@ public enum CEFOnPrintDialogAction {
     case cancel
 }
 
-extension CEFOnPrintDialogAction {
-    public var boolValue: Bool { return self == .allow }
-}
-
 public enum CEFOnPrintJobAction {
     case allow
     case cancel
-}
-
-extension CEFOnPrintJobAction {
-    public var boolValue: Bool { return self == .allow }
 }
 
 /// Implement this interface to handle printing on Linux. The methods of this

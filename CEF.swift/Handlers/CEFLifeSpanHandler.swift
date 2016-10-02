@@ -13,26 +13,9 @@ public enum CEFOnBeforePopupAction {
     case cancel
 }
 
-extension CEFOnBeforePopupAction {
-    public var boolValue: Bool { return self == .cancel }
-}
-
-public enum CEFOnRunModalAction {
-    case runDefaultLoop
-    case runCustomLoop
-}
-
-extension CEFOnRunModalAction {
-    public var boolValue: Bool { return self == .runCustomLoop }
-}
-
 public enum CEFOnDoCloseAction {
     case allow
     case deferClose
-}
-
-extension CEFOnDoCloseAction {
-    public var boolValue: Bool { return self == .deferClose }
 }
 
 /// Implement this interface to handle events related to browser life span. The

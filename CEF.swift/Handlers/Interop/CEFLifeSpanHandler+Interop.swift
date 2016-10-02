@@ -29,24 +29,24 @@ func CEFLifeSpanHandler_on_before_popup(ptr: UnsafeMutablePointer<cef_life_span_
     var settings = CEFBrowserSettings.fromCEF(cefSettings.pointee)
     var jsAccess = !(noJSAccess.pointee != 0)
     
-    let retval = obj.onBeforePopup(CEFBrowser.fromCEF(browser)!,
-        frame: CEFFrame.fromCEF(frame)!,
-        targetURL: url != nil ? NSURL(string: CEFStringToSwiftString(url.pointee)) : nil,
-        targetFrameName: frameName != nil ? CEFStringToSwiftString(frameName.pointee) : nil,
-        targetDisposition: CEFWindowOpenDisposition.fromCEF(disposition),
-        userGesture: userGesture != 0,
-        popupFeatures: CEFPopupFeatures.fromCEF(features.pointee),
-        windowInfo: &winInfo,
-        client: &client,
-        settings: &settings,
-        jsAccess: &jsAccess)
+    let action = obj.onBeforePopup(CEFBrowser.fromCEF(browser)!,
+                                   frame: CEFFrame.fromCEF(frame)!,
+                                   targetURL: url != nil ? NSURL(string: CEFStringToSwiftString(url.pointee)) : nil,
+                                   targetFrameName: frameName != nil ? CEFStringToSwiftString(frameName.pointee) : nil,
+                                   targetDisposition: CEFWindowOpenDisposition.fromCEF(disposition),
+                                   userGesture: userGesture != 0,
+                                   popupFeatures: CEFPopupFeatures.fromCEF(features.pointee),
+                                   windowInfo: &winInfo,
+                                   client: &client,
+                                   settings: &settings,
+                                   jsAccess: &jsAccess)
 
     windowInfo.pointee = winInfo.toCEF()
     cefClient.pointee = CEFClientMarshaller.pass(client)
     cefSettings.pointee = settings.toCEF()
     noJSAccess.pointee = jsAccess ? 0 : 1
     
-    return retval ? 1 : 0
+    return action == .cancel ? 1 : 0
 }
 
 
@@ -65,7 +65,8 @@ func CEFLifeSpanHandler_do_close(ptr: UnsafeMutablePointer<cef_life_span_handler
         return 0
     }
     
-    return obj.onDoClose(CEFBrowser.fromCEF(browser)!) ? 1 : 0
+    let action = obj.onDoClose(CEFBrowser.fromCEF(browser)!)
+    return action == .deferClose ? 1 : 0
 }
 
 func CEFLifeSpanHandler_on_before_close(ptr: UnsafeMutablePointer<cef_life_span_handler_t>,
