@@ -7,6 +7,9 @@ branches:
   only:
     - cef_2357
     - cef_2454
+    - cef_2526
+    - cef_2623
+    - cef_2704
 
 xcode_project: CEF.swift.xcodeproj
 xcode_scheme: CEF.swift
