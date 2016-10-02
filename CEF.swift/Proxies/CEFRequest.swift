@@ -38,7 +38,7 @@ public extension CEFRequest {
     
     /// Set the fully qualified URL.
     private func setURL(url: NSURL) {
-        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
+        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString!)
         defer { CEFStringPtrRelease(cefURLPtr) }
         cefObject.set_url(cefObjectPtr, cefURLPtr)
     }
@@ -97,7 +97,7 @@ public extension CEFRequest {
     
     /// Set all values at one time.
     public func set(url: NSURL, method: String, postData: CEFPOSTData? = nil, headers: HeaderMap) {
-        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
+        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString!)
         let cefMethodPtr = CEFStringPtrCreateFromSwiftString(method)
         let cefHeaderMap = CEFStringMultimapCreateFromSwiftDictionaryOfArrays(headers)
         let cefData = postData != nil ? postData!.toCEF() : nil
@@ -140,7 +140,7 @@ public extension CEFRequest {
     /// Get the URL to the first party for cookies used in combination with
     /// CefURLRequest.
     private func setFirstPartyForCookies(url: NSURL) {
-        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
+        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString!)
         defer { CEFStringPtrRelease(cefURLPtr) }
         cefObject.set_first_party_for_cookies(cefObjectPtr, cefURLPtr)
     }

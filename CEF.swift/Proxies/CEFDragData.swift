@@ -113,7 +113,7 @@ public extension CEFDragData {
     /// Set the link URL that is being dragged.
     public func setLinkURL(url: NSURL?)  {
         let cefStrPtr: UnsafeMutablePointer<cef_string_t> =
-            url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString) : nil
+            url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString!) : nil
         defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.set_link_url(cefObjectPtr, cefStrPtr)
     }
@@ -153,7 +153,7 @@ public extension CEFDragData {
     /// Set the base URL that the fragment came from.
     public func setFragmentBaseURL(url: NSURL?)  {
         let cefStrPtr: UnsafeMutablePointer<cef_string_t> =
-            url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString) : nil
+            url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString!) : nil
         defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.set_link_metadata(cefObjectPtr, cefStrPtr)
     }

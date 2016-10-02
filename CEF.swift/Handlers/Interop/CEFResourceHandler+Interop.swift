@@ -35,7 +35,7 @@ func CEFResourceHandler_get_response_headers(ptr: UnsafeMutablePointer<cef_resou
     }
     
     if let url = url {
-        CEFStringSetFromSwiftString(url.absoluteString, cefString: redirectURL)
+        CEFStringSetFromSwiftString(url.absoluteString!, cefString: redirectURL)
     }
 }
 

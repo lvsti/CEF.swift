@@ -91,7 +91,7 @@ func CEFRequestHandler_on_resource_redirect(ptr: UnsafeMutablePointer<cef_reques
         request: CEFRequest.fromCEF(request)!,
         newURL: &url)
     
-    CEFStringSetFromSwiftString(url.absoluteString, cefString: newURL)
+    CEFStringSetFromSwiftString(url.absoluteString!, cefString: newURL)
 }
 
 func CEFRequestHandler_on_resource_response(ptr: UnsafeMutablePointer<cef_request_handler_t>,
