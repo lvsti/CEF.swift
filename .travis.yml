@@ -13,14 +13,13 @@ branches:
 
 xcode_project: CEF.swift.xcodeproj
 xcode_scheme: CEF.swift
-osx_image: xcode7
+osx_image: xcode8
 xcode_sdk: macosx10.11 
 
 before_install:
   - brew update
   - brew install p7zip
   - brew install jq
-  - brew install cmake
   - sudo gem install xcpretty-travis-formatter --no-doc
 
 install: ./scripts/setup.sh
