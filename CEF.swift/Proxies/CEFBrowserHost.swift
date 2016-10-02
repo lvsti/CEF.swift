@@ -22,7 +22,7 @@ public extension CEFBrowserHost {
                                      settings: CEFBrowserSettings,
                                      requestContext: CEFRequestContext? = nil) -> Bool {
         var cefSettings = settings.toCEF()
-        let cefURLPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString) : nil
+        let cefURLPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString!) : nil
         var cefWinInfo = windowInfo.toCEF()
         let cefClient = client != nil ? client!.toCEF() : nil
         let cefReqCtx = requestContext != nil ? requestContext!.toCEF() : nil
@@ -46,7 +46,7 @@ public extension CEFBrowserHost {
                                          settings: CEFBrowserSettings,
                                          requestContext: CEFRequestContext? = nil) -> CEFBrowser? {
         var cefSettings = settings.toCEF()
-        let cefURLPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString) : nil
+        let cefURLPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString!) : nil
         var cefWinInfo = windowInfo.toCEF()
         let cefClient = client != nil ? client!.toCEF() : nil
         let cefReqCtx = requestContext != nil ? requestContext!.toCEF() : nil
@@ -188,7 +188,7 @@ public extension CEFBrowserHost {
     
     /// Download the file at |url| using CefDownloadHandler.
     public func startDownload(url: NSURL) {
-        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
+        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString!)
         defer { CEFStringPtrRelease(cefURLPtr) }
         cefObject.start_download(cefObjectPtr, cefURLPtr)
     }
@@ -208,7 +208,7 @@ public extension CEFBrowserHost {
                        maxImageSize: UInt32,
                        bypassCache: Bool,
                        callback: CEFDownloadImageCallback) {
-        let cefStrPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString!)
         defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.download_image(cefObjectPtr,
                                  cefStrPtr,

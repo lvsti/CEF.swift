@@ -19,7 +19,7 @@ public struct CEFParseUtils {
     /// and (b) omit the port if it is the default for the scheme. Do not use this
     /// for URLs which will be parsed or sent to other applications.
     public static func formatURLForSecurityDisplay(url: NSURL) -> String {
-        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
+        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString!)
         defer { CEFStringPtrRelease(cefURLPtr) }
         
         let cefStrPtr = cef_format_url_for_security_display(cefURLPtr)
