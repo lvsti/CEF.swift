@@ -13,7 +13,7 @@ public extension CEFXMLReader {
     /// Create a new CefXmlReader object. The returned object's methods can only
     /// be called from the thread that created the object.
     public convenience init?(stream: CEFStreamReader, encoding: CEFXMLEncodingType, uri: NSURL) {
-        let cefURLPtr = CEFStringPtrCreateFromSwiftString(uri.absoluteString)
+        let cefURLPtr = CEFStringPtrCreateFromSwiftString(uri.absoluteString!)
         defer { CEFStringPtrRelease(cefURLPtr) }
         self.init(ptr: cef_xml_reader_create(stream.toCEF(), encoding.toCEF(), cefURLPtr))
     }
@@ -155,7 +155,7 @@ public extension CEFXMLReader {
     /// namespace URI.
     public func attributeForName(name: String, namespaceURI: NSURL) -> String? {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
-        let cefURIPtr = CEFStringPtrCreateFromSwiftString(namespaceURI.absoluteString)
+        let cefURIPtr = CEFStringPtrCreateFromSwiftString(namespaceURI.absoluteString!)
         let cefStrPtr = cefObject.get_attribute_bylname(cefObjectPtr, cefNamePtr, cefURIPtr)
         defer {
             CEFStringPtrRelease(cefNamePtr)
@@ -207,7 +207,7 @@ public extension CEFXMLReader {
     /// namespace URI. Returns true if the cursor position was set successfully.
     public func moveToAttributeWithName(name: String, namespaceURI: NSURL) -> Bool {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
-        let cefURIPtr = CEFStringPtrCreateFromSwiftString(namespaceURI.absoluteString)
+        let cefURIPtr = CEFStringPtrCreateFromSwiftString(namespaceURI.absoluteString!)
         defer {
             CEFStringPtrRelease(cefNamePtr)
             CEFStringPtrRelease(cefURIPtr)
