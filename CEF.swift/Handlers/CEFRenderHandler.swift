@@ -9,12 +9,12 @@
 import Foundation
 
 public enum CEFOnStartDraggingAction {
-    case Allow
-    case Cancel
+    case allow
+    case cancel
 }
 
-extension CEFOnStartDraggingAction: BooleanType {
-    public var boolValue: Bool { return self == .Allow }
+extension CEFOnStartDraggingAction {
+    public var boolValue: Bool { return self == .allow }
 }
 
 /// Implement this interface to handle events when window rendering is disabled.
@@ -137,7 +137,7 @@ public extension CEFRenderHandler {
                          dragData: CEFDragData,
                          operationMask: CEFDragOperationsMask,
                          location: NSPoint) -> CEFOnStartDraggingAction {
-        return .Cancel
+        return .cancel
     }
 
     func onUpdateDragCursor(browser: CEFBrowser, operation: CEFDragOperationsMask) {

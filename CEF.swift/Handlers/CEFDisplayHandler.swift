@@ -9,21 +9,21 @@
 import Foundation
 
 public enum CEFOnConsoleMessageAction {
-    case Allow
-    case Cancel
+    case allow
+    case cancel
 }
 
-extension CEFOnConsoleMessageAction: BooleanType {
-    public var boolValue: Bool { return self == .Cancel }
+extension CEFOnConsoleMessageAction {
+    public var boolValue: Bool { return self == .cancel }
 }
 
 public enum CEFOnTooltipAction {
-    case ShowDefault
-    case ShowCustom
+    case showDefault
+    case showCustom
 }
 
-extension CEFOnTooltipAction: BooleanType {
-    public var boolValue: Bool { return self == .ShowCustom }
+extension CEFOnTooltipAction {
+    public var boolValue: Bool { return self == .showCustom }
 }
 
 /// Implement this interface to handle events related to browser display state.
@@ -80,8 +80,8 @@ public extension CEFDisplayHandler {
     func onFullscreenModeChange(browser: CEFBrowser, fullscreen: Bool) {
     }
 
-    func onTooltip(browser: CEFBrowser, inout text: String?) -> CEFOnTooltipAction {
-        return .ShowDefault
+    func onTooltip(browser: CEFBrowser, text: inout String?) -> CEFOnTooltipAction {
+        return .showDefault
     }
     
     func onStatusMessage(browser: CEFBrowser, text: String) {
@@ -91,7 +91,7 @@ public extension CEFDisplayHandler {
                           message: String?,
                           source: String?,
                           lineNumber: Int) -> CEFOnConsoleMessageAction {
-        return .Allow
+        return .allow
     }
 
 }

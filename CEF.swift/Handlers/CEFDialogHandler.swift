@@ -9,12 +9,12 @@
 import Foundation
 
 public enum CEFOnFileDialogAction {
-    case ShowDefault
-    case ShowCustom
+    case showDefault
+    case showCustom
 }
 
-extension CEFOnFileDialogAction: BooleanType {
-    public var boolValue: Bool { return self == .ShowCustom }
+extension CEFOnFileDialogAction {
+    public var boolValue: Bool { return self == .showCustom }
 }
 
 /// Implement this interface to handle dialog events. The methods of this class
@@ -53,7 +53,7 @@ public extension CEFDialogHandler {
                       acceptFilters: [String],
                       selectedFilterIndex: Int,
                       callback: CEFFileDialogCallback) -> CEFOnFileDialogAction {
-        return .ShowDefault
+        return .showDefault
     }
 }
 

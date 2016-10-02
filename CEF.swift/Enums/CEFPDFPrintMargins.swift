@@ -12,16 +12,16 @@ import Foundation
 public enum CEFPDFPrintMargins {
     
     /// Default margins.
-    case Default
+    case defaultMargins
     
     /// No margins.
-    case None
+    case none
     
     /// Minimum margins.
-    case Minimum
+    case minimum
     
     /// Custom margins using the |margin_*| values from cef_pdf_print_settings_t.
-    case Custom(NSEdgeInsets)
+    case custom(EdgeInsets)
 }
 
 extension CEFPDFPrintMargins {
@@ -29,10 +29,10 @@ extension CEFPDFPrintMargins {
         var rawValue: UInt32 = 0
 
         switch self {
-        case .Default: rawValue = 0; break
-        case .None: rawValue = 1; break
-        case .Minimum: rawValue = 2; break
-        case .Custom: rawValue = 3; break
+        case .defaultMargins: rawValue = 0; break
+        case .none: rawValue = 1; break
+        case .minimum: rawValue = 2; break
+        case .custom: rawValue = 3; break
         }
         
         return cef_pdf_print_margin_type_t(rawValue: rawValue)

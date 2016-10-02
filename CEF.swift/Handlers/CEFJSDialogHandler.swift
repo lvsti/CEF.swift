@@ -10,30 +10,30 @@ import Foundation
 
 public enum CEFOnJSDialogAction {
     /// Suppress the message
-    case Suppress
+    case suppress
     
     /// Use the default implementation
-    case ShowDefault
+    case showDefault
     
     /// Show a custom dialog
-    case ShowCustom
+    case showCustom
     
     /// Consume the event, no dialog is shown
-    case Consume
+    case consume
 }
 
-extension CEFOnJSDialogAction: BooleanType {
-    public var boolValue: Bool { return self == .ShowCustom || self == .Consume }
+extension CEFOnJSDialogAction {
+    public var boolValue: Bool { return self == .showCustom || self == .consume }
 }
 
 public enum CEFOnBeforeUnloadDialogAction {
-    case ShowDefault
-    case ShowCustom
-    case Consume
+    case showDefault
+    case showCustom
+    case consume
 }
 
-extension CEFOnBeforeUnloadDialogAction: BooleanType {
-    public var boolValue: Bool { return self == .ShowCustom || self == .Consume }
+extension CEFOnBeforeUnloadDialogAction {
+    public var boolValue: Bool { return self == .showCustom || self == .consume }
 }
 
 /// Implement this interface to handle events related to JavaScript dialogs. The
@@ -91,14 +91,14 @@ public extension CEFJSDialogHandler {
                     message: String?,
                     prompt: String?,
                     callback: CEFJSDialogCallback) -> CEFOnJSDialogAction {
-        return .ShowDefault
+        return .showDefault
     }
 
     func onBeforeUnloadDialog(browser: CEFBrowser,
                               message: String?,
                               isReload: Bool,
                               callback: CEFJSDialogCallback) -> CEFOnBeforeUnloadDialogAction {
-        return .ShowDefault
+        return .showDefault
     }
 
     func onResetDialogState(browser: CEFBrowser) {

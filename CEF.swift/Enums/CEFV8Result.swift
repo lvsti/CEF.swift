@@ -9,16 +9,16 @@
 import Foundation
 
 public enum CEFV8Result {
-    case Success(CEFV8Value)
-    case Failure(String)
+    case success(CEFV8Value)
+    case failure(String)
 }
 
 public enum CEFV8VoidResult {
-    case Success
-    case Failure(String)
+    case success
+    case failure(String)
 }
 
 public enum CEFV8EvalResult {
-    case Success(CEFV8Value)
-    case Failure(CEFV8Exception)
+    case success(CEFV8Value)
+    case failure(CEFV8Exception)
 }

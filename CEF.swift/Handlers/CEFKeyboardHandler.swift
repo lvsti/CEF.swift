@@ -9,22 +9,22 @@
 import Foundation
 
 public enum CEFOnPreKeyEventAction {
-    case Consume
-    case PassThrough
-    case PassAsShortcut
+    case consume
+    case passThrough
+    case passAsShortcut
 }
 
-extension CEFOnPreKeyEventAction: BooleanType {
-    public var boolValue: Bool { return self == .Consume }
+extension CEFOnPreKeyEventAction {
+    public var boolValue: Bool { return self == .consume }
 }
 
 public enum CEFOnKeyEventAction {
-    case Consume
-    case PassThrough
+    case consume
+    case passThrough
 }
 
-extension CEFOnKeyEventAction: BooleanType {
-    public var boolValue: Bool { return self == .Consume }
+extension CEFOnKeyEventAction {
+    public var boolValue: Bool { return self == .consume }
 }
 
 /// Implement this interface to handle events related to keyboard input. The
@@ -53,11 +53,11 @@ public extension CEFKeyboardHandler {
     func onPreKeyEvent(browser: CEFBrowser,
                        event: CEFKeyEvent,
                        osEvent: CEFEventHandle) -> CEFOnPreKeyEventAction {
-        return .PassThrough
+        return .passThrough
     }
     
     func onKeyEvent(browser: CEFBrowser, event: CEFKeyEvent, osEvent: CEFEventHandle) -> CEFOnKeyEventAction {
-        return .PassThrough
+        return .passThrough
     }
     
 }

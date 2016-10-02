@@ -9,21 +9,21 @@
 import Foundation
 
 public enum CEFOnBeforeNavigationAction {
-    case Allow
-    case Cancel
+    case allow
+    case cancel
 }
 
-extension CEFOnBeforeNavigationAction: BooleanType {
-    public var boolValue: Bool { return self == .Cancel }
+extension CEFOnBeforeNavigationAction {
+    public var boolValue: Bool { return self == .cancel }
 }
 
 public enum CEFOnProcessMessageReceivedAction {
-    case Consume
-    case PassThrough
+    case consume
+    case passThrough
 }
 
-extension CEFOnProcessMessageReceivedAction: BooleanType {
-    public var boolValue: Bool { return self == .Consume }
+extension CEFOnProcessMessageReceivedAction {
+    public var boolValue: Bool { return self == .consume }
 }
 
 /// Class used to implement render process callbacks. The methods of this class
@@ -124,7 +124,7 @@ public extension CEFRenderProcessHandler {
                             request: CEFRequest,
                             navigationType: CEFNavigationType,
                             isRedirect: Bool) -> CEFOnBeforeNavigationAction {
-        return .Allow
+        return .allow
     }
     
     func onContextCreated(browser: CEFBrowser,
@@ -152,7 +152,7 @@ public extension CEFRenderProcessHandler {
     func onProcessMessageReceived(browser: CEFBrowser,
                                   processID: CEFProcessID,
                                   message: CEFProcessMessage) -> CEFOnProcessMessageReceivedAction {
-        return .PassThrough
+        return .passThrough
     }
     
 }

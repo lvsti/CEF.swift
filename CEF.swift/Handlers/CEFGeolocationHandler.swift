@@ -11,12 +11,12 @@ import Foundation
 public typealias CEFGeolocationRequestID = Int32
 
 public enum CEFOnRequestGeolocationPermissionAction {
-    case Accept
-    case Cancel
+    case accept
+    case cancel
 }
 
-extension CEFOnRequestGeolocationPermissionAction: BooleanType {
-    public var boolValue: Bool { return self == .Accept }
+extension CEFOnRequestGeolocationPermissionAction {
+    public var boolValue: Bool { return self == .accept }
 }
 
 /// Implement this interface to handle events related to geolocation permission
@@ -48,7 +48,7 @@ public extension CEFGeolocationHandler {
                                         url: NSURL,
                                         requestID: CEFGeolocationRequestID,
                                         callback: CEFGeolocationCallback) -> CEFOnRequestGeolocationPermissionAction {
-        return .Accept
+        return .accept
     }
 
     func onCancelGeolocationPermission(browser: CEFBrowser,

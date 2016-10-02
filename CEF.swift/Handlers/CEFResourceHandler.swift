@@ -9,46 +9,46 @@
 import Foundation
 
 public enum CEFOnProcessRequestAction {
-    case Allow
-    case Cancel
+    case allow
+    case cancel
 }
 
-extension CEFOnProcessRequestAction: BooleanType {
-    public var boolValue: Bool { return self == .Allow }
+extension CEFOnProcessRequestAction {
+    public var boolValue: Bool { return self == .allow }
 }
 
 public enum CEFOnGetResponseHeadersAction {
     /// Response length is unknown, ReadResponse() will be called until it
     /// returns false
-    case ContinueWithUnknownResponseLength
+    case continueWithUnknownResponseLength
     
     /// Response length is known, ReadResponse() will be called until it returns
     /// false or the specified number of bytes have been read
-    case ContinueWithResponseLength(UInt64)
+    case continueWithResponseLength(UInt64)
     
     /// Redirect request to the given URL
-    case Redirect(NSURL)
+    case redirect(NSURL)
     
     /// Indicates an error while setting up the response, call SetError()
     /// on the response object to specify
-    case Abort
+    case abort
 }
 
 public enum CEFOnReadResponseAction {
     /// Data is available immediately, associated value shows the number of bytes read
-    case Read(Int)
+    case read(Int)
     
     /// Data will be provided asynchronously
-    case ReadAsync
+    case readAsync
     
     /// No bytes left
-    case Complete
+    case complete
 }
 
-extension CEFOnReadResponseAction: BooleanType {
+extension CEFOnReadResponseAction {
     public var boolValue: Bool {
         switch self {
-        case .Complete: return false
+        case .complete: return false
         default: return true
         }
     }
@@ -102,17 +102,17 @@ public protocol CEFResourceHandler {
 public extension CEFResourceHandler {
     
     func onProcessRequest(request: CEFRequest, callback: CEFCallback) -> CEFOnProcessRequestAction {
-        return .Cancel
+        return .cancel
     }
     
     func onGetResponseHeaders(response: CEFResponse) -> CEFOnGetResponseHeadersAction {
-        return .ContinueWithUnknownResponseLength
+        return .continueWithUnknownResponseLength
     }
     
     func onReadResponse(buffer: UnsafeMutablePointer<Void>,
                         bufferLength: Int,
                         callback: CEFCallback) -> CEFOnReadResponseAction {
-        return .Complete
+        return .complete
     }
     
     func canGetCookie(cookie: CEFCookie) -> Bool {

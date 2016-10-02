@@ -10,14 +10,14 @@ import Foundation
 
 public enum CEFOnDragEnterAction {
     /// Perform the default drag handling behavior
-    case Accept
+    case accept
     
     /// Cancel the drag event
-    case Cancel
+    case cancel
 }
 
-extension CEFOnDragEnterAction: BooleanType {
-    public var boolValue: Bool { return self == .Cancel }
+extension CEFOnDragEnterAction {
+    public var boolValue: Bool { return self == .cancel }
 }
 
 /// Implement this interface to handle events related to dragging. The methods of
@@ -46,7 +46,7 @@ public extension CEFDragHandler {
     func onDragEnter(browser: CEFBrowser,
                      dragData: CEFDragData,
                      operationMask: CEFDragOperationsMask) -> CEFOnDragEnterAction {
-        return .Accept
+        return .accept
     }
     
     func onDraggableRegionsChanged(browser: CEFBrowser, regions: [CEFDraggableRegion]) {

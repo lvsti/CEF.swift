@@ -10,14 +10,14 @@ import Foundation
 
 public enum CEFOnSetFocusAction {
     /// Allow focus to be set
-    case Accept
+    case accept
     
     /// Cancel setting the focus
-    case Cancel
+    case cancel
 }
 
-extension CEFOnSetFocusAction: BooleanType {
-    public var boolValue: Bool { return self == .Cancel }
+extension CEFOnSetFocusAction {
+    public var boolValue: Bool { return self == .cancel }
 }
 
 /// Implement this interface to handle events related to focus. The methods of
@@ -46,7 +46,7 @@ public extension CEFFocusHandler {
     }
     
     func onSetFocus(browser: CEFBrowser, source: CEFFocusSource) -> CEFOnSetFocusAction {
-        return .Accept
+        return .accept
     }
     
     func onGotFocus(browser: CEFBrowser) {

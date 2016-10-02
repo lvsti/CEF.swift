@@ -9,58 +9,58 @@
 import Foundation
 
 public enum CEFOnBeforeBrowseAction {
-    case Allow
-    case Cancel
+    case allow
+    case cancel
 }
 
-extension CEFOnBeforeBrowseAction: BooleanType {
-    public var boolValue: Bool { return self == .Cancel }
+extension CEFOnBeforeBrowseAction {
+    public var boolValue: Bool { return self == .cancel }
 }
 
 public enum CEFOnOpenURLFromTabAction {
-    case Allow
-    case Cancel
+    case allow
+    case cancel
 }
 
-extension CEFOnOpenURLFromTabAction: BooleanType {
-    public var boolValue: Bool { return self == .Cancel }
+extension CEFOnOpenURLFromTabAction {
+    public var boolValue: Bool { return self == .cancel }
 }
 
 public enum CEFOnResourceResponseAction {
-    case Continue
-    case Redirect
-    case Retry
+    case continueLoading
+    case redirect
+    case retry
 }
 
-extension CEFOnResourceResponseAction: BooleanType {
-    public var boolValue: Bool { return self == .Redirect || self == .Retry }
+extension CEFOnResourceResponseAction {
+    public var boolValue: Bool { return self == .redirect || self == .retry }
 }
 
 public enum CEFOnAuthCredentialsRequiredAction {
-    case Allow
-    case Cancel
+    case allow
+    case cancel
 }
 
-extension CEFOnAuthCredentialsRequiredAction: BooleanType {
-    public var boolValue: Bool { return self == .Allow }
+extension CEFOnAuthCredentialsRequiredAction {
+    public var boolValue: Bool { return self == .allow }
 }
 
 public enum CEFOnQuotaRequestAction {
-    case Allow
-    case Cancel
+    case allow
+    case cancel
 }
 
-extension CEFOnQuotaRequestAction: BooleanType {
-    public var boolValue: Bool { return self == .Allow }
+extension CEFOnQuotaRequestAction {
+    public var boolValue: Bool { return self == .allow }
 }
 
 public enum CEFOnCertificateErrorAction {
-    case Allow
-    case Cancel
+    case allow
+    case cancel
 }
 
-extension CEFOnCertificateErrorAction: BooleanType {
-    public var boolValue: Bool { return self == .Allow }
+extension CEFOnCertificateErrorAction {
+    public var boolValue: Bool { return self == .allow }
 }
 
 /// Implement this interface to handle events related to browser requests. The
@@ -225,7 +225,7 @@ public extension CEFRequestHandler {
                         frame: CEFFrame,
                         request: CEFRequest,
                         isRedirect: Bool) -> CEFOnBeforeBrowseAction {
-        return .Allow
+        return .allow
     }
 
     func onOpenURLFromTab(browser: CEFBrowser,
@@ -233,14 +233,14 @@ public extension CEFRequestHandler {
                           url: NSURL,
                           targetDisposition: CEFWindowOpenDisposition,
                           userGesture: Bool) -> CEFOnOpenURLFromTabAction {
-        return .Allow
+        return .allow
     }
 
     func onBeforeResourceLoad(browser: CEFBrowser,
                               frame: CEFFrame,
                               request: CEFRequest,
                               callback: CEFRequestCallback) -> CEFReturnValue {
-        return .Continue
+        return .continueNow
     }
 
     func resourceHandlerForBrowser(browser: CEFBrowser,
@@ -259,7 +259,7 @@ public extension CEFRequestHandler {
                             frame: CEFFrame,
                             request: CEFRequest,
                             response: CEFResponse) -> CEFOnResourceResponseAction {
-        return .Continue
+        return .continueLoading
     }
     
     func onResourceResponseFilter(browser: CEFBrowser,
@@ -285,14 +285,14 @@ public extension CEFRequestHandler {
                                    realm: String,
                                    scheme: String,
                                    callback: CEFAuthCallback) -> CEFOnAuthCredentialsRequiredAction {
-        return .Cancel
+        return .cancel
     }
 
     func onQuotaRequest(browser: CEFBrowser,
                         origin: NSURL,
                         newSize: Int64,
                         callback: CEFRequestCallback) -> CEFOnQuotaRequestAction {
-        return .Cancel
+        return .cancel
     }
 
     func onProtocolExecution(browser: CEFBrowser, url: NSURL, inout allowExecution: Bool) {
@@ -303,7 +303,7 @@ public extension CEFRequestHandler {
                             url: NSURL,
                             sslInfo: CEFSSLInfo,
                             callback: CEFRequestCallback) -> CEFOnCertificateErrorAction {
-        return .Cancel
+        return .cancel
     }
 
     func onPluginCrashed(browser: CEFBrowser, pluginPath: String) {

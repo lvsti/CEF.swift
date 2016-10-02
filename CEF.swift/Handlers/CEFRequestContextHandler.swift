@@ -9,13 +9,13 @@
 import Foundation
 
 public enum CEFOnBeforePluginLoadAction {
-    case OverridePolicy(CEFPluginPolicy)
-    case UseDefaultPolicy
+    case overridePolicy(CEFPluginPolicy)
+    case useDefaultPolicy
 }
 
-extension CEFOnBeforePluginLoadAction: BooleanType {
+extension CEFOnBeforePluginLoadAction {
     public var boolValue: Bool {
-        if case .UseDefaultPolicy = self {
+        if case .useDefaultPolicy = self {
             return false
         }
         return true
@@ -65,7 +65,7 @@ public extension CEFRequestContextHandler {
                             topOriginURL: NSURL?,
                             pluginInfo: CEFWebPluginInfo,
                             defaultPolicy: CEFPluginPolicy) -> CEFOnBeforePluginLoadAction {
-        return .UseDefaultPolicy
+        return .useDefaultPolicy
     }
 }
 

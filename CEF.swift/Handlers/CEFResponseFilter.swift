@@ -9,12 +9,12 @@
 import Foundation
 
 public enum CEFResponseFilterInitAction {
-    case Allow
-    case Cancel
+    case allow
+    case cancel
 }
 
-extension CEFResponseFilterInitAction: BooleanType {
-    public var boolValue: Bool { return self == .Allow }
+extension CEFResponseFilterInitAction {
+    public var boolValue: Bool { return self == .allow }
 }
 
 
@@ -53,7 +53,7 @@ public protocol CEFResponseFilter {
 public extension CEFResponseFilter {
 
     func onFilterInit() -> CEFResponseFilterInitAction {
-        return .Cancel
+        return .cancel
     }
 
     func filterResponseChunk(inputChunk: UnsafePointer<Void>,

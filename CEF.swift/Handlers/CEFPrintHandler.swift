@@ -9,21 +9,21 @@
 import Foundation
 
 public enum CEFOnPrintDialogAction {
-    case Allow
-    case Cancel
+    case allow
+    case cancel
 }
 
-extension CEFOnPrintDialogAction: BooleanType {
-    public var boolValue: Bool { return self == .Allow }
+extension CEFOnPrintDialogAction {
+    public var boolValue: Bool { return self == .allow }
 }
 
 public enum CEFOnPrintJobAction {
-    case Allow
-    case Cancel
+    case allow
+    case cancel
 }
 
-extension CEFOnPrintJobAction: BooleanType {
-    public var boolValue: Bool { return self == .Allow }
+extension CEFOnPrintJobAction {
+    public var boolValue: Bool { return self == .allow }
 }
 
 /// Implement this interface to handle printing on Linux. The methods of this
@@ -66,11 +66,11 @@ public extension CEFPrintHandler {
     }
     
     func onPrintDialog(hasSelection: Bool, callback: CEFPrintDialogCallback) -> CEFOnPrintDialogAction {
-        return .Allow
+        return .allow
     }
     
     func onPrintJob(documentName: String, pdfFilePath: String, callback: CEFPrintJobCallback) -> CEFOnPrintJobAction {
-        return .Allow
+        return .allow
     }
     
     func onPrintReset() {

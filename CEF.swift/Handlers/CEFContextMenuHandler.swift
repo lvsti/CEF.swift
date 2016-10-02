@@ -9,21 +9,21 @@
 import Foundation
 
 public enum CEFOnContextMenuCommandAction {
-    case Consume
-    case PassThrough
+    case consume
+    case passThrough
 }
 
-extension CEFOnContextMenuCommandAction: BooleanType {
-    public var boolValue: Bool { return self == .Consume }
+extension CEFOnContextMenuCommandAction {
+    public var boolValue: Bool { return self == .consume }
 }
 
 public enum CEFOnRunContextMenuAction {
-    case ShowDefault
-    case ShowCustom
+    case showDefault
+    case showCustom
 }
 
-extension CEFOnRunContextMenuAction: BooleanType {
-    public var boolValue: Bool { return self == .ShowCustom }
+extension CEFOnRunContextMenuAction {
+    public var boolValue: Bool { return self == .showCustom }
 }
 
 /// Implement this interface to handle context menu events. The methods of this
@@ -83,7 +83,7 @@ public extension CEFContextMenuHandler {
                           params: CEFContextMenuParams,
                           model: CEFMenuModel,
                           callback: CEFRunContextMenuCallback) -> CEFOnRunContextMenuAction {
-        return .ShowDefault
+        return .showDefault
     }
     
     func onContextMenuCommand(browser: CEFBrowser,
@@ -91,7 +91,7 @@ public extension CEFContextMenuHandler {
                               params: CEFContextMenuParams,
                               commandID: CEFMenuID,
                               eventFlags: CEFEventFlags) -> CEFOnContextMenuCommandAction {
-        return .PassThrough
+        return .passThrough
     }
     
     func onContextMenuDismissed(browser: CEFBrowser, frame: CEFFrame) {

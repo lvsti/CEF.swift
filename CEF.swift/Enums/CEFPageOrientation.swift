@@ -10,6 +10,6 @@ import Foundation
 
 /// Page orientation
 public enum CEFPageOrientation: Int {
-    case Portrait = 0
-    case Landscape
+    case portrait = 0
+    case landscape
 }

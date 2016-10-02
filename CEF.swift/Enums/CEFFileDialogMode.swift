@@ -15,22 +15,22 @@ public struct CEFFileDialogMode: RawRepresentable {
         self.rawValue = rawValue
     }
     
-    public enum Type: UInt8 {
+    public enum DialogType: UInt8 {
         /// Requires that the file exists before allowing the user to pick it.
-        case Open = 0
+        case open = 0
 
         /// Like Open, but allows picking multiple files to open.
-        case OpenMultiple
+        case openMultiple
         
         /// Like Open, but selects a folder to open.
-        case OpenFolder
+        case openFolder
         
         /// Allows picking a nonexistent file, and prompts to overwrite if the file
         /// already exists.
-        case Save
+        case save
     }
     
-    public struct Flags: OptionSetType {
+    public struct Flags: OptionSet {
         public let rawValue: UInt32
         public init(rawValue: UInt32) {
             self.rawValue = rawValue
@@ -38,13 +38,13 @@ public struct CEFFileDialogMode: RawRepresentable {
         
         /// Prompt to overwrite if the user selects an existing file with the Save
         /// dialog.
-        public static let OverwritePrompt = Flags(rawValue: 0x01000000)
+        public static let overwritePrompt = Flags(rawValue: 0x01000000)
 
         /// Do not display read-only files.
-        public static let HideReadOnly = Flags(rawValue: 0x02000000)
+        public static let hideReadOnly = Flags(rawValue: 0x02000000)
     }
     
-    public var type: Type { get { return Type(rawValue: UInt8(rawValue & FILE_DIALOG_TYPE_MASK.rawValue))! } }
+    public var type: DialogType { get { return DialogType(rawValue: UInt8(rawValue & FILE_DIALOG_TYPE_MASK.rawValue))! } }
     public var flags: Flags { get { return Flags(rawValue: rawValue & ~FILE_DIALOG_TYPE_MASK.rawValue) } }
 }
 

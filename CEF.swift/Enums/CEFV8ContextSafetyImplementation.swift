@@ -9,9 +9,9 @@
 import Foundation
 
 public enum CEFV8ContextSafetyImplementation: Int {
-    case Default = 0
-    case Alternate = 1
-    case Disabled = -1
+    case defaultImplementation = 0
+    case alternate = 1
+    case disabled = -1
 }
 
 extension CEFV8ContextSafetyImplementation {

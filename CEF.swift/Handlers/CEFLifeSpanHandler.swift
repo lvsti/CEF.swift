@@ -9,30 +9,30 @@
 import Foundation
 
 public enum CEFOnBeforePopupAction {
-    case Allow
-    case Cancel
+    case allow
+    case cancel
 }
 
-extension CEFOnBeforePopupAction: BooleanType {
-    public var boolValue: Bool { return self == .Cancel }
+extension CEFOnBeforePopupAction {
+    public var boolValue: Bool { return self == .cancel }
 }
 
 public enum CEFOnRunModalAction {
-    case RunDefaultLoop
-    case RunCustomLoop
+    case runDefaultLoop
+    case runCustomLoop
 }
 
-extension CEFOnRunModalAction: BooleanType {
-    public var boolValue: Bool { return self == .RunCustomLoop }
+extension CEFOnRunModalAction {
+    public var boolValue: Bool { return self == .runCustomLoop }
 }
 
 public enum CEFOnDoCloseAction {
-    case Allow
-    case Defer
+    case allow
+    case deferClose
 }
 
-extension CEFOnDoCloseAction: BooleanType {
-    public var boolValue: Bool { return self == .Defer }
+extension CEFOnDoCloseAction {
+    public var boolValue: Bool { return self == .deferClose }
 }
 
 /// Implement this interface to handle events related to browser life span. The
@@ -65,10 +65,10 @@ public protocol CEFLifeSpanHandler {
                        targetDisposition: CEFWindowOpenDisposition,
                        userGesture: Bool,
                        popupFeatures: CEFPopupFeatures,
-                       inout windowInfo: CEFWindowInfo,
-                       inout client: CEFClient,
-                       inout settings: CEFBrowserSettings,
-                       inout jsAccess: Bool) -> CEFOnBeforePopupAction
+                       windowInfo: inout CEFWindowInfo,
+                       client: inout CEFClient,
+                       settings: inout CEFBrowserSettings,
+                       jsAccess: inout Bool) -> CEFOnBeforePopupAction
 
     /// Called after a new browser is created. This callback will be the first
     /// notification that references |browser|.
@@ -180,22 +180,22 @@ public extension CEFLifeSpanHandler {
                        targetDisposition: CEFWindowOpenDisposition,
                        userGesture: Bool,
                        popupFeatures: CEFPopupFeatures,
-                       inout windowInfo: CEFWindowInfo,
-                       inout client: CEFClient,
-                       inout settings: CEFBrowserSettings,
-                       inout jsAccess: Bool) -> CEFOnBeforePopupAction {
-        return .Allow
+                       windowInfo: inout CEFWindowInfo,
+                       client: inout CEFClient,
+                       settings: inout CEFBrowserSettings,
+                       jsAccess: inout Bool) -> CEFOnBeforePopupAction {
+        return .allow
     }
 
     func onAfterCreated(browser: CEFBrowser) {
     }
     
     func onRunModal(browser: CEFBrowser) -> CEFOnRunModalAction {
-        return .RunDefaultLoop
+        return .runDefaultLoop
     }
 
     func onDoClose(browser: CEFBrowser) -> CEFOnDoCloseAction {
-        return .Allow
+        return .allow
     }
     
     func onBeforeClose(browser: CEFBrowser) {
