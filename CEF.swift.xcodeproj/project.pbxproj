@@ -1861,7 +1861,7 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Modules/ChromiumEmbedded";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1887,7 +1887,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Modules/ChromiumEmbedded";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
