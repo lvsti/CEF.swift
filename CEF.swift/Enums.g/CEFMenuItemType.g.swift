@@ -9,12 +9,12 @@ import Foundation
 
 /// Supported menu item types.
 public enum CEFMenuItemType: Int32 {
-    case None
-    case Command
-    case Check
-    case Radio
-    case Separator
-    case Submenu
+    case none
+    case command
+    case check
+    case radio
+    case separator
+    case submenu
 }
 
 extension CEFMenuItemType {

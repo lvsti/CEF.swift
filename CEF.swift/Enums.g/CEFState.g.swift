@@ -11,13 +11,13 @@ import Foundation
 public enum CEFState: Int32 {
 
     /// Use the default state for the setting.
-    case Default = 0
+    case defaultState = 0
 
     /// Enable or allow the setting.
-    case Enabled
+    case enabled
 
     /// Disable or disallow the setting.
-    case Disabled
+    case disabled
 }
 
 extension CEFState {

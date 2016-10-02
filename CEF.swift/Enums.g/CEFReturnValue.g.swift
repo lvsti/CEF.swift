@@ -11,13 +11,13 @@ import Foundation
 public enum CEFReturnValue: Int32 {
 
     /// Cancel immediately.
-    case Cancel = 0
+    case cancel = 0
 
     /// Continue immediately.
-    case Continue
+    case continueNow
 
     /// Continue asynchronously (usually via a callback).
-    case ContinueAsync
+    case continueAsync
 }
 
 extension CEFReturnValue {

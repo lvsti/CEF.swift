@@ -9,47 +9,47 @@ import Foundation
 
 /// Print job color mode values.
 public enum CEFColorModel: Int32 {
-    case Unknown
-    case Gray
-    case Color
-    case CMYK
-    case CMY
-    case KCMY
+    case unknown
+    case gray
+    case color
+    case cmyk
+    case cmy
+    case kcmy
 
     /// CMY_K represents CMY+K.
-    case CMYPlusK
-    case Black
-    case Grayscale
-    case RGB
-    case RGB16
-    case RGBA
+    case cmyPlusK
+    case black
+    case grayscale
+    case rgb
+    case rgb16
+    case rgba
 
     /// Used in samsung printer ppds.
-    case ColorModeColor
+    case colorModeColor
 
     /// Used in samsung printer ppds.
-    case ColorModeMonochrome
+    case colorModeMonochrome
 
     /// Used in HP color printer ppds.
-    case HPColorColor
+    case hpColorColor
 
     /// Used in HP color printer ppds.
-    case HPColorBlack
+    case hpColorBlack
 
     /// Used in foomatic ppds.
-    case PrintoutModeNormal
+    case printoutModeNormal
 
     /// Used in foomatic ppds.
-    case PrintoutModeNormalGray
+    case printoutModeNormalGray
 
     /// Used in canon printer ppds.
-    case ProcessColorModelCMYK
+    case processColorModelCMYK
 
     /// Used in canon printer ppds.
-    case ProcessColorModelGrayscale
+    case processColorModelGrayscale
 
     /// Used in canon printer ppds
-    case ProcessColorModelRGB
+    case processColorModelRGB
 }
 
 extension CEFColorModel {

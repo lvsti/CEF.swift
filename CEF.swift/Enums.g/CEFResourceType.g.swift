@@ -11,59 +11,59 @@ import Foundation
 public enum CEFResourceType: Int32 {
 
     /// Top level page.
-    case MainFrame = 0
+    case mainFrame = 0
 
     /// Frame or iframe.
-    case Subframe
+    case subframe
 
     /// CSS stylesheet.
-    case StyleSheet
+    case styleSheet
 
     /// External script.
-    case Script
+    case script
 
     /// Image (jpg/gif/png/etc).
-    case Image
+    case image
 
     /// Font.
-    case FontResource
+    case fontResource
 
     /// Some other subresource. This is the default type if the actual type is
     /// unknown.
-    case Subresource
+    case subresource
 
     /// Object (or embed) tag for a plugin, or a resource that a plugin requested.
-    case Object
+    case object
 
     /// Media resource.
-    case Media
+    case media
 
     /// Main resource of a dedicated worker.
-    case Worker
+    case worker
 
     /// Main resource of a shared worker.
-    case SharedWorker
+    case sharedWorker
 
     /// Explicitly requested prefetch.
-    case Prefetch
+    case prefetch
 
     /// Favicon.
-    case Favicon
+    case favicon
 
     /// XMLHttpRequest.
-    case XHR
+    case xhr
 
     /// A request for a <ping>
-    case Ping
+    case ping
 
     /// Main resource of a service worker.
-    case ServiceWorker
-    
+    case serviceWorker
+
     /// A report of Content Security Policy violations.
-    case CSPReport
-    
+    case cspReport
+
     /// A resource that a plugin requested.
-    case PluginResource
+    case pluginResource
 }
 
 extension CEFResourceType {

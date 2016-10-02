@@ -9,10 +9,10 @@ import Foundation
 
 /// DOM document types.
 public enum CEFDOMDocumentType: Int32 {
-    case Unknown = 0
-    case HTML
-    case XHTML
-    case Plugin
+    case unknown = 0
+    case html
+    case xhtml
+    case plugin
 }
 
 extension CEFDOMDocumentType {

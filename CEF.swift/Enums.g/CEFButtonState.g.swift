@@ -9,10 +9,10 @@ import Foundation
 
 /// Specifies the button display state.
 public enum CEFButtonState: Int32 {
-    case Normal
-    case Hovered
-    case Pressed
-    case Disabled
+    case normal
+    case hovered
+    case pressed
+    case disabled
 }
 
 extension CEFButtonState {

@@ -11,22 +11,22 @@ import Foundation
 public enum CEFContextMenuMediaType: Int32 {
 
     /// No special node is in context.
-    case None
+    case none
 
     /// An image node is selected.
-    case Image
+    case image
 
     /// A video node is selected.
-    case Video
+    case video
 
     /// An audio node is selected.
-    case Audio
+    case audio
 
     /// A file node is selected.
-    case File
+    case file
 
     /// A plugin node is selected.
-    case Plugin
+    case plugin
 }
 
 extension CEFContextMenuMediaType {

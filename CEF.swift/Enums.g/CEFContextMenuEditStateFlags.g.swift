@@ -8,21 +8,21 @@
 import Foundation
 
 /// Supported context menu edit state bit flags.
-public struct CEFContextMenuEditStateFlags: OptionSetType {
+public struct CEFContextMenuEditStateFlags: OptionSet {
     public let rawValue: UInt32
     public init(rawValue: UInt32) {
         self.rawValue = rawValue
     }
 
-    public static let None = CEFContextMenuEditStateFlags(rawValue: 0)
-    public static let CanUndo = CEFContextMenuEditStateFlags(rawValue: 1 << 0)
-    public static let CanRedo = CEFContextMenuEditStateFlags(rawValue: 1 << 1)
-    public static let CanCut = CEFContextMenuEditStateFlags(rawValue: 1 << 2)
-    public static let CanCopy = CEFContextMenuEditStateFlags(rawValue: 1 << 3)
-    public static let CanPaste = CEFContextMenuEditStateFlags(rawValue: 1 << 4)
-    public static let CanDelete = CEFContextMenuEditStateFlags(rawValue: 1 << 5)
-    public static let CanSelectAll = CEFContextMenuEditStateFlags(rawValue: 1 << 6)
-    public static let CanTranslate = CEFContextMenuEditStateFlags(rawValue: 1 << 7)
+    public static let none = CEFContextMenuEditStateFlags(rawValue: 0)
+    public static let canUndo = CEFContextMenuEditStateFlags(rawValue: 1 << 0)
+    public static let canRedo = CEFContextMenuEditStateFlags(rawValue: 1 << 1)
+    public static let canCut = CEFContextMenuEditStateFlags(rawValue: 1 << 2)
+    public static let canCopy = CEFContextMenuEditStateFlags(rawValue: 1 << 3)
+    public static let canPaste = CEFContextMenuEditStateFlags(rawValue: 1 << 4)
+    public static let canDelete = CEFContextMenuEditStateFlags(rawValue: 1 << 5)
+    public static let canSelectAll = CEFContextMenuEditStateFlags(rawValue: 1 << 6)
+    public static let canTranslate = CEFContextMenuEditStateFlags(rawValue: 1 << 7)
 }
 
 extension CEFContextMenuEditStateFlags {

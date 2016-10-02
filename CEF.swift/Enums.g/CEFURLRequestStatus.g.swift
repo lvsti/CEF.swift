@@ -11,20 +11,20 @@ import Foundation
 public enum CEFURLRequestStatus: Int32 {
 
     /// Unknown status.
-    case Unknown = 0
+    case unknown = 0
 
     /// Request succeeded.
-    case Success
+    case success
 
     /// An IO request is pending, and the caller will be informed when it is
     /// completed.
-    case IOPending
+    case ioPending
 
     /// Request was canceled programatically.
-    case Canceled
+    case canceled
 
     /// Request failed for some reason.
-    case Failed
+    case failed
 }
 
 extension CEFURLRequestStatus {

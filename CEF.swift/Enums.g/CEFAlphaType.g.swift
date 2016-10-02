@@ -11,13 +11,13 @@ import Foundation
 public enum CEFAlphaType: Int32 {
 
     /// No transparency. The alpha component is ignored.
-    case Opaque
+    case opaque
 
     /// Transparency with pre-multiplied alpha component.
-    case Premultiplied
+    case premultiplied
 
     /// Transparency with post-multiplied alpha component.
-    case Postmultiplied
+    case postmultiplied
 }
 
 extension CEFAlphaType {

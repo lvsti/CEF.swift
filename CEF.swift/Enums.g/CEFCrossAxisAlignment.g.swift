@@ -12,16 +12,16 @@ import Foundation
 public enum CEFCrossAxisAlignment: Int32 {
 
     /// Child views will be stretched to fit.
-    case Stretch
+    case stretch
 
     /// Child views will be left-aligned.
-    case Start
+    case start
 
     /// Child views will be center-aligned.
-    case Center
+    case center
 
     /// Child views will be right-aligned.
-    case End
+    case end
 }
 
 extension CEFCrossAxisAlignment {

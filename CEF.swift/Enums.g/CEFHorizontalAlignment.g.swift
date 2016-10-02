@@ -11,13 +11,13 @@ import Foundation
 public enum CEFHorizontalAlignment: Int32 {
 
     /// Align the text's left edge with that of its display area.
-    case Left
+    case left
 
     /// Align the text's center with that of its display area.
-    case Center
+    case center
 
     /// Align the text's right edge with that of its display area.
-    case Right
+    case right
 }
 
 extension CEFHorizontalAlignment {

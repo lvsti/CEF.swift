@@ -12,13 +12,13 @@ import Foundation
 public enum CEFMainAxisAlignment: Int32 {
 
     /// Child views will be left-aligned.
-    case Start
+    case start
 
     /// Child views will be center-aligned.
-    case Center
+    case center
 
     /// Child views will be right-aligned.
-    case End
+    case end
 }
 
 extension CEFMainAxisAlignment {

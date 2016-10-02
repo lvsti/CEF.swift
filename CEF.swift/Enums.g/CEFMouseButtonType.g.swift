@@ -9,9 +9,9 @@ import Foundation
 
 /// Mouse button types.
 public enum CEFMouseButtonType: Int32 {
-    case Left = 0
-    case Middle
-    case Right
+    case left = 0
+    case middle
+    case right
 }
 
 extension CEFMouseButtonType {

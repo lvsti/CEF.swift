@@ -13,29 +13,29 @@ public enum CEFThreadID: Int32 {
     /// The main thread in the browser. This will be the same as the main
     /// application thread if CefInitialize() is called with a
     /// CefSettings.multi_threaded_message_loop value of false.
-    case UI
+    case ui
 
     /// Used to interact with the database.
-    case DB
+    case db
 
     /// Used to interact with the file system.
-    case File
+    case file
 
     /// Used for file system operations that block user interactions.
     /// Responsiveness of this thread affects users.
-    case FileUserBlocking
+    case fileUserBlocking
 
     /// Used to launch and terminate browser processes.
-    case ProcessLauncher
+    case processLauncher
 
     /// Used to handle slow HTTP cache operations.
-    case Cache
+    case cache
 
     /// Used to process IPC and network messages.
-    case IO
+    case io
 
     /// The main thread in the renderer. Used for all WebKit and V8 interaction.
-    case Renderer
+    case renderer
 }
 
 extension CEFThreadID {

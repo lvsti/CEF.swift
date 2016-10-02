@@ -15,46 +15,46 @@ public struct CEFMenuID: RawRepresentable {
         self.rawValue = rawValue
     }
 
-    public static let Back = CEFMenuID(rawValue: 100)
-    public static let Forward = CEFMenuID(rawValue: 101)
-    public static let Reload = CEFMenuID(rawValue: 102)
-    public static let ReloadNoCache = CEFMenuID(rawValue: 103)
+    public static let back = CEFMenuID(rawValue: 100)
+    public static let forward = CEFMenuID(rawValue: 101)
+    public static let reload = CEFMenuID(rawValue: 102)
+    public static let reloadNoCache = CEFMenuID(rawValue: 103)
 
     /// Editing.
-    public static let StopLoad = CEFMenuID(rawValue: 104)
-    public static let Undo = CEFMenuID(rawValue: 110)
-    public static let Redo = CEFMenuID(rawValue: 111)
-    public static let Cut = CEFMenuID(rawValue: 112)
-    public static let Copy = CEFMenuID(rawValue: 113)
-    public static let Paste = CEFMenuID(rawValue: 114)
-    public static let Delete = CEFMenuID(rawValue: 115)
+    public static let stopLoad = CEFMenuID(rawValue: 104)
+    public static let undo = CEFMenuID(rawValue: 110)
+    public static let redo = CEFMenuID(rawValue: 111)
+    public static let cut = CEFMenuID(rawValue: 112)
+    public static let copy = CEFMenuID(rawValue: 113)
+    public static let paste = CEFMenuID(rawValue: 114)
+    public static let delete = CEFMenuID(rawValue: 115)
 
     /// Miscellaneous.
-    public static let SelectAll = CEFMenuID(rawValue: 116)
-    public static let Find = CEFMenuID(rawValue: 130)
-    public static let Print = CEFMenuID(rawValue: 131)
+    public static let selectAll = CEFMenuID(rawValue: 116)
+    public static let find = CEFMenuID(rawValue: 130)
+    public static let print = CEFMenuID(rawValue: 131)
 
     /// Spell checking word correction suggestions.
-    public static let ViewSource = CEFMenuID(rawValue: 132)
-    public static let SpellcheckSuggestion0 = CEFMenuID(rawValue: 200)
-    public static let SpellcheckSuggestion1 = CEFMenuID(rawValue: 201)
-    public static let SpellcheckSuggestion2 = CEFMenuID(rawValue: 202)
-    public static let SpellcheckSuggestion3 = CEFMenuID(rawValue: 203)
-    public static let SpellcheckSuggestion4 = CEFMenuID(rawValue: 204)
-    public static let SpellcheckSuggestionLast = CEFMenuID(rawValue: 204)
-    public static let NoSpellingSuggestions = CEFMenuID(rawValue: 205)
-    public static let AddToDictionary = CEFMenuID(rawValue: 206)
+    public static let viewSource = CEFMenuID(rawValue: 132)
+    public static let spellcheckSuggestion0 = CEFMenuID(rawValue: 200)
+    public static let spellcheckSuggestion1 = CEFMenuID(rawValue: 201)
+    public static let spellcheckSuggestion2 = CEFMenuID(rawValue: 202)
+    public static let spellcheckSuggestion3 = CEFMenuID(rawValue: 203)
+    public static let spellcheckSuggestion4 = CEFMenuID(rawValue: 204)
+    public static let spellcheckSuggestionLast = CEFMenuID(rawValue: 204)
+    public static let noSpellingSuggestions = CEFMenuID(rawValue: 205)
 
     /// Custom menu items originating from the renderer process. For example,
     /// plugin placeholder menu items or Flash menu items.
-    public static let CustomFirst = CEFMenuID(rawValue: 220)
-    public static let CustomLast = CEFMenuID(rawValue: 250)
+    public static let addToDictionary = CEFMenuID(rawValue: 206)
+    public static let customFirst = CEFMenuID(rawValue: 220)
 
     /// All user-defined menu IDs should come between MENU_ID_USER_FIRST and
     /// MENU_ID_USER_LAST to avoid overlapping the Chromium and CEF ID ranges
     /// defined in the tools/gritsettings/resource_ids file.
-    public static let UserFirst = CEFMenuID(rawValue: 26500)
-    public static let UserLast = CEFMenuID(rawValue: 28500)
+    public static let customLast = CEFMenuID(rawValue: 250)
+    public static let userFirst = CEFMenuID(rawValue: 26500)
+    public static let userLast = CEFMenuID(rawValue: 28500)
 }
 
 extension CEFMenuID {

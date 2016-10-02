@@ -11,10 +11,10 @@ import Foundation
 public enum CEFProcessID: Int32 {
 
     /// Browser process.
-    case Browser
+    case browser
 
     /// Renderer process.
-    case Renderer
+    case renderer
 }
 
 extension CEFProcessID {

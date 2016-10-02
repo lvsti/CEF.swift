@@ -11,31 +11,31 @@ import Foundation
 public enum CEFPathKey: Int32 {
 
     /// Current directory.
-    case DirCurrent
+    case dirCurrent
 
     /// Directory containing PK_FILE_EXE.
-    case DirExe
+    case dirExe
 
     /// Directory containing PK_FILE_MODULE.
-    case DirModule
+    case dirModule
 
     /// Temporary directory.
-    case DirTemp
+    case dirTemp
 
     /// Path and filename of the current executable.
-    case FileExe
+    case fileExe
 
     /// Path and filename of the module containing the CEF code (usually the libcef
     /// module).
-    case FileModule
+    case fileModule
 
     /// "Local Settings\Application Data" directory under the user profile
     /// directory on Windows.
-    case LocalAppData
+    case localAppData
 
     /// "Application Data" directory under the user profile directory on Windows
     /// and "~/Library/Application Support" directory on Mac OS X.
-    case UserData
+    case userData
 }
 
 extension CEFPathKey {

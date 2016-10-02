@@ -11,22 +11,22 @@ import Foundation
 public enum CEFLogSeverity: Int32 {
 
     /// Default logging (currently INFO logging).
-    case Default
+    case defaultSeverity
 
     /// Verbose logging.
-    case Verbose
+    case verbose
 
     /// INFO logging.
-    case Info
+    case info
 
     /// WARNING logging.
-    case Warning
+    case warning
 
     /// ERROR logging.
-    case Error
+    case error
 
     /// Completely disable logging.
-    case Disable = 99
+    case disable = 99
 }
 
 extension CEFLogSeverity {

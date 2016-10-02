@@ -9,17 +9,17 @@ import Foundation
 
 /// XML node types.
 public enum CEFXMLNodeType: Int32 {
-    case Unsupported = 0
-    case ProcessingInstruction
-    case DocumentType
-    case ElementStart
-    case ElementEnd
-    case Attribute
-    case Text
-    case CDATA
-    case EntityReference
-    case Whitespace
-    case Comment
+    case unsupported = 0
+    case processingInstruction
+    case documentType
+    case elementStart
+    case elementEnd
+    case attribute
+    case text
+    case cdata
+    case entityReference
+    case whitespace
+    case comment
 }
 
 extension CEFXMLNodeType {

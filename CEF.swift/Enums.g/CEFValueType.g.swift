@@ -9,15 +9,15 @@ import Foundation
 
 /// Supported value types.
 public enum CEFValueType: Int32 {
-    case Invalid = 0
-    case Null
-    case Bool
-    case Int
-    case Double
-    case String
-    case Binary
-    case Dictionary
-    case List
+    case invalid = 0
+    case null
+    case bool
+    case int
+    case double
+    case string
+    case binary
+    case dictionary
+    case list
 }
 
 extension CEFValueType {

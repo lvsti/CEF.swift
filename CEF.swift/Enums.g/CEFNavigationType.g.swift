@@ -9,12 +9,12 @@ import Foundation
 
 /// Navigation types.
 public enum CEFNavigationType: Int32 {
-    case LinkClicked = 0
-    case FormSubmitted
-    case BackForward
-    case Reload
-    case FormResubmitted
-    case Other
+    case linkClicked = 0
+    case formSubmitted
+    case backForward
+    case reload
+    case formResubmitted
+    case other
 }
 
 extension CEFNavigationType {

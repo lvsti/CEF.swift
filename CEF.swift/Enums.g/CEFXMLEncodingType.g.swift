@@ -12,11 +12,11 @@ import Foundation
 /// before being passed to the parser. If a BOM is detected and the correct
 /// decoder is available then that decoder will be used automatically.
 public enum CEFXMLEncodingType: Int32 {
-    case None = 0
-    case UTF8
-    case UTF16LE
-    case UTF16BE
-    case ASCII
+    case none = 0
+    case utf8
+    case utf16le
+    case utf16be
+    case ascii
 }
 
 extension CEFXMLEncodingType {

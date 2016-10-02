@@ -9,16 +9,16 @@ import Foundation
 
 /// DOM node types.
 public enum CEFDOMNodeType: Int32 {
-    case Unsupported = 0
-    case Element
-    case Attribute
-    case Text
-    case CDATASection
-    case ProcessingInstructions
-    case Comment
-    case Document
-    case DocumentType
-    case DocumentFragment
+    case unsupported = 0
+    case element
+    case attribute
+    case text
+    case cdataSection
+    case processingInstructions
+    case comment
+    case document
+    case documentType
+    case documentFragment
 }
 
 extension CEFDOMNodeType {

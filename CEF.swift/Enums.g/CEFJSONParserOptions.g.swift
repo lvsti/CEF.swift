@@ -8,7 +8,7 @@
 import Foundation
 
 /// Options that can be passed to CefParseJSON.
-public struct CEFJSONParserOptions: OptionSetType {
+public struct CEFJSONParserOptions: OptionSet {
     public let rawValue: UInt32
     public init(rawValue: UInt32) {
         self.rawValue = rawValue
@@ -17,10 +17,10 @@ public struct CEFJSONParserOptions: OptionSetType {
 
     /// Parses the input strictly according to RFC 4627. See comments in Chromium's
     /// base/json/json_reader.h file for known limitations/deviations from the RFC.
-    public static let RFC = CEFJSONParserOptions(rawValue: 0)
+    public static let rfc = CEFJSONParserOptions(rawValue: 0)
 
     /// Allows commas to exist after the last element in structures.
-    public static let AllowTrailingCommas = CEFJSONParserOptions(rawValue: 1 << 0)
+    public static let allowTrailingCommas = CEFJSONParserOptions(rawValue: 1 << 0)
 }
 
 extension CEFJSONParserOptions {

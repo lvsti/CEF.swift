@@ -10,9 +10,9 @@ import Foundation
 /// Specifies how a menu will be anchored for non-RTL languages. The opposite
 /// position will be used for RTL languages.
 public enum CEFMenuAnchorPosition: Int32 {
-    case TopLeft
-    case TopRight
-    case BottomCenter
+    case topLeft
+    case topRight
+    case bottomCenter
 }
 
 extension CEFMenuAnchorPosition {

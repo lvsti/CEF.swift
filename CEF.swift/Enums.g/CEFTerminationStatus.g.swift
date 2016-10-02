@@ -11,13 +11,13 @@ import Foundation
 public enum CEFTerminationStatus: Int32 {
 
     /// Non-zero exit status.
-    case AbnormalTermination
+    case abnormalTermination
 
     /// SIGKILL or task manager kill.
-    case ProcessWasKilled
+    case processWasKilled
 
     /// Segmentation fault.
-    case ProcessCrashed
+    case processCrashed
 }
 
 extension CEFTerminationStatus {

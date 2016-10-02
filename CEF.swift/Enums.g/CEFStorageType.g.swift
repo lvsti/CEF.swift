@@ -9,8 +9,8 @@ import Foundation
 
 /// Storage types.
 public enum CEFStorageType: Int32 {
-    case LocalStorage = 0
-    case SessionStorage
+    case localStorage = 0
+    case sessionStorage
 }
 
 extension CEFStorageType {

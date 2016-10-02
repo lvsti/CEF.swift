@@ -9,10 +9,10 @@ import Foundation
 
 /// Geoposition error codes.
 public enum CEFGeopositionErrorCode: Int32 {
-    case None = 0
-    case PermissionDenied
-    case PositionUnavailable
-    case Timeout
+    case none = 0
+    case permissionDenied
+    case positionUnavailable
+    case timeout
 }
 
 extension CEFGeopositionErrorCode {

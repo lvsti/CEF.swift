@@ -11,10 +11,10 @@ import Foundation
 public enum CEFColorType: Int32 {
 
     /// RGBA with 8 bits per pixel (32bits total).
-    case RGBA8888
+    case rgba8888
 
     /// BGRA with 8 bits per pixel (32bits total).
-    case BGRA8888
+    case bgra8888
 }
 
 extension CEFColorType {

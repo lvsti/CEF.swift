@@ -9,10 +9,10 @@ import Foundation
 
 /// Print job duplex mode values.
 public enum CEFDuplexMode: Int32 {
-    case Unknown = -1
-    case Simplex
-    case LongEdge
-    case ShortEdge
+    case unknown = -1
+    case simplex
+    case longEdge
+    case shortEdge
 }
 
 extension CEFDuplexMode {

@@ -9,8 +9,8 @@ import Foundation
 
 /// Paint element types.
 public enum CEFPaintElementType: Int32 {
-    case View = 0
-    case Popup
+    case view = 0
+    case popup
 }
 
 extension CEFPaintElementType {

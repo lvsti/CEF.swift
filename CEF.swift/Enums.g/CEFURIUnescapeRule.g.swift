@@ -8,7 +8,7 @@
 import Foundation
 
 /// URI unescape rules passed to CefURIDecode().
-public struct CEFURIUnescapeRule: OptionSetType {
+public struct CEFURIUnescapeRule: OptionSet {
     public let rawValue: UInt32
     public init(rawValue: UInt32) {
         self.rawValue = rawValue
@@ -16,27 +16,27 @@ public struct CEFURIUnescapeRule: OptionSetType {
 
 
     /// Don't unescape anything at all.
-    public static let None = CEFURIUnescapeRule(rawValue: 0)
+    public static let none = CEFURIUnescapeRule(rawValue: 0)
 
     /// Don't unescape anything special, but all normal unescaping will happen.
     /// This is a placeholder and can't be combined with other flags (since it's
     /// just the absence of them). All other unescape rules imply "normal" in
     /// addition to their special meaning. Things like escaped letters, digits,
     /// and most symbols will get unescaped with this mode.
-    public static let Normal = CEFURIUnescapeRule(rawValue: 1 << 0)
+    public static let normal = CEFURIUnescapeRule(rawValue: 1 << 0)
 
     /// Convert %20 to spaces. In some places where we're showing URLs, we may
     /// want this. In places where the URL may be copied and pasted out, then
     /// you wouldn't want this since it might not be interpreted in one piece
     /// by other applications.
-    public static let Spaces = CEFURIUnescapeRule(rawValue: 1 << 1)
+    public static let spaces = CEFURIUnescapeRule(rawValue: 1 << 1)
 
     /// Unescapes '/' and '\\'. If these characters were unescaped, the resulting
     /// URL won't be the same as the source one. Moreover, they are dangerous to
     /// unescape in strings that will be used as file paths or names. This value
     /// should only be used when slashes don't have special meaning, like data
     /// URLs.
-    public static let PathSeparators = CEFURIUnescapeRule(rawValue: 1 << 2)
+    public static let pathSeparators = CEFURIUnescapeRule(rawValue: 1 << 2)
 
     /// Unescapes various characters that will change the meaning of URLs,
     /// including '%', '+', '&', '#'. Does not unescape path separators.
@@ -44,7 +44,7 @@ public struct CEFURIUnescapeRule: OptionSetType {
     /// as the source one. This flag is used when generating final output like
     /// filenames for URLs where we won't be interpreting as a URL and want to do
     /// as much unescaping as possible.
-    public static let URLSpecialCharsExceptPathSeparators = CEFURIUnescapeRule(rawValue: 1 << 3)
+    public static let urlSpecialCharsExceptPathSeparators = CEFURIUnescapeRule(rawValue: 1 << 3)
 
     /// Unescapes characters that can be used in spoofing attempts (such as LOCK)
     /// and control characters (such as BiDi control characters and %01).  This
@@ -52,10 +52,10 @@ public struct CEFURIUnescapeRule: OptionSetType {
     /// where the result is binary data.
     /// DO NOT use UU_SPOOFING_AND_CONTROL_CHARS if the URL is going to be
     /// displayed in the UI for security reasons.
-    public static let SpoofingAndControlChars = CEFURIUnescapeRule(rawValue: 1 << 4)
+    public static let spoofingAndControlChars = CEFURIUnescapeRule(rawValue: 1 << 4)
 
     /// URL queries use "+" for space. This flag controls that replacement.
-    public static let ReplacePlusWithSpace = CEFURIUnescapeRule(rawValue: 1 << 5)
+    public static let replacePlusWithSpace = CEFURIUnescapeRule(rawValue: 1 << 5)
 }
 
 extension CEFURIUnescapeRule {

@@ -8,7 +8,7 @@
 import Foundation
 
 /// V8 property attribute values.
-public struct CEFV8PropertyAttribute: OptionSetType {
+public struct CEFV8PropertyAttribute: OptionSet {
     public let rawValue: UInt32
     public init(rawValue: UInt32) {
         self.rawValue = rawValue
@@ -17,16 +17,16 @@ public struct CEFV8PropertyAttribute: OptionSetType {
 
     /// Writeable, Enumerable,
     /// Configurable
-    public static let None = CEFV8PropertyAttribute(rawValue: 0)
+    public static let none = CEFV8PropertyAttribute(rawValue: 0)
 
     /// Not writeable
-    public static let ReadOnly = CEFV8PropertyAttribute(rawValue: 1 << 0)
+    public static let readOnly = CEFV8PropertyAttribute(rawValue: 1 << 0)
 
     /// Not enumerable
-    public static let DontEnumerate = CEFV8PropertyAttribute(rawValue: 1 << 1)
+    public static let dontEnumerate = CEFV8PropertyAttribute(rawValue: 1 << 1)
 
     /// Not configurable
-    public static let DontDelete = CEFV8PropertyAttribute(rawValue: 1 << 2)
+    public static let dontDelete = CEFV8PropertyAttribute(rawValue: 1 << 2)
 }
 
 extension CEFV8PropertyAttribute {

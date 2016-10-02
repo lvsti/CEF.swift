@@ -11,17 +11,17 @@ import Foundation
 public enum CEFPluginPolicy: Int32 {
 
     /// Allow the content.
-    case Allow
+    case allow
 
     /// Allow important content and block unimportant content based on heuristics.
     /// The user can manually load blocked content.
-    case DetectImportant
+    case detectImportant
 
     /// Block the content. The user can manually load blocked content.
-    case Block
+    case block
 
     /// Disable the content. The user cannot load disabled content.
-    case Disable
+    case disable
 }
 
 extension CEFPluginPolicy {

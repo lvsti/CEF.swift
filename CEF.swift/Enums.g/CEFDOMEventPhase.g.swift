@@ -9,10 +9,10 @@ import Foundation
 
 /// DOM event processing phases.
 public enum CEFDOMEventPhase: Int32 {
-    case Unknown = 0
-    case Capturing
-    case AtTarget
-    case Bubbling
+    case unknown = 0
+    case capturing
+    case atTarget
+    case bubbling
 }
 
 extension CEFDOMEventPhase {

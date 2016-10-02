@@ -8,16 +8,16 @@
 import Foundation
 
 /// V8 access control values.
-public struct CEFV8AccessControl: OptionSetType {
+public struct CEFV8AccessControl: OptionSet {
     public let rawValue: UInt32
     public init(rawValue: UInt32) {
         self.rawValue = rawValue
     }
 
-    public static let Default = CEFV8AccessControl(rawValue: 0)
-    public static let AllCanRead = CEFV8AccessControl(rawValue: 1)
-    public static let AllCanWrite = CEFV8AccessControl(rawValue: 1 << 1)
-    public static let ProhibitsOverwriting = CEFV8AccessControl(rawValue: 1 << 2)
+    public static let defaultAccess = CEFV8AccessControl(rawValue: 0)
+    public static let allCanRead = CEFV8AccessControl(rawValue: 1)
+    public static let allCanWrite = CEFV8AccessControl(rawValue: 1 << 1)
+    public static let prohibitsOverwriting = CEFV8AccessControl(rawValue: 1 << 2)
 }
 
 extension CEFV8AccessControl {

@@ -9,11 +9,11 @@ import Foundation
 
 /// Text style types. Should be kepy in sync with gfx::TextStyle.
 public enum CEFTextStyle: Int32 {
-    case Bold
-    case Italic
-    case Strike
-    case DiagonalStrike
-    case Underline
+    case bold
+    case italic
+    case strike
+    case diagonalStrike
+    case underline
 }
 
 extension CEFTextStyle {

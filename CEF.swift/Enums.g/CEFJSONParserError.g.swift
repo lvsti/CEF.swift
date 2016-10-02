@@ -9,16 +9,16 @@ import Foundation
 
 /// Error codes that can be returned from CefParseJSONAndReturnError.
 public enum CEFJSONParserError: Int32 {
-    case NoError = 0
-    case InvalidEscape
-    case SyntaxError
-    case UnexpectedToken
-    case TrailingComma
-    case TooMuchNesting
-    case UnexpectedDataAfterRoot
-    case UnsupportedEncoding
-    case UnquotedDictionaryKey
-    case ParseErrorCount
+    case noError = 0
+    case invalidEscape
+    case syntaxError
+    case unexpectedToken
+    case trailingComma
+    case tooMuchNesting
+    case unexpectedDataAfterRoot
+    case unsupportedEncoding
+    case unquotedDictionaryKey
+    case parseErrorCount
 }
 
 extension CEFJSONParserError {

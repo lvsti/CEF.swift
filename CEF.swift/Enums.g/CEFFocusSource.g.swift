@@ -11,10 +11,10 @@ import Foundation
 public enum CEFFocusSource: Int32 {
 
     /// The source is explicit navigation via the API (LoadURL(), etc).
-    case Navigation = 0
+    case navigation = 0
 
     /// The source is a system-generated focus event.
-    case System
+    case system
 }
 
 extension CEFFocusSource {
