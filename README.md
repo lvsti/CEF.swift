@@ -4,9 +4,10 @@ Swift bindings for the [Chromium Embedded Framework](https://bitbucket.org/chrom
 
 ### Requirements
 
-Xcode 7, Swift 2.0
-
+Xcode 7.3, Swift 2.3<br/>
 tools: cmake, jq, p7zip
+
+Supported target platforms: macOS 10.10+
 
 ### How to build
 
