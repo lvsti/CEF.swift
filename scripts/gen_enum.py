@@ -13,11 +13,16 @@ def cef_capi_enum_entry_to_swift(capi_entry, prefix):
         return entryname_overrides[capi_entry]
     
     retval = ""
-    for word in capi_entry[len(prefix):].split("_"):
-        if word.lower() in abbreviations:
-            retval += word.upper()
+    force_lower = True
+    for word in capi_entry[len(prefix)+1:].split("_"):
+        if force_lower:
+            retval += word.lower()
+            force_lower = False
         else:
-            retval += word.capitalize()
+            if word.lower() in abbreviations:
+                retval += word.upper()
+            else:
+                retval += word.capitalize()
     
     return retval
 
@@ -93,7 +98,7 @@ def make_option_set(cef_capi_name, cef_body):
 
     swift_type_name = cef_capi_type_to_swift(cef_capi_name)
 
-    result += "public struct " + swift_type_name + ": OptionSetType {\n"
+    result += "public struct " + swift_type_name + ": OptionSet {\n"
     result += "    public let rawValue: UInt32\n"
     result += "    public init(rawValue: UInt32) {\n"
     result += "        self.rawValue = rawValue\n"
