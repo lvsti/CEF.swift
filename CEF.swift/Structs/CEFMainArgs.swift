@@ -35,7 +35,7 @@ extension cef_main_args_t {
         }
         
         for i in 0..<Int(argc) {
-            let cstr = argv.advancedBy(i).memory
+            let cstr = argv.advancedBy(i).pointee
             if let str = String.fromCString(cstr) {
                 let byteCount = str.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) + 1
                 cstr.dealloc(byteCount)
@@ -56,7 +56,7 @@ func CEFArgVFromArguments(arguments: [String]) -> CEFArgV {
             ptr.initializeFrom(UnsafeMutablePointer<Int8>(cstr), count: utf8ByteCount)
             return ptr
         }
-        argv.advancedBy(i).memory = UnsafePointer<Int8>(ptr)
+        argv.advancedBy(i).pointee = UnsafePointer<Int8>(ptr)
     }
     
     return argv

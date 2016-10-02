@@ -37,7 +37,7 @@ public extension CEFContextMenuParams {
         if cefURLPtr == nil {
             return nil
         }
-        let str = CEFStringToSwiftString(cefURLPtr.memory)
+        let str = CEFStringToSwiftString(cefURLPtr.pointee)
         return NSURL(string: str)
     }
 
@@ -49,7 +49,7 @@ public extension CEFContextMenuParams {
         if cefURLPtr == nil {
             return nil
         }
-        let str = CEFStringToSwiftString(cefURLPtr.memory)
+        let str = CEFStringToSwiftString(cefURLPtr.pointee)
         return NSURL(string: str)!
     }
     
@@ -61,7 +61,7 @@ public extension CEFContextMenuParams {
         if cefURLPtr == nil {
             return nil
         }
-        let str = CEFStringToSwiftString(cefURLPtr.memory)
+        let str = CEFStringToSwiftString(cefURLPtr.pointee)
         return NSURL(string: str)!
     }
     
@@ -75,7 +75,7 @@ public extension CEFContextMenuParams {
     public var pageURL: NSURL {
         let cefURLPtr = cefObject.get_page_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        let str = CEFStringToSwiftString(cefURLPtr.memory)
+        let str = CEFStringToSwiftString(cefURLPtr.pointee)
         return NSURL(string: str)!
     }
     
@@ -83,7 +83,7 @@ public extension CEFContextMenuParams {
     public var frameURL: NSURL? {
         let cefURLPtr = cefObject.get_frame_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        let str = CEFStringToSwiftString(cefURLPtr.memory)
+        let str = CEFStringToSwiftString(cefURLPtr.pointee)
         return NSURL(string: str)
     }
 
@@ -92,7 +92,7 @@ public extension CEFContextMenuParams {
     public var frameCharset: String {
         let cefStrPtr = cefObject.get_frame_charset(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.memory)
+        return CEFStringToSwiftString(cefStrPtr.pointee)
     }
 
     /// Returns the type of context node that the context menu was invoked on.
@@ -113,7 +113,7 @@ public extension CEFContextMenuParams {
     public var selectionText: String? {
         let cefStrPtr = cefObject.get_selection_text(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.memory) : nil
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
     }
     
     /// Returns the text of the misspelled word, if any, that the context menu was
@@ -121,7 +121,7 @@ public extension CEFContextMenuParams {
     public var misspelledWord: String? {
         let cefStrPtr = cefObject.get_misspelled_word(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.memory) : nil
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
     }
     
     /// Returns true if suggestions exist, false otherwise. Fills in |suggestions|

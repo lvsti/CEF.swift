@@ -32,8 +32,8 @@ func CEFResourceBundleHandler_get_data_resource(ptr: UnsafeMutablePointer<cef_re
     }
     
     if let (bufferPtr, size) = obj.dataResourceForID(Int(resourceID)) {
-        dataBufferPtr.memory = bufferPtr
-        dataSizePtr.memory = size
+        dataBufferPtr.pointee = bufferPtr
+        dataSizePtr.pointee = size
         return 1
     }
     
@@ -50,8 +50,8 @@ func CEFResourceBundleHandler_get_data_resource_for_scale(ptr: UnsafeMutablePoin
     }
     
     if let (bufferPtr, size) = obj.dataResourceForID(Int(resourceID), scale: CEFScaleFactor.fromCEF(scaleFactor)) {
-        dataBufferPtr.memory = bufferPtr
-        dataSizePtr.memory = size
+        dataBufferPtr.pointee = bufferPtr
+        dataSizePtr.pointee = size
         return 1
     }
     

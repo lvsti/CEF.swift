@@ -19,7 +19,7 @@ func CEFSchemeHandlerFactory_create(ptr: UnsafeMutablePointer<cef_scheme_handler
 
     if let handler = obj.create(CEFBrowser.fromCEF(browser),
                                 frame: CEFFrame.fromCEF(frame),
-                                scheme: CEFStringToSwiftString(scheme.memory),
+                                scheme: CEFStringToSwiftString(scheme.pointee),
                                 request: CEFRequest.fromCEF(request)!) {
         return handler.toCEF()
     }

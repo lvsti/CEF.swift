@@ -24,27 +24,27 @@ func CEFLifeSpanHandler_on_before_popup(ptr: UnsafeMutablePointer<cef_life_span_
         return 0
     }
     
-    var winInfo = CEFWindowInfo.fromCEF(windowInfo.memory)
-    var client = CEFClientMarshaller.take(cefClient.memory)!
-    var settings = CEFBrowserSettings.fromCEF(cefSettings.memory)
-    var jsAccess = !(noJSAccess.memory != 0)
+    var winInfo = CEFWindowInfo.fromCEF(windowInfo.pointee)
+    var client = CEFClientMarshaller.take(cefClient.pointee)!
+    var settings = CEFBrowserSettings.fromCEF(cefSettings.pointee)
+    var jsAccess = !(noJSAccess.pointee != 0)
     
     let retval = obj.onBeforePopup(CEFBrowser.fromCEF(browser)!,
         frame: CEFFrame.fromCEF(frame)!,
-        targetURL: url != nil ? NSURL(string: CEFStringToSwiftString(url.memory)) : nil,
-        targetFrameName: frameName != nil ? CEFStringToSwiftString(frameName.memory) : nil,
+        targetURL: url != nil ? NSURL(string: CEFStringToSwiftString(url.pointee)) : nil,
+        targetFrameName: frameName != nil ? CEFStringToSwiftString(frameName.pointee) : nil,
         targetDisposition: CEFWindowOpenDisposition.fromCEF(disposition),
         userGesture: userGesture != 0,
-        popupFeatures: CEFPopupFeatures.fromCEF(features.memory),
+        popupFeatures: CEFPopupFeatures.fromCEF(features.pointee),
         windowInfo: &winInfo,
         client: &client,
         settings: &settings,
         jsAccess: &jsAccess)
 
-    windowInfo.memory = winInfo.toCEF()
-    cefClient.memory = CEFClientMarshaller.pass(client)
-    cefSettings.memory = settings.toCEF()
-    noJSAccess.memory = jsAccess ? 0 : 1
+    windowInfo.pointee = winInfo.toCEF()
+    cefClient.pointee = CEFClientMarshaller.pass(client)
+    cefSettings.pointee = settings.toCEF()
+    noJSAccess.pointee = jsAccess ? 0 : 1
     
     return retval ? 1 : 0
 }

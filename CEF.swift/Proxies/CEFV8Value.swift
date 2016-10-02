@@ -192,7 +192,7 @@ public extension CEFV8Value {
     public var stringValue: String {
         let cefStrPtr = cefObject.get_string_value(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.memory)
+        return CEFStringToSwiftString(cefStrPtr.pointee)
     }
     
     // OBJECT METHODS - These methods are only available on objects. Arrays and
@@ -369,7 +369,7 @@ public extension CEFV8Value {
     public var functionName: String {
         let cefStrPtr = cefObject.get_function_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.memory)
+        return CEFStringToSwiftString(cefStrPtr.pointee)
     }
     
     /// Returns the function handler or NULL if not a CEF-created function.

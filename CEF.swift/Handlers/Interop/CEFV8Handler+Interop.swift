@@ -21,10 +21,10 @@ func CEFV8Handler_execute(ptr: UnsafeMutablePointer<cef_v8handler_t>,
 
     var arguments = [CEFV8Value]()
     for i in 0..<argCount {
-        arguments.append(CEFV8Value.fromCEF(args.advancedBy(i).memory)!)
+        arguments.append(CEFV8Value.fromCEF(args.advancedBy(i).pointee)!)
     }
     
-    let optResult = obj.execute(CEFStringToSwiftString(name.memory),
+    let optResult = obj.execute(CEFStringToSwiftString(name.pointee),
                                 object: CEFV8Value.fromCEF(object)!,
                                 arguments: arguments)
     
@@ -34,7 +34,7 @@ func CEFV8Handler_execute(ptr: UnsafeMutablePointer<cef_v8handler_t>,
 
     switch result {
     case .Success(let retval):
-        retvalPtr.memory = retval.toCEF()
+        retvalPtr.pointee = retval.toCEF()
         break
     case .Failure(let excStr):
         CEFStringSetFromSwiftString(excStr, cefString: excStrPtr)

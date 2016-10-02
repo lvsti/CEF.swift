@@ -14,28 +14,28 @@ public extension CEFWebPluginInfo {
     public var name: String {
         let cefStrPtr = cefObject.get_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.memory)
+        return CEFStringToSwiftString(cefStrPtr.pointee)
     }
     
     /// Returns the plugin file path (DLL/bundle/library).
     public var path: String {
         let cefStrPtr = cefObject.get_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.memory)
+        return CEFStringToSwiftString(cefStrPtr.pointee)
     }
     
     /// Returns the version of the plugin (may be OS-specific).
     public var version: String {
         let cefStrPtr = cefObject.get_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.memory)
+        return CEFStringToSwiftString(cefStrPtr.pointee)
     }
     
     /// Returns a description of the plugin from the version information.
     public var description: String {
         let cefStrPtr = cefObject.get_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.memory)
+        return CEFStringToSwiftString(cefStrPtr.pointee)
     }
 
 }

@@ -30,9 +30,9 @@ func CEFResourceHandler_get_response_headers(ptr: UnsafeMutablePointer<cef_resou
     
     switch action {
     case .ContinueWithResponseLength(let length):
-        responseLength.memory = int64(length)
+        responseLength.pointee = int64(length)
     case .ContinueWithUnknownResponseLength:
-        responseLength.memory = -1
+        responseLength.pointee = -1
     case .Redirect(let url):
         CEFStringSetFromSwiftString(url.absoluteString!, cefString: redirectURL)
     default:
@@ -55,7 +55,7 @@ func CEFResourceHandler_read_response(ptr: UnsafeMutablePointer<cef_resource_han
                                     callback: CEFCallback.fromCEF(callback)!)
                                         
     if case .Read(let length) = action {
-        actualLength.memory = Int32(length)
+        actualLength.pointee = Int32(length)
     }
     
     return action ? 1 : 0
@@ -67,7 +67,7 @@ func CEFResourceHandler_can_get_cookie(ptr: UnsafeMutablePointer<cef_resource_ha
         return 1
     }
 
-    return obj.canGetCookie(CEFCookie.fromCEF(cookie.memory)) ? 1 : 0
+    return obj.canGetCookie(CEFCookie.fromCEF(cookie.pointee)) ? 1 : 0
 }
 
 func CEFResourceHandler_can_set_cookie(ptr: UnsafeMutablePointer<cef_resource_handler_t>,
@@ -76,7 +76,7 @@ func CEFResourceHandler_can_set_cookie(ptr: UnsafeMutablePointer<cef_resource_ha
         return 1
     }
 
-    return obj.canSetCookie(CEFCookie.fromCEF(cookie.memory)) ? 1 : 0
+    return obj.canSetCookie(CEFCookie.fromCEF(cookie.pointee)) ? 1 : 0
 }
 
 func CEFResourceHandler_cancel(ptr: UnsafeMutablePointer<cef_resource_handler_t>) {

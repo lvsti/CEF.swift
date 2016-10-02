@@ -35,7 +35,7 @@ func CEFRequestHandler_on_open_urlfrom_tab(ptr: UnsafeMutablePointer<cef_request
     
     return obj.onOpenURLFromTab(CEFBrowser.fromCEF(browser)!,
                                 frame: CEFFrame.fromCEF(frame)!,
-                                url: NSURL(string: CEFStringToSwiftString(url.memory))!,
+                                url: NSURL(string: CEFStringToSwiftString(url.pointee))!,
                                 targetDisposition: CEFWindowOpenDisposition.fromCEF(disposition),
                                 userGesture: gesture != 0) ? 1 : 0
 }
@@ -84,7 +84,7 @@ func CEFRequestHandler_on_resource_redirect(ptr: UnsafeMutablePointer<cef_reques
         return
     }
 
-    var url = NSURL(string: CEFStringToSwiftString(newURL.memory))!
+    var url = NSURL(string: CEFStringToSwiftString(newURL.pointee))!
 
     obj.onResourceRedirect(CEFBrowser.fromCEF(browser)!,
         frame: CEFFrame.fromCEF(frame)!,
@@ -163,10 +163,10 @@ func CEFRequestHandler_get_auth_credentials(ptr: UnsafeMutablePointer<cef_reques
     return obj.onAuthCredentialsRequired(CEFBrowser.fromCEF(browser)!,
                                          frame: CEFFrame.fromCEF(frame)!,
                                          isProxy: isProxy != 0,
-                                         host: CEFStringToSwiftString(host.memory),
+                                         host: CEFStringToSwiftString(host.pointee),
                                          port: UInt16(port),
-                                         realm: realm != nil ? CEFStringToSwiftString(realm.memory) : nil,
-                                         scheme: scheme != nil ? CEFStringToSwiftString(scheme.memory) : nil,
+                                         realm: realm != nil ? CEFStringToSwiftString(realm.pointee) : nil,
+                                         scheme: scheme != nil ? CEFStringToSwiftString(scheme.pointee) : nil,
                                          callback: CEFAuthCallback.fromCEF(callback)!) ? 1 : 0
 }
 
@@ -181,7 +181,7 @@ func CEFRequestHandler_on_quota_request(ptr: UnsafeMutablePointer<cef_request_ha
     }
     
     return obj.onQuotaRequest(CEFBrowser.fromCEF(browser)!,
-                              origin: NSURL(string: CEFStringToSwiftString(origin.memory))!,
+                              origin: NSURL(string: CEFStringToSwiftString(origin.pointee))!,
                               newSize: newSize,
                               callback: CEFRequestCallback.fromCEF(callback)!) ? 1 : 0
 }
@@ -195,11 +195,11 @@ func CEFRequestHandler_on_protocol_execution(ptr: UnsafeMutablePointer<cef_reque
         return
     }
     
-    var allowExecution: Bool = allow.memory != 0
+    var allowExecution: Bool = allow.pointee != 0
     obj.onProtocolExecution(CEFBrowser.fromCEF(browser)!,
-                            url: NSURL(string: CEFStringToSwiftString(url.memory))!,
+                            url: NSURL(string: CEFStringToSwiftString(url.pointee))!,
                             allowExecution: &allowExecution)
-    allow.memory = allowExecution ? 1 : 0
+    allow.pointee = allowExecution ? 1 : 0
 }
 
 func CEFRequestHandler_on_certificate_error(ptr: UnsafeMutablePointer<cef_request_handler_t>,
@@ -214,7 +214,7 @@ func CEFRequestHandler_on_certificate_error(ptr: UnsafeMutablePointer<cef_reques
     
     return obj.onCertificateError(CEFBrowser.fromCEF(browser)!,
                                   errorCode: CEFErrorCode.fromCEF(errorCode.rawValue),
-                                  url: NSURL(string: CEFStringToSwiftString(url.memory))!,
+                                  url: NSURL(string: CEFStringToSwiftString(url.pointee))!,
                                   sslInfo: CEFSSLInfo.fromCEF(sslInfo)!,
                                   callback: CEFRequestCallback.fromCEF(callback)!) ? 1 : 0
 }
@@ -227,7 +227,7 @@ func CEFRequestHandler_on_plugin_crashed(ptr: UnsafeMutablePointer<cef_request_h
     }
     
     obj.onPluginCrashed(CEFBrowser.fromCEF(browser)!,
-                        pluginPath: CEFStringToSwiftString(path.memory))
+                        pluginPath: CEFStringToSwiftString(path.pointee))
 }
 
 func CEFRequestHandler_on_render_view_ready(ptr: UnsafeMutablePointer<cef_request_handler_t>,

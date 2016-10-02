@@ -32,8 +32,8 @@ func CEFResponseFilter_filter(ptr: UnsafeMutablePointer<cef_response_filter_t>,
         intoBuffer: dataOut,
         ofCapacity: dataOutSize)
     
-    dataInRead.memory = bytesRead
-    dataOutWritten.memory = bytesWritten
+    dataInRead.pointee = bytesRead
+    dataOutWritten.pointee = bytesWritten
     
     return status.toCEF()
 }

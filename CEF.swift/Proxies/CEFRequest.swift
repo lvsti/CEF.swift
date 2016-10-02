@@ -31,7 +31,7 @@ public extension CEFRequest {
     private func getURL() -> NSURL {
         let cefURLPtr = cefObject.get_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        let urlStr = CEFStringToSwiftString(cefURLPtr.memory)
+        let urlStr = CEFStringToSwiftString(cefURLPtr.pointee)
         
         return NSURL(string: urlStr)!
     }
@@ -55,7 +55,7 @@ public extension CEFRequest {
     private func getMethod() -> String {
         let cefMethodPtr = cefObject.get_method(cefObjectPtr)
         defer { CEFStringPtrRelease(cefMethodPtr) }
-        return CEFStringToSwiftString(cefMethodPtr.memory)
+        return CEFStringToSwiftString(cefMethodPtr.pointee)
     }
     
     /// Set the request method type.
@@ -82,7 +82,7 @@ public extension CEFRequest {
     private func getReferrerURL() -> NSURL? {
         let cefURLPtr = cefObject.get_referrer_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        return cefURLPtr != nil ? NSURL(string: CEFStringToSwiftString(cefURLPtr.memory)) : nil
+        return cefURLPtr != nil ? NSURL(string: CEFStringToSwiftString(cefURLPtr.pointee)) : nil
     }
     
     private func getReferrerPolicy() -> CEFReferrerPolicy {
@@ -165,7 +165,7 @@ public extension CEFRequest {
         let cefURL = cefObject.get_first_party_for_cookies(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURL) }
 
-        let urlStr = CEFStringToSwiftString(cefURL.memory)
+        let urlStr = CEFStringToSwiftString(cefURL.pointee)
         return NSURL(string: urlStr)!
     }
     

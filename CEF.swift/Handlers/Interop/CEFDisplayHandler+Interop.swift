@@ -18,7 +18,7 @@ func CEFDisplayHandler_on_address_change(ptr: UnsafeMutablePointer<cef_display_h
     
     obj.onAddressChange(CEFBrowser.fromCEF(browser)!,
                         frame: CEFFrame.fromCEF(frame)!,
-                        url: NSURL(string: CEFStringToSwiftString(url.memory))!)
+                        url: NSURL(string: CEFStringToSwiftString(url.pointee))!)
 }
 
 func CEFDisplayHandler_on_title_change(ptr: UnsafeMutablePointer<cef_display_handler_t>,
@@ -29,7 +29,7 @@ func CEFDisplayHandler_on_title_change(ptr: UnsafeMutablePointer<cef_display_han
     }
 
     obj.onTitleChange(CEFBrowser.fromCEF(browser)!,
-                      title: title != nil ? CEFStringToSwiftString(title.memory) : nil)
+                      title: title != nil ? CEFStringToSwiftString(title.pointee) : nil)
 }
 
 func CEFDisplayHandler_on_favicon_urlchange(ptr: UnsafeMutablePointer<cef_display_handler_t>,
@@ -62,7 +62,7 @@ func CEFDisplayHandler_on_tooltip(ptr: UnsafeMutablePointer<cef_display_handler_
         return 0
     }
 
-    var text: String? = textPtr != nil ? CEFStringToSwiftString(textPtr.memory) : nil
+    var text: String? = textPtr != nil ? CEFStringToSwiftString(textPtr.pointee) : nil
     let retval = obj.onTooltip(CEFBrowser.fromCEF(browser)!, text: &text)
     
     if let text = text {
@@ -80,7 +80,7 @@ func CEFDisplayHandler_on_status_message(ptr: UnsafeMutablePointer<cef_display_h
     }
 
     obj.onStatusMessage(CEFBrowser.fromCEF(browser)!,
-                        text: CEFStringToSwiftString(text.memory))
+                        text: CEFStringToSwiftString(text.pointee))
 }
 
 func CEFDisplayHandler_on_console_message(ptr: UnsafeMutablePointer<cef_display_handler_t>,
@@ -93,8 +93,8 @@ func CEFDisplayHandler_on_console_message(ptr: UnsafeMutablePointer<cef_display_
     }
 
     return obj.onConsoleMessage(CEFBrowser.fromCEF(browser)!,
-                                message: message != nil ? CEFStringToSwiftString(message.memory) : nil,
-                                source: source != nil ? CEFStringToSwiftString(source.memory) : nil,
+                                message: message != nil ? CEFStringToSwiftString(message.pointee) : nil,
+                                source: source != nil ? CEFStringToSwiftString(source.pointee) : nil,
                                 lineNumber: Int(line)) ? 1 : 0
 }
 

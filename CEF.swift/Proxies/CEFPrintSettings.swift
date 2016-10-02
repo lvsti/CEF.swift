@@ -53,7 +53,7 @@ public extension CEFPrintSettings {
         get {
             let cefStrPtr = cefObject.get_device_name(cefObjectPtr)
             defer { CEFStringPtrRelease(cefStrPtr) }
-            return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.memory) : nil
+            return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
         }
         set {
             let cefStrPtr = newValue != nil ? CEFStringPtrCreateFromSwiftString(newValue!) : nil
@@ -74,7 +74,7 @@ public extension CEFPrintSettings {
         defer { cefRangesPtr.dealloc(ranges.count) }
         
         for i in 0..<ranges.count {
-            cefRangesPtr.advancedBy(i).memory = ranges[i].toCEF()
+            cefRangesPtr.advancedBy(i).pointee = ranges[i].toCEF()
         }
         
         cefObject.set_page_ranges(cefObjectPtr, size_t(ranges.count), cefRangesPtr)
@@ -93,7 +93,7 @@ public extension CEFPrintSettings {
 
         var ranges = [CEFRange]()
         for i in 0..<count {
-            ranges.append(CEFRange.fromCEF(cefRangesPtr.advancedBy(i).memory))
+            ranges.append(CEFRange.fromCEF(cefRangesPtr.advancedBy(i).pointee))
         }
         
         return ranges

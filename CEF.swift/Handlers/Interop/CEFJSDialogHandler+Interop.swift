@@ -21,14 +21,14 @@ func CEFJSDialogHandler_on_jsdialog(ptr: UnsafeMutablePointer<cef_jsdialog_handl
     }
 
     let action = obj.onJSDialog(CEFBrowser.fromCEF(browser)!,
-                                origin: origin != nil ? NSURL(string: CEFStringToSwiftString(origin.memory)) : nil,
+                                origin: origin != nil ? NSURL(string: CEFStringToSwiftString(origin.pointee)) : nil,
                                 type: CEFJSDialogType.fromCEF(type),
-                                message: message != nil ? CEFStringToSwiftString(message.memory) : nil,
-                                prompt: prompt != nil ? CEFStringToSwiftString(prompt.memory) : nil,
+                                message: message != nil ? CEFStringToSwiftString(message.pointee) : nil,
+                                prompt: prompt != nil ? CEFStringToSwiftString(prompt.pointee) : nil,
                                 callback: CEFJSDialogCallback.fromCEF(callback)!)
 
     if case .Suppress = action {
-        shouldSuppress.memory = 1
+        shouldSuppress.pointee = 1
     }
     
     return action ? 1 : 0
@@ -44,7 +44,7 @@ func CEFJSDialogHandler_on_before_unload_dialog(ptr: UnsafeMutablePointer<cef_js
     }
 
     return obj.onBeforeUnloadDialog(CEFBrowser.fromCEF(browser)!,
-                                    message: message != nil ? CEFStringToSwiftString(message.memory) : nil,
+                                    message: message != nil ? CEFStringToSwiftString(message.pointee) : nil,
                                     isReload: isReload != 0,
                                     callback: CEFJSDialogCallback.fromCEF(callback)!) ? 1 : 0
 }

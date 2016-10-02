@@ -41,7 +41,7 @@ public class CEFProxy<T : CEFObject>: CEFRefCounting {
     
     private let _cefPtr: UnsafeMutablePointer<T>
     var cefObjectPtr: UnsafeMutablePointer<ObjectType> { return _cefPtr }
-    var cefObject: ObjectType { return _cefPtr.memory }
+    var cefObject: ObjectType { return _cefPtr.pointee }
     
     init?(ptr: UnsafeMutablePointer<T>) {
         if ptr == nil {
@@ -57,15 +57,15 @@ public class CEFProxy<T : CEFObject>: CEFRefCounting {
     }
 
     func addRef() {
-        _cefPtr.memory.base.add_ref(UnsafeMutablePointer<cef_base_t>(_cefPtr))
+        _cefPtr.pointee.base.add_ref(UnsafeMutablePointer<cef_base_t>(_cefPtr))
     }
     
     func release() -> Bool {
-        return _cefPtr.memory.base.release(UnsafeMutablePointer<cef_base_t>(_cefPtr)) != 0
+        return _cefPtr.pointee.base.release(UnsafeMutablePointer<cef_base_t>(_cefPtr)) != 0
     }
     
     func hasOneRef() -> Bool {
-        return _cefPtr.memory.base.has_one_ref(UnsafeMutablePointer<cef_base_t>(_cefPtr)) != 0
+        return _cefPtr.pointee.base.has_one_ref(UnsafeMutablePointer<cef_base_t>(_cefPtr)) != 0
     }
 
     func toCEF() -> UnsafeMutablePointer<ObjectType> {

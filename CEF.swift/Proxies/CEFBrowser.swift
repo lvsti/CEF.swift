@@ -121,7 +121,7 @@ public extension CEFBrowser {
         
         var ids = Array<CEFFrame.Identifier>()
         for i in 0..<idCount {
-            ids.append(idsPtr.advancedBy(i).memory)
+            ids.append(idsPtr.advancedBy(i).pointee)
         }
         return ids
     }

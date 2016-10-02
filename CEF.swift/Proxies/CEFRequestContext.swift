@@ -73,7 +73,7 @@ public extension CEFRequestContext {
     public var cachePath: String? {
         let cefStrPtr = cefObject.get_cache_path(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.memory) : nil
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
     }
     
     /// Returns the default cookie manager for this object. This will be the global

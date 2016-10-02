@@ -15,35 +15,35 @@ public extension CEFSSLCertPrincipal {
     public var displayName: String {
         let cefStrPtr = cefObject.get_display_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.memory)
+        return CEFStringToSwiftString(cefStrPtr.pointee)
     }
 
     /// Returns the common name.
     public var commonName: String {
         let cefStrPtr = cefObject.get_common_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.memory)
+        return CEFStringToSwiftString(cefStrPtr.pointee)
     }
 
     /// Returns the locality name.
     public var localityName: String {
         let cefStrPtr = cefObject.get_locality_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.memory)
+        return CEFStringToSwiftString(cefStrPtr.pointee)
     }
     
     /// Returns the state or province name.
     public var stateOrProvinceName: String {
         let cefStrPtr = cefObject.get_state_or_province_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.memory)
+        return CEFStringToSwiftString(cefStrPtr.pointee)
     }
     
     /// Returns the country name.
     public var countryName: String {
         let cefStrPtr = cefObject.get_country_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.memory)
+        return CEFStringToSwiftString(cefStrPtr.pointee)
     }
     
     /// Retrieve the list of street addresses.

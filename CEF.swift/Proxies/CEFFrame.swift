@@ -129,7 +129,7 @@ public extension CEFFrame {
     public var name: String {
         let cefStrPtr = cefObject.get_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.memory)
+        return CEFStringToSwiftString(cefStrPtr.pointee)
     }
     
     /// Returns the globally unique identifier for this frame or < 0 if the
@@ -149,7 +149,7 @@ public extension CEFFrame {
     public var url: NSURL {
         let cefURLPtr = cefObject.get_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefURLPtr.memory))!
+        return NSURL(string: CEFStringToSwiftString(cefURLPtr.pointee))!
     }
     
     /// Returns the browser that this frame belongs to.

@@ -155,7 +155,7 @@ public extension CEFMenuModel {
     public func labelForCommandID(commandID: CommandID) -> String? {
         let cefStrPtr = cefObject.get_label(cefObjectPtr, commandID.toCEF())
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.memory) : nil
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
     }
     
     /// Returns the label at the specified |index| or empty if not found due to
@@ -163,7 +163,7 @@ public extension CEFMenuModel {
     public func labelAtIndex(index: Int32) -> String? {
         let cefStrPtr = cefObject.get_label_at(cefObjectPtr, index)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.memory) : nil
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
     }
     
     /// Sets the label for the specified |command_id|. Returns true on success.

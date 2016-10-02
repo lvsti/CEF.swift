@@ -71,7 +71,7 @@ public extension CEFDownloadItem {
     public var fullPath: String {
         let cefStrPtr = cefObject.get_full_path(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.memory)
+        return CEFStringToSwiftString(cefStrPtr.pointee)
     }
     
     /// Returns the unique identifier for this download.
@@ -83,35 +83,35 @@ public extension CEFDownloadItem {
     public var url: NSURL {
         let cefStrPtr = cefObject.get_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefStrPtr.memory))!
+        return NSURL(string: CEFStringToSwiftString(cefStrPtr.pointee))!
     }
     
     /// Returns the original URL before any redirections.
     public var originalURL: NSURL {
         let cefStrPtr = cefObject.get_original_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefStrPtr.memory))!
+        return NSURL(string: CEFStringToSwiftString(cefStrPtr.pointee))!
     }
     
     /// Returns the suggested file name.
     public var suggestedFileName: String {
         let cefStrPtr = cefObject.get_suggested_file_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.memory)
+        return CEFStringToSwiftString(cefStrPtr.pointee)
     }
     
     /// Returns the content disposition.
     public var contentDisposition: String {
         let cefStrPtr = cefObject.get_content_disposition(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.memory)
+        return CEFStringToSwiftString(cefStrPtr.pointee)
     }
     
     /// Returns the mime type.
     public var mimeType: String {
         let cefStrPtr = cefObject.get_mime_type(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.memory)
+        return CEFStringToSwiftString(cefStrPtr.pointee)
     }
     
 }

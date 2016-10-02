@@ -48,7 +48,7 @@ public extension CEFZipReader {
     public var fileName: String {
         let cefStrPtr = cefObject.get_file_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.memory)
+        return CEFStringToSwiftString(cefStrPtr.pointee)
     }
 
     /// Returns the uncompressed size of the file.

@@ -80,7 +80,7 @@ public extension CEFValue {
     public var stringValue: String? {
         let cefStrPtr = cefObject.get_string(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.memory) : nil
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
     }
 
     /// Returns the underlying value as type binary. The returned reference may

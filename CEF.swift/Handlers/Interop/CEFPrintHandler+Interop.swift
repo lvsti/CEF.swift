@@ -45,8 +45,8 @@ func CEFPrintHandler_on_print_job(ptr: UnsafeMutablePointer<cef_print_handler_t>
         return 0
     }
     
-    return obj.onPrintJob(CEFStringToSwiftString(name.memory),
-                          pdfFilePath: CEFStringToSwiftString(pdfPath.memory),
+    return obj.onPrintJob(CEFStringToSwiftString(name.pointee),
+                          pdfFilePath: CEFStringToSwiftString(pdfPath.pointee),
                           callback: CEFPrintJobCallback.fromCEF(callback)!) ? 1 : 0
 }
 

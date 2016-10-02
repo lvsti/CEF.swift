@@ -18,7 +18,7 @@ func CEFGeolocationHandler_on_request_geolocation_permission(ptr: UnsafeMutableP
     }
 
     return obj.onRequestGeolocationPermission(CEFBrowser.fromCEF(browser)!,
-                                              url: NSURL(string: CEFStringToSwiftString(url.memory))!,
+                                              url: NSURL(string: CEFStringToSwiftString(url.pointee))!,
                                               requestID: requestID,
                                               callback: CEFGeolocationCallback.fromCEF(callback)!) ? 1 : 0
 }

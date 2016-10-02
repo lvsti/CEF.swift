@@ -24,7 +24,7 @@ public struct CEFParseUtils {
         
         let cefStrPtr = cef_format_url_for_security_display(cefURLPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.memory)
+        return CEFStringToSwiftString(cefStrPtr.pointee)
     }
 
     /// Returns the mime type for the specified file extension or an empty string if
@@ -34,7 +34,7 @@ public struct CEFParseUtils {
         defer { CEFStringPtrRelease(cefStrPtr) }
         let cefType = cef_get_mime_type(cefStrPtr)
         defer { CEFStringPtrRelease(cefType) }
-        return cefType != nil ? CEFStringToSwiftString(cefType.memory) : nil
+        return cefType != nil ? CEFStringToSwiftString(cefType.pointee) : nil
     }
 
     // Get the extensions associated with the given mime type. This should be passed
@@ -63,7 +63,7 @@ public struct CEFParseUtils {
             CEFStringPtrRelease(cefStrPtr)
             CEFStringPtrRelease(cefEncodedPtr)
         }
-        return CEFStringToSwiftString(cefEncodedPtr.memory)
+        return CEFStringToSwiftString(cefEncodedPtr.pointee)
     }
 
     /// Unescapes |text| and returns the result. Unescaping consists of looking for
@@ -81,7 +81,7 @@ public struct CEFParseUtils {
             CEFStringPtrRelease(cefStrPtr)
             CEFStringPtrRelease(cefDecodedPtr)
         }
-        return CEFStringToSwiftString(cefDecodedPtr.memory)
+        return CEFStringToSwiftString(cefDecodedPtr.pointee)
     }
 
     // Parses the specified |json_string| and returns a dictionary or list
@@ -119,7 +119,7 @@ public struct CEFParseUtils {
         let cefStrPtr = cef_write_json(value.toCEF(), options.toCEF())
         defer { CEFStringPtrRelease(cefStrPtr) }
         
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.memory) : nil
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
     }
 
 }

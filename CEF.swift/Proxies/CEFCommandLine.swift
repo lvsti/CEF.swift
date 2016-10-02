@@ -87,7 +87,7 @@ public extension CEFCommandLine {
     public var stringValue: String {
         let cefCmdLinePtr = cefObject.get_command_line_string(cefObjectPtr)
         defer { CEFStringPtrRelease(cefCmdLinePtr) }
-        return CEFStringToSwiftString(cefCmdLinePtr.memory)
+        return CEFStringToSwiftString(cefCmdLinePtr.pointee)
     }
     
     /// The program part of the command line string (the first item).
@@ -95,7 +95,7 @@ public extension CEFCommandLine {
         get {
             let cefProgramPtr = cefObject.get_program(cefObjectPtr)
             defer { CEFStringPtrRelease(cefProgramPtr) }
-            return CEFStringToSwiftString(cefProgramPtr.memory)
+            return CEFStringToSwiftString(cefProgramPtr.pointee)
         }
         set {
             let cefProgramPtr = CEFStringPtrCreateFromSwiftString(newValue)
@@ -125,7 +125,7 @@ public extension CEFCommandLine {
             CEFStringPtrRelease(cefStrPtr)
             CEFStringPtrRelease(cefValuePtr)
         }
-        return cefValuePtr != nil ? CEFStringToSwiftString(cefValuePtr.memory) : ""
+        return cefValuePtr != nil ? CEFStringToSwiftString(cefValuePtr.pointee) : ""
     }
     
     /// Returns the map of switch names and values. If a switch has no value an

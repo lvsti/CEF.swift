@@ -15,5 +15,5 @@ func CEFPDFPrintCallback_on_pdf_print_finished(ptr: UnsafeMutablePointer<cef_pdf
         return
     }
     
-    obj.onPDFPrintFinishedForPath(CEFStringToSwiftString(path.memory), successfully: success != 0)
+    obj.onPDFPrintFinishedForPath(CEFStringToSwiftString(path.pointee), successfully: success != 0)
 }

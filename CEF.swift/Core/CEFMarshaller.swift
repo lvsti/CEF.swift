@@ -87,7 +87,7 @@ class CEFMarshaller<TClass, TStruct where TStruct : CEFObject, TStruct : CEFCall
         var offset = strideof(size_t)
         while offset < cefStruct.base.size {
             let fptr = UnsafePointer<UnsafePointer<Void>>(ptr.advancedBy(offset))
-            assert(fptr.memory != nil, "uninitialized field at offset \(offset) in \(TStruct.self)")
+            assert(fptr.pointee != nil, "uninitialized field at offset \(offset) in \(TStruct.self)")
             offset += strideof(UnsafePointer<Void>)
         }
 #endif

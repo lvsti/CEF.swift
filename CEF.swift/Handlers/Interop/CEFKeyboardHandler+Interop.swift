@@ -18,10 +18,10 @@ func CEFKeyboardHandler_on_pre_key_event(ptr: UnsafeMutablePointer<cef_keyboard_
     }
     
     let action = obj.onPreKeyEvent(CEFBrowser.fromCEF(browser)!,
-                                   event: CEFKeyEvent.fromCEF(event.memory),
+                                   event: CEFKeyEvent.fromCEF(event.pointee),
                                    osEvent: Unmanaged<CEFEventHandle>.fromOpaque(COpaquePointer(osEvent)).takeUnretainedValue())
     if case .PassAsShortcut = action {
-        isShortcut.memory = 1
+        isShortcut.pointee = 1
     }
     
     return action ? 1 : 0
@@ -36,7 +36,7 @@ func CEFKeyboardHandler_on_key_event(ptr: UnsafeMutablePointer<cef_keyboard_hand
     }
     
     let retval = obj.onKeyEvent(CEFBrowser.fromCEF(browser)!,
-                                event: CEFKeyEvent.fromCEF(event.memory),
+                                event: CEFKeyEvent.fromCEF(event.pointee),
                                 osEvent: Unmanaged<CEFEventHandle>.fromOpaque(COpaquePointer(osEvent)).takeUnretainedValue())
     
     return retval ? 1 : 0

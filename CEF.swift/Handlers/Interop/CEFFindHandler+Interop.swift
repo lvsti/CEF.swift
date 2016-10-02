@@ -22,7 +22,7 @@ func CEFFindHandler_on_find_result(ptr: UnsafeMutablePointer<cef_find_handler_t>
     obj.onFindResult(CEFBrowser.fromCEF(browser)!,
                      identifier: identifier,
                      count: Int(count),
-                     selectionRect: NSRect.fromCEF(rect.memory),
+                     selectionRect: NSRect.fromCEF(rect.pointee),
                      currentIndex: Int(currentIndex),
                      isLastUpdate: isLastUpdate != 0)
 }

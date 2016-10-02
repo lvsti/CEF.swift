@@ -47,7 +47,7 @@ public extension CEFResponse {
         get {
             let cefStrPtr = cefObject.get_status_text(cefObjectPtr)
             defer { CEFStringPtrRelease(cefStrPtr)}
-            return CEFStringToSwiftString(cefStrPtr.memory)
+            return CEFStringToSwiftString(cefStrPtr.pointee)
         }
         set {
             let cefStrPtr = CEFStringPtrCreateFromSwiftString(newValue)
@@ -61,7 +61,7 @@ public extension CEFResponse {
         get {
             let cefStrPtr = cefObject.get_status_text(cefObjectPtr)
             defer { CEFStringPtrRelease(cefStrPtr)}
-            return CEFStringToSwiftString(cefStrPtr.memory)
+            return CEFStringToSwiftString(cefStrPtr.pointee)
         }
         set {
             let cefStrPtr = CEFStringPtrCreateFromSwiftString(newValue)
@@ -79,7 +79,7 @@ public extension CEFResponse {
             CEFStringPtrRelease(cefHeaderPtr)
         }
         
-        return cefHeaderPtr != nil ? CEFStringToSwiftString(cefHeaderPtr.memory) : nil
+        return cefHeaderPtr != nil ? CEFStringToSwiftString(cefHeaderPtr.pointee) : nil
     }
     
     /// Response header fields.
