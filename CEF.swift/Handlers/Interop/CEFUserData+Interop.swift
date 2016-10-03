@@ -12,11 +12,11 @@ import Foundation
 typealias CEFUserDataMarshaller = CEFMarshaller<CEFUserData, cef_base_t>
 
 extension CEFUserData {
-    func toCEF() -> UnsafeMutablePointer<cef_base_t> {
+    func toCEF() -> UnsafeMutablePointer<cef_base_t>? {
         return CEFUserDataMarshaller.pass(self)
     }
 
-    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_base_t>) -> CEFUserData? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_base_t>?) -> CEFUserData? {
         return CEFUserDataMarshaller.take(ptr)
     }
 }

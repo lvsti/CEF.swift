@@ -8,23 +8,23 @@
 
 import Foundation
 
-func CEFV8Handler_execute(ptr: UnsafeMutablePointer<cef_v8handler_t>,
-                          name: UnsafePointer<cef_string_t>,
-                          object: UnsafeMutablePointer<cef_v8value_t>,
+func CEFV8Handler_execute(ptr: UnsafeMutablePointer<cef_v8handler_t>?,
+                          name: UnsafePointer<cef_string_t>?,
+                          object: UnsafeMutablePointer<cef_v8value_t>?,
                           argCount: Int,
-                          args: UnsafePointer<UnsafeMutablePointer<cef_v8value_t>>,
-                          retval retvalPtr: UnsafeMutablePointer<UnsafeMutablePointer<cef_v8value_t>>,
-                          exception excStrPtr: UnsafeMutablePointer<cef_string_t>) -> Int32 {
+                          args: UnsafePointer<UnsafeMutablePointer<cef_v8value_t>?>?,
+                          retval retvalPtr: UnsafeMutablePointer<UnsafeMutablePointer<cef_v8value_t>?>?,
+                          exception excStrPtr: UnsafeMutablePointer<cef_string_t>?) -> Int32 {
     guard let obj = CEFV8HandlerMarshaller.get(ptr) else {
         return 0
     }
 
     var arguments = [CEFV8Value]()
     for i in 0..<argCount {
-        arguments.append(CEFV8Value.fromCEF(args.advanced(by: i).pointee)!)
+        arguments.append(CEFV8Value.fromCEF(args!.advanced(by: i).pointee)!)
     }
     
-    let optResult = obj.execute(name: CEFStringToSwiftString(name.pointee),
+    let optResult = obj.execute(name: CEFStringToSwiftString(name!.pointee),
                                 object: CEFV8Value.fromCEF(object)!,
                                 arguments: arguments)
     
@@ -33,11 +33,11 @@ func CEFV8Handler_execute(ptr: UnsafeMutablePointer<cef_v8handler_t>,
     }
 
     switch result {
-    case .Success(let retval):
-        retvalPtr.pointee = retval.toCEF()
+    case .success(let retval):
+        retvalPtr!.pointee = retval.toCEF()
         break
-    case .Failure(let excStr):
-        CEFStringSetFromSwiftString(excStr, cefString: excStrPtr)
+    case .failure(let excStr):
+        CEFStringSetFromSwiftString(excStr, cefStringPtr: excStrPtr!)
         break
     }
     

@@ -8,7 +8,7 @@
 
 import Foundation
 
-func CEFTask_execute(ptr: UnsafeMutablePointer<cef_task_t>) {
+func CEFTask_execute(ptr: UnsafeMutablePointer<cef_task_t>?) {
     guard let obj = CEFTaskMarshaller.get(ptr) else {
         return
     }

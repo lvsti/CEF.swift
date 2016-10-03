@@ -8,8 +8,8 @@
 
 import Foundation
 
-func CEFWriteHandler_write(ptr: UnsafeMutablePointer<cef_write_handler_t>,
-                           buffer: UnsafeRawPointer,
+func CEFWriteHandler_write(ptr: UnsafeMutablePointer<cef_write_handler_t>?,
+                           buffer: UnsafeRawPointer?,
                            chunkSize: size_t,
                            count: size_t) -> size_t {
     guard let obj = CEFWriteHandlerMarshaller.get(ptr) else {
@@ -19,7 +19,7 @@ func CEFWriteHandler_write(ptr: UnsafeMutablePointer<cef_write_handler_t>,
     return obj.write(buffer: buffer, chunkSize: chunkSize, count: count)
 }
 
-func CEFWriteHandler_seek(ptr: UnsafeMutablePointer<cef_write_handler_t>,
+func CEFWriteHandler_seek(ptr: UnsafeMutablePointer<cef_write_handler_t>?,
                           offset: Int64,
                           whence: Int32) -> Int32 {
     guard let obj = CEFWriteHandlerMarshaller.get(ptr) else {
@@ -29,7 +29,7 @@ func CEFWriteHandler_seek(ptr: UnsafeMutablePointer<cef_write_handler_t>,
     return obj.seek(offset: offset, whence: CEFSeekPosition(rawValue: whence)!) ? 0 : 1
 }
 
-func CEFWriteHandler_tell(ptr: UnsafeMutablePointer<cef_write_handler_t>) -> Int64 {
+func CEFWriteHandler_tell(ptr: UnsafeMutablePointer<cef_write_handler_t>?) -> Int64 {
     guard let obj = CEFWriteHandlerMarshaller.get(ptr) else {
         return 0
     }
@@ -37,7 +37,7 @@ func CEFWriteHandler_tell(ptr: UnsafeMutablePointer<cef_write_handler_t>) -> Int
     return obj.tell()
 }
 
-func CEFWriteHandler_flush(ptr: UnsafeMutablePointer<cef_write_handler_t>) -> Int32 {
+func CEFWriteHandler_flush(ptr: UnsafeMutablePointer<cef_write_handler_t>?) -> Int32 {
     guard let obj = CEFWriteHandlerMarshaller.get(ptr) else {
         return 0
     }
@@ -45,7 +45,7 @@ func CEFWriteHandler_flush(ptr: UnsafeMutablePointer<cef_write_handler_t>) -> In
     return obj.flush() ? 1 : 0
 }
 
-func CEFWriteHandler_may_block(ptr: UnsafeMutablePointer<cef_write_handler_t>) -> Int32 {
+func CEFWriteHandler_may_block(ptr: UnsafeMutablePointer<cef_write_handler_t>?) -> Int32 {
     guard let obj = CEFWriteHandlerMarshaller.get(ptr) else {
         return 0
     }

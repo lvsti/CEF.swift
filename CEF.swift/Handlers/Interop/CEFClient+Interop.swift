@@ -8,7 +8,7 @@
 
 import Foundation
 
-func CEFClient_get_context_menu_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_context_menu_handler_t> {
+func CEFClient_get_context_menu_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> UnsafeMutablePointer<cef_context_menu_handler_t>? {
     guard let obj = CEFClientMarshaller.get(ptr) else {
         return nil
     }
@@ -20,7 +20,7 @@ func CEFClient_get_context_menu_handler(ptr: UnsafeMutablePointer<cef_client_t>)
     return nil
 }
 
-func CEFClient_get_display_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_display_handler_t> {
+func CEFClient_get_display_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> UnsafeMutablePointer<cef_display_handler_t>? {
     guard let obj = CEFClientMarshaller.get(ptr) else {
         return nil
     }
@@ -32,7 +32,7 @@ func CEFClient_get_display_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> U
     return nil
 }
 
-func CEFClient_get_dialog_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_dialog_handler_t> {
+func CEFClient_get_dialog_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> UnsafeMutablePointer<cef_dialog_handler_t>? {
     guard let obj = CEFClientMarshaller.get(ptr) else {
         return nil
     }
@@ -44,7 +44,7 @@ func CEFClient_get_dialog_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> Un
     return nil
 }
 
-func CEFClient_get_download_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_download_handler_t> {
+func CEFClient_get_download_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> UnsafeMutablePointer<cef_download_handler_t>? {
     guard let obj = CEFClientMarshaller.get(ptr) else {
         return nil
     }
@@ -56,7 +56,7 @@ func CEFClient_get_download_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> 
     return nil
 }
 
-func CEFClient_get_drag_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_drag_handler_t> {
+func CEFClient_get_drag_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> UnsafeMutablePointer<cef_drag_handler_t>? {
     guard let obj = CEFClientMarshaller.get(ptr) else {
         return nil
     }
@@ -68,7 +68,7 @@ func CEFClient_get_drag_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> Unsa
     return nil
 }
 
-func CEFClient_get_find_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_find_handler_t> {
+func CEFClient_get_find_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> UnsafeMutablePointer<cef_find_handler_t>? {
     guard let obj = CEFClientMarshaller.get(ptr) else {
         return nil
     }
@@ -80,7 +80,7 @@ func CEFClient_get_find_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> Unsa
     return nil
 }
 
-func CEFClient_get_focus_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_focus_handler_t> {
+func CEFClient_get_focus_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> UnsafeMutablePointer<cef_focus_handler_t>? {
     guard let obj = CEFClientMarshaller.get(ptr) else {
         return nil
     }
@@ -92,7 +92,7 @@ func CEFClient_get_focus_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> Uns
     return nil
 }
 
-func CEFClient_get_geolocation_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_geolocation_handler_t> {
+func CEFClient_get_geolocation_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> UnsafeMutablePointer<cef_geolocation_handler_t>? {
     guard let obj = CEFClientMarshaller.get(ptr) else {
         return nil
     }
@@ -104,7 +104,7 @@ func CEFClient_get_geolocation_handler(ptr: UnsafeMutablePointer<cef_client_t>) 
     return nil
 }
 
-func CEFClient_get_jsdialog_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_jsdialog_handler_t> {
+func CEFClient_get_jsdialog_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> UnsafeMutablePointer<cef_jsdialog_handler_t>? {
     guard let obj = CEFClientMarshaller.get(ptr) else {
         return nil
     }
@@ -116,7 +116,7 @@ func CEFClient_get_jsdialog_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> 
     return nil
 }
 
-func CEFClient_get_keyboard_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_keyboard_handler_t> {
+func CEFClient_get_keyboard_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> UnsafeMutablePointer<cef_keyboard_handler_t>? {
     guard let obj = CEFClientMarshaller.get(ptr) else {
         return nil
     }
@@ -128,7 +128,7 @@ func CEFClient_get_keyboard_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> 
     return nil
 }
 
-func CEFClient_get_life_span_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_life_span_handler_t> {
+func CEFClient_get_life_span_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> UnsafeMutablePointer<cef_life_span_handler_t>? {
     guard let obj = CEFClientMarshaller.get(ptr) else {
         return nil
     }
@@ -140,7 +140,7 @@ func CEFClient_get_life_span_handler(ptr: UnsafeMutablePointer<cef_client_t>) ->
     return nil
 }
 
-func CEFClient_get_load_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_load_handler_t> {
+func CEFClient_get_load_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> UnsafeMutablePointer<cef_load_handler_t>? {
     guard let obj = CEFClientMarshaller.get(ptr) else {
         return nil
     }
@@ -152,7 +152,7 @@ func CEFClient_get_load_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> Unsa
     return nil
 }
 
-func CEFClient_get_render_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_render_handler_t> {
+func CEFClient_get_render_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> UnsafeMutablePointer<cef_render_handler_t>? {
     guard let obj = CEFClientMarshaller.get(ptr) else {
         return nil
     }
@@ -164,7 +164,7 @@ func CEFClient_get_render_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> Un
     return nil
 }
 
-func CEFClient_get_request_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> UnsafeMutablePointer<cef_request_handler_t> {
+func CEFClient_get_request_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> UnsafeMutablePointer<cef_request_handler_t>? {
     guard let obj = CEFClientMarshaller.get(ptr) else {
         return nil
     }
@@ -176,10 +176,10 @@ func CEFClient_get_request_handler(ptr: UnsafeMutablePointer<cef_client_t>) -> U
     return nil
 }
 
-func CEFClient_on_process_message_received(ptr: UnsafeMutablePointer<cef_client_t>,
-                                           browser: UnsafeMutablePointer<cef_browser_t>,
+func CEFClient_on_process_message_received(ptr: UnsafeMutablePointer<cef_client_t>?,
+                                           browser: UnsafeMutablePointer<cef_browser_t>?,
                                            source: cef_process_id_t,
-                                           message: UnsafeMutablePointer<cef_process_message_t>) -> Int32 {
+                                           message: UnsafeMutablePointer<cef_process_message_t>?) -> Int32 {
     guard let obj = CEFClientMarshaller.get(ptr) else {
         return 0
     }

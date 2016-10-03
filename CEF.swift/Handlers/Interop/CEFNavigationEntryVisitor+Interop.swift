@@ -8,8 +8,8 @@
 
 import Foundation
 
-func CEFNavigationEntryVisitor_visit(ptr: UnsafeMutablePointer<cef_navigation_entry_visitor_t>,
-                                     entry: UnsafeMutablePointer<cef_navigation_entry_t>,
+func CEFNavigationEntryVisitor_visit(ptr: UnsafeMutablePointer<cef_navigation_entry_visitor_t>?,
+                                     entry: UnsafeMutablePointer<cef_navigation_entry_t>?,
                                      isCurrent: Int32,
                                      index: Int32,
                                      totalCount: Int32) -> Int32 {

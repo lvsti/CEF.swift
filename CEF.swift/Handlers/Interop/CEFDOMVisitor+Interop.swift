@@ -8,8 +8,8 @@
 
 import Foundation
 
-func CEFDOMVisitor_visit(ptr: UnsafeMutablePointer<cef_domvisitor_t>,
-                         document: UnsafeMutablePointer<cef_domdocument_t>) {
+func CEFDOMVisitor_visit(ptr: UnsafeMutablePointer<cef_domvisitor_t>?,
+                         document: UnsafeMutablePointer<cef_domdocument_t>?) {
     guard let obj = CEFDOMVisitorMarshaller.get(ptr) else {
         return
     }

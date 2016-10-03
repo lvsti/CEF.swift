@@ -8,12 +8,12 @@
 
 import Foundation
 
-func CEFPDFPrintCallback_on_pdf_print_finished(ptr: UnsafeMutablePointer<cef_pdf_print_callback_t>,
-                                               path: UnsafePointer<cef_string_t>,
+func CEFPDFPrintCallback_on_pdf_print_finished(ptr: UnsafeMutablePointer<cef_pdf_print_callback_t>?,
+                                               path: UnsafePointer<cef_string_t>?,
                                                success: Int32) {
     guard let obj = CEFPDFPrintCallbackMarshaller.get(ptr) else {
         return
     }
     
-    obj.onPDFPrintFinished(path: CEFStringToSwiftString(path.pointee), successfully: success != 0)
+    obj.onPDFPrintFinished(path: CEFStringToSwiftString(path!.pointee), successfully: success != 0)
 }

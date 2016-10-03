@@ -9,11 +9,11 @@
 import Foundation
 
 
-func CEFContextMenuHandler_on_before_context_menu(ptr: UnsafeMutablePointer<cef_context_menu_handler_t>,
-                                                  browser: UnsafeMutablePointer<cef_browser_t>,
-                                                  frame: UnsafeMutablePointer<cef_frame_t>,
-                                                  params: UnsafeMutablePointer<cef_context_menu_params_t>,
-                                                  model: UnsafeMutablePointer<cef_menu_model_t>) {
+func CEFContextMenuHandler_on_before_context_menu(ptr: UnsafeMutablePointer<cef_context_menu_handler_t>?,
+                                                  browser: UnsafeMutablePointer<cef_browser_t>?,
+                                                  frame: UnsafeMutablePointer<cef_frame_t>?,
+                                                  params: UnsafeMutablePointer<cef_context_menu_params_t>?,
+                                                  model: UnsafeMutablePointer<cef_menu_model_t>?) {
     guard let obj = CEFContextMenuHandlerMarshaller.get(ptr) else {
         return
     }
@@ -24,12 +24,12 @@ func CEFContextMenuHandler_on_before_context_menu(ptr: UnsafeMutablePointer<cef_
                             model: CEFMenuModel.fromCEF(model)!)
 }
 
-func CEFContextMenuHandler_run_context_menu(ptr: UnsafeMutablePointer<cef_context_menu_handler_t>,
-                                            browser: UnsafeMutablePointer<cef_browser_t>,
-                                            frame: UnsafeMutablePointer<cef_frame_t>,
-                                            params: UnsafeMutablePointer<cef_context_menu_params_t>,
-                                            model: UnsafeMutablePointer<cef_menu_model_t>,
-                                            callback: UnsafeMutablePointer<cef_run_context_menu_callback_t>) -> Int32 {
+func CEFContextMenuHandler_run_context_menu(ptr: UnsafeMutablePointer<cef_context_menu_handler_t>?,
+                                            browser: UnsafeMutablePointer<cef_browser_t>?,
+                                            frame: UnsafeMutablePointer<cef_frame_t>?,
+                                            params: UnsafeMutablePointer<cef_context_menu_params_t>?,
+                                            model: UnsafeMutablePointer<cef_menu_model_t>?,
+                                            callback: UnsafeMutablePointer<cef_run_context_menu_callback_t>?) -> Int32 {
     guard let obj = CEFContextMenuHandlerMarshaller.get(ptr) else {
         return 0
     }
@@ -42,10 +42,10 @@ func CEFContextMenuHandler_run_context_menu(ptr: UnsafeMutablePointer<cef_contex
     return action == .showCustom ? 1 : 0
 }
 
-func CEFContextMenuHandler_on_context_menu_command(ptr: UnsafeMutablePointer<cef_context_menu_handler_t>,
-                                                   browser: UnsafeMutablePointer<cef_browser_t>,
-                                                   frame: UnsafeMutablePointer<cef_frame_t>,
-                                                   params: UnsafeMutablePointer<cef_context_menu_params_t>,
+func CEFContextMenuHandler_on_context_menu_command(ptr: UnsafeMutablePointer<cef_context_menu_handler_t>?,
+                                                   browser: UnsafeMutablePointer<cef_browser_t>?,
+                                                   frame: UnsafeMutablePointer<cef_frame_t>?,
+                                                   params: UnsafeMutablePointer<cef_context_menu_params_t>?,
                                                    commandID: Int32,
                                                    eventFlags: cef_event_flags_t) -> Int32 {
     guard let obj = CEFContextMenuHandlerMarshaller.get(ptr) else {
@@ -60,9 +60,9 @@ func CEFContextMenuHandler_on_context_menu_command(ptr: UnsafeMutablePointer<cef
     return action == .consume ? 1 : 0
 }
 
-func CEFContextMenuHandler_on_context_menu_dismissed(ptr: UnsafeMutablePointer<cef_context_menu_handler_t>,
-                                                  browser: UnsafeMutablePointer<cef_browser_t>,
-                                                  frame: UnsafeMutablePointer<cef_frame_t>) {
+func CEFContextMenuHandler_on_context_menu_dismissed(ptr: UnsafeMutablePointer<cef_context_menu_handler_t>?,
+                                                  browser: UnsafeMutablePointer<cef_browser_t>?,
+                                                  frame: UnsafeMutablePointer<cef_frame_t>?) {
     guard let obj = CEFContextMenuHandlerMarshaller.get(ptr) else {
         return
     }

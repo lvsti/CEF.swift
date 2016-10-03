@@ -8,7 +8,7 @@
 
 import Foundation
 
-func CEFSetCookieCallback_on_complete(ptr: UnsafeMutablePointer<cef_set_cookie_callback_t>,
+func CEFSetCookieCallback_on_complete(ptr: UnsafeMutablePointer<cef_set_cookie_callback_t>?,
                                       success: Int32) {
     guard let obj = CEFSetCookieCallbackMarshaller.get(ptr) else {
         return

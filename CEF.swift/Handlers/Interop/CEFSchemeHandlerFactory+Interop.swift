@@ -8,18 +8,18 @@
 
 import Foundation
 
-func CEFSchemeHandlerFactory_create(ptr: UnsafeMutablePointer<cef_scheme_handler_factory_t>,
-                                    browser: UnsafeMutablePointer<cef_browser_t>,
-                                    frame: UnsafeMutablePointer<cef_frame_t>,
-                                    scheme: UnsafePointer<cef_string_t>,
-                                    request: UnsafeMutablePointer<cef_request_t>) -> UnsafeMutablePointer<cef_resource_handler_t> {
+func CEFSchemeHandlerFactory_create(ptr: UnsafeMutablePointer<cef_scheme_handler_factory_t>?,
+                                    browser: UnsafeMutablePointer<cef_browser_t>?,
+                                    frame: UnsafeMutablePointer<cef_frame_t>?,
+                                    scheme: UnsafePointer<cef_string_t>?,
+                                    request: UnsafeMutablePointer<cef_request_t>?) -> UnsafeMutablePointer<cef_resource_handler_t>? {
     guard let obj = CEFSchemeHandlerFactoryMarshaller.get(ptr) else {
         return nil
     }
 
     if let handler = obj.create(browser: CEFBrowser.fromCEF(browser),
                                 frame: CEFFrame.fromCEF(frame),
-                                scheme: CEFStringToSwiftString(scheme.pointee),
+                                scheme: CEFStringToSwiftString(scheme!.pointee),
                                 request: CEFRequest.fromCEF(request)!) {
         return handler.toCEF()
     }

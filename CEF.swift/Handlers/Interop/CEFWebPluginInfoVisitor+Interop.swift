@@ -8,8 +8,8 @@
 
 import Foundation
 
-func CEFWebPluginInfoVisitor_visit(ptr: UnsafeMutablePointer<cef_web_plugin_info_visitor_t>,
-                                   pluginInfo: UnsafeMutablePointer<cef_web_plugin_info_t>,
+func CEFWebPluginInfoVisitor_visit(ptr: UnsafeMutablePointer<cef_web_plugin_info_visitor_t>?,
+                                   pluginInfo: UnsafeMutablePointer<cef_web_plugin_info_t>?,
                                    index: Int32,
                                    totalCount: Int32) -> Int32 {
     guard let obj = CEFWebPluginInfoVisitorMarshaller.get(ptr) else {

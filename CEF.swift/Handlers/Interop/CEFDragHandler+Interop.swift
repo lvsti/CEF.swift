@@ -8,9 +8,9 @@
 
 import Foundation
 
-func CEFDragHandler_on_drag_enter(ptr: UnsafeMutablePointer<cef_drag_handler_t>,
-                                  browser: UnsafeMutablePointer<cef_browser_t>,
-                                  dragData: UnsafeMutablePointer<cef_drag_data_t>,
+func CEFDragHandler_on_drag_enter(ptr: UnsafeMutablePointer<cef_drag_handler_t>?,
+                                  browser: UnsafeMutablePointer<cef_browser_t>?,
+                                  dragData: UnsafeMutablePointer<cef_drag_data_t>?,
                                   mask: cef_drag_operations_mask_t) -> Int32 {
     guard let obj = CEFDragHandlerMarshaller.get(ptr) else {
         return 0
@@ -22,17 +22,17 @@ func CEFDragHandler_on_drag_enter(ptr: UnsafeMutablePointer<cef_drag_handler_t>,
     return action == .cancel ? 1 : 0
 }
 
-func CEFDragHandler_on_draggable_regions_changed(ptr: UnsafeMutablePointer<cef_drag_handler_t>,
-                                                 browser: UnsafeMutablePointer<cef_browser_t>,
+func CEFDragHandler_on_draggable_regions_changed(ptr: UnsafeMutablePointer<cef_drag_handler_t>?,
+                                                 browser: UnsafeMutablePointer<cef_browser_t>?,
                                                  count: size_t,
-                                                 cefRegions: UnsafePointer<cef_draggable_region_t>) {
+                                                 cefRegions: UnsafePointer<cef_draggable_region_t>?) {
     guard let obj = CEFDragHandlerMarshaller.get(ptr) else {
         return
     }
     
     var regions = [CEFDraggableRegion]()
     for i in 0..<count {
-        regions.append(CEFDraggableRegion.fromCEF(cefRegions.advanced(by: i).pointee))
+        regions.append(CEFDraggableRegion.fromCEF(cefRegions!.advanced(by: i).pointee))
     }
     
     obj.onDraggableRegionsChanged(browser: CEFBrowser.fromCEF(browser)!, regions: regions)

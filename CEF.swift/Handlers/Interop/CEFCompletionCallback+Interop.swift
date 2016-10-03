@@ -8,7 +8,7 @@
 
 import Foundation
 
-func CEFCompletionCallback_on_complete(ptr: UnsafeMutablePointer<cef_completion_callback_t>) {
+func CEFCompletionCallback_on_complete(ptr: UnsafeMutablePointer<cef_completion_callback_t>?) {
     guard let obj = CEFCompletionCallbackMarshaller.get(ptr) else {
         return
     }

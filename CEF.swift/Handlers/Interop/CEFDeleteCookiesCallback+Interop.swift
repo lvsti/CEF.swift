@@ -8,7 +8,7 @@
 
 import Foundation
 
-func CEFDeleteCookiesCallback_on_complete(ptr: UnsafeMutablePointer<cef_delete_cookies_callback_t>,
+func CEFDeleteCookiesCallback_on_complete(ptr: UnsafeMutablePointer<cef_delete_cookies_callback_t>?,
                                           deletedCount: Int32) {
     guard let obj = CEFDeleteCookiesCallbackMarshaller.get(ptr) else {
         return
