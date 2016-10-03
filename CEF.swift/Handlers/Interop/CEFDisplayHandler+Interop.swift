@@ -66,7 +66,7 @@ func CEFDisplayHandler_on_tooltip(ptr: UnsafeMutablePointer<cef_display_handler_
     let action = obj.onTooltip(browser: CEFBrowser.fromCEF(browser)!, text: &text)
     
     if let text = text {
-        CEFStringSetFromSwiftString(text, cefString: textPtr)
+        CEFStringSetFromSwiftString(text, cefStringPtr: textPtr)
     }
     
     return action == .showCustom ? 1 : 0

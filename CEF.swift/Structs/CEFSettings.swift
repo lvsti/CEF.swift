@@ -204,29 +204,29 @@ extension CEFSettings {
         cefStruct.size = MemoryLayout<cef_settings_t>.stride
         cefStruct.single_process = singleProcess ? 1 : 0
         cefStruct.no_sandbox = noSandbox ? 1 : 0
-        CEFStringSetFromSwiftString(browserSubprocessPath, cefString: &cefStruct.browser_subprocess_path)
+        CEFStringSetFromSwiftString(browserSubprocessPath, cefStringPtr: &cefStruct.browser_subprocess_path)
         cefStruct.multi_threaded_message_loop = multiThreadedMessageLoop ? 1 : 0
         cefStruct.windowless_rendering_enabled = windowlessRenderingEnabled ? 1 : 0
         cefStruct.command_line_args_disabled = commandLineArgsDisabled ? 1 : 0
-        CEFStringSetFromSwiftString(cachePath, cefString: &cefStruct.cache_path)
-        CEFStringSetFromSwiftString(userDataPath, cefString: &cefStruct.user_data_path)
+        CEFStringSetFromSwiftString(cachePath, cefStringPtr: &cefStruct.cache_path)
+        CEFStringSetFromSwiftString(userDataPath, cefStringPtr: &cefStruct.user_data_path)
         cefStruct.persist_session_cookies = persistSessionCookies ? 1 : 0
         cefStruct.persist_user_preferences = persistUserPreferences ? 1 : 0
-        CEFStringSetFromSwiftString(userAgent, cefString: &cefStruct.user_agent)
-        CEFStringSetFromSwiftString(productVersion, cefString: &cefStruct.product_version)
-        CEFStringSetFromSwiftString(locale, cefString: &cefStruct.locale)
-        CEFStringSetFromSwiftString(logFile, cefString: &cefStruct.log_file)
+        CEFStringSetFromSwiftString(userAgent, cefStringPtr: &cefStruct.user_agent)
+        CEFStringSetFromSwiftString(productVersion, cefStringPtr: &cefStruct.product_version)
+        CEFStringSetFromSwiftString(locale, cefStringPtr: &cefStruct.locale)
+        CEFStringSetFromSwiftString(logFile, cefStringPtr: &cefStruct.log_file)
         cefStruct.log_severity = logSeverity.toCEF()
-        CEFStringSetFromSwiftString(javascriptFlags, cefString: &cefStruct.javascript_flags)
-        CEFStringSetFromSwiftString(resourcesDirPath, cefString: &cefStruct.resources_dir_path)
-        CEFStringSetFromSwiftString(localesDirPath, cefString: &cefStruct.locales_dir_path)
+        CEFStringSetFromSwiftString(javascriptFlags, cefStringPtr: &cefStruct.javascript_flags)
+        CEFStringSetFromSwiftString(resourcesDirPath, cefStringPtr: &cefStruct.resources_dir_path)
+        CEFStringSetFromSwiftString(localesDirPath, cefStringPtr: &cefStruct.locales_dir_path)
         cefStruct.pack_loading_disabled = packLoadingDisabled ? 1 : 0
         cefStruct.remote_debugging_port = Int32(remoteDebuggingPort)
         cefStruct.uncaught_exception_stack_size = Int32(uncaughtExceptionStackSize)
         cefStruct.context_safety_implementation = contextSafetyImplementation.toCEF()
         cefStruct.ignore_certificate_errors = ignoreCertificateErrors ? 1 : 0
         cefStruct.background_color = backgroundColor.toCEF()
-        CEFStringSetFromSwiftString(acceptLanguageList, cefString: &cefStruct.accept_language_list)
+        CEFStringSetFromSwiftString(acceptLanguageList, cefStringPtr: &cefStruct.accept_language_list)
         
         return cefStruct
     }

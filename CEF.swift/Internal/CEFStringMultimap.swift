@@ -46,9 +46,9 @@ func CEFStringMultimapCreateFromSwiftDictionaryOfArrays(_ dictionary: [String: [
     }
     
     for (key, values) in dictionary {
-        CEFStringSetFromSwiftString(key, cefString: &cefKey)
+        CEFStringSetFromSwiftString(key, cefStringPtr: &cefKey)
         for value in values {
-            CEFStringSetFromSwiftString(value, cefString: &cefValue)
+            CEFStringSetFromSwiftString(value, cefStringPtr: &cefValue)
             cef_string_multimap_append(multimap, &cefKey, &cefValue)
         }
     }

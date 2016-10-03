@@ -42,8 +42,8 @@ func CEFStringMapCreateFromSwiftDictionary(_ dictionary: [String:String]) -> cef
     }
 
     for (key, value) in dictionary {
-        CEFStringSetFromSwiftString(key, cefString: &cefKey)
-        CEFStringSetFromSwiftString(value, cefString: &cefValue)
+        CEFStringSetFromSwiftString(key, cefStringPtr: &cefKey)
+        CEFStringSetFromSwiftString(value, cefStringPtr: &cefValue)
 
         cef_string_map_append(cefMap, &cefKey, &cefValue)
     }

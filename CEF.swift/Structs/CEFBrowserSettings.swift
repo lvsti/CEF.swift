@@ -147,17 +147,17 @@ extension CEFBrowserSettings {
         cefStruct.size = MemoryLayout<cef_browser_settings_t>.stride
         
         cefStruct.windowless_frame_rate = windowlessFrameRate
-        CEFStringSetFromSwiftString(standardFontFamily, cefString: &cefStruct.standard_font_family)
-        CEFStringSetFromSwiftString(fixedFontFamily, cefString: &cefStruct.fixed_font_family)
-        CEFStringSetFromSwiftString(serifFontFamily, cefString: &cefStruct.serif_font_family)
-        CEFStringSetFromSwiftString(sansSerifFontFamily, cefString: &cefStruct.sans_serif_font_family)
-        CEFStringSetFromSwiftString(cursiveFontFamily, cefString: &cefStruct.cursive_font_family)
-        CEFStringSetFromSwiftString(fantasyFontFamily, cefString: &cefStruct.fantasy_font_family)
+        CEFStringSetFromSwiftString(standardFontFamily, cefStringPtr: &cefStruct.standard_font_family)
+        CEFStringSetFromSwiftString(fixedFontFamily, cefStringPtr: &cefStruct.fixed_font_family)
+        CEFStringSetFromSwiftString(serifFontFamily, cefStringPtr: &cefStruct.serif_font_family)
+        CEFStringSetFromSwiftString(sansSerifFontFamily, cefStringPtr: &cefStruct.sans_serif_font_family)
+        CEFStringSetFromSwiftString(cursiveFontFamily, cefStringPtr: &cefStruct.cursive_font_family)
+        CEFStringSetFromSwiftString(fantasyFontFamily, cefStringPtr: &cefStruct.fantasy_font_family)
         cefStruct.default_font_size = defaultFontSize
         cefStruct.default_fixed_font_size = defaultFixedFontSize
         cefStruct.minimum_font_size = minimumFontSize
         cefStruct.minimum_logical_font_size = minimumLogicalFontSize
-        CEFStringSetFromSwiftString(defaultEncoding, cefString: &cefStruct.default_encoding)
+        CEFStringSetFromSwiftString(defaultEncoding, cefStringPtr: &cefStruct.default_encoding)
         cefStruct.remote_fonts = remoteFonts.toCEF()
         cefStruct.javascript = javascript.toCEF()
         cefStruct.javascript_open_windows = javascriptOpenWindows.toCEF()
@@ -178,7 +178,7 @@ extension CEFBrowserSettings {
         cefStruct.application_cache = applicationCache.toCEF()
         cefStruct.webgl = webGL.toCEF()
         cefStruct.background_color = backgroundColor.toCEF()
-        CEFStringSetFromSwiftString(acceptLanguageList, cefString: &cefStruct.accept_language_list)
+        CEFStringSetFromSwiftString(acceptLanguageList, cefStringPtr: &cefStruct.accept_language_list)
         
         return cefStruct
     }

@@ -15,7 +15,7 @@ func CEFStringListCreateFromSwiftArray(_ array: [String]) -> cef_string_list_t {
     defer { cef_string_utf16_clear(&cefStr) }
     
     for item in array {
-        CEFStringSetFromSwiftString(item, cefString: &cefStr)
+        CEFStringSetFromSwiftString(item, cefStringPtr: &cefStr)
         cef_string_list_append(cefList, &cefStr)
     }
     

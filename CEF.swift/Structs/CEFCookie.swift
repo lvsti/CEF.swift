@@ -53,16 +53,16 @@ extension CEFCookie {
     func toCEF() -> cef_cookie_t {
         var cefStruct = cef_cookie_t()
 
-        CEFStringSetFromSwiftString(name, cefString: &cefStruct.name)
-        CEFStringSetFromSwiftString(value, cefString: &cefStruct.value)
-        CEFStringSetFromSwiftString(domain, cefString: &cefStruct.domain)
-        CEFStringSetFromSwiftString(path, cefString: &cefStruct.path)
+        CEFStringSetFromSwiftString(name, cefStringPtr: &cefStruct.name)
+        CEFStringSetFromSwiftString(value, cefStringPtr: &cefStruct.value)
+        CEFStringSetFromSwiftString(domain, cefStringPtr: &cefStruct.domain)
+        CEFStringSetFromSwiftString(path, cefStringPtr: &cefStruct.path)
         cefStruct.secure = secure ? 1 : 0
         cefStruct.httponly = httpOnly ? 1 : 0
-        CEFTimeSetFromNSDate(creation, cefTime: &cefStruct.creation)
-        CEFTimeSetFromNSDate(lastAccess, cefTime: &cefStruct.last_access)
+        CEFTimeSetFromNSDate(creation, cefTimePtr: &cefStruct.creation)
+        CEFTimeSetFromNSDate(lastAccess, cefTimePtr: &cefStruct.last_access)
         cefStruct.has_expires = hasExpires ? 1 : 0
-        CEFTimeSetFromNSDate(expires, cefTime: &cefStruct.expires)
+        CEFTimeSetFromNSDate(expires, cefTimePtr: &cefStruct.expires)
         
         return cefStruct
     }

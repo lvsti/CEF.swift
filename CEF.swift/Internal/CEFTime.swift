@@ -17,15 +17,17 @@ func CEFTimeToNSDate(_ cefTime: cef_time_t) -> NSDate {
 
 func CEFTimePtrCreateFromNSDate(_ date: NSDate) -> UnsafeMutablePointer<cef_time_t> {
     let cefTime = UnsafeMutablePointer<cef_time_t>.allocate(capacity: 1)
-    CEFTimeSetFromNSDate(date, cefTime: cefTime)
+    CEFTimeSetFromNSDate(date, cefTimePtr: cefTime)
     return cefTime
 }
 
-func CEFTimePtrRelease(_ ptr: UnsafeMutablePointer<cef_time_t>) {
-    ptr.deallocate(capacity: 1)
+func CEFTimePtrRelease(_ ptr: UnsafeMutablePointer<cef_time_t>?) {
+    if let ptr = ptr {
+        ptr.deallocate(capacity: 1)
+    }
 }
 
-func CEFTimeSetFromNSDate(_ date: NSDate, cefTime ptr: UnsafeMutablePointer<cef_time_t>) {
+func CEFTimeSetFromNSDate(_ date: NSDate, cefTimePtr ptr: UnsafeMutablePointer<cef_time_t>) {
     cef_time_from_doublet(date.timeIntervalSince1970, ptr)
 }
 

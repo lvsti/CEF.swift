@@ -47,7 +47,7 @@ extension CEFWindowInfo {
     func toCEF() -> cef_window_info_t {
         var cefStruct = cef_window_info_t()
         
-        CEFStringSetFromSwiftString(windowName, cefString: &cefStruct.window_name)
+        CEFStringSetFromSwiftString(windowName, cefStringPtr: &cefStruct.window_name)
         cefStruct.x = Int32(rect.origin.x)
         cefStruct.y = Int32(rect.origin.y)
         cefStruct.width = Int32(rect.size.width)

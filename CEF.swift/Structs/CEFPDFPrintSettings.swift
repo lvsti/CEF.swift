@@ -51,10 +51,10 @@ extension CEFPDFPrintSettings {
         if let headerFooter = headerFooter {
             cefStruct.header_footer_enabled = 1
             if headerFooter.title != nil {
-                CEFStringSetFromSwiftString(headerFooter.title!, cefString: &cefStruct.header_footer_title)
+                CEFStringSetFromSwiftString(headerFooter.title!, cefStringPtr: &cefStruct.header_footer_title)
             }
             if headerFooter.url != nil {
-                CEFStringSetFromSwiftString(headerFooter.url!.absoluteString!, cefString: &cefStruct.header_footer_title)
+                CEFStringSetFromSwiftString(headerFooter.url!.absoluteString!, cefStringPtr: &cefStruct.header_footer_title)
             }
         }
         

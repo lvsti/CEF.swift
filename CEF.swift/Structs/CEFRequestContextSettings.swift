@@ -57,11 +57,11 @@ extension CEFRequestContextSettings {
     func toCEF() -> cef_request_context_settings_t {
         var cefStruct = cef_request_context_settings_t()
         
-        CEFStringSetFromSwiftString(cachePath, cefString: &cefStruct.cache_path)
+        CEFStringSetFromSwiftString(cachePath, cefStringPtr: &cefStruct.cache_path)
         cefStruct.persist_session_cookies = persistSessionCookies ? 1 : 0
         cefStruct.persist_user_preferences = persistUserPreferences ? 1 : 0
         cefStruct.ignore_certificate_errors = ignoreCertificateErrors ? 1 : 0
-        CEFStringSetFromSwiftString(acceptLanguageList, cefString: &cefStruct.accept_language_list)
+        CEFStringSetFromSwiftString(acceptLanguageList, cefStringPtr: &cefStruct.accept_language_list)
         
         return cefStruct
     }
