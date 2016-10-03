@@ -15,11 +15,11 @@ extension cef_resource_bundle_t: CEFObject {}
 /// related to resource bundle loading. The methods of this class may be called
 /// on any thread unless otherwise indicated.
 public class CEFResourceBundle: CEFProxy<cef_resource_bundle_t> {
-    override init?(ptr: UnsafeMutablePointer<cef_resource_bundle_t>) {
+    override init?(ptr: UnsafeMutablePointer<cef_resource_bundle_t>?) {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_resource_bundle_t>) -> CEFResourceBundle? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_resource_bundle_t>?) -> CEFResourceBundle? {
         return CEFResourceBundle(ptr: ptr)
     }
 }

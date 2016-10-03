@@ -11,11 +11,11 @@ extension cef_print_dialog_callback_t: CEFObject {}
 
 /// Callback interface for asynchronous continuation of print dialog requests.
 public class CEFPrintDialogCallback: CEFProxy<cef_print_dialog_callback_t> {
-    override init?(ptr: UnsafeMutablePointer<cef_print_dialog_callback_t>) {
+    override init?(ptr: UnsafeMutablePointer<cef_print_dialog_callback_t>?) {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_print_dialog_callback_t>) -> CEFPrintDialogCallback? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_print_dialog_callback_t>?) -> CEFPrintDialogCallback? {
         return CEFPrintDialogCallback(ptr: ptr)
     }
 }

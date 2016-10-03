@@ -14,11 +14,11 @@ extension cef_browser_t: CEFObject {}
 /// indicated in the comments. When used in the render process the methods of
 /// this class may only be called on the main thread.
 public class CEFBrowser: CEFProxy<cef_browser_t> {
-    override init?(ptr: UnsafeMutablePointer<cef_browser_t>) {
+    override init?(ptr: UnsafeMutablePointer<cef_browser_t>?) {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_browser_t>) -> CEFBrowser? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_browser_t>?) -> CEFBrowser? {
         return CEFBrowser(ptr: ptr)
     }
 }

@@ -11,11 +11,11 @@ extension cef_print_job_callback_t: CEFObject {}
 
 /// Callback interface for asynchronous continuation of print job requests.
 public class CEFPrintJobCallback: CEFProxy<cef_print_job_callback_t> {
-    override init?(ptr: UnsafeMutablePointer<cef_print_job_callback_t>) {
+    override init?(ptr: UnsafeMutablePointer<cef_print_job_callback_t>?) {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_print_job_callback_t>) -> CEFPrintJobCallback? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_print_job_callback_t>?) -> CEFPrintJobCallback? {
         return CEFPrintJobCallback(ptr: ptr)
     }
 }

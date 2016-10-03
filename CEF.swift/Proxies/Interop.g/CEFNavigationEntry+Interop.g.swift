@@ -11,11 +11,11 @@ extension cef_navigation_entry_t: CEFObject {}
 
 /// Class used to represent an entry in navigation history.
 public class CEFNavigationEntry: CEFProxy<cef_navigation_entry_t> {
-    override init?(ptr: UnsafeMutablePointer<cef_navigation_entry_t>) {
+    override init?(ptr: UnsafeMutablePointer<cef_navigation_entry_t>?) {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_navigation_entry_t>) -> CEFNavigationEntry? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_navigation_entry_t>?) -> CEFNavigationEntry? {
         return CEFNavigationEntry(ptr: ptr)
     }
 }

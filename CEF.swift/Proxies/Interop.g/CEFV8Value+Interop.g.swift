@@ -15,11 +15,11 @@ extension cef_v8value_t: CEFObject {}
 /// A task runner for posting tasks on the associated thread can be retrieved via
 /// the CefV8Context::GetTaskRunner() method.
 public class CEFV8Value: CEFProxy<cef_v8value_t> {
-    override init?(ptr: UnsafeMutablePointer<cef_v8value_t>) {
+    override init?(ptr: UnsafeMutablePointer<cef_v8value_t>?) {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_v8value_t>) -> CEFV8Value? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_v8value_t>?) -> CEFV8Value? {
         return CEFV8Value(ptr: ptr)
     }
 }

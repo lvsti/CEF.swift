@@ -13,11 +13,11 @@ extension cef_zip_reader_t: CEFObject {}
 /// The methods of this class should only be called on the thread that creates
 /// the object.
 public class CEFZipReader: CEFProxy<cef_zip_reader_t> {
-    override init?(ptr: UnsafeMutablePointer<cef_zip_reader_t>) {
+    override init?(ptr: UnsafeMutablePointer<cef_zip_reader_t>?) {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(ptr: UnsafeMutablePointer<cef_zip_reader_t>) -> CEFZipReader? {
+    static func fromCEF(ptr: UnsafeMutablePointer<cef_zip_reader_t>?) -> CEFZipReader? {
         return CEFZipReader(ptr: ptr)
     }
 }

@@ -24,11 +24,11 @@ def make_proxy_stub(capi_name, swift_name):
     # class declaration
     return '''
 public class %s: CEFProxy<%s> {
-    override init?(ptr: UnsafeMutablePointer<%s>) {
+    override init?(ptr: UnsafeMutablePointer<%s>?) {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(_ ptr: UnsafeMutablePointer<%s>) -> %s? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<%s>?) -> %s? {
         return %s(ptr: ptr)
     }
 }

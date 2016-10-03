@@ -16,11 +16,11 @@ extension cef_image_t: CEFObject {}
 /// will display with a DIP size of 100x100 units. The methods of this class must
 /// be called on the browser process UI thread.
 public class CEFImage: CEFProxy<cef_image_t> {
-    override init?(ptr: UnsafeMutablePointer<cef_image_t>) {
+    override init?(ptr: UnsafeMutablePointer<cef_image_t>?) {
         super.init(ptr: ptr)
     }
     
-    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_image_t>) -> CEFImage? {
+    static func fromCEF(_ ptr: UnsafeMutablePointer<cef_image_t>?) -> CEFImage? {
         return CEFImage(ptr: ptr)
     }
 }
