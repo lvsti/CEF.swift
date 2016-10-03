@@ -9,7 +9,7 @@
 import Foundation
 
 func CEFWriteHandler_write(ptr: UnsafeMutablePointer<cef_write_handler_t>,
-                           buffer: UnsafePointer<Void>,
+                           buffer: UnsafeRawPointer,
                            chunkSize: size_t,
                            count: size_t) -> size_t {
     guard let obj = CEFWriteHandlerMarshaller.get(ptr) else {

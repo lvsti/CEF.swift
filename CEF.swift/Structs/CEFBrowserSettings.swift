@@ -144,7 +144,7 @@ extension CEFBrowserSettings {
     func toCEF() -> cef_browser_settings_t {
         var cefStruct = cef_browser_settings_t()
         
-        cefStruct.size = strideof(cef_browser_settings_t)
+        cefStruct.size = MemoryLayout<cef_browser_settings_t>.stride
         
         cefStruct.windowless_frame_rate = windowlessFrameRate
         CEFStringSetFromSwiftString(standardFontFamily, cefString: &cefStruct.standard_font_family)

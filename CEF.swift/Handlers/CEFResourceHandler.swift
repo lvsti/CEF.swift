@@ -68,7 +68,7 @@ public protocol CEFResourceHandler {
     /// bytes copied, and return true. To read the data at a later time set
     /// |bytes_read| to 0, return true and call CefCallback::Continue() when the
     /// data is available. To indicate response completion return false.
-    func onReadResponse(buffer: UnsafeMutablePointer<Void>,
+    func onReadResponse(buffer: UnsafeMutableRawPointer,
                         bufferLength: Int,
                         callback: CEFCallback) -> CEFOnReadResponseAction
     
@@ -96,7 +96,7 @@ public extension CEFResourceHandler {
         return .continueWithUnknownResponseLength
     }
     
-    func onReadResponse(buffer: UnsafeMutablePointer<Void>,
+    func onReadResponse(buffer: UnsafeMutableRawPointer,
                         bufferLength: Int,
                         callback: CEFCallback) -> CEFOnReadResponseAction {
         return .complete

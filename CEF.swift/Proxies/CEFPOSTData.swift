@@ -42,7 +42,7 @@ public extension CEFPOSTData {
         
         var elements = [CEFPOSTDataElement]()
         for i in 0..<count {
-            let cefPDEPtr = cefElements.advancedBy(i)
+            let cefPDEPtr = cefElements.advanced(by: i)
             if let pde = CEFPOSTDataElement.fromCEF(cefPDEPtr) {
                 elements.append(pde)
             }

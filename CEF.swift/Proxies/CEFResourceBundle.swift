@@ -31,8 +31,8 @@ extension CEFResourceBundle {
     /// will return false. The returned |data| pointer will remain resident in
     /// memory and should not be freed. Include cef_pack_resources.h for a listing
     /// of valid resource ID values.
-    public func dataResourceForID(resourceID: Int) -> (dataBufferPtr: UnsafeMutablePointer<Void>, dataSize: size_t)? {
-        var dataPtr: UnsafeMutablePointer<Void> = nil
+    public func dataResourceForID(resourceID: Int) -> (dataBufferPtr: UnsafeMutableRawPointer, dataSize: size_t)? {
+        var dataPtr: UnsafeMutableRawPointer = nil
         var size: size_t = 0
         let result = cefObject.get_data_resource(cefObjectPtr, Int32(resourceID), &dataPtr, &size)
         return result != 0 ? (dataPtr, size) : nil
@@ -46,8 +46,8 @@ extension CEFResourceBundle {
     /// The returned |data| pointer will remain resident in memory and should not
     /// be freed. Include cef_pack_resources.h for a listing of valid resource ID
     /// values.
-    public func dataResourceForID(resourceID: Int, scale: CEFScaleFactor) -> (dataBufferPtr: UnsafeMutablePointer<Void>, dataSize: size_t)? {
-        var dataPtr: UnsafeMutablePointer<Void> = nil
+    public func dataResourceForID(resourceID: Int, scale: CEFScaleFactor) -> (dataBufferPtr: UnsafeMutableRawPointer, dataSize: size_t)? {
+        var dataPtr: UnsafeMutableRawPointer = nil
         var size: size_t = 0
         let result = cefObject.get_data_resource_for_scale(cefObjectPtr,
                                                            Int32(resourceID),

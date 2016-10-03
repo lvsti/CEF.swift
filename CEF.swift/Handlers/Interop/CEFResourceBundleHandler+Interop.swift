@@ -25,7 +25,7 @@ func CEFResourceBundleHandler_get_localized_string(ptr: UnsafeMutablePointer<cef
 
 func CEFResourceBundleHandler_get_data_resource(ptr: UnsafeMutablePointer<cef_resource_bundle_handler_t>,
                                                 resourceID: Int32,
-                                                dataBufferPtr: UnsafeMutablePointer<UnsafeMutablePointer<Void>>,
+                                                dataBufferPtr: UnsafeMutablePointer<UnsafeMutableRawPointer>,
                                                 dataSizePtr: UnsafeMutablePointer<size_t>) -> Int32 {
     guard let obj = CEFResourceBundleHandlerMarshaller.get(ptr) else {
         return 0
@@ -43,7 +43,7 @@ func CEFResourceBundleHandler_get_data_resource(ptr: UnsafeMutablePointer<cef_re
 func CEFResourceBundleHandler_get_data_resource_for_scale(ptr: UnsafeMutablePointer<cef_resource_bundle_handler_t>,
                                                           resourceID: Int32,
                                                           scaleFactor: cef_scale_factor_t,
-                                                          dataBufferPtr: UnsafeMutablePointer<UnsafeMutablePointer<Void>>,
+                                                          dataBufferPtr: UnsafeMutablePointer<UnsafeMutableRawPointer>,
                                                           dataSizePtr: UnsafeMutablePointer<size_t>) -> Int32 {
     guard let obj = CEFResourceBundleHandlerMarshaller.get(ptr) else {
         return 0

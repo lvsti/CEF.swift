@@ -201,7 +201,7 @@ extension CEFSettings {
     func toCEF() -> cef_settings_t {
         var cefStruct = cef_settings_t()
         
-        cefStruct.size = strideof(cef_settings_t)
+        cefStruct.size = MemoryLayout<cef_settings_t>.stride
         cefStruct.single_process = singleProcess ? 1 : 0
         cefStruct.no_sandbox = noSandbox ? 1 : 0
         CEFStringSetFromSwiftString(browserSubprocessPath, cefString: &cefStruct.browser_subprocess_path)

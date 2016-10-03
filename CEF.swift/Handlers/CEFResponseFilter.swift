@@ -39,9 +39,9 @@ public protocol CEFResponseFilter {
     /// the method returns RESPONSE_FILTER_DONE or RESPONSE_FILTER_ERROR. Do not
     /// keep a reference to the buffers passed to this method.
     /*--cef(optional_param=data_in,default_retval=RESPONSE_FILTER_ERROR)--*/
-    func filterResponseChunk(inputChunk: UnsafePointer<Void>,
+    func filterResponseChunk(inputChunk: UnsafeRawPointer,
                              ofSize: size_t,
-                             intoBuffer: UnsafeMutablePointer<Void>,
+                             intoBuffer: UnsafeMutableRawPointer,
                              ofCapacity: size_t) -> (bytesRead: size_t, bytesWriten: size_t, status: CEFResponseFilterStatus)
     
 }
@@ -52,9 +52,9 @@ public extension CEFResponseFilter {
         return .cancel
     }
 
-    func filterResponseChunk(inputChunk: UnsafePointer<Void>,
+    func filterResponseChunk(inputChunk: UnsafeRawPointer,
                              ofSize: size_t,
-                             intoBuffer: UnsafeMutablePointer<Void>,
+                             intoBuffer: UnsafeMutableRawPointer,
                              ofCapacity: size_t) -> (bytesRead: size_t, bytesWriten: size_t, status: CEFResponseFilterStatus) {
         return (0, 0, .error)
     }

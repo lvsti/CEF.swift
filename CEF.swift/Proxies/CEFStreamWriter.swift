@@ -23,7 +23,7 @@ public extension CEFStreamWriter {
     }
     
     /// Write raw binary data.
-    func write(buffer: UnsafePointer<Void>, chunkSize: size_t, count: size_t) -> size_t {
+    func write(buffer: UnsafeRawPointer, chunkSize: size_t, count: size_t) -> size_t {
         return cefObject.write(cefObjectPtr, buffer, chunkSize, count)
     }
 

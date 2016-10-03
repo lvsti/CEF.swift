@@ -45,7 +45,7 @@ public extension CEFCommandLine {
     public func initFromArguments(arguments: [String]) {
         let argv = CEFArgVFromArguments(arguments)
         cefObject.init_from_argv(cefObjectPtr, Int32(arguments.count), argv)
-        argv.dealloc(arguments.count)
+        argv.deallocate(capacity: arguments.count)
     }
     
     /// Initialize the command line with the string returned by calling

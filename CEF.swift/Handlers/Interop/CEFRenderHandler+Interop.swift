@@ -98,7 +98,7 @@ func CEFRenderHandler_on_paint(ptr: UnsafeMutablePointer<cef_render_handler_t>,
                                type: cef_paint_element_type_t,
                                rectCount: size_t,
                                cefRects: UnsafePointer<cef_rect_t>,
-                               buffer: UnsafePointer<Void>,
+                               buffer: UnsafeRawPointer,
                                width: Int32,
                                height: Int32) {
     guard let obj = CEFRenderHandlerMarshaller.get(ptr) else {
@@ -107,7 +107,7 @@ func CEFRenderHandler_on_paint(ptr: UnsafeMutablePointer<cef_render_handler_t>,
     
     var rects = [NSRect]()
     for i in 0..<rectCount {
-        rects.append(NSRect.fromCEF(cefRects.advancedBy(i).pointee))
+        rects.append(NSRect.fromCEF(cefRects.advanced(by: i).pointee))
     }
     
     obj.onPaint(browser: CEFBrowser.fromCEF(browser)!,
@@ -119,7 +119,7 @@ func CEFRenderHandler_on_paint(ptr: UnsafeMutablePointer<cef_render_handler_t>,
 
 func CEFRenderHandler_on_cursor_change(ptr: UnsafeMutablePointer<cef_render_handler_t>,
                                        browser: UnsafeMutablePointer<cef_browser_t>,
-                                       cursor: UnsafeMutablePointer<Void>,
+                                       cursor: UnsafeMutableRawPointer,
                                        type: cef_cursor_type_t,
                                        info: UnsafePointer<cef_cursor_info_t>) {
     guard let obj = CEFRenderHandlerMarshaller.get(ptr) else {
@@ -127,7 +127,7 @@ func CEFRenderHandler_on_cursor_change(ptr: UnsafeMutablePointer<cef_render_hand
     }
     
     obj.onCursorChange(browser: CEFBrowser.fromCEF(browser)!,
-                       cursor: Unmanaged<CEFCursorHandle>.fromOpaque(COpaquePointer(cursor)).takeUnretainedValue(),
+                       cursor: Unmanaged<CEFCursorHandle>.fromOpaque(cursor).takeUnretainedValue(),
                        type: CEFCursorType.fromCEF(type),
                        cursorInfo: info != nil ? CEFCursorInfo.fromCEF(info.pointee) : nil)
 }

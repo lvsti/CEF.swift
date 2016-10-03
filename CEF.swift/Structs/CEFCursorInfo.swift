@@ -14,7 +14,7 @@ import Foundation
 public struct CEFCursorInfo {
     public let hotspot: NSPoint
     public let scaleFactor: Double
-    public let buffer: UnsafeMutablePointer<Void>
+    public let buffer: UnsafeMutableRawPointer
     public let size: NSSize
 }
 
@@ -22,7 +22,7 @@ extension CEFCursorInfo {
     static func fromCEF(_ value: cef_cursor_info_t) -> CEFCursorInfo {
         return CEFCursorInfo(hotspot: NSPoint.fromCEF(value.hotspot),
                              scaleFactor: Double(value.image_scale_factor),
-                             buffer: UnsafeMutablePointer<Void>(value.buffer),
+                             buffer: UnsafeMutableRawPointer(value.buffer),
                              size: NSSize.fromCEF(value.size))
     }
 }

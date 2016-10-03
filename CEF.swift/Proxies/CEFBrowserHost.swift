@@ -267,9 +267,9 @@ public extension CEFBrowserHost {
                              inspectionPoint: NSPoint?) {
         var cefPointPtr: UnsafeMutablePointer<cef_point_t> = nil
         if let inspectionPoint = inspectionPoint {
-            cefPointPtr = UnsafeMutablePointer<cef_point_t>.alloc(1)
-            defer { cefPointPtr.destroy(1) }
-            cefPointPtr.initialize(inspectionPoint.toCEF())
+            cefPointPtr = UnsafeMutablePointer<cef_point_t>.allocate(capacity: 1)
+            defer { cefPointPtr.deinitialize(count: 1) }
+            cefPointPtr.initialize(from: inspectionPoint.toCEF())
         }
 
         var cefSettings = settings.toCEF()
@@ -416,21 +416,23 @@ public extension CEFBrowserHost {
     
     /// Get the NSTextInputContext implementation for enabling IME on Mac when
     /// window rendering is disabled.
-    public var textInputContext: CEFTextInputContext {
-        let rawHandle:UnsafeMutablePointer<Void> = cefObject.get_nstext_input_context(cefObjectPtr)
-        return Unmanaged<CEFTextInputContext>.fromOpaque(COpaquePointer(rawHandle)).takeUnretainedValue()
+    public var textInputContext: CEFTextInputContext? {
+        if let rawHandle = cefObject.get_nstext_input_context(cefObjectPtr) {
+            return Unmanaged<CEFTextInputContext>.fromOpaque(OpaquePointer(rawHandle)).takeUnretainedValue()
+        }
+        return nil
     }
 
     /// Handles a keyDown event prior to passing it through the NSTextInputClient
     /// machinery.
     public func handleKeyEventBeforeTextInputClient(event: CEFEventHandle) {
-        let rawEvent = UnsafeMutablePointer<Void>(Unmanaged<CEFEventHandle>.passUnretained(event).toOpaque())
+        let rawEvent = UnsafeMutableRawPointer(Unmanaged<CEFEventHandle>.passUnretained(event).toOpaque())
         cefObject.handle_key_event_before_text_input_client(cefObjectPtr, rawEvent)
     }
     
     /// Performs any additional actions after NSTextInputClient handles the event.
     public func handleKeyEventAfterTextInputClient(event: CEFEventHandle) {
-        let rawEvent = UnsafeMutablePointer<Void>(Unmanaged<CEFEventHandle>.passUnretained(event).toOpaque())
+        let rawEvent = UnsafeMutableRawPointer(Unmanaged<CEFEventHandle>.passUnretained(event).toOpaque())
         cefObject.handle_key_event_after_text_input_client(cefObjectPtr, rawEvent)
     }
 

@@ -12,7 +12,7 @@ import Foundation
 /// methods of this class may be called on any thread.
 public protocol CEFWriteHandler {
     /// Write raw binary data.
-    func write(buffer: UnsafePointer<Void>, chunkSize: size_t, count: size_t) -> size_t
+    func write(buffer: UnsafeRawPointer, chunkSize: size_t, count: size_t) -> size_t
     
     /// Seek to the specified offset position. |whence| may be any one of
     /// SEEK_CUR, SEEK_END or SEEK_SET. Return zero on success and non-zero on

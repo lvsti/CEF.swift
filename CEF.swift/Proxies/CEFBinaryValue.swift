@@ -13,7 +13,7 @@ public extension CEFBinaryValue {
     
     /// Creates a new object that is not owned by any other object. The specified
     /// |data| will be copied.
-    public convenience init?(data: UnsafePointer<Void>, size: size_t) {
+    public convenience init?(data: UnsafeRawPointer, size: size_t) {
         self.init(ptr: cef_binary_value_create(data, size))
     }
     
@@ -55,7 +55,7 @@ public extension CEFBinaryValue {
     
     /// Read up to |buffer_size| number of bytes into |buffer|. Reading begins at
     /// the specified byte |data_offset|. Returns the number of bytes read.
-    public func getData(buffer: UnsafeMutablePointer<Void>, size: size_t, offset: size_t) -> size_t {
+    public func getData(buffer: UnsafeMutableRawPointer, size: size_t, offset: size_t) -> size_t {
         return cefObject.get_data(cefObjectPtr, buffer, size, offset)
     }
     

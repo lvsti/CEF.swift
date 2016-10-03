@@ -43,7 +43,7 @@ func CEFResourceHandler_get_response_headers(ptr: UnsafeMutablePointer<cef_resou
 }
 
 func CEFResourceHandler_read_response(ptr: UnsafeMutablePointer<cef_resource_handler_t>,
-                                      buffer: UnsafeMutablePointer<Void>,
+                                      buffer: UnsafeMutableRawPointer,
                                       bufferLength: Int32,
                                       actualLength: UnsafeMutablePointer<Int32>,
                                       callback: UnsafeMutablePointer<cef_callback_t>) -> Int32 {

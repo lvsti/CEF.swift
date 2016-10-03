@@ -32,7 +32,7 @@ func CEFDragHandler_on_draggable_regions_changed(ptr: UnsafeMutablePointer<cef_d
     
     var regions = [CEFDraggableRegion]()
     for i in 0..<count {
-        regions.append(CEFDraggableRegion.fromCEF(cefRegions.advancedBy(i).pointee))
+        regions.append(CEFDraggableRegion.fromCEF(cefRegions.advanced(by: i).pointee))
     }
     
     obj.onDraggableRegionsChanged(browser: CEFBrowser.fromCEF(browser)!, regions: regions)

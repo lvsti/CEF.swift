@@ -9,7 +9,7 @@
 import Foundation
 
 func CEFReadHandler_read(ptr: UnsafeMutablePointer<cef_read_handler_t>,
-                         buffer: UnsafeMutablePointer<Void>,
+                         buffer: UnsafeMutableRawPointer,
                          chunkSize: size_t,
                          count: size_t) -> size_t {
     guard let obj = CEFReadHandlerMarshaller.get(ptr) else {

@@ -82,7 +82,7 @@ public extension CEFZipReader {
     
     /// Read uncompressed file contents into the specified buffer. Returns < 0 if
     /// an error occurred, 0 if at the end of file, or the number of bytes read.
-    public func readFile(buffer: UnsafeMutablePointer<Void>, size: size_t) -> size_t? {
+    public func readFile(buffer: UnsafeMutableRawPointer, size: size_t) -> size_t? {
         let retval = cefObject.read_file(cefObjectPtr, buffer, size)
         return retval < 0 ? nil : size_t(retval)
     }

@@ -41,14 +41,14 @@ func CEFURLRequestClient_on_download_progress(ptr: UnsafeMutablePointer<cef_urlr
 
 func CEFURLRequestClient_on_download_data(ptr: UnsafeMutablePointer<cef_urlrequest_client_t>,
                                           request: UnsafeMutablePointer<cef_urlrequest_t>,
-                                          data: UnsafePointer<Void>,
+                                          data: UnsafeRawPointer,
                                           size: size_t) {
     guard let obj = CEFURLRequestClientMarshaller.get(ptr) else {
         return
     }
     
     obj.onDownloadData(request: CEFURLRequest.fromCEF(request)!,
-                       chunk: NSData(bytesNoCopy: UnsafeMutablePointer<Void>(data), length: size, freeWhenDone: false))
+                       chunk: NSData(bytesNoCopy: UnsafeMutableRawPointer(mutating: data), length: size, freeWhenDone: false))
 }
 
 func CEFURLRequestClient_get_auth_credentials(ptr: UnsafeMutablePointer<cef_urlrequest_client_t>,

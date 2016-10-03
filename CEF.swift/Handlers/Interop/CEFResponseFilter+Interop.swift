@@ -18,10 +18,10 @@ func CEFResponseFilter_init_filter(ptr: UnsafeMutablePointer<cef_response_filter
 }
 
 func CEFResponseFilter_filter(ptr: UnsafeMutablePointer<cef_response_filter_t>,
-                              dataIn: UnsafeMutablePointer<Void>,
+                              dataIn: UnsafeMutableRawPointer,
                               dataInSize: size_t,
                               dataInRead: UnsafeMutablePointer<size_t>,
-                              dataOut: UnsafeMutablePointer<Void>,
+                              dataOut: UnsafeMutableRawPointer,
                               dataOutSize: size_t,
                               dataOutWritten: UnsafeMutablePointer<size_t>) -> cef_response_filter_status_t {
     guard let obj = CEFResponseFilterMarshaller.get(ptr) else {

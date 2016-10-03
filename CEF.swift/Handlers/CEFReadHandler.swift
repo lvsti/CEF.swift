@@ -12,7 +12,7 @@ import Foundation
 /// methods of this class may be called on any thread.
 public protocol CEFReadHandler {
     /// Read raw binary data.
-    func read(buffer: UnsafeMutablePointer<Void>, chunkSize: size_t, count: size_t) -> size_t
+    func read(buffer: UnsafeMutableRawPointer, chunkSize: size_t, count: size_t) -> size_t
     
     /// Seek to the specified offset position. |whence| may be any one of
     /// SEEK_CUR, SEEK_END or SEEK_SET. Return zero on success and non-zero on

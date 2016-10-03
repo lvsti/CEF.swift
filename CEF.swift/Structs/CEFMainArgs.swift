@@ -18,13 +18,12 @@ public struct CEFMainArgs {
 }
 
 
-typealias CEFArgV = UnsafeMutablePointer<UnsafePointer<Int8>>
-typealias CEFMutableArgV = UnsafeMutablePointer<UnsafeMutablePointer<Int8>>
+typealias CEFArgV = UnsafeMutablePointer<UnsafeMutablePointer<Int8>?>
 
 extension CEFMainArgs {
     func toCEF() -> cef_main_args_t {
         return cef_main_args_t(argc: Int32(arguments.count),
-                               argv: CEFMutableArgV(CEFArgVFromArguments(arguments)))
+                               argv: CEFArgVFromArguments(arguments))
     }
 }
 
@@ -35,28 +34,28 @@ extension cef_main_args_t {
         }
         
         for i in 0..<Int(argc) {
-            let cstr = argv.advancedBy(i).pointee
-            if let str = String.fromCString(cstr) {
-                let byteCount = str.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) + 1
-                cstr.dealloc(byteCount)
+            if let cstr = argv.advanced(by: i).pointee,
+               let str = String(validatingUTF8: cstr) {
+                let byteCount = str.lengthOfBytes(using: String.Encoding.utf8) + 1
+                cstr.deallocate(capacity: byteCount)
             }
         }
         
-        argv.dealloc(Int(argc))
+        argv.deallocate(capacity: Int(argc))
     }
 }
 
 func CEFArgVFromArguments(_ arguments: [String]) -> CEFArgV {
-    let argv = CEFArgV.alloc(arguments.count)
+    let argv = CEFArgV.allocate(capacity: arguments.count)
     
     for i in 0..<arguments.count {
-        let utf8ByteCount = arguments[i].lengthOfBytesUsingEncoding(NSUTF8StringEncoding) + 1
+        let utf8ByteCount = arguments[i].lengthOfBytes(using: String.Encoding.utf8) + 1
         let ptr = arguments[i].withCString { (cstr: UnsafePointer<Int8>) -> UnsafeMutablePointer<Int8> in
-            let ptr = UnsafeMutablePointer<Int8>.alloc(utf8ByteCount)
-            ptr.initializeFrom(UnsafeMutablePointer<Int8>(cstr), count: utf8ByteCount)
+            let ptr = UnsafeMutablePointer<Int8>.allocate(capacity: utf8ByteCount)
+            ptr.initialize(from: UnsafeMutablePointer<Int8>(mutating: cstr), count: utf8ByteCount)
             return ptr
         }
-        argv.advancedBy(i).pointee = UnsafePointer<Int8>(ptr)
+        argv.advanced(by: i).pointee = UnsafeMutablePointer<Int8>(ptr)
     }
     
     return argv

@@ -56,7 +56,7 @@ public protocol CEFRenderHandler {
     func onPaint(browser: CEFBrowser,
                  type: CEFPaintElementType,
                  dirtyRects: [NSRect],
-                 buffer: UnsafePointer<Void>,
+                 buffer: UnsafeRawPointer,
                  size: NSSize)
     
     /// Called when the browser's cursor has changed. If |type| is CT_CUSTOM then
@@ -119,7 +119,7 @@ public extension CEFRenderHandler {
     func onPaint(browser: CEFBrowser,
                  type: CEFPaintElementType,
                  dirtyRects: [NSRect],
-                 buffer: UnsafePointer<Void>,
+                 buffer: UnsafeRawPointer,
                  size: NSSize) {
     }
 

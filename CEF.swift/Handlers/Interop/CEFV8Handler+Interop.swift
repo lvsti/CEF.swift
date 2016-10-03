@@ -21,7 +21,7 @@ func CEFV8Handler_execute(ptr: UnsafeMutablePointer<cef_v8handler_t>,
 
     var arguments = [CEFV8Value]()
     for i in 0..<argCount {
-        arguments.append(CEFV8Value.fromCEF(args.advancedBy(i).pointee)!)
+        arguments.append(CEFV8Value.fromCEF(args.advanced(by: i).pointee)!)
     }
     
     let optResult = obj.execute(name: CEFStringToSwiftString(name.pointee),

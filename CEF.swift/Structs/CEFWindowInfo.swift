@@ -55,7 +55,7 @@ extension CEFWindowInfo {
         cefStruct.hidden = isHidden ? 1 : 0
         
         if let parentView = parentView {
-            cefStruct.parent_view = UnsafeMutablePointer<Void>(Unmanaged<CEFWindowHandle>.passUnretained(parentView).toOpaque())
+            cefStruct.parent_view = UnsafeMutableRawPointer(Unmanaged<CEFWindowHandle>.passUnretained(parentView).toOpaque())
         } else {
             cefStruct.parent_view = nil
         }
@@ -64,7 +64,7 @@ extension CEFWindowInfo {
         cefStruct.transparent_painting_enabled = transparentPaintingEnabled ? 1 : 0
         
         if let view = view {
-            cefStruct.view = UnsafeMutablePointer<Void>(Unmanaged<CEFWindowHandle>.passUnretained(view).toOpaque())
+            cefStruct.view = UnsafeMutableRawPointer(Unmanaged<CEFWindowHandle>.passUnretained(view).toOpaque())
         } else {
             cefStruct.view = nil
         }

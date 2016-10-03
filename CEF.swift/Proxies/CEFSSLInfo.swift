@@ -95,7 +95,7 @@ public extension CEFSSLInfo {
         
         var chain: [CEFBinaryValue] = []
         for i in 0..<chainLength {
-            let cefBinary = cefChain.advancedBy(i)
+            let cefBinary = cefChain.advanced(by: i)
             chain.append(CEFBinaryValue.fromCEF(cefBinary)!)
         }
         
@@ -112,7 +112,7 @@ public extension CEFSSLInfo {
         
         var chain: [CEFBinaryValue] = []
         for i in 0..<chainLength {
-            let cefBinary = cefChain.advancedBy(i)
+            let cefBinary = cefChain.advanced(by: i)
             chain.append(CEFBinaryValue.fromCEF(cefBinary)!)
         }
         
