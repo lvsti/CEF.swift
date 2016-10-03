@@ -21,16 +21,15 @@ protocol CEFCallbackMarshalling {
 class CEFMarshallerBase {
     static let kCEFMarshallerStructOffset = 16
     
-    static func getBaseStructPtrFromMarshaller(marshaller: CEFMarshallerBase) -> UnsafeMutablePointer<cef_base_t> {
+    static func getBaseStructPtrFromMarshaller(_ marshaller: CEFMarshallerBase) -> UnsafeMutablePointer<cef_base_t> {
         let unmanaged = Unmanaged<AnyObject>.passUnretained(marshaller)
-        let marshallerPtr = UnsafeMutablePointer<Int8>(unmanaged.toOpaque())
-        let structPtr = marshallerPtr.advancedBy(kCEFMarshallerStructOffset)
-        return UnsafeMutablePointer<cef_base_t>(structPtr)
+        return unmanaged.toOpaque().advanced(by: kCEFMarshallerStructOffset).assumingMemoryBound(to: cef_base_t.self)
     }
     
-    static func getMarshallerFromBaseStructPtr(ptr: UnsafeMutablePointer<cef_base_t>) -> CEFMarshallerBase {
-        let rawPtr = UnsafeMutablePointer<Int8>(ptr)
-        let marshallerPtr = COpaquePointer(rawPtr.advancedBy(-kCEFMarshallerStructOffset))
+    static func getMarshallerFromBaseStructPtr(_ ptr: UnsafeMutablePointer<cef_base_t>) -> CEFMarshallerBase {
+        let marshallerPtr = UnsafeMutableRawPointer(UnsafeMutableRawPointer(ptr)
+            .assumingMemoryBound(to: Int8.self)
+            .advanced(by: -kCEFMarshallerStructOffset))
         let unmanaged = Unmanaged<CEFMarshallerBase>.fromOpaque(marshallerPtr)
         return unmanaged.takeUnretainedValue()
     }
@@ -44,26 +43,33 @@ class CEFMarshaller<TClass, TStruct>: CEFMarshallerBase, CEFRefCounting
     var cefStruct: TStruct
     var swiftObj: TClass
     
-    static func get(_ ptr: UnsafeMutablePointer<TStruct>) -> TClass? {
-        guard let marshaller = getMarshallerFromBaseStructPtr(UnsafeMutablePointer<cef_base_t>(ptr)) as? InstanceType else {
-            return nil
+    static func get(_ ptr: UnsafeMutablePointer<TStruct>?) -> TClass? {
+        guard let ptr = ptr else { return nil }
+        return ptr.withMemoryRebound(to: cef_base_t.self, capacity: 1) { baseStructPtr in
+            guard let marshaller = getMarshallerFromBaseStructPtr(baseStructPtr) as? InstanceType else {
+                return nil
+            }
+            return marshaller.swiftObj
         }
-        return marshaller.swiftObj
     }
     
-    static func take(_ ptr: UnsafeMutablePointer<TStruct>) -> TClass? {
-        guard let marshaller = getMarshallerFromBaseStructPtr(UnsafeMutablePointer<cef_base_t>(ptr)) as? InstanceType else {
-            return nil
+    static func take(_ ptr: UnsafeMutablePointer<TStruct>?) -> TClass? {
+        guard let ptr = ptr else { return nil }
+        return ptr.withMemoryRebound(to: cef_base_t.self, capacity: 1) { baseStructPtr in
+            guard let marshaller = getMarshallerFromBaseStructPtr(baseStructPtr) as? InstanceType else {
+                return nil
+            }
+            marshaller.release()
+            return marshaller.swiftObj
         }
-        marshaller.release()
-        return marshaller.swiftObj
     }
     
     static func pass(_ obj: TClass) -> UnsafeMutablePointer<TStruct> {
         let marshaller = CEFMarshaller(obj: obj)
         marshaller.addRef()
         
-        return UnsafeMutablePointer<TStruct>(getBaseStructPtrFromMarshaller(marshaller))
+        let baseStructPtr = getBaseStructPtrFromMarshaller(marshaller)
+        return UnsafeMutableRawPointer(baseStructPtr).assumingMemoryBound(to: TStruct.self)
     }
     
     required init(obj: TClass) {
@@ -72,7 +78,7 @@ class CEFMarshaller<TClass, TStruct>: CEFMarshallerBase, CEFRefCounting
         swiftObj = obj
         cefStruct = TStruct()
 
-        cefStruct.base.size = strideof(TStruct.self)
+        cefStruct.base.size = MemoryLayout<TStruct>.stride
         cefStruct.base.add_ref = CEFMarshaller_addRef
         cefStruct.base.release = CEFMarshaller_release
         cefStruct.base.has_one_ref = CEFMarshaller_hasOneRef
@@ -86,11 +92,11 @@ class CEFMarshaller<TClass, TStruct>: CEFMarshallerBase, CEFRefCounting
         let basePtr = CEFMarshaller.getBasePtr(self)
         let ptr = UnsafePointer<Int8>(basePtr)
         assert(ptr.distanceTo(marshallerPtr) == kCEFMarshallerStructOffset)
-        var offset = strideof(size_t)
+        var offset = MemoryLayout<size_t>.stride
         while offset < cefStruct.base.size {
-            let fptr = UnsafePointer<UnsafePointer<Void>>(ptr.advancedBy(offset))
+            let fptr = UnsafePointer<UnsafeRawPointer>(ptr.advanced(by: offset))
             assert(fptr.pointee != nil, "uninitialized field at offset \(offset) in \(TStruct.self)")
-            offset += strideof(UnsafePointer<Void>)
+            offset += MemoryLayout<UnsafeRawPointer>.stride
         }
 #endif
     }
@@ -108,6 +114,7 @@ class CEFMarshaller<TClass, TStruct>: CEFMarshallerBase, CEFRefCounting
         _self = self
     }
     
+    @discardableResult
     func release() -> Bool {
         _refCountMutex.lock()
         defer { _refCountMutex.unlock() }
@@ -130,22 +137,31 @@ class CEFMarshaller<TClass, TStruct>: CEFMarshallerBase, CEFRefCounting
     var _self: InstanceType? = nil
 }
 
-func CEFMarshaller_addRef(ptr: UnsafeMutablePointer<cef_base_t>) {
-    guard let marshaller = CEFMarshallerBase.getMarshallerFromBaseStructPtr(ptr) as? CEFRefCounting else {
+func CEFMarshaller_addRef(ptr: UnsafeMutablePointer<cef_base_t>?) {
+    guard
+        let ptr = ptr,
+        let marshaller = CEFMarshallerBase.getMarshallerFromBaseStructPtr(ptr) as? CEFRefCounting
+    else {
         return
     }
     marshaller.addRef()
 }
 
-func CEFMarshaller_release(ptr: UnsafeMutablePointer<cef_base_t>) -> Int32 {
-    guard let marshaller = CEFMarshallerBase.getMarshallerFromBaseStructPtr(ptr) as? CEFRefCounting else {
+func CEFMarshaller_release(ptr: UnsafeMutablePointer<cef_base_t>?) -> Int32 {
+    guard
+        let ptr = ptr,
+        let marshaller = CEFMarshallerBase.getMarshallerFromBaseStructPtr(ptr) as? CEFRefCounting
+    else {
         return 0
     }
     return marshaller.release() ? 1 : 0
 }
 
-func CEFMarshaller_hasOneRef(ptr: UnsafeMutablePointer<cef_base_t>) -> Int32 {
-    guard let marshaller = CEFMarshallerBase.getMarshallerFromBaseStructPtr(ptr) as? CEFRefCounting else {
+func CEFMarshaller_hasOneRef(ptr: UnsafeMutablePointer<cef_base_t>?) -> Int32 {
+    guard
+        let ptr = ptr,
+        let marshaller = CEFMarshallerBase.getMarshallerFromBaseStructPtr(ptr) as? CEFRefCounting
+    else {
         return 0
     }
     return marshaller.hasOneRef() ? 1 : 0
