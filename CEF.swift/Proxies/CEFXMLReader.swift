@@ -40,7 +40,7 @@ public extension CEFXMLReader {
     public var error: String? {
         let cefStrPtr = cefObject.get_error(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
     }
     
     // The below methods retrieve data for the node at the current cursor
@@ -62,7 +62,7 @@ public extension CEFXMLReader {
     public var localName: String {
         let cefStrPtr = cefObject.get_local_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.pointee)
+        return CEFStringToSwiftString(cefStrPtr!.pointee)
     }
     
     /// Returns the namespace prefix. See http://www.w3.org/TR/REC-xml-names/ for
@@ -70,7 +70,7 @@ public extension CEFXMLReader {
     public var prefix: String {
         let cefStrPtr = cefObject.get_prefix(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.pointee)
+        return CEFStringToSwiftString(cefStrPtr!.pointee)
     }
     
     /// Returns the qualified name, equal to (Prefix:)LocalName. See
@@ -78,7 +78,7 @@ public extension CEFXMLReader {
     public var qualifiedName: String {
         let cefStrPtr = cefObject.get_qualified_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.pointee)
+        return CEFStringToSwiftString(cefStrPtr!.pointee)
     }
     
     /// Returns the URI defining the namespace associated with the node. See
@@ -86,7 +86,7 @@ public extension CEFXMLReader {
     public var namespaceURI: NSURL {
         let cefStrPtr = cefObject.get_namespace_uri(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefStrPtr.pointee))!
+        return NSURL(string: CEFStringToSwiftString(cefStrPtr!.pointee))!
     }
     
     /// Returns the base URI of the node. See http://www.w3.org/TR/xmlbase/ for
@@ -94,7 +94,7 @@ public extension CEFXMLReader {
     public var baseURI: NSURL {
         let cefStrPtr = cefObject.get_base_uri(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefStrPtr.pointee))!
+        return NSURL(string: CEFStringToSwiftString(cefStrPtr!.pointee))!
     }
     
     /// Returns the xml:lang scope within which the node resides. See
@@ -102,7 +102,7 @@ public extension CEFXMLReader {
     public var xmlLang: String {
         let cefStrPtr = cefObject.get_xml_lang(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.pointee)
+        return CEFStringToSwiftString(cefStrPtr!.pointee)
     }
     
     /// Returns true if the node represents an empty element. <a/> is considered
@@ -120,7 +120,7 @@ public extension CEFXMLReader {
     public var value: String? {
         let cefStrPtr = cefObject.get_value(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
     }
     
     /// Returns true if the node has attributes.
@@ -137,7 +137,7 @@ public extension CEFXMLReader {
     public func attributeAtIndex(index: Int) -> String? {
         let cefStrPtr = cefObject.get_attribute_byindex(cefObjectPtr, Int32(index))
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
     }
     
     /// Returns the value of the attribute with the specified qualified name.
@@ -148,7 +148,7 @@ public extension CEFXMLReader {
             CEFStringPtrRelease(cefNamePtr)
             CEFStringPtrRelease(cefStrPtr)
         }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
     }
     
     /// Returns the value of the attribute with the specified local name and
@@ -162,21 +162,21 @@ public extension CEFXMLReader {
             CEFStringPtrRelease(cefURIPtr)
             CEFStringPtrRelease(cefStrPtr)
         }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
     }
     
     /// Returns an XML representation of the current node's children.
     public var innerXML: String {
         let cefStrPtr = cefObject.get_inner_xml(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.pointee)
+        return CEFStringToSwiftString(cefStrPtr!.pointee)
     }
     
     /// Returns an XML representation of the current node including its children.
     public var outerXML: String {
         let cefStrPtr = cefObject.get_outer_xml(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.pointee)
+        return CEFStringToSwiftString(cefStrPtr!.pointee)
     }
     
     /// Returns the line number for the current node.

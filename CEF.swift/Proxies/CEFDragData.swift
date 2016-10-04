@@ -45,35 +45,35 @@ public extension CEFDragData {
     public var linkURL: NSURL? {
         let cefStrPtr = cefObject.get_link_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? NSURL(string: CEFStringToSwiftString(cefStrPtr.pointee))! : nil
+        return cefStrPtr != nil ? NSURL(string: CEFStringToSwiftString(cefStrPtr!.pointee))! : nil
     }
 
     /// Return the title associated with the link being dragged.
     public var linkTitle: String? {
         let cefStrPtr = cefObject.get_link_title(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
     }
     
     /// Return the metadata, if any, associated with the link being dragged.
     public var linkMetadata: String? {
         let cefStrPtr = cefObject.get_link_metadata(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
     }
     
     /// Return the plain text fragment that is being dragged.
     public var fragmentText: String {
         let cefStrPtr = cefObject.get_fragment_text(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.pointee)
+        return CEFStringToSwiftString(cefStrPtr!.pointee)
     }
     
     /// Return the text/html fragment that is being dragged.
     public var fragmentHTML: String {
         let cefStrPtr = cefObject.get_fragment_html(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.pointee)
+        return CEFStringToSwiftString(cefStrPtr!.pointee)
     }
     
     /// Return the base URL that the fragment came from. This value is used for
@@ -81,14 +81,14 @@ public extension CEFDragData {
     public var fragmentBaseURL: NSURL? {
         let cefStrPtr = cefObject.get_fragment_base_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefStrPtr.pointee))
+        return NSURL(string: CEFStringToSwiftString(cefStrPtr!.pointee))
     }
     
     /// Return the name of the file being dragged out of the browser window.
     public var fileName: String {
         let cefStrPtr = cefObject.get_file_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.pointee)
+        return CEFStringToSwiftString(cefStrPtr!.pointee)
     }
     
     /// Write the contents of the file being dragged out of the web view into
@@ -96,64 +96,57 @@ public extension CEFDragData {
     /// NULL this method will return the size of the file contents in bytes.
     /// Call GetFileName() to get a suggested name for the file.
     public func getFileContents(writer: CEFStreamWriter? = nil) -> size_t {
-        let cefWriter: UnsafeMutablePointer<cef_stream_writer_t> =
-            writer != nil ? writer!.toCEF() : nil
+        let cefWriter = writer?.toCEF()
         return cefObject.get_file_contents(cefObjectPtr, cefWriter)
     }
     
     /// Retrieve the list of file names that are being dragged into the browser
     /// window.
     public var fileNames: [String] {
-        let cefList = cef_string_list_alloc()
+        let cefList = cef_string_list_alloc()!
         defer { CEFStringListRelease(cefList) }
-        cefObject.get_file_names(cefObjectPtr, cefList)
+        _ = cefObject.get_file_names(cefObjectPtr, cefList)
         return CEFStringListToSwiftArray(cefList)
     }
     
     /// Set the link URL that is being dragged.
     public func setLinkURL(url: NSURL?)  {
-        let cefStrPtr: UnsafeMutablePointer<cef_string_t> =
-            url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString!) : nil
+        let cefStrPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString!) : nil
         defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.set_link_url(cefObjectPtr, cefStrPtr)
     }
     
     /// Set the title associated with the link being dragged.
     public func setLinkTitle(title: String?)  {
-        let cefStrPtr: UnsafeMutablePointer<cef_string_t> =
-            title != nil ? CEFStringPtrCreateFromSwiftString(title!) : nil
+        let cefStrPtr = title != nil ? CEFStringPtrCreateFromSwiftString(title!) : nil
         defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.set_link_title(cefObjectPtr, cefStrPtr)
     }
     
     /// Set the metadata associated with the link being dragged.
     public func setLinkMetadata(metadata: String?)  {
-        let cefStrPtr: UnsafeMutablePointer<cef_string_t> =
-            metadata != nil ? CEFStringPtrCreateFromSwiftString(metadata!) : nil
+        let cefStrPtr = metadata != nil ? CEFStringPtrCreateFromSwiftString(metadata!) : nil
         defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.set_link_metadata(cefObjectPtr, cefStrPtr)
     }
     
     /// Set the plain text fragment that is being dragged.
     public func setFragmentText(text: String?)  {
-        let cefStrPtr: UnsafeMutablePointer<cef_string_t> =
-            text != nil ? CEFStringPtrCreateFromSwiftString(text!) : nil
+        let cefStrPtr = text != nil ? CEFStringPtrCreateFromSwiftString(text!) : nil
         defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.set_fragment_text(cefObjectPtr, cefStrPtr)
     }
     
     /// Set the text/html fragment that is being dragged.
     public func setFragmentHTML(html: String?)  {
-        let cefStrPtr: UnsafeMutablePointer<cef_string_t> =
-            html != nil ? CEFStringPtrCreateFromSwiftString(html!) : nil
+        let cefStrPtr = html != nil ? CEFStringPtrCreateFromSwiftString(html!) : nil
         defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.set_fragment_html(cefObjectPtr, cefStrPtr)
     }
     
     /// Set the base URL that the fragment came from.
     public func setFragmentBaseURL(url: NSURL?)  {
-        let cefStrPtr: UnsafeMutablePointer<cef_string_t> =
-            url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString!) : nil
+        let cefStrPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString!) : nil
         defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.set_link_metadata(cefObjectPtr, cefStrPtr)
     }
@@ -168,8 +161,7 @@ public extension CEFDragData {
     /// Add a file that is being dragged into the webview.
     public func addFileWithPath(path: String, displayName: String? = nil)  {
         let cefPathPtr = CEFStringPtrCreateFromSwiftString(path)
-        let cefNamePtr: UnsafeMutablePointer<cef_string_t> =
-            displayName != nil ? CEFStringPtrCreateFromSwiftString(displayName!) : nil
+        let cefNamePtr = displayName != nil ? CEFStringPtrCreateFromSwiftString(displayName!) : nil
         defer {
             CEFStringPtrRelease(cefPathPtr)
             CEFStringPtrRelease(cefNamePtr)

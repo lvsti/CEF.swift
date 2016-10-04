@@ -116,19 +116,19 @@ public extension CEFBrowser {
     /// Returns the identifiers of all existing frames.
     public var frameIDs: [CEFFrame.Identifier] {
         var idCount: size_t = 0
-        let idsPtr: UnsafeMutablePointer<CEFFrame.Identifier> = nil
+        let idsPtr: UnsafeMutablePointer<CEFFrame.Identifier>? = nil
         cefObject.get_frame_identifiers(cefObjectPtr, &idCount, idsPtr)
         
         var ids = Array<CEFFrame.Identifier>()
         for i in 0..<idCount {
-            ids.append(idsPtr.advanced(by: i).pointee)
+            ids.append(idsPtr!.advanced(by: i).pointee)
         }
         return ids
     }
 
     /// Returns the names of all existing frames.
     public var frameNames: [String] {
-        let cefList = cef_string_list_alloc()
+        let cefList = cef_string_list_alloc()!
         defer { cef_string_list_free(cefList) }
         
         cefObject.get_frame_names(cefObjectPtr, cefList)

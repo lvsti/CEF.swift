@@ -77,10 +77,10 @@ extension CEFWindowInfo {
         winInfo.windowName = CEFStringToSwiftString(value.window_name)
         winInfo.rect = NSRect(x: Int(value.x), y: Int(value.y), width: Int(value.width), height: Int(value.height))
         winInfo.isHidden = value.hidden != 0
-        winInfo.parentView = Unmanaged<CEFWindowHandle>.fromOpaque(COpaquePointer(value.parent_view)).takeUnretainedValue()
+        winInfo.parentView = Unmanaged<CEFWindowHandle>.fromOpaque(value.parent_view).takeUnretainedValue()
         winInfo.windowlessRenderingEnabled = value.windowless_rendering_enabled != 0
         winInfo.transparentPaintingEnabled = value.transparent_painting_enabled != 0
-        winInfo.view = Unmanaged<CEFWindowHandle>.fromOpaque(COpaquePointer(value.view)).takeUnretainedValue()
+        winInfo.view = Unmanaged<CEFWindowHandle>.fromOpaque(value.view).takeUnretainedValue()
         
         return winInfo
     }

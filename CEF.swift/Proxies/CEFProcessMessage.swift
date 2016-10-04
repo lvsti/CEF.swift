@@ -41,7 +41,7 @@ public extension CEFProcessMessage {
         let cefNamePtr = cefObject.get_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefNamePtr) }
         
-        return CEFStringToSwiftString(cefNamePtr.pointee)
+        return CEFStringToSwiftString(cefNamePtr!.pointee)
     }
 
     /// Returns the list of arguments.

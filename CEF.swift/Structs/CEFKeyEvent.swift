@@ -11,11 +11,11 @@ import Foundation
 /// Structure representing keyboard event information.
 public struct CEFKeyEvent {
     /// The type of keyboard event.
-    public var type: CEFKeyEventType = .RawKeyDown
+    public var type: CEFKeyEventType = .rawKeyDown
 
     /// Bit flags describing any pressed modifier keys. See
     /// cef_event_flags_t for values.
-    public var modifiers: CEFEventFlags = .None
+    public var modifiers: CEFEventFlags = .none
 
     /// The Windows key code for the key event. This value is used by the DOM
     /// specification. Sometimes it comes directly from the event (i.e. on

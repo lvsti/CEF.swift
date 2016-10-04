@@ -85,7 +85,7 @@ public struct CEFTransitionType: RawRepresentable {
 }
 
 extension CEFTransitionType {
-    static func fromCEF(value: cef_transition_type_t) -> CEFTransitionType {
+    static func fromCEF(_ value: cef_transition_type_t) -> CEFTransitionType {
         return CEFTransitionType(rawValue: UInt(value.rawValue))
     }
 }

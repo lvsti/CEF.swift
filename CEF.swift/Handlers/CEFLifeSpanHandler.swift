@@ -173,10 +173,6 @@ public extension CEFLifeSpanHandler {
     func onAfterCreated(browser: CEFBrowser) {
     }
     
-    func onRunModal(browser: CEFBrowser) -> CEFOnRunModalAction {
-        return .runDefaultLoop
-    }
-
     func onDoClose(browser: CEFBrowser) -> CEFOnDoCloseAction {
         return .allow
     }

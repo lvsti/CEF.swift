@@ -184,8 +184,9 @@ func CEFClient_on_process_message_received(ptr: UnsafeMutablePointer<cef_client_
         return 0
     }
 
-    return obj.onProcessMessageReceived(browser: CEFBrowser.fromCEF(browser)!,
-                                        processID: CEFProcessID.fromCEF(source),
-                                        message: CEFProcessMessage.fromCEF(message)!) ? 1 : 0
+    let action = obj.onProcessMessageReceived(browser: CEFBrowser.fromCEF(browser)!,
+                                              processID: CEFProcessID.fromCEF(source),
+                                              message: CEFProcessMessage.fromCEF(message)!)
+    return action == .consume ? 1 : 0
 }
 

@@ -21,28 +21,28 @@ public extension CEFNavigationEntry {
     public var url: NSURL {
         let cefURLPtr = cefObject.get_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefURLPtr.pointee))!
+        return NSURL(string: CEFStringToSwiftString(cefURLPtr!.pointee))!
     }
 
     /// Returns a display-friendly version of the URL.
     public var displayURL: NSURL {
         let cefURLPtr = cefObject.get_display_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefURLPtr.pointee))!
+        return NSURL(string: CEFStringToSwiftString(cefURLPtr!.pointee))!
     }
     
     /// Returns the original URL that was entered by the user before any redirects.
     public var originalURL: NSURL {
         let cefURLPtr = cefObject.get_original_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefURLPtr.pointee))!
+        return NSURL(string: CEFStringToSwiftString(cefURLPtr!.pointee))!
     }
     
     /// Returns the title set by the page. This value may be empty.
     public var title: String {
         let cefStrPtr = cefObject.get_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.pointee)
+        return CEFStringToSwiftString(cefStrPtr!.pointee)
     }
     
     /// Returns the transition type which indicates what the user did to move to

@@ -8,8 +8,8 @@
 
 import Foundation
 
-func CEFStringListCreateFromSwiftArray(_ array: [String]) -> cef_string_list_t {
-    let cefList = cef_string_list_alloc()
+func CEFStringListCreateFromSwiftArray(_ array: [String]) -> cef_string_list_t! {
+    let cefList = cef_string_list_alloc()!
     
     var cefStr = cef_string_t()
     defer { cef_string_utf16_clear(&cefStr) }
@@ -22,8 +22,10 @@ func CEFStringListCreateFromSwiftArray(_ array: [String]) -> cef_string_list_t {
     return cefList
 }
 
-func CEFStringListRelease(_ cefList: cef_string_list_t) {
-    cef_string_list_free(cefList)
+func CEFStringListRelease(_ cefList: cef_string_list_t?) {
+    if let cefList = cefList {
+        cef_string_list_free(cefList)
+    }
 }
 
 func CEFStringListToSwiftArray(_ cefList: cef_string_list_t) -> [String] {

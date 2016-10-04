@@ -64,7 +64,7 @@ public extension CEFV8Value {
     /// combination with calling Enter() and Exit() on a stored CefV8Context
     /// reference.
     public static func createObject(accessor: CEFV8Accessor? = nil) -> CEFV8Value? {
-        let cefAccessorPtr = (accessor != nil) ? accessor!.toCEF() : nil
+        let cefAccessorPtr = accessor?.toCEF()
         return CEFV8Value.fromCEF(cef_v8value_create_object(cefAccessorPtr))
     }
 
@@ -84,7 +84,7 @@ public extension CEFV8Value {
     public static func createFunction(name: String, handler: CEFV8Handler? = nil) -> CEFV8Value? {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        let cefHandlerPtr = handler != nil ? handler!.toCEF() : nil
+        let cefHandlerPtr = handler?.toCEF()
         return CEFV8Value.fromCEF(cef_v8value_create_function(cefStrPtr, cefHandlerPtr))
     }
     
@@ -190,7 +190,7 @@ public extension CEFV8Value {
     /// Return a string value.  The underlying data will be converted to if
     /// necessary.
     public var stringValue: String {
-        let cefStrPtr = cefObject.get_string_value(cefObjectPtr)
+        let cefStrPtr = cefObject.get_string_value(cefObjectPtr)!
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.pointee)
     }
@@ -229,7 +229,7 @@ public extension CEFV8Value {
     /// only in the scope of the current CEF value object.
     public var rethrowsExceptions: Bool {
         get { return cefObject.will_rethrow_exceptions(cefObjectPtr) != 0 }
-        set { cefObject.set_rethrow_exceptions(cefObjectPtr, newValue ? 1 : 0) }
+        set { _ = cefObject.set_rethrow_exceptions(cefObjectPtr, newValue ? 1 : 0) }
     }
     
     /// Set whether this object will re-throw future exceptions. By default
@@ -319,9 +319,9 @@ public extension CEFV8Value {
     /// Read the keys for the object's values into the specified vector. Integer-
     /// based keys will also be returned as strings.
     public var allKeys: [String] {
-        let cefKeys = cef_string_list_alloc()
+        let cefKeys = cef_string_list_alloc()!
         defer { cef_string_list_free(cefKeys) }
-        cefObject.get_keys(cefObjectPtr, cefKeys)
+        _ = cefObject.get_keys(cefObjectPtr, cefKeys)
         return CEFStringListToSwiftArray(cefKeys)
     }
     
@@ -333,7 +333,7 @@ public extension CEFV8Value {
         }
         set {
             let cefUserData = newValue != nil ? newValue!.toCEF() : nil
-            cefObject.set_user_data(cefObjectPtr, cefUserData)
+            _ = cefObject.set_user_data(cefObjectPtr, cefUserData)
         }
     }
     
@@ -369,7 +369,7 @@ public extension CEFV8Value {
     public var functionName: String {
         let cefStrPtr = cefObject.get_function_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.pointee)
+        return CEFStringToSwiftString(cefStrPtr!.pointee)
     }
     
     /// Returns the function handler or NULL if not a CEF-created function.
@@ -387,13 +387,14 @@ public extension CEFV8Value {
     /// function. Returns the function return value on success. Returns NULL if
     /// this method is called incorrectly or an exception is thrown.
     public func executeFunction(object: CEFV8Value?, arguments: [CEFV8Value]) -> CEFV8Value? {
-        let cefV8Obj = object != nil ? object!.toCEF() : nil
-        let cefArgs = UnsafeMutablePointer<UnsafeMutablePointer<cef_v8value_t>>.allocate(capacity: arguments.count)
+        let cefV8Obj = object?.toCEF()
+        let cefArgs = UnsafeMutablePointer<UnsafeMutablePointer<cef_v8value_t>?>.allocate(capacity: arguments.count)
         defer { cefArgs.deallocate(capacity: arguments.count) }
         
+        // (@convention(c) (UnsafeMutablePointer<_cef_v8value_t>?, UnsafeMutablePointer<_cef_v8value_t>?, Int, UnsafePointer<UnsafeMutablePointer<_cef_v8value_t>?>?) -> UnsafeMutablePointer<_cef_v8value_t>?)!
         for i in 0..<arguments.count {
-            let cefArg = arguments[i].toCEF()
-            cefArgs.advanced(by: i).initialize(from: cefArg)
+            var cefArg: UnsafeMutablePointer<cef_v8value_t>? = arguments[i].toCEF()
+            cefArgs.advanced(by: i).initialize(from: &cefArg, count: 1)
         }
         
         let cefValue = cefObject.execute_function(cefObjectPtr, cefV8Obj, arguments.count, cefArgs)
@@ -407,13 +408,13 @@ public extension CEFV8Value {
     /// value on success. Returns NULL if this method is called incorrectly or an
     /// exception is thrown.
     public func executeFunctionWithContext(context: CEFV8Context, object: CEFV8Value?, arguments: [CEFV8Value]) -> CEFV8Value? {
-        let cefV8Obj = object != nil ? object!.toCEF() : nil
-        let cefArgs = UnsafeMutablePointer<UnsafeMutablePointer<cef_v8value_t>>.allocate(capacity: arguments.count)
+        let cefV8Obj = object?.toCEF()
+        let cefArgs = UnsafeMutablePointer<UnsafeMutablePointer<cef_v8value_t>?>.allocate(capacity: arguments.count)
         defer { cefArgs.deallocate(capacity: arguments.count) }
         
         for i in 0..<arguments.count {
-            let cefArg = arguments[i].toCEF()
-            cefArgs.advanced(by: i).initialize(from: cefArg)
+            var cefArg: UnsafeMutablePointer<cef_v8value_t>? = arguments[i].toCEF()
+            cefArgs.advanced(by: i).initialize(from: &cefArg, count: 1)
         }
         
         let cefValue = cefObject.execute_function_with_context(cefObjectPtr,

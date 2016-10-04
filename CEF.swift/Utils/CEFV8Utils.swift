@@ -73,7 +73,7 @@ public struct CEFV8Utils {
             CEFStringPtrRelease(cefNamePtr)
             CEFStringPtrRelease(cefCodePtr)
         }
-        let cefHandler = handler != nil ? handler!.toCEF() : nil
+        let cefHandler = handler?.toCEF()
         return cef_register_extension(cefNamePtr, cefCodePtr, cefHandler) != 0
     }
 

@@ -38,7 +38,7 @@ public extension CEFDOMDocument {
     public var title: String {
         let cefStrPtr = cefObject.get_title(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.pointee)
+        return CEFStringToSwiftString(cefStrPtr!.pointee)
     }
 
     /// Returns the document element with the specified ID value.
@@ -74,21 +74,21 @@ public extension CEFDOMDocument {
     public var selectionAsMarkup: String {
         let cefStrPtr = cefObject.get_selection_as_markup(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.pointee)
+        return CEFStringToSwiftString(cefStrPtr!.pointee)
     }
     
     /// Returns the contents of this selection as text.
     public var selectionAsText: String {
         let cefStrPtr = cefObject.get_selection_as_text(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.pointee)
+        return CEFStringToSwiftString(cefStrPtr!.pointee)
     }
     
     /// Returns the base URL for the document.
     public var baseURL: NSURL {
         let cefURLPtr = cefObject.get_base_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefURLPtr.pointee))!
+        return NSURL(string: CEFStringToSwiftString(cefURLPtr!.pointee))!
     }
     
     /// Returns a complete URL based on the document base URL and the specified
@@ -100,7 +100,7 @@ public extension CEFDOMDocument {
             CEFStringPtrRelease(cefStrPtr)
             CEFStringPtrRelease(cefURLPtr)
         }
-        return NSURL(string: CEFStringToSwiftString(cefURLPtr.pointee))!
+        return NSURL(string: CEFStringToSwiftString(cefURLPtr!.pointee))!
     }
     
 }

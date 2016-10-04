@@ -14,11 +14,7 @@ public extension CEFMenuModel {
     public typealias GroupID = Int32
     
     public convenience init?(delegate: CEFMenuModelDelegate? = nil) {
-        var cefDelegatePtr: UnsafeMutablePointer<cef_menu_model_delegate_t> = nil
-        if let delegate = delegate {
-            cefDelegatePtr = delegate.toCEF()
-        }
-        
+        let cefDelegatePtr = delegate?.toCEF()
         self.init(ptr: cef_menu_model_create(cefDelegatePtr))
     }
 
@@ -155,7 +151,7 @@ public extension CEFMenuModel {
     public func labelForCommandID(commandID: CommandID) -> String? {
         let cefStrPtr = cefObject.get_label(cefObjectPtr, commandID.toCEF())
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
     }
     
     /// Returns the label at the specified |index| or empty if not found due to
@@ -163,7 +159,7 @@ public extension CEFMenuModel {
     public func labelAtIndex(index: Int32) -> String? {
         let cefStrPtr = cefObject.get_label_at(cefObjectPtr, index)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
     }
     
     /// Sets the label for the specified |command_id|. Returns true on success.

@@ -61,6 +61,7 @@ public class CEFProxy<T : CEFObject>: CEFRefCounting {
         }
     }
     
+    @discardableResult
     func release() -> Bool {
         return _cefPtr.withMemoryRebound(to: cef_base_t.self, capacity: 1) { basePtr in
             return _cefPtr.pointee.base.release(basePtr) != 0

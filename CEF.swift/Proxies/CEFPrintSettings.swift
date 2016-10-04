@@ -35,8 +35,8 @@ public extension CEFPrintSettings {
 
     /// Page orientation.
     public var orientation: CEFPageOrientation {
-        get { return cefObject.is_landscape(cefObjectPtr) != 0 ? .Landscape : .Portrait }
-        set { cefObject.set_orientation(cefObjectPtr, newValue == .Landscape ? 1 : 0) }
+        get { return cefObject.is_landscape(cefObjectPtr) != 0 ? .landscape : .portrait }
+        set { cefObject.set_orientation(cefObjectPtr, newValue == .landscape ? 1 : 0) }
     }
 
     /// Set the printer printable area in device units.
@@ -53,7 +53,7 @@ public extension CEFPrintSettings {
         get {
             let cefStrPtr = cefObject.get_device_name(cefObjectPtr)
             defer { CEFStringPtrRelease(cefStrPtr) }
-            return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
+            return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
         }
         set {
             let cefStrPtr = newValue != nil ? CEFStringPtrCreateFromSwiftString(newValue!) : nil
@@ -88,12 +88,12 @@ public extension CEFPrintSettings {
     /// Retrieve the page ranges.
     private func getPageRanges() -> [CEFRange] {
         var count: size_t = 0
-        let cefRangesPtr: UnsafeMutablePointer<cef_range_t> = nil
+        let cefRangesPtr: UnsafeMutablePointer<cef_range_t>? = nil
         cefObject.get_page_ranges(cefObjectPtr, &count, cefRangesPtr)
 
         var ranges = [CEFRange]()
         for i in 0..<count {
-            ranges.append(CEFRange.fromCEF(cefRangesPtr.advanced(by: i).pointee))
+            ranges.append(CEFRange.fromCEF(cefRangesPtr!.advanced(by: i).pointee))
         }
         
         return ranges

@@ -87,7 +87,7 @@ public extension CEFClient {
     func onProcessMessageReceived(browser: CEFBrowser,
                                   processID: CEFProcessID,
                                   message: CEFProcessMessage) -> CEFOnProcessMessageReceivedAction {
-        return .PassThrough
+        return .passThrough
     }
 
 }

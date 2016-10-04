@@ -25,7 +25,7 @@ public struct CEFSchemeUtils {
     public static func registerHandlerFactoryForScheme(scheme: String, domain: String? = nil, factory: CEFSchemeHandlerFactory? = nil) -> Bool {
         let cefSchemePtr = CEFStringPtrCreateFromSwiftString(scheme)
         let cefDomainPtr = domain != nil ? CEFStringPtrCreateFromSwiftString(domain!) : nil
-        let cefFactory = factory != nil ? factory!.toCEF() : nil
+        let cefFactory = factory?.toCEF()
         defer {
             CEFStringPtrRelease(cefSchemePtr)
         }

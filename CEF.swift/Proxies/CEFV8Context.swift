@@ -92,15 +92,15 @@ public extension CEFV8Context {
         let cefCodePtr = CEFStringPtrCreateFromSwiftString(code)
         defer { CEFStringPtrRelease(cefCodePtr) }
         
-        var cefRetval: UnsafeMutablePointer<cef_v8value_t> = nil
-        var cefExc: UnsafeMutablePointer<cef_v8exception_t> = nil
+        var cefRetval: UnsafeMutablePointer<cef_v8value_t>? = nil
+        var cefExc: UnsafeMutablePointer<cef_v8exception_t>? = nil
         let result = cefObject.eval(cefObjectPtr, cefCodePtr, &cefRetval, &cefExc)
         
         if result != 0 {
-            return .Success(CEFV8Value.fromCEF(cefRetval)!)
+            return .success(CEFV8Value.fromCEF(cefRetval)!)
         }
         
-        return .Failure(CEFV8Exception.fromCEF(cefExc)!)
+        return .failure(CEFV8Exception.fromCEF(cefExc)!)
     }
     
 }

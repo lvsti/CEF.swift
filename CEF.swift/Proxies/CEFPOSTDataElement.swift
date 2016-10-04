@@ -48,7 +48,7 @@ public extension CEFPOSTDataElement {
     public var file: String {
         let cefStrPtr = cefObject.get_file(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.pointee)
+        return CEFStringToSwiftString(cefStrPtr!.pointee)
     }
     
     /// Return the number of bytes.

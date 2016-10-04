@@ -15,8 +15,7 @@ public extension CEFBeforeDownloadCallback {
     /// suggested name and the default temp directory. Set |show_dialog| to true
     /// if you do wish to show the default "Save As" dialog.
     public func doContinue(downloadPath: String?, showDialog: Bool) {
-        let cefStrPtr: UnsafeMutablePointer<cef_string_t> =
-            downloadPath != nil ? CEFStringPtrCreateFromSwiftString(downloadPath!) : nil
+        let cefStrPtr = downloadPath != nil ? CEFStringPtrCreateFromSwiftString(downloadPath!) : nil
         defer { CEFStringPtrRelease(cefStrPtr) }
         
         cefObject.cont(cefObjectPtr, cefStrPtr, showDialog ? 1 : 0)

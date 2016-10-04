@@ -35,8 +35,10 @@ public extension CEFCommandLine {
     
     /// Returns a writable copy of this object.
     public func copy() -> CEFCommandLine? {
-        let copiedObj = cefObject.copy(cefObjectPtr)
-        return CEFCommandLine.fromCEF(copiedObj)
+        if let copiedObj = cefObject.copy(cefObjectPtr) {
+            return CEFCommandLine.fromCEF(copiedObj)
+        }
+        return nil
     }
 
     /// Initialize the command line with the specified |argc| and |argv| values.
@@ -44,7 +46,8 @@ public extension CEFCommandLine {
     /// supported on non-Windows platforms.
     public func initFromArguments(arguments: [String]) {
         let argv = CEFArgVFromArguments(arguments)
-        cefObject.init_from_argv(cefObjectPtr, Int32(arguments.count), argv)
+        let constArgv = UnsafeRawPointer(argv).assumingMemoryBound(to: (UnsafePointer<Int8>?).self)
+        cefObject.init_from_argv(cefObjectPtr, Int32(arguments.count), constArgv)
         argv.deallocate(capacity: arguments.count)
     }
     
@@ -87,7 +90,7 @@ public extension CEFCommandLine {
     public var stringValue: String {
         let cefCmdLinePtr = cefObject.get_command_line_string(cefObjectPtr)
         defer { CEFStringPtrRelease(cefCmdLinePtr) }
-        return CEFStringToSwiftString(cefCmdLinePtr.pointee)
+        return CEFStringToSwiftString(cefCmdLinePtr!.pointee)
     }
     
     /// The program part of the command line string (the first item).
@@ -95,7 +98,7 @@ public extension CEFCommandLine {
         get {
             let cefProgramPtr = cefObject.get_program(cefObjectPtr)
             defer { CEFStringPtrRelease(cefProgramPtr) }
-            return CEFStringToSwiftString(cefProgramPtr.pointee)
+            return CEFStringToSwiftString(cefProgramPtr!.pointee)
         }
         set {
             let cefProgramPtr = CEFStringPtrCreateFromSwiftString(newValue)
@@ -125,7 +128,7 @@ public extension CEFCommandLine {
             CEFStringPtrRelease(cefStrPtr)
             CEFStringPtrRelease(cefValuePtr)
         }
-        return cefValuePtr != nil ? CEFStringToSwiftString(cefValuePtr.pointee) : ""
+        return cefValuePtr != nil ? CEFStringToSwiftString(cefValuePtr!.pointee) : ""
     }
     
     /// Returns the map of switch names and values. If a switch has no value an
@@ -163,7 +166,7 @@ public extension CEFCommandLine {
     
     /// Get the remaining command line arguments.
     public var arguments: [String] {
-        let cefList = cef_string_list_alloc()
+        let cefList = cef_string_list_alloc()!
         defer { cef_string_list_free(cefList) }
         cefObject.get_arguments(cefObjectPtr, cefList)
         return CEFStringListToSwiftArray(cefList)

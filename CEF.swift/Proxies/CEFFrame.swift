@@ -127,7 +127,7 @@ public extension CEFFrame {
     /// parent hierarchy. The main (top-level) frame will always have an empty name
     /// value.
     public var name: String {
-        let cefStrPtr = cefObject.get_name(cefObjectPtr)
+        let cefStrPtr = cefObject.get_name(cefObjectPtr)!
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.pointee)
     }
@@ -147,7 +147,7 @@ public extension CEFFrame {
     
     /// Returns the URL currently loaded in this frame.
     public var url: NSURL {
-        let cefURLPtr = cefObject.get_url(cefObjectPtr)
+        let cefURLPtr = cefObject.get_url(cefObjectPtr)!
         defer { CEFStringPtrRelease(cefURLPtr) }
         return NSURL(string: CEFStringToSwiftString(cefURLPtr.pointee))!
     }
@@ -178,19 +178,19 @@ public extension CEFFrame {
 
     /// Visit the DOM document. This method can only be called from the render
     /// process.
-    public func withDOMDocument(block: CEFDOMVisitorVisitBlock) {
+    public func withDOMDocument(block: @escaping CEFDOMVisitorVisitBlock) {
         getDOMDocumentUsingVisitor(CEFDOMVisitorBridge(block: block))
     }
 
     /// Retrieve this frame's HTML source as a string sent to the specified
     /// visitor.
-    public func withSource(block: CEFStringVisitorVisitBlock) {
+    public func withSource(block: @escaping CEFStringVisitorVisitBlock) {
         getSourceUsingVisitor(CEFStringVisitorBridge(block: block))
     }
 
     /// Retrieve this frame's display text as a string sent to the specified
     /// visitor.
-    public func withText(block: CEFStringVisitorVisitBlock) {
+    public func withText(block: @escaping CEFStringVisitorVisitBlock) {
         getTextUsingVisitor(CEFStringVisitorBridge(block: block))
     }
 

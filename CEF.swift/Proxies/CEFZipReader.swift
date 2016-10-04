@@ -48,7 +48,7 @@ public extension CEFZipReader {
     public var fileName: String {
         let cefStrPtr = cefObject.get_file_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.pointee)
+        return CEFStringToSwiftString(cefStrPtr!.pointee)
     }
 
     /// Returns the uncompressed size of the file.
@@ -65,12 +65,8 @@ public extension CEFZipReader {
     /// Opens the file for reading of uncompressed data. A read password may
     /// optionally be specified.
     public func openFile(password: String? = nil) -> Bool {
-        var cefPwd: UnsafeMutablePointer<cef_string_t> = nil
+        var cefPwd = password != nil ? CEFStringPtrCreateFromSwiftString(password!) : nil
         defer { CEFStringPtrRelease(cefPwd) }
-        
-        if password != nil {
-            cefPwd = CEFStringPtrCreateFromSwiftString(password!)
-        }
         
         return cefObject.open_file(cefObjectPtr, cefPwd) != 0
     }

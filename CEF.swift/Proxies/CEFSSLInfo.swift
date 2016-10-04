@@ -90,12 +90,12 @@ public extension CEFSSLInfo {
     /// present in the array but is an empty string.
     public var derEncodedIssuerChain: [CEFBinaryValue] {
         var chainLength: size_t = 0
-        var cefChain: UnsafeMutablePointer<cef_binary_value_t> = nil
+        var cefChain: UnsafeMutablePointer<cef_binary_value_t>? = nil
         cefObject.get_derencoded_issuer_chain(cefObjectPtr, &chainLength, &cefChain)
         
         var chain: [CEFBinaryValue] = []
         for i in 0..<chainLength {
-            let cefBinary = cefChain.advanced(by: i)
+            let cefBinary = cefChain!.advanced(by: i)
             chain.append(CEFBinaryValue.fromCEF(cefBinary)!)
         }
         
@@ -107,12 +107,12 @@ public extension CEFSSLInfo {
     /// present in the array but is an empty string.
     public var pemEncodedIssuerChain: [CEFBinaryValue] {
         var chainLength: size_t = 0
-        var cefChain: UnsafeMutablePointer<cef_binary_value_t> = nil
+        var cefChain: UnsafeMutablePointer<cef_binary_value_t>? = nil
         cefObject.get_pemencoded_issuer_chain(cefObjectPtr, &chainLength, &cefChain)
         
         var chain: [CEFBinaryValue] = []
         for i in 0..<chainLength {
-            let cefBinary = cefChain.advanced(by: i)
+            let cefBinary = cefChain!.advanced(by: i)
             chain.append(CEFBinaryValue.fromCEF(cefBinary)!)
         }
         

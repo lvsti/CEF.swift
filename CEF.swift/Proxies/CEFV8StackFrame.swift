@@ -21,7 +21,7 @@ public extension CEFV8StackFrame {
     public var scriptName: String {
         let cefStrPtr = cefObject.get_script_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.pointee)
+        return CEFStringToSwiftString(cefStrPtr!.pointee)
     }
 
     /// Returns the name of the resource script that contains the function or the
@@ -30,14 +30,14 @@ public extension CEFV8StackFrame {
     public var scriptNameOrSourceURL: String {
         let cefStrPtr = cefObject.get_script_name_or_source_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.pointee)
+        return CEFStringToSwiftString(cefStrPtr!.pointee)
     }
     
     /// Returns the name of the function.
     public var functionName: String {
         let cefStrPtr = cefObject.get_function_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.pointee)
+        return CEFStringToSwiftString(cefStrPtr!.pointee)
     }
 
     /// Returns the 1-based line number for the function call or 0 if unknown.

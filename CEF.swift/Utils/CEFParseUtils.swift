@@ -22,7 +22,7 @@ public struct CEFParseUtils {
         let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString!)
         defer { CEFStringPtrRelease(cefURLPtr) }
         
-        let cefStrPtr = cef_format_url_for_security_display(cefURLPtr)
+        let cefStrPtr = cef_format_url_for_security_display(cefURLPtr)!
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFStringToSwiftString(cefStrPtr.pointee)
     }
@@ -34,7 +34,7 @@ public struct CEFParseUtils {
         defer { CEFStringPtrRelease(cefStrPtr) }
         let cefType = cef_get_mime_type(cefStrPtr)
         defer { CEFStringPtrRelease(cefType) }
-        return cefType != nil ? CEFStringToSwiftString(cefType.pointee) : nil
+        return cefType != nil ? CEFStringToSwiftString(cefType!.pointee) : nil
     }
 
     // Get the extensions associated with the given mime type. This should be passed
@@ -42,7 +42,7 @@ public struct CEFParseUtils {
     // "html,htm" for "text/html", or "txt,text,html,..." for "text/*". Any existing
     // elements in the provided vector will not be erased.
     public static func extensionsForMIMEType(mimeType: String) -> [String] {
-        let cefList = cef_string_list_alloc()
+        let cefList = cef_string_list_alloc()!
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(mimeType)
         defer {
             CEFStringListRelease(cefList)
@@ -63,7 +63,7 @@ public struct CEFParseUtils {
             CEFStringPtrRelease(cefStrPtr)
             CEFStringPtrRelease(cefEncodedPtr)
         }
-        return CEFStringToSwiftString(cefEncodedPtr.pointee)
+        return CEFStringToSwiftString(cefEncodedPtr!.pointee)
     }
 
     /// Unescapes |text| and returns the result. Unescaping consists of looking for
@@ -81,7 +81,7 @@ public struct CEFParseUtils {
             CEFStringPtrRelease(cefStrPtr)
             CEFStringPtrRelease(cefDecodedPtr)
         }
-        return CEFStringToSwiftString(cefDecodedPtr.pointee)
+        return CEFStringToSwiftString(cefDecodedPtr!.pointee)
     }
 
     // Parses the specified |json_string| and returns a dictionary or list
@@ -101,15 +101,15 @@ public struct CEFParseUtils {
                                          options: CEFJSONParserOptions) -> CEFJSONParseResult {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(jsonString)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        var code = CEFJSONParserError.NoError.toCEF()
+        var code = CEFJSONParserError.noError.toCEF()
         var msg = cef_string_t()
         
         let cefValue = cef_parse_jsonand_return_error(cefStrPtr, options.toCEF(), &code, &msg)
         if cefValue != nil {
-            return .Failure(CEFJSONParserError.fromCEF(code), CEFStringToSwiftString(msg))
+            return .failure(CEFJSONParserError.fromCEF(code), CEFStringToSwiftString(msg))
         }
         
-        return .Success(CEFValue.fromCEF(cefValue)!)
+        return .success(CEFValue.fromCEF(cefValue)!)
     }
 
     // Generates a JSON string from the specified root |node| which should be a
@@ -119,7 +119,7 @@ public struct CEFParseUtils {
         let cefStrPtr = cef_write_json(value.toCEF(), options.toCEF())
         defer { CEFStringPtrRelease(cefStrPtr) }
         
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
     }
 
 }

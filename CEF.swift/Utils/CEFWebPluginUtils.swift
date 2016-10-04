@@ -18,7 +18,7 @@ public struct CEFWebPluginUtils {
 
     /// Visit web plugin information. Can be called on any thread in the browser
     /// process.
-    public static func enumerateWebPlugins(block: CEFWebPluginInfoVisitorVisitBlock) {
+    public static func enumerateWebPlugins(block: @escaping CEFWebPluginInfoVisitorVisitBlock) {
         let visitor = CEFWebPluginInfoVisitorBridge(block: block)
         cef_visit_web_plugin_info(visitor.toCEF())
     }
@@ -57,7 +57,7 @@ public struct CEFWebPluginUtils {
 
     /// Query if a plugin is unstable. Can be called on any thread in the browser
     /// process.
-    public static func isUnstableWebPluginAtPath(path: String, block: CEFWebPluginUnstableCallbackIsUnstableBlock) {
+    public static func isUnstableWebPluginAtPath(path: String, block: @escaping CEFWebPluginUnstableCallbackIsUnstableBlock) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
         defer { CEFStringPtrRelease(cefStrPtr) }
         let callback = CEFWebPluginUnstableCallbackBridge(block: block)

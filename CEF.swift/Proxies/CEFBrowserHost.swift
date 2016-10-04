@@ -24,8 +24,8 @@ public extension CEFBrowserHost {
         var cefSettings = settings.toCEF()
         let cefURLPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString!) : nil
         var cefWinInfo = windowInfo.toCEF()
-        let cefClient = client != nil ? client!.toCEF() : nil
-        let cefReqCtx = requestContext != nil ? requestContext!.toCEF() : nil
+        let cefClient = client?.toCEF()
+        let cefReqCtx = requestContext?.toCEF()
         
         defer {
             cefSettings.clear()
@@ -48,8 +48,8 @@ public extension CEFBrowserHost {
         var cefSettings = settings.toCEF()
         let cefURLPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString!) : nil
         var cefWinInfo = windowInfo.toCEF()
-        let cefClient = client != nil ? client!.toCEF() : nil
-        let cefReqCtx = requestContext != nil ? requestContext!.toCEF() : nil
+        let cefClient = client?.toCEF()
+        let cefReqCtx = requestContext?.toCEF()
         
         defer {
             cefSettings.clear()
@@ -76,7 +76,7 @@ public extension CEFBrowserHost {
     /// event handler allows the close or if |force_close| is true. See
     /// CefLifeSpanHandler::DoClose() documentation for additional usage
     /// information.
-    public func closeBrowser(force force: Bool) {
+    public func closeBrowser(force: Bool) {
         cefObject.close_browser(cefObjectPtr, force ? 1 : 0)
     }
 
@@ -98,18 +98,22 @@ public extension CEFBrowserHost {
     /// Retrieve the window handle for this browser. If this browser is wrapped in
     /// a CefBrowserView this method should be called on the browser process UI
     /// thread and it will return the handle for the top-level native window.
-    public var windowHandle: CEFWindowHandle {
-        let rawHandle:UnsafeMutablePointer<Void> = cefObject.get_window_handle(cefObjectPtr)
-        return Unmanaged<CEFWindowHandle>.fromOpaque(COpaquePointer(rawHandle)).takeUnretainedValue()
+    public var windowHandle: CEFWindowHandle? {
+        if let rawHandle = cefObject.get_window_handle(cefObjectPtr) {
+            return Unmanaged<CEFWindowHandle>.fromOpaque(rawHandle).takeUnretainedValue()
+        }
+        return nil
     }
     
     /// Retrieve the window handle of the browser that opened this browser. Will
     /// return NULL for non-popup windows or if this browser is wrapped in a
     /// CefBrowserView. This method can be used in combination with custom handling
     /// of modal windows.
-    public var openerWindowHandle: CEFWindowHandle {
-        let rawHandle:UnsafeMutablePointer<Void> = cefObject.get_opener_window_handle(cefObjectPtr)
-        return Unmanaged<CEFWindowHandle>.fromOpaque(COpaquePointer(rawHandle)).takeUnretainedValue()
+    public var openerWindowHandle: CEFWindowHandle? {
+        if let rawHandle = cefObject.get_opener_window_handle(cefObjectPtr) {
+            return Unmanaged<CEFWindowHandle>.fromOpaque(rawHandle).takeUnretainedValue()
+        }
+        return nil
     }
     
     /// Returns true if this browser is wrapped in a CefBrowserView.
@@ -120,15 +124,19 @@ public extension CEFBrowserHost {
     /// Returns the client for this browser.
     public var client: CEFClient? {
         // TODO: audit nonnull
-        let cefClient = cefObject.get_client(cefObjectPtr)
-        return CEFClientMarshaller.take(cefClient)
+        if let cefClient = cefObject.get_client(cefObjectPtr) {
+            return CEFClientMarshaller.take(cefClient)
+        }
+        return nil
     }
 
     /// Returns the request context for this browser.
     public var requestContext: CEFRequestContext? {
         // TODO: audit nonnull
-        let cefCtx = cefObject.get_request_context(cefObjectPtr)
-        return CEFRequestContext.fromCEF(cefCtx)
+        if let cefCtx = cefObject.get_request_context(cefObjectPtr) {
+            return CEFRequestContext.fromCEF(cefCtx)
+        }
+        return nil
     }
 
     /// Zoom level.
@@ -250,7 +258,7 @@ public extension CEFBrowserHost {
     }
     
     /// Cancel all searches that are currently going on.
-    public func stopFinding(clearSelection clearSelection: Bool) {
+    public func stopFinding(clearSelection: Bool) {
         cefObject.stop_finding(cefObjectPtr, clearSelection ? 1 : 0)
     }
     
@@ -265,11 +273,12 @@ public extension CEFBrowserHost {
                              client: CEFClient,
                              settings: CEFBrowserSettings,
                              inspectionPoint: NSPoint?) {
-        var cefPointPtr: UnsafeMutablePointer<cef_point_t> = nil
+        var cefPointPtr: UnsafeMutablePointer<cef_point_t>? = nil
+        defer { cefPointPtr?.deallocate(capacity: 1) }
+        
         if let inspectionPoint = inspectionPoint {
             cefPointPtr = UnsafeMutablePointer<cef_point_t>.allocate(capacity: 1)
-            defer { cefPointPtr.deinitialize(count: 1) }
-            cefPointPtr.initialize(from: inspectionPoint.toCEF())
+            cefPointPtr!.pointee = inspectionPoint.toCEF()
         }
 
         var cefSettings = settings.toCEF()
@@ -418,7 +427,7 @@ public extension CEFBrowserHost {
     /// window rendering is disabled.
     public var textInputContext: CEFTextInputContext? {
         if let rawHandle = cefObject.get_nstext_input_context(cefObjectPtr) {
-            return Unmanaged<CEFTextInputContext>.fromOpaque(OpaquePointer(rawHandle)).takeUnretainedValue()
+            return Unmanaged<CEFTextInputContext>.fromOpaque(rawHandle).takeUnretainedValue()
         }
         return nil
     }
@@ -504,8 +513,8 @@ public extension CEFBrowserHost {
     /// Retrieve a snapshot of current navigation entries as values sent to the
     /// specified visitor. If |current_only| is true only the current navigation
     /// entry will be sent, otherwise all navigation entries will be sent.
-    public func enumerateNavigationEntries(currentOnly: Bool, block: CEFNavigationEntryVisitorVisitBlock) {
-        enumerateNavigationEntriesUsingVisitor(CEFNavigationEntryVisitorBridge(block: block), currentOnly: currentOnly)
+    public func enumerateNavigationEntries(currentOnly: Bool, block: @escaping CEFNavigationEntryVisitorVisitBlock) {
+        enumerateNavigationEntriesUsingVisitor(visitor: CEFNavigationEntryVisitorBridge(block: block), currentOnly: currentOnly)
     }
 
     /// Call to run a file chooser dialog. Only a single file chooser dialog may be
@@ -527,8 +536,8 @@ public extension CEFBrowserHost {
                               defaultPath: String?,
                               acceptFilters: [String],
                               selectedFilterIndex: Int,
-                              block: CEFRunFileDialogCallbackOnFileDialogDismissedBlock) {
-        runFileDialog(mode,
+                              block: @escaping CEFRunFileDialogCallbackOnFileDialogDismissedBlock) {
+        runFileDialog(mode: mode,
                       title: title,
                       defaultPath: defaultPath,
                       acceptFilters: acceptFilters,
@@ -550,8 +559,8 @@ public extension CEFBrowserHost {
                        isFavicon: Bool,
                        maxImageSize: UInt32,
                        bypassCache: Bool,
-                       block: CEFDownloadImageCallbackOnDownloadImageFinishedBlock) {
-        downloadImage(url,
+                       block: @escaping CEFDownloadImageCallbackOnDownloadImageFinishedBlock) {
+        downloadImage(url: url,
                       isFavicon: isFavicon,
                       maxImageSize: maxImageSize,
                       bypassCache: bypassCache,
@@ -562,8 +571,8 @@ public extension CEFBrowserHost {
     /// execute |callback| on completion. The caller is responsible for deleting
     /// |path| when done. For PDF printing to work on Linux you must implement the
     /// CefPrintHandler::GetPdfPaperSize method.
-    func printToPDFAtPath(path: String, settings: CEFPDFPrintSettings, block: CEFPDFPrintCallbackOnPDFPrintFinishedBlock) {
-        printToPDFAtPath(path, settings: settings, callback: CEFPDFPrintCallbackBridge(block: block))
+    func printToPDFAtPath(path: String, settings: CEFPDFPrintSettings, block: @escaping CEFPDFPrintCallbackOnPDFPrintFinishedBlock) {
+        printToPDFAtPath(path: path, settings: settings, callback: CEFPDFPrintCallbackBridge(block: block))
     }
 }
 

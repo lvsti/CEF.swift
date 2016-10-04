@@ -18,7 +18,7 @@ public struct CEFMouseEvent {
     
     /// Bit flags describing any pressed modifier keys. See
     /// cef_event_flags_t for values.
-    public var modifiers: CEFEventFlags = .None
+    public var modifiers: CEFEventFlags = .none
 }
 
 extension CEFMouseEvent {

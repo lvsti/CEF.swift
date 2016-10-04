@@ -111,7 +111,7 @@ public struct CEFSettings {
     /// logged. Also configurable using the "log-severity" command-line switch with
     /// a value of "verbose", "info", "warning", "error", "error-report" or
     /// "disable".
-    public var logSeverity: CEFLogSeverity = .Default
+    public var logSeverity: CEFLogSeverity = .defaultSeverity
     
     /// Custom flags that will be used when initializing the V8 JavaScript engine.
     /// The consequences of using custom flags may not be well tested. Also
@@ -168,7 +168,7 @@ public struct CEFSettings {
     /// specifying a value of -1.
     /// Also configurable using the "context-safety-implementation" command-line
     /// switch.
-    public var contextSafetyImplementation: CEFV8ContextSafetyImplementation = .Default
+    public var contextSafetyImplementation: CEFV8ContextSafetyImplementation = .defaultImplementation
     
     /// Set to true (1) to ignore errors related to invalid SSL certificates.
     /// Enabling this setting can lead to potential security vulnerabilities like

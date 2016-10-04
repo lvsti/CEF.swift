@@ -22,7 +22,7 @@ public struct CEFProcessUtils {
     /// cef_sandbox_win.h for details).
     public static func executeProcessWithArgs(args: CEFMainArgs,
                                               app: CEFApp? = nil,
-                                              winSandboxInfo: UnsafeMutableRawPointer = nil) -> Int {
+                                              winSandboxInfo: UnsafeMutableRawPointer? = nil) -> Int {
         var cefArgs = args.toCEF()
         defer { cefArgs.clear() }
         return Int(cef_execute_process(&cefArgs, app != nil ? app!.toCEF() : nil, winSandboxInfo))
@@ -36,7 +36,7 @@ public struct CEFProcessUtils {
     public static func initializeMainWithArgs(args: CEFMainArgs,
                                               settings: CEFSettings,
                                               app: CEFApp? = nil,
-                                              winSandboxInfo: UnsafeMutableRawPointer = nil) -> Bool {
+                                              winSandboxInfo: UnsafeMutableRawPointer? = nil) -> Bool {
         var cefArgs = args.toCEF()
         var cefSettings = settings.toCEF()
         defer {

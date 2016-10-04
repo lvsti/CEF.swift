@@ -47,7 +47,7 @@ public extension CEFResponse {
         get {
             let cefStrPtr = cefObject.get_status_text(cefObjectPtr)
             defer { CEFStringPtrRelease(cefStrPtr)}
-            return CEFStringToSwiftString(cefStrPtr.pointee)
+            return CEFStringToSwiftString(cefStrPtr!.pointee)
         }
         set {
             let cefStrPtr = CEFStringPtrCreateFromSwiftString(newValue)
@@ -59,7 +59,7 @@ public extension CEFResponse {
     /// Get the response mime type.
     public var mimeType: String {
         get {
-            let cefStrPtr = cefObject.get_status_text(cefObjectPtr)
+            let cefStrPtr = cefObject.get_status_text(cefObjectPtr)!
             defer { CEFStringPtrRelease(cefStrPtr)}
             return CEFStringToSwiftString(cefStrPtr.pointee)
         }
@@ -79,13 +79,13 @@ public extension CEFResponse {
             CEFStringPtrRelease(cefHeaderPtr)
         }
         
-        return cefHeaderPtr != nil ? CEFStringToSwiftString(cefHeaderPtr.pointee) : nil
+        return cefHeaderPtr != nil ? CEFStringToSwiftString(cefHeaderPtr!.pointee) : nil
     }
     
     /// Response header fields.
     public var headers: HeaderMap {
         get {
-            let cefHeaderMap = cef_string_multimap_alloc()
+            let cefHeaderMap = cef_string_multimap_alloc()!
             defer { cef_string_multimap_free(cefHeaderMap) }
 
             cefObject.get_header_map(cefObjectPtr, cefHeaderMap)

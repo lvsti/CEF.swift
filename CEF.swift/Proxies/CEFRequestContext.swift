@@ -22,11 +22,7 @@ public extension CEFRequestContext {
         var cefSettings = settings.toCEF()
         defer { cefSettings.clear() }
 
-        var cefHandlerPtr: UnsafeMutablePointer<cef_request_context_handler_t> = nil
-        if let handler = handler {
-            cefHandlerPtr = handler.toCEF()
-        }
-
+        let cefHandlerPtr = handler?.toCEF()
         let cefCtx = cef_request_context_create_context(&cefSettings, cefHandlerPtr)
         self.init(ptr: cefCtx)
     }
@@ -35,11 +31,7 @@ public extension CEFRequestContext {
     /// optional |handler|.
     public static func createSharedWithContext(context: CEFRequestContext,
                                                handler: CEFRequestContextHandler? = nil) -> CEFRequestContext? {
-        var cefHandlerPtr: UnsafeMutablePointer<cef_request_context_handler_t> = nil
-        if let handler = handler {
-            cefHandlerPtr = handler.toCEF()
-        }
-        
+        let cefHandlerPtr = handler?.toCEF()
         let cefCtx = cef_create_context_shared(context.toCEF(), cefHandlerPtr)
         return CEFRequestContext.fromCEF(cefCtx)
     }
@@ -73,7 +65,7 @@ public extension CEFRequestContext {
     public var cachePath: String? {
         let cefStrPtr = cefObject.get_cache_path(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
     }
     
     /// Returns the default cookie manager for this object. This will be the global
@@ -92,11 +84,7 @@ public extension CEFRequestContext {
     /// |callback| is non-NULL it will be executed asnychronously on the IO thread
     /// after the manager's storage has been initialized.
     public func getDefaultCookieManagerWithCallback(callback: CEFCompletionCallback? = nil) -> CEFCookieManager? {
-        var cefCallbackPtr: UnsafeMutablePointer<cef_completion_callback_t> = nil
-        if let callback = callback {
-            cefCallbackPtr = callback.toCEF()
-        }
-        
+        let cefCallbackPtr = callback?.toCEF()
         let cefCookieMgr = cefObject.get_default_cookie_manager(cefObjectPtr, cefCallbackPtr)
         return CEFCookieManager.fromCEF(cefCookieMgr)
     }
@@ -120,10 +108,7 @@ public extension CEFRequestContext {
             CEFStringPtrRelease(cefDomainPtr)
         }
 
-        var cefFactoryPtr: UnsafeMutablePointer<cef_scheme_handler_factory_t> = nil
-        if let factory = factory {
-            cefFactoryPtr = factory.toCEF()
-        }
+        let cefFactoryPtr = factory?.toCEF()
         
         return cefObject.register_scheme_handler_factory(cefObjectPtr, cefSchemePtr, cefDomainPtr, cefFactoryPtr) != 0
     }
@@ -191,7 +176,7 @@ public extension CEFRequestContext {
     public func setValue(value: CEFValue?, forPreference name: String) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        let cefValue = value != nil ? value!.toCEF() : nil
+        let cefValue = value?.toCEF()
         return cefObject.set_preference(cefObjectPtr, cefStrPtr, cefValue, nil) != 0
     }
 
@@ -202,11 +187,7 @@ public extension CEFRequestContext {
     /// If |callback| is non-NULL it will be executed on the UI thread after
     /// completion.
     public func clearCertificateExceptions(callback: CEFCompletionCallback? = nil) {
-        var cefCallbackPtr: UnsafeMutablePointer<cef_completion_callback_t> = nil
-        if let callback = callback {
-            cefCallbackPtr = callback.toCEF()
-        }
-        
+        let cefCallbackPtr = callback?.toCEF()
         cefObject.clear_certificate_exceptions(cefObjectPtr, cefCallbackPtr)
     }
     
@@ -215,11 +196,7 @@ public extension CEFRequestContext {
     /// don't yet want to call CefShutdown(). If |callback| is non-NULL it will be
     /// executed on the UI thread after completion.
     public func closeAllConnections(callback: CEFCompletionCallback? = nil) {
-        var cefCallbackPtr: UnsafeMutablePointer<cef_completion_callback_t> = nil
-        if let callback = callback {
-            cefCallbackPtr = callback.toCEF()
-        }
-        
+        let cefCallbackPtr = callback?.toCEF()
         cefObject.close_all_connections(cefObjectPtr, cefCallbackPtr)
     }
     
@@ -237,7 +214,7 @@ public extension CEFRequestContext {
     /// success. This method must be called on the browser process IO thread.
     public func resolveCachedHost(hostName: String) -> [String]? {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(hostName)
-        let cefList = cef_string_list_alloc()
+        let cefList = cef_string_list_alloc()!
         defer {
             CEFStringPtrRelease(cefStrPtr)
             CEFStringListRelease(cefList)
@@ -257,8 +234,8 @@ public extension CEFRequestContext {
     /// not receive a value via CefRequestContextHandler::GetCookieManager(). If
     /// |callback| is non-NULL it will be executed asnychronously on the IO thread
     /// after the manager's storage has been initialized.
-    public func defaultCookieManager(block: CEFCompletionCallbackOnCompleteBlock) -> CEFCookieManager? {
-        return getDefaultCookieManagerWithCallback(CEFCompletionCallbackBridge(block: block))
+    public func defaultCookieManager(block: @escaping CEFCompletionCallbackOnCompleteBlock) -> CEFCookieManager? {
+        return getDefaultCookieManagerWithCallback(callback: CEFCompletionCallbackBridge(block: block))
     }
     
     /// Clears all certificate exceptions that were added as part of handling
@@ -267,22 +244,22 @@ public extension CEFRequestContext {
     /// being prompted again for server certificates if you reconnect quickly.
     /// If |callback| is non-NULL it will be executed on the UI thread after
     /// completion.
-    func clearCertificateExceptions(block: CEFCompletionCallbackOnCompleteBlock) {
-        clearCertificateExceptions(CEFCompletionCallbackBridge(block: block))
+    func clearCertificateExceptions(block: @escaping CEFCompletionCallbackOnCompleteBlock) {
+        clearCertificateExceptions(callback: CEFCompletionCallbackBridge(block: block))
     }
     
     /// Clears all active and idle connections that Chromium currently has.
     /// This is only recommended if you have released all other CEF objects but
     /// don't yet want to call CefShutdown(). If |callback| is non-NULL it will be
     /// executed on the UI thread after completion.
-    public func closeAllConnections(block: CEFCompletionCallbackOnCompleteBlock) {
-        closeAllConnections(CEFCompletionCallbackBridge(block: block))
+    public func closeAllConnections(block: @escaping CEFCompletionCallbackOnCompleteBlock) {
+        closeAllConnections(callback: CEFCompletionCallbackBridge(block: block))
     }
     
     /// Attempts to resolve |origin| to a list of associated IP addresses.
     /// |callback| will be executed on the UI thread after completion.
-    public func resolveHost(hostName: String, block: CEFResolveCallbackOnResolveCompletedBlock) {
-        resolveHost(hostName, callback: CEFResolveCallbackBridge(block: block))
+    public func resolveHost(hostName: String, block: @escaping CEFResolveCallbackOnResolveCompletedBlock) {
+        resolveHost(hostName: hostName, callback: CEFResolveCallbackBridge(block: block))
     }
 }
 

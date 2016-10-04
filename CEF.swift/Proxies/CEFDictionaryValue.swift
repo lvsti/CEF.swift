@@ -73,7 +73,7 @@ public extension CEFDictionaryValue {
     
     /// Reads all keys for this dictionary into the specified vector.
     public var allKeys: [String] {
-        let cefKeys = cef_string_list_alloc()
+        let cefKeys = cef_string_list_alloc()!
         defer { cef_string_list_free(cefKeys) }
 
         if cefObject.get_keys(cefObjectPtr, cefKeys) != 0 {
@@ -138,7 +138,7 @@ public extension CEFDictionaryValue {
         let cefStrPtr = cefObject.get_string(cefObjectPtr, cefKeyPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
 
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
     }
 
     /// Returns the value at the specified key as type binary. The returned

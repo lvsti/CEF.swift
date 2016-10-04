@@ -36,13 +36,13 @@ public extension CEFPOSTData {
     /// Retrieve the post data elements.
     public var elements: [CEFPOSTDataElement] {
         var count: size_t = 0
-        var cefElements: UnsafeMutablePointer<cef_post_data_element_t> = nil
+        var cefElements: UnsafeMutablePointer<cef_post_data_element_t>? = nil
         
         cefObject.get_elements(cefObjectPtr, &count, &cefElements)
         
         var elements = [CEFPOSTDataElement]()
         for i in 0..<count {
-            let cefPDEPtr = cefElements.advanced(by: i)
+            let cefPDEPtr = cefElements!.advanced(by: i)
             if let pde = CEFPOSTDataElement.fromCEF(cefPDEPtr) {
                 elements.append(pde)
             }

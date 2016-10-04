@@ -44,8 +44,10 @@ public extension CEFBinaryValue {
     
     /// Returns a copy of this object. The data in this object will also be copied.
     public func copy() -> CEFBinaryValue? {
-        let copiedObj = cefObject.copy(cefObjectPtr)
-        return CEFBinaryValue.fromCEF(copiedObj)
+        if let copiedObj = cefObject.copy(cefObjectPtr) {
+            return CEFBinaryValue.fromCEF(copiedObj)
+        }
+        return nil
     }
     
     /// Returns the data size.

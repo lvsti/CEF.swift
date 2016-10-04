@@ -30,13 +30,13 @@ public struct CEFPDFPrintSettings {
     
     /// Margins in millimeters. Only used if |margin_type| is set to
     /// PDF_PRINT_MARGIN_CUSTOM.
-    public var margins: CEFPDFPrintMargins = .Default
+    public var margins: CEFPDFPrintMargins = .defaultMargins
     
     /// Set to true (1) to print the selection only or false (0) to print all.
     public var selectionOnly: Bool = false
     
     /// Set to true (1) for landscape mode or false (0) for portrait mode.
-    public var orientation: CEFPageOrientation = .Portrait
+    public var orientation: CEFPageOrientation = .portrait
     
     /// Set to true (1) to print background graphics or false (0) to not print
     /// background graphics.
@@ -62,7 +62,7 @@ extension CEFPDFPrintSettings {
         cefStruct.page_height = Int32(pageSize.height)
         
         cefStruct.margin_type = margins.toCEF()
-        if case .Custom(let insets) = margins {
+        if case .custom(let insets) = margins {
             cefStruct.margin_top = Double(insets.top)
             cefStruct.margin_left = Double(insets.left)
             cefStruct.margin_bottom = Double(insets.bottom)
@@ -70,7 +70,7 @@ extension CEFPDFPrintSettings {
         }
         
         cefStruct.selection_only = selectionOnly ? 1 : 0
-        cefStruct.landscape = orientation == .Landscape ? 1 : 0
+        cefStruct.landscape = orientation == .landscape ? 1 : 0
         cefStruct.backgrounds_enabled = printsBackground ? 1 : 0
         
         return cefStruct

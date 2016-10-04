@@ -12,7 +12,7 @@ func CEFStringToSwiftString(_ cefStr: cef_string_t) -> String {
     return String(NSString(characters: cefStr.str, length: cefStr.length))
 }
 
-func CEFStringPtrCreateFromSwiftString(_ str: String) -> cef_string_userfree_utf16_t {
+func CEFStringPtrCreateFromSwiftString(_ str: String) -> cef_string_userfree_utf16_t! {
     let cefStr = cef_string_userfree_utf16_alloc()!
     CEFStringSetFromSwiftString(str, cefStringPtr: cefStr)
     return cefStr

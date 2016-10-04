@@ -50,8 +50,8 @@ public struct CEFTraceUtils {
     /// sent their trace data. If |tracing_file| is empty a new temporary file path
     /// will be used. If |callback| is empty no trace data will be written.
     /// This function must be called on the browser process UI thread.
-    public static func endTracingWithOutputFilePath(path: String? = nil, block: CEFEndTracingCallbackOnEndTracingCompleteBlock) -> Bool {
-        return endTracingWithOutputFilePath(path, callback: CEFEndTracingCallbackBridge(block: block))
+    public static func endTracingWithOutputFilePath(path: String? = nil, block: @escaping CEFEndTracingCallbackOnEndTracingCompleteBlock) -> Bool {
+        return endTracingWithOutputFilePath(path: path, callback: CEFEndTracingCallbackBridge(block: block))
     }
 
     /// Returns the current system trace time or, if none is defined, the current

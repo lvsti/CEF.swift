@@ -56,12 +56,12 @@ public extension CEFListValue {
     /// The number of values.
     public var size: Int {
         get { return cefObject.get_size(cefObjectPtr) }
-        set { cefObject.set_size(cefObjectPtr, newValue) }
+        set { _ = cefObject.set_size(cefObjectPtr, newValue) }
     }
 
     /// Sets the number of values. If the number of values is expanded all
     /// new value slots will default to type null. Returns true on success.
-    @available(*, deprecated=1.0, message="use the `size` property")
+    @available(*, deprecated: 1.0, message: "use the `size` property")
     public func setSize(size: Int) -> Bool {
         return cefObject.set_size(cefObjectPtr, size) != 0
     }
@@ -111,7 +111,7 @@ public extension CEFListValue {
     public func stringAtIndex(index: Int) -> String? {
         let cefStrPtr = cefObject.get_string(cefObjectPtr, Int32(index))
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr.pointee) : nil
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
     }
 
     /// Returns the value at the specified index as type binary. The returned

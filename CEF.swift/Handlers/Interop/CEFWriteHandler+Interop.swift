@@ -16,7 +16,7 @@ func CEFWriteHandler_write(ptr: UnsafeMutablePointer<cef_write_handler_t>?,
         return 0
     }
     
-    return obj.write(buffer: buffer, chunkSize: chunkSize, count: count)
+    return obj.write(buffer: buffer!, chunkSize: chunkSize, count: count)
 }
 
 func CEFWriteHandler_seek(ptr: UnsafeMutablePointer<cef_write_handler_t>?,
