@@ -10,10 +10,10 @@
 		E878366E1B93B26400555EC2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E878366D1B93B26400555EC2 /* AppDelegate.swift */; };
 		E87836701B93B26400555EC2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E878366F1B93B26400555EC2 /* Assets.xcassets */; };
 		E87836731B93B26500555EC2 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E87836711B93B26500555EC2 /* MainMenu.xib */; };
-		E878367B1B93B29B00555EC2 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E878367A1B93B29B00555EC2 /* main.swift */; settings = {ASSET_TAGS = (); }; };
-		E87836801B93B3A500555EC2 /* CEFswift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E878367F1B93B3A500555EC2 /* CEFswift.framework */; settings = {ASSET_TAGS = (); }; };
+		E878367B1B93B29B00555EC2 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E878367A1B93B29B00555EC2 /* main.swift */; };
+		E87836801B93B3A500555EC2 /* CEFswift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E878367F1B93B3A500555EC2 /* CEFswift.framework */; };
 		E87836821B94E46E00555EC2 /* CEFswift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E878367F1B93B3A500555EC2 /* CEFswift.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E87836841B94E49B00555EC2 /* Chromium Embedded Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E87836831B94E49B00555EC2 /* Chromium Embedded Framework.framework */; settings = {ASSET_TAGS = (); }; };
+		E87836841B94E49B00555EC2 /* Chromium Embedded Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E87836831B94E49B00555EC2 /* Chromium Embedded Framework.framework */; };
 		E87836851B94E4A100555EC2 /* Chromium Embedded Framework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E87836831B94E49B00555EC2 /* Chromium Embedded Framework.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -315,6 +315,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.cocoagrinder.CEFDemo;
 				PRODUCT_NAME = CEFDemo;
 				SWIFT_OBJC_BRIDGING_HEADER = "CEFDemo/CEFDemo-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -336,6 +337,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.cocoagrinder.CEFDemo;
 				PRODUCT_NAME = CEFDemo;
 				SWIFT_OBJC_BRIDGING_HEADER = "CEFDemo/CEFDemo-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

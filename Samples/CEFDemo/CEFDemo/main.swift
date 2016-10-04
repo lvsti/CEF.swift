@@ -28,11 +28,11 @@ class SimpleApp: CEFApp, CEFBrowserProcessHandler {
 
         let cmdLine = CEFCommandLine.globalCommandLine
         var url = NSURL(string: "http://www.google.com")!
-        if let urlSwitch = cmdLine?.valueForSwitch("url") where !urlSwitch.isEmpty {
+        if let urlSwitch = cmdLine?.valueForSwitch(name: "url"), !urlSwitch.isEmpty {
             url = NSURL(string: urlSwitch)!
         }
         
-        CEFBrowserHost.createBrowser(winInfo, client: client, url: url, settings: settings, requestContext: nil)
+        _ = CEFBrowserHost.createBrowser(windowInfo: winInfo, client: client, url: url, settings: settings, requestContext: nil)
     }
 }
 
@@ -63,9 +63,9 @@ class SimpleHandler: CEFClient, CEFLifeSpanHandler {
     }
     
     func onBeforeClose(browser: CEFBrowser) {
-        for (index, value) in _browserList.enumerate() {
-            if value.isSameAs(browser) {
-                _browserList.removeAtIndex(index)
+        for (index, value) in _browserList.enumerated() {
+            if value.isSameAs(other: browser) {
+                _browserList.remove(at: index)
                 break
             }
         }
@@ -92,7 +92,7 @@ class SimpleApplication : NSApplication, CefAppProtocol {
         return _isHandlingSendEvent
     }
     
-    func setHandlingSendEvent(handlingSendEvent: Bool) {
+    func setHandlingSendEvent(_ handlingSendEvent: Bool) {
         _isHandlingSendEvent = handlingSendEvent
     }
 
@@ -104,7 +104,7 @@ class SimpleApplication : NSApplication, CefAppProtocol {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func sendEvent(event: NSEvent) {
+    override func sendEvent(_ event: NSEvent) {
         let stashedIsHandlingSendEvent = _isHandlingSendEvent
         _isHandlingSendEvent = true
         defer { _isHandlingSendEvent = stashedIsHandlingSendEvent }
@@ -112,20 +112,20 @@ class SimpleApplication : NSApplication, CefAppProtocol {
         super.sendEvent(event)
     }
     
-    override func terminate(sender: AnyObject?) {
-        let delegate = NSApplication.sharedApplication().delegate as! AppDelegate
-        delegate.tryToTerminateApplication(self)
+    override func terminate(_ sender: Any?) {
+        let delegate = NSApplication.shared().delegate as! AppDelegate
+        delegate.tryToTerminateApplication(app: self)
     }
 }
 
-let args = CEFMainArgs(arguments: Process.arguments)
+let args = CEFMainArgs(arguments: CommandLine.arguments)
 let app = SimpleApp()
 
-SimpleApplication.sharedApplication()
+SimpleApplication.shared()
 
 let settings = CEFSettings()
 
-CEFProcessUtils.initializeMainWithArgs(args, settings: settings, app: app)
+_ = CEFProcessUtils.initializeMainWithArgs(args: args, settings: settings, app: app)
 
 let appDelegate = AppDelegate()
 appDelegate.createApplication()

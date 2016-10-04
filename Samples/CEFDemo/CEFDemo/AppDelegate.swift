@@ -22,20 +22,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func createApplication() {
-        NSApplication.sharedApplication()
-        NSBundle.mainBundle().loadNibNamed("MainMenu", owner: NSApp, topLevelObjects: nil)
+        NSApplication.shared()
+        Bundle.main.loadNibNamed("MainMenu", owner: NSApp, topLevelObjects: nil)
         NSApp.delegate = self
     }
     
     func tryToTerminateApplication(app: NSApplication) {
         let handler = SimpleHandler.instance
         if !handler.isClosing {
-            handler.closeAllBrowsers(false)
+            handler.closeAllBrowsers(force: false)
         }
     }
     
-    func applicationShouldTerminate(sender: NSApplication) -> NSApplicationTerminateReply {
-        return .TerminateNow
+    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplicationTerminateReply {
+        return .terminateNow
     }
 
 }
