@@ -8,10 +8,15 @@
 import Foundation
 
 /// Specifies the button display state.
+/// CEF name: `cef_button_state_t`.
 public enum CEFButtonState: Int32 {
+    /// CEF name: `CEF_BUTTON_STATE_NORMAL`.
     case normal
+    /// CEF name: `CEF_BUTTON_STATE_HOVERED`.
     case hovered
+    /// CEF name: `CEF_BUTTON_STATE_PRESSED`.
     case pressed
+    /// CEF name: `CEF_BUTTON_STATE_DISABLED`.
     case disabled
 }
 

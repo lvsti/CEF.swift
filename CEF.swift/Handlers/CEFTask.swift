@@ -14,9 +14,11 @@ import Foundation
 /// to post then the task object may be destroyed on the source thread instead of
 /// the target thread. For this reason be cautious when performing work in the
 /// task object destructor.
+/// CEF name: `CefTask`
 public protocol CEFTask {
 
     /// Method that will be executed on the target thread.
+    /// CEF name: `Execute`
     func execute()
     
 }

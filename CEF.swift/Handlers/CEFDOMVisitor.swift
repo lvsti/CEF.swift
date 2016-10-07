@@ -10,6 +10,7 @@ import Foundation
 
 /// Interface to implement for visiting the DOM. The methods of this class will
 /// be called on the render process main thread.
+/// CEF name: `CefDOMVisitor`
 public protocol CEFDOMVisitor {
 
     /// Method executed for visiting the DOM. The document object passed to this
@@ -17,6 +18,7 @@ public protocol CEFDOMVisitor {
     /// executed. DOM objects are only valid for the scope of this method. Do not
     /// keep references to or attempt to access any DOM objects outside the scope
     /// of this method.
+    /// CEF name: `Visit`
     func visit(document: CEFDOMDocument)
     
 }

@@ -44,6 +44,7 @@ def make_proxy_interop(cef_class):
     result = make_proxy_interop_file_header(swift_name, os.path.basename(cef_class.get_file_name()))
     result += make_cefobject_conformance(capi_name)    
     result += make_swiftdoc_comment("\n".join(comments[1:-1]))
+    result += "\n/// CEF name: `" + cef_class.get_name() + "`"
     result += make_proxy_stub(capi_name, swift_name)
 
     return result

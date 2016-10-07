@@ -8,11 +8,17 @@
 import Foundation
 
 /// Text style types. Should be kepy in sync with gfx::TextStyle.
+/// CEF name: `cef_text_style_t`.
 public enum CEFTextStyle: Int32 {
+    /// CEF name: `CEF_TEXT_STYLE_BOLD`.
     case bold
+    /// CEF name: `CEF_TEXT_STYLE_ITALIC`.
     case italic
+    /// CEF name: `CEF_TEXT_STYLE_STRIKE`.
     case strike
+    /// CEF name: `CEF_TEXT_STYLE_DIAGONAL_STRIKE`.
     case diagonalStrike
+    /// CEF name: `CEF_TEXT_STYLE_UNDERLINE`.
     case underline
 }
 

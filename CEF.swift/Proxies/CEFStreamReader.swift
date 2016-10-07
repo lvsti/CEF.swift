@@ -11,6 +11,7 @@ import Foundation
 public extension CEFStreamReader {
     
     /// Create a new CefStreamReader object from a file.
+    /// CEF name: `CreateForFile`
     public convenience init?(filePath: String) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(filePath)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -18,16 +19,19 @@ public extension CEFStreamReader {
     }
     
     /// Create a new CefStreamReader object from data.
+    /// CEF name: `CreateForData`
     public convenience init?(data: NSData) {
         self.init(ptr: cef_stream_reader_create_for_data(UnsafeMutableRawPointer(mutating: data.bytes), data.length))
     }
     
     /// Create a new CefStreamReader object from a custom handler.
+    /// CEF name: `CreateForHandler`
     public convenience init?(handler: CEFReadHandler) {
         self.init(ptr: cef_stream_reader_create_for_handler(handler.toCEF()))
     }
     
     /// Read raw binary data.
+    /// CEF name: `Read`
     func read(buffer: UnsafeMutableRawPointer, chunkSize: size_t, count: size_t) -> size_t {
         return cefObject.read(cefObjectPtr, buffer, chunkSize, count)
     }
@@ -35,16 +39,19 @@ public extension CEFStreamReader {
     /// Seek to the specified offset position. |whence| may be any one of
     /// SEEK_CUR, SEEK_END or SEEK_SET. Returns zero on success and non-zero on
     /// failure.
+    /// CEF name: `Seek`
     func seek(offset: Int64, whence: CEFSeekPosition) -> Bool {
         return cefObject.seek(cefObjectPtr, offset, whence.rawValue) == 0
     }
     
     /// Return the current offset position.
+    /// CEF name: `Tell`
     func tell() -> Int64 {
         return cefObject.tell(cefObjectPtr)
     }
     
     /// Return non-zero if at end of file.
+    /// CEF name: `Eof`
     func isEOF() -> Bool {
         return cefObject.eof(cefObjectPtr) != 0
     }
@@ -52,6 +59,7 @@ public extension CEFStreamReader {
     /// Returns true if this reader performs work like accessing the file system
     /// which may block. Used as a hint for determining the thread to access the
     /// reader from.
+    /// CEF name: `MayBlock`
     func mayBlock() -> Bool {
         return cefObject.may_block(cefObjectPtr) != 0
     }

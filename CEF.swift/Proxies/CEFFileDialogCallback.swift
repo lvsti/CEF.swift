@@ -15,6 +15,7 @@ public extension CEFFileDialogCallback {
     /// CefDialogHandler::OnFileDialog. |file_paths| should be a single value or a
     /// list of values depending on the dialog mode. An empty |file_paths| value is
     /// treated the same as calling Cancel().
+    /// CEF name: `Continue`
     func doContinue(selectedFilterIndex: Int, paths: [String]) {
         let cefList = CEFStringListCreateFromSwiftArray(paths)
         defer { CEFStringListRelease(cefList) }
@@ -22,6 +23,7 @@ public extension CEFFileDialogCallback {
     }
     
     /// Cancel the file selection.
+    /// CEF name: `Cancel`
     public func doCancel() {
         cefObject.cancel(cefObjectPtr)
     }

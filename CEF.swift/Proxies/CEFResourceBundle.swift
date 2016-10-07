@@ -11,6 +11,7 @@ import Foundation
 extension CEFResourceBundle {
     
     /// Returns the global resource bundle instance.
+    /// CEF name: `GetGlobal`
     public static var globalBundle: CEFResourceBundle? {
         let cefBundle = cef_resource_bundle_get_global()
         return CEFResourceBundle.fromCEF(cefBundle)
@@ -19,6 +20,7 @@ extension CEFResourceBundle {
     /// Returns the localized string for the specified |string_id| or an empty
     /// string if the value is not found. Include cef_pack_strings.h for a listing
     /// of valid string ID values.
+    /// CEF name: `GetLocalizedString`
     public func localizedStringForID(stringID: Int) -> String? {
         let cefStrPtr = cefObject.get_localized_string(cefObjectPtr, Int32(stringID))
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -31,6 +33,7 @@ extension CEFResourceBundle {
     /// will return false. The returned |data| pointer will remain resident in
     /// memory and should not be freed. Include cef_pack_resources.h for a listing
     /// of valid resource ID values.
+    /// CEF name: `GetDataResource`
     public func dataResourceForID(resourceID: Int) -> (dataBufferPtr: UnsafeMutableRawPointer?, dataSize: size_t)? {
         var dataPtr: UnsafeMutableRawPointer? = nil
         var size: size_t = 0
@@ -46,6 +49,7 @@ extension CEFResourceBundle {
     /// The returned |data| pointer will remain resident in memory and should not
     /// be freed. Include cef_pack_resources.h for a listing of valid resource ID
     /// values.
+    /// CEF name: `GetDataResourceForScale`
     public func dataResourceForID(resourceID: Int, scale: CEFScaleFactor) -> (dataBufferPtr: UnsafeMutableRawPointer?, dataSize: size_t)? {
         var dataPtr: UnsafeMutableRawPointer? = nil
         var size: size_t = 0

@@ -43,6 +43,7 @@ public enum CEFOnReadResponseAction {
 
 /// Class used to implement a custom request handler interface. The methods of
 /// this class will always be called on the IO thread.
+/// CEF name: `CefResourceHandler`
 public protocol CEFResourceHandler {
 
     /// Begin processing the request. To handle the request return true and call
@@ -50,6 +51,7 @@ public protocol CEFResourceHandler {
     /// (CefCallback::Continue() can also be called from inside this method if
     /// header information is available immediately). To cancel the request return
     /// false.
+    /// CEF name: `ProcessRequest`
     func onProcessRequest(request: CEFRequest, callback: CEFCallback) -> CEFOnProcessRequestAction
 
     /// Retrieve response header information. If the response length is not known
@@ -61,6 +63,7 @@ public protocol CEFResourceHandler {
     /// values. To redirect the request to a new URL set |redirectUrl| to the new
     /// URL. If an error occured while setting up the request you can call
     /// SetError() on |response| to indicate the error condition.
+    /// CEF name: `GetResponseHeaders`
     func onGetResponseHeaders(response: CEFResponse) -> CEFOnGetResponseHeadersAction
     
     /// Read response data. If data is available immediately copy up to
@@ -68,6 +71,7 @@ public protocol CEFResourceHandler {
     /// bytes copied, and return true. To read the data at a later time set
     /// |bytes_read| to 0, return true and call CefCallback::Continue() when the
     /// data is available. To indicate response completion return false.
+    /// CEF name: `ReadResponse`
     func onReadResponse(buffer: UnsafeMutableRawPointer,
                         bufferLength: Int,
                         callback: CEFCallback) -> CEFOnReadResponseAction
@@ -75,13 +79,16 @@ public protocol CEFResourceHandler {
     /// Return true if the specified cookie can be sent with the request or false
     /// otherwise. If false is returned for any cookie then no cookies will be sent
     /// with the request.
+    /// CEF name: `CanGetCookie`
     func canGetCookie(cookie: CEFCookie) -> Bool
     
     /// Return true if the specified cookie returned with the response can be set
     /// or false otherwise.
+    /// CEF name: `CanSetCookie`
     func canSetCookie(cookie: CEFCookie) -> Bool
     
     /// Request processing has been canceled.
+    /// CEF name: `Cancel`
     func onRequestCanceled()
 
 }

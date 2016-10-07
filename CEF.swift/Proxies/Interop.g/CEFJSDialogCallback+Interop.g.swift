@@ -11,6 +11,7 @@ extension cef_jsdialog_callback_t: CEFObject {}
 
 /// Callback interface used for asynchronous continuation of JavaScript dialog
 /// requests.
+/// CEF name: `CefJSDialogCallback`
 public class CEFJSDialogCallback: CEFProxy<cef_jsdialog_callback_t> {
     override init?(ptr: UnsafeMutablePointer<cef_jsdialog_callback_t>?) {
         super.init(ptr: ptr)

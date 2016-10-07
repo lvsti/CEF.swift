@@ -10,6 +10,7 @@ import Foundation
 extension cef_print_settings_t: CEFObject {}
 
 /// Class representing print settings.
+/// CEF name: `CefPrintSettings`
 public class CEFPrintSettings: CEFProxy<cef_print_settings_t> {
     override init?(ptr: UnsafeMutablePointer<cef_print_settings_t>?) {
         super.init(ptr: ptr)

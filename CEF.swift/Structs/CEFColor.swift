@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// CEF name: `cef_color_t`
 public struct CEFColor {
     public var r: UInt8
     public var g: UInt8
@@ -29,7 +30,7 @@ public struct CEFColor {
         self.a = a
     }
     
-    public static let Transparent = CEFColor(argb: 0)
+    public static let transparent = CEFColor(argb: 0)
 }
 
 extension CEFColor {

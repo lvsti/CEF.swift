@@ -66,6 +66,7 @@ public struct CEFV8Utils {
     ///   // Call another function.
     ///   example.test.increment();
     /// </pre>
+    /// CEF name: `CefRegisterExtension`
     public static func registerExtensionWithName(name: String, code: String, handler: CEFV8Handler? = nil) -> Bool {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
         let cefCodePtr = CEFStringPtrCreateFromSwiftString(code)

@@ -11,12 +11,14 @@ import Foundation
 /// Class used to implement a custom resource bundle interface. See CefSettings
 /// for additional options related to resource bundle loading. The methods of
 /// this class may be called on multiple threads.
+/// CEF name: `CefResourceBundleHandler`
 public protocol CEFResourceBundleHandler {
     
     /// Called to retrieve a localized translation for the specified |string_id|.
     /// To provide the translation set |string| to the translation string and
     /// return true. To use the default translation return false. Include
     /// cef_pack_strings.h for a listing of valid string ID values.
+    /// CEF name: `GetLocalizedString`
     func localizedStringForID(stringID: Int) -> String?
 
     /// Called to retrieve data for the specified scale independent |resource_id|.
@@ -25,6 +27,7 @@ public protocol CEFResourceBundleHandler {
     /// return false. The resource data will not be copied and must remain resident
     /// in memory. Include cef_pack_resources.h for a listing of valid resource ID
     /// values.
+    /// CEF name: `GetDataResource`
     func dataResourceForID(resourceID: Int) -> (dataBufferPtr: UnsafeMutableRawPointer, dataSize: size_t)?
     
     /// Called to retrieve data for the specified |resource_id| nearest the scale
@@ -33,6 +36,7 @@ public protocol CEFResourceBundleHandler {
     /// use the default resource data return false. The resource data will not be
     /// copied and must remain resident in memory. Include cef_pack_resources.h for
     /// a listing of valid resource ID values.
+    /// CEF name: `GetDataResourceForScale`
     func dataResourceForID(resourceID: Int, scale: CEFScaleFactor) -> (dataBufferPtr: UnsafeMutableRawPointer, dataSize: size_t)?
 
 }

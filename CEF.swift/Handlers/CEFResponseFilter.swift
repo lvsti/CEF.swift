@@ -16,10 +16,12 @@ public enum CEFResponseFilterInitAction {
 
 /// Implement this interface to filter resource response content. The methods of
 /// this class will be called on the browser process IO thread.
+/// CEF name: `CefResponseFilter`
 public protocol CEFResponseFilter {
     
     /// Initialize the response filter. Will only be called a single time. The
     /// filter will not be installed if this method returns false.
+    /// CEF name: `InitFilter`
     func onFilterInit() -> CEFResponseFilterInitAction
     
     /// Called to filter a chunk of data. |data_in| is the input buffer containing
@@ -38,8 +40,8 @@ public protocol CEFResponseFilter {
     /// matches |data_in_size| (all available pre-filter bytes have been read), and
     /// the method returns RESPONSE_FILTER_DONE or RESPONSE_FILTER_ERROR. Do not
     /// keep a reference to the buffers passed to this method.
-    /*--cef(optional_param=data_in,default_retval=RESPONSE_FILTER_ERROR)--*/
-    func filterResponseChunk(inputChunk: UnsafeRawPointer,
+    /// CEF name: `Filter`
+    func filterResponseChunk(inputChunk: UnsafeRawPointer?,
                              ofSize: size_t,
                              intoBuffer: UnsafeMutableRawPointer,
                              ofCapacity: size_t) -> (bytesRead: size_t, bytesWriten: size_t, status: CEFResponseFilterStatus)
@@ -52,7 +54,7 @@ public extension CEFResponseFilter {
         return .cancel
     }
 
-    func filterResponseChunk(inputChunk: UnsafeRawPointer,
+    func filterResponseChunk(inputChunk: UnsafeRawPointer?,
                              ofSize: size_t,
                              intoBuffer: UnsafeMutableRawPointer,
                              ofCapacity: size_t) -> (bytesRead: size_t, bytesWriten: size_t, status: CEFResponseFilterStatus) {

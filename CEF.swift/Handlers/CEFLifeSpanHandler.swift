@@ -21,6 +21,7 @@ public enum CEFOnDoCloseAction {
 /// Implement this interface to handle events related to browser life span. The
 /// methods of this class will be called on the UI thread unless otherwise
 /// indicated.
+/// CEF name: `CefLifeSpanHandler`
 public protocol CEFLifeSpanHandler {
 
     /// Called on the IO thread before a new popup browser is created. The
@@ -41,6 +42,7 @@ public protocol CEFLifeSpanHandler {
     /// same renderer process as the source browser. Any modifications to
     /// |windowInfo| will be ignored if the parent browser is wrapped in a
     /// CefBrowserView.
+    /// CEF name: `OnBeforePopup`
     func onBeforePopup(browser: CEFBrowser,
                        frame: CEFFrame,
                        targetURL: NSURL?,
@@ -55,6 +57,7 @@ public protocol CEFLifeSpanHandler {
 
     /// Called after a new browser is created. This callback will be the first
     /// notification that references |browser|.
+    /// CEF name: `OnAfterCreated`
     func onAfterCreated(browser: CEFBrowser)
 
     /// Called when a browser has recieved a request to close. This may result
@@ -142,7 +145,9 @@ public protocol CEFLifeSpanHandler {
     /// 10. Application's OnBeforeClose() handler is called and the browser object
     ///     is destroyed.
     /// 11. Application exits by calling CefQuitMessageLoop() if no other browsers
-    ///     exist.    
+    ///     exist.
+    ///
+    /// CEF name: `DoClose`
     func onDoClose(browser: CEFBrowser) -> CEFOnDoCloseAction
     
     /// Called just before a browser is destroyed. Release all references to the
@@ -150,6 +155,7 @@ public protocol CEFLifeSpanHandler {
     /// object after this callback returns. This callback will be the last
     /// notification that references |browser|. See DoClose() documentation for
     /// additional usage information.
+    /// CEF name: `OnBeforeClose`
     func onBeforeClose(browser: CEFBrowser)
 
 }

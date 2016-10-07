@@ -8,10 +8,15 @@
 import Foundation
 
 /// DOM document types.
+/// CEF name: `cef_dom_document_type_t`.
 public enum CEFDOMDocumentType: Int32 {
+    /// CEF name: `DOM_DOCUMENT_TYPE_UNKNOWN`.
     case unknown = 0
+    /// CEF name: `DOM_DOCUMENT_TYPE_HTML`.
     case html
+    /// CEF name: `DOM_DOCUMENT_TYPE_XHTML`.
     case xhtml
+    /// CEF name: `DOM_DOCUMENT_TYPE_PLUGIN`.
     case plugin
 }
 

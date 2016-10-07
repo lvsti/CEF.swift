@@ -25,11 +25,13 @@ extension CEFOnBeforePluginLoadAction {
 /// Implement this interface to provide handler implementations. The handler
 /// instance will not be released until all objects related to the context have
 /// been destroyed.
+/// CEF name: `CefRequestContextHandler`
 public protocol CEFRequestContextHandler {
     
     /// Called on the browser process IO thread to retrieve the cookie manager. If
     /// this method returns NULL the default cookie manager retrievable via
     /// CefRequestContext::GetDefaultCookieManager() will be used.
+    /// CEF name: `GetCookieManager`
     var cookieManager: CEFCookieManager? { get }
     
     /// Called on multiple browser process threads before a plugin instance is
@@ -47,6 +49,7 @@ public protocol CEFRequestContextHandler {
     /// may be cached when |top_origin_url| is empty. To purge the plugin list
     /// cache and potentially trigger new calls to this method call
     /// CefRequestContext::PurgePluginListCache.
+    /// CEF name: `OnBeforePluginLoad`
     func onBeforePluginLoad(mimeType: String,
                             pluginURL: NSURL?,
                             topOriginURL: NSURL?,

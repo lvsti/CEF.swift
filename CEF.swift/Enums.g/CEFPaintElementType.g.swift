@@ -8,8 +8,11 @@
 import Foundation
 
 /// Paint element types.
+/// CEF name: `cef_paint_element_type_t`.
 public enum CEFPaintElementType: Int32 {
+    /// CEF name: `PET_VIEW`.
     case view = 0
+    /// CEF name: `PET_POPUP`.
     case popup
 }
 

@@ -15,6 +15,7 @@ extension cef_image_t: CEFObject {}
 /// then the image at scale factor 2.0 should be 200x200 pixels -- both images
 /// will display with a DIP size of 100x100 units. The methods of this class must
 /// be called on the browser process UI thread.
+/// CEF name: `CefImage`
 public class CEFImage: CEFProxy<cef_image_t> {
     override init?(ptr: UnsafeMutablePointer<cef_image_t>?) {
         super.init(ptr: ptr)

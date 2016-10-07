@@ -10,10 +10,12 @@ import Foundation
 
 /// Class used to implement browser process callbacks. The methods of this class
 /// will be called on the browser process main thread unless otherwise indicated.
+/// CEF name: `CefBrowserProcessHandler`
 public protocol CEFBrowserProcessHandler {
     
     /// Called on the browser process UI thread immediately after the CEF context
     /// has been initialized.
+    /// CEF name: `OnContextInitialized`
     func onContextInitialized()
 
     /// Called before a child process is launched. Will be called on the browser
@@ -21,6 +23,7 @@ public protocol CEFBrowserProcessHandler {
     /// process IO thread when launching a GPU or plugin process. Provides an
     /// opportunity to modify the child process command line. Do not keep a
     /// reference to |command_line| outside of this method.
+    /// CEF name: `OnBeforeChildProcessLaunch`
     func onBeforeChildProcessLaunch(commandLine: CEFCommandLine)
     
     /// Called on the browser process IO thread after the main thread has been
@@ -28,10 +31,12 @@ public protocol CEFBrowserProcessHandler {
     /// information that will be passed to
     /// CefRenderProcessHandler::OnRenderThreadCreated() in the render process. Do
     /// not keep a reference to |extra_info| outside of this method.
+    /// CEF name: `OnRenderProcessThreadCreated`
     func onRenderProcessThreadCreated(userInfo: CEFListValue)
     
     /// Return the handler for printing on Linux. If a print handler is not
     /// provided then printing will not be supported on the Linux platform.
+    /// CEF name: `GetPrintHandler`
     var printHandler: CEFPrintHandler? { get }
 
 }

@@ -8,12 +8,15 @@
 import Foundation
 
 /// Describes how to interpret the components of a pixel.
+/// CEF name: `cef_color_type_t`.
 public enum CEFColorType: Int32 {
 
     /// RGBA with 8 bits per pixel (32bits total).
+    /// CEF name: `CEF_COLOR_TYPE_RGBA_8888`.
     case rgba8888
 
     /// BGRA with 8 bits per pixel (32bits total).
+    /// CEF name: `CEF_COLOR_TYPE_BGRA_8888`.
     case bgra8888
 }
 

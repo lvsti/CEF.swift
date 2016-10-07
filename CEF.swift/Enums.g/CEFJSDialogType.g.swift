@@ -8,9 +8,13 @@
 import Foundation
 
 /// Supported JavaScript dialog types.
+/// CEF name: `cef_jsdialog_type_t`.
 public enum CEFJSDialogType: Int32 {
+    /// CEF name: `JSDIALOGTYPE_ALERT`.
     case alert = 0
+    /// CEF name: `JSDIALOGTYPE_CONFIRM`.
     case confirm
+    /// CEF name: `JSDIALOGTYPE_PROMPT`.
     case prompt
 }
 

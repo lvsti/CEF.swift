@@ -11,6 +11,7 @@ extension cef_stream_reader_t: CEFObject {}
 
 /// Class used to read data from a stream. The methods of this class may be
 /// called on any thread.
+/// CEF name: `CefStreamReader`
 public class CEFStreamReader: CEFProxy<cef_stream_reader_t> {
     override init?(ptr: UnsafeMutablePointer<cef_stream_reader_t>?) {
         super.init(ptr: ptr)

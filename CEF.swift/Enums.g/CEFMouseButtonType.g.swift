@@ -8,9 +8,13 @@
 import Foundation
 
 /// Mouse button types.
+/// CEF name: `cef_mouse_button_type_t`.
 public enum CEFMouseButtonType: Int32 {
+    /// CEF name: `MBT_LEFT`.
     case left = 0
+    /// CEF name: `MBT_MIDDLE`.
     case middle
+    /// CEF name: `MBT_RIGHT`.
     case right
 }
 

@@ -9,11 +9,14 @@
 import Foundation
 
 /// Structure representing a draggable region.
+/// CEF name: `cef_draggable_region_t`
 public struct CEFDraggableRegion {
     /// Bounds of the region.
+    /// CEF name: `bounds`
     public let bounds: NSRect
 
     /// True (1) this this region is draggable and false (0) otherwise.
+    /// CEF name: `draggable`
     public let isDraggable: Bool
 }
 

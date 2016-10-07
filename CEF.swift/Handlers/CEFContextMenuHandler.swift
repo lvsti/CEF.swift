@@ -20,6 +20,7 @@ public enum CEFOnRunContextMenuAction {
 
 /// Implement this interface to handle context menu events. The methods of this
 /// class will be called on the UI thread.
+/// CEF name: `CefContextMenuHandler`
 public protocol CEFContextMenuHandler {
     
     /// Called before a context menu is displayed. |params| provides information
@@ -27,6 +28,7 @@ public protocol CEFContextMenuHandler {
     /// context menu. The |model| can be cleared to show no context menu or
     /// modified to show a custom menu. Do not keep references to |params| or
     /// |model| outside of this callback.
+    /// CEF name: `OnBeforeContextMenu`
     func onBeforeContextMenu(browser: CEFBrowser,
                              frame: CEFFrame,
                              params: CEFContextMenuParams,
@@ -38,6 +40,7 @@ public protocol CEFContextMenuHandler {
     /// (1) and execute |callback| either synchronously or asynchronously with the
     /// selected command ID. For default display return false (0). Do not keep
     /// references to |params| or |model| outside of this callback.
+    /// CEF name: `RunContextMenu`
     func onRunContextMenu(browser: CEFBrowser,
                           frame: CEFFrame,
                           params: CEFContextMenuParams,
@@ -51,6 +54,7 @@ public protocol CEFContextMenuHandler {
     /// MENU_ID_USER_LAST. |params| will have the same values as what was passed to
     /// OnBeforeContextMenu(). Do not keep a reference to |params| outside of this
     /// callback.
+    /// CEF name: `OnContextMenuCommand`
     func onContextMenuCommand(browser: CEFBrowser,
                               frame: CEFFrame,
                               params: CEFContextMenuParams,
@@ -59,6 +63,7 @@ public protocol CEFContextMenuHandler {
 
     /// Called when the context menu is dismissed irregardless of whether the menu
     /// was empty or a command was selected.
+    /// CEF name: `OnContextMenuDismissed`
     func onContextMenuDismissed(browser: CEFBrowser, frame: CEFFrame)
 }
 

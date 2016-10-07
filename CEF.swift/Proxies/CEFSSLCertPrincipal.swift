@@ -12,6 +12,7 @@ public extension CEFSSLCertPrincipal {
 
     /// Returns a name that can be used to represent the issuer.  It tries in this
     /// order: CN, O and OU and returns the first non-empty one found.
+    /// CEF name: `GetDisplayName`
     public var displayName: String {
         let cefStrPtr = cefObject.get_display_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -19,6 +20,7 @@ public extension CEFSSLCertPrincipal {
     }
 
     /// Returns the common name.
+    /// CEF name: `GetCommonName`
     public var commonName: String {
         let cefStrPtr = cefObject.get_common_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -26,6 +28,7 @@ public extension CEFSSLCertPrincipal {
     }
 
     /// Returns the locality name.
+    /// CEF name: `GetLocalityName`
     public var localityName: String {
         let cefStrPtr = cefObject.get_locality_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -33,6 +36,7 @@ public extension CEFSSLCertPrincipal {
     }
     
     /// Returns the state or province name.
+    /// CEF name: `GetStateOrProvinceName`
     public var stateOrProvinceName: String {
         let cefStrPtr = cefObject.get_state_or_province_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -40,6 +44,7 @@ public extension CEFSSLCertPrincipal {
     }
     
     /// Returns the country name.
+    /// CEF name: `GetCountryName`
     public var countryName: String {
         let cefStrPtr = cefObject.get_country_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -47,6 +52,7 @@ public extension CEFSSLCertPrincipal {
     }
     
     /// Retrieve the list of street addresses.
+    /// CEF name: `GetStreetAddresses`
     public var streetAddresses: [String] {
         let cefList = cef_string_list_alloc()!
         defer { cef_string_list_free(cefList) }
@@ -55,6 +61,7 @@ public extension CEFSSLCertPrincipal {
     }
     
     /// Retrieve the list of organization names.
+    /// CEF name: `GetOrganizationNames`
     public var organizationNames: [String] {
         let cefList = cef_string_list_alloc()!
         defer { cef_string_list_free(cefList) }
@@ -63,6 +70,7 @@ public extension CEFSSLCertPrincipal {
     }
     
     /// Retrieve the list of organization unit names.
+    /// CEF name: `GetOrganizationUnitNames`
     public var organizationUnitNames: [String] {
         let cefList = cef_string_list_alloc()!
         defer { cef_string_list_free(cefList) }
@@ -71,6 +79,7 @@ public extension CEFSSLCertPrincipal {
     }
     
     /// Retrieve the list of domain components.
+    /// CEF name: `GetDomainComponents`
     public var domainComponents: [String] {
         let cefList = cef_string_list_alloc()!
         defer { cef_string_list_free(cefList) }

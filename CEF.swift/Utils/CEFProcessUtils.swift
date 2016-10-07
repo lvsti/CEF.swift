@@ -20,6 +20,7 @@ public struct CEFProcessUtils {
     /// the process exit code. The |application| parameter may be empty. The
     /// |windows_sandbox_info| parameter is only used on Windows and may be NULL (see
     /// cef_sandbox_win.h for details).
+    /// CEF name: `CefExecuteProcess`
     public static func executeProcessWithArgs(args: CEFMainArgs,
                                               app: CEFApp? = nil,
                                               winSandboxInfo: UnsafeMutableRawPointer? = nil) -> Int {
@@ -33,6 +34,7 @@ public struct CEFProcessUtils {
     /// value of true indicates that it succeeded and false indicates that it failed.
     /// The |windows_sandbox_info| parameter is only used on Windows and may be NULL
     /// (see cef_sandbox_win.h for details).
+    /// CEF name: `CefInitialize`
     public static func initializeMainWithArgs(args: CEFMainArgs,
                                               settings: CEFSettings,
                                               app: CEFApp? = nil,
@@ -48,6 +50,7 @@ public struct CEFProcessUtils {
 
     /// This function should be called on the main application thread to shut down
     /// the CEF browser process before the application exits.
+    /// CEF name: `CefShutdown`
     public static func shutDown() {
         cef_shutdown()
     }
@@ -58,6 +61,7 @@ public struct CEFProcessUtils {
     /// This function should only be called on the main application thread and only
     /// if CefInitialize() is called with a CefSettings.multi_threaded_message_loop
     /// value of false. This function will not block.
+    /// CEF name: `CefDoMessageLoopWork`
     public static func doMessageLoopWork() {
         cef_do_message_loop_work()
     }
@@ -68,6 +72,7 @@ public struct CEFProcessUtils {
     /// only if CefInitialize() is called with a
     /// CefSettings.multi_threaded_message_loop value of false. This function will
     /// block until a quit message is received by the system.
+    /// CEF name: `CefRunMessageLoop`
     public static func runMessageLoop() {
         cef_run_message_loop()
     }
@@ -75,12 +80,14 @@ public struct CEFProcessUtils {
     /// Quit the CEF message loop that was started by calling CefRunMessageLoop().
     /// This function should only be called on the main application thread and only
     /// if CefRunMessageLoop() was used.
+    /// CEF name: `CefQuitMessageLoop`
     public static func quitMessageLoop() {
         cef_quit_message_loop()
     }
 
     /// Set to true before calling Windows APIs like TrackPopupMenu that enter a
     /// modal message loop. Set to false after exiting the modal message loop.
+    /// CEF name: `CefSetOSModalLoop`
     public static func setOSModalLoop(modal: Bool) {
         cef_set_osmodal_loop(modal ? 1 : 0)
     }
@@ -88,6 +95,7 @@ public struct CEFProcessUtils {
     /// Call during process startup to enable High-DPI support on Windows 7 or newer.
     /// Older versions of Windows should be left DPI-unaware because they do not
     /// support DirectWrite and GDI fonts are kerned very badly.
+    /// CEF name: `CefEnableHighDPISupport`
     public static func enableHighDPISupport() {
         cef_enable_highdpi_support()
     }

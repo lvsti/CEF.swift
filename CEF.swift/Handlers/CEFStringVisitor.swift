@@ -9,9 +9,11 @@
 import Foundation
 
 /// Implement this interface to receive string values asynchronously.
+/// CEF name: `CefStringVisitor`
 public protocol CEFStringVisitor {
 
     /// Method that will be executed.
+    /// CEF name: `Visit`
     func visit(string: String?)
 
 }

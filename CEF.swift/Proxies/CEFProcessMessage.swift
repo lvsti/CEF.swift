@@ -11,6 +11,7 @@ import Foundation
 public extension CEFProcessMessage {
 
     /// Create a new CefProcessMessage object with the specified name.
+    /// CEF name: `Create`
     public convenience init?(name: String) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -20,23 +21,27 @@ public extension CEFProcessMessage {
 
     /// Returns true if this object is valid. Do not call any other methods if this
     /// function returns false.
+    /// CEF name: `IsValid`
     public var isValid: Bool {
         return cefObject.is_valid(cefObjectPtr) != 0
     }
 
     /// Returns true if the values of this object are read-only. Some APIs may
     /// expose read-only objects.
+    /// CEF name: `IsReadOnly`
     public var isReadOnly: Bool {
         return cefObject.is_read_only(cefObjectPtr) != 0
     }
 
     /// Returns a writable copy of this object.
+    /// CEF name: `Copy`
     public func copy() -> CEFProcessMessage? {
         let cefProcMsg = cefObject.copy(cefObjectPtr)
         return CEFProcessMessage.fromCEF(cefProcMsg)
     }
 
     /// Returns the message name.
+    /// CEF name: `GetName`
     public var name: String {
         let cefNamePtr = cefObject.get_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefNamePtr) }
@@ -45,6 +50,7 @@ public extension CEFProcessMessage {
     }
 
     /// Returns the list of arguments.
+    /// CEF name: `GetArgumentList`
     public var argumentList: CEFListValue? {
         let cefList = cefObject.get_argument_list(cefObjectPtr)
         return CEFListValue.fromCEF(cefList)

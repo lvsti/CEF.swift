@@ -12,6 +12,7 @@ public extension CEFJSDialogCallback {
     
     /// Continue the JS dialog request. Set |success| to true if the OK button was
     /// pressed. The |user_input| value should be specified for prompt dialogs.
+    /// CEF name: `Continue`
     public func doContinue(success: Bool, userInput: String? = nil) {
         let cefStrPtr: UnsafeMutablePointer<cef_string_t>? =
             userInput != nil ? CEFStringPtrCreateFromSwiftString(userInput!) : nil

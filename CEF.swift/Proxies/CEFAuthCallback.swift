@@ -11,6 +11,7 @@ import Foundation
 public extension CEFAuthCallback {
     
     /// Continue the authentication request.
+    /// CEF name: `Continue`
     public func doContinue(username: String, password: String) {
         let cefUserPtr = CEFStringPtrCreateFromSwiftString(username)
         let cefPassPtr = CEFStringPtrCreateFromSwiftString(password)
@@ -22,6 +23,7 @@ public extension CEFAuthCallback {
     }
     
     /// Cancel the authentication request.
+    /// CEF name: `Cancel`
     public func doCancel() {
         cefObject.cancel(cefObjectPtr)
     }

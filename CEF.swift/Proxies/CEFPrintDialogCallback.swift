@@ -11,11 +11,13 @@ import Foundation
 public extension CEFPrintDialogCallback {
 
     /// Continue printing with the specified |settings|.
+    /// CEF name: `Continue`
     public func doContinue(settings: CEFPrintSettings) {
         cefObject.cont(cefObjectPtr, settings.toCEF())
     }
     
     /// Cancel the printing.
+    /// CEF name: `Cancel`
     public func doCancel() {
         cefObject.cancel(cefObjectPtr)
     }

@@ -18,20 +18,24 @@ public enum CEFOnSetFocusAction {
 
 /// Implement this interface to handle events related to focus. The methods of
 /// this class will be called on the UI thread.
+/// CEF name: `CefFocusHandler`
 public protocol CEFFocusHandler {
 
     /// Called when the browser component is about to loose focus. For instance, if
     /// focus was on the last HTML element and the user pressed the TAB key. |next|
     /// will be true if the browser is giving focus to the next component and false
     /// if the browser is giving focus to the previous component.
+    /// CEF name: `OnTakeFocus`
     func onTakeFocus(browser: CEFBrowser, next: Bool)
     
     /// Called when the browser component is requesting focus. |source| indicates
     /// where the focus request is originating from. Return false to allow the
     /// focus to be set or true to cancel setting the focus.
+    /// CEF name: `OnSetFocus`
     func onSetFocus(browser: CEFBrowser, source: CEFFocusSource) -> CEFOnSetFocusAction
     
     /// Called when the browser component has received focus.
+    /// CEF name: `OnGotFocus`
     func onGotFocus(browser: CEFBrowser)
 
 }

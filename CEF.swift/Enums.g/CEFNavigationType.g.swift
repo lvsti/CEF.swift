@@ -8,12 +8,19 @@
 import Foundation
 
 /// Navigation types.
+/// CEF name: `cef_navigation_type_t`.
 public enum CEFNavigationType: Int32 {
+    /// CEF name: `NAVIGATION_LINK_CLICKED`.
     case linkClicked = 0
+    /// CEF name: `NAVIGATION_FORM_SUBMITTED`.
     case formSubmitted
+    /// CEF name: `NAVIGATION_BACK_FORWARD`.
     case backForward
+    /// CEF name: `NAVIGATION_RELOAD`.
     case reload
+    /// CEF name: `NAVIGATION_FORM_RESUBMITTED`.
     case formResubmitted
+    /// CEF name: `NAVIGATION_OTHER`.
     case other
 }
 

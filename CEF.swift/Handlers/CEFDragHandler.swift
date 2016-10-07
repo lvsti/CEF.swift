@@ -18,12 +18,14 @@ public enum CEFOnDragEnterAction {
 
 /// Implement this interface to handle events related to dragging. The methods of
 /// this class will be called on the UI thread.
+/// CEF name: `CefDragHandler`
 public protocol CEFDragHandler {
     
     /// Called when an external drag event enters the browser window. |dragData|
     /// contains the drag event data and |mask| represents the type of drag
     /// operation. Return false for default drag handling behavior or true to
     /// cancel the drag event.
+    /// CEF name: `OnDragEnter`
     func onDragEnter(browser: CEFBrowser,
                      dragData: CEFDragData,
                      operationMask: CEFDragOperationsMask) -> CEFOnDragEnterAction
@@ -33,6 +35,7 @@ public protocol CEFDragHandler {
     /// draggable regions are never defined in a document this method will also
     /// never be called. If the last draggable region is removed from a document
     /// this method will be called with an empty vector.
+    /// CEF name: `OnDraggableRegionsChanged`
     func onDraggableRegionsChanged(browser: CEFBrowser, regions: [CEFDraggableRegion])
 
 }

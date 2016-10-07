@@ -10,6 +10,7 @@ import Foundation
 
 /// Interface to implement for visiting cookie values. The methods of this class
 /// will always be called on the IO thread.
+/// CEF name: `CefCookieVisitor`
 public protocol CEFCookieVisitor {
     
     /// Method that will be called once for each cookie. |count| is the 0-based
@@ -17,6 +18,7 @@ public protocol CEFCookieVisitor {
     /// Set |deleteCookie| to true to delete the cookie currently being visited.
     /// Return false to stop visiting cookies. This method may never be called if
     /// no cookies are found.
+    /// CEF name: `Visit`
     func visit(cookie: CEFCookie, index: Int, count: Int, shouldDelete: inout Bool) -> Bool
     
 }

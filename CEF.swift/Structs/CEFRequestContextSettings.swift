@@ -10,6 +10,7 @@ import Foundation
 
 /// Request context initialization settings. Specify NULL or 0 to get the
 /// recommended default values.
+/// CEF name: `cef_request_context_settings_t`
 public struct CEFRequestContextSettings {
     /// The location where cache data will be stored on disk. If empty then
     /// browsers will be created in "incognito mode" where in-memory caches are
@@ -17,6 +18,7 @@ public struct CEFRequestContextSettings {
     /// localStorage will only persist across sessions if a cache path is
     /// specified. To share the global browser cache and related configuration set
     /// this value to match the CefSettings.cache_path value.
+    /// CEF name: `cache_path`
     public var cachePath: String = ""
 
     /// To persist session cookies (cookies without an expiry date or validity
@@ -25,12 +27,14 @@ public struct CEFRequestContextSettings {
     /// Web browsers do not persist them. Can be set globally using the
     /// CefSettings.persist_session_cookies value. This value will be ignored if
     /// |cache_path| is empty or if it matches the CefSettings.cache_path value.
+    /// CEF name: `persist_session_cookies`
     public var persistSessionCookies: Bool = false
     
     /// To persist user preferences as a JSON file in the cache path directory set
     /// this value to true (1). Can be set globally using the
     /// CefSettings.persist_user_preferences value. This value will be ignored if
     /// |cache_path| is empty or if it matches the CefSettings.cache_path value.
+    /// CEF name: `persist_user_preferences`
     public var persistUserPreferences: Bool = false
 
     /// Set to true (1) to ignore errors related to invalid SSL certificates.
@@ -39,6 +43,7 @@ public struct CEFRequestContextSettings {
     /// internet should not enable this setting. Can be set globally using the
     /// CefSettings.ignore_certificate_errors value. This value will be ignored if
     /// |cache_path| matches the CefSettings.cache_path value.
+    /// CEF name: `ignore_certificate_errors`
     public var ignoreCertificateErrors: Bool = false
     
     /// Comma delimited ordered list of language codes without any whitespace that
@@ -47,6 +52,7 @@ public struct CEFRequestContextSettings {
     /// browser basis using the CefBrowserSettings.accept_language_list value. If
     /// all values are empty then "en-US,en" will be used. This value will be
     /// ignored if |cache_path| matches the CefSettings.cache_path value.
+    /// CEF name: `accept_language_list`
     public var acceptLanguageList: String = ""
     
     public init() {

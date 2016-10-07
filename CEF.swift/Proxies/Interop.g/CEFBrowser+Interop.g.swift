@@ -13,6 +13,7 @@ extension cef_browser_t: CEFObject {}
 /// the methods of this class may be called on any thread unless otherwise
 /// indicated in the comments. When used in the render process the methods of
 /// this class may only be called on the main thread.
+/// CEF name: `CefBrowser`
 public class CEFBrowser: CEFProxy<cef_browser_t> {
     override init?(ptr: UnsafeMutablePointer<cef_browser_t>?) {
         super.init(ptr: ptr)

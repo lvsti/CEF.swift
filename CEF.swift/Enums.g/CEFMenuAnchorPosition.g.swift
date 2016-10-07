@@ -9,9 +9,13 @@ import Foundation
 
 /// Specifies how a menu will be anchored for non-RTL languages. The opposite
 /// position will be used for RTL languages.
+/// CEF name: `cef_menu_anchor_position_t`.
 public enum CEFMenuAnchorPosition: Int32 {
+    /// CEF name: `CEF_MENU_ANCHOR_TOPLEFT`.
     case topLeft
+    /// CEF name: `CEF_MENU_ANCHOR_TOPRIGHT`.
     case topRight
+    /// CEF name: `CEF_MENU_ANCHOR_BOTTOMCENTER`.
     case bottomCenter
 }
 

@@ -15,18 +15,22 @@ public enum CEFOnStartDraggingAction {
 
 /// Implement this interface to handle events when window rendering is disabled.
 /// The methods of this class will be called on the UI thread.
+/// CEF name: `CefRenderHandler`
 public protocol CEFRenderHandler {
     
     /// Called to retrieve the root window rectangle in screen coordinates. Return
     /// true if the rectangle was provided.
+    /// CEF name: `GetRootScreenRect`
     func rootScreenRectForBrowser(browser: CEFBrowser) -> NSRect?
     
     /// Called to retrieve the view rectangle which is relative to screen
     /// coordinates. Return true if the rectangle was provided.
+    /// CEF name: `GetViewRect`
     func viewRectForBrowser(browser: CEFBrowser) -> NSRect?
     
     /// Called to retrieve the translation from view coordinates to actual screen
     /// coordinates. Return true if the screen coordinates were provided.
+    /// CEF name: `GetScreenPoint`
     func screenPointForBrowser(browser: CEFBrowser, viewPoint: NSPoint) -> NSPoint?
     
     /// Called to allow the client to fill in the CefScreenInfo object with
@@ -35,14 +39,17 @@ public protocol CEFRenderHandler {
     /// If the screen info rectangle is left empty the rectangle from GetViewRect
     /// will be used. If the rectangle is still empty or invalid popups may not be
     /// drawn correctly.
+    /// CEF name: `GetScreenInfo`
     func screenInfoForBrowser(browser: CEFBrowser) -> CEFScreenInfo?
     
     /// Called when the browser wants to show or hide the popup widget. The popup
     /// should be shown if |show| is true and hidden if |show| is false.
+    /// CEF name: `OnPopupShow`
     func onPopupShow(browser: CEFBrowser, showing: Bool)
     
     /// Called when the browser wants to move or resize the popup widget. |rect|
     /// contains the new location and size in view coordinates.
+    /// CEF name: `OnPopupSize`
     func onPopupSize(browser: CEFBrowser, rect: NSRect)
     
     /// Called when an element should be painted. Pixel values passed to this
@@ -53,6 +60,7 @@ public protocol CEFRenderHandler {
     /// of rectangles in pixel coordinates that need to be repainted. |buffer| will
     /// be |width|*|height|*4 bytes in size and represents a BGRA image with an
     /// upper-left origin.
+    /// CEF name: `OnPaint`
     func onPaint(browser: CEFBrowser,
                  type: CEFPaintElementType,
                  dirtyRects: [NSRect],
@@ -61,6 +69,7 @@ public protocol CEFRenderHandler {
     
     /// Called when the browser's cursor has changed. If |type| is CT_CUSTOM then
     /// |custom_cursor_info| will be populated with the custom cursor information.
+    /// CEF name: `OnCursorChange`
     func onCursorChange(browser: CEFBrowser,
                         cursor: CEFCursorHandle,
                         type: CEFCursorType,
@@ -77,6 +86,7 @@ public protocol CEFRenderHandler {
     /// CefBrowserHost::DragSourceEndedAt and DragSourceSystemDragEnded either
     /// synchronously or asynchronously to inform the web view that the drag
     /// operation has ended.
+    /// CEF name: `StartDragging`
     func onStartDragging(browser: CEFBrowser,
                          dragData: CEFDragData,
                          operationMask: CEFDragOperationsMask,
@@ -85,9 +95,11 @@ public protocol CEFRenderHandler {
     /// Called when the web view wants to update the mouse cursor during a
     /// drag & drop operation. |operation| describes the allowed operation
     /// (none, move, copy, link).
+    /// CEF name: `UpdateDragCursor`
     func onUpdateDragCursor(browser: CEFBrowser, operation: CEFDragOperationsMask)
     
     /// Called when the scroll offset has changed.
+    /// CEF name: `OnScrollOffsetChanged`
     func onScrollOffsetChanged(browser: CEFBrowser, offset: NSPoint)
 
 }

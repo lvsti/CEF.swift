@@ -9,15 +9,19 @@
 import Foundation
 
 /// Structure representing mouse event information.
+/// CEF name: `cef_mouse_event_t`
 public struct CEFMouseEvent {
     /// X coordinate relative to the left side of the view.
+    /// CEF name: `x`
     public var x: Int32 = 0
 
     /// Y coordinate relative to the top side of the view.
+    /// CEF name: `y`
     public var y: Int32 = 0
     
     /// Bit flags describing any pressed modifier keys. See
     /// cef_event_flags_t for values.
+    /// CEF name: `modifiers`
     public var modifiers: CEFEventFlags = .none
 }
 

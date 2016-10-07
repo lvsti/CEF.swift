@@ -21,31 +21,38 @@ public enum CEFOnProcessMessageReceivedAction {
 /// Class used to implement render process callbacks. The methods of this class
 /// will be called on the render process main thread (TID_RENDERER) unless
 /// otherwise indicated.
+/// CEF name: `CefRenderProcessHandler`
 public protocol CEFRenderProcessHandler {
 
     /// Called after the render process main thread has been created. |extra_info|
     /// is a read-only value originating from
     /// CefBrowserProcessHandler::OnRenderProcessThreadCreated(). Do not keep a
     /// reference to |extra_info| outside of this method.
+    /// CEF name: `OnRenderThreadCreated`
     func onRenderThreadCreated(info: CEFListValue)
     
     /// Called after WebKit has been initialized.
+    /// CEF name: `OnWebKitInitialized`
     func onWebKitInitialized()
     
     /// Called after a browser has been created. When browsing cross-origin a new
     /// browser will be created before the old browser with the same identifier is
     /// destroyed.
+    /// CEF name: `OnBrowserCreated`
     func onBrowserCreated(browser: CEFBrowser)
     
     /// Called before a browser is destroyed.
+    /// CEF name: `OnBrowserDestroyed`
     func onBrowserDestroyed(browser: CEFBrowser)
     
     /// Return the handler for browser load status events.
+    /// CEF name: `GetLoadHandler`
     var loadHandler: CEFLoadHandler? { get }
     
     /// Called before browser navigation. Return true to cancel the navigation or
     /// false to allow the navigation to proceed. The |request| object cannot be
     /// modified in this callback.
+    /// CEF name: `OnBeforeNavigation`
     func onBeforeNavigation(browser: CEFBrowser,
                             frame: CEFFrame,
                             request: CEFRequest,
@@ -57,12 +64,14 @@ public protocol CEFRenderProcessHandler {
     /// method. V8 handles can only be accessed from the thread on which they are
     /// created. A task runner for posting tasks on the associated thread can be
     /// retrieved via the CefV8Context::GetTaskRunner() method.
+    /// CEF name: `OnContextCreated`
     func onContextCreated(browser: CEFBrowser,
                           frame: CEFFrame,
                           context: CEFV8Context)
     
     /// Called immediately before the V8 context for a frame is released. No
     /// references to the context should be kept after this method is called.
+    /// CEF name: `OnContextReleased`
     func onContextReleased(browser: CEFBrowser,
                            frame: CEFFrame,
                            context: CEFV8Context)
@@ -70,6 +79,7 @@ public protocol CEFRenderProcessHandler {
     /// Called for global uncaught exceptions in a frame. Execution of this
     /// callback is disabled by default. To enable set
     /// CefSettings.uncaught_exception_stack_size > 0.
+    /// CEF name: `OnUncaughtException`
     func onUncaughtException(browser: CEFBrowser,
                              frame: CEFFrame,
                              context: CEFV8Context,
@@ -82,6 +92,7 @@ public protocol CEFRenderProcessHandler {
     /// executed. DOM objects are only valid for the scope of this method. Do not
     /// keep references to or attempt to access any DOM objects outside the scope
     /// of this method.
+    /// CEF name: `OnFocusedNodeChanged`
     func onFocusedNodeChanged(browser: CEFBrowser,
                               frame: CEFFrame?,
                               node: CEFDOMNode?)
@@ -89,6 +100,7 @@ public protocol CEFRenderProcessHandler {
     /// Called when a new message is received from a different process. Return true
     /// if the message was handled or false otherwise. Do not keep a reference to
     /// or attempt to access the message outside of this callback.
+    /// CEF name: `OnProcessMessageReceived`
     func onProcessMessageReceived(browser: CEFBrowser,
                                   processID: CEFProcessID,
                                   message: CEFProcessMessage) -> CEFOnProcessMessageReceivedAction

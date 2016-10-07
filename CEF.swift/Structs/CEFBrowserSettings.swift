@@ -12,41 +12,57 @@ import Foundation
 /// default values. The consequences of using custom values may not be well
 /// tested. Many of these and other settings can also configured using command-
 /// line switches.
+/// CEF name: `cef_browser_settings_t`
 public struct CEFBrowserSettings {
     /// The maximum rate in frames per second (fps) that CefRenderHandler::OnPaint
     /// will be called for a windowless browser. The actual fps may be lower if
     /// the browser cannot generate frames at the requested rate. The minimum
     /// value is 1 and the maximum value is 60 (default 30). This value can also be
     /// changed dynamically via CefBrowserHost::SetWindowlessFrameRate.
+    /// CEF name: `windowless_frame_rate`
     public var windowlessFrameRate: Int32 = 30
 
     /// Font settings.
+    /// CEF name: `standard_font_family`
     public var standardFontFamily: String = ""
+    /// CEF name: `fixed_font_family`
     public var fixedFontFamily: String = ""
+    /// CEF name: `serif_font_family`
     public var serifFontFamily: String = ""
+    /// CEF name: `sans_serif_font_family`
     public var sansSerifFontFamily: String = ""
+    /// CEF name: `cursive_font_family`
     public var cursiveFontFamily: String = ""
+    /// CEF name: `fantasy_font_family`
     public var fantasyFontFamily: String = ""
+    /// CEF name: `default_font_size`
     public var defaultFontSize: Int32 = 0
+    /// CEF name: `default_fixed_font_size`
     public var defaultFixedFontSize: Int32 = 0
+    /// CEF name: `minimum_font_size`
     public var minimumFontSize: Int32 = 0
+    /// CEF name: `minimum_logical_font_size`
     public var minimumLogicalFontSize: Int32 = 0
 
     /// Default encoding for Web content. If empty "ISO-8859-1" will be used. Also
     /// configurable using the "default-encoding" command-line switch.
+    /// CEF name: `default_encoding`
     public var defaultEncoding: String = ""
     
     /// Controls the loading of fonts from remote sources. Also configurable using
     /// the "disable-remote-fonts" command-line switch.
+    /// CEF name: `remote_fonts`
     public var remoteFonts: CEFState = .defaultState
     
     /// Controls whether JavaScript can be executed. Also configurable using the
     /// "disable-javascript" command-line switch.
+    /// CEF name: `javascript`
     public var javascript: CEFState = .defaultState
     
     /// Controls whether JavaScript can be used for opening windows. Also
     /// configurable using the "disable-javascript-open-windows" command-line
     /// switch.
+    /// CEF name: `javascript_open_windows`
     public var javascriptOpenWindows: CEFState = .defaultState
     
     /// Controls whether JavaScript can be used to close windows that were not
@@ -54,73 +70,89 @@ public struct CEFBrowserSettings {
     /// were opened via JavaScript or that have no back/forward history. Also
     /// configurable using the "disable-javascript-close-windows" command-line
     /// switch.
+    /// CEF name: `javascript_close_windows`
     public var javascriptCloseWindows: CEFState = .defaultState
     
     /// Controls whether JavaScript can access the clipboard. Also configurable
     /// using the "disable-javascript-access-clipboard" command-line switch.
+    /// CEF name: `javascript_access_clipboard`
     public var javascriptAccessClipboard: CEFState = .defaultState
     
     /// Controls whether DOM pasting is supported in the editor via
     /// execCommand("paste"). The |javascript_access_clipboard| setting must also
     /// be enabled. Also configurable using the "disable-javascript-dom-paste"
     /// command-line switch.
+    /// CEF name: `javascript_dom_paste`
     public var javascriptDOMPaste: CEFState = .defaultState
     
     /// Controls whether the caret position will be drawn. Also configurable using
     /// the "enable-caret-browsing" command-line switch.
+    /// CEF name: `caret_browsing`
     public var caretBrowsing: CEFState = .defaultState
     
     /// Controls whether any plugins will be loaded. Also configurable using the
     /// "disable-plugins" command-line switch.
+    /// CEF name: `plugins`
     public var plugins: CEFState = .defaultState
     
     /// Controls whether file URLs will have access to all URLs. Also configurable
     /// using the "allow-universal-access-from-files" command-line switch.
+    /// CEF name: `universal_access_from_file_urls`
     public var universalAccessFromFileURLs: CEFState = .defaultState
     
     /// Controls whether file URLs will have access to other file URLs. Also
     /// configurable using the "allow-access-from-files" command-line switch.
+    /// CEF name: `file_access_from_file_urls`
     public var fileAccessFromFileURLs: CEFState = .defaultState
 
     /// Controls whether web security restrictions (same-origin policy) will be
     /// enforced. Disabling this setting is not recommend as it will allow risky
     /// security behavior such as cross-site scripting (XSS). Also configurable
     /// using the "disable-web-security" command-line switch.
+    /// CEF name: `web_security`
     public var webSecurity: CEFState = .defaultState
     
     /// Controls whether image URLs will be loaded from the network. A cached image
     /// will still be rendered if requested. Also configurable using the
     /// "disable-image-loading" command-line switch.
+    /// CEF name: `image_loading`
     public var imageLoading: CEFState = .defaultState
     
     /// Controls whether standalone images will be shrunk to fit the page. Also
     /// configurable using the "image-shrink-standalone-to-fit" command-line
     /// switch.
+    /// CEF name: `image_shrink_standalone_fit`
     public var imageShrinkStandaloneToFit: CEFState = .defaultState
     
     /// Controls whether text areas can be resized. Also configurable using the
     /// "disable-text-area-resize" command-line switch.
+    /// CEF name: `text_area_resize`
     public var textAreaResize: CEFState = .defaultState
     
     /// Controls whether the tab key can advance focus to links. Also configurable
     /// using the "disable-tab-to-links" command-line switch.
+    /// CEF name: `tab_to_links`
     public var tabToLinks: CEFState = .defaultState
     
     /// Controls whether local storage can be used. Also configurable using the
     /// "disable-local-storage" command-line switch.
+    /// CEF name: `local_storage`
     public var localStorage: CEFState = .defaultState
     
     /// Controls whether databases can be used. Also configurable using the
     /// "disable-databases" command-line switch.
+    /// CEF name: `databases`
     public var databases: CEFState = .defaultState
     
     /// Controls whether the application cache can be used. Also configurable using
     /// the "disable-application-cache" command-line switch.
+    /// CEF name: `application_cache`
     public var applicationCache: CEFState = .defaultState
     
     /// Controls whether WebGL can be used. Note that WebGL requires hardware
     /// support and may not work on all systems even when enabled. Also
     /// configurable using the "disable-webgl" command-line switch.
+    /// CEF name: `webgl`
     public var webGL: CEFState = .defaultState
     
     /// Opaque background color used for the browser before a document is loaded
@@ -128,12 +160,14 @@ public struct CEFBrowserSettings {
     /// will be the same as CefSettings.background_color. Only the RGB compontents
     /// of the specified value will be used. The alpha component must greater than
     /// 0 to enable use of the background color but will be otherwise ignored.
+    /// CEF name: `background_color`
     public var backgroundColor: CEFColor = CEFColor(argb: 0)
     
     /// Comma delimited ordered list of language codes without any whitespace that
     /// will be used in the "Accept-Language" HTTP header. May be set globally
     /// using the CefBrowserSettings.accept_language_list value. If both values are
     /// empty then "en-US,en" will be used.
+    /// CEF name: `accept_language_list`
     public var acceptLanguageList: String = ""
 
     public init() {

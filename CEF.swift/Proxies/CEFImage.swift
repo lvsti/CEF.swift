@@ -14,17 +14,20 @@ public extension CEFImage {
 
     /// Create a new CefImage. It will initially be empty. Use the Add*() methods
     /// to add representations at different scale factors.
+    /// CEF name: `Create`
     public convenience init?(){
         self.init(ptr: cef_image_create())
     }
     
     /// Returns true if this Image is empty.
+    /// CEF name: `IsEmpty`
     public var isEmpty: Bool {
         return cefObject.is_empty(cefObjectPtr) != 0
     }
     
     /// Returns true if this Image and |that| Image share the same underlying
     /// storage. Will also return true if both images are empty.
+    /// CEF name: `IsSame`
     public func isSameAs(other: CEFImage) -> Bool {
         return cefObject.is_same(cefObjectPtr, other.toCEF()) != 0
     }
@@ -34,6 +37,7 @@ public extension CEFImage {
     /// representation size in pixel coordinates. |pixel_data| is the array of
     /// pixel data and should be |pixel_width| x |pixel_height| x 4 bytes in size.
     /// |color_type| and |alpha_type| values specify the pixel format.
+    /// CEF name: `AddBitmap`
     public func addBitmap(scaleFactor: Float,
                           pixelWidth: Int,
                           pixelHeight: Int,
@@ -53,6 +57,7 @@ public extension CEFImage {
     /// Add a PNG image representation for |scale_factor|. |png_data| is the image
     /// data of size |png_data_size|. Any alpha transparency in the PNG data will
     /// be maintained.
+    /// CEF name: `AddPNG`
     public func addPNG(scaleFactor: Float, data: NSData) -> Bool {
         return cefObject.add_png(cefObjectPtr,
                                  scaleFactor,
@@ -63,6 +68,7 @@ public extension CEFImage {
     // Create a JPEG image representation for |scale_factor|. |jpeg_data| is the
     // image data of size |jpeg_data_size|. The JPEG format does not support
     // transparency so the alpha byte will be set to 0xFF for all pixels.
+    /// CEF name: `AddJPEG`
     public func addJPEG(scaleFactor: Float, data: NSData) -> Bool {
         return cefObject.add_jpeg(cefObjectPtr,
                                   scaleFactor,
@@ -71,21 +77,25 @@ public extension CEFImage {
     }
     
     /// Returns the image width in density independent pixel (DIP) units.
+    /// CEF name: `GetWidth`
     public var width: Int {
         return cefObject.get_width(cefObjectPtr)
     }
     
     /// Returns the image height in density independent pixel (DIP) units.
+    /// CEF name: `GetHeight`
     public var height: Int {
         return cefObject.get_height(cefObjectPtr)
     }
     
     /// Returns true if this image contains a representation for |scale_factor|.
+    /// CEF name: `HasRepresentation`
     public func hasRepresentationForScaleFactor(scaleFactor: Float) -> Bool {
         return cefObject.has_representation(cefObjectPtr, scaleFactor) != 0
     }
     
     /// Removes the representation for |scale_factor|. Returns true on success.
+    /// CEF name: `RemoveRepresentation`
     public func removeRepresentationForScaleFactor(scaleFactor: Float) -> Bool {
         return cefObject.remove_representation(cefObjectPtr, scaleFactor) != 0
     }
@@ -94,6 +104,7 @@ public extension CEFImage {
     /// |scale_factor|. |actual_scale_factor| is the actual scale factor for the
     /// representation. |pixel_width| and |pixel_height| are the representation
     /// size in pixel coordinates. Returns true on success.
+    /// CEF name: `GetRepresentationInfo`
     public func representationInfoForScaleFactor(scaleFactor: Float) -> (scaleFactor: Float, width: Int, height: Int)? {
         var actualSF: Float = 0
         var width: Int32 = 0
@@ -113,6 +124,7 @@ public extension CEFImage {
     /// |pixel_height| are the output representation size in pixel coordinates.
     /// Returns a CefBinaryValue containing the pixel data on success or NULL on
     /// failure.
+    /// CEF name: `GetAsBitmap`
     public func getAsBitmap(scaleFactor: Float, colorType: CEFColorType, alphaType: CEFAlphaType) -> CEFImageResult? {
         var width: Int32 = 0
         var height: Int32 = 0
@@ -134,6 +146,7 @@ public extension CEFImage {
     // represented in the resulting PNG data. |pixel_width| and |pixel_height| are
     // the output representation size in pixel coordinates. Returns a
     // CefBinaryValue containing the PNG image data on success or NULL on failure.
+    /// CEF name: `GetAsPNG`
     public func getAsPNG(scaleFactor: Float, transparency: Bool) -> CEFImageResult? {
         var width: Int32 = 0
         var height: Int32 = 0
@@ -156,6 +169,7 @@ public extension CEFImage {
     /// the output representation size in pixel coordinates. Returns a
     /// CefBinaryValue containing the JPEG image data on success or NULL on
     /// failure.
+    /// CEF name: `GetAsJPEG`
     public func getAsJPEG(scaleFactor: Float, quality: Int) -> CEFImageResult? {
         var width: Int32 = 0
         var height: Int32 = 0

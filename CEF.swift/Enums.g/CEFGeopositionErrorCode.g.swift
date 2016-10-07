@@ -8,10 +8,15 @@
 import Foundation
 
 /// Geoposition error codes.
+/// CEF name: `cef_geoposition_error_code_t`.
 public enum CEFGeopositionErrorCode: Int32 {
+    /// CEF name: `GEOPOSITON_ERROR_NONE`.
     case none = 0
+    /// CEF name: `GEOPOSITON_ERROR_PERMISSION_DENIED`.
     case permissionDenied
+    /// CEF name: `GEOPOSITON_ERROR_POSITION_UNAVAILABLE`.
     case positionUnavailable
+    /// CEF name: `GEOPOSITON_ERROR_TIMEOUT`.
     case timeout
 }
 

@@ -8,15 +8,19 @@
 import Foundation
 
 /// Return value types.
+/// CEF name: `cef_return_value_t`.
 public enum CEFReturnValue: Int32 {
 
     /// Cancel immediately.
+    /// CEF name: `RV_CANCEL`.
     case cancel = 0
 
     /// Continue immediately.
+    /// CEF name: `RV_CONTINUE`.
     case continueNow
 
     /// Continue asynchronously (usually via a callback).
+    /// CEF name: `RV_CONTINUE_ASYNC`.
     case continueAsync
 }
 

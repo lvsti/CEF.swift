@@ -8,12 +8,15 @@
 import Foundation
 
 /// Focus sources.
+/// CEF name: `cef_focus_source_t`.
 public enum CEFFocusSource: Int32 {
 
     /// The source is explicit navigation via the API (LoadURL(), etc).
+    /// CEF name: `FOCUS_SOURCE_NAVIGATION`.
     case navigation = 0
 
     /// The source is a system-generated focus event.
+    /// CEF name: `FOCUS_SOURCE_SYSTEM`.
     case system
 }
 

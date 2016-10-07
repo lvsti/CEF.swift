@@ -11,11 +11,17 @@ import Foundation
 /// UTF16 (LE and BE) by default. All other types must be translated to UTF8
 /// before being passed to the parser. If a BOM is detected and the correct
 /// decoder is available then that decoder will be used automatically.
+/// CEF name: `cef_xml_encoding_type_t`.
 public enum CEFXMLEncodingType: Int32 {
+    /// CEF name: `XML_ENCODING_NONE`.
     case none = 0
+    /// CEF name: `XML_ENCODING_UTF8`.
     case utf8
+    /// CEF name: `XML_ENCODING_UTF16LE`.
     case utf16le
+    /// CEF name: `XML_ENCODING_UTF16BE`.
     case utf16be
+    /// CEF name: `XML_ENCODING_ASCII`.
     case ascii
 }
 

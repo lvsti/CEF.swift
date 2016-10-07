@@ -10,6 +10,7 @@ import Foundation
 
 /// Callback interface for CefBrowserHost::RunFileDialog. The methods of this
 /// class will be called on the browser process UI thread.
+/// CEF name: `CefRunFileDialogCallback`
 public protocol CEFRunFileDialogCallback {
 
     /// Called asynchronously after the file dialog is dismissed.
@@ -17,6 +18,7 @@ public protocol CEFRunFileDialogCallback {
     /// the accept filters array passed to CefBrowserHost::RunFileDialog.
     /// |file_paths| will be a single value or a list of values depending on the
     /// dialog mode. If the selection was cancelled |file_paths| will be empty.
+    /// CEF name: `OnFileDialogDismissed`
     func onFileDialogDismissed(filterIndex: Int, filePaths: [String])
 
 }

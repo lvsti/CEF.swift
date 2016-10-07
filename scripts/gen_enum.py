@@ -67,6 +67,8 @@ def make_enum(cef_capi_name, cef_body):
             result += "\n" + indent_multiline_string(make_swiftdoc_comment(strip_c_comment_prefix(head_comments[i])), 1)
         elif inline_comments[i] != None and len(inline_comments[i].strip()) > 0:
             result += "\n" + indent_multiline_string("///\n" + inline_comments[i] + "\n///", 1) + "\n"
+        
+        result += "    /// CEF name: `" + names[i] + "`.\n"
             
         swift_name = cef_capi_enum_entry_to_swift(names[i], prefix)
         result += "    case " + swift_name
@@ -120,6 +122,8 @@ def make_option_set(cef_capi_name, cef_body):
             result += "\n" + indent_multiline_string(make_swiftdoc_comment(strip_c_comment_prefix(head_comments[i])), 1)
         elif inline_comments[i] != None and len(inline_comments[i].strip()) > 0:
             result += "\n" + indent_multiline_string("///\n" + inline_comments[i] + "\n///", 1) + "\n"
+
+        result += "    /// CEF name: `" + names[i] + "`.\n"
             
         swift_entry_name = cef_capi_enum_entry_to_swift(names[i], prefix)
         swift_value = cef_capi_enum_value_to_swift(values[i].strip())
@@ -168,6 +172,8 @@ def make_const_collection(cef_capi_name, cef_header_name):
         elif inline_comments[i] != None and len(inline_comments[i].strip()) > 0:
             result += "\n" + indent_multiline_string("///\n" + inline_comments[i] + "\n///", 1) + "\n"
             
+        result += "    /// CEF name: `" + names[i] + "`.\n"
+
         swift_entry_name = cef_capi_enum_entry_to_swift(names[i], prefix)
         swift_value = cef_capi_enum_value_to_swift(values[i].strip())
         result += "    public static let " + swift_entry_name + " = " + swift_type_name + "(rawValue: " + swift_value + ")\n"
@@ -221,6 +227,7 @@ for type_match in re.finditer(enum_type_pattern, infile_contents):
     
     result = ""
     result += indent_multiline_string(make_swiftdoc_comment(strip_c_comment_prefix(type_comment)), 0)
+    result += "/// CEF name: `" + type_name + "`.\n"
     
     if type_name in cef_enums:
         result += make_enum(type_name, type_body)

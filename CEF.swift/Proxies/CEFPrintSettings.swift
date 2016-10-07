@@ -11,29 +11,34 @@ import Foundation
 public extension CEFPrintSettings {
     
     /// Create a new CefPrintSettings object.
+    /// CEF name: `Create`
     public convenience init?() {
         self.init(ptr: cef_print_settings_create())
     }
     
     /// Returns true if this object is valid. Do not call any other methods if this
     /// function returns false.
+    /// CEF name: `IsValid`
     public var isValid: Bool {
         return cefObject.is_valid(cefObjectPtr) != 0
     }
 
     /// Returns true if the values of this object are read-only. Some APIs may
     /// expose read-only objects.
+    /// CEF name: `IsReadOnly`
     public var isReadOnly: Bool {
         return cefObject.is_read_only(cefObjectPtr) != 0
     }
 
     /// Returns a writable copy of this object.
+    /// CEF name: `Copy`
     public func copy() -> CEFPrintSettings? {
         let cefSettings = cefObject.copy(cefObjectPtr)
         return CEFPrintSettings.fromCEF(cefSettings)
     }
 
     /// Page orientation.
+    /// CEF name: `IsLandscape`, `SetOrientation`
     public var orientation: CEFPageOrientation {
         get { return cefObject.is_landscape(cefObjectPtr) != 0 ? .landscape : .portrait }
         set { cefObject.set_orientation(cefObjectPtr, newValue == .landscape ? 1 : 0) }
@@ -42,6 +47,7 @@ public extension CEFPrintSettings {
     /// Set the printer printable area in device units.
     /// Some platforms already provide flipped area. Set |landscape_needs_flip|
     /// to false on those platforms to avoid double flipping.
+    /// CEF name: `SetPrinterPrintableArea`
     public func setPrinterPrintableArea(physicalSize: NSSize, printableArea: NSRect, landscapeNeedsFlip: Bool) {
         var cefSize = physicalSize.toCEF()
         var cefArea = printableArea.toCEF()
@@ -49,6 +55,7 @@ public extension CEFPrintSettings {
     }
     
     /// Device name.
+    /// CEF name: `GetDeviceName`, `SetDeviceName`
     public var deviceName: String? {
         get {
             let cefStrPtr = cefObject.get_device_name(cefObjectPtr)
@@ -63,6 +70,7 @@ public extension CEFPrintSettings {
     }
     
     /// DPI (dots per inch).
+    /// CEF name: `GetDPI`, `SetDPI`
     public var dpi: Int {
         get { return Int(cefObject.get_dpi(cefObjectPtr)) }
         set { cefObject.set_dpi(cefObjectPtr, Int32(newValue)) }
@@ -81,6 +89,7 @@ public extension CEFPrintSettings {
     }
     
     /// Returns the number of page ranges that currently exist.
+    /// CEF name: `GetPageRangesCount`
     public func pageRangesCount() -> size_t {
         return cefObject.get_page_ranges_count(cefObjectPtr)
     }
@@ -100,24 +109,28 @@ public extension CEFPrintSettings {
     }
     
     /// Page ranges.
+    /// CEF name: `GetPageRanges`, `SetPageRanges`
     public var pageRanges: [CEFRange] {
         get { return getPageRanges() }
         set { setPageRanges(newValue) }
     }
 
     /// Whether only the selection will be printed.
+    /// CEF name: `IsSelectionOnly`, `SetSelectionOnly`
     public var isSelectionOnly: Bool {
         get { return cefObject.is_selection_only(cefObjectPtr) != 0 }
         set { cefObject.set_selection_only(cefObjectPtr, newValue ? 1 : 0) }
     }
 
     /// Whether pages will be collated.
+    /// CEF name: `WillCollate`, `SetCollate`
     public var isCollationEnabled: Bool {
         get { return cefObject.will_collate(cefObjectPtr) != 0 }
         set { cefObject.set_collate(cefObjectPtr, newValue ? 1 : 0) }
     }
     
     /// Color model.
+    /// CEF name: `GetColorModel`, `SetColorModel`
     public var colorModel: CEFColorModel {
         get {
             let cefModel = cefObject.get_color_model(cefObjectPtr)
@@ -127,12 +140,14 @@ public extension CEFPrintSettings {
     }
 
     /// The number of copies.
+    /// CEF name: `GetCopies`, `SetCopies`
     public var copyCount: Int {
         get { return Int(cefObject.get_copies(cefObjectPtr)) }
         set { cefObject.set_copies(cefObjectPtr, Int32(newValue)) }
     }
 
     /// Duplex mode.
+    /// CEF name: `GetDuplexMode`, `SetDuplexMode`
     public var duplexMode: CEFDuplexMode {
         get {
             let cefMode = cefObject.get_duplex_mode(cefObjectPtr)

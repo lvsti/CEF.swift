@@ -17,6 +17,7 @@ extension cef_command_line_t: CEFObject {}
 /// subsequent tokens, regardless of prefix, being interpreted as non-switch
 /// arguments. Switch names are considered case-insensitive. This class can be
 /// used before CefInitialize() is called.
+/// CEF name: `CefCommandLine`
 public class CEFCommandLine: CEFProxy<cef_command_line_t> {
     override init?(ptr: UnsafeMutablePointer<cef_command_line_t>?) {
         super.init(ptr: ptr)

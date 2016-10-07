@@ -11,6 +11,7 @@ import Foundation
 public extension CEFGeolocationCallback {
     
     /// Call to allow or deny geolocation access.
+    /// CEF name: `Continue`
     public func doContinue(allowAccess: Bool) {
         cefObject.cont(cefObjectPtr, allowAccess ? 1 : 0)
     }

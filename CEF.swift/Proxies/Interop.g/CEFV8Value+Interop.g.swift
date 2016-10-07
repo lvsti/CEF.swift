@@ -14,6 +14,7 @@ extension cef_v8value_t: CEFObject {}
 /// include the render process main thread (TID_RENDERER) and WebWorker threads.
 /// A task runner for posting tasks on the associated thread can be retrieved via
 /// the CefV8Context::GetTaskRunner() method.
+/// CEF name: `CefV8Value`
 public class CEFV8Value: CEFProxy<cef_v8value_t> {
     override init?(ptr: UnsafeMutablePointer<cef_v8value_t>?) {
         super.init(ptr: ptr)

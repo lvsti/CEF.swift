@@ -8,16 +8,27 @@
 import Foundation
 
 /// DOM node types.
+/// CEF name: `cef_dom_node_type_t`.
 public enum CEFDOMNodeType: Int32 {
+    /// CEF name: `DOM_NODE_TYPE_UNSUPPORTED`.
     case unsupported = 0
+    /// CEF name: `DOM_NODE_TYPE_ELEMENT`.
     case element
+    /// CEF name: `DOM_NODE_TYPE_ATTRIBUTE`.
     case attribute
+    /// CEF name: `DOM_NODE_TYPE_TEXT`.
     case text
+    /// CEF name: `DOM_NODE_TYPE_CDATA_SECTION`.
     case cdataSection
+    /// CEF name: `DOM_NODE_TYPE_PROCESSING_INSTRUCTIONS`.
     case processingInstructions
+    /// CEF name: `DOM_NODE_TYPE_COMMENT`.
     case comment
+    /// CEF name: `DOM_NODE_TYPE_DOCUMENT`.
     case document
+    /// CEF name: `DOM_NODE_TYPE_DOCUMENT_TYPE`.
     case documentType
+    /// CEF name: `DOM_NODE_TYPE_DOCUMENT_FRAGMENT`.
     case documentFragment
 }
 

@@ -22,6 +22,7 @@ public struct CEFTraceUtils {
     /// Example: "test_MyTest*,test_OtherStuff"
     /// Example: "-excluded_category1,-excluded_category2"
     /// This function must be called on the browser process UI thread.
+    /// CEF name: `CefBeginTracing`
     public static func beginTracingWithCategories(categories: String? = nil, callback: CEFCompletionCallback? = nil) -> Bool {
         let cefStrPtr = categories != nil ? CEFStringPtrCreateFromSwiftString(categories!) : nil
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -36,6 +37,7 @@ public struct CEFTraceUtils {
     /// sent their trace data. If |tracing_file| is empty a new temporary file path
     /// will be used. If |callback| is empty no trace data will be written.
     /// This function must be called on the browser process UI thread.
+    /// CEF name: `CefEndTracing`
     public static func endTracingWithOutputFilePath(path: String? = nil, callback: CEFEndTracingCallback? = nil) -> Bool {
         let cefStrPtr = path != nil ? CEFStringPtrCreateFromSwiftString(path!) : nil
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -50,6 +52,7 @@ public struct CEFTraceUtils {
     /// sent their trace data. If |tracing_file| is empty a new temporary file path
     /// will be used. If |callback| is empty no trace data will be written.
     /// This function must be called on the browser process UI thread.
+    /// CEF name: `CefEndTracing`
     public static func endTracingWithOutputFilePath(path: String? = nil, block: @escaping CEFEndTracingCallbackOnEndTracingCompleteBlock) -> Bool {
         return endTracingWithOutputFilePath(path: path, callback: CEFEndTracingCallbackBridge(block: block))
     }
@@ -57,6 +60,7 @@ public struct CEFTraceUtils {
     /// Returns the current system trace time or, if none is defined, the current
     /// high-res time. Can be used by clients to synchronize with the time
     /// information in trace events.
+    /// CEF name: `CefNowFromSystemTraceTime`
     public static var systemTraceTime: Int64 {
         return cef_now_from_system_trace_time()
     }

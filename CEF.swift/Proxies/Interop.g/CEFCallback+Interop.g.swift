@@ -10,6 +10,7 @@ import Foundation
 extension cef_callback_t: CEFObject {}
 
 /// Generic callback interface used for asynchronous continuation.
+/// CEF name: `CefCallback`
 public class CEFCallback: CEFProxy<cef_callback_t> {
     override init?(ptr: UnsafeMutablePointer<cef_callback_t>?) {
         super.init(ptr: ptr)

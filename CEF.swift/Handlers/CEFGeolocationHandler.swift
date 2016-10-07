@@ -18,6 +18,7 @@ public enum CEFOnRequestGeolocationPermissionAction {
 /// Implement this interface to handle events related to geolocation permission
 /// requests. The methods of this class will be called on the browser process UI
 /// thread.
+/// CEF name: `CefGeolocationHandler`
 public protocol CEFGeolocationHandler {
     
     /// Called when a page requests permission to access geolocation information.
@@ -26,6 +27,7 @@ public protocol CEFGeolocationHandler {
     /// CefGeolocationCallback::Continue() either in this method or at a later
     /// time to continue or cancel the request. Return false to cancel the request
     /// immediately.
+    /// CEF name: `OnRequestGeolocationPermission`
     func onRequestGeolocationPermission(browser: CEFBrowser,
                                         url: NSURL,
                                         requestID: CEFGeolocationRequestID,
@@ -33,6 +35,7 @@ public protocol CEFGeolocationHandler {
     
     /// Called when a geolocation access request is canceled. |request_id| is the
     /// unique ID for the permission request.
+    /// CEF name: `OnCancelGeolocationPermission`
     func onCancelGeolocationPermission(browser: CEFBrowser,
                                        requestID: CEFGeolocationRequestID)
 

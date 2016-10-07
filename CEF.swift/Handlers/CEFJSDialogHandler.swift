@@ -30,6 +30,7 @@ public enum CEFOnBeforeUnloadDialogAction {
 
 /// Implement this interface to handle events related to JavaScript dialogs. The
 /// methods of this class will be called on the UI thread.
+/// CEF name: `CefJSDialogHandler`
 public protocol CEFJSDialogHandler {
     
     /// Called to run a JavaScript dialog. If |origin_url| is non-empty it can be
@@ -46,6 +47,7 @@ public protocol CEFJSDialogHandler {
     /// if the callback has been executed immediately. Custom dialogs may be either
     /// modal or modeless. If a custom dialog is used the application must execute
     /// |callback| once the custom dialog is dismissed.
+    /// CEF name: `OnJSDialog`
     func onJSDialog(browser: CEFBrowser,
                     origin: NSURL?,
                     type: CEFJSDialogType,
@@ -59,6 +61,7 @@ public protocol CEFJSDialogHandler {
     /// immediately. Custom dialogs may be either modal or modeless. If a custom
     /// dialog is used the application must execute |callback| once the custom
     /// dialog is dismissed.
+    /// CEF name: `OnBeforeUnloadDialog`
     func onBeforeUnloadDialog(browser: CEFBrowser,
                               message: String?,
                               isReload: Bool,
@@ -67,9 +70,11 @@ public protocol CEFJSDialogHandler {
     /// Called to cancel any pending dialogs and reset any saved dialog state. Will
     /// be called due to events like page navigation irregardless of whether any
     /// dialogs are currently pending.
+    /// CEF name: `OnResetDialogState`
     func onResetDialogState(browser: CEFBrowser)
     
     /// Called when the default implementation dialog is closed.
+    /// CEF name: `OnDialogClosed`
     func onDialogClosed(browser: CEFBrowser)
 
 }

@@ -11,6 +11,7 @@ extension cef_auth_callback_t: CEFObject {}
 
 /// Callback interface used for asynchronous continuation of authentication
 /// requests.
+/// CEF name: `CefAuthCallback`
 public class CEFAuthCallback: CEFProxy<cef_auth_callback_t> {
     override init?(ptr: UnsafeMutablePointer<cef_auth_callback_t>?) {
         super.init(ptr: ptr)

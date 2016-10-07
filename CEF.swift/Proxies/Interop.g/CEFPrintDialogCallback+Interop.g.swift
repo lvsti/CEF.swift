@@ -10,6 +10,7 @@ import Foundation
 extension cef_print_dialog_callback_t: CEFObject {}
 
 /// Callback interface for asynchronous continuation of print dialog requests.
+/// CEF name: `CefPrintDialogCallback`
 public class CEFPrintDialogCallback: CEFProxy<cef_print_dialog_callback_t> {
     override init?(ptr: UnsafeMutablePointer<cef_print_dialog_callback_t>?) {
         super.init(ptr: ptr)

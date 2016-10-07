@@ -9,32 +9,41 @@
 import Foundation
 
 /// Settings used when initializing a CefBoxLayout.
+/// CEF name: `cef_box_layout_settings_t`
 public struct CEFBoxLayoutSettings {
     /// If true (1) the layout will be horizontal, otherwise the layout will be
     /// vertical.
+    /// CEF name: `horizontal`
     public var horizontal: Bool
     
     /// Adds additional horizontal space between the child view area and the host
     /// view border.
+    /// CEF name: `inside_border_horizontal_spacing`
     public var insideBorderHorizontalSpacing: Int
     
     /// Adds additional vertical space between the child view area and the host
     /// view border.
+    /// CEF name: `inside_border_vertical_spacing`
     public var insideBorderVerticalSpacing: Int
     
     /// Adds additional space around the child view area.
+    /// CEF name: `inside_border_insets`
     public var insideBorderInsets: CEFInsets
     
     /// Adds additional space between child views.
+    /// CEF name: `between_child_spacing`
     public var betweenChildSpacing: Int
     
     /// Specifies where along the main axis the child views should be laid out.
+    /// CEF name: `main_axis_alignment`
     public var mainAxisAlignment: CEFMainAxisAlignment
     
     /// Specifies where along the cross axis the child views should be laid out.
+    /// CEF name: `cross_axis_alignment`
     public var crossAxisAlignment: CEFCrossAxisAlignment
     
     /// Minimum cross axis size.
+    /// CEF name: `minimum_cross_axis_size`
     public var minimumCrossAxisSize: Int
     
     /// Default flex for views when none is specified via CefBoxLayout methods.
@@ -42,6 +51,7 @@ public struct CEFBoxLayoutSettings {
     /// distributed to views in the ratio of their flex weights. Similarly, if the
     /// views will overflow the parent, space is subtracted in these ratios. A flex
     /// of 0 means this view is not resized. Flex values must not be negative.
+    /// CEF name: `default_flex`
     public var defaultFlex: Int
 }
 

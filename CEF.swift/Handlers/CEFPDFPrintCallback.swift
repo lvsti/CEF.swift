@@ -10,11 +10,13 @@ import Foundation
 
 /// Callback structure for cef_browser_host_t::PrintToPDF. The functions of this
 /// structure will be called on the browser process UI thread.
+/// CEF name: `CefPdfPrintCallback`
 public protocol CEFPDFPrintCallback {
 
     /// Method that will be executed when the PDF printing has completed. |path| is
     /// the output path. |ok| will be true (1) if the printing completed
     /// successfully or false (0) otherwise.
+    /// CEF name: `OnPdfPrintFinished`
     func onPDFPrintFinished(path: String, successfully: Bool)
     
 }

@@ -10,6 +10,7 @@ import Foundation
 extension cef_sslinfo_t: CEFObject {}
 
 /// Class representing SSL information.
+/// CEF name: `CefSSLInfo`
 public class CEFSSLInfo: CEFProxy<cef_sslinfo_t> {
     override init?(ptr: UnsafeMutablePointer<cef_sslinfo_t>?) {
         super.init(ptr: ptr)

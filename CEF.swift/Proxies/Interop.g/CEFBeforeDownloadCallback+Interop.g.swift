@@ -10,6 +10,7 @@ import Foundation
 extension cef_before_download_callback_t: CEFObject {}
 
 /// Callback interface used to asynchronously continue a download.
+/// CEF name: `CefBeforeDownloadCallback`
 public class CEFBeforeDownloadCallback: CEFProxy<cef_before_download_callback_t> {
     override init?(ptr: UnsafeMutablePointer<cef_before_download_callback_t>?) {
         super.init(ptr: ptr)

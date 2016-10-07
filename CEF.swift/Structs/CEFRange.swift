@@ -9,8 +9,11 @@
 import Foundation
 
 /// Structure representing a range.
+/// CEF name: `cef_range_t`
 public struct CEFRange {
+    /// CEF name: `from`
     public let from: Int
+    /// CEF name: `to`
     public let to: Int
 }
 

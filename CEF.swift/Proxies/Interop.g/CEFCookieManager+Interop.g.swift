@@ -11,6 +11,7 @@ extension cef_cookie_manager_t: CEFObject {}
 
 /// Class used for managing cookies. The methods of this class may be called on
 /// any thread unless otherwise indicated.
+/// CEF name: `CefCookieManager`
 public class CEFCookieManager: CEFProxy<cef_cookie_manager_t> {
     override init?(ptr: UnsafeMutablePointer<cef_cookie_manager_t>?) {
         super.init(ptr: ptr)

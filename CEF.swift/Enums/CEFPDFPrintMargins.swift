@@ -9,18 +9,23 @@
 import Foundation
 
 /// Margin type for PDF printing.
+/// CEF name: `cef_pdf_print_margin_type_t`
 public enum CEFPDFPrintMargins {
     
     /// Default margins.
+    /// CEF name: `PDF_PRINT_MARGIN_DEFAULT`
     case defaultMargins
     
     /// No margins.
+    /// CEF name: `PDF_PRINT_MARGIN_NONE`
     case none
     
     /// Minimum margins.
+    /// CEF name: `PDF_PRINT_MARGIN_MINIMUM`
     case minimum
     
     /// Custom margins using the |margin_*| values from cef_pdf_print_settings_t.
+    /// CEF name: `PDF_PRINT_MARGIN_CUSTOM`
     case custom(EdgeInsets)
 }
 

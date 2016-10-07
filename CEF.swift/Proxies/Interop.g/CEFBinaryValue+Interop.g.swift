@@ -10,6 +10,7 @@ import Foundation
 extension cef_binary_value_t: CEFObject {}
 
 /// Class representing a binary value. Can be used on any process and thread.
+/// CEF name: `CefBinaryValue`
 public class CEFBinaryValue: CEFProxy<cef_binary_value_t> {
     override init?(ptr: UnsafeMutablePointer<cef_binary_value_t>?) {
         super.init(ptr: ptr)

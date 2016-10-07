@@ -13,17 +13,20 @@ public extension CEFResponse {
     public typealias HeaderMap = [String: [String]]
     
     /// Create a new CefResponse object.
+    /// CEF name: `Create`
     public convenience init?() {
         self.init(ptr: cef_response_create())
     }
     
     /// Returns true if this object is read-only.
+    /// CEF name: `IsReadOnly`
     public var isReadOnly: Bool {
         return cefObject.is_read_only(cefObjectPtr) != 0
     }
 
     /// Set the response error code. This can be used by custom scheme handlers
     /// to return errors during initial request processing.
+    /// CEF name: `GetError`, `SetError`
     public var error: CEFErrorCode? {
         /// Get the response error code. Returns nil if there was no error.
         get {
@@ -37,12 +40,14 @@ public extension CEFResponse {
     }
 
     /// Response status code.
+    /// CEF name: `GetStatus`, `SetStatus`
     public var status: Int {
         get { return Int(cefObject.get_status(cefObjectPtr)) }
         set { cefObject.set_status(cefObjectPtr, Int32(status)) }
     }
 
     /// Response status text.
+    /// CEF name: `GetStatusText`, `SetStatusText`
     public var statusText: String {
         get {
             let cefStrPtr = cefObject.get_status_text(cefObjectPtr)
@@ -57,20 +62,22 @@ public extension CEFResponse {
     }
 
     /// Get the response mime type.
+    /// CEF name: `GetMimeType`, `SetMimeType`
     public var mimeType: String {
         get {
-            let cefStrPtr = cefObject.get_status_text(cefObjectPtr)!
+            let cefStrPtr = cefObject.get_mime_type(cefObjectPtr)!
             defer { CEFStringPtrRelease(cefStrPtr)}
             return CEFStringToSwiftString(cefStrPtr.pointee)
         }
         set {
             let cefStrPtr = CEFStringPtrCreateFromSwiftString(newValue)
             defer { CEFStringPtrRelease(cefStrPtr)}
-            cefObject.set_status_text(cefObjectPtr, cefStrPtr)
+            cefObject.set_mime_type(cefObjectPtr, cefStrPtr)
         }
     }
     
     /// Get the value for the specified response header field.
+    /// CEF name: `GetHeader`
     public func headerForKey(key: String) -> String? {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         let cefHeaderPtr = cefObject.get_header(cefObjectPtr, cefKeyPtr)
@@ -83,6 +90,7 @@ public extension CEFResponse {
     }
     
     /// Response header fields.
+    /// CEF name: `GetHeaderMap`, `SetHeaderMap`
     public var headers: HeaderMap {
         get {
             let cefHeaderMap = cef_string_multimap_alloc()!

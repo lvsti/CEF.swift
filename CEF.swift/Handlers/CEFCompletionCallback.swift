@@ -9,9 +9,11 @@
 import Foundation
 
 /// Generic callback interface used for asynchronous completion.
+/// CEF name: `CefCompletionCallback`
 public protocol CEFCompletionCallback {
     
     /// Method that will be called once the task is complete.
+    /// CEF name: `OnComplete`
     func onComplete()
     
 }

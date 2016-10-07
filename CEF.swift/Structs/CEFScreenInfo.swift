@@ -11,19 +11,24 @@ import Foundation
 /// Screen information used when window rendering is disabled. This structure is
 /// passed as a parameter to CefRenderHandler::GetScreenInfo and should be filled
 /// in by the client.
+/// CEF name: `cef_screen_info_t`
 public struct CEFScreenInfo {
     /// Device scale factor. Specifies the ratio between physical and logical
     /// pixels.
+    /// CEF name: `device_scale_factor`
     public var scaleFactor: Double
     
     /// The screen depth in bits per pixel.
+    /// CEF name: `depth`
     public var depth: Int
     
     /// The bits per color component. This assumes that the colors are balanced
     /// equally.
+    /// CEF name: `depth_per_component`
     public var depthPerComponent: Int
     
     /// This can be true for black and white printers.
+    /// CEF name: `is_monochrome`
     public var isMonochrome: Bool
     
     /// This is set from the rcMonitor member of MONITORINFOEX, to whit:
@@ -33,6 +38,7 @@ public struct CEFScreenInfo {
     /// coordinates may be negative values."
     /// The |rect| and |available_rect| properties are used to determine the
     /// available surface for rendering popup views.
+    /// CEF name: `rect`
     public var rect: NSRect
     
     /// This is set from the rcWork member of MONITORINFOEX, to whit:
@@ -45,6 +51,7 @@ public struct CEFScreenInfo {
     /// some of the rectangle's coordinates may be negative values".
     /// The |rect| and |available_rect| properties are used to determine the
     /// available surface for rendering popup views.
+    /// CEF name: `available_rect`
     public var availableRect: NSRect
 
 }

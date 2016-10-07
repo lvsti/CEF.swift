@@ -8,15 +8,19 @@
 import Foundation
 
 /// Describes how to interpret the alpha component of a pixel.
+/// CEF name: `cef_alpha_type_t`.
 public enum CEFAlphaType: Int32 {
 
     /// No transparency. The alpha component is ignored.
+    /// CEF name: `CEF_ALPHA_TYPE_OPAQUE`.
     case opaque
 
     /// Transparency with pre-multiplied alpha component.
+    /// CEF name: `CEF_ALPHA_TYPE_PREMULTIPLIED`.
     case premultiplied
 
     /// Transparency with post-multiplied alpha component.
+    /// CEF name: `CEF_ALPHA_TYPE_POSTMULTIPLIED`.
     case postmultiplied
 }
 

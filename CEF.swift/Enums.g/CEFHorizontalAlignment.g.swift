@@ -8,15 +8,19 @@
 import Foundation
 
 /// Specifies the horizontal text alignment mode.
+/// CEF name: `cef_horizontal_alignment_t`.
 public enum CEFHorizontalAlignment: Int32 {
 
     /// Align the text's left edge with that of its display area.
+    /// CEF name: `CEF_HORIZONTAL_ALIGNMENT_LEFT`.
     case left
 
     /// Align the text's center with that of its display area.
+    /// CEF name: `CEF_HORIZONTAL_ALIGNMENT_CENTER`.
     case center
 
     /// Align the text's right edge with that of its display area.
+    /// CEF name: `CEF_HORIZONTAL_ALIGNMENT_RIGHT`.
     case right
 }
 

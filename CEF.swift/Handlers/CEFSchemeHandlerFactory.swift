@@ -10,6 +10,7 @@ import Foundation
 
 /// Class that creates CefResourceHandler instances for handling scheme requests.
 /// The methods of this class will always be called on the IO thread.
+/// CEF name: `CefSchemeHandlerFactory`
 public protocol CEFSchemeHandlerFactory {
     
     /// Return a new resource handler instance to handle the request or an empty
@@ -18,6 +19,7 @@ public protocol CEFSchemeHandlerFactory {
     /// request or NULL if the request did not originate from a browser window
     /// (for example, if the request came from CefURLRequest). The |request| object
     /// passed to this method will not contain cookie data.
+    /// CEF name: `Create`
     func create(browser: CEFBrowser?, frame: CEFFrame?, scheme: String, request: CEFRequest) -> CEFResourceHandler?
     
 }

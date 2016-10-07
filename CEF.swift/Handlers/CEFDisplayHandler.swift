@@ -20,14 +20,18 @@ public enum CEFOnTooltipAction {
 
 /// Implement this interface to handle events related to browser display state.
 /// The methods of this class will be called on the UI thread.
+/// CEF name: `CefDisplayHandler`
 public protocol CEFDisplayHandler {
     /// Called when a frame's address has changed.
+    /// CEF name: `OnAddressChange`
     func onAddressChange(browser: CEFBrowser, frame: CEFFrame, url: NSURL)
     
     /// Called when the page title changes.
+    /// CEF name: `OnTitleChange`
     func onTitleChange(browser: CEFBrowser, title: String?)
     
     /// Called when the page icon changes.
+    /// CEF name: `OnFaviconURLChange`
     func onFaviconURLChange(browser: CEFBrowser, iconURLs: [NSURL]?)
     
     /// Called when web content in the page has toggled fullscreen mode. If
@@ -35,6 +39,7 @@ public protocol CEFDisplayHandler {
     /// the browser content area. If |fullscreen| is false (0) the content will
     /// automatically return to its original size and position. The client is
     /// responsible for resizing the browser if desired.
+    /// CEF name: `OnFullscreenModeChange`
     func onFullscreenModeChange(browser: CEFBrowser, fullscreen: Bool)
     
     /// Called when the browser is about to display a tooltip. |text| contains the
@@ -43,14 +48,17 @@ public protocol CEFDisplayHandler {
     /// and then return false to allow the browser to display the tooltip.
     /// When window rendering is disabled the application is responsible for
     /// drawing tooltips and the return value is ignored.
+    /// CEF name: `OnTooltip`
     func onTooltip(browser: CEFBrowser, text: inout String?) -> CEFOnTooltipAction
     
     /// Called when the browser receives a status message. |value| contains the
     /// text that will be displayed in the status message.
+    /// CEF name: `OnStatusMessage`
     func onStatusMessage(browser: CEFBrowser, text: String?)
     
     /// Called to display a console message. Return true to stop the message from
     /// being output to the console.
+    /// CEF name: `OnConsoleMessage`
     func onConsoleMessage(browser: CEFBrowser,
                           message: String?,
                           source: String?,

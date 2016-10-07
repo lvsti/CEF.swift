@@ -8,12 +8,15 @@
 import Foundation
 
 /// Existing process IDs.
+/// CEF name: `cef_process_id_t`.
 public enum CEFProcessID: Int32 {
 
     /// Browser process.
+    /// CEF name: `PID_BROWSER`.
     case browser
 
     /// Renderer process.
+    /// CEF name: `PID_RENDERER`.
     case renderer
 }
 

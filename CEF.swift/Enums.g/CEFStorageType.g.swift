@@ -8,8 +8,11 @@
 import Foundation
 
 /// Storage types.
+/// CEF name: `cef_storage_type_t`.
 public enum CEFStorageType: Int32 {
+    /// CEF name: `ST_LOCALSTORAGE`.
     case localStorage = 0
+    /// CEF name: `ST_SESSIONSTORAGE`.
     case sessionStorage
 }
 

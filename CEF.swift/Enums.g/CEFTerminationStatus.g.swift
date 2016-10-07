@@ -8,15 +8,19 @@
 import Foundation
 
 /// Process termination status values.
+/// CEF name: `cef_termination_status_t`.
 public enum CEFTerminationStatus: Int32 {
 
     /// Non-zero exit status.
+    /// CEF name: `TS_ABNORMAL_TERMINATION`.
     case abnormalTermination
 
     /// SIGKILL or task manager kill.
+    /// CEF name: `TS_PROCESS_WAS_KILLED`.
     case processWasKilled
 
     /// Segmentation fault.
+    /// CEF name: `TS_PROCESS_CRASHED`.
     case processCrashed
 }
 

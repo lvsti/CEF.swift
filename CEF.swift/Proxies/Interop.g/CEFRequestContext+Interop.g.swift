@@ -23,6 +23,7 @@ extension cef_request_context_t: CEFObject {}
 /// in single-process mode will share the same request context. This will be the
 /// first request context passed into a CefBrowserHost static factory method and
 /// all other request context objects will be ignored.
+/// CEF name: `CefRequestContext`
 public class CEFRequestContext: CEFProxy<cef_request_context_t> {
     override init?(ptr: UnsafeMutablePointer<cef_request_context_t>?) {
         super.init(ptr: ptr)

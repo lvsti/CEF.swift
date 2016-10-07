@@ -15,6 +15,7 @@ public enum CEFOnFileDialogAction {
 
 /// Implement this interface to handle dialog events. The methods of this class
 /// will be called on the browser process UI thread.
+/// CEF name: `CefDialogHandler`
 public protocol CEFDialogHandler {
     
     /// Called to run a file chooser dialog. |mode| represents the type of dialog
@@ -30,6 +31,7 @@ public protocol CEFDialogHandler {
     /// index of the filter that should be selected by default. To display a custom
     /// dialog return true and execute |callback| either inline or at a later time.
     /// To display the default dialog return false.
+    /// CEF name: `OnFileDialog`
     func onFileDialog(browser: CEFBrowser,
                       mode: CEFFileDialogMode,
                       title: String?,

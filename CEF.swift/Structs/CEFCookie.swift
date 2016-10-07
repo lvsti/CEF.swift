@@ -9,41 +9,54 @@
 import Foundation
 
 /// Cookie information.
+/// CEF name: `cef_cookie_t`
 public struct CEFCookie {
     /// The cookie name.
+    /// CEF name: `name`
     public var name: String = ""
 
     /// The cookie value.
+    /// CEF name: `value`
     public var value: String = ""
     
     /// If |domain| is empty a host cookie will be created instead of a domain
     /// cookie. Domain cookies are stored with a leading "." and are visible to
     /// sub-domains whereas host cookies are not.
+    /// CEF name: `domain`
     public var domain: String = ""
     
     /// If |path| is non-empty only URLs at or below the path will get the cookie
     /// value.
+    /// CEF name: `path`
     public var path: String = ""
     
     /// If |secure| is true the cookie will only be sent for HTTPS requests.
-    public var secure: Bool = false
+    /// CEF name: `secure`
+    public var isSecure: Bool = false
     
     /// If |httponly| is true the cookie will only be sent for HTTP requests.
-    public var httpOnly: Bool = false
+    /// CEF name: `httponly`
+    public var isHTTPOnly: Bool = false
     
     /// The cookie creation date. This is automatically populated by the system on
     /// cookie creation.
-    public var creation: NSDate = NSDate()
+    /// CEF name: `creation`
+    public var creationDate: NSDate = NSDate()
     
     /// The cookie last access date. This is automatically populated by the system
     /// on access.
-    public var lastAccess: NSDate = NSDate()
+    /// CEF name: `last_access`
+    public var lastAccessDate: NSDate = NSDate()
     
     /// The cookie expiration date is only valid if |has_expires| is true.
-    public var hasExpires: Bool = false
+    /// CEF name: `has_expires`
+    public var hasExpiration: Bool {
+        return expirationDate != nil
+    }
     
     /// Cookie expiration date
-    public var expires: NSDate = NSDate()
+    /// CEF name: `expires`
+    public var expirationDate: NSDate? = nil
     
     public init() {
     }
@@ -57,12 +70,14 @@ extension CEFCookie {
         CEFStringSetFromSwiftString(value, cefStringPtr: &cefStruct.value)
         CEFStringSetFromSwiftString(domain, cefStringPtr: &cefStruct.domain)
         CEFStringSetFromSwiftString(path, cefStringPtr: &cefStruct.path)
-        cefStruct.secure = secure ? 1 : 0
-        cefStruct.httponly = httpOnly ? 1 : 0
-        CEFTimeSetFromNSDate(creation, cefTimePtr: &cefStruct.creation)
-        CEFTimeSetFromNSDate(lastAccess, cefTimePtr: &cefStruct.last_access)
-        cefStruct.has_expires = hasExpires ? 1 : 0
-        CEFTimeSetFromNSDate(expires, cefTimePtr: &cefStruct.expires)
+        cefStruct.secure = isSecure ? 1 : 0
+        cefStruct.httponly = isHTTPOnly ? 1 : 0
+        CEFTimeSetFromNSDate(creationDate, cefTimePtr: &cefStruct.creation)
+        CEFTimeSetFromNSDate(lastAccessDate, cefTimePtr: &cefStruct.last_access)
+        cefStruct.has_expires = expirationDate != nil ? 1 : 0
+        if let expirationDate = expirationDate {
+            CEFTimeSetFromNSDate(expirationDate, cefTimePtr: &cefStruct.expires)
+        }
         
         return cefStruct
     }
@@ -74,12 +89,13 @@ extension CEFCookie {
         cookie.value = CEFStringToSwiftString(value.value)
         cookie.domain = CEFStringToSwiftString(value.domain)
         cookie.path = CEFStringToSwiftString(value.path)
-        cookie.secure = value.secure != 0
-        cookie.httpOnly = value.httponly != 0
-        cookie.creation = CEFTimeToNSDate(value.creation)
-        cookie.lastAccess = CEFTimeToNSDate(value.last_access)
-        cookie.hasExpires = value.has_expires != 0
-        cookie.expires = CEFTimeToNSDate(value.expires)
+        cookie.isSecure = value.secure != 0
+        cookie.isHTTPOnly = value.httponly != 0
+        cookie.creationDate = CEFTimeToNSDate(value.creation)
+        cookie.lastAccessDate = CEFTimeToNSDate(value.last_access)
+        if value.has_expires == 1 {
+            cookie.expirationDate = CEFTimeToNSDate(value.expires)
+        }
         
         return cookie
     }

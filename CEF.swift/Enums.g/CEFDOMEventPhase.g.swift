@@ -8,10 +8,15 @@
 import Foundation
 
 /// DOM event processing phases.
+/// CEF name: `cef_dom_event_phase_t`.
 public enum CEFDOMEventPhase: Int32 {
+    /// CEF name: `DOM_EVENT_PHASE_UNKNOWN`.
     case unknown = 0
+    /// CEF name: `DOM_EVENT_PHASE_CAPTURING`.
     case capturing
+    /// CEF name: `DOM_EVENT_PHASE_AT_TARGET`.
     case atTarget
+    /// CEF name: `DOM_EVENT_PHASE_BUBBLING`.
     case bubbling
 }
 

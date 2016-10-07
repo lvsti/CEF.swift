@@ -41,6 +41,7 @@ public enum CEFOnCertificateErrorAction {
 
 /// Implement this interface to handle events related to browser requests. The
 /// methods of this class will be called on the thread indicated.
+/// CEF name: `CefRequestHandler`
 public protocol CEFRequestHandler {
     
     /// Called on the UI thread before browser navigation. Return true to cancel
@@ -51,6 +52,7 @@ public protocol CEFRequestHandler {
     /// CefLoadHandler::OnLoadEnd will be called. If the navigation is canceled
     /// CefLoadHandler::OnLoadError will be called with an |errorCode| value of
     /// ERR_ABORTED.
+    /// CEF name: `OnBeforeBrowse`
     func onBeforeBrowse(browser: CEFBrowser,
                         frame: CEFFrame,
                         request: CEFRequest,
@@ -70,6 +72,7 @@ public protocol CEFRequestHandler {
     /// navigated automatically (e.g. via the DomContentLoaded event). Return true
     /// to cancel the navigation or false to allow the navigation to proceed in the
     /// source browser's top-level frame.
+    /// CEF name: `OnOpenURLFromTab`
     func onOpenURLFromTab(browser: CEFBrowser,
                           frame: CEFFrame,
                           url: NSURL,
@@ -81,6 +84,7 @@ public protocol CEFRequestHandler {
     /// immediately. Return RV_CONTINUE_ASYNC and call CefRequestCallback::
     /// Continue() at a later time to continue or cancel the request
     /// asynchronously. Return RV_CANCEL to cancel the request immediately.
+    /// CEF name: `OnBeforeResourceLoad`
     func onBeforeResourceLoad(browser: CEFBrowser,
                               frame: CEFFrame,
                               request: CEFRequest,
@@ -90,6 +94,7 @@ public protocol CEFRequestHandler {
     /// to load normally return NULL. To specify a handler for the resource return
     /// a CefResourceHandler object. The |request| object should not be modified in
     /// this callback.
+    /// CEF name: `GetResourceHandler`
     func resourceHandlerForBrowser(browser: CEFBrowser,
                                    frame: CEFFrame,
                                    request: CEFRequest) -> CEFResourceHandler?
@@ -98,6 +103,7 @@ public protocol CEFRequestHandler {
     /// parameter will contain the old URL and other request-related information.
     /// The |new_url| parameter will contain the new URL and can be changed if
     /// desired. The |request| object cannot be modified in this callback.
+    /// CEF name: `OnResourceRedirect`
     func onResourceRedirect(browser: CEFBrowser,
                             frame: CEFFrame,
                             request: CEFRequest,
@@ -107,6 +113,7 @@ public protocol CEFRequestHandler {
     /// resource to load normally return false. To redirect or retry the resource
     /// modify |request| (url, headers or post body) and return true. The
     /// |response| object cannot be modified in this callback.
+    /// CEF name: `OnResourceResponse`
     func onResourceResponse(browser: CEFBrowser,
                             frame: CEFFrame,
                             request: CEFRequest,
@@ -115,6 +122,7 @@ public protocol CEFRequestHandler {
     /// Called on the IO thread to optionally filter resource response content.
     /// |request| and |response| represent the request and response respectively
     /// and cannot be modified in this callback.
+    /// CEF name: `OnResourceResponseFilter`
     func onResourceResponseFilter(browser: CEFBrowser,
                                   frame: CEFFrame,
                                   request: CEFRequest,
@@ -124,6 +132,7 @@ public protocol CEFRequestHandler {
     /// |response| represent the request and response respectively and cannot be
     /// modified in this callback. |status| indicates the load completion status.
     /// |received_content_length| is the number of response bytes actually read.
+    /// CEF name: `OnResourceLoadComplete`
     func onResourceLoadComplete(browser: CEFBrowser,
                                 frame: CEFFrame,
                                 request: CEFRequest,
@@ -140,6 +149,7 @@ public protocol CEFRequestHandler {
     /// CefAuthCallback::Continue() either in this method or at a later time when
     /// the authentication information is available. Return false to cancel the
     /// request immediately.
+    /// CEF name: `GetAuthCredentials`
     func onAuthCredentialsRequired(browser: CEFBrowser,
                                    frame: CEFFrame,
                                    isProxy: Bool,
@@ -155,6 +165,7 @@ public protocol CEFRequestHandler {
     /// size in bytes. Return true to continue the request and call
     /// CefRequestCallback::Continue() either in this method or at a later time to
     /// grant or deny the request. Return false to cancel the request immediately.
+    /// CEF name: `OnQuotaRequest`
     func onQuotaRequest(browser: CEFBrowser,
                         origin: NSURL,
                         newSize: Int64,
@@ -165,6 +176,7 @@ public protocol CEFRequestHandler {
     /// via the registered OS protocol handler, if any.
     /// SECURITY WARNING: YOU SHOULD USE THIS METHOD TO ENFORCE RESTRICTIONS BASED
     /// ON SCHEME, HOST OR OTHER URL ANALYSIS BEFORE ALLOWING OS EXECUTION.
+    /// CEF name: `OnProtocolExecution`
     func onProtocolExecution(browser: CEFBrowser, url: NSURL, allowExecution: inout Bool)
     
     /// Called on the UI thread to handle requests for URLs with an invalid
@@ -173,6 +185,7 @@ public protocol CEFRequestHandler {
     /// false to cancel the request immediately. If
     /// CefSettings.ignore_certificate_errors is set all invalid certificates will
     /// be accepted without calling this method.
+    /// CEF name: `OnCertificateError`
     func onCertificateError(browser: CEFBrowser,
                             errorCode: CEFErrorCode,
                             url: NSURL,
@@ -181,16 +194,19 @@ public protocol CEFRequestHandler {
     
     /// Called on the browser process UI thread when a plugin has crashed.
     /// |plugin_path| is the path of the plugin that crashed.
+    /// CEF name: `OnPluginCrashed`
     func onPluginCrashed(browser: CEFBrowser, pluginPath: String)
     
     /// Called on the browser process UI thread when the render view associated
     /// with |browser| is ready to receive/handle IPC messages in the render
     /// process.
+    /// CEF name: `OnRenderViewReady`
     func onRenderViewReady(browser: CEFBrowser)
     
     /// Called on the browser process UI thread when the render process
     /// terminates unexpectedly. |status| indicates how the process
     /// terminated.
+    /// CEF name: `OnRenderProcessTerminated`
     func onRenderProcessTerminated(browser: CEFBrowser, status: CEFTerminationStatus)
 
 }

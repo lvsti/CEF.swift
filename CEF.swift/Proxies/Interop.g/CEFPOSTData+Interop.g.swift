@@ -11,6 +11,7 @@ extension cef_post_data_t: CEFObject {}
 
 /// Class used to represent post data for a web request. The methods of this
 /// class may be called on any thread.
+/// CEF name: `CefPostData`
 public class CEFPOSTData: CEFProxy<cef_post_data_t> {
     override init?(ptr: UnsafeMutablePointer<cef_post_data_t>?) {
         super.init(ptr: ptr)

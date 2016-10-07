@@ -8,15 +8,19 @@
 import Foundation
 
 /// Represents the state of a setting.
+/// CEF name: `cef_state_t`.
 public enum CEFState: Int32 {
 
     /// Use the default state for the setting.
+    /// CEF name: `STATE_DEFAULT`.
     case defaultState = 0
 
     /// Enable or allow the setting.
+    /// CEF name: `STATE_ENABLED`.
     case enabled
 
     /// Disable or disallow the setting.
+    /// CEF name: `STATE_DISABLED`.
     case disabled
 }
 

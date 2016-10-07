@@ -12,12 +12,14 @@ public struct CEFWebPluginUtils {
     
     /// Visit web plugin information. Can be called on any thread in the browser
     /// process.
+    /// CEF name: `CefVisitWebPluginInfo`
     public static func enumerateWebPluginsUsingVisitor(visitor: CEFWebPluginInfoVisitor) {
         cef_visit_web_plugin_info(visitor.toCEF())
     }
 
     /// Visit web plugin information. Can be called on any thread in the browser
     /// process.
+    /// CEF name: `CefVisitWebPluginInfo`
     public static func enumerateWebPlugins(block: @escaping CEFWebPluginInfoVisitorVisitBlock) {
         let visitor = CEFWebPluginInfoVisitorBridge(block: block)
         cef_visit_web_plugin_info(visitor.toCEF())
@@ -26,6 +28,7 @@ public struct CEFWebPluginUtils {
     /// Cause the plugin list to refresh the next time it is accessed regardless
     /// of whether it has already been loaded. Can be called on any thread in the
     /// browser process.
+    /// CEF name: `CefRefreshWebPlugins`
     public static func refreshWebPlugins() {
         cef_refresh_web_plugins()
     }
@@ -33,6 +36,7 @@ public struct CEFWebPluginUtils {
     /// Unregister an internal plugin. This may be undone the next time
     /// CefRefreshWebPlugins() is called. Can be called on any thread in the browser
     /// process.
+    /// CEF name: `CefUnregisterInternalWebPlugin`
     public static func unregisterInternalWebPluginAtPath(path: String) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -41,6 +45,7 @@ public struct CEFWebPluginUtils {
 
     /// Register a plugin crash. Can be called on any thread in the browser process
     /// but will be executed on the IO thread.
+    /// CEF name: `CefRegisterWebPluginCrash`
     public static func registerCrashForWebPluginAtPath(path: String) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -49,6 +54,7 @@ public struct CEFWebPluginUtils {
 
     /// Query if a plugin is unstable. Can be called on any thread in the browser
     /// process.
+    /// CEF name: `CefIsWebPluginUnstable`
     public static func isUnstableWebPluginAtPath(path: String, callback: CEFWebPluginUnstableCallback) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -57,6 +63,7 @@ public struct CEFWebPluginUtils {
 
     /// Query if a plugin is unstable. Can be called on any thread in the browser
     /// process.
+    /// CEF name: `CefIsWebPluginUnstable`
     public static func isUnstableWebPluginAtPath(path: String, block: @escaping CEFWebPluginUnstableCallbackIsUnstableBlock) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
         defer { CEFStringPtrRelease(cefStrPtr) }

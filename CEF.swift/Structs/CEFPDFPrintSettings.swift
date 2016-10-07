@@ -9,37 +9,46 @@
 import Foundation
 
 /// Structure representing PDF print settings.
+/// CEF name: `cef_pdf_print_settings_t`
 public struct CEFPDFPrintSettings {
     public struct HeaderFooter {
         /// Page title to display in the header. Only used if |header_footer_enabled|
         /// is set to true (1).
+        /// CEF name: `header_footer_title`
         public var title: String? = nil
 
         /// URL to display in the footer. Only used if |header_footer_enabled| is set
         /// to true (1).
+        /// CEF name: `header_footer_url`
         public var url: NSURL? = nil
     }
     
     /// Set to true (1) to print headers and footers or false (0) to not print
     /// headers and footers.
+    /// CEF name: `header_footer_enabled`
     public var headerFooter: HeaderFooter? = nil
     
     /// Output page size in microns. If either of these values is less than or
     /// equal to zero then the default paper size (A4) will be used.
-    public var pageSize: NSSize = NSSize.zero
+    /// CEF name: `page_width`, `page_height`
+    public var pageSize: NSSize = .zero
     
     /// Margins in millimeters. Only used if |margin_type| is set to
     /// PDF_PRINT_MARGIN_CUSTOM.
+    /// CEF name: `margin_type`, `margin_top`, `margin_left`, `margin_bottom`, `margin_right`
     public var margins: CEFPDFPrintMargins = .defaultMargins
     
     /// Set to true (1) to print the selection only or false (0) to print all.
-    public var selectionOnly: Bool = false
+    /// CEF name: `selection_only`
+    public var printsSelectionOnly: Bool = false
     
     /// Set to true (1) for landscape mode or false (0) for portrait mode.
+    /// CEF name: `landscape`
     public var orientation: CEFPageOrientation = .portrait
     
     /// Set to true (1) to print background graphics or false (0) to not print
     /// background graphics.
+    /// CEF name: `backgrounds_enabled`
     public var printsBackground: Bool = false
     
 }
@@ -69,7 +78,7 @@ extension CEFPDFPrintSettings {
             cefStruct.margin_right = Double(insets.right)
         }
         
-        cefStruct.selection_only = selectionOnly ? 1 : 0
+        cefStruct.selection_only = printsSelectionOnly ? 1 : 0
         cefStruct.landscape = orientation == .landscape ? 1 : 0
         cefStruct.backgrounds_enabled = printsBackground ? 1 : 0
         

@@ -12,6 +12,7 @@ extension cef_value_t: CEFObject {}
 /// Class that wraps other data value types. Complex types (binary, dictionary
 /// and list) will be referenced but not owned by this object. Can be used on any
 /// process and thread.
+/// CEF name: `CefValue`
 public class CEFValue: CEFProxy<cef_value_t> {
     override init?(ptr: UnsafeMutablePointer<cef_value_t>?) {
         super.init(ptr: ptr)

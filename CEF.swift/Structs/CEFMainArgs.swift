@@ -9,7 +9,9 @@
 import Foundation
 
 /// Structure representing CefExecuteProcess arguments.
+/// CEF name: `cef_main_args_t`
 public struct CEFMainArgs {
+    /// CEF name: `argv`
     public let arguments: [String]
     
     public init(arguments: [String]) {

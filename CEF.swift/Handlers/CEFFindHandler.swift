@@ -10,6 +10,7 @@ import Foundation
 
 /// Implement this interface to handle events related to find results. The
 /// methods of this class will be called on the UI thread.
+/// CEF name: `CefFindHandler`
 public protocol CEFFindHandler {
     
     /// Called to report find results returned by CefBrowserHost::Find().
@@ -18,6 +19,7 @@ public protocol CEFFindHandler {
     /// match was found (in window coordinates), |activeMatchOrdinal| is the
     /// current position in the search results, and |finalUpdate| is true if this
     /// is the last find notification.
+    /// CEF name: `OnFindResult`
     func onFindResult(browser: CEFBrowser,
                       identifier: CEFFindIdentifier,
                       count: Int,

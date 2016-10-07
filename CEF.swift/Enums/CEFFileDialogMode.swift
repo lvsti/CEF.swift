@@ -9,6 +9,7 @@
 import Foundation
 
 /// Supported file dialog modes.
+/// CEF name: `cef_file_dialog_mode_t`
 public struct CEFFileDialogMode: RawRepresentable {
     public let rawValue: UInt32
     public init(rawValue: UInt32) {
@@ -17,16 +18,20 @@ public struct CEFFileDialogMode: RawRepresentable {
     
     public enum DialogType: UInt8 {
         /// Requires that the file exists before allowing the user to pick it.
+        /// CEF name: `FILE_DIALOG_OPEN`
         case open = 0
 
         /// Like Open, but allows picking multiple files to open.
+        /// CEF name: `FILE_DIALOG_OPEN_MULTIPLE`
         case openMultiple
         
         /// Like Open, but selects a folder to open.
+        /// CEF name: `FILE_DIALOG_OPEN_FOLDER`
         case openFolder
         
         /// Allows picking a nonexistent file, and prompts to overwrite if the file
         /// already exists.
+        /// CEF name: `FILE_DIALOG_SAVE`
         case save
     }
     
@@ -38,9 +43,11 @@ public struct CEFFileDialogMode: RawRepresentable {
         
         /// Prompt to overwrite if the user selects an existing file with the Save
         /// dialog.
+        /// CEF name: `FILE_DIALOG_OVERWRITEPROMPT_FLAG`
         public static let overwritePrompt = Flags(rawValue: 0x01000000)
 
         /// Do not display read-only files.
+        /// CEF name: `FILE_DIALOG_HIDEREADONLY_FLAG`
         public static let hideReadOnly = Flags(rawValue: 0x02000000)
     }
     

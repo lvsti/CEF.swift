@@ -13,6 +13,7 @@ public struct CEFGeolocationUtils {
     /// Request a one-time geolocation update. This function bypasses any user
     /// permission checks so should only be used by code that is allowed to access
     /// location information.
+    /// CEF name: `CefGetGeolocation`
     public static func getGeolocation(callback: CEFGetGeolocationCallback) -> Bool {
         return cef_get_geolocation(callback.toCEF()) != 0
     }
@@ -20,6 +21,7 @@ public struct CEFGeolocationUtils {
     /// Request a one-time geolocation update. This function bypasses any user
     /// permission checks so should only be used by code that is allowed to access
     /// location information.
+    /// CEF name: `CefGetGeolocation`
     public static func getGeolocation(block: @escaping CEFGetGeolocationCallbackOnLocationUpdateBlock) -> Bool {
         return getGeolocation(callback: CEFGetGeolocationCallbackBridge(block: block))
     }

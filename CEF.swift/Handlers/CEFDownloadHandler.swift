@@ -10,6 +10,7 @@ import Foundation
 
 /// Class used to handle file downloads. The methods of this class will called
 /// on the browser process UI thread.
+/// CEF name: `CefDownloadHandler`
 public protocol CEFDownloadHandler {
     
     /// Called before a download begins. |suggested_name| is the suggested name for
@@ -17,6 +18,7 @@ public protocol CEFDownloadHandler {
     /// |callback| either asynchronously or in this method to continue the download
     /// if desired. Do not keep a reference to |download_item| outside of this
     /// method.
+    /// CEF name: `OnBeforeDownload`
     func onBeforeDownload(browser: CEFBrowser,
                           item: CEFDownloadItem,
                           suggestedName: String,
@@ -27,6 +29,7 @@ public protocol CEFDownloadHandler {
     /// Execute |callback| either asynchronously or in this method to cancel the
     /// download if desired. Do not keep a reference to |download_item| outside of
     /// this method.
+    /// CEF name: `OnDownloadUpdated`
     func onDownloadUpdated(browser: CEFBrowser,
                            item: CEFDownloadItem,
                            callback: CEFDownloadItemCallback)

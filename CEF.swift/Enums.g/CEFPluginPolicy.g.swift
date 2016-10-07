@@ -8,19 +8,24 @@
 import Foundation
 
 /// Plugin policies supported by CefRequestContextHandler::OnBeforePluginLoad.
+/// CEF name: `cef_plugin_policy_t`.
 public enum CEFPluginPolicy: Int32 {
 
     /// Allow the content.
+    /// CEF name: `PLUGIN_POLICY_ALLOW`.
     case allow
 
     /// Allow important content and block unimportant content based on heuristics.
     /// The user can manually load blocked content.
+    /// CEF name: `PLUGIN_POLICY_DETECT_IMPORTANT`.
     case detectImportant
 
     /// Block the content. The user can manually load blocked content.
+    /// CEF name: `PLUGIN_POLICY_BLOCK`.
     case block
 
     /// Disable the content. The user cannot load disabled content.
+    /// CEF name: `PLUGIN_POLICY_DISABLE`.
     case disable
 }
 

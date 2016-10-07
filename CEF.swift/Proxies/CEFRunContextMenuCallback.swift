@@ -12,11 +12,13 @@ extension CEFRunContextMenuCallback {
     
     /// Complete context menu display by selecting the specified |command_id| and
     /// |event_flags|.
+    /// CEF name: `Continue`
     public func doContinue(commandID: CEFMenuID, eventFlags: CEFEventFlags) {
         cefObject.cont(cefObjectPtr, commandID.toCEF(), eventFlags.toCEF())
     }
     
     /// Cancel context menu display.
+    /// CEF name: `Cancel`
     public func doCancel() {
         cefObject.cancel(cefObjectPtr)
     }
