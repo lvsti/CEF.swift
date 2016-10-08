@@ -14,7 +14,7 @@ public extension CEFImage {
 
     /// Create a new CefImage. It will initially be empty. Use the Add*() methods
     /// to add representations at different scale factors.
-    /// CEF name: `Create`
+    /// CEF name: `CreateImage`
     public convenience init?(){
         self.init(ptr: cef_image_create())
     }

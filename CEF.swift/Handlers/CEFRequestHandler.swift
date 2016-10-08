@@ -122,11 +122,11 @@ public protocol CEFRequestHandler {
     /// Called on the IO thread to optionally filter resource response content.
     /// |request| and |response| represent the request and response respectively
     /// and cannot be modified in this callback.
-    /// CEF name: `OnResourceResponseFilter`
-    func onResourceResponseFilter(browser: CEFBrowser,
-                                  frame: CEFFrame,
-                                  request: CEFRequest,
-                                  response: CEFResponse) -> CEFResponseFilter?
+    /// CEF name: `GetResourceResponseFilter`
+    func onGetResourceResponseFilter(browser: CEFBrowser,
+                                     frame: CEFFrame,
+                                     request: CEFRequest,
+                                     response: CEFResponse) -> CEFResponseFilter?
     
     /// Called on the IO thread when a resource load has completed. |request| and
     /// |response| represent the request and response respectively and cannot be
@@ -254,10 +254,10 @@ public extension CEFRequestHandler {
         return .continueLoading
     }
     
-    func onResourceResponseFilter(browser: CEFBrowser,
-                                  frame: CEFFrame,
-                                  request: CEFRequest,
-                                  response: CEFResponse) -> CEFResponseFilter? {
+    func onGetResourceResponseFilter(browser: CEFBrowser,
+                                     frame: CEFFrame,
+                                     request: CEFRequest,
+                                     response: CEFResponse) -> CEFResponseFilter? {
         return nil
     }
 

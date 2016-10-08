@@ -141,7 +141,7 @@ public extension CEFBrowserHost {
     }
 
     /// Returns the request context for this browser.
-    /// CEF name: `GetRequestContext
+    /// CEF name: `GetRequestContext`
     public var requestContext: CEFRequestContext? {
         // TODO: audit nonnull
         if let cefCtx = cefObject.get_request_context(cefObjectPtr) {

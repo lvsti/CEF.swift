@@ -14,7 +14,7 @@ public extension CEFMenuModel {
     public typealias GroupID = Int32
     
     /// Create a new MenuModel with the specified |delegate|.
-    /// CEF name: `Create`
+    /// CEF name: `CreateMenuModel`
     public convenience init?(delegate: CEFMenuModelDelegate? = nil) {
         let cefDelegatePtr = delegate?.toCEF()
         self.init(ptr: cef_menu_model_create(cefDelegatePtr))
@@ -360,7 +360,7 @@ public extension CEFMenuModel {
 
     /// Remove the keyboard accelerator at the specified |index|. Returns true on
     /// success.
-    /// CEF name: `RemoveAcceleratorAt
+    /// CEF name: `RemoveAcceleratorAt`
     public func removeAcceleratorAtIndex(index: Int32) -> Bool {
         return cefObject.remove_accelerator_at(cefObjectPtr, index) != 0
     }

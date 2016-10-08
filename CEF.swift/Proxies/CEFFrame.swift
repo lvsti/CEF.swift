@@ -115,7 +115,7 @@ public extension CEFFrame {
     /// The renderer may request this URL to show the developer the source of the
     /// error.  The |start_line| parameter is the base line number to use for error
     /// reporting.
-    /// CEF name: `executeJavaScript`
+    /// CEF name: `ExecuteJavaScript`
     public func executeJavaScript(code: String, scriptURL: NSURL? = nil, startLine: Int = 1) {
         let cefCodePtr = CEFStringPtrCreateFromSwiftString(code)
         let cefURLPtr = scriptURL != nil ? CEFStringPtrCreateFromSwiftString(scriptURL!.absoluteString!) : nil

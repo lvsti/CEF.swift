@@ -121,10 +121,10 @@ func CEFRequestHandler_get_resource_response_filter(ptr: UnsafeMutablePointer<ce
         return nil
     }
     
-    if let filter = obj.onResourceResponseFilter(browser: CEFBrowser.fromCEF(browser)!,
-                                                 frame: CEFFrame.fromCEF(frame)!,
-                                                 request: CEFRequest.fromCEF(request)!,
-                                                 response: CEFResponse.fromCEF(response)!) {
+    if let filter = obj.onGetResourceResponseFilter(browser: CEFBrowser.fromCEF(browser)!,
+                                                    frame: CEFFrame.fromCEF(frame)!,
+                                                    request: CEFRequest.fromCEF(request)!,
+                                                    response: CEFResponse.fromCEF(response)!) {
         return filter.toCEF()
     }
     
