@@ -64,7 +64,7 @@ class SimpleHandler: CEFClient, CEFLifeSpanHandler {
     
     func onBeforeClose(browser: CEFBrowser) {
         for (index, value) in _browserList.enumerated() {
-            if value.isSameAs(other: browser) {
+            if value.isSameAs(browser) {
                 _browserList.remove(at: index)
                 break
             }
