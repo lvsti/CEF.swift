@@ -17,13 +17,13 @@ public protocol CEFWebPluginUnstableCallback {
     /// true if the plugin has reached the crash count threshold of 3 times in 120
     /// seconds.
     /// CEF name: `IsUnstable`
-    func isUnstable(path: String, unstable: Bool)
+    func onPluginStabilityReport(path: String, isUnstable: Bool)
     
 }
 
 public extension CEFWebPluginUnstableCallback {
     
-    func isUnstable(path: String, unstable: Bool) {
+    func onPluginStabilityReport(path: String, isUnstable: Bool) {
     }
     
 }

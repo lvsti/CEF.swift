@@ -15,6 +15,6 @@ func CEFWebPluginUnstableCallback_is_unstable(ptr: UnsafeMutablePointer<cef_web_
         return
     }
 
-    obj.isUnstable(path: CEFStringToSwiftString(path!.pointee), unstable: unstable != 0)
+    obj.onPluginStabilityReport(path: CEFStringToSwiftString(path!.pointee), isUnstable: unstable != 0)
 }
 

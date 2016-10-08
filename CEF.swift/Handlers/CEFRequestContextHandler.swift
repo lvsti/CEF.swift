@@ -13,15 +13,6 @@ public enum CEFOnBeforePluginLoadAction {
     case useDefaultPolicy
 }
 
-extension CEFOnBeforePluginLoadAction {
-    public var boolValue: Bool {
-        if case .useDefaultPolicy = self {
-            return false
-        }
-        return true
-    }
-}
-
 /// Implement this interface to provide handler implementations. The handler
 /// instance will not be released until all objects related to the context have
 /// been destroyed.

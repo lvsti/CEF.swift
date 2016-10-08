@@ -8,6 +8,11 @@
 
 import Foundation
 
+public enum CEFNavigationEntryVisitorAction {
+    case continueVisiting
+    case stop
+}
+
 /// Callback interface for CefBrowserHost::GetNavigationEntries. The methods of
 /// this class will be called on the browser process UI thread.
 /// CEF name: `CefNavigationEntryVisitor`
@@ -19,15 +24,15 @@ public protocol CEFNavigationEntryVisitor {
     /// |index| is the 0-based index of this entry and |total| is the total number
     /// of entries.
     /// CEF name: `Visit`
-    func visit(entry: CEFNavigationEntry, isCurrent: Bool, index: Int, totalCount: Int) -> Bool
+    func visit(entry: CEFNavigationEntry, isCurrent: Bool, index: Int, totalCount: Int) -> CEFNavigationEntryVisitorAction
     
 }
 
 
 public extension CEFNavigationEntryVisitor {
     
-    public func visit(entry: CEFNavigationEntry, isCurrent: Bool, index: Int, totalCount: Int) -> Bool {
-        return false
+    public func visit(entry: CEFNavigationEntry, isCurrent: Bool, index: Int, totalCount: Int) -> CEFNavigationEntryVisitorAction {
+        return .stop
     }
     
 }

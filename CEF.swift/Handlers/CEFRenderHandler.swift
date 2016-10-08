@@ -45,12 +45,12 @@ public protocol CEFRenderHandler {
     /// Called when the browser wants to show or hide the popup widget. The popup
     /// should be shown if |show| is true and hidden if |show| is false.
     /// CEF name: `OnPopupShow`
-    func onPopupShow(browser: CEFBrowser, showing: Bool)
+    func onPopupTransition(browser: CEFBrowser, willShow: Bool)
     
     /// Called when the browser wants to move or resize the popup widget. |rect|
     /// contains the new location and size in view coordinates.
     /// CEF name: `OnPopupSize`
-    func onPopupSize(browser: CEFBrowser, rect: NSRect)
+    func onPopupRectChange(browser: CEFBrowser, newRect: NSRect)
     
     /// Called when an element should be painted. Pixel values passed to this
     /// method are scaled relative to view coordinates based on the value of
@@ -122,10 +122,10 @@ public extension CEFRenderHandler {
         return nil
     }
 
-    func onPopupShow(browser: CEFBrowser, showing: Bool) {
+    func onPopupTransition(browser: CEFBrowser, willShow: Bool) {
     }
 
-    func onPopupSize(browser: CEFBrowser, rect: NSRect) {
+    func onPopupRectChange(browser: CEFBrowser, newRect: NSRect) {
     }
 
     func onPaint(browser: CEFBrowser,

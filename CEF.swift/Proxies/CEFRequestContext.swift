@@ -42,7 +42,7 @@ public extension CEFRequestContext {
     /// Returns true if this object is pointing to the same context as |that|
     /// object.
     /// CEF name: `IsSame`
-    public func isSameAs(other: CEFRequestContext) -> Bool {
+    public func isSameAs(_ other: CEFRequestContext) -> Bool {
         return cefObject.is_same(cefObjectPtr, other.toCEF()) != 0
     }
 

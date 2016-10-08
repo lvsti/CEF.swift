@@ -36,14 +36,14 @@ public extension CEFBinaryValue {
     /// Returns true if this object and |that| object have the same underlying
     /// data.
     /// CEF name: `IsSame`
-    public func isSameAs(other: CEFBinaryValue) -> Bool {
+    public func isSameAs(_ other: CEFBinaryValue) -> Bool {
         return cefObject.is_same(cefObjectPtr, other.toCEF()) != 0
     }
     
     /// Returns true if this object and |that| object have an equivalent underlying
     /// value but are not necessarily the same object.
     /// CEF name: `IsEqual`
-    public func isEqualTo(other: CEFBinaryValue) -> Bool {
+    public func isEqual(to other: CEFBinaryValue) -> Bool {
         return cefObject.is_equal(cefObjectPtr, other.toCEF()) != 0
     }
     

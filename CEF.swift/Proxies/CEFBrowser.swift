@@ -75,7 +75,7 @@ public extension CEFBrowser {
     /// Returns true if this object is pointing to the same handle as |that|
     /// object.
     /// CEF name: `IsSame`
-    public func isSameAs(other: CEFBrowser) -> Bool {
+    public func isSameAs(_ other: CEFBrowser) -> Bool {
         return cefObject.is_same(cefObjectPtr, other.toCEF()) != 0
     }
 

@@ -80,7 +80,7 @@ func CEFRenderHandler_on_popup_show(ptr: UnsafeMutablePointer<cef_render_handler
         return
     }
     
-    obj.onPopupShow(browser: CEFBrowser.fromCEF(browser)!, showing: showing != 0)
+    obj.onPopupTransition(browser: CEFBrowser.fromCEF(browser)!, willShow: showing != 0)
 }
 
 func CEFRenderHandler_on_popup_size(ptr: UnsafeMutablePointer<cef_render_handler_t>?,
@@ -90,7 +90,7 @@ func CEFRenderHandler_on_popup_size(ptr: UnsafeMutablePointer<cef_render_handler
         return
     }
     
-    obj.onPopupSize(browser: CEFBrowser.fromCEF(browser)!, rect: NSRect.fromCEF(rect!.pointee))
+    obj.onPopupRectChange(browser: CEFBrowser.fromCEF(browser)!, newRect: NSRect.fromCEF(rect!.pointee))
 }
 
 func CEFRenderHandler_on_paint(ptr: UnsafeMutablePointer<cef_render_handler_t>?,

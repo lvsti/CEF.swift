@@ -8,6 +8,11 @@
 
 import Foundation
 
+public enum CEFCookieVisitorAction {
+    case continueVisiting
+    case stop
+}
+
 /// Interface to implement for visiting cookie values. The methods of this class
 /// will always be called on the IO thread.
 /// CEF name: `CefCookieVisitor`
@@ -19,15 +24,15 @@ public protocol CEFCookieVisitor {
     /// Return false to stop visiting cookies. This method may never be called if
     /// no cookies are found.
     /// CEF name: `Visit`
-    func visit(cookie: CEFCookie, index: Int, count: Int, shouldDelete: inout Bool) -> Bool
+    func visit(cookie: CEFCookie, index: Int, count: Int, shouldDelete: inout Bool) -> CEFCookieVisitorAction
     
 }
 
 
 public extension CEFCookieVisitor {
     
-    func visit(cookie: CEFCookie, index: Int, count: Int, shouldDelete: inout Bool) -> Bool {
-        return false
+    func visit(cookie: CEFCookie, index: Int, count: Int, shouldDelete: inout Bool) -> CEFCookieVisitorAction {
+        return .stop
     }
     
 }

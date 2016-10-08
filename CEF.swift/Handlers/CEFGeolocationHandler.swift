@@ -11,8 +11,8 @@ import Foundation
 public typealias CEFGeolocationRequestID = Int32
 
 public enum CEFOnRequestGeolocationPermissionAction {
-    case accept
-    case cancel
+    case allow
+    case deny
 }
 
 /// Implement this interface to handle events related to geolocation permission
@@ -36,8 +36,8 @@ public protocol CEFGeolocationHandler {
     /// Called when a geolocation access request is canceled. |request_id| is the
     /// unique ID for the permission request.
     /// CEF name: `OnCancelGeolocationPermission`
-    func onCancelGeolocationPermission(browser: CEFBrowser,
-                                       requestID: CEFGeolocationRequestID)
+    func onCancelGeolocationPermissionRequest(browser: CEFBrowser,
+                                              requestID: CEFGeolocationRequestID)
 
 }
 
@@ -47,11 +47,11 @@ public extension CEFGeolocationHandler {
                                         url: NSURL,
                                         requestID: CEFGeolocationRequestID,
                                         callback: CEFGeolocationCallback) -> CEFOnRequestGeolocationPermissionAction {
-        return .accept
+        return .allow
     }
 
-    func onCancelGeolocationPermission(browser: CEFBrowser,
-                                       requestID: CEFGeolocationRequestID) {
+    func onCancelGeolocationPermissionRequest(browser: CEFBrowser,
+                                              requestID: CEFGeolocationRequestID) {
     }
     
 }

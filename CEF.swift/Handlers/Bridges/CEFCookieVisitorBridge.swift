@@ -14,7 +14,7 @@ import Foundation
 /// Return false to stop visiting cookies. This method may never be called if
 /// no cookies are found.
 public typealias CEFCookieVisitorVisitBlock =
-    (_ cookie: CEFCookie, _ index: Int, _ count: Int, _ shouldDelete: inout Bool) -> Bool
+    (_ cookie: CEFCookie, _ index: Int, _ count: Int, _ shouldDelete: inout Bool) -> CEFCookieVisitorAction
 
 class CEFCookieVisitorBridge: CEFCookieVisitor {
     let block: CEFCookieVisitorVisitBlock
@@ -23,7 +23,7 @@ class CEFCookieVisitorBridge: CEFCookieVisitor {
         self.block = block
     }
     
-    func visit(cookie: CEFCookie, index: Int, count: Int, shouldDelete: inout Bool) -> Bool {
+    func visit(cookie: CEFCookie, index: Int, count: Int, shouldDelete: inout Bool) -> CEFCookieVisitorAction {
         return block(cookie, index, count, &shouldDelete)
     }
 }

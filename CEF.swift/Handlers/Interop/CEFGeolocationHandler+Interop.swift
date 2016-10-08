@@ -21,7 +21,7 @@ func CEFGeolocationHandler_on_request_geolocation_permission(ptr: UnsafeMutableP
                                                     url: NSURL(string: CEFStringToSwiftString(url!.pointee))!,
                                                     requestID: requestID,
                                                     callback: CEFGeolocationCallback.fromCEF(callback)!)
-    return action == .accept ? 1 : 0
+    return action == .allow ? 1 : 0
 }
 
 func CEFGeolocationHandler_on_cancel_geolocation_permission(ptr: UnsafeMutablePointer<cef_geolocation_handler_t>?,
@@ -31,7 +31,7 @@ func CEFGeolocationHandler_on_cancel_geolocation_permission(ptr: UnsafeMutablePo
         return
     }
     
-    obj.onCancelGeolocationPermission(browser: CEFBrowser.fromCEF(browser)!,
-                                      requestID: requestID)
+    obj.onCancelGeolocationPermissionRequest(browser: CEFBrowser.fromCEF(browser)!,
+                                             requestID: requestID)
 }
 

@@ -9,12 +9,12 @@
 import Foundation
 
 public enum CEFOnConsoleMessageAction {
-    case allow
-    case cancel
+    case show
+    case ignore
 }
 
 public enum CEFOnTooltipAction {
-    case showDefault
+    case showDefault(String)
     case showCustom
 }
 
@@ -49,19 +49,19 @@ public protocol CEFDisplayHandler {
     /// When window rendering is disabled the application is responsible for
     /// drawing tooltips and the return value is ignored.
     /// CEF name: `OnTooltip`
-    func onTooltip(browser: CEFBrowser, text: inout String?) -> CEFOnTooltipAction
+    func onTooltip(browser: CEFBrowser, text: String) -> CEFOnTooltipAction
     
     /// Called when the browser receives a status message. |value| contains the
     /// text that will be displayed in the status message.
     /// CEF name: `OnStatusMessage`
-    func onStatusMessage(browser: CEFBrowser, text: String?)
+    func onStatusMessage(browser: CEFBrowser, text: String)
     
     /// Called to display a console message. Return true to stop the message from
     /// being output to the console.
     /// CEF name: `OnConsoleMessage`
     func onConsoleMessage(browser: CEFBrowser,
-                          message: String?,
-                          source: String?,
+                          message: String,
+                          source: String,
                           lineNumber: Int) -> CEFOnConsoleMessageAction
 
 }
@@ -80,18 +80,18 @@ public extension CEFDisplayHandler {
     func onFullscreenModeChange(browser: CEFBrowser, fullscreen: Bool) {
     }
 
-    func onTooltip(browser: CEFBrowser, text: inout String?) -> CEFOnTooltipAction {
-        return .showDefault
+    func onTooltip(browser: CEFBrowser, text: String) -> CEFOnTooltipAction {
+        return .showDefault(text)
     }
     
     func onStatusMessage(browser: CEFBrowser, text: String) {
     }
     
     func onConsoleMessage(browser: CEFBrowser,
-                          message: String?,
-                          source: String?,
+                          message: String,
+                          source: String,
                           lineNumber: Int) -> CEFOnConsoleMessageAction {
-        return .allow
+        return .show
     }
 
 }

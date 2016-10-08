@@ -27,7 +27,7 @@ public extension CEFTaskRunner {
     /// Returns true if this object is pointing to the same task runner as |that|
     /// object.
     /// CEF name: `IsSame`
-    public func isSameAs(other: CEFTaskRunner) -> Bool {
+    public func isSameAs(_ other: CEFTaskRunner) -> Bool {
         return cefObject.is_same(cefObjectPtr, other.toCEF()) != 0
     }
 

@@ -28,7 +28,7 @@ public extension CEFImage {
     /// Returns true if this Image and |that| Image share the same underlying
     /// storage. Will also return true if both images are empty.
     /// CEF name: `IsSame`
-    public func isSameAs(other: CEFImage) -> Bool {
+    public func isSameAs(_ other: CEFImage) -> Bool {
         return cefObject.is_same(cefObjectPtr, other.toCEF()) != 0
     }
     
