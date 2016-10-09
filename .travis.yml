@@ -22,6 +22,8 @@ before_install:
   - brew install jq
   - sudo gem install xcpretty-travis-formatter --no-doc
 
-install: ./scripts/setup.sh
+install:
+  - pip install lxml
+  - ./scripts/setup.sh
 
 script: set -o pipefail && xcodebuild clean build -project CEF.swift.xcodeproj -scheme CEF.swift | xcpretty -c -f `xcpretty-travis-formatter`
