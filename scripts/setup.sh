@@ -32,25 +32,23 @@ fi
 
 
 # fetch CEF binary distribution package
-CEF_BUILD_S3_KEY=$(curl https://cefbuilds.com |
-                   scripts/cefbuilds.py -x --platforms=mac64 --branches=${CEF_BRANCH} - | \
-                   jq '."'${CEF_BRANCH}'".mac64.s3key' | \
-                   tr -d \")
+echo "Fetching binary distribution..."
+CEFBUILD_DESCRIPTOR=$(curl http://opensource.spotify.com/cefbuilds/index.html |
+                      scripts/cefbuilds_spotify.py -x --platforms=macosx64 --branches=${CEF_BRANCH} - |
+                      jq '."macosx64"."'${CEF_BRANCH}'"')
+
+CEFBUILD_URL=$(echo ${CEFBUILD_DESCRIPTOR} | jq '.dists.standard' | tr -d '"')
+CEFBUILD_VERSION=${CEF_BRANCH}'.'$(echo ${CEFBUILD_DESCRIPTOR} | jq '.delta' | tr -d '"')
 
 CEFBUILD_TEMP=$(mktemp -d /tmp/cefbuild.XXX)
-CEFBUILD_NAME=$(basename ${CEF_BUILD_S3_KEY})
-CEFBUILD_TEMP_PATH="${CEFBUILD_TEMP}/${CEFBUILD_NAME}"
-S3_BUCKET_URL="https://cefbuilds.s3.amazonaws.com"
+CEFBUILD_TEMP_PATH="${CEFBUILD_TEMP}/${CEFBUILD_VERSION}.tar.bz2"
 
-curl "${S3_BUCKET_URL}/${CEF_BUILD_S3_KEY}" -o "${CEFBUILD_TEMP_PATH}"
+curl "${CEFBUILD_URL}" -k -o "${CEFBUILD_TEMP_PATH}"
 
-CEFBUILD_BASE="${CEFBUILD_NAME%.*}"
-CEFBUILD_EXT="${CEFBUILD_NAME##*.}"
-
-if [ "${CEFBUILD_EXT}" = "7z" ]; then
-    mkdir -p External
-    7z x -oExternal "${CEFBUILD_TEMP_PATH}"
-fi
+echo "Extracting package..."
+mkdir -p External
+tar xzf "${CEFBUILD_TEMP_PATH}" -C External
+CEFBUILD_DIR_NAME=$(tar -tzf "${CEFBUILD_TEMP_PATH}" | head -1 | tr -d '/')
 
 rm -rf "${CEFBUILD_TEMP}"
 
@@ -58,7 +56,7 @@ if [ -e "External/cef_binary" ]; then
     rm -f External/cef_binary
 fi
 
-ln -s "${CEFBUILD_BASE}" External/cef_binary
+ln -s "${CEFBUILD_DIR_NAME}" External/cef_binary
 
 # build the framework
 pushd .
