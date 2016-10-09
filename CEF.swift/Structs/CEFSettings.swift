@@ -40,6 +40,17 @@ public struct CEFSettings {
     /// CEF name: `multi_threaded_message_loop`
     public var useMultiThreadedMessageLoop: Bool = false
     
+    /// Set to true (1) to control browser process main (UI) thread message pump
+    /// scheduling via the CefBrowserProcessHandler::OnScheduleMessagePumpWork()
+    /// callback. This option is recommended for use in combination with the
+    /// CefDoMessageLoopWork() function in cases where the CEF message loop must be
+    /// integrated into an existing application message loop (see additional
+    /// comments and warnings on CefDoMessageLoopWork). Enabling this option is not
+    /// recommended for most users; leave this option disabled and use either the
+    /// CefRunMessageLoop() function or multi_threaded_message_loop if possible.
+    /// CEF name: `external_message_pump`
+    public var useExternalMessageLoop: Bool = false
+
     /// Set to true (1) to enable windowless (off-screen) rendering support. Do not
     /// enable this value if the application does not use windowless rendering as
     /// it may reduce rendering performance on some systems.
@@ -231,6 +242,7 @@ extension CEFSettings {
         cefStruct.no_sandbox = !useSandbox ? 1 : 0
         CEFStringSetFromSwiftString(browserSubprocessPath, cefStringPtr: &cefStruct.browser_subprocess_path)
         cefStruct.multi_threaded_message_loop = useMultiThreadedMessageLoop ? 1 : 0
+        cefStruct.external_message_pump = useExternalMessageLoop ? 1 : 0
         cefStruct.windowless_rendering_enabled = useWindowlessRendering ? 1 : 0
         cefStruct.command_line_args_disabled = !enableCommandLineArgs ? 1 : 0
         CEFStringSetFromSwiftString(cachePath, cefStringPtr: &cefStruct.cache_path)
