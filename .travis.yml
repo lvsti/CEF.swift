@@ -20,6 +20,7 @@ before_install:
   - brew update
   - brew install p7zip
   - brew install jq
+  - sudo pip install lxml
   - sudo gem install xcpretty-travis-formatter --no-doc
 
 install: ./scripts/setup.sh
