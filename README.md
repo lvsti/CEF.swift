@@ -4,7 +4,7 @@ Swift bindings for the [Chromium Embedded Framework](https://bitbucket.org/chrom
 
 ### Requirements
 
-Xcode 7.3, Swift 2.3<br/>
+Xcode 8, Swift 2.3/3.0 (see notes below)<br/>
 tools: cmake, jq, p7zip
 
 Supported target platforms: macOS 10.10+
@@ -18,15 +18,15 @@ Supported target platforms: macOS 10.10+
 
 ### CEF branches
 
-CEF is developed on multiple branches simultaneously, which differ in API and functionality (see [cefbuilds.com](https://cefbuilds.com)). CEF.swift aims at supporting the current stable and dev release branches; supporting dev trunk is out of scope for now, however. For any CEF branch `NNNN`, the corresponding CEF.swift branch is named `cef_NNNN`.
+CEF is developed on multiple branches simultaneously, which differ in API and functionality (see [cefbuilds.com](https://cefbuilds.com) and [Spotify OpenSource](http://opensource.spotify.com/cefbuilds/index.html)). CEF.swift aims at supporting the current stable and dev release branches; supporting dev trunk is out of scope for now, however. For any CEF branch `NNNN`, the corresponding CEF.swift branch is named `cef_NNNN`.
 
 Currently supported branches: 
 
-- 2357 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2357)](https://travis-ci.org/lvsti/CEF.swift)
-- 2454 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2454)](https://travis-ci.org/lvsti/CEF.swift)
-- 2526 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2526)](https://travis-ci.org/lvsti/CEF.swift)
-- 2623 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2623)](https://travis-ci.org/lvsti/CEF.swift)
-- 2704 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2704)](https://travis-ci.org/lvsti/CEF.swift)
+- 2357 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2357)](https://travis-ci.org/lvsti/CEF.swift) - Swift 2.3
+- 2454 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2454)](https://travis-ci.org/lvsti/CEF.swift) - Swift 2.3
+- 2526 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2526)](https://travis-ci.org/lvsti/CEF.swift) - Swift 2.3
+- 2623 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2623)](https://travis-ci.org/lvsti/CEF.swift) - Swift 2.3
+- 2704 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2704)](https://travis-ci.org/lvsti/CEF.swift) - Swift 3.0
 
 ### Getting started
 
