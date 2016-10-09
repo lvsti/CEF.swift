@@ -23,5 +23,6 @@ extension cef_browser_process_handler_t: CEFCallbackMarshalling {
         on_before_child_process_launch = CEFBrowserProcessHandler_on_before_child_process_launch
         on_render_process_thread_created = CEFBrowserProcessHandler_on_render_process_thread_created
         get_print_handler = CEFBrowserProcessHandler_get_print_handler
+        on_schedule_message_pump_work = CEFBrowserProcessHandler_on_schedule_message_pump_work
     }
 }

@@ -46,3 +46,12 @@ func CEFBrowserProcessHandler_get_print_handler(ptr: UnsafeMutablePointer<cef_br
     return nil
 }
 
+func CEFBrowserProcessHandler_on_schedule_message_pump_work(ptr: UnsafeMutablePointer<cef_browser_process_handler_t>?,
+                                                            delay: Int64) {
+    guard let obj = CEFBrowserProcessHandlerMarshaller.get(ptr) else {
+        return
+    }
+    
+    obj.onScheduleMessageLoopWork(delay: TimeInterval(delay*1000))
+}
+
