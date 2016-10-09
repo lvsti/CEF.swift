@@ -41,7 +41,12 @@ for cef_class in header.get_classes():
     if cef_class.is_library_side():
         swift_type_name = cef_capi_type_to_swift(cef_class.get_capi_name())
         
-        impl_file = open(os.path.join(impl_dir, swift_type_name + ".swift"), "r")
+        impl_file_path = os.path.join(impl_dir, swift_type_name + ".swift")
+        if not os.path.exists(impl_file_path):
+            print "implementation missing for " + swift_type_name
+            continue
+            
+        impl_file = open(impl_file_path, "r")
         impl = impl_file.read()
         impl_file.close()
         
