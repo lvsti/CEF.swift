@@ -4,7 +4,7 @@ abbreviations = [
     'cef', 'http', 'https', 'ssl', 'url', 'uri', 'json', 'html', 'xhtml', 'v8', 'dom',
     'cdata', 'utf8', 'utf16le', 'utf16be', 'ascii', 'io', 'ui', 'db', '5xx', 'xhr',
     'cmy', 'cmyk', 'kcmy', 'rgb', 'rgba', 'bgra', 'rgb16', 'hp', 'rfc', 'id', 'js', 'xml', 'pdf',
-    'ev', 'ct', 'sha1', 'csp'
+    'ev', 'ct', 'sha1', 'csp', 'cdm'
 ]
 
 typename_overrides = {
@@ -176,7 +176,11 @@ cef_enums = [
     'cef_cross_axis_alignment_t',
     'cef_button_state_t',
     'cef_horizontal_alignment_t',
-    'cef_menu_anchor_position_t'
+    'cef_menu_anchor_position_t',
+    
+    # branch 2840
+    'cef_cdm_registration_error_t',
+    'cef_ssl_version_t'
 ]
 
 cef_option_sets = [
@@ -194,7 +198,10 @@ cef_option_sets = [
     'cef_json_writer_options_t',
     
     # branch 2526
-    'cef_cert_status_t'
+    'cef_cert_status_t',
+    
+    # branch 2840
+    'cef_ssl_content_status_t'
 ]
 
 cef_const_collections = {

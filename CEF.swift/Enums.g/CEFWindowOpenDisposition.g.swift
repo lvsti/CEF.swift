@@ -7,13 +7,13 @@
 
 import Foundation
 
-/// The manner in which a link click should be opened.
+/// The manner in which a link click should be opened. These constants match
+/// their equivalents in Chromium's window_open_disposition.h and should not be
+/// renumbered.
 /// CEF name: `cef_window_open_disposition_t`.
 public enum CEFWindowOpenDisposition: Int32 {
     /// CEF name: `WOD_UNKNOWN`.
     case unknown
-    /// CEF name: `WOD_SUPPRESS_OPEN`.
-    case suppressOpen
     /// CEF name: `WOD_CURRENT_TAB`.
     case currentTab
     /// CEF name: `WOD_SINGLETON_TAB`.
