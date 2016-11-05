@@ -554,6 +554,14 @@ public extension CEFBrowserHost {
         cefObject.drag_source_system_drag_ended(cefObjectPtr)
     }
 
+    /// Returns the current visible navigation entry for this browser. This method
+    /// can only be called on the UI thread.
+    /// CEF name: `GetVisibleNavigationEntry`
+    public var visibleNavigationEntry: CEFNavigationEntry {
+        let cefEntry = cefObject.get_visible_navigation_entry(cefObjectPtr)
+        return CEFNavigationEntry.fromCEF(cefEntry)!
+    }
+
 }
 
 

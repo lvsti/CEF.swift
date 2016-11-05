@@ -66,15 +66,16 @@ public extension CEFV8Value {
         return CEFV8Value.fromCEF(cef_v8value_create_string(cefStrPtr))
     }
 
-    /// Create a new CefV8Value object of type object with optional accessor. This
-    /// method should only be called from within the scope of a
+    /// Create a new CefV8Value object of type object with optional accessor and/or
+    /// interceptor. This method should only be called from within the scope of a
     /// CefRenderProcessHandler, CefV8Handler or CefV8Accessor callback, or in
     /// combination with calling Enter() and Exit() on a stored CefV8Context
     /// reference.
     /// CEF name: `CreateObject`
-    public static func createObject(accessor: CEFV8Accessor? = nil) -> CEFV8Value? {
+    public static func createObject(accessor: CEFV8Accessor? = nil, interceptor: CEFV8Interceptor? = nil) -> CEFV8Value? {
         let cefAccessorPtr = accessor?.toCEF()
-        return CEFV8Value.fromCEF(cef_v8value_create_object(cefAccessorPtr))
+        let cefInterceptorPtr = interceptor?.toCEF()
+        return CEFV8Value.fromCEF(cef_v8value_create_object(cefAccessorPtr, cefInterceptorPtr))
     }
 
     /// Create a new CefV8Value object of type array with the specified |length|.
@@ -194,30 +195,26 @@ public extension CEFV8Value {
         return Int(cefObject.get_int_value(cefObjectPtr))
     }
     
-    /// Return an unisgned int value.  The underlying data will be converted to if
-    /// necessary.
+    /// Return an unsigned int value.
     /// CEF name: `GetUIntValue`
     public var uintValue: UInt {
         return UInt(cefObject.get_uint_value(cefObjectPtr))
     }
     
-    /// Return a double value.  The underlying data will be converted to if
-    /// necessary.
+    /// Return a double value.
     /// CEF name: `GetDoubleValue`
     public var doubleValue: Double {
         return cefObject.get_double_value(cefObjectPtr)
     }
 
-    /// Return a Date value.  The underlying data will be converted to if
-    /// necessary.
+    /// Return a Date value.
     /// CEF name: `GetDateValue`
     public var dateValue: NSDate {
         let cefTime = cefObject.get_date_value(cefObjectPtr)
         return CEFTimeToNSDate(cefTime)
     }
 
-    /// Return a string value.  The underlying data will be converted to if
-    /// necessary.
+    /// Return a string value.
     /// CEF name: `GetStringValue`
     public var stringValue: String {
         let cefStrPtr = cefObject.get_string_value(cefObjectPtr)!

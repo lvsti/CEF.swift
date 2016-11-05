@@ -81,5 +81,11 @@ public extension CEFNavigationEntry {
         return Int(cefObject.get_http_status_code(cefObjectPtr))
     }
 
+    /// Returns the SSL information for this navigation entry.
+    /// CEF name: `GetSSLStatus`
+    public var sslStatus: CEFSSLStatus {
+        let cefStatus = cefObject.get_sslstatus(cefObjectPtr)
+        return CEFSSLStatus.fromCEF(cefStatus)!
+    }
 }
 

@@ -209,6 +209,13 @@ public extension CEFDOMNode {
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
     }
+    
+    /// Returns the bounds of the element.
+    /// CEF name: `GetElementBounds`
+    public var elementBounds: NSRect {
+        let cefRect = cefObject.get_element_bounds(cefObjectPtr)
+        return NSRect.fromCEF(cefRect)
+    }
 
 }
 

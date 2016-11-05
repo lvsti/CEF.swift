@@ -95,18 +95,24 @@ public extension CEFV8Context {
         return cefObject.is_same(cefObjectPtr, other.toCEF()) != 0
     }
 
-    /// Evaluates the specified JavaScript code using this context's global object.
-    /// On success |retval| will be set to the return value, if any, and the
-    /// function will return true. On failure |exception| will be set to the
+    /// Execute a string of JavaScript code in this V8 context. The |script_url|
+    /// parameter is the URL where the script in question can be found, if any.
+    /// The |start_line| parameter is the base line number to use for error
+    /// reporting. On success |retval| will be set to the return value, if any, and
+    /// the function will return true. On failure |exception| will be set to the
     /// exception, if any, and the function will return false.
     /// CEF name: `Eval`
-    public func eval(code: String) -> CEFV8EvalResult {
+    public func eval(code: String,
+                     scriptURL: NSURL? = nil,
+                     startLine: Int = 1) -> CEFV8EvalResult {
         let cefCodePtr = CEFStringPtrCreateFromSwiftString(code)
         defer { CEFStringPtrRelease(cefCodePtr) }
+        let cefURLPtr = scriptURL != nil ? CEFStringPtrCreateFromSwiftString(scriptURL!.absoluteString!) : nil
+        defer { CEFStringPtrRelease(cefURLPtr) }
         
         var cefRetval: UnsafeMutablePointer<cef_v8value_t>? = nil
         var cefExc: UnsafeMutablePointer<cef_v8exception_t>? = nil
-        let result = cefObject.eval(cefObjectPtr, cefCodePtr, &cefRetval, &cefExc)
+        let result = cefObject.eval(cefObjectPtr, cefCodePtr, cefURLPtr, Int32(startLine), &cefRetval, &cefExc)
         
         if result != 0 {
             return .success(CEFV8Value.fromCEF(cefRetval)!)

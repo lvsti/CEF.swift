@@ -31,6 +31,9 @@ typename_overrides = {
     'cef_domdocument_t': 'CEFDOMDocument',
     'cef_post_data_element_t': 'CEFPOSTDataElement',
     'cef_post_data_t': 'CEFPOSTData',
+    'cef_sslstatus_t': 'CEFSSLStatus',
+    'cef_x509cert_principal_t': 'CEFX509CertPrincipal',
+    'cef_x509certificate_t': 'CEFX509Certificate',
 
     # handlers
     'cef_urlrequest_client_t': 'CEFURLRequestClient',
