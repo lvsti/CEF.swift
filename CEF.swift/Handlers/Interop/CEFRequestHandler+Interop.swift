@@ -81,6 +81,7 @@ func CEFRequestHandler_on_resource_redirect(ptr: UnsafeMutablePointer<cef_reques
                                             browser: UnsafeMutablePointer<cef_browser_t>?,
                                             frame: UnsafeMutablePointer<cef_frame_t>?,
                                             request: UnsafeMutablePointer<cef_request_t>?,
+                                            response: UnsafeMutablePointer<cef_response_t>?,
                                             newURL: UnsafeMutablePointer<cef_string_t>?) {
     guard let obj = CEFRequestHandlerMarshaller.get(ptr) else {
         return
@@ -91,6 +92,7 @@ func CEFRequestHandler_on_resource_redirect(ptr: UnsafeMutablePointer<cef_reques
     obj.onResourceRedirect(browser: CEFBrowser.fromCEF(browser)!,
                            frame: CEFFrame.fromCEF(frame)!,
                            request: CEFRequest.fromCEF(request)!,
+                           response: CEFResponse.fromCEF(response)!,
                            newURL: &url)
     
     CEFStringSetFromSwiftString(url.absoluteString!, cefStringPtr: newURL!)
@@ -223,6 +225,27 @@ func CEFRequestHandler_on_certificate_error(ptr: UnsafeMutablePointer<cef_reques
                                         sslInfo: CEFSSLInfo.fromCEF(sslInfo)!,
                                         callback: CEFRequestCallback.fromCEF(callback)!)
     return action == .allow ? 1 : 0
+}
+
+func CEFRequestHandler_on_select_client_certificate(ptr: UnsafeMutablePointer<cef_request_handler_t>?,
+                                                    browser: UnsafeMutablePointer<cef_browser_t>?,
+                                                    isProxy: Int32,
+                                                    hostName: UnsafePointer<cef_string_t>?,
+                                                    port: Int32,
+                                                    certCount: Int,
+                                                    certs: UnsafePointer<UnsafeMutablePointer<cef_x509certificate_t>?>?,
+                                                    callback: UnsafeMutablePointer<cef_select_client_certificate_callback_t>?) -> Int32 {
+    guard let obj = CEFRequestHandlerMarshaller.get(ptr) else {
+        return 0
+    }
+    
+    let action = obj.onSelectClientCertificate(browser: CEFBrowser.fromCEF(browser)!,
+                                               isProxy: isProxy != 0,
+                                               hostName: CEFStringToSwiftString(hostName!.pointee),
+                                               port: UInt16(port),
+                                               certificates: [],
+                                               callback: CEFSelectClientCertificateCallback.fromCEF(callback)!)
+    return action == .useSelected ? 1 : 0
 }
 
 func CEFRequestHandler_on_plugin_crashed(ptr: UnsafeMutablePointer<cef_request_handler_t>?,

@@ -39,6 +39,11 @@ public enum CEFOnCertificateErrorAction {
     case cancel
 }
 
+public enum CEFOnSelectClientCertificateAction {
+    case useDefault
+    case useSelected
+}
+
 /// Implement this interface to handle events related to browser requests. The
 /// methods of this class will be called on the thread indicated.
 /// CEF name: `CefRequestHandler`
@@ -101,12 +106,15 @@ public protocol CEFRequestHandler {
     
     /// Called on the IO thread when a resource load is redirected. The |request|
     /// parameter will contain the old URL and other request-related information.
-    /// The |new_url| parameter will contain the new URL and can be changed if
-    /// desired. The |request| object cannot be modified in this callback.
+    /// The |response| parameter will contain the response that resulted in the
+    /// redirect. The |new_url| parameter will contain the new URL and can be
+    /// changed if desired. The |request| object cannot be modified in this
+    /// callback.
     /// CEF name: `OnResourceRedirect`
     func onResourceRedirect(browser: CEFBrowser,
                             frame: CEFFrame,
                             request: CEFRequest,
+                            response: CEFResponse,
                             newURL: inout NSURL)
     
     /// Called on the IO thread when a resource response is received. To allow the
@@ -192,6 +200,24 @@ public protocol CEFRequestHandler {
                             sslInfo: CEFSSLInfo,
                             callback: CEFRequestCallback) -> CEFOnCertificateErrorAction
     
+    /// Called on the UI thread when a client certificate is being requested for
+    /// authentication. Return false to use the default behavior and automatically
+    /// select the first certificate available. Return true and call
+    /// CefSelectClientCertificateCallback::Select either in this method or at a
+    /// later time to select a certificate. Do not call Select or call it with NULL
+    /// to continue without using any certificate. |isProxy| indicates whether the
+    /// host is an HTTPS proxy or the origin server. |host| and |port| contains the
+    /// hostname and port of the SSL server. |certificates| is the list of
+    /// certificates to choose from; this list has already been pruned by Chromium
+    /// so that it only contains certificates from issuers that the server trusts.
+    /// CEF name: `OnSelectClientCertificate`
+    func onSelectClientCertificate(browser: CEFBrowser,
+                                   isProxy: Bool,
+                                   hostName: String,
+                                   port: UInt16,
+                                   certificates: [CEFX509Certificate],
+                                   callback: CEFSelectClientCertificateCallback) -> CEFOnSelectClientCertificateAction
+    
     /// Called on the browser process UI thread when a plugin has crashed.
     /// |plugin_path| is the path of the plugin that crashed.
     /// CEF name: `OnPluginCrashed`
@@ -244,6 +270,7 @@ public extension CEFRequestHandler {
     func onResourceRedirect(browser: CEFBrowser,
                             frame: CEFFrame,
                             request: CEFRequest,
+                            response: CEFResponse,
                             newURL: inout NSURL) {
     }
     
@@ -296,6 +323,15 @@ public extension CEFRequestHandler {
                             sslInfo: CEFSSLInfo,
                             callback: CEFRequestCallback) -> CEFOnCertificateErrorAction {
         return .cancel
+    }
+    
+    func onSelectClientCertificate(browser: CEFBrowser,
+                                   isProxy: Bool,
+                                   hostName: String,
+                                   port: UInt16,
+                                   certificates: [CEFX509Certificate],
+                                   callback: CEFSelectClientCertificateCallback) -> CEFOnSelectClientCertificateAction {
+        return .useDefault
     }
 
     func onPluginCrashed(browser: CEFBrowser, pluginPath: String) {

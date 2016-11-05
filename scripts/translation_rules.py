@@ -40,7 +40,8 @@ typename_overrides = {
     'cef_v8accessor_t': 'CEFV8Accessor',
     'cef_v8handler_t': 'CEFV8Handler',
     'cef_domvisitor_t': 'CEFDOMVisitor',
-    'cef_jsdialog_handler_t': 'CEFJSDialogHandler'
+    'cef_jsdialog_handler_t': 'CEFJSDialogHandler',
+    'cef_v8interceptor_t': 'CEFV8Interceptor'
 }
 
 entryname_overrides = {

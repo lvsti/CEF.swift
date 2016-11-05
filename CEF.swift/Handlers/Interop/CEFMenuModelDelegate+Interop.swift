@@ -1,5 +1,5 @@
 //
-//  CEFMenuDelegate+Interop.swift
+//  CEFMenuModelDelegate+Interop.swift
 //  CEF.swift
 //
 //  Created by Tamas Lustyik on 2016. 05. 03..
@@ -30,4 +30,29 @@ func CEFMenuModelDelegate_menu_will_show(ptr: UnsafeMutablePointer<cef_menu_mode
     obj.onMenuWillShow(menuModel: CEFMenuModel.fromCEF(menu)!)
 }
 
-// TODO: more to come
+func CEFMenuModelDelegate_menu_closed(ptr: UnsafeMutablePointer<cef_menu_model_delegate_t>?,
+                                      menu: UnsafeMutablePointer<cef_menu_model_t>?) {
+    guard let obj = CEFMenuModelDelegateMarshaller.get(ptr) else {
+        return
+    }
+    
+    obj.onMenuClosed(menuModel: CEFMenuModel.fromCEF(menu)!)
+}
+
+func CEFMenuModelDelegate_format_label(ptr: UnsafeMutablePointer<cef_menu_model_delegate_t>?,
+                                       menu: UnsafeMutablePointer<cef_menu_model_t>?,
+                                       label: UnsafeMutablePointer<cef_string_t>?) -> Int32 {
+    guard let obj = CEFMenuModelDelegateMarshaller.get(ptr) else {
+        return 0
+    }
+    
+    let newLabel = obj.onFormatLabel(menuModel: CEFMenuModel.fromCEF(menu)!,
+                                     label: CEFStringToSwiftString(label!.pointee))
+    
+    if let newLabel = newLabel {
+        CEFStringSetFromSwiftString(newLabel, cefStringPtr: label!)
+        return 1
+    }
+    
+    return 0
+}
