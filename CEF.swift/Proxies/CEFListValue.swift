@@ -83,14 +83,14 @@ public extension CEFListValue {
 
     /// Removes the value at the specified index.
     /// CEF name: `Remove`
-    public func removeValueAtIndex(index: Int) -> Bool {
-        return cefObject.remove(cefObjectPtr, Int32(index)) != 0
+    public func remove(at index: Int) -> Bool {
+        return cefObject.remove(cefObjectPtr, size_t(index)) != 0
     }
 
     /// Returns the value type at the specified index.
     /// CEF name: `GetType`
-    public func typeAtIndex(index: Int) -> CEFValueType {
-        let cefType = cefObject.get_type(cefObjectPtr, Int32(index))
+    public func type(at index: Int) -> CEFValueType {
+        let cefType = cefObject.get_type(cefObjectPtr, size_t(index))
         return CEFValueType.fromCEF(cefType)
     }
 
@@ -100,33 +100,33 @@ public extension CEFListValue {
     /// returned value will reference existing data and modifications to the value
     /// will modify this object.
     /// CEF name: `GetValue`
-    public func valueAtIndex(index: Int) -> CEFValue? {
-        let cefValue = cefObject.get_value(cefObjectPtr, Int32(index))
+    public func value(at index: Int) -> CEFValue? {
+        let cefValue = cefObject.get_value(cefObjectPtr, size_t(index))
         return CEFValue.fromCEF(cefValue)
     }
 
     /// Returns the value at the specified index as type bool.
     /// CEF name: `GetBool`
-    public func boolAtIndex(index: Int) -> Bool {
-        return cefObject.get_bool(cefObjectPtr, Int32(index)) != 0
+    public func bool(at index: Int) -> Bool {
+        return cefObject.get_bool(cefObjectPtr, size_t(index)) != 0
     }
 
     /// Returns the value at the specified index as type int.
     /// CEF name: `GetInt`
-    public func intAtIndex(index: Int) -> Int {
-        return Int(cefObject.get_int(cefObjectPtr, Int32(index)))
+    public func int(at index: Int) -> Int {
+        return Int(cefObject.get_int(cefObjectPtr, size_t(index)))
     }
 
     /// Returns the value at the specified index as type double.
     /// CEF name: `GetDouble`
-    public func doubleAtIndex(index: Int) -> Double {
-        return cefObject.get_double(cefObjectPtr, Int32(index))
+    public func double(at index: Int) -> Double {
+        return cefObject.get_double(cefObjectPtr, size_t(index))
     }
     
     /// Returns the value at the specified index as type string.
     /// CEF name: `GetString`
-    public func stringAtIndex(index: Int) -> String? {
-        let cefStrPtr = cefObject.get_string(cefObjectPtr, Int32(index))
+    public func string(at index: Int) -> String? {
+        let cefStrPtr = cefObject.get_string(cefObjectPtr, size_t(index))
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
     }
@@ -134,8 +134,8 @@ public extension CEFListValue {
     /// Returns the value at the specified index as type binary. The returned
     /// value will reference existing data.
     /// CEF name: `GetBinary`
-    public func binaryAtIndex(index: Int) -> CEFBinaryValue? {
-        let cefBinary = cefObject.get_binary(cefObjectPtr, Int32(index))
+    public func binary(at index: Int) -> CEFBinaryValue? {
+        let cefBinary = cefObject.get_binary(cefObjectPtr, size_t(index))
         return CEFBinaryValue.fromCEF(cefBinary)
     }
 
@@ -143,8 +143,8 @@ public extension CEFListValue {
     /// value will reference existing data and modifications to the value will
     /// modify this object.
     /// CEF name: `GetDictionary`
-    public func dictionaryAtIndex(index: Int) -> CEFDictionaryValue? {
-        let cefDict = cefObject.get_dictionary(cefObjectPtr, Int32(index))
+    public func dictionary(at index: Int) -> CEFDictionaryValue? {
+        let cefDict = cefObject.get_dictionary(cefObjectPtr, size_t(index))
         return CEFDictionaryValue.fromCEF(cefDict)
     }
 
@@ -152,8 +152,8 @@ public extension CEFListValue {
     /// value will reference existing data and modifications to the value will
     /// modify this object.
     /// CEF name: `GetList`
-    public func listAtIndex(index: Int) -> CEFListValue? {
-        let cefList = cefObject.get_list(cefObjectPtr, Int32(index))
+    public func list(at index: Int) -> CEFListValue? {
+        let cefList = cefObject.get_list(cefObjectPtr, size_t(index))
         return CEFListValue.fromCEF(cefList)
     }
 
@@ -165,35 +165,35 @@ public extension CEFListValue {
     /// this object.
     /// CEF name: `SetValue`
     public func setValue(value: CEFValue, atIndex index: Int) -> Bool {
-        return cefObject.set_value(cefObjectPtr, Int32(index), value.toCEF()) != 0
+        return cefObject.set_value(cefObjectPtr, size_t(index), value.toCEF()) != 0
     }
 
     /// Sets the value at the specified index as type null. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetNull`
-    public func setNullAtIndex(index: Int) -> Bool {
-        return cefObject.set_null(cefObjectPtr, Int32(index)) != 0
+    public func setNull(at index: Int) -> Bool {
+        return cefObject.set_null(cefObjectPtr, size_t(index)) != 0
     }
 
     /// Sets the value at the specified index as type bool. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetBool`
     public func setBool(value: Bool, atIndex index: Int) -> Bool {
-        return cefObject.set_bool(cefObjectPtr, Int32(index), value ? 1 : 0) != 0
+        return cefObject.set_bool(cefObjectPtr, size_t(index), value ? 1 : 0) != 0
     }
 
     /// Sets the value at the specified index as type int. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetInt`
     public func setInt(value: Int, atIndex index: Int) -> Bool {
-        return cefObject.set_int(cefObjectPtr, Int32(index), Int32(value)) != 0
+        return cefObject.set_int(cefObjectPtr, size_t(index), Int32(value)) != 0
     }
 
     /// Sets the value at the specified index as type double. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetDouble`
     public func setDouble(value: Double, atIndex index: Int) -> Bool {
-        return cefObject.set_double(cefObjectPtr, Int32(index), value) != 0
+        return cefObject.set_double(cefObjectPtr, size_t(index), value) != 0
     }
 
     /// Sets the value at the specified index as type string. Returns true if the
@@ -202,7 +202,7 @@ public extension CEFListValue {
     public func setString(string: String, atIndex index: Int) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(string)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefObject.set_string(cefObjectPtr, Int32(index), cefStrPtr) != 0
+        return cefObject.set_string(cefObjectPtr, size_t(index), cefStrPtr) != 0
     }
 
     /// Sets the value at the specified index as type binary. Returns true if the
@@ -212,7 +212,7 @@ public extension CEFListValue {
     /// reference will be invalidated.
     /// CEF name: `SetBinary`
     public func setBinary(value: CEFBinaryValue, atIndex index: Int) -> Bool {
-        return cefObject.set_binary(cefObjectPtr, Int32(index), value.toCEF()) != 0
+        return cefObject.set_binary(cefObjectPtr, size_t(index), value.toCEF()) != 0
     }
     
     /// Sets the value at the specified index as type dict. Returns true if the
@@ -222,7 +222,7 @@ public extension CEFListValue {
     /// reference will be invalidated.
     /// CEF name: `SetDictionary`
     public func setDictionary(value: CEFDictionaryValue, atIndex index: Int) -> Bool {
-        return cefObject.set_dictionary(cefObjectPtr, Int32(index), value.toCEF()) != 0
+        return cefObject.set_dictionary(cefObjectPtr, size_t(index), value.toCEF()) != 0
     }
 
     /// Sets the value at the specified index as type list. Returns true if the
@@ -232,7 +232,7 @@ public extension CEFListValue {
     /// reference will be invalidated.
     /// CEF name: `SetList`
     public func setList(value: CEFListValue, atIndex index: Int) -> Bool {
-        return cefObject.set_list(cefObjectPtr, Int32(index), value.toCEF()) != 0
+        return cefObject.set_list(cefObjectPtr, size_t(index), value.toCEF()) != 0
     }
 
 }

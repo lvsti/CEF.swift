@@ -462,31 +462,108 @@ public extension CEFBrowserHost {
         set { cefObject.set_windowless_frame_rate(cefObjectPtr, Int32(newValue)) }
     }
     
-    /// Get the NSTextInputContext implementation for enabling IME on Mac when
-    /// window rendering is disabled.
-    /// CEF name: `GetNSTextInputContext`
-    public var textInputContext: CEFTextInputContext? {
-        if let rawHandle = cefObject.get_nstext_input_context(cefObjectPtr) {
-            return Unmanaged<CEFTextInputContext>.fromOpaque(rawHandle).takeUnretainedValue()
+    /// Begins a new composition or updates the existing composition. Blink has a
+    /// special node (a composition node) that allows the input method to change
+    /// text without affecting other DOM nodes. |text| is the optional text that
+    /// will be inserted into the composition node. |underlines| is an optional set
+    /// of ranges that will be underlined in the resulting text.
+    /// |replacement_range| is an optional range of the existing text that will be
+    /// replaced. |selection_range| is an optional range of the resulting text that
+    /// will be selected after insertion or replacement. The |replacement_range|
+    /// value is only used on OS X.
+    ///
+    /// This method may be called multiple times as the composition changes. When
+    /// the client is done making changes the composition should either be canceled
+    /// or completed. To cancel the composition call ImeCancelComposition. To
+    /// complete the composition call either ImeCommitText or
+    /// ImeFinishComposingText. Completion is usually signaled when:
+    ///   A. The client receives a WM_IME_COMPOSITION message with a GCS_RESULTSTR
+    ///      flag (on Windows), or;
+    ///   B. The client receives a "commit" signal of GtkIMContext (on Linux), or;
+    ///   C. insertText of NSTextInput is called (on Mac).
+    ///
+    /// This method is only used when window rendering is disabled.
+    /// CEF name: `ImeSetComposition`
+    public func imeSetComposition(text: String? = nil,
+                                  underlines: [CEFCompositionUnderline] = [],
+                                  replacementRange: CEFRange? = nil,
+                                  selectionRange: CEFRange? = nil) {
+        let cefStrPtr = text != nil ? CEFStringPtrCreateFromSwiftString(text!) : nil
+        defer { CEFStringPtrRelease(cefStrPtr) }
+        var cefUnderlinesPtr = UnsafeMutablePointer<cef_composition_underline_t>.allocate(capacity: underlines.count)
+        defer { cefUnderlinesPtr.deallocate(capacity: underlines.count) }
+        
+        for i in 0..<underlines.count {
+            cefUnderlinesPtr.advanced(by: i).pointee = underlines[i].toCEF()
         }
-        return nil
-    }
 
-    /// Handles a keyDown event prior to passing it through the NSTextInputClient
-    /// machinery.
-    /// CEF name: `HandleKeyEventBeforeTextInputClient`
-    public func handleKeyEventBeforeTextInputClient(event: CEFEventHandle) {
-        let rawEvent = UnsafeMutableRawPointer(Unmanaged<CEFEventHandle>.passUnretained(event).toOpaque())
-        cefObject.handle_key_event_before_text_input_client(cefObjectPtr, rawEvent)
+        var cefReplRangePtr: UnsafeMutablePointer<cef_range_t>? = nil
+        defer { cefReplRangePtr?.deallocate(capacity: 1) }
+        
+        if let replacementRange = replacementRange {
+            cefReplRangePtr = UnsafeMutablePointer<cef_range_t>.allocate(capacity: 1)
+            cefReplRangePtr!.pointee = replacementRange.toCEF()
+        }
+
+        var cefSelRangePtr: UnsafeMutablePointer<cef_range_t>? = nil
+        defer { cefSelRangePtr?.deallocate(capacity: 1) }
+        
+        if let selectionRange = selectionRange {
+            cefSelRangePtr = UnsafeMutablePointer<cef_range_t>.allocate(capacity: 1)
+            cefSelRangePtr!.pointee = selectionRange.toCEF()
+        }
+
+        cefObject.ime_set_composition(cefObjectPtr,
+                                      cefStrPtr,
+                                      underlines.count, cefUnderlinesPtr,
+                                      cefReplRangePtr,
+                                      cefSelRangePtr)
     }
     
-    /// Performs any additional actions after NSTextInputClient handles the event.
-    /// CEF name: `HandleKeyEventAfterTextInputClient`
-    public func handleKeyEventAfterTextInputClient(event: CEFEventHandle) {
-        let rawEvent = UnsafeMutableRawPointer(Unmanaged<CEFEventHandle>.passUnretained(event).toOpaque())
-        cefObject.handle_key_event_after_text_input_client(cefObjectPtr, rawEvent)
+    /// Completes the existing composition by optionally inserting the specified
+    /// |text| into the composition node. |replacement_range| is an optional range
+    /// of the existing text that will be replaced. |relative_cursor_pos| is where
+    /// the cursor will be positioned relative to the current cursor position. See
+    /// comments on ImeSetComposition for usage. The |replacement_range| and
+    /// |relative_cursor_pos| values are only used on OS X.
+    /// This method is only used when window rendering is disabled.
+    /// CEF name: `ImeCommitText`
+    public func imeCommitText(text: String? = nil, replacementRange: CEFRange? = nil, relativeCursorPosition: Int = 0) {
+        let cefStrPtr = text != nil ? CEFStringPtrCreateFromSwiftString(text!) : nil
+        defer { CEFStringPtrRelease(cefStrPtr) }
+        
+        var cefReplRangePtr: UnsafeMutablePointer<cef_range_t>? = nil
+        defer { cefReplRangePtr?.deallocate(capacity: 1) }
+        
+        if let replacementRange = replacementRange {
+            cefReplRangePtr = UnsafeMutablePointer<cef_range_t>.allocate(capacity: 1)
+            cefReplRangePtr!.pointee = replacementRange.toCEF()
+        }
+        
+        cefObject.ime_commit_text(cefObjectPtr,
+                                  cefStrPtr,
+                                  cefReplRangePtr,
+                                  Int32(relativeCursorPosition))
     }
-
+    
+    /// Completes the existing composition by applying the current composition node
+    /// contents. If |keep_selection| is false the current selection, if any, will
+    /// be discarded. See comments on ImeSetComposition for usage.
+    /// This method is only used when window rendering is disabled.
+    /// CEF name: `ImeFinishComposingText`
+    public func imeFinishComposingText(keepSelection: Bool) {
+        cefObject.ime_finish_composing_text(cefObjectPtr, keepSelection ? 1 : 0)
+    }
+    
+    /// Cancels the existing composition and discards the composition node
+    /// contents without applying them. See comments on ImeSetComposition for
+    /// usage.
+    /// This method is only used when window rendering is disabled.
+    /// CEF name: `ImeCancelComposition`
+    public func imeCancelComposition() {
+        cefObject.ime_cancel_composition(cefObjectPtr)
+    }
+    
     /// Call this method when the user drags the mouse into the web view (before
     /// calling DragTargetDragOver/DragTargetLeave/DragTargetDrop).
     /// |drag_data| should not contain file contents as this type of data is not
