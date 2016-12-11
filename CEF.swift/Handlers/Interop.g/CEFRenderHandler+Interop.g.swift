@@ -30,5 +30,6 @@ extension cef_render_handler_t: CEFCallbackMarshalling {
         start_dragging = CEFRenderHandler_start_dragging
         update_drag_cursor = CEFRenderHandler_update_drag_cursor
         on_scroll_offset_changed = CEFRenderHandler_on_scroll_offset_changed
+        on_ime_composition_range_changed = CEFRenderHandler_on_ime_composition_range_changed
     }
 }

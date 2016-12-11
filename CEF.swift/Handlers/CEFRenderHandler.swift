@@ -102,6 +102,11 @@ public protocol CEFRenderHandler {
     /// CEF name: `OnScrollOffsetChanged`
     func onScrollOffsetChanged(browser: CEFBrowser, offset: NSPoint)
 
+    /// Called when the IME composition range has changed. |selected_range| is the
+    /// range of characters that have been selected. |character_bounds| is the
+    /// bounds of each character in view coordinates.
+    /// CEF name: `OnImeCompositionRangeChanged`
+    func onIMECompositionRangeChanged(browser: CEFBrowser, selectedRange: CEFRange, characterBounds: [NSRect])
 }
 
 public extension CEFRenderHandler {
@@ -153,6 +158,8 @@ public extension CEFRenderHandler {
 
     func onScrollOffsetChanged(browser: CEFBrowser, offset: NSPoint) {
     }
-    
+
+    func onIMECompositionRangeChanged(browser: CEFBrowser, selectedRange: CEFRange, characterBounds: [NSRect]) {
+    }
 }
 

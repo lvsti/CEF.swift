@@ -170,3 +170,21 @@ func CEFRenderHandler_on_scroll_offset_changed(ptr: UnsafeMutablePointer<cef_ren
     obj.onScrollOffsetChanged(browser: CEFBrowser.fromCEF(browser)!, offset: NSPoint(x: x, y: y))
 }
 
+func CEFRenderHandler_on_ime_composition_range_changed(ptr: UnsafeMutablePointer<cef_render_handler_t>?,
+                                                       browser: UnsafeMutablePointer<cef_browser_t>?,
+                                                       selectedRange: UnsafePointer<cef_range_t>?,
+                                                       rectCount: size_t,
+                                                       charRects: UnsafePointer<cef_rect_t>?) {
+    guard let obj = CEFRenderHandlerMarshaller.get(ptr) else {
+        return
+    }
+
+    var rects = [NSRect]()
+    for i in 0..<rectCount {
+        rects.append(NSRect.fromCEF(charRects!.advanced(by: i).pointee))
+    }
+
+    obj.onIMECompositionRangeChanged(browser: CEFBrowser.fromCEF(browser)!,
+                                     selectedRange: CEFRange.fromCEF(selectedRange!.pointee),
+                                     characterBounds: rects)
+}
