@@ -30,4 +30,4 @@ install:
   - pip install lxml
   - ./scripts/setup.sh
 
-script: set -o pipefail && xcodebuild clean build -project CEF.swift.xcodeproj -scheme CEF.swift | xcpretty -c -f `xcpretty-travis-formatter`
+script: xcodebuild clean build -project CEF.swift.xcodeproj -scheme CEF.swift
