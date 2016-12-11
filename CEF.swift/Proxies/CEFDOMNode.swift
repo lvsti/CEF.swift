@@ -81,7 +81,7 @@ public extension CEFDOMNode {
 
     /// Set the value of this node. Returns true on success.
     /// CEF name: `SetValue`
-    public func setStringValue(value: String) -> Bool {
+    public func setStringValue(_ value: String) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(value)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefObject.set_value(cefObjectPtr, cefStrPtr) != 0
@@ -161,7 +161,7 @@ public extension CEFDOMNode {
 
     /// Returns true if this element has an attribute named |attrName|.
     /// CEF name: `HasElementAttribute`
-    public func hasElementAttributeNamed(name: String) -> Bool {
+    public func hasElementAttribute(named: String) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefObject.has_element_attribute(cefObjectPtr, cefStrPtr) != 0
@@ -169,14 +169,14 @@ public extension CEFDOMNode {
 
     /// Returns the element attribute named |attrName|.
     /// CEF name: `GetElementAttribute`
-    public func elementAttributeNamed(name: String) -> String {
+    public func elementAttribute(named: String) -> String? {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
         let cefValuePtr = cefObject.get_element_attribute(cefObjectPtr, cefNamePtr)
         defer {
             CEFStringPtrRelease(cefNamePtr)
             CEFStringPtrRelease(cefValuePtr)
         }
-        return CEFStringToSwiftString(cefValuePtr!.pointee)
+        return cefValuePtr != nil ? CEFStringToSwiftString(cefValuePtr!.pointee) : nil
     }
 
     /// Returns a map of all element attributes.
@@ -192,7 +192,7 @@ public extension CEFDOMNode {
     /// Set the value for the element attribute named |attrName|. Returns true on
     /// success.
     /// CEF name: `SetElementAttribute`
-    public func setElementAttribute(value: String, forName name: String) -> Bool {
+    public func setElementAttribute(_ value: String, for name: String) -> Bool {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
         let cefValuePtr = CEFStringPtrCreateFromSwiftString(value)
         defer {

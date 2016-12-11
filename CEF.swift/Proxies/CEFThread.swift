@@ -71,7 +71,7 @@ public extension CEFThread {
     /// that called CreateThread(). Do not call this method if CreateThread() was
     /// called with a |stoppable| value of false.
     /// CEF name: `Stop`
-    public func Stop() {
+    public func stop() {
         cefObject.stop(cefObjectPtr)
     }
 

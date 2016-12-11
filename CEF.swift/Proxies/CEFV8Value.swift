@@ -25,25 +25,25 @@ public extension CEFV8Value {
     
     /// Create a new CefV8Value object of type bool.
     /// CEF name: `CreateBool`
-    public static func createBool(value: Bool) -> CEFV8Value? {
+    public static func createBool(_ value: Bool) -> CEFV8Value? {
         return CEFV8Value.fromCEF(cef_v8value_create_bool(value ? 1 : 0))
     }
 
     /// Create a new CefV8Value object of type int.
     /// CEF name: `CreateInt`
-    public static func createInt(value: Int) -> CEFV8Value? {
+    public static func createInt(_ value: Int) -> CEFV8Value? {
         return CEFV8Value.fromCEF(cef_v8value_create_int(Int32(value)))
     }
 
     /// Create a new CefV8Value object of type unsigned int.
     /// CEF name: `CreateUInt`
-    public static func createUInt(value: UInt) -> CEFV8Value? {
+    public static func createUInt(_ value: UInt) -> CEFV8Value? {
         return CEFV8Value.fromCEF(cef_v8value_create_uint(UInt32(value)))
     }
     
     /// Create a new CefV8Value object of type double.
     /// CEF name: `CreateDouble`
-    public static func createDouble(value: Double) -> CEFV8Value? {
+    public static func createDouble(_ value: Double) -> CEFV8Value? {
         return CEFV8Value.fromCEF(cef_v8value_create_double(value))
     }
     
@@ -52,7 +52,7 @@ public extension CEFV8Value {
     /// CefV8Accessor callback, or in combination with calling Enter() and Exit()
     /// on a stored CefV8Context reference.
     /// CEF name: `CreateDate`
-    public static func createDate(value: NSDate) -> CEFV8Value? {
+    public static func createDate(_ value: NSDate) -> CEFV8Value? {
         let cefTimePtr = CEFTimePtrCreateFromNSDate(value)
         defer { CEFTimePtrRelease(cefTimePtr) }
         return CEFV8Value.fromCEF(cef_v8value_create_date(cefTimePtr))
@@ -60,7 +60,7 @@ public extension CEFV8Value {
     
     /// Create a new CefV8Value object of type string.
     /// CEF name: `CreateString`
-    public static func createString(value: String?) -> CEFV8Value? {
+    public static func createString(_ value: String?) -> CEFV8Value? {
         let cefStrPtr = value != nil ? CEFStringPtrCreateFromSwiftString(value!) : nil
         defer { CEFStringPtrRelease(cefStrPtr) }
         return CEFV8Value.fromCEF(cef_v8value_create_string(cefStrPtr))
@@ -270,13 +270,13 @@ public extension CEFV8Value {
     /// caught and not re-thrown. Returns true on success. This attribute exists
     /// only in the scope of the current CEF value object.
     /// CEF name: `SetRethrowExceptions`
-    public func setRethrowsExcepions(value: Bool) -> Bool {
+    public func setRethrowsExcepions(_ value: Bool) -> Bool {
         return cefObject.set_rethrow_exceptions(cefObjectPtr, value ? 1 : 0) != 0
     }
 
     /// Returns true if the object has a value with the specified identifier.
     /// CEF name: `HasValue`
-    public func hasValueForKey(key: String) -> Bool {
+    public func hasValue(for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.has_value_bykey(cefObjectPtr, cefKeyPtr) != 0
@@ -284,7 +284,7 @@ public extension CEFV8Value {
 
     /// Returns true if the object has a value with the specified identifier.
     /// CEF name: `HasValue`
-    public func hasValueAtIndex(index: Int) -> Bool {
+    public func hasValue(at index: Int) -> Bool {
         return cefObject.has_value_byindex(cefObjectPtr, Int32(index)) != 0
     }
     
@@ -293,7 +293,7 @@ public extension CEFV8Value {
     /// is thrown. For read-only and don't-delete values this method will return
     /// true even though deletion failed.
     /// CEF name: `DeleteValue`
-    public func removeValueForKey(key: String) -> Bool {
+    public func removeValue(for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.delete_value_bykey(cefObjectPtr, cefKeyPtr) != 0
@@ -304,14 +304,14 @@ public extension CEFV8Value {
     /// or an exception is thrown. For read-only and don't-delete values this
     /// method will return true even though deletion failed.
     /// CEF name: `DeleteValue`
-    public func removeValueAtIndex(index: Int) -> Bool {
+    public func removeValue(at index: Int) -> Bool {
         return cefObject.delete_value_byindex(cefObjectPtr, Int32(index)) != 0
     }
 
     /// Returns the value with the specified identifier on success. Returns NULL
     /// if this method is called incorrectly or an exception is thrown.
     /// CEF name: `GetValue`
-    public func valueForKey(key: String) -> CEFV8Value? {
+    public func value(for key: String) -> CEFV8Value? {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         let cefValue = cefObject.get_value_bykey(cefObjectPtr, cefKeyPtr)
@@ -321,7 +321,7 @@ public extension CEFV8Value {
     /// Returns the value with the specified identifier on success. Returns NULL
     /// if this method is called incorrectly or an exception is thrown.
     /// CEF name: `GetValue`
-    public func valueAtIndex(index: Int) -> CEFV8Value? {
+    public func value(at index: Int) -> CEFV8Value? {
         let cefValue = cefObject.get_value_byindex(cefObjectPtr, Int32(index))
         return CEFV8Value.fromCEF(cefValue)
     }
@@ -331,8 +331,8 @@ public extension CEFV8Value {
     /// is thrown. For read-only values this method will return true even though
     /// assignment failed.
     /// CEF name: `SetValue`
-    public func setValue(value: CEFV8Value, forKey key: String?, attribute: CEFV8PropertyAttribute) -> Bool {
-        let cefKeyPtr = key != nil ? CEFStringPtrCreateFromSwiftString(key!) : nil
+    public func setValue(_ value: CEFV8Value, for key: String, attribute: CEFV8PropertyAttribute) -> Bool {
+        let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.set_value_bykey(cefObjectPtr, cefKeyPtr, value.toCEF(), attribute.toCEF()) != 0
     }
@@ -342,7 +342,7 @@ public extension CEFV8Value {
     /// is thrown. For read-only values this method will return true even though
     /// assignment failed.
     /// CEF name: `SetValue`
-    public func setValue(value: CEFV8Value, atIndex index: Int) -> Bool {
+    public func setValue(_ value: CEFV8Value, at index: Int) -> Bool {
         return cefObject.set_value_byindex(cefObjectPtr, Int32(index), value.toCEF()) != 0
     }
     
@@ -352,8 +352,8 @@ public extension CEFV8Value {
     /// incorrectly or an exception is thrown. For read-only values this method
     /// will return true even though assignment failed.
     /// CEF name: `SetValue`
-    public func setValue(forKey key: String?, access: CEFV8AccessControl, attribute: CEFV8PropertyAttribute) -> Bool {
-        let cefKeyPtr = key != nil ? CEFStringPtrCreateFromSwiftString(key!) : nil
+    public func setValue(for key: String, access: CEFV8AccessControl, attribute: CEFV8PropertyAttribute) -> Bool {
+        let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.set_value_byaccessor(cefObjectPtr, cefKeyPtr, access.toCEF(), attribute.toCEF()) != 0
     }
@@ -457,7 +457,7 @@ public extension CEFV8Value {
     /// value on success. Returns NULL if this method is called incorrectly or an
     /// exception is thrown.
     /// CEF name: `ExecuteFunctionWithContext`
-    public func executeFunctionWithContext(context: CEFV8Context, object: CEFV8Value?, arguments: [CEFV8Value]) -> CEFV8Value? {
+    public func executeFunctionWithContext(_ context: CEFV8Context, object: CEFV8Value?, arguments: [CEFV8Value]) -> CEFV8Value? {
         let cefV8Obj = object?.toCEF()
         let cefArgs = UnsafeMutablePointer<UnsafeMutablePointer<cef_v8value_t>?>.allocate(capacity: arguments.count)
         defer { cefArgs.deallocate(capacity: arguments.count) }

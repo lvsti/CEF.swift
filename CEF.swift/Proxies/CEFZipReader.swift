@@ -34,8 +34,8 @@ public extension CEFZipReader {
     /// is true then the search will be case sensitive. Returns true if the cursor
     /// position was set successfully.
     /// CEF name: `MoveToFile`
-    public func moveToFile(name: String, caseSensitive: Bool) -> Bool {
-        let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
+    public func moveToFile(named: String, caseSensitive: Bool) -> Bool {
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(named)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefObject.move_to_file(cefObjectPtr, cefStrPtr, caseSensitive ? 1 : 0) != 0
     }

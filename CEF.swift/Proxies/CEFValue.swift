@@ -141,28 +141,28 @@ public extension CEFValue {
     /// Sets the underlying value as type bool. Returns true if the value was set
     /// successfully.
     /// CEF name: `SetBool`
-    public func setBool(value: Bool) -> Bool {
+    public func setBool(_ value: Bool) -> Bool {
         return cefObject.set_bool(cefObjectPtr, value ? 1 : 0) != 0
     }
 
     /// Sets the underlying value as type int. Returns true if the value was set
     /// successfully.
     /// CEF name: `SetInt`
-    public func setInt(value: Int) -> Bool {
+    public func setInt(_ value: Int) -> Bool {
         return cefObject.set_int(cefObjectPtr, Int32(value)) != 0
     }
 
     /// Sets the underlying value as type double. Returns true if the value was set
     /// successfully.
     /// CEF name: `SetDouble`
-    public func setDouble(value: Double) -> Bool {
+    public func setDouble(_ value: Double) -> Bool {
         return cefObject.set_double(cefObjectPtr, value) != 0
     }
 
     /// Sets the underlying value as type string. Returns true if the value was set
     /// successfully.
     /// CEF name: `SetString`
-    public func setString(string: String) -> Bool {
+    public func setString(_ string: String) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(string)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefObject.set_string(cefObjectPtr, cefStrPtr) != 0
@@ -172,7 +172,7 @@ public extension CEFValue {
     /// successfully. This object keeps a reference to |value| and ownership of the
     /// underlying data remains unchanged.
     /// CEF name: `SetBinary`
-    public func setBinary(value: CEFBinaryValue) -> Bool {
+    public func setBinary(_ value: CEFBinaryValue) -> Bool {
         return cefObject.set_binary(cefObjectPtr, value.toCEF()) != 0
     }
     
@@ -180,7 +180,7 @@ public extension CEFValue {
     /// successfully. This object keeps a reference to |value| and ownership of the
     /// underlying data remains unchanged.
     /// CEF name: `SetDictionary`
-    public func setDictionary(value: CEFDictionaryValue) -> Bool {
+    public func setDictionary(_ value: CEFDictionaryValue) -> Bool {
         return cefObject.set_dictionary(cefObjectPtr, value.toCEF()) != 0
     }
 
@@ -188,7 +188,7 @@ public extension CEFValue {
     /// successfully. This object keeps a reference to |value| and ownership of the
     /// underlying data remains unchanged.
     /// CEF name: `SetList`
-    public func setList(value: CEFListValue) -> Bool {
+    public func setList(_ value: CEFListValue) -> Bool {
         return cefObject.set_list(cefObjectPtr, value.toCEF()) != 0
     }
 

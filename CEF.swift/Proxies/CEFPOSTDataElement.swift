@@ -67,7 +67,7 @@ public extension CEFPOSTDataElement {
     /// Read up to |size| bytes into |bytes| and return the number of bytes
     /// actually read.
     /// CEF name: `GetBytes`
-    public func dataUpToLength(maxLength: size_t) -> NSData {
+    public func data(upToLength maxLength: size_t) -> NSData {
         let data = NSMutableData(length: maxLength)!
         let actualSize = cefObject.get_bytes(cefObjectPtr, maxLength, data.mutableBytes)
         data.length = actualSize

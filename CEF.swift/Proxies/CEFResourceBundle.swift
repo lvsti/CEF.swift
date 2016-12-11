@@ -21,7 +21,7 @@ extension CEFResourceBundle {
     /// string if the value is not found. Include cef_pack_strings.h for a listing
     /// of valid string ID values.
     /// CEF name: `GetLocalizedString`
-    public func localizedStringForID(stringID: Int) -> String? {
+    public func localizedString(for stringID: Int) -> String? {
         let cefStrPtr = cefObject.get_localized_string(cefObjectPtr, Int32(stringID))
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
@@ -34,7 +34,7 @@ extension CEFResourceBundle {
     /// memory and should not be freed. Include cef_pack_resources.h for a listing
     /// of valid resource ID values.
     /// CEF name: `GetDataResource`
-    public func dataResourceForID(resourceID: Int) -> (dataBufferPtr: UnsafeMutableRawPointer?, dataSize: size_t)? {
+    public func dataResource(for resourceID: Int) -> (dataBufferPtr: UnsafeMutableRawPointer?, dataSize: size_t)? {
         var dataPtr: UnsafeMutableRawPointer? = nil
         var size: size_t = 0
         let result = cefObject.get_data_resource(cefObjectPtr, Int32(resourceID), &dataPtr, &size)
@@ -50,7 +50,7 @@ extension CEFResourceBundle {
     /// be freed. Include cef_pack_resources.h for a listing of valid resource ID
     /// values.
     /// CEF name: `GetDataResourceForScale`
-    public func dataResourceForID(resourceID: Int, scale: CEFScaleFactor) -> (dataBufferPtr: UnsafeMutableRawPointer?, dataSize: size_t)? {
+    public func dataResource(for resourceID: Int, scale: CEFScaleFactor) -> (dataBufferPtr: UnsafeMutableRawPointer?, dataSize: size_t)? {
         var dataPtr: UnsafeMutableRawPointer? = nil
         var size: size_t = 0
         let result = cefObject.get_data_resource_for_scale(cefObjectPtr,

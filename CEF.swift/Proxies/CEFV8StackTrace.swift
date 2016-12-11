@@ -34,7 +34,7 @@ public extension CEFV8StackTrace {
 
     /// Returns the stack frame at the specified 0-based index.
     /// CEF name: `GetFrame`
-    public func frameAtIndex(index: Int) -> CEFV8StackFrame? {
+    public func frame(at index: Int) -> CEFV8StackFrame? {
         let cefFrame = cefObject.get_frame(cefObjectPtr, Int32(index))
         return CEFV8StackFrame.fromCEF(cefFrame)
     }

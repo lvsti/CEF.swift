@@ -49,7 +49,7 @@ public extension CEFSchemeRegistrar {
     /// per unique |scheme_name| value. If |scheme_name| is already registered or
     /// if an error occurs this method will return false.
     /// CEF name: `AddCustomScheme`
-    public func addCustomScheme(name: String, isStandard: Bool, isLocal: Bool, isDisplayIsolated: Bool) -> Bool {
+    public func addCustomScheme(_ name: String, isStandard: Bool, isLocal: Bool, isDisplayIsolated: Bool) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefObject.add_custom_scheme(cefObjectPtr, cefStrPtr, isStandard ? 1 : 0, isLocal ? 1 : 0, isDisplayIsolated ? 1 : 0) != 0

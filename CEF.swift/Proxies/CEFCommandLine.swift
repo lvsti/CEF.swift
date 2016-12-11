@@ -135,7 +135,7 @@ public extension CEFCommandLine {
     /// Returns the value associated with the given switch. If the switch has no
     /// value or isn't present this method returns the empty string.
     /// CEF name: `GetSwitchValue`
-    public func valueForSwitch(name: String) -> String {
+    public func switchValue(for name: String) -> String {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
         let cefValuePtr = cefObject.get_switch_value(cefObjectPtr, cefStrPtr)
         defer {
@@ -158,7 +158,7 @@ public extension CEFCommandLine {
     /// Add a switch to the end of the command line. If the switch has no value
     /// pass an empty value string.
     /// CEF name: `AppendSwitch`
-    public func appendSwitch(name: String) {
+    public func appendSwitch(_ name: String) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
         defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.append_switch(cefObjectPtr, cefStrPtr)
@@ -193,7 +193,7 @@ public extension CEFCommandLine {
     
     /// Add an argument to the end of the command line.
     /// CEF name: `AppendArgument`
-    public func appendArgument(arg: String) {
+    public func appendArgument(_ arg: String) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(arg)
         defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.append_argument(cefObjectPtr, cefStrPtr)
@@ -202,7 +202,7 @@ public extension CEFCommandLine {
     /// Insert a command before the current command.
     /// Common for debuggers, like "valgrind" or "gdb --args".
     /// CEF name: `PrependWrapper`
-    public func prependWrapper(wrapper: String) {
+    public func prependWrapper(_ wrapper: String) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(wrapper)
         defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.prepend_wrapper(cefObjectPtr, cefStrPtr)

@@ -46,7 +46,7 @@ public extension CEFCookieManager {
     /// NULL it will be executed asnychronously on the IO thread after the change
     /// has been applied. Must be called before any cookies are accessed.
     /// CEF name: `SetSupportedSchemes`
-    public func setSupportedSchemes(schemes: [String], callback: CEFCompletionCallback? = nil) {
+    public func setSupportedSchemes(_ schemes: [String], callback: CEFCompletionCallback? = nil) {
         let cefSchemes = CEFStringListCreateFromSwiftArray(schemes)
         defer { CEFStringListRelease(cefSchemes) }
         let cefCallbackPtr = callback?.toCEF()
@@ -68,7 +68,7 @@ public extension CEFCookieManager {
     /// cookies are ordered by longest path, then by earliest creation date.
     /// Returns false if cookies cannot be accessed.
     /// CEF name: `VisitUrlCookies`
-    public func enumerateCookiesForURL(url: NSURL, includeHTTPOnly: Bool, usingVisitor visitor: CEFCookieVisitor) -> Bool {
+    public func enumerateCookies(for url: NSURL, includeHTTPOnly: Bool, usingVisitor visitor: CEFCookieVisitor) -> Bool {
         let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString!)
         defer { CEFStringPtrRelease(cefURLPtr) }
         return cefObject.visit_url_cookies(cefObjectPtr, cefURLPtr, includeHTTPOnly ? 1 : 0, visitor.toCEF()) != 0
@@ -126,7 +126,7 @@ public extension CEFCookieManager {
     /// asnychronously on the IO thread after the manager's storage has been
     /// initialized. Returns false if cookies cannot be accessed.
     /// CEF name: `SetStoragePath`
-    public func setStoragePath(path: String? = nil, persistSessionCookies: Bool, callback: CEFCompletionCallback? = nil) -> Bool {
+    public func setStoragePath(_ path: String? = nil, persistSessionCookies: Bool, callback: CEFCompletionCallback? = nil) -> Bool {
         let cefPathPtr = path != nil ? CEFStringPtrCreateFromSwiftString(path!) : nil
         defer { CEFStringPtrRelease(cefPathPtr) }
         
@@ -180,8 +180,8 @@ public extension CEFCookieManager {
     /// NULL it will be executed asnychronously on the IO thread after the change
     /// has been applied. Must be called before any cookies are accessed.
     /// CEF name: `SetSupportedSchemes`
-    public func setSupportedSchemes(schemes: [String], block: @escaping CEFCompletionCallbackOnCompleteBlock) {
-        return setSupportedSchemes(schemes: schemes, callback: CEFCompletionCallbackBridge(block: block))
+    public func setSupportedSchemes(_ schemes: [String], block: @escaping CEFCompletionCallbackOnCompleteBlock) {
+        return setSupportedSchemes(schemes, callback: CEFCompletionCallbackBridge(block: block))
     }
 
     /// Visit all cookies on the IO thread. The returned cookies are ordered by
@@ -198,8 +198,8 @@ public extension CEFCookieManager {
     /// cookies are ordered by longest path, then by earliest creation date.
     /// Returns false if cookies cannot be accessed.
     /// CEF name: `VisitUrlCookies`
-    public func enumerateCookiesForURL(url: NSURL, includeHTTPOnly: Bool, block: @escaping CEFCookieVisitorVisitBlock) -> Bool {
-        return enumerateCookiesForURL(url: url, includeHTTPOnly: includeHTTPOnly, usingVisitor: CEFCookieVisitorBridge(block: block))
+    public func enumerateCookies(for url: NSURL, includeHTTPOnly: Bool, block: @escaping CEFCookieVisitorVisitBlock) -> Bool {
+        return enumerateCookies(for: url, includeHTTPOnly: includeHTTPOnly, usingVisitor: CEFCookieVisitorBridge(block: block))
     }
 
     /// Sets a cookie given a valid URL and explicit user-provided cookie
@@ -239,8 +239,8 @@ public extension CEFCookieManager {
     /// asnychronously on the IO thread after the manager's storage has been
     /// initialized. Returns false if cookies cannot be accessed.
     /// CEF name: `SetStoragePath`
-    public func setStoragePath(path: String? = nil, persistSessionCookies: Bool, block: @escaping CEFCompletionCallbackOnCompleteBlock) -> Bool {
-        return setStoragePath(path: path,
+    public func setStoragePath(_ path: String? = nil, persistSessionCookies: Bool, block: @escaping CEFCompletionCallbackOnCompleteBlock) -> Bool {
+        return setStoragePath(path,
                               persistSessionCookies: persistSessionCookies,
                               callback: CEFCompletionCallbackBridge(block: block))
     }

@@ -40,7 +40,7 @@ public extension CEFMenuModel {
     
     /// Add an item to the menu. Returns true on success.
     /// CEF name: `AddItem`
-    public func addItem(label: String, withCommandID commandID: CommandID) -> Bool {
+    public func addItem(_ label: String, commandID: CommandID) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(label)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefObject.add_item(cefObjectPtr, commandID.toCEF(), cefStrPtr) != 0
@@ -48,7 +48,7 @@ public extension CEFMenuModel {
     
     /// Add a check item to the menu. Returns true on success.
     /// CEF name: `AddCheckItem`
-    public func addCheckItem(label: String, withCommandID commandID: CommandID) -> Bool {
+    public func addCheckItem(_ label: String, commandID: CommandID) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(label)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefObject.add_check_item(cefObjectPtr, commandID.toCEF(), cefStrPtr) != 0
@@ -57,7 +57,7 @@ public extension CEFMenuModel {
     /// Add a radio item to the menu. Only a single item with the specified
     /// |group_id| can be checked at a time. Returns true on success.
     /// CEF name: `AddRadioItem`
-    public func addRadioItem(label: String, withCommandID commandID: CommandID, groupID: GroupID) -> Bool {
+    public func addRadioItem(_ label: String, commandID: CommandID, groupID: GroupID) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(label)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefObject.add_radio_item(cefObjectPtr, commandID.toCEF(), cefStrPtr, groupID) != 0
@@ -65,7 +65,7 @@ public extension CEFMenuModel {
     
     /// Add a sub-menu to the menu. The new sub-menu is returned.
     /// CEF name: `AddSubMenu`
-    public func addSubmenu(label: String, withCommandID commandID: CommandID) -> CEFMenuModel? {
+    public func addSubmenu(_ label: String, commandID: CommandID) -> CEFMenuModel? {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(label)
         defer { CEFStringPtrRelease(cefStrPtr) }
         let cefMenu = cefObject.add_sub_menu(cefObjectPtr, commandID.toCEF(), cefStrPtr)
@@ -75,84 +75,84 @@ public extension CEFMenuModel {
     /// Insert a separator in the menu at the specified |index|. Returns true on
     /// success.
     /// CEF name: `InsertSeparatorAt`
-    public func insertSeparatorAtIndex(index: Int32) -> Bool {
-        return cefObject.insert_separator_at(cefObjectPtr, index) != 0
+    public func insertSeparator(at index: Int) -> Bool {
+        return cefObject.insert_separator_at(cefObjectPtr, Int32(index)) != 0
     }
 
     /// Insert an item in the menu at the specified |index|. Returns true on
     /// success.
     /// CEF name: `InsertItemAt`
-    public func insertItem(label: String, atIndex index: Int32, withCommandID commandID: CommandID) -> Bool {
+    public func insertItem(_ label: String, at index: Int, commandID: CommandID) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(label)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefObject.insert_item_at(cefObjectPtr, index, commandID.toCEF(), cefStrPtr) != 0
+        return cefObject.insert_item_at(cefObjectPtr, Int32(index), commandID.toCEF(), cefStrPtr) != 0
     }
 
     /// Insert a check item in the menu at the specified |index|. Returns true on
     /// success.
     /// CEF name: `InsertCheckItemAt`
-    public func insertCheckItem(label: String, atIndex index: Int32, withCommandID commandID: CommandID) -> Bool {
+    public func insertCheckItem(_ label: String, at index: Int, commandID: CommandID) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(label)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefObject.insert_check_item_at(cefObjectPtr, index, commandID.toCEF(), cefStrPtr) != 0
+        return cefObject.insert_check_item_at(cefObjectPtr, Int32(index), commandID.toCEF(), cefStrPtr) != 0
     }
     
     /// Insert a radio item in the menu at the specified |index|. Only a single
     /// item with the specified |group_id| can be checked at a time. Returns true
     /// on success.
     /// CEF name: `InsertRadioItemAt`
-    public func insertRadioItem(label: String, atIndex index: Int32, withCommandID commandID: CommandID, groupID: GroupID) -> Bool {
+    public func insertRadioItem(_ label: String, at index: Int, commandID: CommandID, groupID: GroupID) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(label)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefObject.insert_radio_item_at(cefObjectPtr, index, commandID.toCEF(), cefStrPtr, groupID) != 0
+        return cefObject.insert_radio_item_at(cefObjectPtr, Int32(index), commandID.toCEF(), cefStrPtr, groupID) != 0
     }
     
     /// Insert a sub-menu in the menu at the specified |index|. The new sub-menu
     /// is returned.
     /// CEF name: `InsertSubMenuAt`
-    public func insertSubmenu(label: String, atIndex index: Int32, withCommandID commandID: CommandID) -> CEFMenuModel? {
+    public func insertSubmenu(_ label: String, at index: Int, commandID: CommandID) -> CEFMenuModel? {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(label)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        let cefMenu = cefObject.insert_sub_menu_at(cefObjectPtr, index, commandID.toCEF(), cefStrPtr)
+        let cefMenu = cefObject.insert_sub_menu_at(cefObjectPtr, Int32(index), commandID.toCEF(), cefStrPtr)
         return CEFMenuModel.fromCEF(cefMenu)
     }
     
     /// Removes the item with the specified |command_id|. Returns true on success.
     /// CEF name: `Remove`
-    public func removeItemWithCommandID(commandID: CommandID) -> Bool {
+    public func removeItem(commandID: CommandID) -> Bool {
         return cefObject.remove(cefObjectPtr, commandID.toCEF()) != 0
     }
 
     /// Removes the item at the specified |index|. Returns true on success.
     /// CEF name: `RemoveAt`
-    public func removeItemAtIndex(index: Int32) -> Bool {
-        return cefObject.remove_at(cefObjectPtr, index) != 0
+    public func removeItem(at index: Int) -> Bool {
+        return cefObject.remove_at(cefObjectPtr, Int32(index)) != 0
     }
     
     /// Returns the index associated with the specified |command_id| or -1 if not
     /// found due to the command id not existing in the menu.
     /// CEF name: `GetIndexOf`
-    public func indexForCommandID(commandID: CommandID) -> Int32 {
-        return cefObject.get_index_of(cefObjectPtr, commandID.toCEF())
+    public func index(for commandID: CommandID) -> Int {
+        return Int(cefObject.get_index_of(cefObjectPtr, commandID.toCEF()))
     }
     
     /// Returns the command id at the specified |index| or -1 if not found due to
     /// invalid range or the index being a separator.
     /// CEF name: `GetCommandIdAt`
-    public func commandIDAtIndex(index: Int32) -> CommandID {
-        let cefID = cefObject.get_command_id_at(cefObjectPtr, index)
+    public func commandID(at index: Int) -> CommandID {
+        let cefID = cefObject.get_command_id_at(cefObjectPtr, Int32(index))
         return CommandID.fromCEF(cefID)
     }
     
     /// Sets the command id at the specified |index|. Returns true on success.
     /// CEF name: `SetCommandIdAt`
-    public func setCommandID(commandID: CommandID, atIndex index: Int32) -> Bool {
-        return cefObject.set_command_id_at(cefObjectPtr, index, commandID.toCEF()) != 0
+    public func setCommandID(_ commandID: CommandID, at index: Int) -> Bool {
+        return cefObject.set_command_id_at(cefObjectPtr, Int32(index), commandID.toCEF()) != 0
     }
     
     /// Returns the label for the specified |command_id| or empty if not found.
     /// CEF name: `GetLabel`
-    public func labelForCommandID(commandID: CommandID) -> String? {
+    public func label(for commandID: CommandID) -> String? {
         let cefStrPtr = cefObject.get_label(cefObjectPtr, commandID.toCEF())
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
@@ -161,15 +161,15 @@ public extension CEFMenuModel {
     /// Returns the label at the specified |index| or empty if not found due to
     /// invalid range or the index being a separator.
     /// CEF name: `GetLabelAt`
-    public func labelAtIndex(index: Int32) -> String? {
-        let cefStrPtr = cefObject.get_label_at(cefObjectPtr, index)
+    public func label(at index: Int) -> String? {
+        let cefStrPtr = cefObject.get_label_at(cefObjectPtr, Int32(index))
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
     }
     
     /// Sets the label for the specified |command_id|. Returns true on success.
     /// CEF name: `SetLabel`
-    public func setLabel(label: String, forCommandID commandID: CommandID) -> Bool {
+    public func setLabel(_ label: String, for commandID: CommandID) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(label)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefObject.set_label(cefObjectPtr, commandID.toCEF(), cefStrPtr) != 0
@@ -177,160 +177,160 @@ public extension CEFMenuModel {
     
     /// Set the label at the specified |index|. Returns true on success.
     /// CEF name: `SetLabelAt`
-    public func setLabel(label: String, atIndex index: Int32) -> Bool {
+    public func setLabel(_ label: String, at index: Int) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(label)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefObject.set_label_at(cefObjectPtr, index, cefStrPtr) != 0
+        return cefObject.set_label_at(cefObjectPtr, Int32(index), cefStrPtr) != 0
     }
     
     /// Returns the item type for the specified |command_id|.
     /// CEF name: `GetType`
-    public func typeForCommandID(commandID: CommandID) -> CEFMenuItemType {
+    public func type(for commandID: CommandID) -> CEFMenuItemType {
         let cefType = cefObject.get_type(cefObjectPtr, commandID.toCEF())
         return CEFMenuItemType.fromCEF(cefType)
     }
 
     /// Returns the item type at the specified |index|.
     /// CEF name: `GetTypeAt`
-    public func typeAtIndex(index: Int32) -> CEFMenuItemType {
-        let cefType = cefObject.get_type_at(cefObjectPtr, index)
+    public func type(at index: Int) -> CEFMenuItemType {
+        let cefType = cefObject.get_type_at(cefObjectPtr, Int32(index))
         return CEFMenuItemType.fromCEF(cefType)
     }
     
     /// Returns the group id for the specified |command_id| or -1 if invalid.
     /// CEF name: `GetGroupId`
-    public func groupIDForCommandID(commandID: CommandID) -> GroupID {
+    public func groupID(for commandID: CommandID) -> GroupID {
         return cefObject.get_group_id(cefObjectPtr, commandID.toCEF())
     }
     
     /// Returns the group id at the specified |index| or -1 if invalid.
     /// CEF name: `GetGroupIdAt`
-    public func groupIDAtIndex(index: Int32) -> GroupID {
-        return cefObject.get_group_id_at(cefObjectPtr, index)
+    public func groupID(at index: Int) -> GroupID {
+        return cefObject.get_group_id_at(cefObjectPtr, Int32(index))
     }
     
     /// Sets the group id for the specified |command_id|. Returns true on success.
     /// CEF name: `SetGroupId`
-    public func setGroupID(groupID: GroupID, forCommandID commandID: CommandID) -> Bool {
+    public func setGroupID(_ groupID: GroupID, for commandID: CommandID) -> Bool {
         return cefObject.set_group_id(cefObjectPtr, commandID.toCEF(), groupID) != 0
     }
     
     /// Sets the group id at the specified |index|. Returns true on success.
     /// CEF name: `SetGroupIdAt`
-    public func setGroupID(groupID: GroupID, atIndex index: Int32) -> Bool {
-        return cefObject.set_group_id_at(cefObjectPtr, index, groupID) != 0
+    public func setGroupID(_ groupID: GroupID, at index: Int) -> Bool {
+        return cefObject.set_group_id_at(cefObjectPtr, Int32(index), groupID) != 0
     }
     
     /// Returns the submenu for the specified |command_id| or empty if invalid.
     /// CEF name: `GetSubMenu`
-    public func submenuForCommandID(commandID: CommandID) -> CEFMenuModel? {
+    public func submenu(for commandID: CommandID) -> CEFMenuModel? {
         let cefMenu = cefObject.get_sub_menu(cefObjectPtr, commandID.toCEF())
         return CEFMenuModel.fromCEF(cefMenu)
     }
 
     /// Returns the submenu at the specified |index| or empty if invalid.
     /// CEF name: `GetSubMenuAt`
-    public func submenuAtIndex(index: Int32) -> CEFMenuModel? {
-        let cefMenu = cefObject.get_sub_menu_at(cefObjectPtr, index)
+    public func submenu(at index: Int) -> CEFMenuModel? {
+        let cefMenu = cefObject.get_sub_menu_at(cefObjectPtr, Int32(index))
         return CEFMenuModel.fromCEF(cefMenu)
     }
     
     /// Returns true if the specified |command_id| is visible.
     /// CEF name: `IsVisible`
-    public func isVisibleForCommandID(commandID: CommandID) -> Bool {
+    public func isVisible(commandID: CommandID) -> Bool {
         return cefObject.is_visible(cefObjectPtr, commandID.toCEF()) != 0
     }
 
     /// Returns true if the specified |index| is visible.
     /// CEF name: `IsVisibleAt`
-    public func isVisibleAtIndex(index: Int32) -> Bool {
-        return cefObject.is_visible_at(cefObjectPtr, index) != 0
+    public func isVisible(at index: Int) -> Bool {
+        return cefObject.is_visible_at(cefObjectPtr, Int32(index)) != 0
     }
 
     /// Change the visibility of the specified |command_id|. Returns true on
     /// success.
     /// CEF name: `SetVisible`
-    public func setVisible(visible: Bool, forCommandID commandID: CommandID) -> Bool {
+    public func setVisible(_ visible: Bool, for commandID: CommandID) -> Bool {
         return cefObject.set_visible(cefObjectPtr, commandID.toCEF(), visible ? 1 : 0) != 0
     }
 
     /// Change the visibility at the specified |index|. Returns true on success.
     /// CEF name: `SetVisibleAt`
-    public func setVisible(visible: Bool, atIndex index: Int32) -> Bool {
-        return cefObject.set_visible_at(cefObjectPtr, index, visible ? 1 : 0) != 0
+    public func setVisible(_ visible: Bool, at index: Int) -> Bool {
+        return cefObject.set_visible_at(cefObjectPtr, Int32(index), visible ? 1 : 0) != 0
     }
 
     /// Returns true if the specified |command_id| is enabled.
     /// CEF name: `IsEnabled`
-    public func isEnabledForCommandID(commandID: CommandID) -> Bool {
+    public func isEnabled(commandID: CommandID) -> Bool {
         return cefObject.is_enabled(cefObjectPtr, commandID.toCEF()) != 0
     }
     
     /// Returns true if the specified |index| is enabled.
     /// CEF name: `IsEnabledAt`
-    public func isEnabledAtIndex(index: Int32) -> Bool {
-        return cefObject.is_enabled_at(cefObjectPtr, index) != 0
+    public func isEnabled(at index: Int) -> Bool {
+        return cefObject.is_enabled_at(cefObjectPtr, Int32(index)) != 0
     }
 
     /// Change the enabled status of the specified |command_id|. Returns true on
     /// success.
     /// CEF name: `SetEnabled`
-    public func setEnabled(enabled: Bool, forCommandID commandID: CommandID) -> Bool {
+    public func setEnabled(_ enabled: Bool, for commandID: CommandID) -> Bool {
         return cefObject.set_enabled(cefObjectPtr, commandID.toCEF(), enabled ? 1 : 0) != 0
     }
 
     /// Change the enabled status at the specified |index|. Returns true on
     /// success.
     /// CEF name: `SetEnabledAt`
-    public func setEnabled(enabled: Bool, atIndex index: Int32) -> Bool {
-        return cefObject.set_enabled_at(cefObjectPtr, index, enabled ? 1 : 0) != 0
+    public func setEnabled(_ enabled: Bool, at index: Int) -> Bool {
+        return cefObject.set_enabled_at(cefObjectPtr, Int32(index), enabled ? 1 : 0) != 0
     }
     
     /// Returns true if the specified |command_id| is checked. Only applies to
     /// check and radio items.
     /// CEF name: `IsChecked`
-    public func isCheckedForCommandID(commandID: CommandID) -> Bool {
+    public func isChecked(commandID: CommandID) -> Bool {
         return cefObject.is_checked(cefObjectPtr, commandID.toCEF()) != 0
     }
     
     /// Returns true if the specified |index| is checked. Only applies to check
     /// and radio items.
     /// CEF name: `IsCheckedAt`
-    public func isCheckedAtIndex(index: Int32) -> Bool {
-        return cefObject.is_checked_at(cefObjectPtr, index) != 0
+    public func isChecked(at index: Int) -> Bool {
+        return cefObject.is_checked_at(cefObjectPtr, Int32(index)) != 0
     }
     
     /// Check the specified |command_id|. Only applies to check and radio items.
     /// Returns true on success.
     /// CEF name: `SetChecked`
-    public func setChecked(checked: Bool, forCommandID commandID: CommandID) -> Bool {
+    public func setChecked(_ checked: Bool, for commandID: CommandID) -> Bool {
         return cefObject.set_checked(cefObjectPtr, commandID.toCEF(), checked ? 1 : 0) != 0
     }
     
     /// Check the specified |index|. Only applies to check and radio items. Returns
     /// true on success.
     /// CEF name: `SetCheckedAt`
-    public func setChecked(checked: Bool, atIndex index: Int32) -> Bool {
-        return cefObject.set_checked_at(cefObjectPtr, index, checked ? 1 : 0) != 0
+    public func setChecked(_ checked: Bool, at index: Int) -> Bool {
+        return cefObject.set_checked_at(cefObjectPtr, Int32(index), checked ? 1 : 0) != 0
     }
     
     /// Returns true if the specified |command_id| has a keyboard accelerator
     /// assigned.
     /// CEF name: `HasAccelerator`
-    public func hasAcceleratorForCommandID(commandID: CommandID) -> Bool {
+    public func hasAccelerator(for commandID: CommandID) -> Bool {
         return cefObject.has_accelerator(cefObjectPtr, commandID.toCEF()) != 0
     }
     
     /// Returns true if the specified |index| has a keyboard accelerator assigned.
     /// CEF name: `HasAcceleratorAt`
-    public func hasAcceleratorAtIndex(index: Int32) -> Bool {
-        return cefObject.has_accelerator_at(cefObjectPtr, index) != 0
+    public func hasAccelerator(at index: Int) -> Bool {
+        return cefObject.has_accelerator_at(cefObjectPtr, Int32(index)) != 0
     }
     
     /// Set the keyboard accelerator for the specified |command_id|. |key_code| can
     /// be any virtual key or character value. Returns true on success.
     /// CEF name: `SetAccelerator`
-    public func setAccelerator(accelerator: CEFMenuItemAccelerator, forCommandID commandID: CommandID) -> Bool {
+    public func setAccelerator(_ accelerator: CEFMenuItemAccelerator, for commandID: CommandID) -> Bool {
         return cefObject.set_accelerator(cefObjectPtr,
                                          commandID.toCEF(),
                                          accelerator.keyCode,
@@ -342,9 +342,9 @@ public extension CEFMenuModel {
     /// Set the keyboard accelerator at the specified |index|. |key_code| can be
     /// any virtual key or character value. Returns true on success.
     /// CEF name: `SetAcceleratorAt`
-    public func setAccelerator(accelerator: CEFMenuItemAccelerator, atIndex index: Int32) -> Bool {
+    public func setAccelerator(_ accelerator: CEFMenuItemAccelerator, at index: Int) -> Bool {
         return cefObject.set_accelerator_at(cefObjectPtr,
-                                            index,
+                                            Int32(index),
                                             accelerator.keyCode,
                                             accelerator.shift ? 1 : 0,
                                             accelerator.control ? 1 : 0,
@@ -354,21 +354,21 @@ public extension CEFMenuModel {
     /// Remove the keyboard accelerator for the specified |command_id|. Returns
     /// true on success.
     /// CEF name: `RemoveAccelerator`
-    public func removeAcceleratorForCommandID(commandID: CommandID) -> Bool {
+    public func removeAccelerator(for commandID: CommandID) -> Bool {
         return cefObject.remove_accelerator(cefObjectPtr, commandID.toCEF()) != 0
     }
 
     /// Remove the keyboard accelerator at the specified |index|. Returns true on
     /// success.
     /// CEF name: `RemoveAcceleratorAt`
-    public func removeAcceleratorAtIndex(index: Int32) -> Bool {
-        return cefObject.remove_accelerator_at(cefObjectPtr, index) != 0
+    public func removeAccelerator(at index: Int) -> Bool {
+        return cefObject.remove_accelerator_at(cefObjectPtr, Int32(index)) != 0
     }
     
     /// Retrieves the keyboard accelerator for the specified |command_id|. Returns
     /// true on success.
     /// CEF name: `GetAccelerator`
-    public func acceleratorForCommandID(commandID: CommandID) -> CEFMenuItemAccelerator? {
+    public func accelerator(for commandID: CommandID) -> CEFMenuItemAccelerator? {
         var keyCode: Int32 = 0
         var shift: Int32 = 0
         var control: Int32 = 0
@@ -386,12 +386,12 @@ public extension CEFMenuModel {
     /// Retrieves the keyboard accelerator for the specified |index|. Returns true
     /// on success.
     /// CEF name: `GetAcceleratorAt`
-    public func acceleratorAtIndex(index: Int32) -> CEFMenuItemAccelerator? {
+    public func accelerator(at index: Int) -> CEFMenuItemAccelerator? {
         var keyCode: Int32 = 0
         var shift: Int32 = 0
         var control: Int32 = 0
         var alt: Int32 = 0
-        guard cefObject.get_accelerator_at(cefObjectPtr, index, &keyCode, &shift, &control, &alt) != 0 else {
+        guard cefObject.get_accelerator_at(cefObjectPtr, Int32(index), &keyCode, &shift, &control, &alt) != 0 else {
             return nil
         }
         

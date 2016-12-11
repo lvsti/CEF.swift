@@ -40,7 +40,7 @@ public extension CEFStreamReader {
     /// SEEK_CUR, SEEK_END or SEEK_SET. Returns zero on success and non-zero on
     /// failure.
     /// CEF name: `Seek`
-    func seek(offset: Int64, whence: CEFSeekPosition) -> Bool {
+    func seek(to offset: Int64, from whence: CEFSeekPosition) -> Bool {
         return cefObject.seek(cefObjectPtr, offset, whence.rawValue) == 0
     }
     

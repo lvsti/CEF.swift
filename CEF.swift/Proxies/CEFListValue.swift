@@ -71,7 +71,7 @@ public extension CEFListValue {
     /// new value slots will default to type null. Returns true on success.
     /// CEF name: `SetSize`
     @available(*, deprecated: 1.0, message: "use the `size` property")
-    public func setSize(size: Int) -> Bool {
+    public func setSize(_ size: Int) -> Bool {
         return cefObject.set_size(cefObjectPtr, size) != 0
     }
 
@@ -164,7 +164,7 @@ public extension CEFListValue {
     /// underlying data will be referenced and modifications to |value| will modify
     /// this object.
     /// CEF name: `SetValue`
-    public func setValue(value: CEFValue, atIndex index: Int) -> Bool {
+    public func set(_ value: CEFValue, at index: Int) -> Bool {
         return cefObject.set_value(cefObjectPtr, size_t(index), value.toCEF()) != 0
     }
 
@@ -178,28 +178,28 @@ public extension CEFListValue {
     /// Sets the value at the specified index as type bool. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetBool`
-    public func setBool(value: Bool, atIndex index: Int) -> Bool {
+    public func set(_ value: Bool, at index: Int) -> Bool {
         return cefObject.set_bool(cefObjectPtr, size_t(index), value ? 1 : 0) != 0
     }
 
     /// Sets the value at the specified index as type int. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetInt`
-    public func setInt(value: Int, atIndex index: Int) -> Bool {
+    public func set(_ value: Int, at index: Int) -> Bool {
         return cefObject.set_int(cefObjectPtr, size_t(index), Int32(value)) != 0
     }
 
     /// Sets the value at the specified index as type double. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetDouble`
-    public func setDouble(value: Double, atIndex index: Int) -> Bool {
+    public func set(_ value: Double, at index: Int) -> Bool {
         return cefObject.set_double(cefObjectPtr, size_t(index), value) != 0
     }
 
     /// Sets the value at the specified index as type string. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetString`
-    public func setString(string: String, atIndex index: Int) -> Bool {
+    public func set(_ string: String, at index: Int) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(string)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefObject.set_string(cefObjectPtr, size_t(index), cefStrPtr) != 0
@@ -211,7 +211,7 @@ public extension CEFListValue {
     /// Otherwise, ownership will be transferred to this object and the |value|
     /// reference will be invalidated.
     /// CEF name: `SetBinary`
-    public func setBinary(value: CEFBinaryValue, atIndex index: Int) -> Bool {
+    public func set(_ value: CEFBinaryValue, at index: Int) -> Bool {
         return cefObject.set_binary(cefObjectPtr, size_t(index), value.toCEF()) != 0
     }
     
@@ -221,7 +221,7 @@ public extension CEFListValue {
     /// Otherwise, ownership will be transferred to this object and the |value|
     /// reference will be invalidated.
     /// CEF name: `SetDictionary`
-    public func setDictionary(value: CEFDictionaryValue, atIndex index: Int) -> Bool {
+    public func set(_ value: CEFDictionaryValue, at index: Int) -> Bool {
         return cefObject.set_dictionary(cefObjectPtr, size_t(index), value.toCEF()) != 0
     }
 
@@ -231,7 +231,7 @@ public extension CEFListValue {
     /// Otherwise, ownership will be transferred to this object and the |value|
     /// reference will be invalidated.
     /// CEF name: `SetList`
-    public func setList(value: CEFListValue, atIndex index: Int) -> Bool {
+    public func set(_ value: CEFListValue, at index: Int) -> Bool {
         return cefObject.set_list(cefObjectPtr, size_t(index), value.toCEF()) != 0
     }
 

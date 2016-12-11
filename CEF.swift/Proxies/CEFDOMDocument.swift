@@ -48,7 +48,7 @@ public extension CEFDOMDocument {
 
     /// Returns the document element with the specified ID value.
     /// CEF name: `GetElementById`
-    public func elementForID(id: String) -> CEFDOMNode? {
+    public func element(id: String) -> CEFDOMNode? {
         let cefIDPtr = CEFStringPtrCreateFromSwiftString(id)
         defer { CEFStringPtrRelease(cefIDPtr) }
         let cefNode = cefObject.get_element_by_id(cefObjectPtr, cefIDPtr)

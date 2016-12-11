@@ -97,7 +97,7 @@ public extension CEFBrowserHost {
     
     /// Set whether the browser is focused.
     /// CEF name: `SetFocus`
-    public func setIsFocused(focused: Bool) {
+    public func setIsFocused(_ focused: Bool) {
         cefObject.set_focus(cefObjectPtr, focused ? 1 : 0)
     }
 
@@ -252,7 +252,7 @@ public extension CEFBrowserHost {
     /// |path| when done. For PDF printing to work on Linux you must implement the
     /// CefPrintHandler::GetPdfPaperSize method.
     /// CEF name: `PrintToPDF`
-    func printToPDFAtPath(path: String, settings: CEFPDFPrintSettings, callback: CEFPDFPrintCallback? = nil) {
+    func printToPDF(at path: String, settings: CEFPDFPrintSettings, callback: CEFPDFPrintCallback? = nil) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
         var cefSettings = settings.toCEF()
         defer {
@@ -399,7 +399,7 @@ public extension CEFBrowserHost {
 
     /// Send a key event to the browser.
     /// CEF name: `SendKeyEvent`
-    public func sendKeyEvent(event: CEFKeyEvent) {
+    public func sendKeyEvent(_ event: CEFKeyEvent) {
         var cefEvent = event.toCEF()
         cefObject.send_key_event(cefObjectPtr, &cefEvent)
     }
@@ -407,7 +407,7 @@ public extension CEFBrowserHost {
     /// Send a mouse click event to the browser. The |x| and |y| coordinates are
     /// relative to the upper-left corner of the view.
     /// CEF name: `SendMouseClickEvent`
-    public func sendMouseClickEvent(event: CEFMouseEvent, type: CEFMouseButtonType, mouseUp: Bool, clickCount: Int) {
+    public func sendMouseClickEvent(_ event: CEFMouseEvent, type: CEFMouseButtonType, mouseUp: Bool, clickCount: Int) {
         var cefEvent = event.toCEF()
         cefObject.send_mouse_click_event(cefObjectPtr, &cefEvent, type.toCEF(), mouseUp ? 1 : 0, Int32(clickCount))
     }
@@ -415,7 +415,7 @@ public extension CEFBrowserHost {
     /// Send a mouse move event to the browser. The |x| and |y| coordinates are
     /// relative to the upper-left corner of the view.
     /// CEF name: `SendMouseMoveEvent`
-    public func sendMouseMoveEvent(event: CEFMouseEvent, mouseLeave: Bool) {
+    public func sendMouseMoveEvent(_ event: CEFMouseEvent, mouseLeave: Bool) {
         var cefEvent = event.toCEF()
         cefObject.send_mouse_move_event(cefObjectPtr, &cefEvent, mouseLeave ? 1 : 0)
     }
@@ -426,7 +426,7 @@ public extension CEFBrowserHost {
     /// In order to scroll inside select popups with window rendering disabled
     /// CefRenderHandler::GetScreenPoint should be implemented properly.
     /// CEF name: `SendMouseWheelEvent`
-    public func sendMouseWheelEvent(event: CEFMouseEvent, deltaX: Int, deltaY: Int) {
+    public func sendMouseWheelEvent(_ event: CEFMouseEvent, deltaX: Int, deltaY: Int) {
         var cefEvent = event.toCEF()
         cefObject.send_mouse_wheel_event(cefObjectPtr, &cefEvent, Int32(deltaX), Int32(deltaY))
     }
@@ -708,8 +708,8 @@ public extension CEFBrowserHost {
     /// |path| when done. For PDF printing to work on Linux you must implement the
     /// CefPrintHandler::GetPdfPaperSize method.
     /// CEF name: `PrintToPDF`
-    func printToPDFAtPath(path: String, settings: CEFPDFPrintSettings, block: @escaping CEFPDFPrintCallbackOnPDFPrintFinishedBlock) {
-        printToPDFAtPath(path: path, settings: settings, callback: CEFPDFPrintCallbackBridge(block: block))
+    func printToPDF(at path: String, settings: CEFPDFPrintSettings, block: @escaping CEFPDFPrintCallbackOnPDFPrintFinishedBlock) {
+        printToPDF(at: path, settings: settings, callback: CEFPDFPrintCallbackBridge(block: block))
     }
 }
 

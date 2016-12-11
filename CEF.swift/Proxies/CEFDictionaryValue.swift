@@ -96,7 +96,7 @@ public extension CEFDictionaryValue {
     /// Removes the value at the specified key. Returns true is the value was
     /// removed successfully.
     /// CEF name: `Remove`
-    public func removeValueForKey(key: String) -> Bool {
+    public func removeValue(for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.remove(cefObjectPtr, cefKeyPtr) != 0
@@ -104,7 +104,7 @@ public extension CEFDictionaryValue {
 
     /// Returns the value type for the specified key.
     /// CEF name: `GetType`
-    public func typeForKey(key: String) -> CEFValueType {
+    public func type(for key: String) -> CEFValueType {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         let cefType = cefObject.get_type(cefObjectPtr, cefKeyPtr)
@@ -117,7 +117,7 @@ public extension CEFDictionaryValue {
     /// returned value will reference existing data and modifications to the value
     /// will modify this object.
     /// CEF name: `GetValue`
-    public func valueForKey(key: String) -> CEFValue? {
+    public func value(for key: String) -> CEFValue? {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         let cefValue = cefObject.get_value(cefObjectPtr, cefKeyPtr)
@@ -126,7 +126,7 @@ public extension CEFDictionaryValue {
 
     /// Returns the value at the specified key as type bool.
     /// CEF name: `GetBool`
-    public func boolForKey(key: String) -> Bool {
+    public func bool(for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.get_bool(cefObjectPtr, cefKeyPtr) != 0
@@ -134,7 +134,7 @@ public extension CEFDictionaryValue {
 
     /// Returns the value at the specified key as type int.
     /// CEF name: `GetInt`
-    public func intForKey(key: String) -> Int {
+    public func int(for key: String) -> Int {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return Int(cefObject.get_int(cefObjectPtr, cefKeyPtr))
@@ -142,7 +142,7 @@ public extension CEFDictionaryValue {
 
     /// Returns the value at the specified key as type double.
     /// CEF name: `GetDouble`
-    public func doubleForKey(key: String) -> Double {
+    public func double(for key: String) -> Double {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.get_double(cefObjectPtr, cefKeyPtr)
@@ -150,7 +150,7 @@ public extension CEFDictionaryValue {
     
     /// Returns the value at the specified key as type string.
     /// CEF name: `GetString`
-    public func stringForKey(key: String) -> String? {
+    public func string(for key: String) -> String? {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         let cefStrPtr = cefObject.get_string(cefObjectPtr, cefKeyPtr)
@@ -162,7 +162,7 @@ public extension CEFDictionaryValue {
     /// Returns the value at the specified key as type binary. The returned
     /// value will reference existing data.
     /// CEF name: `GetBinary`
-    public func binaryForKey(key: String) -> CEFBinaryValue? {
+    public func binary(for key: String) -> CEFBinaryValue? {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         let cefBinary = cefObject.get_binary(cefObjectPtr, cefKeyPtr)
@@ -173,7 +173,7 @@ public extension CEFDictionaryValue {
     /// value will reference existing data and modifications to the value will
     /// modify this object.
     /// CEF name: `GetDictionary`
-    public func dictionaryForKey(key: String) -> CEFDictionaryValue? {
+    public func dictionary(for key: String) -> CEFDictionaryValue? {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         let cefDict = cefObject.get_dictionary(cefObjectPtr, cefKeyPtr)
@@ -184,7 +184,7 @@ public extension CEFDictionaryValue {
     /// will reference existing data and modifications to the value will modify
     /// this object.
     /// CEF name: `GetList`
-    public func listForKey(key: String) -> CEFListValue? {
+    public func list(for key: String) -> CEFListValue? {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         let cefList = cefObject.get_list(cefObjectPtr, cefKeyPtr)
@@ -198,7 +198,7 @@ public extension CEFDictionaryValue {
     /// underlying data will be referenced and modifications to |value| will modify
     /// this object.
     /// CEF name: `SetValue`
-    public func setValue(value: CEFValue, forKey key: String) -> Bool {
+    public func set(_ value: CEFValue, for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.set_value(cefObjectPtr, cefKeyPtr, value.toCEF()) != 0
@@ -207,7 +207,7 @@ public extension CEFDictionaryValue {
     /// Sets the value at the specified key as type null. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetNull`
-    public func setNullForKey(key: String) -> Bool {
+    public func setNull(for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.set_null(cefObjectPtr, cefKeyPtr) != 0
@@ -216,7 +216,7 @@ public extension CEFDictionaryValue {
     /// Sets the value at the specified key as type bool. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetBool`
-    public func setBool(value: Bool, forKey key: String) -> Bool {
+    public func set(_ value: Bool, for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.set_bool(cefObjectPtr, cefKeyPtr, value ? 1 : 0) != 0
@@ -225,7 +225,7 @@ public extension CEFDictionaryValue {
     /// Sets the value at the specified key as type int. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetInt`
-    public func setInt(value: Int, forKey key: String) -> Bool {
+    public func set(_ value: Int, for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.set_int(cefObjectPtr, cefKeyPtr, Int32(value)) != 0
@@ -234,7 +234,7 @@ public extension CEFDictionaryValue {
     /// Sets the value at the specified key as type double. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetDouble`
-    public func setDouble(value: Double, forKey key: String) -> Bool {
+    public func set(_ value: Double, for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.set_double(cefObjectPtr, cefKeyPtr, value) != 0
@@ -243,7 +243,7 @@ public extension CEFDictionaryValue {
     /// Sets the value at the specified key as type string. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetString`
-    public func setString(string: String, forKey key: String) -> Bool {
+    public func set(_ string: String, for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(string)
         defer {
@@ -259,7 +259,7 @@ public extension CEFDictionaryValue {
     /// Otherwise, ownership will be transferred to this object and the |value|
     /// reference will be invalidated.
     /// CEF name: `SetBinary`
-    public func setBinary(value: CEFBinaryValue, forKey key: String) -> Bool {
+    public func set(_ value: CEFBinaryValue, for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.set_binary(cefObjectPtr, cefKeyPtr, value.toCEF()) != 0
@@ -271,7 +271,7 @@ public extension CEFDictionaryValue {
     /// Otherwise, ownership will be transferred to this object and the |value|
     /// reference will be invalidated.
     /// CEF name: `SetDictionary`
-    public func setDictionary(value: CEFDictionaryValue, forKey key: String) -> Bool {
+    public func set(_ value: CEFDictionaryValue, for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.set_dictionary(cefObjectPtr, cefKeyPtr, value.toCEF()) != 0
@@ -283,7 +283,7 @@ public extension CEFDictionaryValue {
     /// Otherwise, ownership will be transferred to this object and the |value|
     /// reference will be invalidated.
     /// CEF name: `SetList`
-    public func setList(value: CEFListValue, forKey key: String) -> Bool {
+    public func set(_ value: CEFListValue, for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.set_list(cefObjectPtr, cefKeyPtr, value.toCEF()) != 0

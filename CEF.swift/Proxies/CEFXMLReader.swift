@@ -153,7 +153,7 @@ public extension CEFXMLReader {
 
     /// Returns the value of the attribute at the specified 0-based index.
     /// CEF name: `GetAttribute`
-    public func attributeAtIndex(index: Int) -> String? {
+    public func attribute(at index: Int) -> String? {
         let cefStrPtr = cefObject.get_attribute_byindex(cefObjectPtr, Int32(index))
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
@@ -161,7 +161,7 @@ public extension CEFXMLReader {
     
     /// Returns the value of the attribute with the specified qualified name.
     /// CEF name: `GetAttribute`
-    public func attributeForQualifiedName(qualifiedName: String) -> String? {
+    public func attribute(for qualifiedName: String) -> String? {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(qualifiedName)
         let cefStrPtr = cefObject.get_attribute_byqname(cefObjectPtr, cefNamePtr)
         defer {
@@ -174,7 +174,7 @@ public extension CEFXMLReader {
     /// Returns the value of the attribute with the specified local name and
     /// namespace URI.
     /// CEF name: `GetAttribute`
-    public func attributeForName(name: String, namespaceURI: NSURL) -> String? {
+    public func attribute(for name: String, namespaceURI: NSURL) -> String? {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
         let cefURIPtr = CEFStringPtrCreateFromSwiftString(namespaceURI.absoluteString!)
         let cefStrPtr = cefObject.get_attribute_bylname(cefObjectPtr, cefNamePtr, cefURIPtr)
@@ -216,14 +216,14 @@ public extension CEFXMLReader {
     /// Moves the cursor to the attribute at the specified 0-based index. Returns
     /// true if the cursor position was set successfully.
     /// CEF name: `MoveToAttribute`
-    public func moveToAttributeAtIndex(index: Int) -> Bool {
+    public func moveToAttribute(at index: Int) -> Bool {
         return cefObject.move_to_attribute_byindex(cefObjectPtr, Int32(index)) != 0
     }
 
     /// Moves the cursor to the attribute with the specified qualified name.
     /// Returns true if the cursor position was set successfully.
     /// CEF name: `MoveToAttribute`
-    public func moveToAttributeWithQualifiedName(qualifiedName: String) -> Bool {
+    public func moveToAttribute(with qualifiedName: String) -> Bool {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(qualifiedName)
         defer { CEFStringPtrRelease(cefNamePtr) }
         return cefObject.move_to_attribute_byqname(cefObjectPtr, cefNamePtr) != 0
@@ -232,7 +232,7 @@ public extension CEFXMLReader {
     /// Moves the cursor to the attribute with the specified local name and
     /// namespace URI. Returns true if the cursor position was set successfully.
     /// CEF name: `MoveToAttribute`
-    public func moveToAttributeWithName(name: String, namespaceURI: NSURL) -> Bool {
+    public func moveToAttribute(with name: String, namespaceURI: NSURL) -> Bool {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
         let cefURIPtr = CEFStringPtrCreateFromSwiftString(namespaceURI.absoluteString!)
         defer {

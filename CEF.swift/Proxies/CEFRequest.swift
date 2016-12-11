@@ -27,7 +27,7 @@ public extension CEFRequest {
     /// CEF name: `GetURL`, `SetURL`
     public var url: NSURL {
         get { return getURL() }
-        set { setURL(url: newValue) }
+        set { setURL(newValue) }
     }
     
     /// Get the fully qualified URL.
@@ -40,7 +40,7 @@ public extension CEFRequest {
     }
     
     /// Set the fully qualified URL.
-    private func setURL(url: NSURL) {
+    private func setURL(_ url: NSURL) {
         let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString!)
         defer { CEFStringPtrRelease(cefURLPtr) }
         cefObject.set_url(cefObjectPtr, cefURLPtr)
@@ -51,7 +51,7 @@ public extension CEFRequest {
     /// CEF name: `GetMethod`, `SetMethod`
     public var method: String {
         get { return getMethod() }
-        set { setMethod(method: newValue) }
+        set { setMethod(newValue) }
     }
     
     /// Get the request method type. The value will default to POST if post data
@@ -63,7 +63,7 @@ public extension CEFRequest {
     }
     
     /// Set the request method type.
-    private func setMethod(method: String) {
+    private func setMethod(_ method: String) {
         let cefMethodPtr = CEFStringPtrCreateFromSwiftString(method)
         defer { CEFStringPtrRelease(cefMethodPtr) }
         cefObject.set_method(cefObjectPtr, cefMethodPtr)
@@ -75,14 +75,14 @@ public extension CEFRequest {
     /// CEF name: `GetReferrerURL`, `SetReferrer`
     public var referrerURL: NSURL? {
         get { return getReferrerURL() }
-        set { setReferrerURL(url: newValue, policy: self.referrerPolicy) }
+        set { setReferrerURL(newValue, policy: referrerPolicy) }
     }
     
     /// Get the referrer policy.
     /// CEF name: `GetReferrerPolicy`, `SetReferrer`
     public var referrerPolicy: CEFReferrerPolicy {
         get { return getReferrerPolicy() }
-        set { setReferrerURL(url: self.referrerURL, policy: newValue) }
+        set { setReferrerURL(referrerURL, policy: newValue) }
     }
     
     private func getReferrerURL() -> NSURL? {
@@ -96,7 +96,7 @@ public extension CEFRequest {
         return CEFReferrerPolicy.fromCEF(cefPolicy)
     }
     
-    private func setReferrerURL(url: NSURL?, policy: CEFReferrerPolicy) {
+    private func setReferrerURL(_ url: NSURL?, policy: CEFReferrerPolicy) {
         let cefURLPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString!) : nil
         defer { CEFStringPtrRelease(cefURLPtr) }
         cefObject.set_referrer(cefObjectPtr, cefURLPtr, policy.toCEF())
@@ -116,7 +116,7 @@ public extension CEFRequest {
     /// CEF name: `GetHeaderMap`, `SetHeaderMap`
     public var headers: HeaderMap {
         get { return getHeaderMap() }
-        set { setHeaderMap(headerMap: newValue) }
+        set { setHeaderMap(newValue) }
     }
     
     /// Get the header values. Will not include the Referer value if any.
@@ -129,7 +129,7 @@ public extension CEFRequest {
     
     /// Set the header values. If a Referer value exists in the header map it will
     /// be removed and ignored.
-    private func setHeaderMap(headerMap: HeaderMap) {
+    private func setHeaderMap(_ headerMap: HeaderMap) {
         let cefHeaderMap = CEFStringMultimapCreateFromSwiftDictionaryOfArrays(headerMap)
         defer { cef_string_multimap_free(cefHeaderMap) }
         cefObject.set_header_map(cefObjectPtr, cefHeaderMap)
@@ -167,7 +167,7 @@ public extension CEFRequest {
     /// CEF name: `GetFirstPartyForCookies`, `SetFirstPartyForCookies`
     public var firstPartyURLForCookies: NSURL {
         get { return getFirstPartyURLForCookies() }
-        set { setFirstPartyURLForCookies(url: newValue) }
+        set { setFirstPartyURLForCookies(newValue) }
     }
 
     /// Set the URL to the first party for cookies used in combination with
@@ -182,7 +182,7 @@ public extension CEFRequest {
     
     /// Get the URL to the first party for cookies used in combination with
     /// CefURLRequest.
-    private func setFirstPartyURLForCookies(url: NSURL) {
+    private func setFirstPartyURLForCookies(_ url: NSURL) {
         let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString!)
         defer { CEFStringPtrRelease(cefURLPtr) }
         cefObject.set_first_party_for_cookies(cefObjectPtr, cefURLPtr)

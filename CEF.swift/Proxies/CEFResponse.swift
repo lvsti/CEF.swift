@@ -78,7 +78,7 @@ public extension CEFResponse {
     
     /// Get the value for the specified response header field.
     /// CEF name: `GetHeader`
-    public func headerForKey(key: String) -> String? {
+    public func header(for key: String) -> String? {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         let cefHeaderPtr = cefObject.get_header(cefObjectPtr, cefKeyPtr)
         defer {

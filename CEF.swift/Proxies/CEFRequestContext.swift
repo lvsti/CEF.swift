@@ -48,7 +48,7 @@ public extension CEFRequestContext {
 
     /// Returns true if this object is sharing the same storage as |that| object.
     /// CEF name: `IsSharingWith`
-    public func isSharingStorageWithContext(other: CEFRequestContext) -> Bool {
+    public func isSharingStorage(with other: CEFRequestContext) -> Bool {
         return cefObject.is_sharing_with(cefObjectPtr, other.toCEF()) != 0
     }
     
@@ -143,8 +143,8 @@ public extension CEFRequestContext {
     /// Returns true if a preference with the specified |name| exists. This method
     /// must be called on the browser process UI thread.
     /// CEF name: `HasPreference`
-    public func hasPreference(name: String) -> Bool {
-        let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
+    public func hasPreference(named: String) -> Bool {
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(named)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefObject.has_preference(cefObjectPtr, cefStrPtr) != 0
     }
@@ -155,7 +155,7 @@ public extension CEFRequestContext {
     /// will not modify the underlying preference value. This method must be called
     /// on the browser process UI thread.
     /// CEF name: `GetPreference`
-    public func valueForPreference(name: String) -> CEFValue? {
+    public func preferenceValue(for name: String) -> CEFValue? {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
         defer { CEFStringPtrRelease(cefStrPtr) }
         let cefValue = cefObject.get_preference(cefObjectPtr, cefStrPtr)
@@ -169,7 +169,7 @@ public extension CEFRequestContext {
     /// preference values. This method must be called on the browser process UI
     /// thread.
     /// CEF name: `GetAllPreferences`
-    public func allPreferencesIncludingDefaults(includeDefaults: Bool) -> CEFDictionaryValue {
+    public func allPreferences(includeDefaults: Bool) -> CEFDictionaryValue {
         let cefDict = cefObject.get_all_preferences(cefObjectPtr, includeDefaults ? 1 : 0)
         return CEFDictionaryValue.fromCEF(cefDict)!
     }
@@ -179,7 +179,7 @@ public extension CEFRequestContext {
     /// usually cannot be modified. This method must be called on the browser
     /// process UI thread.
     /// CEF name: `CanSetPreference`
-    public func canSetPreference(name: String) -> Bool {
+    public func canSetPreference(for name: String) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefObject.can_set_preference(cefObjectPtr, cefStrPtr) != 0
@@ -191,7 +191,7 @@ public extension CEFRequestContext {
     /// fails then |error| will be populated with a detailed description of the
     /// problem. This method must be called on the browser process UI thread.
     /// CEF name: `SetPreference`
-    public func setValue(value: CEFValue?, forPreference name: String) -> Bool {
+    public func setPreference(_ value: CEFValue?, for name: String) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
         defer { CEFStringPtrRelease(cefStrPtr) }
         let cefValue = value?.toCEF()
@@ -223,7 +223,7 @@ public extension CEFRequestContext {
     /// Attempts to resolve |origin| to a list of associated IP addresses.
     /// |callback| will be executed on the UI thread after completion.
     /// CEF name: `ResolveHost`
-    public func resolveHost(hostName: String, callback: CEFResolveCallback) {
+    public func resolveHost(_ hostName: String, callback: CEFResolveCallback) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(hostName)
         defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.resolve_host(cefObjectPtr, cefStrPtr, callback.toCEF())
@@ -234,7 +234,7 @@ public extension CEFRequestContext {
     /// addresses or empty if no cached data is available. Returns ERR_NONE on
     /// success. This method must be called on the browser process IO thread.
     /// CEF name: `ResolveHostCached`
-    public func resolveCachedHost(hostName: String) -> [String]? {
+    public func resolveCachedHost(_ hostName: String) -> [String]? {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(hostName)
         let cefList = cef_string_list_alloc()!
         defer {
@@ -285,7 +285,7 @@ public extension CEFRequestContext {
     /// |callback| will be executed on the UI thread after completion.
     /// CEF name: `ResolveHost`
     public func resolveHost(hostName: String, block: @escaping CEFResolveCallbackOnResolveCompletedBlock) {
-        resolveHost(hostName: hostName, callback: CEFResolveCallbackBridge(block: block))
+        resolveHost(hostName, callback: CEFResolveCallbackBridge(block: block))
     }
 }
 

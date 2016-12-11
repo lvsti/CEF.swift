@@ -109,15 +109,15 @@ public extension CEFBrowser {
     
     /// Returns the frame with the specified identifier, or NULL if not found.
     /// CEF name: `GetFrame`
-    public func frameForID(id: CEFFrame.Identifier) -> CEFFrame? {
+    public func frame(id: CEFFrame.Identifier) -> CEFFrame? {
         let cefFrame = cefObject.get_frame_byident(cefObjectPtr, id)
         return CEFFrame.fromCEF(cefFrame)
     }
 
     /// Returns the frame with the specified name, or NULL if not found.
     /// CEF name: `GetFrame`
-    public func frameForName(name: String) -> CEFFrame? {
-        let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
+    public func frame(named: String) -> CEFFrame? {
+        let cefNamePtr = CEFStringPtrCreateFromSwiftString(named)
         defer { CEFStringPtrRelease(cefNamePtr) }
         
         let cefFrame = cefObject.get_frame(cefObjectPtr, cefNamePtr)
