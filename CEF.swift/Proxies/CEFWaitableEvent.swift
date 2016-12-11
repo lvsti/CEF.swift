@@ -17,7 +17,7 @@ public extension CEFWaitableEvent {
     /// in the signaled state.
     /// CEF name: `CreateWaitableEvent`
     public convenience init?(automaticReset: Bool, signaledInitially: Bool) {
-        self.init?(ptr: cef_waitable_event_create(automaticReset ? 1 : 0, signaledInitially ? 1 : 0))
+        self.init(ptr: cef_waitable_event_create(automaticReset ? 1 : 0, signaledInitially ? 1 : 0))
     }
     
     /// Put the event in the un-signaled state.
@@ -56,6 +56,6 @@ public extension CEFWaitableEvent {
     /// browser process UI or IO threads.
     /// CEF name: `TimedWait`
     public func wait(for seconds: TimeInterval) -> Bool {
-        return cefObject.timed_wait(seconds*1000) != 0
+        return cefObject.timed_wait(cefObjectPtr, int64(seconds*1000)) != 0
     }
 }
