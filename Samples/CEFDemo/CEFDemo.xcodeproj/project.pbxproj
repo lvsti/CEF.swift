@@ -177,7 +177,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "FRAMEWORKS_DIR=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/Contents/Frameworks/\"\n\ncp -RH \"${SRCROOT}/Library/cefsimple Helper.app\" \"${FRAMEWORKS_DIR}/\"\nif [ ! -e \"${FRAMEWORKS_DIR}/${PRODUCT_NAME} Helper.app\" ]; then\n    ln -s \"cefsimple Helper.app\" \"${FRAMEWORKS_DIR}/${PRODUCT_NAME} Helper.app\"\n    ln -s \"cefsimple Helper\" \"${FRAMEWORKS_DIR}/cefsimple Helper.app/Contents/MacOS/${PRODUCT_NAME} Helper\"\nfi\n";
+			shellScript = "FRAMEWORKS_DIR=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/Contents/Frameworks\"\n\ncp -RH \"${SRCROOT}/Library/cefsimple Helper.app\" \"${FRAMEWORKS_DIR}/\"\nif [ ! -e \"${FRAMEWORKS_DIR}/${PRODUCT_NAME} Helper.app\" ]; then\n    ln -s \"cefsimple Helper.app\" \"${FRAMEWORKS_DIR}/${PRODUCT_NAME} Helper.app\"\n    ln -s \"cefsimple Helper\" \"${FRAMEWORKS_DIR}/cefsimple Helper.app/Contents/MacOS/${PRODUCT_NAME} Helper\"\nfi\n";
 		};
 		E84545D41B96579F005CC3D0 /* Fix up framework */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -315,7 +315,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.cocoagrinder.CEFDemo;
 				PRODUCT_NAME = CEFDemo;
 				SWIFT_OBJC_BRIDGING_HEADER = "CEFDemo/CEFDemo-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 3.0.1;
 			};
 			name = Debug;
 		};
@@ -337,7 +337,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.cocoagrinder.CEFDemo;
 				PRODUCT_NAME = CEFDemo;
 				SWIFT_OBJC_BRIDGING_HEADER = "CEFDemo/CEFDemo-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 3.0.1;
 			};
 			name = Release;
 		};

@@ -1429,7 +1429,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -ex\n\nFW_PATH=\"${SRCROOT}/Samples/CEFDemo/Library/CEFswift.framework\"\n\nif [ ! -h \"${FW_PATH}\" ]; then\n    rm -rf \"${FW_PATH}\"\n    mkdir -p $(dirname \"${FW_PATH}\")\n    ln -s \"${BUILT_PRODUCTS_DIR}/CEFswift.framework\" \"${FW_PATH}\"\nfi\n\nFW_PATH=\"${SRCROOT}/Samples/CEFDemo/Library/Chromium Embedded Framework.framework\"\n\nif [ ! -h \"${FW_PATH}\" ]; then\n    rm -rf \"${FW_PATH}\"\n    mkdir -p $(dirname \"${FW_PATH}\")\n    ln -s \"${CEF_BINARY_ROOT}/Debug/Chromium Embedded Framework.framework\" \"${FW_PATH}\"\nfi\n\nHELPER_PATH=\"${SRCROOT}/Samples/CEFDemo/Library/cefsimple Helper.app\"\n\nif [ ! -h \"${HELPER_PATH}\" ]; then\n    rm -rf \"${HELPER_PATH}\"\n    mkdir -p $(dirname \"${HELPER_PATH}\")\n    ln -s \"${CEF_BINARY_ROOT}/cefsimple/Debug/cefsimple Helper.app\" \"${HELPER_PATH}\"\nfi\n";
+			shellScript = "set -ex\n\nFW_PATH=\"${SRCROOT}/Samples/CEFDemo/Library/CEFswift.framework\"\n\nif [ ! -h \"${FW_PATH}\" ]; then\n    rm -rf \"${FW_PATH}\"\n    mkdir -p $(dirname \"${FW_PATH}\")\n    ln -s \"${BUILT_PRODUCTS_DIR}/CEFswift.framework\" \"${FW_PATH}\"\nfi\n\nFW_PATH=\"${SRCROOT}/Samples/CEFDemo/Library/Chromium Embedded Framework.framework\"\n\nif [ ! -h \"${FW_PATH}\" ]; then\n    rm -rf \"${FW_PATH}\"\n    mkdir -p $(dirname \"${FW_PATH}\")\n    ln -s \"${CEF_BINARY_ROOT}/Debug/Chromium Embedded Framework.framework\" \"${FW_PATH}\"\nfi\n\nHELPER_PATH=\"${SRCROOT}/Samples/CEFDemo/Library/cefsimple Helper.app\"\n\nrm -rf \"${HELPER_PATH}\"\nmkdir -p $(dirname \"${HELPER_PATH}\")\nln -s \"${CEF_BINARY_ROOT}/tests/cefsimple/Debug/cefsimple Helper.app\" \"${HELPER_PATH}\"\n";
 		};
 		E89FD0FB1BA6213F00345B15 /* Fix framework id */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1959,7 +1959,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Modules/ChromiumEmbedded";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 3.0.1;
 			};
 			name = Debug;
 		};
@@ -1984,7 +1984,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Modules/ChromiumEmbedded";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 3.0.1;
 			};
 			name = Release;
 		};
