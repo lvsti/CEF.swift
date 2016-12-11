@@ -24,6 +24,7 @@ before_install:
   - brew update
   - brew install p7zip
   - brew install jq
+  - brew install cmake
   - sudo gem install xcpretty-travis-formatter --no-doc
 
 install:
