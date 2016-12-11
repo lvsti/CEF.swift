@@ -4,7 +4,7 @@ abbreviations = [
     'cef', 'http', 'https', 'ssl', 'url', 'uri', 'json', 'html', 'xhtml', 'v8', 'dom',
     'cdata', 'utf8', 'utf16le', 'utf16be', 'ascii', 'io', 'ui', 'db', '5xx', 'xhr',
     'cmy', 'cmyk', 'kcmy', 'rgb', 'rgba', 'bgra', 'rgb16', 'hp', 'rfc', 'id', 'js', 'xml', 'pdf',
-    'ev', 'ct', 'sha1', 'csp', 'cdm'
+    'ev', 'ct', 'sha1', 'csp', 'cdm', 'com'
 ]
 
 typename_overrides = {
@@ -184,7 +184,12 @@ cef_enums = [
     
     # branch 2840
     'cef_cdm_registration_error_t',
-    'cef_ssl_version_t'
+    'cef_ssl_version_t',
+    
+    # branch 2883
+    'cef_thread_priority_t',
+    'cef_message_loop_type_t',
+    'cef_com_init_mode_t'
 ]
 
 cef_option_sets = [
