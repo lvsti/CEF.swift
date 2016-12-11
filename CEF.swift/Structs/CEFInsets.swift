@@ -12,13 +12,13 @@ import Foundation
 /// CEF name: `cef_insets_t`
 public struct CEFInsets {
     /// CEF name: `top`
-    public let top: Int
+    public var top: Int
     /// CEF name: `left`
-    public let left: Int
+    public var left: Int
     /// CEF name: `bottom`
-    public let bottom: Int
+    public var bottom: Int
     /// CEF name: `right`
-    public let right: Int
+    public var right: Int
 }
 
 extension CEFInsets {

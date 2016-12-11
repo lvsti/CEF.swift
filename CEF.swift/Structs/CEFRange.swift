@@ -12,9 +12,9 @@ import Foundation
 /// CEF name: `cef_range_t`
 public struct CEFRange {
     /// CEF name: `from`
-    public let from: Int
+    public var from: Int
     /// CEF name: `to`
-    public let to: Int
+    public var to: Int
 }
 
 extension CEFRange {
