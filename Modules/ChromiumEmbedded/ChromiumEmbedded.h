@@ -6,6 +6,7 @@
 #include "include/capi/cef_base_capi.h"
 #include "include/capi/cef_client_capi.h"
 #include "include/capi/cef_command_line_capi.h"
+#include "include/capi/cef_file_util_capi.h"
 #include "include/capi/cef_geolocation_capi.h"
 #include "include/capi/cef_origin_whitelist_capi.h"
 #include "include/capi/cef_parser_capi.h"
