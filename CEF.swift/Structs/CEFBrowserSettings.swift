@@ -84,12 +84,7 @@ public struct CEFBrowserSettings {
     /// command-line switch.
     /// CEF name: `javascript_dom_paste`
     public var javascriptDOMPaste: CEFState = .defaultState
-    
-    /// Controls whether the caret position will be drawn. Also configurable using
-    /// the "enable-caret-browsing" command-line switch.
-    /// CEF name: `caret_browsing`
-    public var caretBrowsing: CEFState = .defaultState
-    
+        
     /// Controls whether any plugins will be loaded. Also configurable using the
     /// "disable-plugins" command-line switch.
     /// CEF name: `plugins`
@@ -198,7 +193,6 @@ extension CEFBrowserSettings {
         cefStruct.javascript_close_windows = javascriptCloseWindows.toCEF()
         cefStruct.javascript_access_clipboard = javascriptAccessClipboard.toCEF()
         cefStruct.javascript_dom_paste = javascriptDOMPaste.toCEF()
-        cefStruct.caret_browsing = caretBrowsing.toCEF()
         cefStruct.plugins = plugins.toCEF()
         cefStruct.universal_access_from_file_urls = universalAccessFromFileURLs.toCEF()
         cefStruct.file_access_from_file_urls = fileAccessFromFileURLs.toCEF()
@@ -238,7 +232,6 @@ extension CEFBrowserSettings {
         settings.javascriptCloseWindows = CEFState.fromCEF(value.javascript_close_windows)
         settings.javascriptAccessClipboard = CEFState.fromCEF(value.javascript_access_clipboard)
         settings.javascriptDOMPaste = CEFState.fromCEF(value.javascript_dom_paste)
-        settings.caretBrowsing = CEFState.fromCEF(value.caret_browsing)
         settings.plugins = CEFState.fromCEF(value.plugins)
         settings.universalAccessFromFileURLs = CEFState.fromCEF(value.universal_access_from_file_urls)
         settings.fileAccessFromFileURLs = CEFState.fromCEF(value.file_access_from_file_urls)
