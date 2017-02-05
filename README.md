@@ -31,6 +31,7 @@ Currently supported branches:
 - 2785 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2785)](https://travis-ci.org/lvsti/CEF.swift) - Swift 3.0
 - 2840 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2840)](https://travis-ci.org/lvsti/CEF.swift) - Swift 3.0
 - 2883 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2883)](https://travis-ci.org/lvsti/CEF.swift) - Swift 3.0
+- 2924 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2924)](https://travis-ci.org/lvsti/CEF.swift) - Swift 3.0
 
 
 ### Getting started
