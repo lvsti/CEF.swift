@@ -23,6 +23,7 @@ func CEFRequestContextHandler_get_cookie_manager(ptr: UnsafeMutablePointer<cef_r
 func CEFRequestContextHandler_on_before_plugin_load(ptr: UnsafeMutablePointer<cef_request_context_handler_t>?,
                                                     mimeType: UnsafePointer<cef_string_t>?,
                                                     pluginURL: UnsafePointer<cef_string_t>?,
+                                                    isMainFrame: Int32,
                                                     topOriginURL: UnsafePointer<cef_string_t>?,
                                                     pluginInfo: UnsafeMutablePointer<cef_web_plugin_info_t>?,
                                                     pluginPolicy: UnsafeMutablePointer<cef_plugin_policy_t>?) -> Int32 {
@@ -32,6 +33,7 @@ func CEFRequestContextHandler_on_before_plugin_load(ptr: UnsafeMutablePointer<ce
 
     let action = obj.onBeforePluginLoad(mimeType: CEFStringToSwiftString(mimeType!.pointee),
                                         pluginURL: pluginURL != nil ? NSURL(string: CEFStringToSwiftString(pluginURL!.pointee)) : nil,
+                                        isMainFrame: isMainFrame != 0,
                                         topOriginURL: topOriginURL != nil ? NSURL(string: CEFStringToSwiftString(topOriginURL!.pointee)) : nil,
                                         pluginInfo: CEFWebPluginInfo.fromCEF(pluginInfo)!,
                                         defaultPolicy: CEFPluginPolicy.fromCEF(pluginPolicy!.pointee))
