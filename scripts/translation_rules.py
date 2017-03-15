@@ -189,7 +189,10 @@ cef_enums = [
     # branch 2883
     'cef_thread_priority_t',
     'cef_message_loop_type_t',
-    'cef_com_init_mode_t'
+    'cef_com_init_mode_t',
+    
+    # branch 2987
+    'cef_menu_color_type_t'
 ]
 
 cef_option_sets = [
