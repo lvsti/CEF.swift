@@ -25,7 +25,7 @@ extension pthread_mutex_t: Lock {
 
 
 public protocol CEFObject: DefaultInitializable {
-    var base: cef_base_t { get set }
+    var base: cef_base_ref_counted_t { get set }
 }
 
 protocol CEFRefCounting: class {
@@ -56,20 +56,20 @@ public class CEFProxy<T : CEFObject>: CEFRefCounting {
     }
 
     func addRef() {
-        _cefPtr.withMemoryRebound(to: cef_base_t.self, capacity: 1) { basePtr in
+        _cefPtr.withMemoryRebound(to: cef_base_ref_counted_t.self, capacity: 1) { basePtr in
             _cefPtr.pointee.base.add_ref(basePtr)
         }
     }
     
     @discardableResult
     func release() -> Bool {
-        return _cefPtr.withMemoryRebound(to: cef_base_t.self, capacity: 1) { basePtr in
+        return _cefPtr.withMemoryRebound(to: cef_base_ref_counted_t.self, capacity: 1) { basePtr in
             return _cefPtr.pointee.base.release(basePtr) != 0
         }
     }
     
     func hasOneRef() -> Bool {
-        return _cefPtr.withMemoryRebound(to: cef_base_t.self, capacity: 1) { basePtr in
+        return _cefPtr.withMemoryRebound(to: cef_base_ref_counted_t.self, capacity: 1) { basePtr in
             return _cefPtr.pointee.base.has_one_ref(basePtr) != 0
         }
     }
