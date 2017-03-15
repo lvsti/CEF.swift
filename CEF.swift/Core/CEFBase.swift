@@ -100,10 +100,6 @@ public class CEFScopedProxy<T : CEFScopedObject> {
         _cefPtr = ptr
     }
     
-    deinit {
-        delete()
-    }
-
     func delete() {
         _cefPtr.withMemoryRebound(to: cef_base_scoped_t.self, capacity: 1) { basePtr in
             _cefPtr.pointee.base.del(basePtr)
