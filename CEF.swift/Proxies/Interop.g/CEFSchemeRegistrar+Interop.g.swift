@@ -7,11 +7,11 @@
 
 import Foundation
 
-extension cef_scheme_registrar_t: CEFObject {}
+extension cef_scheme_registrar_t: CEFScopedObject {}
 
 /// Class that manages custom scheme registrations.
 /// CEF name: `CefSchemeRegistrar`
-public class CEFSchemeRegistrar: CEFProxy<cef_scheme_registrar_t> {
+public class CEFSchemeRegistrar: CEFScopedProxy<cef_scheme_registrar_t> {
     override init?(ptr: UnsafeMutablePointer<cef_scheme_registrar_t>?) {
         super.init(ptr: ptr)
     }
