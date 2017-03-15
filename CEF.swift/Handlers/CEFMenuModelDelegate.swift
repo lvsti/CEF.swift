@@ -19,6 +19,21 @@ public protocol CEFMenuModelDelegate {
     /// CEF name: `ExecuteCommand`
     func onExecuteCommand(menuModel: CEFMenuModel, commandID: CEFMenuID, eventFlags: CEFEventFlags)
     
+    /// Called when the user moves the mouse outside the menu and over the owning
+    /// window.
+    /// CEF name: `MouseOutsideMenu`
+    func onMouseOutsideMenu(menuModel: CEFMenuModel, at point: NSPoint)
+    
+    /// Called on unhandled open submenu keyboard commands. |is_rtl| will be true
+    /// if the menu is displaying a right-to-left language.
+    /// CEF name: `UnhandledOpenSubmenu`
+    func onUnhandledOpenSubmenu(menuModel: CEFMenuModel, isRTL: Bool)
+    
+    /// Called on unhandled close submenu keyboard commands. |is_rtl| will be true
+    /// if the menu is displaying a right-to-left language.
+    /// CEF name: `UnhandledCloseSubmenu`
+    func onUnhandledCloseSubmenu(menuModel: CEFMenuModel, isRTL: Bool)
+    
     /// The menu is about to show.
     /// CEF name: `MenuWillShow`
     func onMenuWillShow(menuModel: CEFMenuModel)
@@ -38,6 +53,15 @@ public extension CEFMenuModelDelegate {
     func onExecuteCommand(menuModel: CEFMenuModel, commandID: CEFMenuID, eventFlags: CEFEventFlags) {
     }
     
+    func onMouseOutsideMenu(menuModel: CEFMenuModel, at point: NSPoint) {
+    }
+    
+    func onUnhandledOpenSubmenu(menuModel: CEFMenuModel, isRTL: Bool) {
+    }
+    
+    func onUnhandledCloseSubmenu(menuModel: CEFMenuModel, isRTL: Bool) {
+    }
+
     func onMenuWillShow(menuModel: CEFMenuModel) {
     }
     

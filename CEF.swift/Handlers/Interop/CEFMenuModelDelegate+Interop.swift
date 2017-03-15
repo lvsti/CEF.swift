@@ -21,6 +21,39 @@ func CEFMenuModelDelegate_execute_command(ptr: UnsafeMutablePointer<cef_menu_mod
                          eventFlags: CEFEventFlags.fromCEF(flags))
 }
 
+func CEFMenuModelDelegate_mouse_outside_menu(ptr: UnsafeMutablePointer<cef_menu_model_delegate_t>?,
+                                             menu: UnsafeMutablePointer<cef_menu_model_t>?,
+                                             point: UnsafePointer<cef_point_t>?) {
+    guard let obj = CEFMenuModelDelegateMarshaller.get(ptr) else {
+        return
+    }
+    
+    obj.onMouseOutsideMenu(menuModel: CEFMenuModel.fromCEF(menu)!,
+                           at: NSPoint.fromCEF(point!.pointee))
+}
+
+func CEFMenuModelDelegate_unhandled_open_submenu(ptr: UnsafeMutablePointer<cef_menu_model_delegate_t>?,
+                                                 menu: UnsafeMutablePointer<cef_menu_model_t>?,
+                                                 isRTL: Int32) {
+    guard let obj = CEFMenuModelDelegateMarshaller.get(ptr) else {
+        return
+    }
+    
+    obj.onUnhandledOpenSubmenu(menuModel: CEFMenuModel.fromCEF(menu)!,
+                               isRTL: isRTL != 0)
+}
+
+func CEFMenuModelDelegate_unhandled_close_submenu(ptr: UnsafeMutablePointer<cef_menu_model_delegate_t>?,
+                                                  menu: UnsafeMutablePointer<cef_menu_model_t>?,
+                                                  isRTL: Int32) {
+    guard let obj = CEFMenuModelDelegateMarshaller.get(ptr) else {
+        return
+    }
+    
+    obj.onUnhandledCloseSubmenu(menuModel: CEFMenuModel.fromCEF(menu)!,
+                                isRTL: isRTL != 0)
+}
+
 func CEFMenuModelDelegate_menu_will_show(ptr: UnsafeMutablePointer<cef_menu_model_delegate_t>?,
                                          menu: UnsafeMutablePointer<cef_menu_model_t>?) {
     guard let obj = CEFMenuModelDelegateMarshaller.get(ptr) else {
