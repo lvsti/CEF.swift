@@ -46,6 +46,7 @@ public extension CEFTaskRunner {
     /// Post a task for execution on the thread associated with this task runner.
     /// Execution will occur asynchronously.
     /// CEF name: `PostTask`
+    @discardableResult
     public func post(_ task: CEFTask) -> Bool {
         return cefObject.post_task(cefObjectPtr, task.toCEF()) != 0
     }
@@ -55,6 +56,7 @@ public extension CEFTaskRunner {
     /// supported on V8 WebWorker threads and will be executed without the
     /// specified delay.
     /// CEF name: `PostDelayedTask`
+    @discardableResult
     public func post(_ task: CEFTask, withDelay delay: TimeInterval) -> Bool {
         return cefObject.post_delayed_task(cefObjectPtr, task.toCEF(), Int64(delay * 1000)) != 0
     }
@@ -67,6 +69,7 @@ public extension CEFTaskRunner {
     /// Post a task for execution on the thread associated with this task runner.
     /// Execution will occur asynchronously.
     /// CEF name: `PostTask`
+    @discardableResult
     public func post(_ block: @escaping CEFTaskExecuteBlock) -> Bool {
         let task = CEFTaskBridge(block: block)
         return cefObject.post_task(cefObjectPtr, task.toCEF()) != 0
@@ -77,6 +80,7 @@ public extension CEFTaskRunner {
     /// supported on V8 WebWorker threads and will be executed without the
     /// specified delay.
     /// CEF name: `PostDelayedTask`
+    @discardableResult
     public func postWithDelay(_ delay: TimeInterval, block: @escaping CEFTaskExecuteBlock) -> Bool {
         let task = CEFTaskBridge(block: block)
         return cefObject.post_delayed_task(cefObjectPtr, task.toCEF(), Int64(delay * 1000)) != 0

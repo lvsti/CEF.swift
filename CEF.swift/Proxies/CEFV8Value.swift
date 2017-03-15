@@ -249,6 +249,7 @@ public extension CEFV8Value {
     
     /// Clears the last exception and returns true on success.
     /// CEF name: `ClearException`
+    @discardableResult
     public func clearException() -> Bool {
         return cefObject.clear_exception(cefObjectPtr) != 0
     }
@@ -270,6 +271,7 @@ public extension CEFV8Value {
     /// caught and not re-thrown. Returns true on success. This attribute exists
     /// only in the scope of the current CEF value object.
     /// CEF name: `SetRethrowExceptions`
+    @discardableResult
     public func setRethrowsExcepions(_ value: Bool) -> Bool {
         return cefObject.set_rethrow_exceptions(cefObjectPtr, value ? 1 : 0) != 0
     }
@@ -293,6 +295,7 @@ public extension CEFV8Value {
     /// is thrown. For read-only and don't-delete values this method will return
     /// true even though deletion failed.
     /// CEF name: `DeleteValue`
+    @discardableResult
     public func removeValue(for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
@@ -304,6 +307,7 @@ public extension CEFV8Value {
     /// or an exception is thrown. For read-only and don't-delete values this
     /// method will return true even though deletion failed.
     /// CEF name: `DeleteValue`
+    @discardableResult
     public func removeValue(at index: Int) -> Bool {
         return cefObject.delete_value_byindex(cefObjectPtr, Int32(index)) != 0
     }
@@ -331,6 +335,7 @@ public extension CEFV8Value {
     /// is thrown. For read-only values this method will return true even though
     /// assignment failed.
     /// CEF name: `SetValue`
+    @discardableResult
     public func setValue(_ value: CEFV8Value, for key: String, attribute: CEFV8PropertyAttribute) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
@@ -342,6 +347,7 @@ public extension CEFV8Value {
     /// is thrown. For read-only values this method will return true even though
     /// assignment failed.
     /// CEF name: `SetValue`
+    @discardableResult
     public func setValue(_ value: CEFV8Value, at index: Int) -> Bool {
         return cefObject.set_value_byindex(cefObjectPtr, Int32(index), value.toCEF()) != 0
     }
@@ -352,6 +358,7 @@ public extension CEFV8Value {
     /// incorrectly or an exception is thrown. For read-only values this method
     /// will return true even though assignment failed.
     /// CEF name: `SetValue`
+    @discardableResult
     public func setValue(for key: String, access: CEFV8AccessControl, attribute: CEFV8PropertyAttribute) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }

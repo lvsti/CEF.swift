@@ -23,6 +23,7 @@ public struct CEFTraceUtils {
     /// Example: "-excluded_category1,-excluded_category2"
     /// This function must be called on the browser process UI thread.
     /// CEF name: `CefBeginTracing`
+    @discardableResult
     public static func beginTracingWithCategories(categories: String? = nil, callback: CEFCompletionCallback? = nil) -> Bool {
         let cefStrPtr = categories != nil ? CEFStringPtrCreateFromSwiftString(categories!) : nil
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -38,6 +39,7 @@ public struct CEFTraceUtils {
     /// will be used. If |callback| is empty no trace data will be written.
     /// This function must be called on the browser process UI thread.
     /// CEF name: `CefEndTracing`
+    @discardableResult
     public static func endTracingWithOutputFilePath(path: String? = nil, callback: CEFEndTracingCallback? = nil) -> Bool {
         let cefStrPtr = path != nil ? CEFStringPtrCreateFromSwiftString(path!) : nil
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -53,6 +55,7 @@ public struct CEFTraceUtils {
     /// will be used. If |callback| is empty no trace data will be written.
     /// This function must be called on the browser process UI thread.
     /// CEF name: `CefEndTracing`
+    @discardableResult
     public static func endTracingWithOutputFilePath(path: String? = nil, block: @escaping CEFEndTracingCallbackOnEndTracingCompleteBlock) -> Bool {
         return endTracingWithOutputFilePath(path: path, callback: CEFEndTracingCallbackBridge(block: block))
     }

@@ -157,6 +157,7 @@ public extension CEFBrowser {
     /// Send a message to the specified |target_process|. Returns true if the
     /// message was sent successfully.
     /// CEF name: `SendProcessMessage`
+    @discardableResult
     public func sendProcessMessage(targetProcessID: CEFProcessID, message: CEFProcessMessage) -> Bool {
         return cefObject.send_process_message(cefObjectPtr, targetProcessID.toCEF(), message.toCEF()) != 0
     }

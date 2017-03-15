@@ -19,6 +19,7 @@ public extension CEFZipReader {
     /// Moves the cursor to the first file in the archive. Returns true if the
     /// cursor position was set successfully.
     /// CEF name: `MoveToFirstFile`
+    @discardableResult
     public func moveToFirstFile() -> Bool {
         return cefObject.move_to_first_file(cefObjectPtr) != 0
     }
@@ -26,6 +27,7 @@ public extension CEFZipReader {
     /// Moves the cursor to the next file in the archive. Returns true if the
     /// cursor position was set successfully.
     /// CEF name: `MoveToNextFile`
+    @discardableResult
     public func moveToNextFile() -> Bool {
         return cefObject.move_to_next_file(cefObjectPtr) != 0
     }
@@ -34,6 +36,7 @@ public extension CEFZipReader {
     /// is true then the search will be case sensitive. Returns true if the cursor
     /// position was set successfully.
     /// CEF name: `MoveToFile`
+    @discardableResult
     public func moveToFile(named: String, caseSensitive: Bool) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(named)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -43,6 +46,7 @@ public extension CEFZipReader {
     /// Closes the archive. This should be called directly to ensure that cleanup
     /// occurs on the correct thread.
     /// CEF name: `Close`
+    @discardableResult
     public func close() -> Bool {
         return cefObject.close(cefObjectPtr) != 0
     }
@@ -73,6 +77,7 @@ public extension CEFZipReader {
     /// Opens the file for reading of uncompressed data. A read password may
     /// optionally be specified.
     /// CEF name: `OpenFile`
+    @discardableResult
     public func openFile(password: String? = nil) -> Bool {
         var cefPwd = password != nil ? CEFStringPtrCreateFromSwiftString(password!) : nil
         defer { CEFStringPtrRelease(cefPwd) }
@@ -82,6 +87,7 @@ public extension CEFZipReader {
     
     /// Closes the file.
     /// CEF name: `CloseFile`
+    @discardableResult
     public func closeFile() -> Bool {
         return cefObject.close_file(cefObjectPtr) != 0
     }

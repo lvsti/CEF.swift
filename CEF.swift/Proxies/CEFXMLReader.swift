@@ -23,6 +23,7 @@ public extension CEFXMLReader {
     /// called at least once to set the current cursor position. Returns true if
     /// the cursor position was set successfully.
     /// CEF name: `MoveToNextNode`
+    @discardableResult
     public func moveToNextNode() -> Bool {
         return cefObject.move_to_next_node(cefObjectPtr) != 0
     }
@@ -30,6 +31,7 @@ public extension CEFXMLReader {
     /// Close the document. This should be called directly to ensure that cleanup
     /// occurs on the correct thread.
     /// CEF name: `Close`
+    @discardableResult
     public func close() -> Bool {
         return cefObject.close(cefObjectPtr) != 0
     }
@@ -216,6 +218,7 @@ public extension CEFXMLReader {
     /// Moves the cursor to the attribute at the specified 0-based index. Returns
     /// true if the cursor position was set successfully.
     /// CEF name: `MoveToAttribute`
+    @discardableResult
     public func moveToAttribute(at index: Int) -> Bool {
         return cefObject.move_to_attribute_byindex(cefObjectPtr, Int32(index)) != 0
     }
@@ -223,6 +226,7 @@ public extension CEFXMLReader {
     /// Moves the cursor to the attribute with the specified qualified name.
     /// Returns true if the cursor position was set successfully.
     /// CEF name: `MoveToAttribute`
+    @discardableResult
     public func moveToAttribute(with qualifiedName: String) -> Bool {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(qualifiedName)
         defer { CEFStringPtrRelease(cefNamePtr) }
@@ -232,6 +236,7 @@ public extension CEFXMLReader {
     /// Moves the cursor to the attribute with the specified local name and
     /// namespace URI. Returns true if the cursor position was set successfully.
     /// CEF name: `MoveToAttribute`
+    @discardableResult
     public func moveToAttribute(with name: String, namespaceURI: NSURL) -> Bool {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
         let cefURIPtr = CEFStringPtrCreateFromSwiftString(namespaceURI.absoluteString!)
@@ -245,6 +250,7 @@ public extension CEFXMLReader {
     /// Moves the cursor to the first attribute in the current element. Returns
     /// true if the cursor position was set successfully.
     /// CEF name: `MoveToFirstAttribute`
+    @discardableResult
     public func moveToFirstAttribute() -> Bool {
         return cefObject.move_to_first_attribute(cefObjectPtr) != 0
     }
@@ -252,6 +258,7 @@ public extension CEFXMLReader {
     /// Moves the cursor to the next attribute in the current element. Returns
     /// true if the cursor position was set successfully.
     /// CEF name: `MoveToNextAttribute`
+    @discardableResult
     public func moveToNextAttribute() -> Bool {
         return cefObject.move_to_next_attribute(cefObjectPtr) != 0
     }
@@ -259,6 +266,7 @@ public extension CEFXMLReader {
     /// Moves the cursor back to the carrying element. Returns true if the cursor
     /// position was set successfully.
     /// CEF name: `MoveToCarryingElement`
+    @discardableResult
     public func moveToCarryingElement() -> Bool {
         return cefObject.move_to_carrying_element(cefObjectPtr) != 0
     }

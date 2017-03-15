@@ -40,6 +40,7 @@ public struct CEFCrossOriginUtils {
     /// This function may be called on any thread. Returns false if |source_origin|
     /// is invalid or the whitelist cannot be accessed.
     /// CEF name: `CefAddCrossOriginWhitelistEntry`
+    @discardableResult
     public static func addWhitelistEntry(origin: NSURL,
                                          targetScheme: String,
                                          targetDomain: String? = nil,
@@ -63,6 +64,7 @@ public struct CEFCrossOriginUtils {
     /// Remove an entry from the cross-origin access whitelist. Returns false if
     /// |source_origin| is invalid or the whitelist cannot be accessed.
     /// CEF name: `CefRemoveCrossOriginWhitelistEntry`
+    @discardableResult
     public static func removeWhitelistEntry(origin: NSURL,
                                             targetScheme: String,
                                             targetDomain: String? = nil,
@@ -86,6 +88,7 @@ public struct CEFCrossOriginUtils {
     /// Remove all entries from the cross-origin access whitelist. Returns false if
     /// the whitelist cannot be accessed.
     /// CEF name: `CefClearCrossOriginWhitelist`
+    @discardableResult
     public static func clearWhitelist() -> Bool {
         return cef_clear_cross_origin_whitelist() != 0
     }

@@ -15,6 +15,7 @@ public struct CEFFileUtils {
     /// directory is only readable by the current user. Calling this function on the
     /// browser process UI or IO threads is not allowed.
     /// CEF name: `CefCreateDirectory`
+    @discardableResult
     public static func createDirectory(at path: String) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -28,7 +29,7 @@ public struct CEFFileUtils {
     /// set so that other users on the system can't edit them while they're open
     /// (which could lead to security issues).
     /// CEF name: `CefGetTempDirectory`
-    public static func tempDirectory() -> String? {
+    public static var tempDirectory: String? {
         var cefStr = cef_string_t()
         let retval = cef_get_temp_directory(&cefStr)
         return retval != 0 ? CEFStringToSwiftString(cefStr) : nil
@@ -70,7 +71,7 @@ public struct CEFFileUtils {
     /// Returns true if the given path exists and is a directory. Calling this
     /// function on the browser process UI or IO threads is not allowed.
     /// CEF name: `CefDirectoryExists`
-    public static func directoryExists(path: String) -> Bool {
+    public static func directoryExists(at path: String) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cef_directory_exists(cefStrPtr) != 0
@@ -84,6 +85,7 @@ public struct CEFFileUtils {
     /// deletion or if |path| does not exist. Calling this function on the browser
     /// process UI or IO threads is not allowed.
     /// CEF name: `CefDeleteFile`
+    @discardableResult
     public static func deleteFile(at path: String, recursively: Bool) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -95,6 +97,7 @@ public struct CEFFileUtils {
     /// Returns true on success.  Calling this function on the browser process UI or
     /// IO threads is not allowed.
     /// CEF name: `CefZipDirectory`
+    @discardableResult
     public static func zipDirectory(at path: String, to zipFilePath: String, includingHiddenFiles: Bool) -> Bool {
         let cefSrcPtr = CEFStringPtrCreateFromSwiftString(path)
         defer { CEFStringPtrRelease(cefSrcPtr) }

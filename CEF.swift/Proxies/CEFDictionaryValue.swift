@@ -69,6 +69,7 @@ public extension CEFDictionaryValue {
 
     /// Removes all values. Returns true on success.
     /// CEF name: `Clear`
+    @discardableResult
     public func clear() -> Bool {
         return cefObject.clear(cefObjectPtr) != 0
     }
@@ -96,6 +97,7 @@ public extension CEFDictionaryValue {
     /// Removes the value at the specified key. Returns true is the value was
     /// removed successfully.
     /// CEF name: `Remove`
+    @discardableResult
     public func removeValue(for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
@@ -198,6 +200,7 @@ public extension CEFDictionaryValue {
     /// underlying data will be referenced and modifications to |value| will modify
     /// this object.
     /// CEF name: `SetValue`
+    @discardableResult
     public func set(_ value: CEFValue, for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
@@ -207,6 +210,7 @@ public extension CEFDictionaryValue {
     /// Sets the value at the specified key as type null. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetNull`
+    @discardableResult
     public func setNull(for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
@@ -216,6 +220,7 @@ public extension CEFDictionaryValue {
     /// Sets the value at the specified key as type bool. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetBool`
+    @discardableResult
     public func set(_ value: Bool, for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
@@ -225,6 +230,7 @@ public extension CEFDictionaryValue {
     /// Sets the value at the specified key as type int. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetInt`
+    @discardableResult
     public func set(_ value: Int, for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
@@ -234,6 +240,7 @@ public extension CEFDictionaryValue {
     /// Sets the value at the specified key as type double. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetDouble`
+    @discardableResult
     public func set(_ value: Double, for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
@@ -243,6 +250,7 @@ public extension CEFDictionaryValue {
     /// Sets the value at the specified key as type string. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetString`
+    @discardableResult
     public func set(_ string: String, for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(string)
@@ -259,6 +267,7 @@ public extension CEFDictionaryValue {
     /// Otherwise, ownership will be transferred to this object and the |value|
     /// reference will be invalidated.
     /// CEF name: `SetBinary`
+    @discardableResult
     public func set(_ value: CEFBinaryValue, for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
@@ -271,6 +280,7 @@ public extension CEFDictionaryValue {
     /// Otherwise, ownership will be transferred to this object and the |value|
     /// reference will be invalidated.
     /// CEF name: `SetDictionary`
+    @discardableResult
     public func set(_ value: CEFDictionaryValue, for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
@@ -283,6 +293,7 @@ public extension CEFDictionaryValue {
     /// Otherwise, ownership will be transferred to this object and the |value|
     /// reference will be invalidated.
     /// CEF name: `SetList`
+    @discardableResult
     public func set(_ value: CEFListValue, for key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }

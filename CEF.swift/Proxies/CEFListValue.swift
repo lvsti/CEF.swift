@@ -71,18 +71,21 @@ public extension CEFListValue {
     /// new value slots will default to type null. Returns true on success.
     /// CEF name: `SetSize`
     @available(*, deprecated: 1.0, message: "use the `size` property")
+    @discardableResult
     public func setSize(_ size: Int) -> Bool {
         return cefObject.set_size(cefObjectPtr, size) != 0
     }
 
     /// Removes all values. Returns true on success.
     /// CEF name: `Clear`
+    @discardableResult
     public func clear() -> Bool {
         return cefObject.clear(cefObjectPtr) != 0
     }
 
     /// Removes the value at the specified index.
     /// CEF name: `Remove`
+    @discardableResult
     public func remove(at index: Int) -> Bool {
         return cefObject.remove(cefObjectPtr, size_t(index)) != 0
     }
@@ -164,6 +167,7 @@ public extension CEFListValue {
     /// underlying data will be referenced and modifications to |value| will modify
     /// this object.
     /// CEF name: `SetValue`
+    @discardableResult
     public func set(_ value: CEFValue, at index: Int) -> Bool {
         return cefObject.set_value(cefObjectPtr, size_t(index), value.toCEF()) != 0
     }
@@ -171,6 +175,7 @@ public extension CEFListValue {
     /// Sets the value at the specified index as type null. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetNull`
+    @discardableResult
     public func setNull(at index: Int) -> Bool {
         return cefObject.set_null(cefObjectPtr, size_t(index)) != 0
     }
@@ -178,6 +183,7 @@ public extension CEFListValue {
     /// Sets the value at the specified index as type bool. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetBool`
+    @discardableResult
     public func set(_ value: Bool, at index: Int) -> Bool {
         return cefObject.set_bool(cefObjectPtr, size_t(index), value ? 1 : 0) != 0
     }
@@ -185,6 +191,7 @@ public extension CEFListValue {
     /// Sets the value at the specified index as type int. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetInt`
+    @discardableResult
     public func set(_ value: Int, at index: Int) -> Bool {
         return cefObject.set_int(cefObjectPtr, size_t(index), Int32(value)) != 0
     }
@@ -192,6 +199,7 @@ public extension CEFListValue {
     /// Sets the value at the specified index as type double. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetDouble`
+    @discardableResult
     public func set(_ value: Double, at index: Int) -> Bool {
         return cefObject.set_double(cefObjectPtr, size_t(index), value) != 0
     }
@@ -199,6 +207,7 @@ public extension CEFListValue {
     /// Sets the value at the specified index as type string. Returns true if the
     /// value was set successfully.
     /// CEF name: `SetString`
+    @discardableResult
     public func set(_ string: String, at index: Int) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(string)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -211,6 +220,7 @@ public extension CEFListValue {
     /// Otherwise, ownership will be transferred to this object and the |value|
     /// reference will be invalidated.
     /// CEF name: `SetBinary`
+    @discardableResult
     public func set(_ value: CEFBinaryValue, at index: Int) -> Bool {
         return cefObject.set_binary(cefObjectPtr, size_t(index), value.toCEF()) != 0
     }
@@ -221,6 +231,7 @@ public extension CEFListValue {
     /// Otherwise, ownership will be transferred to this object and the |value|
     /// reference will be invalidated.
     /// CEF name: `SetDictionary`
+    @discardableResult
     public func set(_ value: CEFDictionaryValue, at index: Int) -> Bool {
         return cefObject.set_dictionary(cefObjectPtr, size_t(index), value.toCEF()) != 0
     }
@@ -231,6 +242,7 @@ public extension CEFListValue {
     /// Otherwise, ownership will be transferred to this object and the |value|
     /// reference will be invalidated.
     /// CEF name: `SetList`
+    @discardableResult
     public func set(_ value: CEFListValue, at index: Int) -> Bool {
         return cefObject.set_list(cefObjectPtr, size_t(index), value.toCEF()) != 0
     }

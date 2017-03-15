@@ -77,6 +77,7 @@ public extension CEFV8Context {
     /// objects belong to the context in which they are created. Returns true if
     /// the scope was entered successfully.
     /// CEF name: `Enter`
+    @discardableResult
     public func enter() -> Bool {
         return cefObject.enter(cefObjectPtr) != 0
     }
@@ -84,6 +85,7 @@ public extension CEFV8Context {
     /// Exit this context. Call this method only after calling Enter(). Returns
     /// true if the scope was exited successfully.
     /// CEF name: `Exit`
+    @discardableResult
     public func exit() -> Bool {
         return cefObject.exit(cefObjectPtr) != 0
     }

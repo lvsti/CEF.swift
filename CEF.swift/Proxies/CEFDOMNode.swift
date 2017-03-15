@@ -81,6 +81,7 @@ public extension CEFDOMNode {
 
     /// Set the value of this node. Returns true on success.
     /// CEF name: `SetValue`
+    @discardableResult
     public func setStringValue(_ value: String) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(value)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -192,6 +193,7 @@ public extension CEFDOMNode {
     /// Set the value for the element attribute named |attrName|. Returns true on
     /// success.
     /// CEF name: `SetElementAttribute`
+    @discardableResult
     public func setElementAttribute(_ value: String, for name: String) -> Bool {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
         let cefValuePtr = CEFStringPtrCreateFromSwiftString(value)

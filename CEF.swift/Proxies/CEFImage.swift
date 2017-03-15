@@ -38,6 +38,7 @@ public extension CEFImage {
     /// pixel data and should be |pixel_width| x |pixel_height| x 4 bytes in size.
     /// |color_type| and |alpha_type| values specify the pixel format.
     /// CEF name: `AddBitmap`
+    @discardableResult
     public func addBitmap(scaleFactor: Float,
                           pixelWidth: Int,
                           pixelHeight: Int,
@@ -58,6 +59,7 @@ public extension CEFImage {
     /// data of size |png_data_size|. Any alpha transparency in the PNG data will
     /// be maintained.
     /// CEF name: `AddPNG`
+    @discardableResult
     public func addPNG(scaleFactor: Float, data: NSData) -> Bool {
         return cefObject.add_png(cefObjectPtr,
                                  scaleFactor,
@@ -69,6 +71,7 @@ public extension CEFImage {
     // image data of size |jpeg_data_size|. The JPEG format does not support
     // transparency so the alpha byte will be set to 0xFF for all pixels.
     /// CEF name: `AddJPEG`
+    @discardableResult
     public func addJPEG(scaleFactor: Float, data: NSData) -> Bool {
         return cefObject.add_jpeg(cefObjectPtr,
                                   scaleFactor,
@@ -96,6 +99,7 @@ public extension CEFImage {
     
     /// Removes the representation for |scale_factor|. Returns true on success.
     /// CEF name: `RemoveRepresentation`
+    @discardableResult
     public func removeRepresentation(forScaleFactor scaleFactor: Float) -> Bool {
         return cefObject.remove_representation(cefObjectPtr, scaleFactor) != 0
     }

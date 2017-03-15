@@ -34,6 +34,7 @@ public extension CEFStreamWriter {
     /// SEEK_CUR, SEEK_END or SEEK_SET. Returns zero on success and non-zero on
     /// failure.
     /// CEF name: `Seek`
+    @discardableResult
     func seek(to offset: Int64, from whence: CEFSeekPosition) -> Bool {
         return cefObject.seek(cefObjectPtr, offset, whence.rawValue) == 0
     }
@@ -46,6 +47,7 @@ public extension CEFStreamWriter {
     
     /// Flush the stream.
     /// CEF name: `Flush`
+    @discardableResult
     func flush() -> Bool {
         return cefObject.flush(cefObjectPtr) != 0
     }

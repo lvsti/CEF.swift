@@ -14,6 +14,7 @@ public struct CEFGeolocationUtils {
     /// permission checks so should only be used by code that is allowed to access
     /// location information.
     /// CEF name: `CefGetGeolocation`
+    @discardableResult
     public static func getGeolocation(callback: CEFGetGeolocationCallback) -> Bool {
         return cef_get_geolocation(callback.toCEF()) != 0
     }
@@ -22,6 +23,7 @@ public struct CEFGeolocationUtils {
     /// permission checks so should only be used by code that is allowed to access
     /// location information.
     /// CEF name: `CefGetGeolocation`
+    @discardableResult
     public static func getGeolocation(block: @escaping CEFGetGeolocationCallbackOnLocationUpdateBlock) -> Bool {
         return getGeolocation(callback: CEFGetGeolocationCallbackBridge(block: block))
     }

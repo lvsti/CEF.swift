@@ -23,6 +23,7 @@ public struct CEFSchemeUtils {
     /// Using this function is equivalent to calling
     /// CefRequestContext::GetGlobalContext()->RegisterSchemeHandlerFactory().
     /// CEF name: `CefRegisterSchemeHandlerFactory`
+    @discardableResult
     public static func registerHandlerFactoryForScheme(scheme: String, domain: String? = nil, factory: CEFSchemeHandlerFactory? = nil) -> Bool {
         let cefSchemePtr = CEFStringPtrCreateFromSwiftString(scheme)
         let cefDomainPtr = domain != nil ? CEFStringPtrCreateFromSwiftString(domain!) : nil
@@ -38,6 +39,7 @@ public struct CEFSchemeUtils {
     /// the browser process. Using this function is equivalent to calling
     /// CefRequestContext::GetGlobalContext()->ClearSchemeHandlerFactories().
     /// CEF name: `CefClearSchemeHandlerFactories`
+    @discardableResult
     public static func clearHandlerFactories() -> Bool {
         return cef_clear_scheme_handler_factories() != 0
     }

@@ -55,6 +55,7 @@ public extension CEFWaitableEvent {
     /// the call to Signal() has completed. This method cannot be called on the
     /// browser process UI or IO threads.
     /// CEF name: `TimedWait`
+    @discardableResult
     public func wait(for seconds: TimeInterval) -> Bool {
         return cefObject.timed_wait(cefObjectPtr, int64(seconds*1000)) != 0
     }

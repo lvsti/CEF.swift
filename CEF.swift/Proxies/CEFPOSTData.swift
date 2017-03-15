@@ -59,12 +59,14 @@ public extension CEFPOSTData {
     /// Remove the specified post data element.  Returns true if the removal
     /// succeeds.
     /// CEF name: `RemoveElement`
+    @discardableResult
     public func remove(_ element: CEFPOSTDataElement) -> Bool {
         return cefObject.remove_element(cefObjectPtr, element.toCEF()) != 0
     }
     
     /// Add the specified post data element.  Returns true if the add succeeds.
     /// CEF name: `AddElement`
+    @discardableResult
     public func add(_ element: CEFPOSTDataElement) -> Bool {
         return cefObject.add_element(cefObjectPtr, element.toCEF()) != 0
     }

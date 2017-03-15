@@ -28,6 +28,7 @@ public extension CEFMenuModel {
 
     /// Clears the menu. Returns true on success.
     /// CEF name: `Clear`
+    @discardableResult
     public func clear() -> Bool {
         return cefObject.clear(cefObjectPtr) != 0
     }
@@ -40,12 +41,14 @@ public extension CEFMenuModel {
 
     /// Add a separator to the menu. Returns true on success.
     /// CEF name: `AddSeparator`
+    @discardableResult
     public func addSeparator() -> Bool {
         return cefObject.add_separator(cefObjectPtr) != 0
     }
     
     /// Add an item to the menu. Returns true on success.
     /// CEF name: `AddItem`
+    @discardableResult
     public func addItem(_ label: String, commandID: CommandID) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(label)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -54,6 +57,7 @@ public extension CEFMenuModel {
     
     /// Add a check item to the menu. Returns true on success.
     /// CEF name: `AddCheckItem`
+    @discardableResult
     public func addCheckItem(_ label: String, commandID: CommandID) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(label)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -63,6 +67,7 @@ public extension CEFMenuModel {
     /// Add a radio item to the menu. Only a single item with the specified
     /// |group_id| can be checked at a time. Returns true on success.
     /// CEF name: `AddRadioItem`
+    @discardableResult
     public func addRadioItem(_ label: String, commandID: CommandID, groupID: GroupID) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(label)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -81,6 +86,7 @@ public extension CEFMenuModel {
     /// Insert a separator in the menu at the specified |index|. Returns true on
     /// success.
     /// CEF name: `InsertSeparatorAt`
+    @discardableResult
     public func insertSeparator(at index: Int) -> Bool {
         return cefObject.insert_separator_at(cefObjectPtr, Int32(index)) != 0
     }
@@ -88,6 +94,7 @@ public extension CEFMenuModel {
     /// Insert an item in the menu at the specified |index|. Returns true on
     /// success.
     /// CEF name: `InsertItemAt`
+    @discardableResult
     public func insertItem(_ label: String, at index: Int, commandID: CommandID) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(label)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -97,6 +104,7 @@ public extension CEFMenuModel {
     /// Insert a check item in the menu at the specified |index|. Returns true on
     /// success.
     /// CEF name: `InsertCheckItemAt`
+    @discardableResult
     public func insertCheckItem(_ label: String, at index: Int, commandID: CommandID) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(label)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -107,6 +115,7 @@ public extension CEFMenuModel {
     /// item with the specified |group_id| can be checked at a time. Returns true
     /// on success.
     /// CEF name: `InsertRadioItemAt`
+    @discardableResult
     public func insertRadioItem(_ label: String, at index: Int, commandID: CommandID, groupID: GroupID) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(label)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -125,12 +134,14 @@ public extension CEFMenuModel {
     
     /// Removes the item with the specified |command_id|. Returns true on success.
     /// CEF name: `Remove`
+    @discardableResult
     public func removeItem(commandID: CommandID) -> Bool {
         return cefObject.remove(cefObjectPtr, commandID.toCEF()) != 0
     }
 
     /// Removes the item at the specified |index|. Returns true on success.
     /// CEF name: `RemoveAt`
+    @discardableResult
     public func removeItem(at index: Int) -> Bool {
         return cefObject.remove_at(cefObjectPtr, Int32(index)) != 0
     }
@@ -138,20 +149,22 @@ public extension CEFMenuModel {
     /// Returns the index associated with the specified |command_id| or -1 if not
     /// found due to the command id not existing in the menu.
     /// CEF name: `GetIndexOf`
-    public func index(for commandID: CommandID) -> Int {
-        return Int(cefObject.get_index_of(cefObjectPtr, commandID.toCEF()))
+    public func index(for commandID: CommandID) -> Int? {
+        let index = cefObject.get_index_of(cefObjectPtr, commandID.toCEF())
+        return index != -1 ? Int(index) : nil
     }
     
     /// Returns the command id at the specified |index| or -1 if not found due to
     /// invalid range or the index being a separator.
     /// CEF name: `GetCommandIdAt`
-    public func commandID(at index: Int) -> CommandID {
+    public func commandID(at index: Int) -> CommandID? {
         let cefID = cefObject.get_command_id_at(cefObjectPtr, Int32(index))
-        return CommandID.fromCEF(cefID)
+        return cefID != -1 ? CommandID.fromCEF(cefID) : nil
     }
     
     /// Sets the command id at the specified |index|. Returns true on success.
     /// CEF name: `SetCommandIdAt`
+    @discardableResult
     public func setCommandID(_ commandID: CommandID, at index: Int) -> Bool {
         return cefObject.set_command_id_at(cefObjectPtr, Int32(index), commandID.toCEF()) != 0
     }
@@ -175,6 +188,7 @@ public extension CEFMenuModel {
     
     /// Sets the label for the specified |command_id|. Returns true on success.
     /// CEF name: `SetLabel`
+    @discardableResult
     public func setLabel(_ label: String, for commandID: CommandID) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(label)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -183,6 +197,7 @@ public extension CEFMenuModel {
     
     /// Set the label at the specified |index|. Returns true on success.
     /// CEF name: `SetLabelAt`
+    @discardableResult
     public func setLabel(_ label: String, at index: Int) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(label)
         defer { CEFStringPtrRelease(cefStrPtr) }
@@ -205,24 +220,28 @@ public extension CEFMenuModel {
     
     /// Returns the group id for the specified |command_id| or -1 if invalid.
     /// CEF name: `GetGroupId`
-    public func groupID(for commandID: CommandID) -> GroupID {
-        return cefObject.get_group_id(cefObjectPtr, commandID.toCEF())
+    public func groupID(for commandID: CommandID) -> GroupID? {
+        let groupID = cefObject.get_group_id(cefObjectPtr, commandID.toCEF())
+        return groupID != -1 ? groupID : nil
     }
     
     /// Returns the group id at the specified |index| or -1 if invalid.
     /// CEF name: `GetGroupIdAt`
-    public func groupID(at index: Int) -> GroupID {
-        return cefObject.get_group_id_at(cefObjectPtr, Int32(index))
+    public func groupID(at index: Int) -> GroupID? {
+        let groupID = cefObject.get_group_id_at(cefObjectPtr, Int32(index))
+        return groupID != -1 ? groupID : nil
     }
     
     /// Sets the group id for the specified |command_id|. Returns true on success.
     /// CEF name: `SetGroupId`
+    @discardableResult
     public func setGroupID(_ groupID: GroupID, for commandID: CommandID) -> Bool {
         return cefObject.set_group_id(cefObjectPtr, commandID.toCEF(), groupID) != 0
     }
     
     /// Sets the group id at the specified |index|. Returns true on success.
     /// CEF name: `SetGroupIdAt`
+    @discardableResult
     public func setGroupID(_ groupID: GroupID, at index: Int) -> Bool {
         return cefObject.set_group_id_at(cefObjectPtr, Int32(index), groupID) != 0
     }
@@ -256,12 +275,14 @@ public extension CEFMenuModel {
     /// Change the visibility of the specified |command_id|. Returns true on
     /// success.
     /// CEF name: `SetVisible`
+    @discardableResult
     public func setVisible(_ visible: Bool, for commandID: CommandID) -> Bool {
         return cefObject.set_visible(cefObjectPtr, commandID.toCEF(), visible ? 1 : 0) != 0
     }
 
     /// Change the visibility at the specified |index|. Returns true on success.
     /// CEF name: `SetVisibleAt`
+    @discardableResult
     public func setVisible(_ visible: Bool, at index: Int) -> Bool {
         return cefObject.set_visible_at(cefObjectPtr, Int32(index), visible ? 1 : 0) != 0
     }
@@ -281,6 +302,7 @@ public extension CEFMenuModel {
     /// Change the enabled status of the specified |command_id|. Returns true on
     /// success.
     /// CEF name: `SetEnabled`
+    @discardableResult
     public func setEnabled(_ enabled: Bool, for commandID: CommandID) -> Bool {
         return cefObject.set_enabled(cefObjectPtr, commandID.toCEF(), enabled ? 1 : 0) != 0
     }
@@ -288,6 +310,7 @@ public extension CEFMenuModel {
     /// Change the enabled status at the specified |index|. Returns true on
     /// success.
     /// CEF name: `SetEnabledAt`
+    @discardableResult
     public func setEnabled(_ enabled: Bool, at index: Int) -> Bool {
         return cefObject.set_enabled_at(cefObjectPtr, Int32(index), enabled ? 1 : 0) != 0
     }
@@ -309,6 +332,7 @@ public extension CEFMenuModel {
     /// Check the specified |command_id|. Only applies to check and radio items.
     /// Returns true on success.
     /// CEF name: `SetChecked`
+    @discardableResult
     public func setChecked(_ checked: Bool, for commandID: CommandID) -> Bool {
         return cefObject.set_checked(cefObjectPtr, commandID.toCEF(), checked ? 1 : 0) != 0
     }
@@ -316,6 +340,7 @@ public extension CEFMenuModel {
     /// Check the specified |index|. Only applies to check and radio items. Returns
     /// true on success.
     /// CEF name: `SetCheckedAt`
+    @discardableResult
     public func setChecked(_ checked: Bool, at index: Int) -> Bool {
         return cefObject.set_checked_at(cefObjectPtr, Int32(index), checked ? 1 : 0) != 0
     }
@@ -336,6 +361,7 @@ public extension CEFMenuModel {
     /// Set the keyboard accelerator for the specified |command_id|. |key_code| can
     /// be any virtual key or character value. Returns true on success.
     /// CEF name: `SetAccelerator`
+    @discardableResult
     public func setAccelerator(_ accelerator: CEFMenuItemAccelerator, for commandID: CommandID) -> Bool {
         return cefObject.set_accelerator(cefObjectPtr,
                                          commandID.toCEF(),
@@ -348,6 +374,7 @@ public extension CEFMenuModel {
     /// Set the keyboard accelerator at the specified |index|. |key_code| can be
     /// any virtual key or character value. Returns true on success.
     /// CEF name: `SetAcceleratorAt`
+    @discardableResult
     public func setAccelerator(_ accelerator: CEFMenuItemAccelerator, at index: Int) -> Bool {
         return cefObject.set_accelerator_at(cefObjectPtr,
                                             Int32(index),
@@ -360,6 +387,7 @@ public extension CEFMenuModel {
     /// Remove the keyboard accelerator for the specified |command_id|. Returns
     /// true on success.
     /// CEF name: `RemoveAccelerator`
+    @discardableResult
     public func removeAccelerator(for commandID: CommandID) -> Bool {
         return cefObject.remove_accelerator(cefObjectPtr, commandID.toCEF()) != 0
     }
@@ -367,6 +395,7 @@ public extension CEFMenuModel {
     /// Remove the keyboard accelerator at the specified |index|. Returns true on
     /// success.
     /// CEF name: `RemoveAcceleratorAt`
+    @discardableResult
     public func removeAccelerator(at index: Int) -> Bool {
         return cefObject.remove_accelerator_at(cefObjectPtr, Int32(index)) != 0
     }
@@ -412,6 +441,7 @@ public extension CEFMenuModel {
     /// color or default color is set for |color_type| then the system color will
     /// be used. Returns true on success.
     /// CEF name: `SetColor`
+    @discardableResult
     func setColor(_ color: CEFColor, for commandID: CommandID, colorType: CEFMenuColorType) -> Bool {
         return cefObject.set_color(cefObjectPtr, commandID.toCEF(), colorType.toCEF(), color.toCEF()) != 0
     }
@@ -422,6 +452,7 @@ public extension CEFMenuModel {
     /// color set. If no explicit color or default color is set for |color_type|
     /// then the system color will be used. Returns true on success.
     /// CEF name: `SetColorAt`
+    @discardableResult
     func setColor(_ color: CEFColor, at index: Int, colorType: CEFMenuColorType) -> Bool {
         return cefObject.set_color(cefObjectPtr, Int32(index), colorType.toCEF(), color.toCEF()) != 0
     }
@@ -459,7 +490,7 @@ public extension CEFMenuModel {
     /// - "Arial, Helvetica, Bold Italic 14px"
     /// - "Arial, 14px"
     /// CEF name: `SetFontList`
-    /*--cef(optional_param=font_list)--*/
+    @discardableResult
     func setFontList(_ fontList: String, for commandID: CommandID) -> Bool {
         let cefStr = CEFStringPtrCreateFromSwiftString(fontList)
         defer { CEFStringPtrRelease(cefStr) }
@@ -479,6 +510,7 @@ public extension CEFMenuModel {
     /// - "Arial, Helvetica, Bold Italic 14px"
     /// - "Arial, 14px"
     /// CEF name: `SetFontListAt`
+    @discardableResult
     func setFontList(_ fontList: String, at index: Int) -> Bool {
         let cefStr = CEFStringPtrCreateFromSwiftString(fontList)
         defer { CEFStringPtrRelease(cefStr) }

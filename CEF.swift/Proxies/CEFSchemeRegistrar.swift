@@ -64,6 +64,7 @@ public extension CEFSchemeRegistrar {
     /// per unique |scheme_name| value. If |scheme_name| is already registered or
     /// if an error occurs this method will return false.
     /// CEF name: `AddCustomScheme`
+    @discardableResult
     public func addCustomScheme(_ name: String,
                                 isStandard: Bool,
                                 isLocal: Bool,

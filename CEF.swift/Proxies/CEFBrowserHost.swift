@@ -17,6 +17,7 @@ public extension CEFBrowserHost {
     /// global request context will be used. This method can be called on any
     /// browser process thread and will not block.
     /// CEF name: `CreateBrowser`
+    @discardableResult
     public static func createBrowser(windowInfo: CEFWindowInfo,
                                      client: CEFClient? = nil,
                                      url: NSURL? = nil,

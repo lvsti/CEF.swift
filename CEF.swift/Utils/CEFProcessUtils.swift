@@ -35,6 +35,7 @@ public struct CEFProcessUtils {
     /// The |windows_sandbox_info| parameter is only used on Windows and may be NULL
     /// (see cef_sandbox_win.h for details).
     /// CEF name: `CefInitialize`
+    @discardableResult
     public static func initializeMainWithArgs(args: CEFMainArgs,
                                               settings: CEFSettings,
                                               app: CEFApp? = nil,

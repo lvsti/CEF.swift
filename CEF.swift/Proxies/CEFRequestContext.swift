@@ -111,6 +111,7 @@ public extension CEFRequestContext {
     /// |domain_name|. Returns false if an error occurs. This function may be
     /// called on any thread in the browser process.
     /// CEF name: `RegisterSchemeHandlerFactory`
+    @discardableResult
     public func registerSchemeHandlerFactory(scheme: String, domain: String? = nil, factory: CEFSchemeHandlerFactory? = nil) -> Bool {
         let cefSchemePtr = CEFStringPtrCreateFromSwiftString(scheme)
         let cefDomainPtr = domain != nil ? CEFStringPtrCreateFromSwiftString(domain!) : nil
@@ -127,6 +128,7 @@ public extension CEFRequestContext {
     /// Clear all registered scheme handler factories. Returns false on error. This
     /// function may be called on any thread in the browser process.
     /// CEF name: `ClearSchemeHandlerFactories`
+    @discardableResult
     public func clearSchemeHandlerFactories() -> Bool {
         return cefObject.clear_scheme_handler_factories(cefObjectPtr) != 0
     }
@@ -191,6 +193,7 @@ public extension CEFRequestContext {
     /// fails then |error| will be populated with a detailed description of the
     /// problem. This method must be called on the browser process UI thread.
     /// CEF name: `SetPreference`
+    @discardableResult
     public func setPreference(_ value: CEFValue?, for name: String) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
         defer { CEFStringPtrRelease(cefStrPtr) }
