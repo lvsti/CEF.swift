@@ -28,6 +28,10 @@ public protocol CEFObject: DefaultInitializable {
     var base: cef_base_ref_counted_t { get set }
 }
 
+public protocol CEFScopedObject: DefaultInitializable {
+    var base: cef_base_scoped_t { get set }
+}
+
 protocol CEFRefCounting: class {
     func addRef()
     func release() -> Bool
@@ -76,6 +80,37 @@ public class CEFProxy<T : CEFObject>: CEFRefCounting {
 
     func toCEF() -> UnsafeMutablePointer<ObjectType> {
         addRef()
+        return cefObjectPtr
+    }
+}
+
+public class CEFScopedProxy<T : CEFScopedObject> {
+    typealias ObjectType = T
+    typealias ObjectPtrType = UnsafeMutablePointer<T>
+    
+    private let _cefPtr: UnsafeMutablePointer<T>
+    var cefObjectPtr: UnsafeMutablePointer<ObjectType> { return _cefPtr }
+    var cefObject: ObjectType { return _cefPtr.pointee }
+    
+    init?(ptr: UnsafeMutablePointer<T>?) {
+        guard let ptr = ptr else {
+            return nil
+        }
+        
+        _cefPtr = ptr
+    }
+    
+    deinit {
+        delete()
+    }
+
+    func delete() {
+        _cefPtr.withMemoryRebound(to: cef_base_scoped_t.self, capacity: 1) { basePtr in
+            _cefPtr.pointee.base.del(basePtr)
+        }
+    }
+    
+    func toCEF() -> UnsafeMutablePointer<ObjectType> {
         return cefObjectPtr
     }
 }
