@@ -77,6 +77,7 @@ extension CEFRequestContextSettings {
         cefStruct.persist_session_cookies = persistSessionCookies ? 1 : 0
         cefStruct.persist_user_preferences = persistUserPreferences ? 1 : 0
         cefStruct.ignore_certificate_errors = ignoreCertificateErrors ? 1 : 0
+        cefStruct.enable_net_security_expiration = enableNetSecurityExpiration ? 1 : 0
         CEFStringSetFromSwiftString(acceptLanguageList, cefStringPtr: &cefStruct.accept_language_list)
         
         return cefStruct

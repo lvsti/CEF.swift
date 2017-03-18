@@ -274,6 +274,7 @@ extension CEFSettings {
         cefStruct.uncaught_exception_stack_size = Int32(uncaughtExceptionStackSize)
         cefStruct.context_safety_implementation = contextSafetyImplementation.toCEF()
         cefStruct.ignore_certificate_errors = ignoreCertificateErrors ? 1 : 0
+        cefStruct.enable_net_security_expiration = enableNetSecurityExpiration ? 1 : 0
         cefStruct.background_color = backgroundColor.toCEF()
         CEFStringSetFromSwiftString(acceptLanguageList, cefStringPtr: &cefStruct.accept_language_list)
         
