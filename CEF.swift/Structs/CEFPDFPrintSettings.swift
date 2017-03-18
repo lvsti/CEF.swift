@@ -33,6 +33,12 @@ public struct CEFPDFPrintSettings {
     /// CEF name: `page_width`, `page_height`
     public var pageSize: NSSize = .zero
     
+    /// The percentage to scale the PDF by before printing (e.g. 50 is 50%).
+    /// If this value is less than or equal to zero the default value of 100
+    /// will be used.
+    /// CEF name: `scale_factor`
+    public var scaleFactor: Int
+    
     /// Margins in millimeters. Only used if |margin_type| is set to
     /// PDF_PRINT_MARGIN_CUSTOM.
     /// CEF name: `margin_type`, `margin_top`, `margin_left`, `margin_bottom`, `margin_right`
@@ -69,6 +75,7 @@ extension CEFPDFPrintSettings {
         
         cefStruct.page_width = Int32(pageSize.width)
         cefStruct.page_height = Int32(pageSize.height)
+        cefStruct.scale_factor = Int32(scaleFactor)
         
         cefStruct.margin_type = margins.toCEF()
         if case .custom(let insets) = margins {
