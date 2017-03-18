@@ -46,6 +46,16 @@ public struct CEFRequestContextSettings {
     /// CEF name: `ignore_certificate_errors`
     public var ignoreCertificateErrors: Bool = false
     
+    /// Set to true (1) to enable date-based expiration of built in network
+    /// security information (i.e. certificate transparency logs, HSTS preloading
+    /// and pinning information). Enabling this option improves network security
+    /// but may cause HTTPS load failures when using CEF binaries built more than
+    /// 10 weeks in the past. See https://www.certificate-transparency.org/ and
+    /// https://www.chromium.org/hsts for details. Can be set globally using the
+    /// CefSettings.enable_net_security_expiration value.
+    /// CEF name: `enable_net_security_expiration`
+    public var enableNetSecurityExpiration: Bool = false
+
     /// Comma delimited ordered list of language codes without any whitespace that
     /// will be used in the "Accept-Language" HTTP header. Can be set globally
     /// using the CefSettings.accept_language_list value or overridden on a per-
@@ -67,6 +77,7 @@ extension CEFRequestContextSettings {
         cefStruct.persist_session_cookies = persistSessionCookies ? 1 : 0
         cefStruct.persist_user_preferences = persistUserPreferences ? 1 : 0
         cefStruct.ignore_certificate_errors = ignoreCertificateErrors ? 1 : 0
+        cefStruct.enable_net_security_expiration = enableNetSecurityExpiration ? 1 : 0
         CEFStringSetFromSwiftString(acceptLanguageList, cefStringPtr: &cefStruct.accept_language_list)
         
         return cefStruct

@@ -213,6 +213,18 @@ public struct CEFSettings {
     /// CEF name: `ignore_certificate_errors`
     public var ignoreCertificateErrors: Bool = false
     
+    /// Set to true (1) to enable date-based expiration of built in network
+    /// security information (i.e. certificate transparency logs, HSTS preloading
+    /// and pinning information). Enabling this option improves network security
+    /// but may cause HTTPS load failures when using CEF binaries built more than
+    /// 10 weeks in the past. See https://www.certificate-transparency.org/ and
+    /// https://www.chromium.org/hsts for details. Also configurable using the
+    /// "enable-net-security-expiration" command-line switch. Can be overridden for
+    /// individual CefRequestContext instances via the
+    /// CefRequestContextSettings.enable_net_security_expiration value.
+    /// CEF name: `enable_net_security_expiration`
+    public var enableNetSecurityExpiration: Bool = false
+    
     /// Opaque background color used for accelerated content. By default the
     /// background color will be white. Only the RGB compontents of the specified
     /// value will be used. The alpha component must greater than 0 to enable use
@@ -262,6 +274,7 @@ extension CEFSettings {
         cefStruct.uncaught_exception_stack_size = Int32(uncaughtExceptionStackSize)
         cefStruct.context_safety_implementation = contextSafetyImplementation.toCEF()
         cefStruct.ignore_certificate_errors = ignoreCertificateErrors ? 1 : 0
+        cefStruct.enable_net_security_expiration = enableNetSecurityExpiration ? 1 : 0
         cefStruct.background_color = backgroundColor.toCEF()
         CEFStringSetFromSwiftString(acceptLanguageList, cefStringPtr: &cefStruct.accept_language_list)
         
