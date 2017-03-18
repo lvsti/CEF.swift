@@ -264,6 +264,7 @@ extension CEFSettings {
         cefStruct.single_process = useSingleProcess ? 1 : 0
         cefStruct.no_sandbox = !useSandbox ? 1 : 0
         CEFStringSetFromSwiftString(browserSubprocessPath, cefStringPtr: &cefStruct.browser_subprocess_path)
+        CEFStringSetFromSwiftString(frameworkDirPath, cefStringPtr: &cefStruct.framework_dir_path)
         cefStruct.multi_threaded_message_loop = useMultiThreadedMessageLoop ? 1 : 0
         cefStruct.external_message_pump = useExternalMessageLoop ? 1 : 0
         cefStruct.windowless_rendering_enabled = useWindowlessRendering ? 1 : 0
@@ -285,6 +286,7 @@ extension CEFSettings {
         cefStruct.uncaught_exception_stack_size = Int32(uncaughtExceptionStackSize)
         cefStruct.context_safety_implementation = contextSafetyImplementation.toCEF()
         cefStruct.ignore_certificate_errors = ignoreCertificateErrors ? 1 : 0
+        cefStruct.enable_net_security_expiration = enableNetSecurityExpiration ? 1 : 0
         cefStruct.background_color = backgroundColor.toCEF()
         CEFStringSetFromSwiftString(acceptLanguageList, cefStringPtr: &cefStruct.accept_language_list)
         
@@ -295,6 +297,7 @@ extension CEFSettings {
 extension cef_settings_t {
     mutating func clear() {
         cef_string_utf16_clear(&browser_subprocess_path)
+        cef_string_utf16_clear(&framework_dir_path)
         cef_string_utf16_clear(&cache_path)
         cef_string_utf16_clear(&user_data_path)
         cef_string_utf16_clear(&user_agent)
