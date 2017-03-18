@@ -81,10 +81,10 @@ public extension CEFContextMenuParams {
     /// Returns the title text or the alt text if the context menu was invoked on
     /// an image.
     /// CEF name: `GetTitleText`
-    public var titleText: String {
+    public var titleText: String? {
         let cefStrPtr = cefObject.get_title_text(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
     }
 
     /// Returns the URL of the top level page that the context menu was invoked on.
