@@ -43,7 +43,7 @@ public extension CEFResponse {
     /// CEF name: `GetStatus`, `SetStatus`
     public var status: Int {
         get { return Int(cefObject.get_status(cefObjectPtr)) }
-        set { cefObject.set_status(cefObjectPtr, Int32(status)) }
+        set { cefObject.set_status(cefObjectPtr, Int32(newValue)) }
     }
 
     /// Response status text.
