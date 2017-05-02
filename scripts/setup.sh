@@ -63,6 +63,7 @@ pushd .
 
 cd External/cef_binary
 cmake -G Xcode
-set -o pipefail && xcodebuild clean build -project cef.xcodeproj -target "cefsimple Helper" -arch x86_64 | xcpretty -c
+set -o pipefail && xcodebuild clean build -project cef.xcodeproj -target "cefsimple Helper" -arch x86_64 -configuration Debug | xcpretty -c
+set -o pipefail && xcodebuild clean build -project cef.xcodeproj -target "cefsimple Helper" -arch x86_64 -configuration Release | xcpretty -c
 
 popd
