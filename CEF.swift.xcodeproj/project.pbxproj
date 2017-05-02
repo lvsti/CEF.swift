@@ -98,7 +98,6 @@
 		E85FB5A71CB1A518001B610C /* CEFResolveCallback+Interop.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85FB5A61CB1A518001B610C /* CEFResolveCallback+Interop.swift */; };
 		E85FB5A91CB1A5B1001B610C /* CEFResolveCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85FB5A81CB1A5B1001B610C /* CEFResolveCallback.swift */; };
 		E85FB5AB1CB1AA6E001B610C /* CEFResolveCallbackBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85FB5AA1CB1AA6E001B610C /* CEFResolveCallbackBridge.swift */; };
-		E8613E241B52C51F009BDAC9 /* Chromium Embedded Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8613E231B52C51F009BDAC9 /* Chromium Embedded Framework.framework */; };
 		E8621C461B76260F00944CEE /* CEFBeforeDownloadCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8621C451B76260F00944CEE /* CEFBeforeDownloadCallback.swift */; };
 		E8621C481B76270400944CEE /* CEFDownloadItemCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8621C471B76270400944CEE /* CEFDownloadItemCallback.swift */; };
 		E8621C4A1B76279800944CEE /* CEFDownloadHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8621C491B76279800944CEE /* CEFDownloadHandler.swift */; };
@@ -471,7 +470,6 @@
 		E85FB5A61CB1A518001B610C /* CEFResolveCallback+Interop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CEFResolveCallback+Interop.swift"; sourceTree = "<group>"; };
 		E85FB5A81CB1A5B1001B610C /* CEFResolveCallback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFResolveCallback.swift; sourceTree = "<group>"; };
 		E85FB5AA1CB1AA6E001B610C /* CEFResolveCallbackBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFResolveCallbackBridge.swift; sourceTree = "<group>"; };
-		E8613E231B52C51F009BDAC9 /* Chromium Embedded Framework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Chromium Embedded Framework.framework"; path = "External/cef_binary/Debug/Chromium Embedded Framework.framework"; sourceTree = SOURCE_ROOT; };
 		E8621C451B76260F00944CEE /* CEFBeforeDownloadCallback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFBeforeDownloadCallback.swift; sourceTree = "<group>"; };
 		E8621C471B76270400944CEE /* CEFDownloadItemCallback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFDownloadItemCallback.swift; sourceTree = "<group>"; };
 		E8621C491B76279800944CEE /* CEFDownloadHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFDownloadHandler.swift; sourceTree = "<group>"; };
@@ -749,11 +747,10 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		E8456E0C1B52C29700AE93DC /* Frameworks */ = {
+		E856E1631EB9265500E0C138 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8613E241B52C51F009BDAC9 /* Chromium Embedded Framework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -855,7 +852,6 @@
 		E8456E061B52C29700AE93DC = {
 			isa = PBXGroup;
 			children = (
-				E8613E231B52C51F009BDAC9 /* Chromium Embedded Framework.framework */,
 				E8456E121B52C29700AE93DC /* CEF.swift */,
 				E84545CA1B94FD0F005CC3D0 /* Modules */,
 				E8456E111B52C29700AE93DC /* Products */,
@@ -1284,7 +1280,7 @@
 			buildPhases = (
 				E89FD0FB1BA6213F00345B15 /* Fix framework id */,
 				E8456E0B1B52C29700AE93DC /* Sources */,
-				E8456E0C1B52C29700AE93DC /* Frameworks */,
+				E856E1631EB9265500E0C138 /* Frameworks */,
 				E8456E0D1B52C29700AE93DC /* Headers */,
 				E8456E0E1B52C29700AE93DC /* Resources */,
 				E84545D21B9652D8005CC3D0 /* Symlink to sample code */,
@@ -1354,7 +1350,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -ex\n\nFW_PATH=\"${SRCROOT}/Samples/CEFDemo/Library/CEFswift.framework\"\n\nif [ ! -h \"${FW_PATH}\" ]; then\n    rm -rf \"${FW_PATH}\"\n    mkdir -p $(dirname \"${FW_PATH}\")\n    ln -s \"${BUILT_PRODUCTS_DIR}/CEFswift.framework\" \"${FW_PATH}\"\nfi\n\nFW_PATH=\"${SRCROOT}/Samples/CEFDemo/Library/Chromium Embedded Framework.framework\"\n\nif [ ! -h \"${FW_PATH}\" ]; then\n    rm -rf \"${FW_PATH}\"\n    mkdir -p $(dirname \"${FW_PATH}\")\n    ln -s \"${CEF_BINARY_ROOT}/Debug/Chromium Embedded Framework.framework\" \"${FW_PATH}\"\nfi\n\nHELPER_PATH=\"${SRCROOT}/Samples/CEFDemo/Library/cefsimple Helper.app\"\n\nif [ ! -h \"${HELPER_PATH}\" ]; then\n    rm -rf \"${HELPER_PATH}\"\n    mkdir -p $(dirname \"${HELPER_PATH}\")\n    ln -s \"${CEF_BINARY_ROOT}/cefsimple/Debug/cefsimple Helper.app\" \"${HELPER_PATH}\"\nfi\n";
+			shellScript = "set -ex\n\nFW_PATH=\"${SRCROOT}/Samples/CEFDemo/Library/CEFswift.framework\"\n\nif [ ! -h \"${FW_PATH}\" ]; then\n    rm -rf \"${FW_PATH}\"\n    mkdir -p $(dirname \"${FW_PATH}\")\n    ln -s \"${BUILT_PRODUCTS_DIR}/CEFswift.framework\" \"${FW_PATH}\"\nfi\n\nFW_PATH=\"${SRCROOT}/Samples/CEFDemo/Library/Chromium Embedded Framework.framework\"\n\nif [ ! -h \"${FW_PATH}\" ]; then\n    rm -rf \"${FW_PATH}\"\n    mkdir -p $(dirname \"${FW_PATH}\")\n    ln -s \"${CEF_BINARY_ROOT}/${CONFIGURATION}/Chromium Embedded Framework.framework\" \"${FW_PATH}\"\nfi\n\nHELPER_PATH=\"${SRCROOT}/Samples/CEFDemo/Library/cefsimple Helper.app\"\n\nrm -rf \"${HELPER_PATH}\"\nmkdir -p $(dirname \"${HELPER_PATH}\")\nln -s \"${CEF_BINARY_ROOT}/tests/cefsimple/${CONFIGURATION}/cefsimple Helper.app\" \"${HELPER_PATH}\"\n";
 		};
 		E89FD0FB1BA6213F00345B15 /* Fix framework id */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1854,6 +1850,10 @@
 				INFOPLIST_FILE = CEF.swift/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					"\"Chromium Embedded Framework\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "me.cocoagrinder.CEF-swift";
 				PRODUCT_NAME = CEFswift;
 				SKIP_INSTALL = YES;
@@ -1873,12 +1873,16 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(CEF_BINARY_ROOT)/Debug";
+				FRAMEWORK_SEARCH_PATHS = "$(CEF_BINARY_ROOT)/Release";
 				FRAMEWORK_VERSION = A;
 				HEADER_SEARCH_PATHS = "$(CEF_BINARY_ROOT)";
 				INFOPLIST_FILE = CEF.swift/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					"\"Chromium Embedded Framework\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "me.cocoagrinder.CEF-swift";
 				PRODUCT_NAME = CEFswift;
 				SKIP_INSTALL = YES;
