@@ -32,9 +32,6 @@ public struct CEFPopupFeatures {
     public let isFullscreen: Bool
     /// CEF name: `dialog`
     public let isDialog: Bool
-    
-    /// CEF name: `additionalFeatures`
-    public let additionalFeatures: [String]
 }
 
 extension CEFPopupFeatures {
@@ -48,14 +45,6 @@ extension CEFPopupFeatures {
                                 hasScrollbars: value.scrollbarsVisible != 0,
                                 isResizable: value.resizable != 0,
                                 isFullscreen: value.fullscreen != 0,
-                                isDialog: value.dialog != 0,
-                                additionalFeatures: CEFStringListToSwiftArray(value.additionalFeatures))
+                                isDialog: value.dialog != 0)
     }
 }
-
-extension cef_popup_features_t {
-    mutating func clear() {
-        CEFStringListRelease(additionalFeatures)
-    }
-}
-
