@@ -40,14 +40,19 @@ public extension CEFPOSTData {
     /// Retrieve the post data elements.
     /// CEF name: `GetElements`
     public var elements: [CEFPOSTDataElement] {
-        var count: size_t = 0
-        var cefElements: UnsafeMutablePointer<cef_post_data_element_t>? = nil
+        var count: size_t = elementCount
+        var cefElements = UnsafeMutablePointer<UnsafeMutablePointer<cef_post_data_element_t>?>.allocate(capacity: count)
+        defer { cefElements.deallocate(capacity: count) }
         
-        cefObject.get_elements(cefObjectPtr, &count, &cefElements)
+        for i in 0..<count {
+            cefElements.advanced(by: i).pointee = cef_post_data_element_create()
+        }
+        
+        cefObject.get_elements(cefObjectPtr, &count, cefElements)
         
         var elements = [CEFPOSTDataElement]()
         for i in 0..<count {
-            let cefPDEPtr = cefElements!.advanced(by: i)
+            let cefPDEPtr = cefElements.advanced(by: i).pointee
             if let pde = CEFPOSTDataElement.fromCEF(cefPDEPtr) {
                 elements.append(pde)
             }
