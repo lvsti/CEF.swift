@@ -9,6 +9,9 @@
 import Foundation
 
 func CEFStringToSwiftString(_ cefStr: cef_string_t) -> String {
+    guard cefStr.str != nil else {
+        return ""
+    }
     return String(NSString(characters: cefStr.str, length: cefStr.length))
 }
 
