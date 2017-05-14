@@ -41,7 +41,9 @@ public protocol CEFLifeSpanHandler {
     /// false the new browser will not be scriptable and may not be hosted in the
     /// same renderer process as the source browser. Any modifications to
     /// |windowInfo| will be ignored if the parent browser is wrapped in a
-    /// CefBrowserView.
+    /// CefBrowserView. Popup browser creation will be canceled if the parent
+    /// browser is destroyed before the popup browser creation completes (indicated
+    /// by a call to OnAfterCreated for the popup browser).
     /// CEF name: `OnBeforePopup`
     func onBeforePopup(browser: CEFBrowser,
                        frame: CEFFrame,
