@@ -1290,6 +1290,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E8456E181B52C29700AE93DC /* Build configuration list for PBXNativeTarget "CEF.swift" */;
 			buildPhases = (
+				E8B98AA11EED3EE200171EA3 /* Prepare external dependencies */,
 				E89FD0FB1BA6213F00345B15 /* Fix framework id */,
 				E8456E0B1B52C29700AE93DC /* Sources */,
 				E856E1631EB9265500E0C138 /* Frameworks */,
@@ -1377,6 +1378,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "install_name_tool -id \"@rpath/Chromium Embedded Framework.framework/Chromium Embedded Framework\" \"${SRCROOT}/External/cef_binary/Debug/Chromium Embedded Framework.framework/Chromium Embedded Framework\"\n\ninstall_name_tool -id \"@rpath/Chromium Embedded Framework.framework/Chromium Embedded Framework\" \"${SRCROOT}/External/cef_binary/Release/Chromium Embedded Framework.framework/Chromium Embedded Framework\"\n";
+		};
+		E8B98AA11EED3EE200171EA3 /* Prepare external dependencies */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Prepare external dependencies";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -e \"${CEF_BINARY_ROOT}/tests/cefsimple/${CONFIGURATION}/cefsimple Helper.app\" ] && [ -e \"${CEF_BINARY_ROOT}/${CONFIGURATION}/Chromium Embedded Framework.framework/Chromium Embedded Framework\" ]; then\n    exit 0\nfi\n\necho \"Building external dependencies not built!\"\n\ncd \"${SRCROOT}\"\nscripts/setup.sh\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
