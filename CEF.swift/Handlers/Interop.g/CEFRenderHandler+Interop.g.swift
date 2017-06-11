@@ -19,6 +19,7 @@ extension CEFRenderHandler {
 
 extension cef_render_handler_t: CEFCallbackMarshalling {
     mutating func marshalCallbacks() {
+        get_accessibility_handler = CEFRenderHandler_get_accessibility_handler
         get_root_screen_rect = CEFRenderHandler_get_root_screen_rect
         get_view_rect = CEFRenderHandler_get_view_rect
         get_screen_point = CEFRenderHandler_get_screen_point

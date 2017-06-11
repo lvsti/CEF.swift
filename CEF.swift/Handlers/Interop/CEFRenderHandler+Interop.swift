@@ -8,6 +8,18 @@
 
 import Foundation
 
+func CEFRenderHandler_get_accessibility_handler(ptr: UnsafeMutablePointer<cef_render_handler_t>?) -> UnsafeMutablePointer<cef_accessibility_handler_t>? {
+    guard let obj = CEFRenderHandlerMarshaller.get(ptr) else {
+        return nil
+    }
+
+    if let handler = obj.accessibilityHandler {
+        return handler.toCEF()
+    }
+
+    return nil
+}
+
 func CEFRenderHandler_get_root_screen_rect(ptr: UnsafeMutablePointer<cef_render_handler_t>?,
                                            browser: UnsafeMutablePointer<cef_browser_t>?,
                                            cefRect: UnsafeMutablePointer<cef_rect_t>?) -> Int32 {

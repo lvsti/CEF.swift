@@ -18,6 +18,11 @@ public enum CEFOnStartDraggingAction {
 /// CEF name: `CefRenderHandler`
 public protocol CEFRenderHandler {
     
+    /// Return the handler for accessibility notifications. If no handler is
+    /// provided the default implementation will be used.
+    /// CEF name: `GetAccessibilityHandler`
+    var accessibilityHandler: CEFAccessibilityHandler? { get }
+    
     /// Called to retrieve the root window rectangle in screen coordinates. Return
     /// true if the rectangle was provided.
     /// CEF name: `GetRootScreenRect`
@@ -110,6 +115,10 @@ public protocol CEFRenderHandler {
 }
 
 public extension CEFRenderHandler {
+    
+    var accessibilityHandler: CEFAccessibilityHandler? {
+        return nil
+    }
     
     func rootScreenRectForBrowser(browser: CEFBrowser) -> NSRect? {
         return nil
