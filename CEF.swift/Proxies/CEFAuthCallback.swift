@@ -14,7 +14,7 @@ public extension CEFAuthCallback {
     /// CEF name: `Continue`
     public func doContinue(username: String, password: String?) {
         let cefUserPtr = CEFStringPtrCreateFromSwiftString(username)
-        let cefPassPtr = password != nil ? CEFStringPtrCreateFromSwiftString(password) : nil
+        let cefPassPtr = password != nil ? CEFStringPtrCreateFromSwiftString(password!) : nil
         defer {
             CEFStringPtrRelease(cefUserPtr)
             CEFStringPtrRelease(cefPassPtr)
