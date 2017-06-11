@@ -192,4 +192,24 @@ public extension CEFDragData {
         cefObject.add_file(cefObjectPtr, cefPathPtr, cefNamePtr)
     }
 
+    /// Get the image representation of drag data. May return NULL if no image
+    /// representation is available.
+    /// CEF name: `GetImage`
+    public var image: CEFImage? {
+        let cefImage = cefObject.get_image(cefObjectPtr)
+        return CEFImage.fromCEF(cefImage)
+    }
+    
+    /// Get the image hotspot (drag start location relative to image dimensions).
+    /// CEF name: `GetImageHotspot`
+    public var imageHotspot: NSPoint {
+        let cefPoint = cefObject.get_image_hotspot(cefObjectPtr)
+        return NSPoint.fromCEF(cefPoint)
+    }
+    
+    /// Returns true if an image representation of drag data is available.
+    /// CEF name: `HasImage`
+    public var hasImage: Bool {
+        return cefObject.has_image(cefObjectPtr) != 0
+    }
 }
