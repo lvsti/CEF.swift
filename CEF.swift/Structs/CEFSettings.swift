@@ -196,24 +196,6 @@ public struct CEFSettings {
     /// CEF name: `uncaught_exception_stack_size`
     public var uncaughtExceptionStackSize: Int32 = 0
     
-    /// By default CEF V8 references will be invalidated (the IsValid() method will
-    /// return false) after the owning context has been released. This reduces the
-    /// need for external record keeping and avoids crashes due to the use of V8
-    /// references after the associated context has been released.
-    /// CEF currently offers two context safety implementations with different
-    /// performance characteristics. The default implementation (value of 0) uses a
-    /// map of hash values and should provide better performance in situations with
-    /// a small number contexts. The alternate implementation (value of 1) uses a
-    /// hidden value attached to each context and should provide better performance
-    /// in situations with a large number of contexts.
-    /// If you need better performance in the creation of V8 references and you
-    /// plan to manually track context lifespan you can disable context safety by
-    /// specifying a value of -1.
-    /// Also configurable using the "context-safety-implementation" command-line
-    /// switch.
-    /// CEF name: `context_safety_implementation`
-    public var contextSafetyImplementation: CEFV8ContextSafetyImplementation = .defaultImplementation
-    
     /// Set to true (1) to ignore errors related to invalid SSL certificates.
     /// Enabling this setting can lead to potential security vulnerabilities like
     /// "man in the middle" attacks. Applications that load content from the
@@ -236,10 +218,14 @@ public struct CEFSettings {
     /// CEF name: `enable_net_security_expiration`
     public var enableNetSecurityExpiration: Bool = false
     
-    /// Opaque background color used for accelerated content. By default the
-    /// background color will be white. Only the RGB compontents of the specified
-    /// value will be used. The alpha component must greater than 0 to enable use
-    /// of the background color but will be otherwise ignored.
+    /// Background color used for the browser before a document is loaded and when
+    /// no document color is specified. The alpha component must be either fully
+    /// opaque (0xFF) or fully transparent (0x00). If the alpha component is fully
+    /// opaque then the RGB components will be used as the background color. If the
+    /// alpha component is fully transparent for a windowed browser then the
+    /// default value of opaque white be used. If the alpha component is fully
+    /// transparent for a windowless (off-screen) browser then transparent painting
+    /// will be enabled.
     /// CEF name: `background_color`
     public var backgroundColor: CEFColor = CEFColor(argb: 0)
     
@@ -283,7 +269,6 @@ extension CEFSettings {
         cefStruct.pack_loading_disabled = !enablePackLoading ? 1 : 0
         cefStruct.remote_debugging_port = Int32(remoteDebuggingPort)
         cefStruct.uncaught_exception_stack_size = Int32(uncaughtExceptionStackSize)
-        cefStruct.context_safety_implementation = contextSafetyImplementation.toCEF()
         cefStruct.ignore_certificate_errors = ignoreCertificateErrors ? 1 : 0
         cefStruct.background_color = backgroundColor.toCEF()
         CEFStringSetFromSwiftString(acceptLanguageList, cefStringPtr: &cefStruct.accept_language_list)
