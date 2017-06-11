@@ -1,5 +1,7 @@
 # CEF.swift
 
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-brightgreen.svg)](https://github.com/Carthage/Carthage)
+
 Swift bindings for the [Chromium Embedded Framework](https://bitbucket.org/chromiumembedded/cef/).
 
 ### Requirements
@@ -10,6 +12,20 @@ tools: cmake, jq, p7zip
 Supported target platforms: macOS 10.10+
 
 ### How to build
+
+##### The easy way
+
+You can now build CEF.swift using [Carthage](https://github.com/Carthage/Carthage). Just add the following line to your `Cartfile`:
+
+```
+github "lvsti/CEF.swift" "<branch_specifier>"
+```
+
+(For the `branch_specifier`, see the notes on branches below.)
+
+Note that the bootstrap build will take quite some time as CEF.swift has to fetch and build external dependencies as well.
+
+##### The oldschool way
 
 1. fetch this repo
 2. switch to the appropriate branch in CEF.swift to match the CEF distribution (see notes below)
