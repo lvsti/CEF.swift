@@ -18,8 +18,9 @@ public enum CEFOnPrintJobAction {
     case cancel
 }
 
-/// Implement this interface to handle printing on Linux. The methods of this
-/// class will be called on the browser process UI thread.
+/// Implement this interface to handle printing on Linux. Each browser will have
+/// only one print job in progress at a time. The methods of this class will be
+/// called on the browser process UI thread.
 /// CEF name: `CefPrintHandler`
 public protocol CEFPrintHandler {
     /// Called when printing has started for the specified |browser|. This method
@@ -33,23 +34,23 @@ public protocol CEFPrintHandler {
     /// populate |settings| with the default print settings. Do not keep a
     /// reference to |settings| outside of this callback.
     /// CEF name: `OnPrintSettings`
-    func onPrintSettings(settings: CEFPrintSettings, defaults: Bool)
+    func onPrintSettings(browser: CEFBrowser, settings: CEFPrintSettings, defaults: Bool)
     
     /// Show the print dialog. Execute |callback| once the dialog is dismissed.
     /// Return true if the dialog will be displayed or false to cancel the
     /// printing immediately.
     /// CEF name: `OnPrintDialog`
-    func onPrintDialog(hasSelection: Bool, callback: CEFPrintDialogCallback) -> CEFOnPrintDialogAction
+    func onPrintDialog(browser: CEFBrowser, hasSelection: Bool, callback: CEFPrintDialogCallback) -> CEFOnPrintDialogAction
     
     /// Send the print job to the printer. Execute |callback| once the job is
     /// completed. Return true if the job will proceed or false to cancel the job
     /// immediately.
     /// CEF name: `OnPrintJob`
-    func onPrintJob(documentName: String, pdfFilePath: String, callback: CEFPrintJobCallback) -> CEFOnPrintJobAction
+    func onPrintJob(browser: CEFBrowser, documentName: String, pdfFilePath: String, callback: CEFPrintJobCallback) -> CEFOnPrintJobAction
     
     /// Reset client state related to printing.
     /// CEF name: `OnPrintReset`
-    func onPrintReset()
+    func onPrintReset(browser: CEFBrowser)
 
     /// Return the PDF paper size in device units. Used in combination with
     /// CefBrowserHost::PrintToPDF().
@@ -61,18 +62,18 @@ public extension CEFPrintHandler {
     func onPrintStarted(browser: CEFBrowser) {
     }
 
-    func onPrintSettings(settings: CEFPrintSettings, defaults: Bool) {
+    func onPrintSettings(browser: CEFBrowser, settings: CEFPrintSettings, defaults: Bool) {
     }
     
-    func onPrintDialog(hasSelection: Bool, callback: CEFPrintDialogCallback) -> CEFOnPrintDialogAction {
+    func onPrintDialog(browser: CEFBrowser, hasSelection: Bool, callback: CEFPrintDialogCallback) -> CEFOnPrintDialogAction {
         return .allow
     }
     
-    func onPrintJob(documentName: String, pdfFilePath: String, callback: CEFPrintJobCallback) -> CEFOnPrintJobAction {
+    func onPrintJob(browser: CEFBrowser, documentName: String, pdfFilePath: String, callback: CEFPrintJobCallback) -> CEFOnPrintJobAction {
         return .allow
     }
     
-    func onPrintReset() {
+    func onPrintReset(browser: CEFBrowser) {
     }
 
     func pdfPaperSizeForDPI(deviceUnitsPerInch: Int) -> NSSize {
