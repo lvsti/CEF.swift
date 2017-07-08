@@ -12,11 +12,17 @@ branches:
     - cef_2704
     - cef_2743
     - cef_2785
+    - cef_2840
+    - cef_2883
+    - cef_2924
+    - cef_2987
+    - cef_3029
+    - cef_3071
 
 xcode_project: CEF.swift.xcodeproj
 xcode_scheme: CEF.swift
-osx_image: xcode8
-xcode_sdk: macosx10.11 
+osx_image: xcode8.3
+xcode_sdk: macosx10.12
 
 before_install:
   - brew update
