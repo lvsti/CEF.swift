@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-set -x
+set -e
 
 if [ "${TRAVIS}" = "true" ]; then
     BRANCH="${TRAVIS_BRANCH}"
@@ -15,11 +15,6 @@ fi
 
 CEF_BRANCH="${BRANCH##*_}"
 
-if [ -z "$(which 7z)" ]; then
-    echo "ERROR: 7zip not found; brew install p7zip"
-    exit 1
-fi
-
 if [ -z "$(which jq)" ]; then
     echo "ERROR: jq not found; brew install jq"
     exit 1
@@ -30,6 +25,15 @@ if [ -z "$(which cmake)" ]; then
     exit 1
 fi
 
+if [ -z "$(which xcpretty)" ]; then
+    echo "ERROR: xcpretty not found; gem install xcpretty"
+    exit 1
+fi
+
+if [ -z "$(pip list 2>/dev/null | grep lxml)" ]; then
+    echo "ERROR: lxml not found; pip install lxml"
+    exit 1
+fi
 
 # fetch CEF binary distribution package
 echo "Fetching binary distribution..."
