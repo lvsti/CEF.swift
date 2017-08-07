@@ -106,5 +106,20 @@ public struct CEFFileUtils {
         
         return cef_zip_directory(cefSrcPtr, cefDstPtr, includingHiddenFiles ? 1 : 0) != 0
     }
+    
+    /// Loads the existing "Certificate Revocation Lists" file that is managed by
+    /// Google Chrome. This file can generally be found in Chrome's User Data
+    /// directory (e.g. "C:\Users\[User]\AppData\Local\Google\Chrome\User Data\" on
+    /// Windows) and is updated periodically by Chrome's component updater service.
+    /// Must be called in the browser process after the context has been initialized.
+    /// See https://dev.chromium.org/Home/chromium-security/crlsets for background.
+    /// CEF name: `CefLoadCRLSetsFile`
+    public static func loadCRLSetsFile(at path: String) {
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
+        defer { CEFStringPtrRelease(cefStrPtr) }
+        
+        cef_load_crlsets_file(cefStrPtr)
+    }
+
 }
 

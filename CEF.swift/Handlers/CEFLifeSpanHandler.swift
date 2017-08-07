@@ -24,7 +24,7 @@ public enum CEFOnDoCloseAction {
 /// CEF name: `CefLifeSpanHandler`
 public protocol CEFLifeSpanHandler {
 
-    /// Called on the IO thread before a new popup browser is created. The
+    /// Called on the UI thread before a new popup browser is created. The
     /// |browser| and |frame| values represent the source of the popup request. The
     /// |target_url| and |target_frame_name| values indicate where the popup
     /// browser should navigate and may be empty if not specified with the request.

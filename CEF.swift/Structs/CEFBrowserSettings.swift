@@ -59,12 +59,6 @@ public struct CEFBrowserSettings {
     /// CEF name: `javascript`
     public var javascript: CEFState = .defaultState
     
-    /// Controls whether JavaScript can be used for opening windows. Also
-    /// configurable using the "disable-javascript-open-windows" command-line
-    /// switch.
-    /// CEF name: `javascript_open_windows`
-    public var javascriptOpenWindows: CEFState = .defaultState
-    
     /// Controls whether JavaScript can be used to close windows that were not
     /// opened via JavaScript. JavaScript can still be used to close windows that
     /// were opened via JavaScript or that have no back/forward history. Also
@@ -192,7 +186,6 @@ extension CEFBrowserSettings {
         CEFStringSetFromSwiftString(defaultEncoding, cefStringPtr: &cefStruct.default_encoding)
         cefStruct.remote_fonts = remoteFonts.toCEF()
         cefStruct.javascript = javascript.toCEF()
-        cefStruct.javascript_open_windows = javascriptOpenWindows.toCEF()
         cefStruct.javascript_close_windows = javascriptCloseWindows.toCEF()
         cefStruct.javascript_access_clipboard = javascriptAccessClipboard.toCEF()
         cefStruct.javascript_dom_paste = javascriptDOMPaste.toCEF()
@@ -231,7 +224,6 @@ extension CEFBrowserSettings {
         settings.defaultEncoding = CEFStringToSwiftString(value.default_encoding)
         settings.remoteFonts = CEFState.fromCEF(value.remote_fonts)
         settings.javascript = CEFState.fromCEF(value.javascript)
-        settings.javascriptOpenWindows = CEFState.fromCEF(value.javascript_open_windows)
         settings.javascriptCloseWindows = CEFState.fromCEF(value.javascript_close_windows)
         settings.javascriptAccessClipboard = CEFState.fromCEF(value.javascript_access_clipboard)
         settings.javascriptDOMPaste = CEFState.fromCEF(value.javascript_dom_paste)
