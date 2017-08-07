@@ -26,7 +26,6 @@ xcode_sdk: macosx10.12
 
 before_install:
   - brew update
-  - brew install p7zip
   - brew install jq
   - sudo gem install xcpretty-travis-formatter --no-doc
 
