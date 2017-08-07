@@ -7,9 +7,17 @@ Swift bindings for the [Chromium Embedded Framework](https://bitbucket.org/chrom
 ### Requirements
 
 Xcode 8, Swift 3.0 (see notes below)<br/>
-tools: cmake, jq, p7zip
-
 Supported target platforms: macOS 10.9+
+
+Required tools: cmake, jq, xcpretty, lxml<br/>
+To set up your environment:
+
+```
+$ brew install cmake
+$ brew install jq
+$ gem install xcpretty
+$ pip install lxml
+```
 
 ### How to build
 
