@@ -22,16 +22,8 @@ public struct CEFPopupFeatures {
     public let hasStatusBar: Bool
     /// CEF name: `toolBarVisible`
     public let hasToolBar: Bool
-    /// CEF name: `locationBarVisible`
-    public let hasLocationBar: Bool
     /// CEF name: `scrollbarsVisible`
     public let hasScrollbars: Bool
-    /// CEF name: `resizable`
-    public let isResizable: Bool
-    /// CEF name: `fullscreen`
-    public let isFullscreen: Bool
-    /// CEF name: `dialog`
-    public let isDialog: Bool
 }
 
 extension CEFPopupFeatures {
@@ -41,10 +33,6 @@ extension CEFPopupFeatures {
                                 hasMenuBar: value.menuBarVisible != 0,
                                 hasStatusBar: value.statusBarVisible != 0,
                                 hasToolBar: value.toolBarVisible != 0,
-                                hasLocationBar: value.locationBarVisible != 0,
-                                hasScrollbars: value.scrollbarsVisible != 0,
-                                isResizable: value.resizable != 0,
-                                isFullscreen: value.fullscreen != 0,
-                                isDialog: value.dialog != 0)
+                                hasScrollbars: value.scrollbarsVisible != 0)
     }
 }
