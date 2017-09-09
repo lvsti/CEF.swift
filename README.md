@@ -6,7 +6,7 @@ Swift bindings for the [Chromium Embedded Framework](https://bitbucket.org/chrom
 
 ### Requirements
 
-Xcode 8, Swift 3.0 (see notes below)<br/>
+Xcode 8.3, Swift 3.0 (see notes below)<br/>
 Supported target platforms: macOS 10.9+
 
 Required tools: cmake, jq, xcpretty, lxml<br/>
@@ -46,6 +46,7 @@ CEF is developed on multiple branches simultaneously, which differ in API and fu
 
 Currently supported branches: 
 
+- 3163 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3163)](https://travis-ci.org/lvsti/CEF.swift) - Swift 3.0
 - 3112 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3112)](https://travis-ci.org/lvsti/CEF.swift) - Swift 3.0
 - 3071 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3071)](https://travis-ci.org/lvsti/CEF.swift) - Swift 3.0
 - 3029 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3029)](https://travis-ci.org/lvsti/CEF.swift) - Swift 3.0
@@ -53,17 +54,8 @@ Currently supported branches:
 
 Archived branches (not maintained anymore):
 
-- 2924 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2924)](https://travis-ci.org/lvsti/CEF.swift) - Swift 3.0
-- 2883 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2883)](https://travis-ci.org/lvsti/CEF.swift) - Swift 3.0
-- 2840 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2840)](https://travis-ci.org/lvsti/CEF.swift) - Swift 3.0
-- 2785 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2785)](https://travis-ci.org/lvsti/CEF.swift) - Swift 3.0
-- 2743 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2743)](https://travis-ci.org/lvsti/CEF.swift) - Swift 3.0
-- 2704 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2704)](https://travis-ci.org/lvsti/CEF.swift) - Swift 3.0
-- 2623 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2623)](https://travis-ci.org/lvsti/CEF.swift) - Swift 2.3
-- 2526 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2526)](https://travis-ci.org/lvsti/CEF.swift) - Swift 2.3
-- 2454 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2454)](https://travis-ci.org/lvsti/CEF.swift) - Swift 2.3
-- 2357 [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2357)](https://travis-ci.org/lvsti/CEF.swift) - Swift 2.3
-
+- 2924, 2883, 2840, 2785, 2743, 2704 - Swift 3.0
+- 2623, 2526, 2454, 2357 - Swift 2.3
 
 ### Getting started
 
