@@ -14,7 +14,13 @@ public struct CEFColor {
     public var g: UInt8
     public var b: UInt8
     public var a: UInt8
-    public var argb: UInt32 { get { return UInt32(a) << 24 | UInt32(r) << 16 | UInt32(g) << 8 | UInt32(b) } }
+    public var argb: UInt32 {
+        var packed = UInt32(b)
+        packed |= UInt32(g) << 8
+        packed |= UInt32(r) << 16
+        packed |= UInt32(a) << 24
+        return packed
+    }
     
     public init(argb: UInt32) {
         r = UInt8((argb >> 16) & 0xff)

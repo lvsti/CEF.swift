@@ -26,7 +26,7 @@ public enum CEFPDFPrintMargins {
     
     /// Custom margins using the |margin_*| values from cef_pdf_print_settings_t.
     /// CEF name: `PDF_PRINT_MARGIN_CUSTOM`
-    case custom(EdgeInsets)
+    case custom(NSEdgeInsets)
 }
 
 extension CEFPDFPrintMargins {
