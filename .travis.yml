@@ -1,20 +1,13 @@
 notifications:
-  email: false
+  email:
+    recipients:
+      - elveestei@gmail.com
+    on_success: never
   
 language: objective-c
 
 branches:
   only:
-    - cef_2357
-    - cef_2454
-    - cef_2526
-    - cef_2623
-    - cef_2704
-    - cef_2743
-    - cef_2785
-    - cef_2840
-    - cef_2883
-    - cef_2924
     - cef_2987
     - cef_3029
     - cef_3071
@@ -34,5 +27,7 @@ before_install:
 install:
   - pip install lxml
   - ./scripts/setup.sh
+  - ./scripts/check_proxy_impl.py ./External/cef_binary/include/ ./CEF.swift/Proxies/
+  - ./scripts/check_handler_interface.py ./External/cef_binary/include/ ./CEF.swift/Handlers/
 
 script: set -o pipefail && xcodebuild clean build -project CEF.swift.xcodeproj -scheme CEF.swift | xcpretty -c -f `xcpretty-travis-formatter`
