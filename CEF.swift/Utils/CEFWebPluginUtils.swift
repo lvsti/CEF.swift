@@ -114,7 +114,7 @@ public struct CEFWebPluginUtils {
     /// supported at the time that CefRegisterWidevineCdm() is called then |callback|
     /// will receive a |result| value of CEF_CDM_REGISTRATION_ERROR_NOT_SUPPORTED.
     /// CEF name: `CefRegisterWidevineCdm`
-    func registerWidevineCDM(path: String, callback: CEFRegisterCDMCallback?) {
+    public func registerWidevineCDM(path: String, callback: CEFRegisterCDMCallback?) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
         defer { CEFStringPtrRelease(cefStrPtr) }
         cef_register_widevine_cdm(cefStrPtr, callback?.toCEF())
@@ -163,7 +163,7 @@ public struct CEFWebPluginUtils {
     /// supported at the time that CefRegisterWidevineCdm() is called then |callback|
     /// will receive a |result| value of CEF_CDM_REGISTRATION_ERROR_NOT_SUPPORTED.
     /// CEF name: `CefRegisterWidevineCdm`
-    func registerWidevineCDM(path: String, block: @escaping CEFRegisterCDMCallbackOnCDMRegistrationCompleteBlock) {
+    public func registerWidevineCDM(path: String, block: @escaping CEFRegisterCDMCallbackOnCDMRegistrationCompleteBlock) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
         defer { CEFStringPtrRelease(cefStrPtr) }
         let callback = CEFRegisterCDMCallbackBridge(block: block)

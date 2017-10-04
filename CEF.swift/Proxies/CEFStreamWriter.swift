@@ -26,7 +26,7 @@ public extension CEFStreamWriter {
     
     /// Write raw binary data.
     /// CEF name: `Write`
-    func write(buffer: UnsafeRawPointer, chunkSize: size_t, count: size_t) -> size_t {
+    public func write(buffer: UnsafeRawPointer, chunkSize: size_t, count: size_t) -> size_t {
         return cefObject.write(cefObjectPtr, buffer, chunkSize, count)
     }
 
@@ -35,20 +35,20 @@ public extension CEFStreamWriter {
     /// failure.
     /// CEF name: `Seek`
     @discardableResult
-    func seek(to offset: Int64, from whence: CEFSeekPosition) -> Bool {
+    public func seek(to offset: Int64, from whence: CEFSeekPosition) -> Bool {
         return cefObject.seek(cefObjectPtr, offset, whence.rawValue) == 0
     }
     
     /// Return the current offset position.
     /// CEF name: `Tell`
-    func tell() -> Int64 {
+    public func tell() -> Int64 {
         return cefObject.tell(cefObjectPtr)
     }
     
     /// Flush the stream.
     /// CEF name: `Flush`
     @discardableResult
-    func flush() -> Bool {
+    public func flush() -> Bool {
         return cefObject.flush(cefObjectPtr) != 0
     }
     
@@ -56,7 +56,7 @@ public extension CEFStreamWriter {
     /// which may block. Used as a hint for determining the thread to access the
     /// reader from.
     /// CEF name: `MayBlock`
-    func mayBlock() -> Bool {
+    public func mayBlock() -> Bool {
         return cefObject.may_block(cefObjectPtr) != 0
     }
     

@@ -102,13 +102,13 @@ public struct CEFCrashUtils {
     
     /// Returns whether CEF's own crash reporting is enabled
     /// CEF name: `CefCrashReportingEnabled`
-    static var isReportingEnabled: Bool {
+    public static var isReportingEnabled: Bool {
         return cef_crash_reporting_enabled() != 0
     }
     
     /// Sets or clears a specific key-value pair from the crash metadata.
     /// CEF name: `CefSetCrashKeyValue`
-    static func setValue(_ value: String?, forKey key: String) {
+    public static func setValue(_ value: String?, forKey key: String) {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         let cefValuePtr = value != nil ? CEFStringPtrCreateFromSwiftString(value!) : nil
         defer {

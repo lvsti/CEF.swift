@@ -92,7 +92,7 @@ public extension CEFBrowserHost {
     /// CefLifeSpanHandler::DoClose() documentation for additional usage
     /// information. This method must be called on the browser process UI thread.
     /// CEF name: `TryCloseBrowser`
-    func tryCloseBrowser() -> Bool {
+    public func tryCloseBrowser() -> Bool {
         return cefObject.try_close_browser(cefObjectPtr) != 0
     }
     
@@ -227,7 +227,7 @@ public extension CEFBrowserHost {
     /// unlimited. If |bypass_cache| is true then |image_url| is requested from the
     /// server even if it is present in the browser cache.
     /// CEF name: `DownloadImage`
-    func downloadImage(url: NSURL,
+    public func downloadImage(url: NSURL,
                        isFavicon: Bool,
                        maxImageSize: UInt32,
                        bypassCache: Bool,
@@ -253,7 +253,7 @@ public extension CEFBrowserHost {
     /// |path| when done. For PDF printing to work on Linux you must implement the
     /// CefPrintHandler::GetPdfPaperSize method.
     /// CEF name: `PrintToPDF`
-    func printToPDF(at path: String, settings: CEFPDFPrintSettings, callback: CEFPDFPrintCallback? = nil) {
+    public func printToPDF(at path: String, settings: CEFPDFPrintSettings, callback: CEFPDFPrintCallback? = nil) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
         var cefSettings = settings.toCEF()
         defer {
@@ -723,7 +723,7 @@ public extension CEFBrowserHost {
     /// unlimited. If |bypass_cache| is true then |image_url| is requested from the
     /// server even if it is present in the browser cache.
     /// CEF name: `DownloadImage`
-    func downloadImage(url: NSURL,
+    public func downloadImage(url: NSURL,
                        isFavicon: Bool,
                        maxImageSize: UInt32,
                        bypassCache: Bool,
@@ -740,7 +740,7 @@ public extension CEFBrowserHost {
     /// |path| when done. For PDF printing to work on Linux you must implement the
     /// CefPrintHandler::GetPdfPaperSize method.
     /// CEF name: `PrintToPDF`
-    func printToPDF(at path: String, settings: CEFPDFPrintSettings, block: @escaping CEFPDFPrintCallbackOnPDFPrintFinishedBlock) {
+    public func printToPDF(at path: String, settings: CEFPDFPrintSettings, block: @escaping CEFPDFPrintCallbackOnPDFPrintFinishedBlock) {
         printToPDF(at: path, settings: settings, callback: CEFPDFPrintCallbackBridge(block: block))
     }
 }

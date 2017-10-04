@@ -271,7 +271,7 @@ public extension CEFRequestContext {
     /// If |callback| is non-NULL it will be executed on the UI thread after
     /// completion.
     /// CEF name: `ClearCertificateExceptions`
-    func clearCertificateExceptions(block: @escaping CEFCompletionCallbackOnCompleteBlock) {
+    public func clearCertificateExceptions(block: @escaping CEFCompletionCallbackOnCompleteBlock) {
         clearCertificateExceptions(callback: CEFCompletionCallbackBridge(block: block))
     }
     

@@ -442,7 +442,7 @@ public extension CEFMenuModel {
     /// be used. Returns true on success.
     /// CEF name: `SetColor`
     @discardableResult
-    func setColor(_ color: CEFColor, for commandID: CommandID, colorType: CEFMenuColorType) -> Bool {
+    public func setColor(_ color: CEFColor, for commandID: CommandID, colorType: CEFMenuColorType) -> Bool {
         return cefObject.set_color(cefObjectPtr, commandID.toCEF(), colorType.toCEF(), color.toCEF()) != 0
     }
     
@@ -453,7 +453,7 @@ public extension CEFMenuModel {
     /// then the system color will be used. Returns true on success.
     /// CEF name: `SetColorAt`
     @discardableResult
-    func setColor(_ color: CEFColor, at index: Int, colorType: CEFMenuColorType) -> Bool {
+    public func setColor(_ color: CEFColor, at index: Int, colorType: CEFMenuColorType) -> Bool {
         return cefObject.set_color(cefObjectPtr, Int32(index), colorType.toCEF(), color.toCEF()) != 0
     }
     
@@ -461,7 +461,7 @@ public extension CEFMenuModel {
     /// |color_type|. If a color was not set then 0 will be returned in |color|.
     /// Returns true on success.
     /// CEF name: `GetColor`
-    func color(for commandID: CommandID, colorType: CEFMenuColorType) -> CEFColor? {
+    public func color(for commandID: CommandID, colorType: CEFMenuColorType) -> CEFColor? {
         var cefColor = cef_color_t()
         let result = cefObject.get_color(cefObjectPtr, commandID.toCEF(), colorType.toCEF(), &cefColor)
         return result != 0 ? CEFColor.fromCEF(cefColor) : nil
@@ -472,7 +472,7 @@ public extension CEFMenuModel {
     /// in |color|. If a color was not set then 0 will be returned in |color|.
     /// Returns true on success.
     /// CEF name: `GetColorAt`
-    func color(at index: Int, colorType: CEFMenuColorType) -> CEFColor? {
+    public func color(at index: Int, colorType: CEFMenuColorType) -> CEFColor? {
         var cefColor = cef_color_t()
         let result = cefObject.get_color(cefObjectPtr, Int32(index), colorType.toCEF(), &cefColor)
         return result != 0 ? CEFColor.fromCEF(cefColor) : nil
@@ -491,7 +491,7 @@ public extension CEFMenuModel {
     /// - "Arial, 14px"
     /// CEF name: `SetFontList`
     @discardableResult
-    func setFontList(_ fontList: String, for commandID: CommandID) -> Bool {
+    public func setFontList(_ fontList: String, for commandID: CommandID) -> Bool {
         let cefStr = CEFStringPtrCreateFromSwiftString(fontList)
         defer { CEFStringPtrRelease(cefStr) }
         return cefObject.set_font_list(cefObjectPtr, commandID.toCEF(), cefStr) != 0
@@ -511,7 +511,7 @@ public extension CEFMenuModel {
     /// - "Arial, 14px"
     /// CEF name: `SetFontListAt`
     @discardableResult
-    func setFontList(_ fontList: String, at index: Int) -> Bool {
+    public func setFontList(_ fontList: String, at index: Int) -> Bool {
         let cefStr = CEFStringPtrCreateFromSwiftString(fontList)
         defer { CEFStringPtrRelease(cefStr) }
         return cefObject.set_font_list(cefObjectPtr, Int32(index), cefStr) != 0

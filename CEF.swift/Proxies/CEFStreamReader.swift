@@ -32,7 +32,7 @@ public extension CEFStreamReader {
     
     /// Read raw binary data.
     /// CEF name: `Read`
-    func read(buffer: UnsafeMutableRawPointer, chunkSize: size_t, count: size_t) -> size_t {
+    public func read(buffer: UnsafeMutableRawPointer, chunkSize: size_t, count: size_t) -> size_t {
         return cefObject.read(cefObjectPtr, buffer, chunkSize, count)
     }
     
@@ -41,19 +41,19 @@ public extension CEFStreamReader {
     /// failure.
     /// CEF name: `Seek`
     @discardableResult
-    func seek(to offset: Int64, from whence: CEFSeekPosition) -> Bool {
+    public func seek(to offset: Int64, from whence: CEFSeekPosition) -> Bool {
         return cefObject.seek(cefObjectPtr, offset, whence.rawValue) == 0
     }
     
     /// Return the current offset position.
     /// CEF name: `Tell`
-    func tell() -> Int64 {
+    public func tell() -> Int64 {
         return cefObject.tell(cefObjectPtr)
     }
     
     /// Return non-zero if at end of file.
     /// CEF name: `Eof`
-    func isEOF() -> Bool {
+    public func isEOF() -> Bool {
         return cefObject.eof(cefObjectPtr) != 0
     }
     
@@ -61,7 +61,7 @@ public extension CEFStreamReader {
     /// which may block. Used as a hint for determining the thread to access the
     /// reader from.
     /// CEF name: `MayBlock`
-    func mayBlock() -> Bool {
+    public func mayBlock() -> Bool {
         return cefObject.may_block(cefObjectPtr) != 0
     }
 

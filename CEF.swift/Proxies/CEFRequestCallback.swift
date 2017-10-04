@@ -13,13 +13,13 @@ public extension CEFRequestCallback {
     /// Continue the url request. If |allow| is true the request will be continued.
     /// Otherwise, the request will be canceled.
     /// CEF name: `Continue`
-    func doContinue(allow: Bool) {
+    public func doContinue(allow: Bool) {
         cefObject.cont(cefObjectPtr, allow ? 1 : 0)
     }
     
     /// Cancel the url request.
     /// CEF name: `Cancel`
-    func doCancel() {
+    public func doCancel() {
         cefObject.cancel(cefObjectPtr)
     }
 
