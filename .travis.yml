@@ -23,9 +23,9 @@ before_install:
   - brew update
   - brew install jq
   - sudo gem install xcpretty-travis-formatter --no-doc
-
+  - sudo pip install lxml
+  
 install:
-  - pip install lxml
   - ./scripts/setup.sh
   - ./scripts/check_proxy_impl.py ./External/cef_binary/include/ ./CEF.swift/Proxies/
   - ./scripts/check_handler_interface.py ./External/cef_binary/include/ ./CEF.swift/Handlers/
