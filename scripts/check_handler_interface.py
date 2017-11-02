@@ -47,7 +47,7 @@ for cef_class in header.get_classes():
         
         if_file_path = os.path.join(interface_dir, swift_type_name + ".swift")
         if not os.path.exists(if_file_path):
-            missing_implementations.append(swift_type_name)
+            missing_declarations.append(swift_type_name)
             print("interface missing for " + swift_type_name, file=sys.stderr)
             continue
         
