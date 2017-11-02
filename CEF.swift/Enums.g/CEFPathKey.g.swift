@@ -45,6 +45,11 @@ public enum CEFPathKey: Int32 {
     /// and "~/Library/Application Support" directory on Mac OS X.
     /// CEF name: `PK_USER_DATA`.
     case userData
+
+    /// Directory containing application resources. Can be configured via
+    /// CefSettings.resources_dir_path.
+    /// CEF name: `PK_DIR_RESOURCES`.
+    case dirResources
 }
 
 extension CEFPathKey {
