@@ -671,6 +671,39 @@ public extension CEFBrowserHost {
     public func setAccessibilityState(_ state: CEFState) {
         cefObject.set_accessibility_state(cefObjectPtr, state.toCEF())
     }
+
+    /// Enable notifications of auto resize via CefDisplayHandler::OnAutoResize.
+    /// Notifications are disabled by default. |min_size| and |max_size| define the
+    /// range of allowed sizes.
+    /// CEF name: `SetAutoResizeEnabled`
+    public func setAutoResizeEnabled(minSize: CGSize, maxSize: CGSize) {
+        var cefMinSize = minSize.toCEF()
+        var cefMaxSize = maxSize.toCEF()
+        cefObject.set_auto_resize_enabled(cefObjectPtr, 1, &cefMinSize, &cefMaxSize)
+    }
+
+    public func setAutoResizeDisabled() {
+        cefObject.set_auto_resize_enabled(cefObjectPtr, 0, nil, nil)
+    }
+
+    /// Returns the extension hosted in this browser or NULL if no extension is
+    /// hosted. See CefRequestContext::LoadExtension for details.
+    /// CEF name: `GetExtension`
+    public var hostedExtension: CEFExtension? {
+        guard let cefExt = cefObject.get_extension(cefObjectPtr) else {
+            return nil
+        }
+        
+        return CEFExtension.fromCEF(cefExt)!
+    }
+    
+    /// Returns true if this browser is hosting an extension background script.
+    /// Background hosts do not have a window and are not displayable. See
+    /// CefRequestContext::LoadExtension for details.
+    /// CEF name: `IsBackgroundHost`
+    public var isBackgroundHost: Bool {
+        return cefObject.is_background_host(cefObjectPtr) != 0
+    }
 }
 
 

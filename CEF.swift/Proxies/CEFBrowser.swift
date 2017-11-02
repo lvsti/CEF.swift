@@ -66,7 +66,8 @@ public extension CEFBrowser {
         cefObject.stop_load(cefObjectPtr)
     }
 
-    /// Returns the globally unique identifier for this browser.
+    /// Returns the globally unique identifier for this browser. This value is also
+    /// used as the tabId for extension APIs.
     /// CEF name: `GetIdentifier`
     public var identifier: Identifier {
         return cefObject.get_identifier(cefObjectPtr)
