@@ -55,11 +55,11 @@ class SimpleHandler: CEFClient, CEFLifeSpanHandler {
         _browserList.append(browser)
     }
     
-    func doClose(browser: CEFBrowser) -> Bool {
+    func onDoClose(browser: CEFBrowser) -> CEFOnDoCloseAction {
         if _browserList.count == 1 {
             _isClosing = true
         }
-        return false
+        return .allow
     }
     
     func onBeforeClose(browser: CEFBrowser) {
