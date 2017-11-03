@@ -22,8 +22,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func createApplication() {
-        NSApplication.shared()
-        Bundle.main.loadNibNamed("MainMenu", owner: NSApp, topLevelObjects: nil)
+        _ = NSApplication.shared
+        Bundle.main.loadNibNamed(NSNib.Name("MainMenu"), owner: NSApp, topLevelObjects: nil)
         NSApp.delegate = self
     }
     
@@ -34,7 +34,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplicationTerminateReply {
+    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         return .terminateNow
     }
 

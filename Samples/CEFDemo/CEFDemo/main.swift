@@ -113,7 +113,7 @@ class SimpleApplication : NSApplication, CefAppProtocol {
     }
     
     override func terminate(_ sender: Any?) {
-        let delegate = NSApplication.shared().delegate as! AppDelegate
+        let delegate = NSApplication.shared.delegate as! AppDelegate
         delegate.tryToTerminateApplication(app: self)
     }
 }
@@ -121,7 +121,7 @@ class SimpleApplication : NSApplication, CefAppProtocol {
 let args = CEFMainArgs(arguments: CommandLine.arguments)
 let app = SimpleApp()
 
-SimpleApplication.shared()
+_ = SimpleApplication.shared
 
 let settings = CEFSettings()
 
