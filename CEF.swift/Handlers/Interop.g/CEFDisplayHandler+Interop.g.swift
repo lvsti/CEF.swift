@@ -26,5 +26,6 @@ extension cef_display_handler_t: CEFCallbackMarshalling {
         on_tooltip = CEFDisplayHandler_on_tooltip
         on_status_message = CEFDisplayHandler_on_status_message
         on_console_message = CEFDisplayHandler_on_console_message
+        on_auto_resize = CEFDisplayHandler_on_auto_resize
     }
 }

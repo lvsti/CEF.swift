@@ -101,3 +101,15 @@ func CEFDisplayHandler_on_console_message(ptr: UnsafeMutablePointer<cef_display_
     return action == .ignore ? 1 : 0
 }
 
+func CEFDisplayHandler_on_auto_resize(ptr: UnsafeMutablePointer<cef_display_handler_t>?,
+                                      browser: UnsafeMutablePointer<cef_browser_t>?,
+                                      newSize: UnsafePointer<cef_size_t>?) -> Int32 {
+    guard let obj = CEFDisplayHandlerMarshaller.get(ptr) else {
+        return 0
+    }
+
+    let action = obj.onAutoResize(browser: CEFBrowser.fromCEF(browser)!,
+                                  newSize: CGSize.fromCEF(newSize!.pointee))
+    
+    return action == .consume ? 1 : 0
+}

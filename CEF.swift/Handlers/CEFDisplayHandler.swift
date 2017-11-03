@@ -18,6 +18,14 @@ public enum CEFOnTooltipAction {
     case showCustom
 }
 
+public enum CEFOnAutoResizeAction {
+    /// Treat event as handled
+    case consume
+    
+    /// Fall back to default behavior
+    case performDefault
+}
+
 /// Implement this interface to handle events related to browser display state.
 /// The methods of this class will be called on the UI thread.
 /// CEF name: `CefDisplayHandler`
@@ -64,6 +72,13 @@ public protocol CEFDisplayHandler {
                           source: String,
                           lineNumber: Int) -> CEFOnConsoleMessageAction
 
+    /// Called when auto-resize is enabled via CefBrowserHost::SetAutoResizeEnabled
+    /// and the contents have auto-resized. |new_size| will be the desired size in
+    /// view coordinates. Return true if the resize was handled or false for
+    /// default handling.
+    /// CEF name: `OnAutoResize`
+    func onAutoResize(browser: CEFBrowser, newSize: CGSize) -> CEFOnAutoResizeAction
+    
 }
 
 public extension CEFDisplayHandler {
@@ -94,5 +109,9 @@ public extension CEFDisplayHandler {
         return .show
     }
 
+    func onAutoResize(browser: CEFBrowser, newSize: CGSize) -> CEFOnAutoResizeAction {
+        return .performDefault
+    }
+    
 }
 

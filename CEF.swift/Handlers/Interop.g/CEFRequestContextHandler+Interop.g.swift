@@ -19,6 +19,7 @@ extension CEFRequestContextHandler {
 
 extension cef_request_context_handler_t: CEFCallbackMarshalling {
     mutating func marshalCallbacks() {
+        on_request_context_initialized = CEFRequestContextHandler_on_request_context_initialized
         get_cookie_manager = CEFRequestContextHandler_get_cookie_manager
         on_before_plugin_load = CEFRequestContextHandler_on_before_plugin_load
     }

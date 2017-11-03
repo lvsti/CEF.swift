@@ -19,6 +19,11 @@ public enum CEFOnBeforePluginLoadAction {
 /// CEF name: `CefRequestContextHandler`
 public protocol CEFRequestContextHandler {
     
+    /// Called on the browser process UI thread immediately after the request
+    /// context has been initialized.
+    /// CEF name: `OnRequestContextInitialized`
+    func onRequestContextInitialized(context: CEFRequestContext)
+
     /// Called on the browser process IO thread to retrieve the cookie manager. If
     /// this method returns NULL the default cookie manager retrievable via
     /// CefRequestContext::GetDefaultCookieManager() will be used.
@@ -53,7 +58,10 @@ public protocol CEFRequestContextHandler {
 
 
 public extension CEFRequestContextHandler {
-    
+
+    func onRequestContextInitialized(context: CEFRequestContext) {
+    }
+
     var cookieManager: CEFCookieManager? { return nil }
 
     func onBeforePluginLoad(mimeType: String,
