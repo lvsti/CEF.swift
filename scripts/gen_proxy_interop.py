@@ -20,10 +20,12 @@ import Foundation
 ''' % (swift_classname, cef_filename)
 
 
-def make_proxy_stub(capi_name, swift_name):
+def make_proxy_stub(capi_name, swift_name, is_scoped):
     # class declaration
+    baseclass_name = 'CEFScopedProxy' if is_scoped else 'CEFProxy'
+
     return '''
-public class %s: CEFProxy<%s> {
+public class %s: %s<%s> {
     override init?(ptr: UnsafeMutablePointer<%s>?) {
         super.init(ptr: ptr)
     }
@@ -33,19 +35,25 @@ public class %s: CEFProxy<%s> {
     }
 }
 
-''' % (swift_name, capi_name, capi_name, capi_name, swift_name, swift_name)
+''' % (swift_name, baseclass_name, capi_name, capi_name, capi_name, swift_name, swift_name)
 
 
 def make_proxy_interop(cef_class):
     capi_name = cef_class.get_capi_name()
     swift_name = cef_capi_type_to_swift(capi_name)
     comments = cef_class.get_comment()
+    is_scoped = cef_class.get_parent_name() == 'CefBaseScoped'
     
     result = make_proxy_interop_file_header(swift_name, os.path.basename(cef_class.get_file_name()))
-    result += make_cefobject_conformance(capi_name)    
+
+    if is_scoped:
+        result += make_cefscopedobject_conformance(capi_name)
+    else:
+        result += make_cefobject_conformance(capi_name)
+
     result += make_swiftdoc_comment("\n".join(comments[1:-1]))
     result += "\n/// CEF name: `" + cef_class.get_name() + "`"
-    result += make_proxy_stub(capi_name, swift_name)
+    result += make_proxy_stub(capi_name, swift_name, is_scoped)
 
     return result
 

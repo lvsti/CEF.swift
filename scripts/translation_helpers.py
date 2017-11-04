@@ -73,3 +73,6 @@ def make_swiftdoc_comment(desc, params = None, returns = None):
 def make_cefobject_conformance(cef_capi_name):
     return "extension " + cef_capi_name + ": CEFObject {}\n\n"
 
+
+def make_cefscopedobject_conformance(cef_capi_name):
+    return "extension " + cef_capi_name + ": CEFScopedObject {}\n\n"
