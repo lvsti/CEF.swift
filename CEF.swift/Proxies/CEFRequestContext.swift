@@ -314,7 +314,7 @@ public extension CEFRequestContext {
     /// |extension_id|. This may not be the context that was used to load the
     /// extension (see DidLoadExtension). This method must be called on the browser
     /// process UI thread.
-    /// CEF name: `HasExtension
+    /// CEF name: `HasExtension`
     public func hasExtension(extensionID: CEFExtension.ID) -> Bool {
         let cefStr = CEFStringPtrCreateFromSwiftString(extensionID)
         defer { CEFStringPtrRelease(cefStr) }
