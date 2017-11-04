@@ -36,8 +36,7 @@ includes_dir = sys.argv[1]
 interface_dir = sys.argv[2]
 
 header = obj_header()
-# TODO: remove cef_zip_reader.h when CEF parser is fixed
-excluded_files = ['cef_application_mac.h', 'cef_version.h', 'cef_zip_reader.h']
+excluded_files = ['cef_application_mac.h', 'cef_version.h']
 header.add_directory(includes_dir, excluded_files)
 
 
