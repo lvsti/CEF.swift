@@ -27,9 +27,9 @@ class SimpleApp: CEFApp, CEFBrowserProcessHandler {
         let settings = CEFBrowserSettings()
 
         let cmdLine = CEFCommandLine.globalCommandLine
-        var url = NSURL(string: "http://www.google.com")!
+        var url = URL(string: "http://www.google.com")!
         if let urlSwitch = cmdLine?.switchValue(for: "url"), !urlSwitch.isEmpty {
-            url = NSURL(string: urlSwitch)!
+            url = URL(string: urlSwitch)!
         }
         
         _ = CEFBrowserHost.createBrowser(windowInfo: winInfo, client: client, url: url, settings: settings, requestContext: nil)
