@@ -88,15 +88,19 @@ class CEFMarshaller<TClass, TStruct>: CEFMarshallerBase, CEFRefCounting
         super.init()
 
 #if DEBUG
-        let marshallerPtr = UnsafePointer<Int8>(unsafeAddressOf(self))
-        let basePtr = CEFMarshaller.getBasePtr(self)
-        let ptr = UnsafePointer<Int8>(basePtr)
-        assert(ptr.distanceTo(marshallerPtr) == kCEFMarshallerStructOffset)
-        var offset = MemoryLayout<size_t>.stride
-        while offset < cefStruct.base.size {
-            let fptr = UnsafePointer<UnsafeRawPointer>(ptr.advanced(by: offset))
-            assert(fptr.pointee != nil, "uninitialized field at offset \(offset) in \(TStruct.self)")
-            offset += MemoryLayout<UnsafeRawPointer>.stride
+        let marshallerPtr = Unmanaged<InstanceType>.passUnretained(self).toOpaque().assumingMemoryBound(to: Int8.self)
+        let basePtr = CEFMarshallerBase.getBaseStructPtrFromMarshaller(self)
+        
+        basePtr.withMemoryRebound(to: Int8.self, capacity: 1) { ptr in
+            assert(marshallerPtr.distance(to: ptr) == CEFMarshallerBase.kCEFMarshallerStructOffset)
+            var offset = MemoryLayout<size_t>.stride
+            
+            while offset < cefStruct.base.size {
+                ptr.advanced(by: offset).withMemoryRebound(to: UnsafeRawPointer?.self, capacity: 1) { fptr in
+                    assert(fptr.pointee != nil, "uninitialized field at offset \(offset) in \(TStruct.self)")
+                    offset += MemoryLayout<UnsafeRawPointer>.stride
+                }
+            }
         }
 #endif
     }
