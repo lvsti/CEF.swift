@@ -19,7 +19,7 @@ extension cef_thread_t: CEFObject {}
 /// you can post tasks to an existing CEF thread instead of creating a new one;
 /// see cef_task.h for details.
 /// CEF name: `CefThread`
-public class CEFThread: CEFProxy<cef_thread_t> {
+public final class CEFThread: CEFProxy<cef_thread_t> {
     override init?(ptr: UnsafeMutablePointer<cef_thread_t>?) {
         super.init(ptr: ptr)
     }

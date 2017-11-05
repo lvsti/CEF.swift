@@ -24,7 +24,7 @@ extension cef_request_context_t: CEFObject {}
 /// first request context passed into a CefBrowserHost static factory method and
 /// all other request context objects will be ignored.
 /// CEF name: `CefRequestContext`
-public class CEFRequestContext: CEFProxy<cef_request_context_t> {
+public final class CEFRequestContext: CEFProxy<cef_request_context_t> {
     override init?(ptr: UnsafeMutablePointer<cef_request_context_t>?) {
         super.init(ptr: ptr)
     }

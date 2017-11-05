@@ -12,7 +12,7 @@ extension cef_stream_writer_t: CEFObject {}
 /// Class used to write data to a stream. The methods of this class may be called
 /// on any thread.
 /// CEF name: `CefStreamWriter`
-public class CEFStreamWriter: CEFProxy<cef_stream_writer_t> {
+public final class CEFStreamWriter: CEFProxy<cef_stream_writer_t> {
     override init?(ptr: UnsafeMutablePointer<cef_stream_writer_t>?) {
         super.init(ptr: ptr)
     }

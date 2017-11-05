@@ -16,7 +16,7 @@ extension cef_task_runner_t: CEFObject {}
 /// cef_types.h list the common CEF threads. Task runners are also available for
 /// other CEF threads as appropriate (for example, V8 WebWorker threads).
 /// CEF name: `CefTaskRunner`
-public class CEFTaskRunner: CEFProxy<cef_task_runner_t> {
+public final class CEFTaskRunner: CEFProxy<cef_task_runner_t> {
     override init?(ptr: UnsafeMutablePointer<cef_task_runner_t>?) {
         super.init(ptr: ptr)
     }

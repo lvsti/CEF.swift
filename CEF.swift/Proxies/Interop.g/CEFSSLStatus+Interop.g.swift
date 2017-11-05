@@ -11,7 +11,7 @@ extension cef_sslstatus_t: CEFObject {}
 
 /// Class representing the SSL information for a navigation entry.
 /// CEF name: `CefSSLStatus`
-public class CEFSSLStatus: CEFProxy<cef_sslstatus_t> {
+public final class CEFSSLStatus: CEFProxy<cef_sslstatus_t> {
     override init?(ptr: UnsafeMutablePointer<cef_sslstatus_t>?) {
         super.init(ptr: ptr)
     }

@@ -25,7 +25,7 @@ def make_proxy_stub(capi_name, swift_name, is_scoped):
     baseclass_name = 'CEFScopedProxy' if is_scoped else 'CEFProxy'
 
     return '''
-public class %s: %s<%s> {
+public final class %s: %s<%s> {
     override init?(ptr: UnsafeMutablePointer<%s>?) {
         super.init(ptr: ptr)
     }

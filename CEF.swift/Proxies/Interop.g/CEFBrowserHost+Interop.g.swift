@@ -14,7 +14,7 @@ extension cef_browser_host_t: CEFObject {}
 /// called on any thread in that process unless otherwise indicated in the
 /// comments.
 /// CEF name: `CefBrowserHost`
-public class CEFBrowserHost: CEFProxy<cef_browser_host_t> {
+public final class CEFBrowserHost: CEFProxy<cef_browser_host_t> {
     override init?(ptr: UnsafeMutablePointer<cef_browser_host_t>?) {
         super.init(ptr: ptr)
     }

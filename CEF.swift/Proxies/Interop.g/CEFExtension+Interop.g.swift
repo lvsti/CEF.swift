@@ -12,7 +12,7 @@ extension cef_extension_t: CEFObject {}
 /// Object representing an extension. Methods may be called on any thread unless
 /// otherwise indicated.
 /// CEF name: `CefExtension`
-public class CEFExtension: CEFProxy<cef_extension_t> {
+public final class CEFExtension: CEFProxy<cef_extension_t> {
     override init?(ptr: UnsafeMutablePointer<cef_extension_t>?) {
         super.init(ptr: ptr)
     }

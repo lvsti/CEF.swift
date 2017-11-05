@@ -14,7 +14,7 @@ extension cef_frame_t: CEFObject {}
 /// otherwise indicated in the comments. When used in the render process the
 /// methods of this class may only be called on the main thread.
 /// CEF name: `CefFrame`
-public class CEFFrame: CEFProxy<cef_frame_t> {
+public final class CEFFrame: CEFProxy<cef_frame_t> {
     override init?(ptr: UnsafeMutablePointer<cef_frame_t>?) {
         super.init(ptr: ptr)
     }

@@ -15,7 +15,7 @@ extension cef_urlrequest_t: CEFObject {}
 /// process. Once created the methods of the URL request object must be accessed
 /// on the same thread that created it.
 /// CEF name: `CefURLRequest`
-public class CEFURLRequest: CEFProxy<cef_urlrequest_t> {
+public final class CEFURLRequest: CEFProxy<cef_urlrequest_t> {
     override init?(ptr: UnsafeMutablePointer<cef_urlrequest_t>?) {
         super.init(ptr: ptr)
     }

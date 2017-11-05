@@ -11,7 +11,7 @@ extension cef_file_dialog_callback_t: CEFObject {}
 
 /// Callback interface for asynchronous continuation of file dialog requests.
 /// CEF name: `CefFileDialogCallback`
-public class CEFFileDialogCallback: CEFProxy<cef_file_dialog_callback_t> {
+public final class CEFFileDialogCallback: CEFProxy<cef_file_dialog_callback_t> {
     override init?(ptr: UnsafeMutablePointer<cef_file_dialog_callback_t>?) {
         super.init(ptr: ptr)
     }

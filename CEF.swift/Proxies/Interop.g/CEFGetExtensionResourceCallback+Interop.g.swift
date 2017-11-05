@@ -12,7 +12,7 @@ extension cef_get_extension_resource_callback_t: CEFObject {}
 /// Callback interface used for asynchronous continuation of
 /// CefExtensionHandler::GetExtensionResource.
 /// CEF name: `CefGetExtensionResourceCallback`
-public class CEFGetExtensionResourceCallback: CEFProxy<cef_get_extension_resource_callback_t> {
+public final class CEFGetExtensionResourceCallback: CEFProxy<cef_get_extension_resource_callback_t> {
     override init?(ptr: UnsafeMutablePointer<cef_get_extension_resource_callback_t>?) {
         super.init(ptr: ptr)
     }

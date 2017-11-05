@@ -11,7 +11,7 @@ extension cef_request_callback_t: CEFObject {}
 
 /// Callback interface used for asynchronous continuation of url requests.
 /// CEF name: `CefRequestCallback`
-public class CEFRequestCallback: CEFProxy<cef_request_callback_t> {
+public final class CEFRequestCallback: CEFProxy<cef_request_callback_t> {
     override init?(ptr: UnsafeMutablePointer<cef_request_callback_t>?) {
         super.init(ptr: ptr)
     }

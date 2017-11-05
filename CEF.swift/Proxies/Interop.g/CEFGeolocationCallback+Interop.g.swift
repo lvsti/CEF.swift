@@ -12,7 +12,7 @@ extension cef_geolocation_callback_t: CEFObject {}
 /// Callback interface used for asynchronous continuation of geolocation
 /// permission requests.
 /// CEF name: `CefGeolocationCallback`
-public class CEFGeolocationCallback: CEFProxy<cef_geolocation_callback_t> {
+public final class CEFGeolocationCallback: CEFProxy<cef_geolocation_callback_t> {
     override init?(ptr: UnsafeMutablePointer<cef_geolocation_callback_t>?) {
         super.init(ptr: ptr)
     }

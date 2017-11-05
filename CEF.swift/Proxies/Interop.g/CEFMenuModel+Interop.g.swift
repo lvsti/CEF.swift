@@ -14,7 +14,7 @@ extension cef_menu_model_t: CEFObject {}
 /// should be between MENU_ID_USER_FIRST and MENU_ID_USER_LAST. The methods of
 /// this class can only be accessed on the browser process the UI thread.
 /// CEF name: `CefMenuModel`
-public class CEFMenuModel: CEFProxy<cef_menu_model_t> {
+public final class CEFMenuModel: CEFProxy<cef_menu_model_t> {
     override init?(ptr: UnsafeMutablePointer<cef_menu_model_t>?) {
         super.init(ptr: ptr)
     }

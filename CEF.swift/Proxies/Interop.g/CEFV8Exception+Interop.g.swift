@@ -12,7 +12,7 @@ extension cef_v8exception_t: CEFObject {}
 /// Class representing a V8 exception. The methods of this class may be called on
 /// any render process thread.
 /// CEF name: `CefV8Exception`
-public class CEFV8Exception: CEFProxy<cef_v8exception_t> {
+public final class CEFV8Exception: CEFProxy<cef_v8exception_t> {
     override init?(ptr: UnsafeMutablePointer<cef_v8exception_t>?) {
         super.init(ptr: ptr)
     }

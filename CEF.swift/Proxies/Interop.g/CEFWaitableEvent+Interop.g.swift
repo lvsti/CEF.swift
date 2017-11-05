@@ -19,7 +19,7 @@ extension cef_waitable_event_t: CEFObject {}
 /// WaitableEvent by calling the *Wait() methods is not allowed on the browser
 /// process UI or IO threads.
 /// CEF name: `CefWaitableEvent`
-public class CEFWaitableEvent: CEFProxy<cef_waitable_event_t> {
+public final class CEFWaitableEvent: CEFProxy<cef_waitable_event_t> {
     override init?(ptr: UnsafeMutablePointer<cef_waitable_event_t>?) {
         super.init(ptr: ptr)
     }

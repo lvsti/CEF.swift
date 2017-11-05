@@ -15,7 +15,7 @@ extension cef_v8stack_frame_t: CEFObject {}
 /// threads. A task runner for posting tasks on the associated thread can be
 /// retrieved via the CefV8Context::GetTaskRunner() method.
 /// CEF name: `CefV8StackFrame`
-public class CEFV8StackFrame: CEFProxy<cef_v8stack_frame_t> {
+public final class CEFV8StackFrame: CEFProxy<cef_v8stack_frame_t> {
     override init?(ptr: UnsafeMutablePointer<cef_v8stack_frame_t>?) {
         super.init(ptr: ptr)
     }

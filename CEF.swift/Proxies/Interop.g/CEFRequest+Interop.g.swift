@@ -12,7 +12,7 @@ extension cef_request_t: CEFObject {}
 /// Class used to represent a web request. The methods of this class may be
 /// called on any thread.
 /// CEF name: `CefRequest`
-public class CEFRequest: CEFProxy<cef_request_t> {
+public final class CEFRequest: CEFProxy<cef_request_t> {
     override init?(ptr: UnsafeMutablePointer<cef_request_t>?) {
         super.init(ptr: ptr)
     }

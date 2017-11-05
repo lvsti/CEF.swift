@@ -11,7 +11,7 @@ extension cef_web_plugin_info_t: CEFObject {}
 
 /// Information about a specific web plugin.
 /// CEF name: `CefWebPluginInfo`
-public class CEFWebPluginInfo: CEFProxy<cef_web_plugin_info_t> {
+public final class CEFWebPluginInfo: CEFProxy<cef_web_plugin_info_t> {
     override init?(ptr: UnsafeMutablePointer<cef_web_plugin_info_t>?) {
         super.init(ptr: ptr)
     }

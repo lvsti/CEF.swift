@@ -11,7 +11,7 @@ extension cef_x509certificate_t: CEFObject {}
 
 /// Class representing a X.509 certificate.
 /// CEF name: `CefX509Certificate`
-public class CEFX509Certificate: CEFProxy<cef_x509certificate_t> {
+public final class CEFX509Certificate: CEFProxy<cef_x509certificate_t> {
     override init?(ptr: UnsafeMutablePointer<cef_x509certificate_t>?) {
         super.init(ptr: ptr)
     }

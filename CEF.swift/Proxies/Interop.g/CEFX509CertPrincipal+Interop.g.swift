@@ -11,7 +11,7 @@ extension cef_x509cert_principal_t: CEFObject {}
 
 /// Class representing the issuer or subject field of an X.509 certificate.
 /// CEF name: `CefX509CertPrincipal`
-public class CEFX509CertPrincipal: CEFProxy<cef_x509cert_principal_t> {
+public final class CEFX509CertPrincipal: CEFProxy<cef_x509cert_principal_t> {
     override init?(ptr: UnsafeMutablePointer<cef_x509cert_principal_t>?) {
         super.init(ptr: ptr)
     }

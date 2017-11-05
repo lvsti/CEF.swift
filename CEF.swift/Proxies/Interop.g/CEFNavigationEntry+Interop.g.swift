@@ -11,7 +11,7 @@ extension cef_navigation_entry_t: CEFObject {}
 
 /// Class used to represent an entry in navigation history.
 /// CEF name: `CefNavigationEntry`
-public class CEFNavigationEntry: CEFProxy<cef_navigation_entry_t> {
+public final class CEFNavigationEntry: CEFProxy<cef_navigation_entry_t> {
     override init?(ptr: UnsafeMutablePointer<cef_navigation_entry_t>?) {
         super.init(ptr: ptr)
     }

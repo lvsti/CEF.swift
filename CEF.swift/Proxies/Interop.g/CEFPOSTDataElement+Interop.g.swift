@@ -12,7 +12,7 @@ extension cef_post_data_element_t: CEFObject {}
 /// Class used to represent a single element in the request post data. The
 /// methods of this class may be called on any thread.
 /// CEF name: `CefPostDataElement`
-public class CEFPOSTDataElement: CEFProxy<cef_post_data_element_t> {
+public final class CEFPOSTDataElement: CEFProxy<cef_post_data_element_t> {
     override init?(ptr: UnsafeMutablePointer<cef_post_data_element_t>?) {
         super.init(ptr: ptr)
     }

@@ -11,7 +11,7 @@ extension cef_print_job_callback_t: CEFObject {}
 
 /// Callback interface for asynchronous continuation of print job requests.
 /// CEF name: `CefPrintJobCallback`
-public class CEFPrintJobCallback: CEFProxy<cef_print_job_callback_t> {
+public final class CEFPrintJobCallback: CEFProxy<cef_print_job_callback_t> {
     override init?(ptr: UnsafeMutablePointer<cef_print_job_callback_t>?) {
         super.init(ptr: ptr)
     }

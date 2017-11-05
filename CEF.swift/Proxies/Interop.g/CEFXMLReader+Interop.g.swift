@@ -13,7 +13,7 @@ extension cef_xml_reader_t: CEFObject {}
 /// The methods of this class should only be called on the thread that creates
 /// the object.
 /// CEF name: `CefXmlReader`
-public class CEFXMLReader: CEFProxy<cef_xml_reader_t> {
+public final class CEFXMLReader: CEFProxy<cef_xml_reader_t> {
     override init?(ptr: UnsafeMutablePointer<cef_xml_reader_t>?) {
         super.init(ptr: ptr)
     }
