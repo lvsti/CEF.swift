@@ -31,7 +31,7 @@ func CEFLifeSpanHandler_on_before_popup(ptr: UnsafeMutablePointer<cef_life_span_
     
     let action = obj.onBeforePopup(browser: CEFBrowser.fromCEF(browser)!,
                                    frame: CEFFrame.fromCEF(frame)!,
-                                   targetURL: url != nil ? NSURL(string: CEFStringToSwiftString(url!.pointee)) : nil,
+                                   targetURL: url != nil ? URL(string: CEFStringToSwiftString(url!.pointee)) : nil,
                                    targetFrameName: frameName != nil ? CEFStringToSwiftString(frameName!.pointee) : nil,
                                    targetDisposition: CEFWindowOpenDisposition.fromCEF(disposition),
                                    userGesture: userGesture != 0,

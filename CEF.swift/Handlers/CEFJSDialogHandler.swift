@@ -49,7 +49,7 @@ public protocol CEFJSDialogHandler {
     /// |callback| once the custom dialog is dismissed.
     /// CEF name: `OnJSDialog`
     func onJSDialog(browser: CEFBrowser,
-                    origin: NSURL?,
+                    origin: URL?,
                     type: CEFJSDialogType,
                     message: String?,
                     prompt: String?,
@@ -82,7 +82,7 @@ public protocol CEFJSDialogHandler {
 public extension CEFJSDialogHandler {
 
     func onJSDialog(browser: CEFBrowser,
-                    origin: NSURL?,
+                    origin: URL?,
                     acceptLanguage: String?,
                     type: CEFJSDialogType,
                     message: String?,

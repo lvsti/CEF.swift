@@ -35,7 +35,7 @@ func CEFResourceHandler_get_response_headers(ptr: UnsafeMutablePointer<cef_resou
     case .continueWithUnknownResponseLength:
         responseLength!.pointee = -1
     case .redirect(let url):
-        CEFStringSetFromSwiftString(url.absoluteString!, cefStringPtr: redirectURL!)
+        CEFStringSetFromSwiftString(url.absoluteString, cefStringPtr: redirectURL!)
     default:
         break
     }

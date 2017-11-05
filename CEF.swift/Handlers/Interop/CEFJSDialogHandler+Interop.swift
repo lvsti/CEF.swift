@@ -21,7 +21,7 @@ func CEFJSDialogHandler_on_jsdialog(ptr: UnsafeMutablePointer<cef_jsdialog_handl
     }
 
     let action = obj.onJSDialog(browser: CEFBrowser.fromCEF(browser)!,
-                                origin: origin != nil ? NSURL(string: CEFStringToSwiftString(origin!.pointee)) : nil,
+                                origin: origin != nil ? URL(string: CEFStringToSwiftString(origin!.pointee)) : nil,
                                 type: CEFJSDialogType.fromCEF(type),
                                 message: message != nil ? CEFStringToSwiftString(message!.pointee) : nil,
                                 prompt: prompt != nil ? CEFStringToSwiftString(prompt!.pointee) : nil,

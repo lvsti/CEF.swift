@@ -13,7 +13,7 @@ import Foundation
 /// resulting HTTP status code. |image| is the resulting image, possibly at
 /// multiple scale factors, or empty if the download failed.
 public typealias CEFDownloadImageCallbackOnDownloadImageFinishedBlock =
-    (_ url: NSURL, _ statusCode: Int, _ image: CEFImage?) -> Void
+    (_ url: URL, _ statusCode: Int, _ image: CEFImage?) -> Void
 
 class CEFDownloadImageCallbackBridge: CEFDownloadImageCallback {
     let block: CEFDownloadImageCallbackOnDownloadImageFinishedBlock
@@ -22,7 +22,7 @@ class CEFDownloadImageCallbackBridge: CEFDownloadImageCallback {
         self.block = block
     }
     
-    func onDownloadImageFinished(url: NSURL, statusCode: Int, image: CEFImage?) {
+    func onDownloadImageFinished(url: URL, statusCode: Int, image: CEFImage?) {
         block(url, statusCode, image)
     }
 }

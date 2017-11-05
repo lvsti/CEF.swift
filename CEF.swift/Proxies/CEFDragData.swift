@@ -49,10 +49,10 @@ public extension CEFDragData {
 
     /// Return the link URL that is being dragged.
     /// CEF name: `GetLinkURL`
-    public var linkURL: NSURL? {
+    public var linkURL: URL? {
         let cefStrPtr = cefObject.get_link_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? NSURL(string: CEFStringToSwiftString(cefStrPtr!.pointee))! : nil
+        return cefStrPtr != nil ? URL(string: CEFStringToSwiftString(cefStrPtr!.pointee))! : nil
     }
 
     /// Return the title associated with the link being dragged.
@@ -90,10 +90,10 @@ public extension CEFDragData {
     /// Return the base URL that the fragment came from. This value is used for
     /// resolving relative URLs and may be empty.
     /// CEF name: `GetFragmentBaseURL`
-    public var fragmentBaseURL: NSURL? {
+    public var fragmentBaseURL: URL? {
         let cefStrPtr = cefObject.get_fragment_base_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefStrPtr!.pointee))
+        return URL(string: CEFStringToSwiftString(cefStrPtr!.pointee))
     }
     
     /// Return the name of the file being dragged out of the browser window.
@@ -126,8 +126,8 @@ public extension CEFDragData {
     
     /// Set the link URL that is being dragged.
     /// CEF name: `SetLinkURL`
-    public func setLinkURL(_ url: NSURL?)  {
-        let cefStrPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString!) : nil
+    public func setLinkURL(_ url: URL?)  {
+        let cefStrPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString) : nil
         defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.set_link_url(cefObjectPtr, cefStrPtr)
     }
@@ -166,8 +166,8 @@ public extension CEFDragData {
     
     /// Set the base URL that the fragment came from.
     /// CEF name: `SetFragmentBaseURL`
-    public func setFragmentBaseURL(_ url: NSURL?)  {
-        let cefStrPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString!) : nil
+    public func setFragmentBaseURL(_ url: URL?)  {
+        let cefStrPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString) : nil
         defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.set_link_metadata(cefObjectPtr, cefStrPtr)
     }

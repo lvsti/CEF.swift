@@ -90,8 +90,8 @@ public extension CEFFrame {
     
     /// Load the specified |url|.
     /// CEF name: `LoadURL`
-    public func loadURL(_ url: NSURL) {
-        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString!)
+    public func loadURL(_ url: URL) {
+        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
         defer { CEFStringPtrRelease(cefURLPtr) }
         cefObject.load_url(cefObjectPtr, cefURLPtr)
     }
@@ -100,9 +100,9 @@ public extension CEFFrame {
     /// should have a standard scheme (for example, http scheme) or behaviors like
     /// link clicks and web security restrictions may not behave as expected.
     /// CEF name: `LoadString`
-    public func loadString(_ str: String, withURL url: NSURL) {
+    public func loadString(_ str: String, withURL url: URL) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(str)
-        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString!)
+        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
         defer {
             CEFStringPtrRelease(cefStrPtr)
             CEFStringPtrRelease(cefURLPtr)
@@ -116,9 +116,9 @@ public extension CEFFrame {
     /// error.  The |start_line| parameter is the base line number to use for error
     /// reporting.
     /// CEF name: `ExecuteJavaScript`
-    public func executeJavaScript(code: String, scriptURL: NSURL? = nil, startLine: Int = 1) {
+    public func executeJavaScript(code: String, scriptURL: URL? = nil, startLine: Int = 1) {
         let cefCodePtr = CEFStringPtrCreateFromSwiftString(code)
-        let cefURLPtr = scriptURL != nil ? CEFStringPtrCreateFromSwiftString(scriptURL!.absoluteString!) : nil
+        let cefURLPtr = scriptURL != nil ? CEFStringPtrCreateFromSwiftString(scriptURL!.absoluteString) : nil
         defer {
             CEFStringPtrRelease(cefCodePtr)
             CEFStringPtrRelease(cefURLPtr)
@@ -167,10 +167,10 @@ public extension CEFFrame {
     
     /// Returns the URL currently loaded in this frame.
     /// CEF name: `GetURL`
-    public var url: NSURL {
+    public var url: URL {
         let cefURLPtr = cefObject.get_url(cefObjectPtr)!
         defer { CEFStringPtrRelease(cefURLPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefURLPtr.pointee))!
+        return URL(string: CEFStringToSwiftString(cefURLPtr.pointee))!
     }
     
     /// Returns the browser that this frame belongs to.

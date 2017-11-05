@@ -80,7 +80,7 @@ func CEFExtensionHandler_on_before_browser(ptr: UnsafeMutablePointer<cef_extensi
                                      browser: CEFBrowser.fromCEF(browser)!,
                                      activeBrowser: CEFBrowser.fromCEF(activeBrowser)!,
                                      index: Int(index),
-                                     url: NSURL(string: CEFStringToSwiftString(url!.pointee))!,
+                                     url: URL(string: CEFStringToSwiftString(url!.pointee))!,
                                      activateOnOpen: activate != 0,
                                      windowInfo: &winInfo,
                                      client: &client,

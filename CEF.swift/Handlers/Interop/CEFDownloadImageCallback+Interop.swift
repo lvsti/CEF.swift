@@ -16,7 +16,7 @@ func CEFDownloadImageCallback_on_download_image_finished(ptr: UnsafeMutablePoint
         return
     }
     
-    obj.onDownloadImageFinished(url: NSURL(string: CEFStringToSwiftString(imageURL!.pointee))!,
+    obj.onDownloadImageFinished(url: URL(string: CEFStringToSwiftString(imageURL!.pointee))!,
                                 statusCode: Int(statusCode),
                                 image: CEFImage.fromCEF(image))
 }

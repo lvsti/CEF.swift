@@ -48,9 +48,9 @@ public protocol CEFRequestContextHandler {
     /// method call CefRequestContext::PurgePluginListCache.
     /// CEF name: `OnBeforePluginLoad`
     func onBeforePluginLoad(mimeType: String,
-                            pluginURL: NSURL?,
+                            pluginURL: URL?,
                             isMainFrame: Bool,
-                            topOriginURL: NSURL?,
+                            topOriginURL: URL?,
                             pluginInfo: CEFWebPluginInfo,
                             defaultPolicy: CEFPluginPolicy) -> CEFOnBeforePluginLoadAction
 
@@ -65,9 +65,9 @@ public extension CEFRequestContextHandler {
     var cookieManager: CEFCookieManager? { return nil }
 
     func onBeforePluginLoad(mimeType: String,
-                            pluginURL: NSURL?,
+                            pluginURL: URL?,
                             isMainFrame: Bool,
-                            topOriginURL: NSURL?,
+                            topOriginURL: URL?,
                             pluginInfo: CEFWebPluginInfo,
                             defaultPolicy: CEFPluginPolicy) -> CEFOnBeforePluginLoadAction {
         return .useDefaultPolicy

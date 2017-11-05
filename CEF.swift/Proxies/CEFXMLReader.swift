@@ -13,8 +13,8 @@ public extension CEFXMLReader {
     /// Create a new CefXmlReader object. The returned object's methods can only
     /// be called from the thread that created the object.
     /// CEF name: `Create`
-    public convenience init?(stream: CEFStreamReader, encoding: CEFXMLEncodingType, uri: NSURL) {
-        let cefURLPtr = CEFStringPtrCreateFromSwiftString(uri.absoluteString!)
+    public convenience init?(stream: CEFStreamReader, encoding: CEFXMLEncodingType, uri: URL) {
+        let cefURLPtr = CEFStringPtrCreateFromSwiftString(uri.absoluteString)
         defer { CEFStringPtrRelease(cefURLPtr) }
         self.init(ptr: cef_xml_reader_create(stream.toCEF(), encoding.toCEF(), cefURLPtr))
     }
@@ -96,19 +96,19 @@ public extension CEFXMLReader {
     /// Returns the URI defining the namespace associated with the node. See
     /// http://www.w3.org/TR/REC-xml-names/ for additional details.
     /// CEF name: `GetNamespaceURI`
-    public var namespaceURI: NSURL {
+    public var namespaceURI: URL {
         let cefStrPtr = cefObject.get_namespace_uri(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefStrPtr!.pointee))!
+        return URL(string: CEFStringToSwiftString(cefStrPtr!.pointee))!
     }
     
     /// Returns the base URI of the node. See http://www.w3.org/TR/xmlbase/ for
     /// additional details.
     /// CEF name: `GetBaseURI`
-    public var baseURI: NSURL {
+    public var baseURI: URL {
         let cefStrPtr = cefObject.get_base_uri(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefStrPtr!.pointee))!
+        return URL(string: CEFStringToSwiftString(cefStrPtr!.pointee))!
     }
     
     /// Returns the xml:lang scope within which the node resides. See
@@ -176,9 +176,9 @@ public extension CEFXMLReader {
     /// Returns the value of the attribute with the specified local name and
     /// namespace URI.
     /// CEF name: `GetAttribute`
-    public func attribute(for name: String, namespaceURI: NSURL) -> String? {
+    public func attribute(for name: String, namespaceURI: URL) -> String? {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
-        let cefURIPtr = CEFStringPtrCreateFromSwiftString(namespaceURI.absoluteString!)
+        let cefURIPtr = CEFStringPtrCreateFromSwiftString(namespaceURI.absoluteString)
         let cefStrPtr = cefObject.get_attribute_bylname(cefObjectPtr, cefNamePtr, cefURIPtr)
         defer {
             CEFStringPtrRelease(cefNamePtr)
@@ -237,9 +237,9 @@ public extension CEFXMLReader {
     /// namespace URI. Returns true if the cursor position was set successfully.
     /// CEF name: `MoveToAttribute`
     @discardableResult
-    public func moveToAttribute(with name: String, namespaceURI: NSURL) -> Bool {
+    public func moveToAttribute(with name: String, namespaceURI: URL) -> Bool {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
-        let cefURIPtr = CEFStringPtrCreateFromSwiftString(namespaceURI.absoluteString!)
+        let cefURIPtr = CEFStringPtrCreateFromSwiftString(namespaceURI.absoluteString)
         defer {
             CEFStringPtrRelease(cefNamePtr)
             CEFStringPtrRelease(cefURIPtr)

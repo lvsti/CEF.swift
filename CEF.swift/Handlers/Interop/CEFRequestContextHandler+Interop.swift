@@ -41,9 +41,9 @@ func CEFRequestContextHandler_on_before_plugin_load(ptr: UnsafeMutablePointer<ce
     }
 
     let action = obj.onBeforePluginLoad(mimeType: CEFStringToSwiftString(mimeType!.pointee),
-                                        pluginURL: pluginURL != nil ? NSURL(string: CEFStringToSwiftString(pluginURL!.pointee)) : nil,
+                                        pluginURL: pluginURL != nil ? URL(string: CEFStringToSwiftString(pluginURL!.pointee)) : nil,
                                         isMainFrame: isMainFrame != 0,
-                                        topOriginURL: topOriginURL != nil ? NSURL(string: CEFStringToSwiftString(topOriginURL!.pointee)) : nil,
+                                        topOriginURL: topOriginURL != nil ? URL(string: CEFStringToSwiftString(topOriginURL!.pointee)) : nil,
                                         pluginInfo: CEFWebPluginInfo.fromCEF(pluginInfo)!,
                                         defaultPolicy: CEFPluginPolicy.fromCEF(pluginPolicy!.pointee))
     

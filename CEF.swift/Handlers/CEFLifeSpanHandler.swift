@@ -47,7 +47,7 @@ public protocol CEFLifeSpanHandler {
     /// CEF name: `OnBeforePopup`
     func onBeforePopup(browser: CEFBrowser,
                        frame: CEFFrame,
-                       targetURL: NSURL?,
+                       targetURL: URL?,
                        targetFrameName: String?,
                        targetDisposition: CEFWindowOpenDisposition,
                        userGesture: Bool,
@@ -166,7 +166,7 @@ public extension CEFLifeSpanHandler {
 
     func onBeforePopup(browser: CEFBrowser,
                        frame: CEFFrame,
-                       targetURL: NSURL?,
+                       targetURL: URL?,
                        targetFrameName: String?,
                        targetDisposition: CEFWindowOpenDisposition,
                        userGesture: Bool,

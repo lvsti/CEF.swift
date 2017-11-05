@@ -35,40 +35,40 @@ public extension CEFContextMenuParams {
     /// Returns the URL of the link, if any, that encloses the node that the
     /// context menu was invoked on.
     /// CEF name: `GetLinkUrl`
-    public var linkURL: NSURL? {
+    public var linkURL: URL? {
         let cefURLPtr = cefObject.get_link_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
         if cefURLPtr == nil {
             return nil
         }
         let str = CEFStringToSwiftString(cefURLPtr!.pointee)
-        return NSURL(string: str)
+        return URL(string: str)
     }
 
     /// Returns the link URL, if any, to be used ONLY for "copy link address". We
     /// don't validate this field in the frontend process.
     /// CEF name: `GetUnfilteredLinkUrl`
-    public var unfilteredLinkURL: NSURL? {
+    public var unfilteredLinkURL: URL? {
         let cefURLPtr = cefObject.get_unfiltered_link_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
         if cefURLPtr == nil {
             return nil
         }
         let str = CEFStringToSwiftString(cefURLPtr!.pointee)
-        return NSURL(string: str)!
+        return URL(string: str)!
     }
     
     /// Returns the source URL, if any, for the element that the context menu was
     /// invoked on. Example of elements with source URLs are img, audio, and video.
     /// CEF name: `GetSourceUrl`
-    public var sourceURL: NSURL? {
+    public var sourceURL: URL? {
         let cefURLPtr = cefObject.get_source_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
         if cefURLPtr == nil {
             return nil
         }
         let str = CEFStringToSwiftString(cefURLPtr!.pointee)
-        return NSURL(string: str)!
+        return URL(string: str)!
     }
     
     /// Returns true if the context menu was invoked on an image which has
@@ -89,20 +89,20 @@ public extension CEFContextMenuParams {
     
     /// Returns the URL of the top level page that the context menu was invoked on.
     /// CEF name: `GetPageUrl`
-    public var pageURL: NSURL {
+    public var pageURL: URL {
         let cefURLPtr = cefObject.get_page_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
         let str = CEFStringToSwiftString(cefURLPtr!.pointee)
-        return NSURL(string: str)!
+        return URL(string: str)!
     }
     
     /// Returns the URL of the subframe that the context menu was invoked on.
     /// CEF name: `GetFrameUrl`
-    public var frameURL: NSURL? {
+    public var frameURL: URL? {
         let cefURLPtr = cefObject.get_frame_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
         let str = CEFStringToSwiftString(cefURLPtr!.pointee)
-        return NSURL(string: str)
+        return URL(string: str)
     }
 
     /// Returns the character encoding of the subframe that the context menu was

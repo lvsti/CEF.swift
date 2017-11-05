@@ -29,7 +29,7 @@ public protocol CEFGeolocationHandler {
     /// immediately.
     /// CEF name: `OnRequestGeolocationPermission`
     func onRequestGeolocationPermission(browser: CEFBrowser,
-                                        url: NSURL,
+                                        url: URL,
                                         requestID: CEFGeolocationRequestID,
                                         callback: CEFGeolocationCallback) -> CEFOnRequestGeolocationPermissionAction
     
@@ -44,7 +44,7 @@ public protocol CEFGeolocationHandler {
 public extension CEFGeolocationHandler {
 
     func onRequestGeolocationPermission(browser: CEFBrowser,
-                                        url: NSURL,
+                                        url: URL,
                                         requestID: CEFGeolocationRequestID,
                                         callback: CEFGeolocationCallback) -> CEFOnRequestGeolocationPermissionAction {
         return .allow

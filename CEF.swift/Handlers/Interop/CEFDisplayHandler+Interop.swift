@@ -18,7 +18,7 @@ func CEFDisplayHandler_on_address_change(ptr: UnsafeMutablePointer<cef_display_h
     
     obj.onAddressChange(browser: CEFBrowser.fromCEF(browser)!,
                         frame: CEFFrame.fromCEF(frame)!,
-                        url: NSURL(string: CEFStringToSwiftString(url!.pointee))!)
+                        url: URL(string: CEFStringToSwiftString(url!.pointee))!)
 }
 
 func CEFDisplayHandler_on_title_change(ptr: UnsafeMutablePointer<cef_display_handler_t>?,
@@ -42,7 +42,7 @@ func CEFDisplayHandler_on_favicon_urlchange(ptr: UnsafeMutablePointer<cef_displa
     let urlStrings: [String]? = urls != nil ? CEFStringListToSwiftArray(urls!) : nil
     
     obj.onFaviconURLChange(browser: CEFBrowser.fromCEF(browser)!,
-                           iconURLs: urlStrings?.map { NSURL(string: $0)! })
+                           iconURLs: urlStrings?.map { URL(string: $0)! })
 }
 
 func CEFDisplayHandler_on_fullscreen_mode_change(ptr: UnsafeMutablePointer<cef_display_handler_t>?,

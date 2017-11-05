@@ -80,7 +80,7 @@ public protocol CEFRequestHandler {
     /// CEF name: `OnOpenURLFromTab`
     func onOpenURLFromTab(browser: CEFBrowser,
                           frame: CEFFrame,
-                          url: NSURL,
+                          url: URL,
                           targetDisposition: CEFWindowOpenDisposition,
                           userGesture: Bool) -> CEFOnOpenURLFromTabAction
     
@@ -115,7 +115,7 @@ public protocol CEFRequestHandler {
                             frame: CEFFrame,
                             request: CEFRequest,
                             response: CEFResponse,
-                            newURL: inout NSURL)
+                            newURL: inout URL)
     
     /// Called on the IO thread when a resource response is received. To allow the
     /// resource to load normally return false. To redirect or retry the resource
@@ -175,7 +175,7 @@ public protocol CEFRequestHandler {
     /// grant or deny the request. Return false to cancel the request immediately.
     /// CEF name: `OnQuotaRequest`
     func onQuotaRequest(browser: CEFBrowser,
-                        origin: NSURL,
+                        origin: URL,
                         newSize: Int64,
                         callback: CEFRequestCallback) -> CEFOnQuotaRequestAction
     
@@ -185,7 +185,7 @@ public protocol CEFRequestHandler {
     /// SECURITY WARNING: YOU SHOULD USE THIS METHOD TO ENFORCE RESTRICTIONS BASED
     /// ON SCHEME, HOST OR OTHER URL ANALYSIS BEFORE ALLOWING OS EXECUTION.
     /// CEF name: `OnProtocolExecution`
-    func onProtocolExecution(browser: CEFBrowser, url: NSURL, allowExecution: inout Bool)
+    func onProtocolExecution(browser: CEFBrowser, url: URL, allowExecution: inout Bool)
     
     /// Called on the UI thread to handle requests for URLs with an invalid
     /// SSL certificate. Return true and call CefRequestCallback::Continue() either
@@ -196,7 +196,7 @@ public protocol CEFRequestHandler {
     /// CEF name: `OnCertificateError`
     func onCertificateError(browser: CEFBrowser,
                             errorCode: CEFErrorCode,
-                            url: NSURL,
+                            url: URL,
                             sslInfo: CEFSSLInfo,
                             callback: CEFRequestCallback) -> CEFOnCertificateErrorAction
     
@@ -248,7 +248,7 @@ public extension CEFRequestHandler {
 
     func onOpenURLFromTab(browser: CEFBrowser,
                           frame: CEFFrame,
-                          url: NSURL,
+                          url: URL,
                           targetDisposition: CEFWindowOpenDisposition,
                           userGesture: Bool) -> CEFOnOpenURLFromTabAction {
         return .allow
@@ -271,7 +271,7 @@ public extension CEFRequestHandler {
                             frame: CEFFrame,
                             request: CEFRequest,
                             response: CEFResponse,
-                            newURL: inout NSURL) {
+                            newURL: inout URL) {
     }
     
     func onResourceResponse(browser: CEFBrowser,
@@ -308,18 +308,18 @@ public extension CEFRequestHandler {
     }
 
     func onQuotaRequest(browser: CEFBrowser,
-                        origin: NSURL,
+                        origin: URL,
                         newSize: Int64,
                         callback: CEFRequestCallback) -> CEFOnQuotaRequestAction {
         return .cancel
     }
 
-    func onProtocolExecution(browser: CEFBrowser, url: NSURL, allowExecution: inout Bool) {
+    func onProtocolExecution(browser: CEFBrowser, url: URL, allowExecution: inout Bool) {
     }
 
     func onCertificateError(browser: CEFBrowser,
                             errorCode: CEFErrorCode,
-                            url: NSURL,
+                            url: URL,
                             sslInfo: CEFSSLInfo,
                             callback: CEFRequestCallback) -> CEFOnCertificateErrorAction {
         return .cancel

@@ -98,23 +98,23 @@ public extension CEFDOMDocument {
     
     /// Returns the base URL for the document.
     /// CEF name: `GetBaseURL`
-    public var baseURL: NSURL {
+    public var baseURL: URL {
         let cefURLPtr = cefObject.get_base_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefURLPtr!.pointee))!
+        return URL(string: CEFStringToSwiftString(cefURLPtr!.pointee))!
     }
     
     /// Returns a complete URL based on the document base URL and the specified
     /// partial URL.
     /// CEF name: `GetCompleteURL`
-    public func completeURLWithRelativePart(relativePart: String) -> NSURL {
+    public func completeURLWithRelativePart(relativePart: String) -> URL {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(relativePart)
         let cefURLPtr = cefObject.get_complete_url(cefObjectPtr, cefStrPtr)
         defer {
             CEFStringPtrRelease(cefStrPtr)
             CEFStringPtrRelease(cefURLPtr)
         }
-        return NSURL(string: CEFStringToSwiftString(cefURLPtr!.pointee))!
+        return URL(string: CEFStringToSwiftString(cefURLPtr!.pointee))!
     }
     
 }

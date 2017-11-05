@@ -23,7 +23,7 @@ public enum CEFOnGetResponseHeadersAction {
     case continueWithResponseLength(UInt64)
     
     /// Redirect request to the given URL
-    case redirect(NSURL)
+    case redirect(URL)
     
     /// Indicates an error while setting up the response, call SetError()
     /// on the response object to specify

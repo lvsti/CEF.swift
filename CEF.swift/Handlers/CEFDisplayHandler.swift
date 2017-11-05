@@ -32,7 +32,7 @@ public enum CEFOnAutoResizeAction {
 public protocol CEFDisplayHandler {
     /// Called when a frame's address has changed.
     /// CEF name: `OnAddressChange`
-    func onAddressChange(browser: CEFBrowser, frame: CEFFrame, url: NSURL)
+    func onAddressChange(browser: CEFBrowser, frame: CEFFrame, url: URL)
     
     /// Called when the page title changes.
     /// CEF name: `OnTitleChange`
@@ -40,7 +40,7 @@ public protocol CEFDisplayHandler {
     
     /// Called when the page icon changes.
     /// CEF name: `OnFaviconURLChange`
-    func onFaviconURLChange(browser: CEFBrowser, iconURLs: [NSURL]?)
+    func onFaviconURLChange(browser: CEFBrowser, iconURLs: [URL]?)
     
     /// Called when web content in the page has toggled fullscreen mode. If
     /// |fullscreen| is true (1) the content will automatically be sized to fill
@@ -83,13 +83,13 @@ public protocol CEFDisplayHandler {
 
 public extension CEFDisplayHandler {
 
-    func onAddressChange(browser: CEFBrowser, frame: CEFFrame, url: NSURL) {
+    func onAddressChange(browser: CEFBrowser, frame: CEFFrame, url: URL) {
     }
     
     func onTitleChange(browser: CEFBrowser, title: String?) {
     }
     
-    func onFaviconURLChange(browser: CEFBrowser, iconURLs: [NSURL]?) {
+    func onFaviconURLChange(browser: CEFBrowser, iconURLs: [URL]?) {
     }
 
     func onFullscreenModeChange(browser: CEFBrowser, fullscreen: Bool) {

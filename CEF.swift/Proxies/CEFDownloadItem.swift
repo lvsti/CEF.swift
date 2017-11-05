@@ -93,18 +93,18 @@ public extension CEFDownloadItem {
 
     /// Returns the URL.
     /// CEF name: `GetURL`
-    public var url: NSURL {
+    public var url: URL {
         let cefStrPtr = cefObject.get_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefStrPtr!.pointee))!
+        return URL(string: CEFStringToSwiftString(cefStrPtr!.pointee))!
     }
     
     /// Returns the original URL before any redirections.
     /// CEF name: `GetOriginalUrl`
-    public var originalURL: NSURL {
+    public var originalURL: URL {
         let cefStrPtr = cefObject.get_original_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefStrPtr!.pointee))!
+        return URL(string: CEFStringToSwiftString(cefStrPtr!.pointee))!
     }
     
     /// Returns the suggested file name.

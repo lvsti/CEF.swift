@@ -36,7 +36,7 @@ func CEFRequestHandler_on_open_urlfrom_tab(ptr: UnsafeMutablePointer<cef_request
     
     let action = obj.onOpenURLFromTab(browser: CEFBrowser.fromCEF(browser)!,
                                       frame: CEFFrame.fromCEF(frame)!,
-                                      url: NSURL(string: CEFStringToSwiftString(url!.pointee))!,
+                                      url: URL(string: CEFStringToSwiftString(url!.pointee))!,
                                       targetDisposition: CEFWindowOpenDisposition.fromCEF(disposition),
                                       userGesture: gesture != 0)
     return action == .cancel ? 1 : 0
@@ -87,7 +87,7 @@ func CEFRequestHandler_on_resource_redirect(ptr: UnsafeMutablePointer<cef_reques
         return
     }
 
-    var url = NSURL(string: CEFStringToSwiftString(newURL!.pointee))!
+    var url = URL(string: CEFStringToSwiftString(newURL!.pointee))!
 
     obj.onResourceRedirect(browser: CEFBrowser.fromCEF(browser)!,
                            frame: CEFFrame.fromCEF(frame)!,
@@ -95,7 +95,7 @@ func CEFRequestHandler_on_resource_redirect(ptr: UnsafeMutablePointer<cef_reques
                            response: CEFResponse.fromCEF(response)!,
                            newURL: &url)
     
-    CEFStringSetFromSwiftString(url.absoluteString!, cefStringPtr: newURL!)
+    CEFStringSetFromSwiftString(url.absoluteString, cefStringPtr: newURL!)
 }
 
 func CEFRequestHandler_on_resource_response(ptr: UnsafeMutablePointer<cef_request_handler_t>?,
@@ -187,7 +187,7 @@ func CEFRequestHandler_on_quota_request(ptr: UnsafeMutablePointer<cef_request_ha
     }
     
     let action = obj.onQuotaRequest(browser: CEFBrowser.fromCEF(browser)!,
-                                    origin: NSURL(string: CEFStringToSwiftString(origin!.pointee))!,
+                                    origin: URL(string: CEFStringToSwiftString(origin!.pointee))!,
                                     newSize: newSize,
                                     callback: CEFRequestCallback.fromCEF(callback)!)
     return action == .allow ? 1 : 0
@@ -204,7 +204,7 @@ func CEFRequestHandler_on_protocol_execution(ptr: UnsafeMutablePointer<cef_reque
     
     var allowExecution: Bool = allow!.pointee != 0
     obj.onProtocolExecution(browser: CEFBrowser.fromCEF(browser)!,
-                            url: NSURL(string: CEFStringToSwiftString(url!.pointee))!,
+                            url: URL(string: CEFStringToSwiftString(url!.pointee))!,
                             allowExecution: &allowExecution)
     allow!.pointee = allowExecution ? 1 : 0
 }
@@ -221,7 +221,7 @@ func CEFRequestHandler_on_certificate_error(ptr: UnsafeMutablePointer<cef_reques
     
     let action = obj.onCertificateError(browser: CEFBrowser.fromCEF(browser)!,
                                         errorCode: CEFErrorCode.fromCEF(errorCode.rawValue),
-                                        url: NSURL(string: CEFStringToSwiftString(url!.pointee))!,
+                                        url: URL(string: CEFStringToSwiftString(url!.pointee))!,
                                         sslInfo: CEFSSLInfo.fromCEF(sslInfo)!,
                                         callback: CEFRequestCallback.fromCEF(callback)!)
     return action == .allow ? 1 : 0

@@ -20,7 +20,7 @@ public struct CEFPDFPrintSettings {
         /// URL to display in the footer. Only used if |header_footer_enabled| is set
         /// to true (1).
         /// CEF name: `header_footer_url`
-        public var url: NSURL? = nil
+        public var url: URL? = nil
     }
     
     /// Set to true (1) to print headers and footers or false (0) to not print
@@ -69,7 +69,7 @@ extension CEFPDFPrintSettings {
                 CEFStringSetFromSwiftString(headerFooter.title!, cefStringPtr: &cefStruct.header_footer_title)
             }
             if headerFooter.url != nil {
-                CEFStringSetFromSwiftString(headerFooter.url!.absoluteString!, cefStringPtr: &cefStruct.header_footer_title)
+                CEFStringSetFromSwiftString(headerFooter.url!.absoluteString, cefStringPtr: &cefStruct.header_footer_title)
             }
         }
         

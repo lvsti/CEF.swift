@@ -20,26 +20,26 @@ public extension CEFNavigationEntry {
     /// Returns the actual URL of the page. For some pages this may be data: URL or
     /// similar. Use GetDisplayURL() to return a display-friendly version.
     /// CEF name: `GetURL`
-    public var url: NSURL {
+    public var url: URL {
         let cefURLPtr = cefObject.get_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefURLPtr!.pointee))!
+        return URL(string: CEFStringToSwiftString(cefURLPtr!.pointee))!
     }
 
     /// Returns a display-friendly version of the URL.
     /// CEF name: `GetDisplayURL`
-    public var displayURL: NSURL {
+    public var displayURL: URL {
         let cefURLPtr = cefObject.get_display_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefURLPtr!.pointee))!
+        return URL(string: CEFStringToSwiftString(cefURLPtr!.pointee))!
     }
     
     /// Returns the original URL that was entered by the user before any redirects.
     /// CEF name: `GetOriginalURL`
-    public var originalURL: NSURL {
+    public var originalURL: URL {
         let cefURLPtr = cefObject.get_original_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefURLPtr!.pointee))!
+        return URL(string: CEFStringToSwiftString(cefURLPtr!.pointee))!
     }
     
     /// Returns the title set by the page. This value may be empty.

@@ -105,11 +105,11 @@ public extension CEFV8Context {
     /// exception, if any, and the function will return false.
     /// CEF name: `Eval`
     public func eval(code: String,
-                     scriptURL: NSURL? = nil,
+                     scriptURL: URL? = nil,
                      startLine: Int = 1) -> CEFV8EvalResult {
         let cefCodePtr = CEFStringPtrCreateFromSwiftString(code)
         defer { CEFStringPtrRelease(cefCodePtr) }
-        let cefURLPtr = scriptURL != nil ? CEFStringPtrCreateFromSwiftString(scriptURL!.absoluteString!) : nil
+        let cefURLPtr = scriptURL != nil ? CEFStringPtrCreateFromSwiftString(scriptURL!.absoluteString) : nil
         defer { CEFStringPtrRelease(cefURLPtr) }
         
         var cefRetval: UnsafeMutablePointer<cef_v8value_t>? = nil

@@ -41,11 +41,11 @@ public struct CEFCrossOriginUtils {
     /// is invalid or the whitelist cannot be accessed.
     /// CEF name: `CefAddCrossOriginWhitelistEntry`
     @discardableResult
-    public static func addWhitelistEntry(origin: NSURL,
+    public static func addWhitelistEntry(origin: URL,
                                          targetScheme: String,
                                          targetDomain: String? = nil,
                                          allowTargetSubdomains: Bool) -> Bool {
-        let cefOriginPtr = CEFStringPtrCreateFromSwiftString(origin.absoluteString!)
+        let cefOriginPtr = CEFStringPtrCreateFromSwiftString(origin.absoluteString)
         let cefSchemePtr = CEFStringPtrCreateFromSwiftString(targetScheme)
         let cefDomainPtr = targetDomain != nil ? CEFStringPtrCreateFromSwiftString(targetDomain!) : nil
         
@@ -65,11 +65,11 @@ public struct CEFCrossOriginUtils {
     /// |source_origin| is invalid or the whitelist cannot be accessed.
     /// CEF name: `CefRemoveCrossOriginWhitelistEntry`
     @discardableResult
-    public static func removeWhitelistEntry(origin: NSURL,
+    public static func removeWhitelistEntry(origin: URL,
                                             targetScheme: String,
                                             targetDomain: String? = nil,
                                             allowTargetSubdomains: Bool) -> Bool {
-        let cefOriginPtr = CEFStringPtrCreateFromSwiftString(origin.absoluteString!)
+        let cefOriginPtr = CEFStringPtrCreateFromSwiftString(origin.absoluteString)
         let cefSchemePtr = CEFStringPtrCreateFromSwiftString(targetScheme)
         let cefDomainPtr = targetDomain != nil ? CEFStringPtrCreateFromSwiftString(targetDomain!) : nil
         

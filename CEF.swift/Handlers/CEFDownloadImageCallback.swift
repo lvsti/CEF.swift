@@ -18,14 +18,14 @@ public protocol CEFDownloadImageCallback {
     /// resulting HTTP status code. |image| is the resulting image, possibly at
     /// multiple scale factors, or empty if the download failed.
     /// CEF name: `OnDownloadImageFinished`
-    func onDownloadImageFinished(url: NSURL, statusCode: Int, image: CEFImage?)
+    func onDownloadImageFinished(url: URL, statusCode: Int, image: CEFImage?)
     
 }
 
 
 public extension CEFDownloadImageCallback {
     
-    func onDownloadImageFinished(url: NSURL, statusCode: Int, image: CEFImage?) {
+    func onDownloadImageFinished(url: URL, statusCode: Int, image: CEFImage?) {
     }
     
 }

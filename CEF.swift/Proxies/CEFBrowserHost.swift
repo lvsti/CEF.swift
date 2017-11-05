@@ -20,11 +20,11 @@ public extension CEFBrowserHost {
     @discardableResult
     public static func createBrowser(windowInfo: CEFWindowInfo,
                                      client: CEFClient? = nil,
-                                     url: NSURL? = nil,
+                                     url: URL? = nil,
                                      settings: CEFBrowserSettings,
                                      requestContext: CEFRequestContext? = nil) -> Bool {
         var cefSettings = settings.toCEF()
-        let cefURLPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString!) : nil
+        let cefURLPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString) : nil
         var cefWinInfo = windowInfo.toCEF()
         let cefClient = client?.toCEF()
         let cefReqCtx = requestContext?.toCEF()
@@ -45,11 +45,11 @@ public extension CEFBrowserHost {
     /// CEF name: `CreateBrowserSync`
     public static func createBrowserSync(windowInfo: CEFWindowInfo,
                                          client: CEFClient? = nil,
-                                         url: NSURL? = nil,
+                                         url: URL? = nil,
                                          settings: CEFBrowserSettings,
                                          requestContext: CEFRequestContext? = nil) -> CEFBrowser? {
         var cefSettings = settings.toCEF()
-        let cefURLPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString!) : nil
+        let cefURLPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString) : nil
         var cefWinInfo = windowInfo.toCEF()
         let cefClient = client?.toCEF()
         let cefReqCtx = requestContext?.toCEF()
@@ -210,8 +210,8 @@ public extension CEFBrowserHost {
     
     /// Download the file at |url| using CefDownloadHandler.
     /// CEF name: `StartDownload`
-    public func startDownload(url: NSURL) {
-        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString!)
+    public func startDownload(url: URL) {
+        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
         defer { CEFStringPtrRelease(cefURLPtr) }
         cefObject.start_download(cefObjectPtr, cefURLPtr)
     }
@@ -227,12 +227,12 @@ public extension CEFBrowserHost {
     /// unlimited. If |bypass_cache| is true then |image_url| is requested from the
     /// server even if it is present in the browser cache.
     /// CEF name: `DownloadImage`
-    public func downloadImage(url: NSURL,
+    public func downloadImage(url: URL,
                        isFavicon: Bool,
                        maxImageSize: UInt32,
                        bypassCache: Bool,
                        callback: CEFDownloadImageCallback) {
-        let cefStrPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString!)
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
         defer { CEFStringPtrRelease(cefStrPtr) }
         cefObject.download_image(cefObjectPtr,
                                  cefStrPtr,
@@ -756,7 +756,7 @@ public extension CEFBrowserHost {
     /// unlimited. If |bypass_cache| is true then |image_url| is requested from the
     /// server even if it is present in the browser cache.
     /// CEF name: `DownloadImage`
-    public func downloadImage(url: NSURL,
+    public func downloadImage(url: URL,
                        isFavicon: Bool,
                        maxImageSize: UInt32,
                        bypassCache: Bool,

@@ -70,8 +70,8 @@ public extension CEFCookieManager {
     /// Returns false if cookies cannot be accessed.
     /// CEF name: `VisitUrlCookies`
     @discardableResult
-    public func enumerateCookies(for url: NSURL, includeHTTPOnly: Bool, usingVisitor visitor: CEFCookieVisitor) -> Bool {
-        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString!)
+    public func enumerateCookies(for url: URL, includeHTTPOnly: Bool, usingVisitor visitor: CEFCookieVisitor) -> Bool {
+        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
         defer { CEFStringPtrRelease(cefURLPtr) }
         return cefObject.visit_url_cookies(cefObjectPtr, cefURLPtr, includeHTTPOnly ? 1 : 0, visitor.toCEF()) != 0
     }
@@ -85,8 +85,8 @@ public extension CEFCookieManager {
     /// false if an invalid URL is specified or if cookies cannot be accessed.
     /// CEF name: `SetCookie`
     @discardableResult
-    public func setCookie(url: NSURL, cookie: CEFCookie, callback: CEFSetCookieCallback? = nil) -> Bool {
-        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString!)
+    public func setCookie(url: URL, cookie: CEFCookie, callback: CEFSetCookieCallback? = nil) -> Bool {
+        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
         defer { CEFStringPtrRelease(cefURLPtr) }
         
         let cefCallbackPtr = callback?.toCEF()
@@ -108,8 +108,8 @@ public extension CEFCookieManager {
     /// deleted using the Visit*Cookies() methods.
     /// CEF name: `DeleteCookies`
     @discardableResult
-    public func deleteCookies(url: NSURL? = nil, name: String? = nil, callback: CEFDeleteCookiesCallback? = nil) -> Bool {
-        let cefURLPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString!) : nil
+    public func deleteCookies(url: URL? = nil, name: String? = nil, callback: CEFDeleteCookiesCallback? = nil) -> Bool {
+        let cefURLPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString) : nil
         let cefNamePtr = name != nil ? CEFStringPtrCreateFromSwiftString(name!) : nil
         defer {
             CEFStringPtrRelease(cefURLPtr)
@@ -206,7 +206,7 @@ public extension CEFCookieManager {
     /// Returns false if cookies cannot be accessed.
     /// CEF name: `VisitUrlCookies`
     @discardableResult
-    public func enumerateCookies(for url: NSURL, includeHTTPOnly: Bool, block: @escaping CEFCookieVisitorVisitBlock) -> Bool {
+    public func enumerateCookies(for url: URL, includeHTTPOnly: Bool, block: @escaping CEFCookieVisitorVisitBlock) -> Bool {
         return enumerateCookies(for: url, includeHTTPOnly: includeHTTPOnly, usingVisitor: CEFCookieVisitorBridge(block: block))
     }
 
@@ -219,7 +219,7 @@ public extension CEFCookieManager {
     /// false if an invalid URL is specified or if cookies cannot be accessed.
     /// CEF name: `SetCookie`
     @discardableResult
-    public func setCookie(url: NSURL, cookie: CEFCookie, block: @escaping CEFSetCookieCallbackOnCompleteBlock) -> Bool {
+    public func setCookie(url: URL, cookie: CEFCookie, block: @escaping CEFSetCookieCallbackOnCompleteBlock) -> Bool {
         return setCookie(url: url, cookie: cookie, callback: CEFSetCookieCallbackBridge(block: block))
     }
     
@@ -234,7 +234,7 @@ public extension CEFCookieManager {
     /// deleted using the Visit*Cookies() methods.
     /// CEF name: `DeleteCookies`
     @discardableResult
-    public func deleteCookies(url: NSURL? = nil, name: String? = nil, block: @escaping CEFDeleteCookiesCallbackOnCompleteBlock) -> Bool {
+    public func deleteCookies(url: URL? = nil, name: String? = nil, block: @escaping CEFDeleteCookiesCallbackOnCompleteBlock) -> Bool {
         return deleteCookies(url: url,
                              name: name,
                              callback: CEFDeleteCookiesCallbackBridge(block: block))
