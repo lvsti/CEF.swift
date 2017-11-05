@@ -111,16 +111,8 @@ entryname_overrides = {
     'CEF_MENU_ANCHOR_TOPLEFT': 'topLeft',
     'CEF_MENU_ANCHOR_TOPRIGHT': 'topRight',
     'CEF_MENU_ANCHOR_BOTTOMCENTER': 'bottomCenter',
-    
-    # collisions with Swift keywords
-    'V8_ACCESS_CONTROL_DEFAULT': 'defaultAccess',
-    'DRAG_OPERATION_PRIVATE': 'privateDrag',
     'DRAG_OPERATION_EVERY': 'any',
     'RV_CONTINUE': 'continueNow',
-    'JSON_WRITER_DEFAULT': 'defaultOptions',
-    'LOGSEVERITY_DEFAULT': 'defaultSeverity',
-    'STATE_DEFAULT': 'defaultState',
-    'REFERRER_POLICY_DEFAULT': 'defaultPolicy'
 }
 
 entrytype_tocef_cast_overrides = {
@@ -238,3 +230,9 @@ pod_type_map = {
     'int64': 'Int64',
     'uint64': 'UInt64'
 }
+
+swift_keywords = [
+    'default',
+    'private',
+    'public'
+]

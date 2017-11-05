@@ -14,7 +14,7 @@ public enum CEFPDFPrintMargins {
     
     /// Default margins.
     /// CEF name: `PDF_PRINT_MARGIN_DEFAULT`
-    case defaultMargins
+    case `default`
     
     /// No margins.
     /// CEF name: `PDF_PRINT_MARGIN_NONE`
@@ -34,7 +34,7 @@ extension CEFPDFPrintMargins {
         var rawValue: UInt32 = 0
 
         switch self {
-        case .defaultMargins: rawValue = 0; break
+        case .default: rawValue = 0; break
         case .none: rawValue = 1; break
         case .minimum: rawValue = 2; break
         case .custom: rawValue = 3; break

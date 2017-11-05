@@ -46,7 +46,7 @@ public extension CEFThread {
         
         self.init(ptr: cef_thread_create(cefStrPtr,
                                          CEFThreadPriority.normal.toCEF(),
-                                         CEFMessageLoopType.defaultLoopType.toCEF(),
+                                         CEFMessageLoopType.default.toCEF(),
                                          1,
                                          CEFCOMInitMode.none.toCEF()))
     }

@@ -14,7 +14,7 @@ public enum CEFMessageLoopType: Int32 {
 
     /// Supports tasks and timers.
     /// CEF name: `ML_TYPE_DEFAULT`.
-    case defaultLoopType
+    case `default`
 
     /// Supports tasks, timers and native UI events (e.g. Windows messages).
     /// CEF name: `ML_TYPE_UI`.

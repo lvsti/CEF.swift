@@ -13,7 +13,7 @@ public enum CEFState: Int32 {
 
     /// Use the default state for the setting.
     /// CEF name: `STATE_DEFAULT`.
-    case defaultState = 0
+    case `default` = 0
 
     /// Enable or allow the setting.
     /// CEF name: `STATE_ENABLED`.

@@ -13,7 +13,7 @@ public enum CEFLogSeverity: Int32 {
 
     /// Default logging (currently INFO logging).
     /// CEF name: `LOGSEVERITY_DEFAULT`.
-    case defaultSeverity
+    case `default`
 
     /// Verbose logging.
     /// CEF name: `LOGSEVERITY_VERBOSE`.

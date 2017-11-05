@@ -148,7 +148,7 @@ public struct CEFSettings {
     /// a value of "verbose", "info", "warning", "error", "error-report" or
     /// "disable".
     /// CEF name: `log_severity`
-    public var logSeverity: CEFLogSeverity = .defaultSeverity
+    public var logSeverity: CEFLogSeverity = .default
     
     /// Custom flags that will be used when initializing the V8 JavaScript engine.
     /// The consequences of using custom flags may not be well tested. Also

@@ -24,6 +24,9 @@ def cef_capi_enum_entry_to_swift(capi_entry, prefix):
             else:
                 retval += word.capitalize()
     
+    if retval in swift_keywords:
+        retval = '`' + retval + '`'
+
     return retval
 
 def cef_capi_enum_value_to_swift(capi_value):

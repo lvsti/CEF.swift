@@ -42,7 +42,7 @@ public struct CEFPDFPrintSettings {
     /// Margins in millimeters. Only used if |margin_type| is set to
     /// PDF_PRINT_MARGIN_CUSTOM.
     /// CEF name: `margin_type`, `margin_top`, `margin_left`, `margin_bottom`, `margin_right`
-    public var margins: CEFPDFPrintMargins = .defaultMargins
+    public var margins: CEFPDFPrintMargins = .default
     
     /// Set to true (1) to print the selection only or false (0) to print all.
     /// CEF name: `selection_only`

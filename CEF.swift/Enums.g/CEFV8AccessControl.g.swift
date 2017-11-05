@@ -16,7 +16,7 @@ public struct CEFV8AccessControl: OptionSet {
     }
 
     /// CEF name: `V8_ACCESS_CONTROL_DEFAULT`.
-    public static let defaultAccess = CEFV8AccessControl(rawValue: 0)
+    public static let `default` = CEFV8AccessControl(rawValue: 0)
     /// CEF name: `V8_ACCESS_CONTROL_ALL_CAN_READ`.
     public static let allCanRead = CEFV8AccessControl(rawValue: 1)
     /// CEF name: `V8_ACCESS_CONTROL_ALL_CAN_WRITE`.

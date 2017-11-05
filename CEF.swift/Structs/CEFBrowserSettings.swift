@@ -52,12 +52,12 @@ public struct CEFBrowserSettings {
     /// Controls the loading of fonts from remote sources. Also configurable using
     /// the "disable-remote-fonts" command-line switch.
     /// CEF name: `remote_fonts`
-    public var remoteFonts: CEFState = .defaultState
+    public var remoteFonts: CEFState = .default
     
     /// Controls whether JavaScript can be executed. Also configurable using the
     /// "disable-javascript" command-line switch.
     /// CEF name: `javascript`
-    public var javascript: CEFState = .defaultState
+    public var javascript: CEFState = .default
     
     /// Controls whether JavaScript can be used to close windows that were not
     /// opened via JavaScript. JavaScript can still be used to close windows that
@@ -65,84 +65,84 @@ public struct CEFBrowserSettings {
     /// configurable using the "disable-javascript-close-windows" command-line
     /// switch.
     /// CEF name: `javascript_close_windows`
-    public var javascriptCloseWindows: CEFState = .defaultState
+    public var javascriptCloseWindows: CEFState = .default
     
     /// Controls whether JavaScript can access the clipboard. Also configurable
     /// using the "disable-javascript-access-clipboard" command-line switch.
     /// CEF name: `javascript_access_clipboard`
-    public var javascriptAccessClipboard: CEFState = .defaultState
+    public var javascriptAccessClipboard: CEFState = .default
     
     /// Controls whether DOM pasting is supported in the editor via
     /// execCommand("paste"). The |javascript_access_clipboard| setting must also
     /// be enabled. Also configurable using the "disable-javascript-dom-paste"
     /// command-line switch.
     /// CEF name: `javascript_dom_paste`
-    public var javascriptDOMPaste: CEFState = .defaultState
+    public var javascriptDOMPaste: CEFState = .default
         
     /// Controls whether any plugins will be loaded. Also configurable using the
     /// "disable-plugins" command-line switch.
     /// CEF name: `plugins`
-    public var plugins: CEFState = .defaultState
+    public var plugins: CEFState = .default
     
     /// Controls whether file URLs will have access to all URLs. Also configurable
     /// using the "allow-universal-access-from-files" command-line switch.
     /// CEF name: `universal_access_from_file_urls`
-    public var universalAccessFromFileURLs: CEFState = .defaultState
+    public var universalAccessFromFileURLs: CEFState = .default
     
     /// Controls whether file URLs will have access to other file URLs. Also
     /// configurable using the "allow-access-from-files" command-line switch.
     /// CEF name: `file_access_from_file_urls`
-    public var fileAccessFromFileURLs: CEFState = .defaultState
+    public var fileAccessFromFileURLs: CEFState = .default
 
     /// Controls whether web security restrictions (same-origin policy) will be
     /// enforced. Disabling this setting is not recommend as it will allow risky
     /// security behavior such as cross-site scripting (XSS). Also configurable
     /// using the "disable-web-security" command-line switch.
     /// CEF name: `web_security`
-    public var webSecurity: CEFState = .defaultState
+    public var webSecurity: CEFState = .default
     
     /// Controls whether image URLs will be loaded from the network. A cached image
     /// will still be rendered if requested. Also configurable using the
     /// "disable-image-loading" command-line switch.
     /// CEF name: `image_loading`
-    public var imageLoading: CEFState = .defaultState
+    public var imageLoading: CEFState = .default
     
     /// Controls whether standalone images will be shrunk to fit the page. Also
     /// configurable using the "image-shrink-standalone-to-fit" command-line
     /// switch.
     /// CEF name: `image_shrink_standalone_fit`
-    public var imageShrinkStandaloneToFit: CEFState = .defaultState
+    public var imageShrinkStandaloneToFit: CEFState = .default
     
     /// Controls whether text areas can be resized. Also configurable using the
     /// "disable-text-area-resize" command-line switch.
     /// CEF name: `text_area_resize`
-    public var textAreaResize: CEFState = .defaultState
+    public var textAreaResize: CEFState = .default
     
     /// Controls whether the tab key can advance focus to links. Also configurable
     /// using the "disable-tab-to-links" command-line switch.
     /// CEF name: `tab_to_links`
-    public var tabToLinks: CEFState = .defaultState
+    public var tabToLinks: CEFState = .default
     
     /// Controls whether local storage can be used. Also configurable using the
     /// "disable-local-storage" command-line switch.
     /// CEF name: `local_storage`
-    public var localStorage: CEFState = .defaultState
+    public var localStorage: CEFState = .default
     
     /// Controls whether databases can be used. Also configurable using the
     /// "disable-databases" command-line switch.
     /// CEF name: `databases`
-    public var databases: CEFState = .defaultState
+    public var databases: CEFState = .default
     
     /// Controls whether the application cache can be used. Also configurable using
     /// the "disable-application-cache" command-line switch.
     /// CEF name: `application_cache`
-    public var applicationCache: CEFState = .defaultState
+    public var applicationCache: CEFState = .default
     
     /// Controls whether WebGL can be used. Note that WebGL requires hardware
     /// support and may not work on all systems even when enabled. Also
     /// configurable using the "disable-webgl" command-line switch.
     /// CEF name: `webgl`
-    public var webGL: CEFState = .defaultState
+    public var webGL: CEFState = .default
     
     /// Background color used for the browser before a document is loaded and when
     /// no document color is specified. The alpha component must be either fully

@@ -57,7 +57,7 @@ public enum CEFReferrerPolicy: Int32 {
     case lastValue
     
     /// CEF name: `REFERRER_POLICY_DEFAULT`.
-    public static let defaultPolicy: CEFReferrerPolicy = .clearReferrerOnTransitionFromSecureToInsecure
+    public static let `default`: CEFReferrerPolicy = .clearReferrerOnTransitionFromSecureToInsecure
 }
 
 extension CEFReferrerPolicy {

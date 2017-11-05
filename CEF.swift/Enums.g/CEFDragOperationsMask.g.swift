@@ -26,7 +26,7 @@ public struct CEFDragOperationsMask: OptionSet {
     /// CEF name: `DRAG_OPERATION_GENERIC`.
     public static let generic = CEFDragOperationsMask(rawValue: 4)
     /// CEF name: `DRAG_OPERATION_PRIVATE`.
-    public static let privateDrag = CEFDragOperationsMask(rawValue: 8)
+    public static let `private` = CEFDragOperationsMask(rawValue: 8)
     /// CEF name: `DRAG_OPERATION_MOVE`.
     public static let move = CEFDragOperationsMask(rawValue: 16)
     /// CEF name: `DRAG_OPERATION_DELETE`.

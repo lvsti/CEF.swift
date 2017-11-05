@@ -18,7 +18,7 @@ public struct CEFJSONWriterOptions: OptionSet {
 
     /// Default behavior.
     /// CEF name: `JSON_WRITER_DEFAULT`.
-    public static let defaultOptions = CEFJSONWriterOptions(rawValue: 0)
+    public static let `default` = CEFJSONWriterOptions(rawValue: 0)
 
     /// This option instructs the writer that if a Binary value is encountered,
     /// the value (and key if within a dictionary) will be omitted from the
