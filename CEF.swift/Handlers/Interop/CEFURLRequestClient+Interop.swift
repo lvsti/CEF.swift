@@ -47,8 +47,9 @@ func CEFURLRequestClient_on_download_data(ptr: UnsafeMutablePointer<cef_urlreque
         return
     }
     
+    let chunk = Data(bytesNoCopy: UnsafeMutableRawPointer(mutating: data!), count: size, deallocator: .none)
     obj.onDownloadData(request: CEFURLRequest.fromCEF(request)!,
-                       chunk: NSData(bytesNoCopy: UnsafeMutableRawPointer(mutating: data!), length: size, freeWhenDone: false))
+                       chunk: chunk)
 }
 
 func CEFURLRequestClient_get_auth_credentials(ptr: UnsafeMutablePointer<cef_urlrequest_client_t>?,

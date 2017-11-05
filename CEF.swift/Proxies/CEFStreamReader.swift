@@ -20,8 +20,11 @@ public extension CEFStreamReader {
     
     /// Create a new CefStreamReader object from data.
     /// CEF name: `CreateForData`
-    public convenience init?(data: NSData) {
-        self.init(ptr: cef_stream_reader_create_for_data(UnsafeMutableRawPointer(mutating: data.bytes), data.length))
+    public convenience init?(data: Data) {
+        let ptr = data.withUnsafeBytes { buffer in
+            return cef_stream_reader_create_for_data(UnsafeMutableRawPointer(mutating: buffer), data.count)
+        }
+        self.init(ptr: ptr)
     }
     
     /// Create a new CefStreamReader object from a custom handler.

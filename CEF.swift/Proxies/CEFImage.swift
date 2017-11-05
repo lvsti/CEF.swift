@@ -44,15 +44,17 @@ public extension CEFImage {
                           pixelHeight: Int,
                           colorType: CEFColorType,
                           alphaType: CEFAlphaType,
-                          data: NSData) -> Bool {
-        return cefObject.add_bitmap(cefObjectPtr,
-                                    scaleFactor,
-                                    Int32(pixelWidth),
-                                    Int32(pixelHeight),
-                                    colorType.toCEF(),
-                                    alphaType.toCEF(),
-                                    data.bytes,
-                                    data.length) != 0
+                          data: Data) -> Bool {
+        return data.withUnsafeBytes { buffer in
+            return cefObject.add_bitmap(cefObjectPtr,
+                                        scaleFactor,
+                                        Int32(pixelWidth),
+                                        Int32(pixelHeight),
+                                        colorType.toCEF(),
+                                        alphaType.toCEF(),
+                                        buffer,
+                                        data.count) != 0
+        }
     }
     
     /// Add a PNG image representation for |scale_factor|. |png_data| is the image
@@ -60,11 +62,13 @@ public extension CEFImage {
     /// be maintained.
     /// CEF name: `AddPNG`
     @discardableResult
-    public func addPNG(scaleFactor: Float, data: NSData) -> Bool {
-        return cefObject.add_png(cefObjectPtr,
-                                 scaleFactor,
-                                 data.bytes,
-                                 data.length) != 0
+    public func addPNG(scaleFactor: Float, data: Data) -> Bool {
+        return data.withUnsafeBytes { buffer in
+            return cefObject.add_png(cefObjectPtr,
+                                     scaleFactor,
+                                     buffer,
+                                     data.count) != 0
+        }
     }
     
     // Create a JPEG image representation for |scale_factor|. |jpeg_data| is the
@@ -72,11 +76,13 @@ public extension CEFImage {
     // transparency so the alpha byte will be set to 0xFF for all pixels.
     /// CEF name: `AddJPEG`
     @discardableResult
-    public func addJPEG(scaleFactor: Float, data: NSData) -> Bool {
-        return cefObject.add_jpeg(cefObjectPtr,
-                                  scaleFactor,
-                                  data.bytes,
-                                  data.length) != 0
+    public func addJPEG(scaleFactor: Float, data: Data) -> Bool {
+        return data.withUnsafeBytes { buffer in
+            return cefObject.add_jpeg(cefObjectPtr,
+                                      scaleFactor,
+                                      buffer,
+                                      data.count) != 0
+        }
     }
     
     /// Returns the image width in density independent pixel (DIP) units.

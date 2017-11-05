@@ -39,8 +39,10 @@ public extension CEFPOSTDataElement {
     /// The post data element will represent bytes.  The bytes passed
     /// in will be copied.
     /// CEF name: `SetToBytes`
-    public func setToBytes(data: NSData) {
-        cefObject.set_to_bytes(cefObjectPtr, data.length, data.bytes)
+    public func setToBytes(data: Data) {
+        data.withUnsafeBytes { buffer in
+            cefObject.set_to_bytes(cefObjectPtr, data.count, buffer)
+        }
     }
     
     /// Return the type of this post data element.
@@ -67,10 +69,13 @@ public extension CEFPOSTDataElement {
     /// Read up to |size| bytes into |bytes| and return the number of bytes
     /// actually read.
     /// CEF name: `GetBytes`
-    public func data(upToLength maxLength: size_t) -> NSData {
-        let data = NSMutableData(length: maxLength)!
-        let actualSize = cefObject.get_bytes(cefObjectPtr, maxLength, data.mutableBytes)
-        data.length = actualSize
+    public func data(upToLength maxLength: size_t) -> Data {
+        var data = Data(count: maxLength)
+        let actualSize = data.withUnsafeMutableBytes { buffer in
+             return cefObject.get_bytes(cefObjectPtr, maxLength, buffer)
+        }
+        
+        data.count = actualSize
         return data
     }
     

@@ -36,7 +36,7 @@ public protocol CEFURLRequestClient {
     /// bytes received since the last call. This method will not be called if the
     /// UR_FLAG_NO_DOWNLOAD_DATA flag is set on the request.
     /// CEF name: `OnDownloadData`
-    func onDownloadData(request: CEFURLRequest, chunk: NSData)
+    func onDownloadData(request: CEFURLRequest, chunk: Data)
     
     /// Called on the IO thread when the browser needs credentials from the user.
     /// |isProxy| indicates whether the host is a proxy server. |host| contains the
@@ -63,7 +63,7 @@ public extension CEFURLRequestClient {
     func onDownloadProgress(request: CEFURLRequest, receivedCount: Int64, totalCount: Int64) {
     }
     
-    func onDownloadData(request: CEFURLRequest, chunk: NSData) {
+    func onDownloadData(request: CEFURLRequest, chunk: Data) {
     }
     
     func onAuthCredentialsRequired(isProxy: Bool,
