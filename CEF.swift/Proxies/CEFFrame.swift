@@ -71,14 +71,14 @@ public extension CEFFrame {
     /// Retrieve this frame's HTML source as a string sent to the specified
     /// visitor.
     /// CEF name: `GetSource`
-    public func getSourceUsingVisitor(_ visitor: CEFStringVisitor) {
+    public func getSource(with visitor: CEFStringVisitor) {
         cefObject.get_source(cefObjectPtr, visitor.toCEF())
     }
 
     /// Retrieve this frame's display text as a string sent to the specified
     /// visitor.
     /// CEF name: `GetText`
-    public func getTextUsingVisitor(_ visitor: CEFStringVisitor) {
+    public func getText(with visitor: CEFStringVisitor) {
         cefObject.get_text(cefObjectPtr, visitor.toCEF())
     }
     
@@ -191,7 +191,7 @@ public extension CEFFrame {
     /// Visit the DOM document. This method can only be called from the render
     /// process.
     /// CEF name: `VisitDOM`
-    public func getDOMDocumentUsingVisitor(_ visitor: CEFDOMVisitor) {
+    public func getDOMDocument(with visitor: CEFDOMVisitor) {
         return cefObject.visit_dom(cefObjectPtr, visitor.toCEF())
     }
     
@@ -204,21 +204,21 @@ public extension CEFFrame {
     /// process.
     /// CEF name: `VisitDOM`
     public func withDOMDocument(block: @escaping CEFDOMVisitorVisitBlock) {
-        getDOMDocumentUsingVisitor(CEFDOMVisitorBridge(block: block))
+        getDOMDocument(with: CEFDOMVisitorBridge(block: block))
     }
 
     /// Retrieve this frame's HTML source as a string sent to the specified
     /// visitor.
     /// CEF name: `GetSource`
     public func withSource(block: @escaping CEFStringVisitorVisitBlock) {
-        getSourceUsingVisitor(CEFStringVisitorBridge(block: block))
+        getSource(with: CEFStringVisitorBridge(block: block))
     }
 
     /// Retrieve this frame's display text as a string sent to the specified
     /// visitor.
     /// CEF name: `GetText`
     public func withText(block: @escaping CEFStringVisitorVisitBlock) {
-        getTextUsingVisitor(CEFStringVisitorBridge(block: block))
+        getText(with: CEFStringVisitorBridge(block: block))
     }
 
 }

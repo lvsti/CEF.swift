@@ -177,7 +177,7 @@ public extension CEFV8Value {
     /// Returns true if this object is pointing to the same handle as |that|
     /// object.
     /// CEF name: `IsSame`
-    public func isSameAs(_ other: CEFV8Value) -> Bool {
+    public func isSame(as other: CEFV8Value) -> Bool {
         return cefObject.is_same(cefObjectPtr, other.toCEF()) != 0
     }
     

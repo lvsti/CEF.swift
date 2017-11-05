@@ -42,7 +42,7 @@ public extension CEFListValue {
     /// data. If true modifications to this object will also affect |that| object
     /// and vice-versa.
     /// CEF name: `IsSame`
-    public func isSameAs(_ other: CEFListValue) -> Bool {
+    public func isSame(as other: CEFListValue) -> Bool {
         return cefObject.is_same(cefObjectPtr, other.toCEF()) != 0
     }
 

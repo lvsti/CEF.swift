@@ -59,7 +59,7 @@ public extension CEFCookieManager {
     /// cannot be accessed.
     /// CEF name: `VisitAllCookies`
     @discardableResult
-    public func enumerateAllCookiesUsingVisitor(visitor: CEFCookieVisitor) -> Bool {
+    public func enumerateAllCookies(with visitor: CEFCookieVisitor) -> Bool {
         return cefObject.visit_all_cookies(cefObjectPtr, visitor.toCEF()) != 0
     }
 
@@ -70,7 +70,7 @@ public extension CEFCookieManager {
     /// Returns false if cookies cannot be accessed.
     /// CEF name: `VisitUrlCookies`
     @discardableResult
-    public func enumerateCookies(for url: URL, includeHTTPOnly: Bool, usingVisitor visitor: CEFCookieVisitor) -> Bool {
+    public func enumerateCookies(for url: URL, includeHTTPOnly: Bool, with visitor: CEFCookieVisitor) -> Bool {
         let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
         defer { CEFStringPtrRelease(cefURLPtr) }
         return cefObject.visit_url_cookies(cefObjectPtr, cefURLPtr, includeHTTPOnly ? 1 : 0, visitor.toCEF()) != 0
@@ -85,7 +85,7 @@ public extension CEFCookieManager {
     /// false if an invalid URL is specified or if cookies cannot be accessed.
     /// CEF name: `SetCookie`
     @discardableResult
-    public func setCookie(url: URL, cookie: CEFCookie, callback: CEFSetCookieCallback? = nil) -> Bool {
+    public func setCookie(_ cookie: CEFCookie, for url: URL, callback: CEFSetCookieCallback? = nil) -> Bool {
         let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
         defer { CEFStringPtrRelease(cefURLPtr) }
         
@@ -196,7 +196,7 @@ public extension CEFCookieManager {
     /// CEF name: `VisitAllCookies`
     @discardableResult
     public func enumerateAllCookies(block: @escaping CEFCookieVisitorVisitBlock) -> Bool {
-        return enumerateAllCookiesUsingVisitor(visitor: CEFCookieVisitorBridge(block: block))
+        return enumerateAllCookies(with: CEFCookieVisitorBridge(block: block))
     }
     
     /// Visit a subset of cookies on the IO thread. The results are filtered by the
@@ -207,7 +207,7 @@ public extension CEFCookieManager {
     /// CEF name: `VisitUrlCookies`
     @discardableResult
     public func enumerateCookies(for url: URL, includeHTTPOnly: Bool, block: @escaping CEFCookieVisitorVisitBlock) -> Bool {
-        return enumerateCookies(for: url, includeHTTPOnly: includeHTTPOnly, usingVisitor: CEFCookieVisitorBridge(block: block))
+        return enumerateCookies(for: url, includeHTTPOnly: includeHTTPOnly, with: CEFCookieVisitorBridge(block: block))
     }
 
     /// Sets a cookie given a valid URL and explicit user-provided cookie
@@ -219,8 +219,8 @@ public extension CEFCookieManager {
     /// false if an invalid URL is specified or if cookies cannot be accessed.
     /// CEF name: `SetCookie`
     @discardableResult
-    public func setCookie(url: URL, cookie: CEFCookie, block: @escaping CEFSetCookieCallbackOnCompleteBlock) -> Bool {
-        return setCookie(url: url, cookie: cookie, callback: CEFSetCookieCallbackBridge(block: block))
+    public func setCookie(_ cookie: CEFCookie, for url: URL, block: @escaping CEFSetCookieCallbackOnCompleteBlock) -> Bool {
+        return setCookie(cookie, for: url, callback: CEFSetCookieCallbackBridge(block: block))
     }
     
     /// Delete all cookies that match the specified parameters. If both |url| and

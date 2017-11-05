@@ -227,7 +227,7 @@ public extension CEFXMLReader {
     /// Returns true if the cursor position was set successfully.
     /// CEF name: `MoveToAttribute`
     @discardableResult
-    public func moveToAttribute(with qualifiedName: String) -> Bool {
+    public func moveToAttribute(_ qualifiedName: String) -> Bool {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(qualifiedName)
         defer { CEFStringPtrRelease(cefNamePtr) }
         return cefObject.move_to_attribute_byqname(cefObjectPtr, cefNamePtr) != 0
@@ -237,7 +237,7 @@ public extension CEFXMLReader {
     /// namespace URI. Returns true if the cursor position was set successfully.
     /// CEF name: `MoveToAttribute`
     @discardableResult
-    public func moveToAttribute(with name: String, namespaceURI: URL) -> Bool {
+    public func moveToAttribute(_ name: String, namespaceURI: URL) -> Bool {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
         let cefURIPtr = CEFStringPtrCreateFromSwiftString(namespaceURI.absoluteString)
         defer {

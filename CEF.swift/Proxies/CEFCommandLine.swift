@@ -13,7 +13,7 @@ public extension CEFCommandLine {
     /// Returns the singleton global CefCommandLine object. The returned object
     /// will be read-only.
     /// CEF name: `GetGlobalCommandLine`
-    public static var globalCommandLine: CEFCommandLine? {
+    public static var global: CEFCommandLine? {
         return CEFCommandLine(ptr: cef_command_line_get_global())
     }
     
@@ -50,7 +50,7 @@ public extension CEFCommandLine {
     /// The first argument must be the name of the program. This method is only
     /// supported on non-Windows platforms.
     /// CEF name: `InitFromArgv`
-    public func initFromArguments(arguments: [String]) {
+    public func initFromArguments(_ arguments: [String]) {
         let argv = CEFArgVFromArguments(arguments)
         let constArgv = UnsafeRawPointer(argv).assumingMemoryBound(to: (UnsafePointer<Int8>?).self)
         cefObject.init_from_argv(cefObjectPtr, Int32(arguments.count), constArgv)
@@ -60,7 +60,7 @@ public extension CEFCommandLine {
     /// Initialize the command line with the string returned by calling
     /// GetCommandLineW(). This method is only supported on Windows.
     /// CEF name: `InitFromString`
-    public func initFromString(commandLine: String) {
+    public func initFromString(_ commandLine: String) {
         let cefCmdLinePtr = CEFStringPtrCreateFromSwiftString(commandLine)
         defer { CEFStringPtrRelease(cefCmdLinePtr) }
         cefObject.init_from_string(cefObjectPtr, cefCmdLinePtr)
@@ -126,7 +126,7 @@ public extension CEFCommandLine {
     
     /// Returns true if the command line contains the given switch.
     /// CEF name: `HasSwitch`
-    public func hasSwitch(name: String) -> Bool {
+    public func hasSwitch(_ name: String) -> Bool {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefObject.has_switch(cefObjectPtr, cefStrPtr) != 0
@@ -166,7 +166,7 @@ public extension CEFCommandLine {
     
     /// Add a switch with the specified value to the end of the command line.
     /// CEF name: `AppendSwitchWithValue`
-    public func appendSwitch(name: String, value: String) {
+    public func appendSwitch(_ name: String, value: String) {
         let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
         let cefValuePtr = CEFStringPtrCreateFromSwiftString(value)
         defer {

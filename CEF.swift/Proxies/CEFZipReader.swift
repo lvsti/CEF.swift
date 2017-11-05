@@ -37,8 +37,8 @@ public extension CEFZipReader {
     /// position was set successfully.
     /// CEF name: `MoveToFile`
     @discardableResult
-    public func moveToFile(named: String, caseSensitive: Bool) -> Bool {
-        let cefStrPtr = CEFStringPtrCreateFromSwiftString(named)
+    public func moveToFile(_ name: String, caseSensitive: Bool) -> Bool {
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(name)
         defer { CEFStringPtrRelease(cefStrPtr) }
         return cefObject.move_to_file(cefObjectPtr, cefStrPtr, caseSensitive ? 1 : 0) != 0
     }

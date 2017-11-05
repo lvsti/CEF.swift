@@ -331,7 +331,7 @@ public extension CEFBrowserHost {
     /// specified visitor. If |current_only| is true only the current navigation
     /// entry will be sent, otherwise all navigation entries will be sent.
     /// CEF name: `GetNavigationEntries`
-    public func enumerateNavigationEntriesUsingVisitor(visitor: CEFNavigationEntryVisitor, currentOnly: Bool) {
+    public func enumerateNavigationEntries(with visitor: CEFNavigationEntryVisitor, currentOnly: Bool) {
         cefObject.get_navigation_entries(cefObjectPtr, visitor.toCEF(), currentOnly ? 1 : 0)
     }
     
@@ -713,7 +713,7 @@ public extension CEFBrowserHost {
     /// entry will be sent, otherwise all navigation entries will be sent.
     /// CEF name: `GetNavigationEntries`
     public func enumerateNavigationEntries(currentOnly: Bool, block: @escaping CEFNavigationEntryVisitorVisitBlock) {
-        enumerateNavigationEntriesUsingVisitor(visitor: CEFNavigationEntryVisitorBridge(block: block), currentOnly: currentOnly)
+        enumerateNavigationEntries(with: CEFNavigationEntryVisitorBridge(block: block), currentOnly: currentOnly)
     }
 
     /// Call to run a file chooser dialog. Only a single file chooser dialog may be

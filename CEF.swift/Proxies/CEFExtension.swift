@@ -10,13 +10,13 @@ import Foundation
 
 public extension CEFExtension {
     
-    typealias ID = String
+    typealias Identifier = String
     
     /// Returns the unique extension identifier. This is calculated based on the
     /// extension public key, if available, or on the extension path. See
     /// https://developer.chrome.com/extensions/manifest/key for details.
     /// CEF name: `GetIdentifier`
-    public var identifier: ID {
+    public var identifier: Identifier {
         let cefStr = cefObject.get_identifier(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStr) }
         return CEFStringToSwiftString(cefStr!.pointee)
@@ -44,7 +44,7 @@ public extension CEFExtension {
     /// Extensions are considered the same if identifier, path and loader context
     /// match.
     /// CEF name: `IsSame`
-    public func isSameAs(_ other: CEFExtension) -> Bool {
+    public func isSame(as other: CEFExtension) -> Bool {
         return cefObject.is_same(cefObjectPtr, other.toCEF()) != 0
     }
     

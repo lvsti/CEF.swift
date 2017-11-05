@@ -12,7 +12,7 @@ extension CEFResourceBundle {
     
     /// Returns the global resource bundle instance.
     /// CEF name: `GetGlobal`
-    public static var globalBundle: CEFResourceBundle? {
+    public static var global: CEFResourceBundle? {
         let cefBundle = cef_resource_bundle_get_global()
         return CEFResourceBundle.fromCEF(cefBundle)
     }

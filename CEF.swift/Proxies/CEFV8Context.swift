@@ -12,14 +12,14 @@ public extension CEFV8Context {
     
     /// Returns the current (top) context object in the V8 context stack.
     /// CEF name: `GetCurrentContext`
-    public static var currentContext: CEFV8Context? {
+    public static var current: CEFV8Context? {
         let cefCtx = cef_v8context_get_current_context()
         return CEFV8Context.fromCEF(cefCtx)
     }
     
     /// Returns the entered (bottom) context object in the V8 context stack.
     /// CEF name: `GetEnteredContext`
-    public static var enteredContext: CEFV8Context? {
+    public static var entered: CEFV8Context? {
         let cefCtx = cef_v8context_get_entered_context()
         return CEFV8Context.fromCEF(cefCtx)
     }
@@ -93,7 +93,7 @@ public extension CEFV8Context {
     /// Returns true if this object is pointing to the same handle as |that|
     /// object.
     /// CEF name: `IsSame`
-    public func isSameAs(_ other: CEFV8Context) -> Bool {
+    public func isSame(as other: CEFV8Context) -> Bool {
         return cefObject.is_same(cefObjectPtr, other.toCEF()) != 0
     }
 
@@ -104,7 +104,7 @@ public extension CEFV8Context {
     /// the function will return true. On failure |exception| will be set to the
     /// exception, if any, and the function will return false.
     /// CEF name: `Eval`
-    public func eval(code: String,
+    public func eval(_ code: String,
                      scriptURL: URL? = nil,
                      startLine: Int = 1) -> CEFV8EvalResult {
         let cefCodePtr = CEFStringPtrCreateFromSwiftString(code)

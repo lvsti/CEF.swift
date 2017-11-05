@@ -42,7 +42,7 @@ public extension CEFDictionaryValue {
     /// data. If true modifications to this object will also affect |that| object
     /// and vice-versa.
     /// CEF name: `IsSame`
-    public func isSameAs(_ other: CEFDictionaryValue) -> Bool {
+    public func isSame(as other: CEFDictionaryValue) -> Bool {
         return cefObject.is_same(cefObjectPtr, other.toCEF()) != 0
     }
 
@@ -76,7 +76,7 @@ public extension CEFDictionaryValue {
 
     /// Returns true if the current dictionary has a value for the given key.
     /// CEF name: `HasKey`
-    public func hasKey(key: String) -> Bool {
+    public func hasKey(_ key: String) -> Bool {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.has_key(cefObjectPtr, cefKeyPtr) != 0

@@ -13,7 +13,7 @@ public struct CEFWebPluginUtils {
     /// Visit web plugin information. Can be called on any thread in the browser
     /// process.
     /// CEF name: `CefVisitWebPluginInfo`
-    public static func enumerateWebPluginsUsingVisitor(visitor: CEFWebPluginInfoVisitor) {
+    public static func enumerateWebPlugins(with visitor: CEFWebPluginInfoVisitor) {
         cef_visit_web_plugin_info(visitor.toCEF())
     }
 
