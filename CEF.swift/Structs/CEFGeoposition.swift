@@ -42,7 +42,7 @@ public struct CEFGeoposition {
     /// Time of position measurement in milliseconds since Epoch in UTC time. This
     /// is taken from the host computer's system clock.
     /// CEF name: `timestamp`
-    public let timestamp: NSDate
+    public let timestamp: Date
     
     /// Error code, see enum above.
     /// CEF name: `error_code`
@@ -64,7 +64,7 @@ extension CEFGeoposition {
             altitudeAccuracy: value.altitude_accuracy,
             heading: value.heading,
             speed: value.speed,
-            timestamp: CEFTimeToNSDate(value.timestamp),
+            timestamp: CEFTimeToSwiftDate(value.timestamp),
             errorCode: CEFGeopositionErrorCode.fromCEF(value.error_code),
             errorMessage: value.error_message.str != nil ? CEFStringToSwiftString(value.error_message) : nil
         )

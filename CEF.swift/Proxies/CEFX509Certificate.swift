@@ -37,21 +37,21 @@ public extension CEFX509Certificate {
     /// Returns the date before which the X.509 certificate is invalid.
     /// CefTime.GetTimeT() will return 0 if no date was specified.
     /// CEF name: `GetValidStart`
-    public var validFromDate: NSDate? {
+    public var validFromDate: Date? {
         var cefTime = cefObject.get_valid_start(cefObjectPtr)
         var time: time_t = 0;
         cef_time_to_timet(&cefTime, &time)
-        return time != 0 ? CEFTimeToNSDate(cefTime) : nil
+        return time != 0 ? CEFTimeToSwiftDate(cefTime) : nil
     }
     
     /// Returns the date after which the X.509 certificate is invalid.
     /// CefTime.GetTimeT() will return 0 if no date was specified.
     /// CEF name: `GetValidExpiry`
-    public var validUntilDate: NSDate? {
+    public var validUntilDate: Date? {
         var cefTime = cefObject.get_valid_expiry(cefObjectPtr)
         var time: time_t = 0;
         cef_time_to_timet(&cefTime, &time)
-        return time != 0 ? CEFTimeToNSDate(cefTime) : nil
+        return time != 0 ? CEFTimeToSwiftDate(cefTime) : nil
     }
 
     /// Returns the DER encoded data for the X.509 certificate.

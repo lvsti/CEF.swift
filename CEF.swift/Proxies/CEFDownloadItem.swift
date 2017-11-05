@@ -65,16 +65,16 @@ public extension CEFDownloadItem {
     
     /// Returns the time that the download started.
     /// CEF name: `GetStartTime`
-    public var startTime: NSDate {
+    public var startTime: Date {
         let cefTime = cefObject.get_start_time(cefObjectPtr)
-        return CEFTimeToNSDate(cefTime)
+        return CEFTimeToSwiftDate(cefTime)
     }
 
     /// Returns the time that the download ended.
     /// CEF name: `GetEndTime`
-    public var endTime: NSDate {
+    public var endTime: Date {
         let cefTime = cefObject.get_end_time(cefObjectPtr)
-        return CEFTimeToNSDate(cefTime)
+        return CEFTimeToSwiftDate(cefTime)
     }
     
     /// Returns the full path to the downloaded or downloading file.

@@ -52,8 +52,8 @@ public extension CEFV8Value {
     /// CefV8Accessor callback, or in combination with calling Enter() and Exit()
     /// on a stored CefV8Context reference.
     /// CEF name: `CreateDate`
-    public static func createDate(_ value: NSDate) -> CEFV8Value? {
-        let cefTimePtr = CEFTimePtrCreateFromNSDate(value)
+    public static func createDate(_ value: Date) -> CEFV8Value? {
+        let cefTimePtr = CEFTimePtrCreateFromSwiftDate(value)
         defer { CEFTimePtrRelease(cefTimePtr) }
         return CEFV8Value.fromCEF(cef_v8value_create_date(cefTimePtr))
     }
@@ -209,9 +209,9 @@ public extension CEFV8Value {
 
     /// Return a Date value.
     /// CEF name: `GetDateValue`
-    public var dateValue: NSDate {
+    public var dateValue: Date {
         let cefTime = cefObject.get_date_value(cefObjectPtr)
-        return CEFTimeToNSDate(cefTime)
+        return CEFTimeToSwiftDate(cefTime)
     }
 
     /// Return a string value.

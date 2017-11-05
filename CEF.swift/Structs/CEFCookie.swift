@@ -41,12 +41,12 @@ public struct CEFCookie {
     /// The cookie creation date. This is automatically populated by the system on
     /// cookie creation.
     /// CEF name: `creation`
-    public var creationDate: NSDate = NSDate()
+    public var creationDate: Date = Date()
     
     /// The cookie last access date. This is automatically populated by the system
     /// on access.
     /// CEF name: `last_access`
-    public var lastAccessDate: NSDate = NSDate()
+    public var lastAccessDate: Date = Date()
     
     /// The cookie expiration date is only valid if |has_expires| is true.
     /// CEF name: `has_expires`
@@ -56,7 +56,7 @@ public struct CEFCookie {
     
     /// Cookie expiration date
     /// CEF name: `expires`
-    public var expirationDate: NSDate? = nil
+    public var expirationDate: Date? = nil
     
     public init() {
     }
@@ -72,11 +72,11 @@ extension CEFCookie {
         CEFStringSetFromSwiftString(path, cefStringPtr: &cefStruct.path)
         cefStruct.secure = isSecure ? 1 : 0
         cefStruct.httponly = isHTTPOnly ? 1 : 0
-        CEFTimeSetFromNSDate(creationDate, cefTimePtr: &cefStruct.creation)
-        CEFTimeSetFromNSDate(lastAccessDate, cefTimePtr: &cefStruct.last_access)
+        CEFTimeSetFromSwiftDate(creationDate, cefTimePtr: &cefStruct.creation)
+        CEFTimeSetFromSwiftDate(lastAccessDate, cefTimePtr: &cefStruct.last_access)
         cefStruct.has_expires = expirationDate != nil ? 1 : 0
         if let expirationDate = expirationDate {
-            CEFTimeSetFromNSDate(expirationDate, cefTimePtr: &cefStruct.expires)
+            CEFTimeSetFromSwiftDate(expirationDate, cefTimePtr: &cefStruct.expires)
         }
         
         return cefStruct
@@ -91,10 +91,10 @@ extension CEFCookie {
         cookie.path = CEFStringToSwiftString(value.path)
         cookie.isSecure = value.secure != 0
         cookie.isHTTPOnly = value.httponly != 0
-        cookie.creationDate = CEFTimeToNSDate(value.creation)
-        cookie.lastAccessDate = CEFTimeToNSDate(value.last_access)
+        cookie.creationDate = CEFTimeToSwiftDate(value.creation)
+        cookie.lastAccessDate = CEFTimeToSwiftDate(value.last_access)
         if value.has_expires == 1 {
-            cookie.expirationDate = CEFTimeToNSDate(value.expires)
+            cookie.expirationDate = CEFTimeToSwiftDate(value.expires)
         }
         
         return cookie

@@ -68,9 +68,9 @@ public extension CEFNavigationEntry {
     /// navigation may be completed more than once if the page is reloaded. May be
     /// 0 if the navigation has not yet completed.
     /// CEF name: `GetCompletionTime`
-    public var completionTime: NSDate {
+    public var completionTime: Date {
         let cefTime = cefObject.get_completion_time(cefObjectPtr)
-        return CEFTimeToNSDate(cefTime)
+        return CEFTimeToSwiftDate(cefTime)
     }
 
     /// Returns the HTTP status code for the last known successful navigation

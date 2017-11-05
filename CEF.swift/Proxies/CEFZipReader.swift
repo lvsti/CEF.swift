@@ -69,9 +69,9 @@ public extension CEFZipReader {
     
     /// Returns the last modified timestamp for the file.
     /// CEF name: `GetFileLastModified`
-    public var fileLastModified: NSDate {
+    public var fileLastModified: Date {
         let cefTime = cefObject.get_file_last_modified(cefObjectPtr)
-        return CEFTimeToNSDate(cefTime)
+        return CEFTimeToSwiftDate(cefTime)
     }
     
     /// Opens the file for reading of uncompressed data. A read password may
