@@ -21,9 +21,9 @@ public struct CEFProcessUtils {
     /// |windows_sandbox_info| parameter is only used on Windows and may be NULL (see
     /// cef_sandbox_win.h for details).
     /// CEF name: `CefExecuteProcess`
-    public static func executeProcessWithArgs(args: CEFMainArgs,
-                                              app: CEFApp? = nil,
-                                              winSandboxInfo: UnsafeMutableRawPointer? = nil) -> Int {
+    public static func executeProcess(with args: CEFMainArgs,
+                                      app: CEFApp? = nil,
+                                      winSandboxInfo: UnsafeMutableRawPointer? = nil) -> Int {
         var cefArgs = args.toCEF()
         defer { cefArgs.clear() }
         return Int(cef_execute_process(&cefArgs, app != nil ? app!.toCEF() : nil, winSandboxInfo))
@@ -36,10 +36,10 @@ public struct CEFProcessUtils {
     /// (see cef_sandbox_win.h for details).
     /// CEF name: `CefInitialize`
     @discardableResult
-    public static func initializeMainWithArgs(args: CEFMainArgs,
-                                              settings: CEFSettings,
-                                              app: CEFApp? = nil,
-                                              winSandboxInfo: UnsafeMutableRawPointer? = nil) -> Bool {
+    public static func initializeMain(with args: CEFMainArgs,
+                                      settings: CEFSettings,
+                                      app: CEFApp? = nil,
+                                      winSandboxInfo: UnsafeMutableRawPointer? = nil) -> Bool {
         var cefArgs = args.toCEF()
         var cefSettings = settings.toCEF()
         defer {

@@ -24,7 +24,9 @@ public struct CEFSchemeUtils {
     /// CefRequestContext::GetGlobalContext()->RegisterSchemeHandlerFactory().
     /// CEF name: `CefRegisterSchemeHandlerFactory`
     @discardableResult
-    public static func registerHandlerFactoryForScheme(scheme: String, domain: String? = nil, factory: CEFSchemeHandlerFactory? = nil) -> Bool {
+    public func registerSchemeHandlerFactory(_ factory: CEFSchemeHandlerFactory?,
+                                             forScheme scheme: String,
+                                             domain: String? = nil) -> Bool {
         let cefSchemePtr = CEFStringPtrCreateFromSwiftString(scheme)
         let cefDomainPtr = domain != nil ? CEFStringPtrCreateFromSwiftString(domain!) : nil
         let cefFactory = factory?.toCEF()
@@ -40,7 +42,7 @@ public struct CEFSchemeUtils {
     /// CefRequestContext::GetGlobalContext()->ClearSchemeHandlerFactories().
     /// CEF name: `CefClearSchemeHandlerFactories`
     @discardableResult
-    public static func clearHandlerFactories() -> Bool {
+    public static func clearSchemeHandlerFactories() -> Bool {
         return cef_clear_scheme_handler_factories() != 0
     }
 

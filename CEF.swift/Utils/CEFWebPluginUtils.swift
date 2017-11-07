@@ -37,7 +37,7 @@ public struct CEFWebPluginUtils {
     /// CefRefreshWebPlugins() is called. Can be called on any thread in the browser
     /// process.
     /// CEF name: `CefUnregisterInternalWebPlugin`
-    public static func unregisterInternalWebPluginAtPath(path: String) {
+    public static func unregisterInternalWebPlugin(at path: String) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
         defer { CEFStringPtrRelease(cefStrPtr) }
         cef_unregister_internal_web_plugin(cefStrPtr)
@@ -46,7 +46,7 @@ public struct CEFWebPluginUtils {
     /// Register a plugin crash. Can be called on any thread in the browser process
     /// but will be executed on the IO thread.
     /// CEF name: `CefRegisterWebPluginCrash`
-    public static func registerCrashForWebPluginAtPath(path: String) {
+    public static func registerCrashForWebPlugin(at path: String) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
         defer { CEFStringPtrRelease(cefStrPtr) }
         cef_register_web_plugin_crash(cefStrPtr)
@@ -55,7 +55,7 @@ public struct CEFWebPluginUtils {
     /// Query if a plugin is unstable. Can be called on any thread in the browser
     /// process.
     /// CEF name: `CefIsWebPluginUnstable`
-    public static func isUnstableWebPluginAtPath(path: String, callback: CEFWebPluginUnstableCallback) {
+    public static func isUnstableWebPlugin(at path: String, callback: CEFWebPluginUnstableCallback) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
         defer { CEFStringPtrRelease(cefStrPtr) }
         cef_is_web_plugin_unstable(cefStrPtr, callback.toCEF())
@@ -64,7 +64,7 @@ public struct CEFWebPluginUtils {
     /// Query if a plugin is unstable. Can be called on any thread in the browser
     /// process.
     /// CEF name: `CefIsWebPluginUnstable`
-    public static func isUnstableWebPluginAtPath(path: String, block: @escaping CEFWebPluginUnstableCallbackIsUnstableBlock) {
+    public static func isUnstableWebPlugin(at path: String, block: @escaping CEFWebPluginUnstableCallbackIsUnstableBlock) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
         defer { CEFStringPtrRelease(cefStrPtr) }
         let callback = CEFWebPluginUnstableCallbackBridge(block: block)
@@ -114,13 +114,13 @@ public struct CEFWebPluginUtils {
     /// supported at the time that CefRegisterWidevineCdm() is called then |callback|
     /// will receive a |result| value of CEF_CDM_REGISTRATION_ERROR_NOT_SUPPORTED.
     /// CEF name: `CefRegisterWidevineCdm`
-    public func registerWidevineCDM(path: String, callback: CEFRegisterCDMCallback?) {
+    public func registerWidevineCDM(at path: String, callback: CEFRegisterCDMCallback?) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
         defer { CEFStringPtrRelease(cefStrPtr) }
         cef_register_widevine_cdm(cefStrPtr, callback?.toCEF())
     }
 
-        /// Register the Widevine CDM plugin.
+    /// Register the Widevine CDM plugin.
     ///
     /// The client application is responsible for downloading an appropriate
     /// platform-specific CDM binary distribution from Google, extracting the
@@ -163,11 +163,8 @@ public struct CEFWebPluginUtils {
     /// supported at the time that CefRegisterWidevineCdm() is called then |callback|
     /// will receive a |result| value of CEF_CDM_REGISTRATION_ERROR_NOT_SUPPORTED.
     /// CEF name: `CefRegisterWidevineCdm`
-    public func registerWidevineCDM(path: String, block: @escaping CEFRegisterCDMCallbackOnCDMRegistrationCompleteBlock) {
-        let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
-        defer { CEFStringPtrRelease(cefStrPtr) }
-        let callback = CEFRegisterCDMCallbackBridge(block: block)
-        cef_register_widevine_cdm(cefStrPtr, callback.toCEF())
+    public func registerWidevineCDM(at path: String, block: @escaping CEFRegisterCDMCallbackOnCDMRegistrationCompleteBlock) {
+        registerWidevineCDM(at: path, callback: CEFRegisterCDMCallbackBridge(block: block))
     }
 
 }

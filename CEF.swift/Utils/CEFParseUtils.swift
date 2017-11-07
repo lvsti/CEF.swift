@@ -19,7 +19,7 @@ public struct CEFParseUtils {
     /// and (b) omit the port if it is the default for the scheme. Do not use this
     /// for URLs which will be parsed or sent to other applications.
     /// CEF name: `CefFormatUrlForSecurityDisplay`
-    public static func formatURLForSecurityDisplay(url: URL) -> String {
+    public static func formatURLForSecurityDisplay(_ url: URL) -> String {
         let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
         defer { CEFStringPtrRelease(cefURLPtr) }
         
@@ -31,7 +31,7 @@ public struct CEFParseUtils {
     /// Returns the mime type for the specified file extension or an empty string if
     /// unknown.
     /// CEF name: `CefGetMimeType`
-    public static func mimeTypeForExtension(fileExt: String) -> String? {
+    public static func mimeTypeForExtension(_ fileExt: String) -> String? {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(fileExt)
         defer { CEFStringPtrRelease(cefStrPtr) }
         let cefType = cef_get_mime_type(cefStrPtr)
@@ -44,7 +44,7 @@ public struct CEFParseUtils {
     // "html,htm" for "text/html", or "txt,text,html,..." for "text/*". Any existing
     // elements in the provided vector will not be erased.
     /// CEF name: `CefGetExtensionsForMimeType`
-    public static func extensionsForMIMEType(mimeType: String) -> [String] {
+    public static func extensionsForMIMEType(_ mimeType: String) -> [String] {
         let cefList = cef_string_list_alloc()!
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(mimeType)
         defer {
@@ -60,7 +60,7 @@ public struct CEFParseUtils {
     /// converted to "%XX". If |use_plus| is true spaces will change to "+". The
     /// result is basically the same as encodeURIComponent in Javacript.
     /// CEF name: `CefURIEncode`
-    public static func uriEncode(text: String, usingPlusForSpace usePlus: Bool) -> String {
+    public static func uriEncode(_ text: String, usingPlusForSpace usePlus: Bool) -> String {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(text)
         let cefEncodedPtr = cef_uriencode(cefStrPtr, usePlus ? 1 : 0)
         defer {
@@ -79,7 +79,9 @@ public struct CEFParseUtils {
     /// initial decoded result will be returned.  The |unescape_rule| parameter
     /// supports further customization the decoding process.
     /// CEF name: `CefURIDecode`
-    public static func uriDecode(text: String, convertToUTF8: Bool, unescapeRule: CEFURIUnescapeRule) -> String {
+    public static func uriDecode(_ text: String,
+                                 convertToUTF8: Bool,
+                                 unescapeRule: CEFURIUnescapeRule = .none) -> String {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(text)
         let cefDecodedPtr = cef_uridecode(cefStrPtr, convertToUTF8 ? 1 : 0, unescapeRule.toCEF())
         defer {
@@ -92,7 +94,7 @@ public struct CEFParseUtils {
     // Parses the specified |json_string| and returns a dictionary or list
     // representation. If JSON parsing fails this method returns NULL.
     /// CEF name: `CefParseJSON`
-    public static func parseJSON(jsonString: String, options: CEFJSONParserOptions) -> CEFValue? {
+    public static func parseJSON(_ jsonString: String, options: CEFJSONParserOptions = .rfc) -> CEFValue? {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(jsonString)
         defer { CEFStringPtrRelease(cefStrPtr) }
         let cefValue = cef_parse_json(cefStrPtr, options.toCEF())
@@ -104,8 +106,8 @@ public struct CEFParseUtils {
     // |error_code_out| and |error_msg_out| with an error code and a formatted error
     // message respectively.
     /// CEF name: `CefParseJSONAndReturnError`
-    public static func parseJSONToResult(jsonString: String,
-                                         options: CEFJSONParserOptions) -> CEFJSONParseResult {
+    public static func parseJSONToResult(_ jsonString: String,
+                                         options: CEFJSONParserOptions = .rfc) -> CEFJSONParseResult {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(jsonString)
         defer { CEFStringPtrRelease(cefStrPtr) }
         var code = CEFJSONParserError.noError.toCEF()
@@ -123,7 +125,7 @@ public struct CEFParseUtils {
     // dictionary or list value. Returns an empty string on failure. This method
     // requires exclusive access to |node| including any underlying data.
     /// CEF name: `CefWriteJSON`
-    public static func writeJSON(value: CEFValue, options: CEFJSONWriterOptions) -> String? {
+    public static func writeJSON(value: CEFValue, options: CEFJSONWriterOptions = .default) -> String? {
         let cefStrPtr = cef_write_json(value.toCEF(), options.toCEF())
         defer { CEFStringPtrRelease(cefStrPtr) }
         

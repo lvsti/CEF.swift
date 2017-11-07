@@ -125,7 +125,7 @@ _ = SimpleApplication.shared
 
 let settings = CEFSettings()
 
-_ = CEFProcessUtils.initializeMainWithArgs(args: args, settings: settings, app: app)
+_ = CEFProcessUtils.initializeMain(with: args, settings: settings, app: app)
 
 let appDelegate = AppDelegate()
 appDelegate.createApplication()
