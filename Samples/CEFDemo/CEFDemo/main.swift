@@ -26,7 +26,7 @@ class SimpleApp: CEFApp, CEFBrowserProcessHandler {
         let winInfo = CEFWindowInfo()
         let settings = CEFBrowserSettings()
 
-        let cmdLine = CEFCommandLine.globalCommandLine
+        let cmdLine = CEFCommandLine.global
         var url = URL(string: "http://www.google.com")!
         if let urlSwitch = cmdLine?.switchValue(for: "url"), !urlSwitch.isEmpty {
             url = URL(string: urlSwitch)!
@@ -64,7 +64,7 @@ class SimpleHandler: CEFClient, CEFLifeSpanHandler {
     
     func onBeforeClose(browser: CEFBrowser) {
         for (index, value) in _browserList.enumerated() {
-            if value.isSameAs(browser) {
+            if value.isSame(as: browser) {
                 _browserList.remove(at: index)
                 break
             }
