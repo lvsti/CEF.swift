@@ -71,3 +71,7 @@ set -o pipefail && xcodebuild clean build -project cef.xcodeproj -target "cefsim
 set -o pipefail && xcodebuild clean build -project cef.xcodeproj -target "cefsimple Helper" -arch x86_64 -configuration Release | xcpretty -c
 
 popd
+
+# patch framework includes
+rm -f External/cef_binary/include/capi/cef_application_mac_capi.h
+cp CEF.swift/UI/cef_application_mac_capi.h External/cef_binary/include/capi/
