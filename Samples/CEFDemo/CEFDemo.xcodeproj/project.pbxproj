@@ -38,8 +38,6 @@
 		E87836721B93B26500555EC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		E87836741B93B26500555EC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E878367A1B93B29B00555EC2 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		E878367C1B93B2A500555EC2 /* cef_application_mac_capi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cef_application_mac_capi.h; sourceTree = "<group>"; };
-		E878367D1B93B2AD00555EC2 /* CEFDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CEFDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		E878367F1B93B3A500555EC2 /* CEFswift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CEFswift.framework; sourceTree = "<group>"; };
 		E87836831B94E49B00555EC2 /* Chromium Embedded Framework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "Chromium Embedded Framework.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -88,8 +86,6 @@
 			children = (
 				E878366D1B93B26400555EC2 /* AppDelegate.swift */,
 				E878367A1B93B29B00555EC2 /* main.swift */,
-				E878367D1B93B2AD00555EC2 /* CEFDemo-Bridging-Header.h */,
-				E878367C1B93B2A500555EC2 /* cef_application_mac_capi.h */,
 				E878366F1B93B26400555EC2 /* Assets.xcassets */,
 				E87836711B93B26500555EC2 /* MainMenu.xib */,
 				E87836741B93B26500555EC2 /* Info.plist */,
@@ -331,7 +327,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.cocoagrinder.CEFDemo;
 				PRODUCT_NAME = CEFDemo;
-				SWIFT_OBJC_BRIDGING_HEADER = "CEFDemo/CEFDemo-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				WARNING_CFLAGS = "-Wpartial-availability";
 			};
@@ -354,7 +349,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.cocoagrinder.CEFDemo;
 				PRODUCT_NAME = CEFDemo;
-				SWIFT_OBJC_BRIDGING_HEADER = "CEFDemo/CEFDemo-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				WARNING_CFLAGS = "-Wpartial-availability";
 			};

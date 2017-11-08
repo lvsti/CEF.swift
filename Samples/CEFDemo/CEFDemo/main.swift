@@ -84,33 +84,7 @@ class SimpleHandler: CEFClient, CEFLifeSpanHandler {
 }
 
 
-class SimpleApplication : NSApplication, CefAppProtocol {
-    
-    var _isHandlingSendEvent: Bool = false
-    
-    func isHandlingSendEvent() -> Bool {
-        return _isHandlingSendEvent
-    }
-    
-    func setHandlingSendEvent(_ handlingSendEvent: Bool) {
-        _isHandlingSendEvent = handlingSendEvent
-    }
-
-    override init() {
-        super.init()
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func sendEvent(_ event: NSEvent) {
-        let stashedIsHandlingSendEvent = _isHandlingSendEvent
-        _isHandlingSendEvent = true
-        defer { _isHandlingSendEvent = stashedIsHandlingSendEvent }
-
-        super.sendEvent(event)
-    }
+class SimpleApplication : CEFApplication {
     
     override func terminate(_ sender: Any?) {
         let delegate = NSApplication.shared.delegate as! AppDelegate
