@@ -16,3 +16,4 @@ profile
 
 .DS_Store
 External/*
+Samples/CEFDemo/Library/*
