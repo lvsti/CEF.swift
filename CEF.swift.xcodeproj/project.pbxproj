@@ -1398,7 +1398,6 @@
 			buildConfigurationList = E8456E181B52C29700AE93DC /* Build configuration list for PBXNativeTarget "CEF.swift" */;
 			buildPhases = (
 				E8B98AA11EED3EE200171EA3 /* Prepare external dependencies */,
-				E89FD0FB1BA6213F00345B15 /* Fix framework id */,
 				E8456E0B1B52C29700AE93DC /* Sources */,
 				E856E1631EB9265500E0C138 /* Frameworks */,
 				E8456E0D1B52C29700AE93DC /* Headers */,
@@ -1470,21 +1469,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -ex\n\nFW_PATH=\"${SRCROOT}/Samples/CEFDemo/Library/CEFswift.framework\"\n\nif [ ! -h \"${FW_PATH}\" ]; then\n    rm -rf \"${FW_PATH}\"\n    mkdir -p $(dirname \"${FW_PATH}\")\n    ln -s \"${BUILT_PRODUCTS_DIR}/CEFswift.framework\" \"${FW_PATH}\"\nfi\n\nFW_PATH=\"${SRCROOT}/Samples/CEFDemo/Library/Chromium Embedded Framework.framework\"\n\nif [ ! -h \"${FW_PATH}\" ]; then\n    rm -rf \"${FW_PATH}\"\n    mkdir -p $(dirname \"${FW_PATH}\")\n    ln -s \"${CEF_BINARY_ROOT}/${CONFIGURATION}/Chromium Embedded Framework.framework\" \"${FW_PATH}\"\nfi\n\nHELPER_PATH=\"${SRCROOT}/Samples/CEFDemo/Library/cefsimple Helper.app\"\n\nrm -rf \"${HELPER_PATH}\"\nmkdir -p $(dirname \"${HELPER_PATH}\")\nln -s \"${CEF_BINARY_ROOT}/tests/cefsimple/${CONFIGURATION}/cefsimple Helper.app\" \"${HELPER_PATH}\"\n";
-		};
-		E89FD0FB1BA6213F00345B15 /* Fix framework id */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Fix framework id";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "install_name_tool -id \"@rpath/Chromium Embedded Framework.framework/Chromium Embedded Framework\" \"${SRCROOT}/External/cef_binary/Debug/Chromium Embedded Framework.framework/Chromium Embedded Framework\"\n\ninstall_name_tool -id \"@rpath/Chromium Embedded Framework.framework/Chromium Embedded Framework\" \"${SRCROOT}/External/cef_binary/Release/Chromium Embedded Framework.framework/Chromium Embedded Framework\"\n";
+			shellScript = "set -ex\n\nFW_PATH=\"${SRCROOT}/Samples/CEFDemo/Library/${CONFIGURATION}/CEFswift.framework\"\n\nif [ ! -h \"${FW_PATH}\" ]; then\n    rm -rf \"${FW_PATH}\"\n    mkdir -p $(dirname \"${FW_PATH}\")\n    ln -s \"${BUILT_PRODUCTS_DIR}/CEFswift.framework\" \"${FW_PATH}\"\nfi\n";
 		};
 		E8B98AA11EED3EE200171EA3 /* Prepare external dependencies */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1498,7 +1483,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -e \"${CEF_BINARY_ROOT}/tests/cefsimple/${CONFIGURATION}/cefsimple Helper.app\" ] && [ -e \"${CEF_BINARY_ROOT}/${CONFIGURATION}/Chromium Embedded Framework.framework/Chromium Embedded Framework\" ]; then\n    exit 0\nfi\n\necho \"Building external dependencies not built!\"\n\ncd \"${SRCROOT}\"\nscripts/setup.sh\n";
+			shellScript = "if [ -e \"${CEF_BINARY_ROOT}/${CONFIGURATION}/Chromium Embedded Framework.framework/Headers/include\" ]; then\n    exit 0\nfi\n\necho \"Building external dependencies\"\n\ncd \"${SRCROOT}\"\nscripts/setup.sh\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2027,12 +2012,12 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(CEF_BINARY_ROOT)/Debug";
+				FRAMEWORK_SEARCH_PATHS = "$(CEF_BINARY_ROOT)/$(CONFIGURATION)";
 				FRAMEWORK_VERSION = A;
 				HEADER_SEARCH_PATHS = "$(CEF_BINARY_ROOT)";
 				INFOPLIST_FILE = CEF.swift/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = (
 					"-framework",
 					"\"Chromium Embedded Framework\"",
@@ -2057,12 +2042,12 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(CEF_BINARY_ROOT)/Release";
+				FRAMEWORK_SEARCH_PATHS = "$(CEF_BINARY_ROOT)/$(CONFIGURATION)";
 				FRAMEWORK_VERSION = A;
 				HEADER_SEARCH_PATHS = "$(CEF_BINARY_ROOT)";
 				INFOPLIST_FILE = CEF.swift/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = (
 					"-framework",
 					"\"Chromium Embedded Framework\"",

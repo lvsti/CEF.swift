@@ -36,13 +36,15 @@ if [ -z "$(pip list 2>/dev/null | grep lxml)" ]; then
 fi
 
 # fetch CEF binary distribution package
-echo "Fetching binary distribution..."
+echo "Querying binary distributions..."
 CEFBUILD_DESCRIPTOR=$(curl http://opensource.spotify.com/cefbuilds/index.html |
                       scripts/cefbuilds_spotify.py -x --platforms=macosx64 --branches=${CEF_BRANCH} - |
                       jq '."macosx64"."'${CEF_BRANCH}'"')
 
 CEFBUILD_URL=$(echo ${CEFBUILD_DESCRIPTOR} | jq '.dists.standard' | tr -d '"')
 CEFBUILD_VERSION=${CEF_BRANCH}'.'$(echo ${CEFBUILD_DESCRIPTOR} | jq '.delta' | tr -d '"')
+
+echo "Fetching build ${CEFBUILD_VERSION}..."
 
 CEFBUILD_TEMP=$(mktemp -d /tmp/cefbuild.XXX)
 CEFBUILD_TEMP_PATH="${CEFBUILD_TEMP}/${CEFBUILD_VERSION}.tar.bz2"
@@ -56,22 +58,49 @@ CEFBUILD_DIR_NAME=$(tar -tzf "${CEFBUILD_TEMP_PATH}" | head -1 | tr -d '/')
 
 rm -rf "${CEFBUILD_TEMP}"
 
-if [ -e "External/cef_binary" ]; then
+if [ -h External/cef_binary ]; then
     rm -f External/cef_binary
 fi
 
 ln -s "${CEFBUILD_DIR_NAME}" External/cef_binary
 
-# build the framework
-pushd .
-
-cd External/cef_binary
-cmake -G Xcode
-set -o pipefail && xcodebuild clean build -project cef.xcodeproj -target "cefsimple Helper" -arch x86_64 -configuration Debug | xcpretty -c
-set -o pipefail && xcodebuild clean build -project cef.xcodeproj -target "cefsimple Helper" -arch x86_64 -configuration Release | xcpretty -c
-
-popd
-
 # patch framework includes
+echo "Patching headers..."
 rm -f External/cef_binary/include/capi/cef_application_mac_capi.h
 cp CEF.swift/UI/cef_application_mac_capi.h External/cef_binary/include/capi/
+
+# fix framework id
+echo "Fixing framework identity..."
+for CONFIG in Debug Release
+do
+    install_name_tool -id "@rpath/Chromium Embedded Framework.framework/Chromium Embedded Framework" \
+        "External/cef_binary/${CONFIG}/Chromium Embedded Framework.framework/Chromium Embedded Framework"
+done
+
+# copy headers into framework
+echo "Copying headers into framework..."
+pushd . > /dev/null
+
+cd External/cef_binary
+
+for CONFIG in Debug Release
+do
+    rm -rf "${CONFIG}/Chromium Embedded Framework.framework/Headers/"
+    mkdir -p "${CONFIG}/Chromium Embedded Framework.framework/Headers/"
+    cp -R include "${CONFIG}/Chromium Embedded Framework.framework/Headers/"
+done
+
+popd > /dev/null
+
+echo "Preparing sample code..."
+
+for CONFIG in Debug Release
+do
+    FW_PATH="Samples/CEFDemo/Library/${CONFIG}/Chromium Embedded Framework.framework"
+
+    rm -rf "${FW_PATH}"
+    mkdir -p $(dirname "${FW_PATH}")
+    ln -s "$(pwd)/External/cef_binary/${CONFIG}/Chromium Embedded Framework.framework" "${FW_PATH}"
+done
+
+echo "Done."
