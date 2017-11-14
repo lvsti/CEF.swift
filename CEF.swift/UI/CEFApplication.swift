@@ -8,6 +8,25 @@
 
 import Cocoa
 
+// from include/cef_application_mac.h
+
+/// Copy of definition from base/message_loop/message_pump_mac.h.
+@objc protocol CrAppProtocol {
+    /// Must return true if -[NSApplication sendEvent:] is currently on the stack.
+    func isHandlingSendEvent() -> Bool
+}
+
+/// Copy of definition from base/mac/scoped_sending_event.h.
+@objc protocol CrAppControlProtocol: CrAppProtocol {
+    func setHandlingSendEvent(_ handlingSendEvent: Bool)
+}
+
+/// All CEF client applications must subclass NSApplication and implement this
+/// protocol.
+@objc protocol CefAppProtocol: CrAppControlProtocol {
+}
+
+
 /// All CEF client applications must subclass CEFApplication to work properly.
 open class CEFApplication: NSApplication {
 

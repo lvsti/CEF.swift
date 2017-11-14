@@ -64,11 +64,6 @@ fi
 
 ln -s "${CEFBUILD_DIR_NAME}" External/cef_binary
 
-# patch framework includes
-echo "Patching headers..."
-rm -f External/cef_binary/include/capi/cef_application_mac_capi.h
-cp CEF.swift/UI/cef_application_mac_capi.h External/cef_binary/include/capi/
-
 # fix framework id
 echo "Fixing framework identity..."
 for CONFIG in Debug Release
