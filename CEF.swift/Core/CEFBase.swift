@@ -8,21 +8,6 @@
 
 import Foundation
 
-protocol Lock {
-    mutating func lock()
-    mutating func unlock()
-}
-
-extension pthread_mutex_t: Lock {
-    mutating func lock() {
-        pthread_mutex_lock(&self)
-    }
-    
-    mutating func unlock() {
-        pthread_mutex_unlock(&self)
-    }
-}
-
 
 public protocol CEFObject: DefaultInitializable {
     var base: cef_base_ref_counted_t { get set }
