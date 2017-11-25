@@ -73,7 +73,12 @@ class CEFMarshaller<TClass, TStruct>: CEFMarshallerBase, CEFRefCounting
     }
     
     required init(obj: TClass) {
-        pthread_mutex_init(&_refCountMutex, nil)
+        if #available(macOS 10.12, *) {
+            _refCountMutex = UnfairLock()
+        }
+        else {
+            _refCountMutex = SpinLock()
+        }
         
         swiftObj = obj
         cefStruct = TStruct()
@@ -105,10 +110,6 @@ class CEFMarshaller<TClass, TStruct>: CEFMarshallerBase, CEFRefCounting
 #endif
     }
     
-    deinit {
-        pthread_mutex_destroy(&_refCountMutex)
-    }
-    
     // reference counting
     
     func addRef() {
@@ -137,7 +138,7 @@ class CEFMarshaller<TClass, TStruct>: CEFMarshallerBase, CEFRefCounting
     }
     
     var _refCount: Int = 0
-    var _refCountMutex = pthread_mutex_t()
+    var _refCountMutex: Lock
     var _self: InstanceType? = nil
 }
 
