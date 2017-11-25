@@ -100,10 +100,10 @@ public protocol CEFRequestHandler {
     /// a CefResourceHandler object. The |request| object should not be modified in
     /// this callback.
     /// CEF name: `GetResourceHandler`
-    func resourceHandlerForBrowser(browser: CEFBrowser,
-                                   frame: CEFFrame,
-                                   request: CEFRequest) -> CEFResourceHandler?
-    
+    func resourceHandler(browser: CEFBrowser,
+                         frame: CEFFrame,
+                         request: CEFRequest) -> CEFResourceHandler?
+
     /// Called on the IO thread when a resource load is redirected. The |request|
     /// parameter will contain the old URL and other request-related information.
     /// The |response| parameter will contain the response that resulted in the
@@ -261,9 +261,9 @@ public extension CEFRequestHandler {
         return .continueNow
     }
 
-    func resourceHandlerForBrowser(browser: CEFBrowser,
-                                   frame: CEFFrame,
-                                   request: CEFRequest) -> CEFResourceHandler? {
+    func resourceHandler(browser: CEFBrowser,
+                         frame: CEFFrame,
+                         request: CEFRequest) -> CEFResourceHandler? {
         return nil
     }
 
@@ -301,8 +301,8 @@ public extension CEFRequestHandler {
                                    isProxy: Bool,
                                    host: String,
                                    port: UInt16,
-                                   realm: String,
-                                   scheme: String,
+                                   realm: String?,
+                                   scheme: String?,
                                    callback: CEFAuthCallback) -> CEFOnAuthCredentialsRequiredAction {
         return .cancel
     }
