@@ -18,10 +18,3 @@ FOUNDATION_EXPORT const unsigned char CEFswiftVersionString[];
 
 @import ChromiumEmbedded;
 
-// from include/cef_application_mac.h
-/// Copy of definition from ui/base/cocoa/underlay_opengl_hosting_window.h.
-/// Common base class for windows that host a OpenGL surface that renders under
-/// the window. Contains methods relating to hole punching so that the OpenGL
-/// surface is visible through the window.
-@interface UnderlayOpenGLHostingWindow : NSWindow
-@end

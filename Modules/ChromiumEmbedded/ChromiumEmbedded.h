@@ -24,3 +24,4 @@
 #include "include/capi/cef_x509_certificate_capi.h"
 #include "include/capi/cef_xml_reader_capi.h"
 #include "include/capi/cef_zip_reader_capi.h"
+#include "include/cef_application_mac.h"
