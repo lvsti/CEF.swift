@@ -20,14 +20,24 @@ public struct CEFURLRequestFlags: OptionSet {
     /// CEF name: `UR_FLAG_NONE`.
     public static let none = CEFURLRequestFlags(rawValue: 0)
 
-    /// If set the cache will be skipped when handling the request.
+    /// If set the cache will be skipped when handling the request. Setting this
+    /// value is equivalent to specifying the "Cache-Control: no-cache" request
+    /// header. Setting this value in combination with UR_FLAG_ONLY_FROM_CACHE will
+    /// cause the request to fail.
     /// CEF name: `UR_FLAG_SKIP_CACHE`.
     public static let skipCache = CEFURLRequestFlags(rawValue: 1 << 0)
 
+    /// If set the request will fail if it cannot be served from the cache (or some
+    /// equivalent local store). Setting this value is equivalent to specifying the
+    /// "Cache-Control: only-if-cached" request header. Setting this value in
+    /// combination with UR_FLAG_SKIP_CACHE will cause the request to fail.
+    /// CEF name: `UR_FLAG_ONLY_FROM_CACHE`.
+    public static let onlyFromCache = CEFURLRequestFlags(rawValue: 1 << 1)
+
     /// If set user name, password, and cookies may be sent with the request, and
     /// cookies may be saved from the response.
-    /// CEF name: `UR_FLAG_ALLOW_CACHED_CREDENTIALS`.
-    public static let allowCachedCredentials = CEFURLRequestFlags(rawValue: 1 << 1)
+    /// CEF name: `UR_FLAG_ALLOW_STORED_CREDENTIALS`.
+    public static let allowStoredCredentials = CEFURLRequestFlags(rawValue: 1 << 2)
 
     /// If set upload progress events will be generated when a request has a body.
     /// CEF name: `UR_FLAG_REPORT_UPLOAD_PROGRESS`.
@@ -35,13 +45,13 @@ public struct CEFURLRequestFlags: OptionSet {
 
     /// If set the CefURLRequestClient::OnDownloadData method will not be called.
     /// CEF name: `UR_FLAG_NO_DOWNLOAD_DATA`.
-    public static let noDownloadData = CEFURLRequestFlags(rawValue: 1 << 6)
+    public static let noDownloadData = CEFURLRequestFlags(rawValue: 1 << 4)
 
     /// If set 5XX redirect errors will be propagated to the observer instead of
     /// automatically re-tried. This currently only applies for requests
     /// originated in the browser process.
     /// CEF name: `UR_FLAG_NO_RETRY_ON_5XX`.
-    public static let noRetryOn5XX = CEFURLRequestFlags(rawValue: 1 << 7)
+    public static let noRetryOn5XX = CEFURLRequestFlags(rawValue: 1 << 5)
 }
 
 extension CEFURLRequestFlags {
