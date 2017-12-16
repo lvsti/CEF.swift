@@ -94,6 +94,12 @@ def wrap_code(code, indent = '    ', maxchars = 80, splitchars = '(=,'):
 
     return output
 
+def is_base_class(clsname):
+    """ Returns true if |clsname| is a known base (root) class in the object
+        hierarchy.
+    """
+    return clsname == 'CefBaseRefCounted' or clsname == 'CefBaseScoped'
+
 def get_capi_file_name(cppname):
     """ Convert a C++ header file name to a C API header file name. """
     return cppname[:-2]+'_capi.h'
@@ -167,6 +173,21 @@ def get_comment(body, name):
 
     result.reverse()
     return result
+
+def validate_comment(file, name, comment):
+    """ Validate the comment array returned by get_comment(). """
+    # Verify that the comment contains beginning and ending '///' as required by
+    # CppDoc (the leading '//' from each line will already have been removed by
+    # the get_comment() logic). There may be additional comments proceeding the
+    # CppDoc block so we look at the quantity of lines equaling '/' and expect
+    # the last line to be '/'.
+    docct = 0
+    for line in comment:
+        if not line is None and len(line) > 0 and line == '/':
+            docct = docct + 1
+    if docct != 2 or len(comment) < 3 or comment[len(comment)-1] != '/':
+        raise Exception('Missing or incorrect comment in %s for: %s' % \
+            (file, name))
 
 def format_comment(comment, indent, translate_map = None, maxchars = 80):
     """ Return the comments array as a formatted string. """
@@ -287,7 +308,7 @@ def format_translation_includes(header, body):
     list = sorted(set(p.findall(body)))
     for item in list:
         directory = ''
-        if item != 'CefBase':
+        if not is_base_class(item):
             cls = header.get_class(item)
             dir = cls.get_file_directory()
             if not dir is None:
@@ -300,7 +321,7 @@ def format_translation_includes(header, body):
     list = sorted(set(p.findall(body)))
     for item in list:
         directory = ''
-        if item != 'CefBase':
+        if not is_base_class(item):
             cls = header.get_class(item)
             dir = cls.get_file_directory()
             if not dir is None:
@@ -363,12 +384,14 @@ def dict_to_str(dict):
 _cre_attrib = '/\*--cef\(([A-Za-z0-9_ ,=:\n]{0,})\)--\*/'
 # regex for matching class and function names
 _cre_cfname = '([A-Za-z0-9_]{1,})'
+# regex for matching class and function names including path separators
+_cre_cfnameorpath = '([A-Za-z0-9_\/]{1,})'
 # regex for matching function return values
 _cre_retval = '([A-Za-z0-9_<>:,\*\&]{1,})'
 # regex for matching typedef value and name combination
-_cre_typedef = '([A-Za-z0-9_<>:,\*\& ]{1,})'
+_cre_typedef = '([A-Za-z0-9_<>:,\*\&\s]{1,})'
 # regex for matching function return value and name combination
-_cre_func   = '([A-Za-z][A-Za-z0-9_<>:,\*\& ]{1,})'
+_cre_func   = '([A-Za-z][A-Za-z0-9_<>:,\*\&\s]{1,})'
 # regex for matching virtual function modifiers
 _cre_vfmod  = '([A-Za-z0-9_]{0,})'
 # regex for matching arbitrary whitespace
@@ -382,6 +405,8 @@ _simpletypes = {
     'void' : ['void', ''],
     'void*' : ['void*', 'NULL'],
     'int' : ['int', '0'],
+    'int16' : ['int16', '0'],
+    'uint16' : ['uint16', '0'],
     'int32' : ['int32', '0'],
     'uint32' : ['uint32', '0'],
     'int64' : ['int64', '0'],
@@ -397,15 +422,17 @@ _simpletypes = {
     'char* const': ['char* const', 'NULL'],
     'cef_color_t': ['cef_color_t', '0'],
     'cef_json_parser_error_t': ['cef_json_parser_error_t', 'JSON_NO_ERROR'],
+    'cef_plugin_policy_t': ['cef_plugin_policy_t', 'PLUGIN_POLICY_ALLOW'],
     'CefCursorHandle' : ['cef_cursor_handle_t', 'kNullCursorHandle'],
+    'CefCompositionUnderline' : ['cef_composition_underline_t',
+                                 'CefCompositionUnderline()'],
     'CefEventHandle' : ['cef_event_handle_t', 'kNullEventHandle'],
     'CefWindowHandle' : ['cef_window_handle_t', 'kNullWindowHandle'],
-    'CefTextInputContext' : ['cef_text_input_context_t' ,'NULL'],
     'CefPoint' : ['cef_point_t', 'CefPoint()'],
     'CefRect' : ['cef_rect_t', 'CefRect()'],
     'CefSize' : ['cef_size_t', 'CefSize()'],
+    'CefRange' : ['cef_range_t', 'CefRange()'],
     'CefDraggableRegion' : ['cef_draggable_region_t', 'CefDraggableRegion()'],
-    'CefPageRange' : ['cef_page_range_t', 'CefPageRange()'],
     'CefThreadId' : ['cef_thread_id_t', 'TID_UI'],
     'CefTime' : ['cef_time_t', 'CefTime()'],
 }
@@ -535,8 +562,8 @@ class obj_header:
                 pos = value.rfind(' ')
                 if pos < 0:
                   raise Exception('Invalid typedef: '+value)
-                alias = value[pos+1:]
-                value = value[:pos]
+                alias = value[pos+1:].strip()
+                value = value[:pos].strip()
                 self.typedefs.append(obj_typedef(self, filename, value, alias))
 
         # extract global functions
@@ -549,11 +576,12 @@ class obj_header:
             # build the global function objects
             for attrib, retval, argval in list:
                 comment = get_comment(data, retval+'('+argval+');')
+                validate_comment(filename, retval, comment)
                 self.funcs.append(obj_function(self, filename, attrib, retval,
                                                argval, comment))
 
         # extract includes
-        p = re.compile('\n#include \"include/'+_cre_cfname+'.h')
+        p = re.compile('\n#include \"include/'+_cre_cfnameorpath+'.h')
         includes = p.findall(data)
 
         # extract forward declarations
@@ -565,14 +593,15 @@ class obj_header:
                        '\nclass'+_cre_space+_cre_cfname+_cre_space+
                        ':'+_cre_space+'public'+_cre_virtual+
                        _cre_space+_cre_cfname+_cre_space+
-                       '{(.*?)};', re.MULTILINE | re.DOTALL)
+                       '{(.*?)\n};', re.MULTILINE | re.DOTALL)
         list = p.findall(data)
         if len(list) > 0:
             added = True
 
             # build the class objects
             for attrib, name, parent_name, body in list:
-                comment = get_comment(data, name+' : public')
+                comment = get_comment(data, name+' :')
+                validate_comment(filename, name, comment)
                 self.classes.append(
                     obj_class(self, filename, attrib, name, parent_name, body,
                               comment, includes, forward_declares))
@@ -652,6 +681,20 @@ class obj_header:
             result.append(cls.get_name())
         return result
 
+    def get_base_class_name(self, classname):
+        """ Returns the base (root) class name for |classname|. """
+        cur_cls = self.get_class(classname)
+        while True:
+            parent_name = cur_cls.get_parent_name()
+            if is_base_class(parent_name):
+                return parent_name
+            else:
+                parent_cls = self.get_class(parent_name)
+                if parent_cls is None:
+                    break
+            cur_cls = self.get_class(parent_name)
+        return None
+
     def get_types(self, list):
         """ Return a dictionary mapping data types to analyzed values. """
         for cls in self.typedefs:
@@ -673,8 +716,8 @@ class obj_header:
         return obj_analysis([self], value, named)
 
     def get_defined_structs(self):
-        """ Return a list of names already defined structure names. """
-        return ['cef_print_info_t', 'cef_window_info_t', 'cef_base_t']
+        """ Return a list of already defined structure names. """
+        return ['cef_print_info_t', 'cef_window_info_t', 'cef_base_ref_counted_t', 'cef_base_scoped_t']
 
     def get_capi_translations(self):
         """ Return a dictionary that maps C++ terminology to C API terminology.
@@ -739,8 +782,8 @@ class obj_class:
             pos = value.rfind(' ')
             if pos < 0:
               raise Exception('Invalid typedef: '+value)
-            alias = value[pos+1:]
-            value = value[:pos]
+            alias = value[pos+1:].strip()
+            value = value[:pos].strip()
             self.typedefs.append(obj_typedef(self, filename, value, alias))
 
         # extract static functions
@@ -753,6 +796,7 @@ class obj_class:
         self.staticfuncs = []
         for attrib, retval, argval in list:
             comment = get_comment(body, retval+'('+argval+')')
+            validate_comment(filename, retval, comment)
             self.staticfuncs.append(
                 obj_function_static(self, attrib, retval, argval, comment))
 
@@ -766,6 +810,7 @@ class obj_class:
         self.virtualfuncs = []
         for attrib, retval, argval, vfmod in list:
             comment = get_comment(body, retval+'('+argval+')')
+            validate_comment(filename, retval, comment)
             self.virtualfuncs.append(
                 obj_function_virtual(self, attrib, retval, argval, comment,
                                      vfmod))
@@ -833,16 +878,16 @@ class obj_class:
     def has_parent(self, parent_name):
         """ Returns true if this class has the specified class anywhere in its
             inheritance hierarchy. """
-        # Every class has CefBase as the top-most parent.
-        if parent_name == 'CefBase' or parent_name == self.parent_name:
+        # Every class has a known base class as the top-most parent.
+        if is_base_class(parent_name) or parent_name == self.parent_name:
             return True
-        if self.parent_name == 'CefBase':
+        if is_base_class(self.parent_name):
             return False
 
         cur_cls = self.parent.get_class(self.parent_name)
         while True:
             cur_parent_name = cur_cls.get_parent_name()
-            if cur_parent_name == 'CefBase':
+            if is_base_class(cur_parent_name):
                 break
             elif cur_parent_name == parent_name:
                 return True
@@ -1191,7 +1236,7 @@ class obj_function:
             this_is_library_side = True
             header = self.parent
 
-        if other_class_name == 'CefBase':
+        if is_base_class(other_class_name):
             other_is_library_side = False
         else:
             other_class = header.get_class(other_class_name)
@@ -1363,17 +1408,17 @@ class obj_argument:
                 return 'string_byref_const'
             return 'string_byref'
 
-        # refptr type
-        if self.type.is_result_refptr():
-            same_side = self.parent.is_same_side(self.type.get_refptr_type())
+        # *ptr type
+        if self.type.is_result_ptr():
+            prefix = self.type.get_result_ptr_type_prefix()
+            same_side = self.parent.is_same_side(self.type.get_ptr_type())
             if self.type.is_byref():
                 if same_side:
-                    return 'refptr_same_byref'
-                return 'refptr_diff_byref'
+                    return prefix + 'ptr_same_byref'
+                return prefix + 'ptr_diff_byref'
             if same_side:
-                return 'refptr_same'
-            return 'refptr_diff'
-
+                return prefix + 'ptr_same'
+            return prefix + 'ptr_diff'
 
         if self.type.is_result_vector():
             # all vector types must be passed by reference
@@ -1398,17 +1443,17 @@ class obj_argument:
                     return 'bool_vec_byref_const'
                 return 'bool_vec_byref'
 
-            if self.type.is_result_vector_refptr():
-                # refptr vector types
-                same_side = self.parent.is_same_side(self.type.get_refptr_type())
+            if self.type.is_result_vector_ptr():
+                # *ptr vector types
+                prefix = self.type.get_result_vector_ptr_type_prefix()
+                same_side = self.parent.is_same_side(self.type.get_ptr_type())
                 if self.type.is_const():
                     if same_side:
-                        return 'refptr_vec_same_byref_const'
-                    return 'refptr_vec_diff_byref_const'
+                        return prefix + 'ptr_vec_same_byref_const'
+                    return prefix + 'ptr_vec_diff_byref_const'
                 if same_side:
-                    return 'refptr_vec_same_byref'
-                return 'refptr_vec_diff_byref'
-
+                    return prefix + 'ptr_vec_same_byref'
+                return prefix + 'ptr_vec_diff_byref'
 
         # string single map type
         if self.type.is_result_map_single():
@@ -1453,11 +1498,12 @@ class obj_argument:
         if self.type.is_result_string():
             return 'string'
 
-        if self.type.is_result_refptr():
-            if self.parent.is_same_side(self.type.get_refptr_type()):
-                return 'refptr_same'
+        if self.type.is_result_ptr():
+            prefix = self.type.get_result_ptr_type_prefix()
+            if self.parent.is_same_side(self.type.get_ptr_type()):
+                return prefix + 'ptr_same'
             else:
-                return 'refptr_diff'
+                return prefix + 'ptr_diff'
 
         return 'invalid'
 
@@ -1486,8 +1532,14 @@ class obj_argument:
             if for_capi:
                 return 'NULL'
             return 'CefString()'
-        elif type == 'refptr_same' or type == 'refptr_diff':
+        elif type == 'refptr_same' or type == 'refptr_diff' or \
+             type == 'rawptr_same' or type == 'rawptr_diff':
             return 'NULL'
+        elif type == 'ownptr_same' or type == 'ownptr_diff':
+            if for_capi:
+              return 'NULL'
+            else:
+              return 'CefOwnPtr<'+self.type.get_ptr_type()+'>()'
 
         return ''
 
@@ -1499,7 +1551,7 @@ class obj_analysis:
         self.result_type = 'unknown'
         self.result_value = None
         self.result_default = None
-        self.refptr_type = None
+        self.ptr_type = None
 
         # parse the argument string
         partlist = string.split(string.strip(value))
@@ -1603,8 +1655,8 @@ class obj_analysis:
         if not basic is None:
             self.result_type = basic['result_type']
             self.result_value = basic['result_value']
-            if 'refptr_type' in basic:
-                self.refptr_type = basic['refptr_type']
+            if 'ptr_type' in basic:
+                self.ptr_type = basic['ptr_type']
             if 'result_default' in basic:
                 self.result_default = basic['result_default']
             return True
@@ -1641,7 +1693,27 @@ class obj_analysis:
             return {
                 'result_type' : 'refptr',
                 'result_value' : get_capi_name(list[0], True)+'*',
-                'refptr_type' : list[0]
+                'ptr_type' : list[0]
+            }
+
+        # check for CEF owned pointers
+        p = re.compile('^CefOwnPtr<(.*?)>$', re.DOTALL)
+        list = p.findall(value)
+        if len(list) == 1:
+            return {
+                'result_type' : 'ownptr',
+                'result_value' : get_capi_name(list[0], True)+'*',
+                'ptr_type' : list[0]
+            }
+
+        # check for CEF raw pointers
+        p = re.compile('^CefRawPtr<(.*?)>$', re.DOTALL)
+        list = p.findall(value)
+        if len(list) == 1:
+            return {
+                'result_type' : 'rawptr',
+                'result_value' : get_capi_name(list[0], True)+'*',
+                'ptr_type' : list[0]
             }
 
         # check for CEF structure types
@@ -1672,13 +1744,13 @@ class obj_analysis:
         """ Return the C++ type. """
         return self.type
 
-    def get_refptr_type(self):
+    def get_ptr_type(self):
         """ Return the C++ class type referenced by a CefRefPtr. """
-        if self.is_result_vector() and self.is_result_vector_refptr():
+        if self.is_result_vector() and self.is_result_vector_ptr():
             # return the vector RefPtr type
-            return self.result_value[0]['refptr_type']
+            return self.result_value[0]['ptr_type']
         # return the basic RefPtr type
-        return self.refptr_type
+        return self.ptr_type
 
     def get_vector_type(self):
         """ Return the C++ class type referenced by a std::vector. """
@@ -1720,16 +1792,17 @@ class obj_analysis:
         """ Return the default value fo the basic type. """
         return self.result_default
 
-    def is_result_refptr(self):
-        """ Returns true if this is a reference pointer type. """
-        return (self.result_type == 'refptr')
+    def is_result_ptr(self):
+        """ Returns true if this is a *Ptr type. """
+        return self.is_result_refptr() or self.is_result_ownptr() or \
+               self.is_result_rawptr()
 
-    def get_result_refptr_type_root(self):
-        """ Return the refptr type structure name. """
+    def get_result_ptr_type_root(self):
+        """ Return the *Ptr type structure name. """
         return self.result_value[:-1]
 
-    def get_result_refptr_type(self, defined_structs = []):
-        """ Return the refptr type. """
+    def get_result_ptr_type(self, defined_structs = []):
+        """ Return the *Ptr type. """
         result = ''
         if not self.result_value[:-1] in defined_structs:
             result += 'struct _'
@@ -1737,6 +1810,28 @@ class obj_analysis:
         if self.is_byref() or self.is_byaddr():
             result += '*'
         return result
+
+    def get_result_ptr_type_prefix(self):
+        """ Returns the *Ptr type prefix. """
+        if self.is_result_refptr():
+            return 'ref'
+        if self.is_result_ownptr():
+            return 'own'
+        if self.is_result_rawptr():
+            return 'raw'
+        raise Exception('Not a pointer type')
+
+    def is_result_refptr(self):
+        """ Returns true if this is a RefPtr type. """
+        return (self.result_type == 'refptr')
+
+    def is_result_ownptr(self):
+        """ Returns true if this is a OwnPtr type. """
+        return (self.result_type == 'ownptr')
+
+    def is_result_rawptr(self):
+        """ Returns true if this is a RawPtr type. """
+        return (self.result_type == 'rawptr')
 
     def is_result_struct(self):
         """ Returns true if this is a structure type. """
@@ -1793,9 +1888,33 @@ class obj_analysis:
         """ Returns true if this is a string vector. """
         return self.result_value[0]['result_type'] == 'simple'
 
+    def is_result_vector_ptr(self):
+        """ Returns true if this is a *Ptr vector. """
+        return self.is_result_vector_refptr() or \
+               self.is_result_vector_ownptr() or \
+               self.is_result_vector_rawptr()
+
+    def get_result_vector_ptr_type_prefix(self):
+        """ Returns the *Ptr type prefix. """
+        if self.is_result_vector_refptr():
+            return 'ref'
+        if self.is_result_vector_ownptr():
+            return 'own'
+        if self.is_result_vector_rawptr():
+            return 'raw'
+        raise Exception('Not a pointer type')
+
     def is_result_vector_refptr(self):
-        """ Returns true if this is a string vector. """
+        """ Returns true if this is a RefPtr vector. """
         return self.result_value[0]['result_type'] == 'refptr'
+
+    def is_result_vector_ownptr(self):
+        """ Returns true if this is a OwnPtr vector. """
+        return self.result_value[0]['result_type'] == 'ownptr'
+
+    def is_result_vector_rawptr(self):
+        """ Returns true if this is a RawPtr vector. """
+        return self.result_value[0]['result_type'] == 'rawptr'
 
     def get_result_vector_type_root(self):
         """ Return the vector structure or basic type name. """
@@ -1821,7 +1940,7 @@ class obj_analysis:
                 str += ' const'
             str += '*'
             result['value'] = str
-        elif type == 'refptr':
+        elif type == 'refptr' or type == 'ownptr' or type == 'rawptr':
             str = ''
             if not value[:-1] in defined_structs:
                 str += 'struct _'
@@ -1874,8 +1993,8 @@ class obj_analysis:
         format = 'single'
         if self.is_result_simple():
             result += self.get_result_simple_type()
-        elif self.is_result_refptr():
-            result += self.get_result_refptr_type(defined_structs)
+        elif self.is_result_ptr():
+            result += self.get_result_ptr_type(defined_structs)
         elif self.is_result_struct():
             result += self.get_result_struct_type(defined_structs)
         elif self.is_result_string():
