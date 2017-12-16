@@ -118,6 +118,8 @@
 		E863A2ED1BD052E9007C2069 /* CEFRunContextMenuCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E863A2EC1BD052E9007C2069 /* CEFRunContextMenuCallback.swift */; };
 		E86529D11FB25C9700E21801 /* CEFApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86529D01FB25C9700E21801 /* CEFApplication.swift */; };
 		E86B2A491FBCC2AB00236CE7 /* CEFLocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86B2A481FBCC2AB00236CE7 /* CEFLocks.swift */; };
+		E877CDF21FE566D20002B658 /* CEFServer+Interop.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E877CDF11FE566D10002B658 /* CEFServer+Interop.g.swift */; };
+		E877CDF41FE567240002B658 /* CEFServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E877CDF31FE567240002B658 /* CEFServer.swift */; };
 		E877E9FF1E79460C00262038 /* CEFMenuColorType.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E877E9FE1E79460C00262038 /* CEFMenuColorType.g.swift */; };
 		E878ED211DC90D5500504C5A /* CEFSSLVersion.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E878ED201DC90D5500504C5A /* CEFSSLVersion.g.swift */; };
 		E878ED231DC90E3900504C5A /* CEFSSLContentStatus.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E878ED221DC90E3900504C5A /* CEFSSLContentStatus.g.swift */; };
@@ -531,6 +533,8 @@
 		E863A2EC1BD052E9007C2069 /* CEFRunContextMenuCallback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFRunContextMenuCallback.swift; sourceTree = "<group>"; };
 		E86529D01FB25C9700E21801 /* CEFApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CEFApplication.swift; sourceTree = "<group>"; };
 		E86B2A481FBCC2AB00236CE7 /* CEFLocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CEFLocks.swift; sourceTree = "<group>"; };
+		E877CDF11FE566D10002B658 /* CEFServer+Interop.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CEFServer+Interop.g.swift"; sourceTree = "<group>"; };
+		E877CDF31FE567240002B658 /* CEFServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CEFServer.swift; sourceTree = "<group>"; };
 		E877E9FE1E79460C00262038 /* CEFMenuColorType.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFMenuColorType.g.swift; sourceTree = "<group>"; };
 		E878ED201DC90D5500504C5A /* CEFSSLVersion.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFSSLVersion.g.swift; sourceTree = "<group>"; };
 		E878ED221DC90E3900504C5A /* CEFSSLContentStatus.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFSSLContentStatus.g.swift; sourceTree = "<group>"; };
@@ -900,6 +904,7 @@
 				E863A2E41BD04CCB007C2069 /* CEFRunContextMenuCallback+Interop.g.swift */,
 				E8453F691BB496AA0084AFE4 /* CEFSchemeRegistrar+Interop.g.swift */,
 				E878ED461DCE15AD00504C5A /* CEFSelectClientCertificateCallback+Interop.g.swift */,
+				E877CDF11FE566D10002B658 /* CEFServer+Interop.g.swift */,
 				E8453F6B1BB496AA0084AFE4 /* CEFSSLInfo+Interop.g.swift */,
 				E878ED271DC910C000504C5A /* CEFSSLStatus+Interop.g.swift */,
 				E8453F6C1BB496AA0084AFE4 /* CEFStreamReader+Interop.g.swift */,
@@ -1097,6 +1102,7 @@
 				E863A2E61BD04E5F007C2069 /* CEFResourceBundle.swift */,
 				E863A2EC1BD052E9007C2069 /* CEFRunContextMenuCallback.swift */,
 				E8898B081B69654C009E0DFF /* CEFSchemeRegistrar.swift */,
+				E877CDF31FE567240002B658 /* CEFServer.swift */,
 				E878ED381DCDEDC900504C5A /* CEFSSLInfo.swift */,
 				E878ED301DC916D900504C5A /* CEFSSLStatus.swift */,
 				E8519F041B7D2FAB003CE7C5 /* CEFStreamReader.swift */,
@@ -1510,7 +1516,9 @@
 				E863A2EA1BD050A9007C2069 /* CEFPluginPolicy.g.swift in Sources */,
 				E8CF55491FABC5CD00864141 /* CEFGetExtensionResourceCallback.swift in Sources */,
 				E8453FCC1BB4995B0084AFE4 /* CEFV8Context+Interop.g.swift in Sources */,
+				E877CDF21FE566D20002B658 /* CEFServer+Interop.g.swift in Sources */,
 				E8453FB01BB4995B0084AFE4 /* CEFDOMNode+Interop.g.swift in Sources */,
+				E877CDF41FE567240002B658 /* CEFServer.swift in Sources */,
 				E8CE3D401CD952CA0066BC53 /* CEFMenuModelDelegate+Interop.swift in Sources */,
 				E8453F781BB496AA0084AFE4 /* CEFAuthCallback+Interop.g.swift in Sources */,
 				E8453FD31BB4995B0084AFE4 /* CEFXMLReader+Interop.g.swift in Sources */,
