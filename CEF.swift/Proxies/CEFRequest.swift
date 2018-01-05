@@ -170,7 +170,7 @@ public extension CEFRequest {
         set { setFirstPartyURLForCookies(newValue) }
     }
 
-    /// Set the URL to the first party for cookies used in combination with
+    /// Get the URL to the first party for cookies used in combination with
     /// CefURLRequest.
     private func getFirstPartyURLForCookies() -> URL {
         let cefURL = cefObject.get_first_party_for_cookies(cefObjectPtr)
@@ -180,7 +180,7 @@ public extension CEFRequest {
         return URL(string: urlStr)!
     }
     
-    /// Get the URL to the first party for cookies used in combination with
+    /// Set the URL to the first party for cookies used in combination with
     /// CefURLRequest.
     private func setFirstPartyURLForCookies(_ url: URL) {
         let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
