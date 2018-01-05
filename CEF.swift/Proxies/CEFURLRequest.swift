@@ -68,6 +68,13 @@ public extension CEFURLRequest {
         let cefResp = cefObject.get_response(cefObjectPtr)
         return CEFResponse.fromCEF(cefResp)
     }
+    
+    /// Returns true if the response body was served from the cache. This includes
+    /// responses for which revalidation was required.
+    /// CEF name: `ResponseWasCached`
+    public var responseWasCached: Bool {
+        return cefObject.response_was_cached(cefObjectPtr) != 0
+    }
 
     /// Cancel the request.
     /// CEF name: `Cancel`
