@@ -34,6 +34,10 @@ public enum CEFLogSeverity: Int32 {
     /// Completely disable logging.
     /// CEF name: `LOGSEVERITY_DISABLE`.
     case disable = 99
+    
+    /// DEBUG logging.
+    /// CEF name: `LOGSEVERITY_DEBUG`.
+    static let debug: CEFLogSeverity = .verbose
 }
 
 extension CEFLogSeverity {
