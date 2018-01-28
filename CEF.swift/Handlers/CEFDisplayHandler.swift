@@ -68,6 +68,7 @@ public protocol CEFDisplayHandler {
     /// being output to the console.
     /// CEF name: `OnConsoleMessage`
     func onConsoleMessage(browser: CEFBrowser,
+                          logSeverity: CEFLogSeverity,
                           message: String,
                           source: String,
                           lineNumber: Int) -> CEFOnConsoleMessageAction
@@ -103,6 +104,7 @@ public extension CEFDisplayHandler {
     }
     
     func onConsoleMessage(browser: CEFBrowser,
+                          logSeverity: CEFLogSeverity,
                           message: String,
                           source: String,
                           lineNumber: Int) -> CEFOnConsoleMessageAction {

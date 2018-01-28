@@ -87,6 +87,7 @@ func CEFDisplayHandler_on_status_message(ptr: UnsafeMutablePointer<cef_display_h
 
 func CEFDisplayHandler_on_console_message(ptr: UnsafeMutablePointer<cef_display_handler_t>?,
                                           browser: UnsafeMutablePointer<cef_browser_t>?,
+                                          logSeverity: cef_log_severity_t,
                                           message: UnsafePointer<cef_string_t>?,
                                           source: UnsafePointer<cef_string_t>?,
                                           line: Int32) -> Int32 {
@@ -95,6 +96,7 @@ func CEFDisplayHandler_on_console_message(ptr: UnsafeMutablePointer<cef_display_
     }
 
     let action = obj.onConsoleMessage(browser: CEFBrowser.fromCEF(browser)!,
+                                      logSeverity: CEFLogSeverity.fromCEF(logSeverity),
                                       message: CEFStringToSwiftString(message!.pointee),
                                       source: CEFStringToSwiftString(source!.pointee),
                                       lineNumber: Int(line))
