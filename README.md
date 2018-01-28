@@ -45,17 +45,14 @@ CEF is developed on multiple branches simultaneously, which differ in API and fu
 
 Currently supported branches: 
 
+- 3282 (Chrome 64) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3282)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.0
 - 3239 (Chrome 63) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3239)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.0
 - 3202 (Chrome 62) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3202)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.0
 - 3163 (Chrome 61) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3163)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.0
-- 3112 (Chrome 60) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3112)](https://travis-ci.org/lvsti/CEF.swift) - Swift 3.0
-- 3071 (Chrome 59) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3071)](https://travis-ci.org/lvsti/CEF.swift) - Swift 3.0
-- 3029 (Chrome 58) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3029)](https://travis-ci.org/lvsti/CEF.swift) - Swift 3.0
-- 2987 (Chrome 57) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_2987)](https://travis-ci.org/lvsti/CEF.swift) - Swift 3.0
 
 Archived branches (not maintained anymore):
 
-- 2924, 2883, 2840, 2785, 2743, 2704 - Swift 3.0
+- 3112, 3071, 3029, 2987, 2924, 2883, 2840, 2785, 2743, 2704 - Swift 3.0
 - 2623, 2526, 2454, 2357 - Swift 2.3
 
 ### Getting started
