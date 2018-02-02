@@ -24,7 +24,7 @@ public struct CEFSchemeUtils {
     /// CefRequestContext::GetGlobalContext()->RegisterSchemeHandlerFactory().
     /// CEF name: `CefRegisterSchemeHandlerFactory`
     @discardableResult
-    public func registerSchemeHandlerFactory(_ factory: CEFSchemeHandlerFactory?,
+    public static func registerSchemeHandlerFactory(_ factory: CEFSchemeHandlerFactory?,
                                              forScheme scheme: String,
                                              domain: String? = nil) -> Bool {
         let cefSchemePtr = CEFStringPtrCreateFromSwiftString(scheme)
