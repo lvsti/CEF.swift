@@ -13,7 +13,7 @@ protocol Lock {
     func unlock()
 }
 
-class PThreadLock: Lock {
+final class PThreadLock: Lock {
     private var data: pthread_mutex_t
     
     init() {
@@ -32,7 +32,7 @@ class PThreadLock: Lock {
     }
 }
 
-class SpinLock: Lock {
+final class SpinLock: Lock {
     private var data = OS_SPINLOCK_INIT
 
     func lock() {
@@ -45,7 +45,7 @@ class SpinLock: Lock {
 }
 
 @available(macOS 10.12, *)
-class UnfairLock: Lock {
+final class UnfairLock: Lock {
     private var data = os_unfair_lock()
     
     func lock() {

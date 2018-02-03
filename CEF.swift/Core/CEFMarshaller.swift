@@ -35,13 +35,13 @@ class CEFMarshallerBase {
     }
 }
 
-class CEFMarshaller<TClass, TStruct>: CEFMarshallerBase, CEFRefCounting
+final class CEFMarshaller<TClass, TStruct>: CEFMarshallerBase, CEFRefCounting
     where TStruct : CEFObject, TStruct : CEFCallbackMarshalling {
     
     typealias InstanceType = CEFMarshaller<TClass, TStruct>
     
-    var cefStruct: TStruct
-    var swiftObj: TClass
+    private var cefStruct: TStruct
+    private var swiftObj: TClass
     
     static func get(_ ptr: UnsafeMutablePointer<TStruct>?) -> TClass? {
         guard let ptr = ptr else { return nil }
@@ -137,9 +137,9 @@ class CEFMarshaller<TClass, TStruct>: CEFMarshallerBase, CEFRefCounting
         return _refCount == 1
     }
     
-    var _refCount: Int = 0
-    var _refCountMutex: Lock
-    var _self: InstanceType? = nil
+    private var _refCount: Int = 0
+    private var _refCountMutex: Lock
+    private var _self: InstanceType? = nil
 }
 
 func CEFMarshaller_addRef(ptr: UnsafeMutablePointer<cef_base_ref_counted_t>?) {
