@@ -98,7 +98,7 @@ import Foundation
 /// file. Medium and large values will be chunked for submission. For example,
 /// if your key is named "mykey" then the value will be broken into ordered
 /// chunks and submitted using keys named "mykey-1", "mykey-2", etc.
-public struct CEFCrashUtils {
+public enum CEFCrashUtils {
     
     /// Returns whether CEF's own crash reporting is enabled
     /// CEF name: `CefCrashReportingEnabled`
