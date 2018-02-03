@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct CEFGeolocationUtils {
+public enum CEFGeolocationUtils {
     
     /// Request a one-time geolocation update. This function bypasses any user
     /// permission checks so should only be used by code that is allowed to access
