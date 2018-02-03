@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct CEFWebPluginUtils {
+public enum CEFWebPluginUtils {
     
     /// Visit web plugin information. Can be called on any thread in the browser
     /// process.
@@ -114,7 +114,7 @@ public struct CEFWebPluginUtils {
     /// supported at the time that CefRegisterWidevineCdm() is called then |callback|
     /// will receive a |result| value of CEF_CDM_REGISTRATION_ERROR_NOT_SUPPORTED.
     /// CEF name: `CefRegisterWidevineCdm`
-    public func registerWidevineCDM(at path: String, callback: CEFRegisterCDMCallback?) {
+    public static func registerWidevineCDM(at path: String, callback: CEFRegisterCDMCallback?) {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(path)
         defer { CEFStringPtrRelease(cefStrPtr) }
         cef_register_widevine_cdm(cefStrPtr, callback?.toCEF())
@@ -163,7 +163,7 @@ public struct CEFWebPluginUtils {
     /// supported at the time that CefRegisterWidevineCdm() is called then |callback|
     /// will receive a |result| value of CEF_CDM_REGISTRATION_ERROR_NOT_SUPPORTED.
     /// CEF name: `CefRegisterWidevineCdm`
-    public func registerWidevineCDM(at path: String, block: @escaping CEFRegisterCDMCallbackOnCDMRegistrationCompleteBlock) {
+    public static func registerWidevineCDM(at path: String, block: @escaping CEFRegisterCDMCallbackOnCDMRegistrationCompleteBlock) {
         registerWidevineCDM(at: path, callback: CEFRegisterCDMCallbackBridge(block: block))
     }
 

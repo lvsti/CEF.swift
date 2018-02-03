@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct CEFSchemeUtils {
+public enum CEFSchemeUtils {
     
     /// Register a scheme handler factory with the global request context. An empty
     /// |domain_name| value for a standard scheme will cause the factory to match all
