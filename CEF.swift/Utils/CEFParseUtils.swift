@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct CEFParseUtils {
+public enum CEFParseUtils {
     
     /// This is a convenience function for formatting a URL in a concise and human-
     /// friendly way to help users make security-related decisions (or in other

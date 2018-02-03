@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct CEFProcessUtils {
+public enum CEFProcessUtils {
 
     /// This function should be called from the application entry point function to
     /// execute a secondary process. It can be used to run secondary processes from

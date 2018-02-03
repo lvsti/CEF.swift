@@ -21,7 +21,7 @@ import Foundation
 /// document.domain value to the same domain suffix. For example,
 /// scheme://foo.example.com and scheme://bar.example.com can communicate using
 /// JavaScript if both domains set document.domain="example.com".
-public struct CEFCrossOriginUtils {
+public enum CEFCrossOriginUtils {
 
     /// Add an entry to the cross-origin access whitelist.
     /// This method is used to allow access to origins that would otherwise violate

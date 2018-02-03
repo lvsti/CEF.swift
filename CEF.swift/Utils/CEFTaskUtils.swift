@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct CEFTaskUtils {
+public enum CEFTaskUtils {
     
     /// Returns true if called on the specified thread. Equivalent to using
     /// CefTaskRunner::GetForThread(threadId)->BelongsToCurrentThread().

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct CEFV8Utils {
+public enum CEFV8Utils {
     /// Register a new V8 extension with the specified JavaScript extension code and
     /// handler. Functions implemented by the handler are prototyped using the
     /// keyword 'native'. The calling of a native function is restricted to the scope

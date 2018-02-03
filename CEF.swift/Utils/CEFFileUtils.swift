@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct CEFFileUtils {
+public enum CEFFileUtils {
 
     /// Creates a directory and all parent directories if they don't already exist.
     /// Returns true on successful creation or if the directory already exists. The

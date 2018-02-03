@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct CEFTraceUtils {
+public enum CEFTraceUtils {
     
     /// Start tracing events on all processes. Tracing is initialized asynchronously
     /// and |callback| will be executed on the UI thread after initialization is
