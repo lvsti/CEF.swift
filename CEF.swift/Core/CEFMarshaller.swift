@@ -17,19 +17,41 @@ protocol CEFCallbackMarshalling {
     mutating func marshalCallbacks()
 }
 
+extension UnsafeMutablePointer {
+    init<OtherPointee>(from other: UnsafeMutablePointer<OtherPointee>) {
+        let converted = UnsafeMutableRawPointer(other).assumingMemoryBound(to: Pointee.self)
+        self.init(converted)
+    }
+}
 
 class CEFMarshallerBase {
-    static let kCEFMarshallerStructOffset = 16
-    
-    static func getBaseStructPtrFromMarshaller(_ marshaller: CEFMarshallerBase) -> UnsafeMutablePointer<cef_base_ref_counted_t> {
-        let unmanaged = Unmanaged<AnyObject>.passUnretained(marshaller)
-        return unmanaged.toOpaque().advanced(by: kCEFMarshallerStructOffset).assumingMemoryBound(to: cef_base_ref_counted_t.self)
-    }
+    private static let firstMemberOffset: Int = {
+        // have something that can be passed into Probe's TStruct type parameter
+        struct DummyStruct: CEFObject, CEFCallbackMarshalling {
+            var base = cef_base_ref_counted_t()
+            func marshalCallbacks() {}
+        }
+
+        // replicate the signature of CEFMarshaller as closely as possible
+        // assumption: class layout is not affected by type parameter variations
+        final class Probe<TClass, TStruct>: CEFMarshallerBase, CEFRefCounting
+            where TStruct : CEFObject, TStruct : CEFCallbackMarshalling {
+            var firstMember = TStruct()
+            func addRef() {}
+            func release() -> Bool { return false }
+            func hasOneRef() -> Bool { return false }
+        }
+        
+        var probe = Probe<Void, DummyStruct>()
+        let instancePtr = Unmanaged<Probe>.passUnretained(probe).toOpaque().assumingMemoryBound(to: Int8.self)
+        let memberPtr = UnsafeMutablePointer<Int8>(from: &probe.firstMember)
+        return instancePtr.distance(to: memberPtr)
+    }()
     
     static func getMarshallerFromBaseStructPtr(_ ptr: UnsafeMutablePointer<cef_base_ref_counted_t>) -> CEFMarshallerBase {
         let marshallerPtr = UnsafeMutableRawPointer(UnsafeMutableRawPointer(ptr)
             .assumingMemoryBound(to: Int8.self)
-            .advanced(by: -kCEFMarshallerStructOffset))
+            .advanced(by: -firstMemberOffset))
         let unmanaged = Unmanaged<CEFMarshallerBase>.fromOpaque(marshallerPtr)
         return unmanaged.takeUnretainedValue()
     }
@@ -42,6 +64,10 @@ final class CEFMarshaller<TClass, TStruct>: CEFMarshallerBase, CEFRefCounting
     
     private var cefStruct: TStruct
     private var swiftObj: TClass
+    
+    private var baseStructPtr: UnsafeMutablePointer<cef_base_ref_counted_t> {
+        return UnsafeMutablePointer(from: &cefStruct)
+    }
     
     static func get(_ ptr: UnsafeMutablePointer<TStruct>?) -> TClass? {
         guard let ptr = ptr else { return nil }
@@ -68,8 +94,7 @@ final class CEFMarshaller<TClass, TStruct>: CEFMarshallerBase, CEFRefCounting
         let marshaller = CEFMarshaller(obj: obj)
         marshaller.addRef()
         
-        let baseStructPtr = getBaseStructPtrFromMarshaller(marshaller)
-        return UnsafeMutableRawPointer(baseStructPtr).assumingMemoryBound(to: TStruct.self)
+        return UnsafeMutablePointer(from: marshaller.baseStructPtr)
     }
     
     required init(obj: TClass) {
@@ -93,11 +118,7 @@ final class CEFMarshaller<TClass, TStruct>: CEFMarshallerBase, CEFRefCounting
         super.init()
 
 #if DEBUG
-        let marshallerPtr = Unmanaged<InstanceType>.passUnretained(self).toOpaque().assumingMemoryBound(to: Int8.self)
-        let basePtr = CEFMarshallerBase.getBaseStructPtrFromMarshaller(self)
-        
-        basePtr.withMemoryRebound(to: Int8.self, capacity: 1) { ptr in
-            assert(marshallerPtr.distance(to: ptr) == CEFMarshallerBase.kCEFMarshallerStructOffset)
+        baseStructPtr.withMemoryRebound(to: Int8.self, capacity: 1) { ptr in
             var offset = MemoryLayout<size_t>.stride
             
             while offset < cefStruct.base.size {
