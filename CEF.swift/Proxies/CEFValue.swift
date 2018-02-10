@@ -89,10 +89,10 @@ public extension CEFValue {
     
     /// Returns the underlying value as type string.
     /// CEF name: `GetString`
-    public var stringValue: String? {
+    public var stringValue: String {
         let cefStrPtr = cefObject.get_string(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
+        return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
     }
 
     /// Returns the underlying value as type binary. The returned reference may

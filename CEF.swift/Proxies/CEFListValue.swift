@@ -131,7 +131,7 @@ public extension CEFListValue {
     public func string(at index: Int) -> String? {
         let cefStrPtr = cefObject.get_string(cefObjectPtr, size_t(index))
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
+        return CEFStringPtrToSwiftString(cefStrPtr)
     }
 
     /// Returns the value at the specified index as type binary. The returned

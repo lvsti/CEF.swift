@@ -14,6 +14,6 @@ func CEFStringVisitor_visit(ptr: UnsafeMutablePointer<cef_string_visitor_t>?,
         return
     }
     
-    obj.visit(string: string != nil ? CEFStringToSwiftString(string!.pointee) : nil)
+    obj.visit(string: CEFStringPtrToSwiftString(string))
 }
 
