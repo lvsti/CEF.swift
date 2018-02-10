@@ -83,7 +83,6 @@ public extension CEFJSDialogHandler {
 
     func onJSDialog(browser: CEFBrowser,
                     origin: URL?,
-                    acceptLanguage: String?,
                     type: CEFJSDialogType,
                     message: String?,
                     prompt: String?,
