@@ -16,7 +16,7 @@ public extension CEFX509CertPrincipal {
     public var displayName: String {
         let cefStrPtr = cefObject.get_display_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
     }
     
     /// Returns the common name.
@@ -24,7 +24,7 @@ public extension CEFX509CertPrincipal {
     public var commonName: String {
         let cefStrPtr = cefObject.get_common_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
     }
     
     /// Returns the locality name.
@@ -32,7 +32,7 @@ public extension CEFX509CertPrincipal {
     public var localityName: String {
         let cefStrPtr = cefObject.get_locality_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
     }
     
     /// Returns the state or province name.
@@ -40,7 +40,7 @@ public extension CEFX509CertPrincipal {
     public var stateOrProvinceName: String {
         let cefStrPtr = cefObject.get_state_or_province_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
     }
     
     /// Returns the country name.
@@ -48,7 +48,7 @@ public extension CEFX509CertPrincipal {
     public var countryName: String {
         let cefStrPtr = cefObject.get_country_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
     }
     
     /// Retrieve the list of street addresses.

@@ -16,5 +16,5 @@ func CEFRegisterCDMCallback_on_cdm_registration_complete(ptr: UnsafeMutablePoint
     }
     
     obj.onCDMRegistrationComplete(result: CEFCDMRegistrationError.fromCEF(result),
-                                  message: message != nil ? CEFStringToSwiftString(message!.pointee) : nil)
+                                  message: CEFStringPtrToSwiftString(message))
 }

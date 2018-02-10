@@ -23,8 +23,8 @@ func CEFJSDialogHandler_on_jsdialog(ptr: UnsafeMutablePointer<cef_jsdialog_handl
     let action = obj.onJSDialog(browser: CEFBrowser.fromCEF(browser)!,
                                 origin: origin != nil ? URL(string: CEFStringToSwiftString(origin!.pointee)) : nil,
                                 type: CEFJSDialogType.fromCEF(type),
-                                message: message != nil ? CEFStringToSwiftString(message!.pointee) : nil,
-                                prompt: prompt != nil ? CEFStringToSwiftString(prompt!.pointee) : nil,
+                                message: CEFStringPtrToSwiftString(message),
+                                prompt: CEFStringPtrToSwiftString(prompt),
                                 callback: CEFJSDialogCallback.fromCEF(callback)!)
 
     if case .suppress = action {
@@ -44,7 +44,7 @@ func CEFJSDialogHandler_on_before_unload_dialog(ptr: UnsafeMutablePointer<cef_js
     }
 
     let action = obj.onBeforeUnloadDialog(browser: CEFBrowser.fromCEF(browser)!,
-                                          message: message != nil ? CEFStringToSwiftString(message!.pointee) : nil,
+                                          message: CEFStringPtrToSwiftString(message),
                                           isReload: isReload != 0,
                                           callback: CEFJSDialogCallback.fromCEF(callback)!)
     return action == .showCustom || action == .consume ? 1 : 0

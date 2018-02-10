@@ -66,7 +66,7 @@ func CEFURLRequestClient_get_auth_credentials(ptr: UnsafeMutablePointer<cef_urlr
     let action = obj.onAuthCredentialsRequired(isProxy: isProxy != 0,
                                                host: CEFStringToSwiftString(host!.pointee),
                                                port: UInt16(port),
-                                               realm: realm != nil ? CEFStringToSwiftString(realm!.pointee) : nil,
+                                               realm: CEFStringPtrToSwiftString(realm),
                                                scheme: CEFStringToSwiftString(scheme!.pointee),
                                                callback: CEFAuthCallback.fromCEF(callback)!)
     return action == .allow ? 1 : 0

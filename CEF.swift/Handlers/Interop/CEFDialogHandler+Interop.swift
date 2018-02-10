@@ -22,8 +22,8 @@ func CEFDialogHandler_on_file_dialog(ptr: UnsafeMutablePointer<cef_dialog_handle
     
     let action = obj.onFileDialog(browser: CEFBrowser.fromCEF(browser)!,
                                   mode: CEFFileDialogMode.fromCEF(mode),
-                                  title: title != nil ? CEFStringToSwiftString(title!.pointee) : nil,
-                                  defaultPath: path != nil ? CEFStringToSwiftString(path!.pointee) : nil,
+                                  title: CEFStringPtrToSwiftString(title),
+                                  defaultPath: CEFStringPtrToSwiftString(path),
                                   acceptFilters: CEFStringListToSwiftArray(filters!),
                                   selectedFilterIndex: Int(selectedIndex),
                                   callback: CEFFileDialogCallback.fromCEF(callback)!)

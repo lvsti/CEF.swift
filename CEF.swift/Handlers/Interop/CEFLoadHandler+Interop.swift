@@ -62,7 +62,7 @@ func CEFLoadHandler_on_load_error(ptr: UnsafeMutablePointer<cef_load_handler_t>?
     obj.onLoadError(browser: CEFBrowser.fromCEF(browser)!,
                     frame: CEFFrame.fromCEF(frame)!,
                     errorCode: CEFErrorCode.fromCEF(errorCode.rawValue),
-                    errorMessage: CEFStringToSwiftString(errorMsg!.pointee),
+                    errorMessage: CEFStringPtrToSwiftString(errorMsg),
                     url: URL(string: CEFStringToSwiftString(url!.pointee))!)
 }
 

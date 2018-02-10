@@ -25,23 +25,25 @@ public extension CEFRequest {
     
     /// Fully qualified URL.
     /// CEF name: `GetURL`, `SetURL`
-    public var url: URL {
+    public var url: URL? {
         get { return getURL() }
         set { setURL(newValue) }
     }
     
     /// Get the fully qualified URL.
-    private func getURL() -> URL {
+    private func getURL() -> URL? {
         let cefURLPtr = cefObject.get_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        let urlStr = CEFStringToSwiftString(cefURLPtr!.pointee)
-        
-        return URL(string: urlStr)!
+
+        guard let urlStr = CEFStringPtrToSwiftString(cefURLPtr) else {
+            return nil
+        }
+        return URL(string: urlStr)
     }
     
     /// Set the fully qualified URL.
-    private func setURL(_ url: URL) {
-        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
+    private func setURL(_ url: URL?) {
+        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url?.absoluteString ?? "")
         defer { CEFStringPtrRelease(cefURLPtr) }
         cefObject.set_url(cefObjectPtr, cefURLPtr)
     }
@@ -88,7 +90,10 @@ public extension CEFRequest {
     private func getReferrerURL() -> URL? {
         let cefURLPtr = cefObject.get_referrer_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        return cefURLPtr != nil ? URL(string: CEFStringToSwiftString(cefURLPtr!.pointee)) : nil
+        guard let str = CEFStringPtrToSwiftString(cefURLPtr) else {
+            return nil
+        }
+        return URL(string: str)
     }
     
     private func getReferrerPolicy() -> CEFReferrerPolicy {

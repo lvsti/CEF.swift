@@ -63,14 +63,14 @@ public extension CEFResponse {
 
     /// Get the response mime type.
     /// CEF name: `GetMimeType`, `SetMimeType`
-    public var mimeType: String {
+    public var mimeType: String? {
         get {
-            let cefStrPtr = cefObject.get_mime_type(cefObjectPtr)!
+            let cefStrPtr = cefObject.get_mime_type(cefObjectPtr)
             defer { CEFStringPtrRelease(cefStrPtr)}
-            return CEFStringToSwiftString(cefStrPtr.pointee)
+            return CEFStringPtrToSwiftString(cefStrPtr)
         }
         set {
-            let cefStrPtr = CEFStringPtrCreateFromSwiftString(newValue)
+            let cefStrPtr = CEFStringPtrCreateFromSwiftString(newValue ?? "")
             defer { CEFStringPtrRelease(cefStrPtr)}
             cefObject.set_mime_type(cefObjectPtr, cefStrPtr)
         }
@@ -86,7 +86,7 @@ public extension CEFResponse {
             CEFStringPtrRelease(cefHeaderPtr)
         }
         
-        return cefHeaderPtr != nil ? CEFStringToSwiftString(cefHeaderPtr!.pointee) : nil
+        return CEFStringPtrToSwiftString(cefHeaderPtr)
     }
     
     /// Response header fields.
