@@ -176,6 +176,37 @@ func CEFRequestHandler_get_auth_credentials(ptr: UnsafeMutablePointer<cef_reques
     return action == .allow ? 1 : 0
 }
 
+func CEFRequestHandler_can_get_cookies(ptr: UnsafeMutablePointer<cef_request_handler_t>?,
+                                       browser: UnsafeMutablePointer<cef_browser_t>?,
+                                       frame: UnsafeMutablePointer<cef_frame_t>?,
+                                       request: UnsafeMutablePointer<cef_request_t>?) -> Int32 {
+    guard let obj = CEFRequestHandlerMarshaller.get(ptr) else {
+        return 0
+    }
+
+    let action = obj.onAttachCookies(browser: CEFBrowser.fromCEF(browser)!,
+                                     frame: CEFFrame.fromCEF(frame)!,
+                                     request: CEFRequest.fromCEF(request)!)
+    
+    return action == .allow ? 1 : 0
+}
+
+func CEFRequestHandler_can_set_cookie(ptr: UnsafeMutablePointer<cef_request_handler_t>?,
+                                      browser: UnsafeMutablePointer<cef_browser_t>?,
+                                      frame: UnsafeMutablePointer<cef_frame_t>?,
+                                      request: UnsafeMutablePointer<cef_request_t>?,
+                                      cookie: UnsafePointer<cef_cookie_t>?) -> Int32 {
+    guard let obj = CEFRequestHandlerMarshaller.get(ptr) else {
+        return 0
+    }
+    
+    let action = obj.onSetCookie(browser: CEFBrowser.fromCEF(browser)!,
+                                 frame: CEFFrame.fromCEF(frame)!,
+                                 request: CEFRequest.fromCEF(request)!,
+                                 cookie: CEFCookie.fromCEF(cookie!.pointee))
+
+    return action == .allow ? 1 : 0
+}
 
 func CEFRequestHandler_on_quota_request(ptr: UnsafeMutablePointer<cef_request_handler_t>?,
                                         browser: UnsafeMutablePointer<cef_browser_t>?,

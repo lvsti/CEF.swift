@@ -29,6 +29,16 @@ public enum CEFOnAuthCredentialsRequiredAction {
     case cancel
 }
 
+public enum CEFOnAttachCookiesAction {
+    case allow
+    case cancel
+}
+
+public enum CEFOnSetCookieAction {
+    case allow
+    case cancel
+}
+
 public enum CEFOnQuotaRequestAction {
     case allow
     case cancel
@@ -167,6 +177,20 @@ public protocol CEFRequestHandler {
                                    scheme: String?,
                                    callback: CEFAuthCallback) -> CEFOnAuthCredentialsRequiredAction
     
+    /// Called on the IO thread before sending a network request with a "Cookie"
+    /// request header. Return true to allow cookies to be included in the network
+    /// request or false to block cookies. The |request| object should not be
+    /// modified in this callback.
+    /// CEF name: `CanGetCookies`
+    func onAttachCookies(browser: CEFBrowser, frame: CEFFrame, request: CEFRequest) -> CEFOnAttachCookiesAction
+    
+    /// Called on the IO thread when receiving a network request with a
+    /// "Set-Cookie" response header value represented by |cookie|. Return true to
+    /// allow the cookie to be stored or false to block the cookie. The |request|
+    /// object should not be modified in this callback.
+    /// CEF name: `CanSetCookie`
+    func onSetCookie(browser: CEFBrowser, frame: CEFFrame, request: CEFRequest, cookie: CEFCookie) -> CEFOnSetCookieAction
+
     /// Called on the IO thread when JavaScript requests a specific storage quota
     /// size via the webkitStorageInfo.requestQuota function. |origin_url| is the
     /// origin of the page making the request. |new_size| is the requested quota
@@ -307,6 +331,14 @@ public extension CEFRequestHandler {
         return .cancel
     }
 
+    func onAttachCookies(browser: CEFBrowser, frame: CEFFrame, request: CEFRequest) -> CEFOnAttachCookiesAction {
+        return .allow
+    }
+    
+    func onSetCookie(browser: CEFBrowser, frame: CEFFrame, request: CEFRequest, cookie: CEFCookie) -> CEFOnSetCookieAction {
+        return .allow
+    }
+    
     func onQuotaRequest(browser: CEFBrowser,
                         origin: URL,
                         newSize: Int64,

@@ -28,6 +28,8 @@ extension cef_request_handler_t: CEFCallbackMarshalling {
         get_resource_response_filter = CEFRequestHandler_get_resource_response_filter
         on_resource_load_complete = CEFRequestHandler_on_resource_load_complete
         get_auth_credentials = CEFRequestHandler_get_auth_credentials
+        can_get_cookies = CEFRequestHandler_can_get_cookies
+        can_set_cookie = CEFRequestHandler_can_set_cookie
         on_quota_request = CEFRequestHandler_on_quota_request
         on_protocol_execution = CEFRequestHandler_on_protocol_execution
         on_certificate_error = CEFRequestHandler_on_certificate_error
