@@ -170,8 +170,8 @@ func CEFRequestHandler_get_auth_credentials(ptr: UnsafeMutablePointer<cef_reques
                                                isProxy: isProxy != 0,
                                                host: CEFStringToSwiftString(host!.pointee),
                                                port: UInt16(port),
-                                               realm: realm != nil ? CEFStringToSwiftString(realm!.pointee) : nil,
-                                               scheme: scheme != nil ? CEFStringToSwiftString(scheme!.pointee) : nil,
+                                               realm: CEFStringPtrToSwiftString(realm),
+                                               scheme: CEFStringPtrToSwiftString(scheme),
                                                callback: CEFAuthCallback.fromCEF(callback)!)
     return action == .allow ? 1 : 0
 }

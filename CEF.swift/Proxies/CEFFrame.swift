@@ -145,9 +145,9 @@ public extension CEFFrame {
     /// value.
     /// CEF name: `GetName`
     public var name: String {
-        let cefStrPtr = cefObject.get_name(cefObjectPtr)!
+        let cefStrPtr = cefObject.get_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.pointee)
+        return CEFStringToSwiftString(cefStrPtr!.pointee)
     }
     
     /// Returns the globally unique identifier for this frame or < 0 if the
@@ -168,9 +168,9 @@ public extension CEFFrame {
     /// Returns the URL currently loaded in this frame.
     /// CEF name: `GetURL`
     public var url: NSURL {
-        let cefURLPtr = cefObject.get_url(cefObjectPtr)!
+        let cefURLPtr = cefObject.get_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefURLPtr.pointee))!
+        return NSURL(string: CEFStringToSwiftString(cefURLPtr!.pointee))!
     }
     
     /// Returns the browser that this frame belongs to.

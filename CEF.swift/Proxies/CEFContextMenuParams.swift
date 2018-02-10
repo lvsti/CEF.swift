@@ -38,10 +38,9 @@ public extension CEFContextMenuParams {
     public var linkURL: NSURL? {
         let cefURLPtr = cefObject.get_link_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        if cefURLPtr == nil {
+        guard let str = CEFStringPtrToSwiftString(cefURLPtr) else {
             return nil
         }
-        let str = CEFStringToSwiftString(cefURLPtr!.pointee)
         return NSURL(string: str)
     }
 
@@ -51,11 +50,10 @@ public extension CEFContextMenuParams {
     public var unfilteredLinkURL: NSURL? {
         let cefURLPtr = cefObject.get_unfiltered_link_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        if cefURLPtr == nil {
+        guard let str = CEFStringPtrToSwiftString(cefURLPtr) else {
             return nil
         }
-        let str = CEFStringToSwiftString(cefURLPtr!.pointee)
-        return NSURL(string: str)!
+        return NSURL(string: str)
     }
     
     /// Returns the source URL, if any, for the element that the context menu was
@@ -64,11 +62,10 @@ public extension CEFContextMenuParams {
     public var sourceURL: NSURL? {
         let cefURLPtr = cefObject.get_source_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        if cefURLPtr == nil {
+        guard let str = CEFStringPtrToSwiftString(cefURLPtr) else {
             return nil
         }
-        let str = CEFStringToSwiftString(cefURLPtr!.pointee)
-        return NSURL(string: str)!
+        return NSURL(string: str)
     }
     
     /// Returns true if the context menu was invoked on an image which has
@@ -84,16 +81,18 @@ public extension CEFContextMenuParams {
     public var titleText: String? {
         let cefStrPtr = cefObject.get_title_text(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
+        return CEFStringPtrToSwiftString(cefStrPtr)
     }
     
     /// Returns the URL of the top level page that the context menu was invoked on.
     /// CEF name: `GetPageUrl`
-    public var pageURL: NSURL {
+    public var pageURL: NSURL? {
         let cefURLPtr = cefObject.get_page_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        let str = CEFStringToSwiftString(cefURLPtr!.pointee)
-        return NSURL(string: str)!
+        guard let str = CEFStringPtrToSwiftString(cefURLPtr) else {
+            return nil
+        }
+        return NSURL(string: str)
     }
     
     /// Returns the URL of the subframe that the context menu was invoked on.
@@ -101,17 +100,19 @@ public extension CEFContextMenuParams {
     public var frameURL: NSURL? {
         let cefURLPtr = cefObject.get_frame_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        let str = CEFStringToSwiftString(cefURLPtr!.pointee)
+        guard let str = CEFStringPtrToSwiftString(cefURLPtr) else {
+            return nil
+        }
         return NSURL(string: str)
     }
 
     /// Returns the character encoding of the subframe that the context menu was
     /// invoked on.
     /// CEF name: `GetFrameCharset`
-    public var frameCharset: String {
+    public var frameCharset: String? {
         let cefStrPtr = cefObject.get_frame_charset(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr)
     }
 
     /// Returns the type of context node that the context menu was invoked on.
@@ -135,7 +136,7 @@ public extension CEFContextMenuParams {
     public var selectionText: String? {
         let cefStrPtr = cefObject.get_selection_text(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
+        return CEFStringPtrToSwiftString(cefStrPtr)
     }
     
     /// Returns the text of the misspelled word, if any, that the context menu was
@@ -144,7 +145,7 @@ public extension CEFContextMenuParams {
     public var misspelledWord: String? {
         let cefStrPtr = cefObject.get_misspelled_word(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
+        return CEFStringPtrToSwiftString(cefStrPtr)
     }
     
     /// Returns true if suggestions exist, false otherwise. Fills in |suggestions|

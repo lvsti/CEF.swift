@@ -24,7 +24,7 @@ extension CEFResourceBundle {
     public func localizedString(for stringID: Int) -> String? {
         let cefStrPtr = cefObject.get_localized_string(cefObjectPtr, Int32(stringID))
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
+        return CEFStringPtrToSwiftString(cefStrPtr)
     }
     
     /// Retrieves the contents of the specified scale independent |resource_id|.

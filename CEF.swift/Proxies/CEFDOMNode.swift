@@ -43,10 +43,10 @@ public extension CEFDOMNode {
     
     /// Returns the type of this form control element node.
     /// CEF name: `GetFormControlElementType`
-    public var formControlElementType: String {
+    public var formControlElementType: String? {
         let cefStrPtr = cefObject.get_form_control_element_type(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr)
     }
     
     /// Returns true if this object is pointing to the same handle as |that|
@@ -61,7 +61,7 @@ public extension CEFDOMNode {
     public var name: String {
         let cefStrPtr = cefObject.get_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
     }
 
     /// Returns the value of this node.
@@ -70,7 +70,7 @@ public extension CEFDOMNode {
         get {
             let cefStrPtr = cefObject.get_value(cefObjectPtr)
             defer { CEFStringPtrRelease(cefStrPtr) }
-            return CEFStringToSwiftString(cefStrPtr!.pointee)
+            return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
         }
         set {
             let cefStrPtr = CEFStringPtrCreateFromSwiftString(newValue)
@@ -93,7 +93,7 @@ public extension CEFDOMNode {
     public var markupValue: String {
         let cefStrPtr = cefObject.get_as_markup(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
     }
 
     /// Returns the document associated with this node.
@@ -151,7 +151,7 @@ public extension CEFDOMNode {
     public var elementTagName: String? {
         let cefStrPtr = cefObject.get_element_tag_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
+        return CEFStringPtrToSwiftString(cefStrPtr)
     }
 
     /// Returns true if this element has attributes.
@@ -177,7 +177,7 @@ public extension CEFDOMNode {
             CEFStringPtrRelease(cefNamePtr)
             CEFStringPtrRelease(cefValuePtr)
         }
-        return cefValuePtr != nil ? CEFStringToSwiftString(cefValuePtr!.pointee) : nil
+        return CEFStringPtrToSwiftString(cefValuePtr)
     }
 
     /// Returns a map of all element attributes.
@@ -206,10 +206,10 @@ public extension CEFDOMNode {
 
     /// Returns the inner text of the element.
     /// CEF name: `GetElementInnerText`
-    public var elementInnerText: String? {
+    public var elementInnerText: String {
         let cefStrPtr = cefObject.get_element_inner_text(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
+        return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
     }
     
     /// Returns the bounds of the element.

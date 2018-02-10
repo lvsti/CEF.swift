@@ -117,18 +117,18 @@ public extension CEFDownloadItem {
     
     /// Returns the content disposition.
     /// CEF name: `GetContentDisposition`
-    public var contentDisposition: String {
+    public var contentDisposition: String? {
         let cefStrPtr = cefObject.get_content_disposition(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr)
     }
     
     /// Returns the mime type.
     /// CEF name: `GetMimeType`
-    public var mimeType: String {
+    public var mimeType: String? {
         let cefStrPtr = cefObject.get_mime_type(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr)
     }
     
 }

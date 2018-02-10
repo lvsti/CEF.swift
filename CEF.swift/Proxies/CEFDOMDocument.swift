@@ -43,7 +43,7 @@ public extension CEFDOMDocument {
     public var title: String {
         let cefStrPtr = cefObject.get_title(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
     }
 
     /// Returns the document element with the specified ID value.
@@ -85,7 +85,7 @@ public extension CEFDOMDocument {
     public var selectionAsMarkup: String {
         let cefStrPtr = cefObject.get_selection_as_markup(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
     }
     
     /// Returns the contents of this selection as text.
@@ -93,28 +93,34 @@ public extension CEFDOMDocument {
     public var selectionAsText: String {
         let cefStrPtr = cefObject.get_selection_as_text(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
     }
     
     /// Returns the base URL for the document.
     /// CEF name: `GetBaseURL`
-    public var baseURL: NSURL {
+    public var baseURL: NSURL? {
         let cefURLPtr = cefObject.get_base_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURLPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefURLPtr!.pointee))!
+        guard let str = CEFStringPtrToSwiftString(cefURLPtr) else {
+            return nil
+        }
+        return NSURL(string: str)
     }
     
     /// Returns a complete URL based on the document base URL and the specified
     /// partial URL.
     /// CEF name: `GetCompleteURL`
-    public func completeURLWithRelativePart(relativePart: String) -> NSURL {
+    public func completeURLWithRelativePart(relativePart: String) -> NSURL? {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(relativePart)
         let cefURLPtr = cefObject.get_complete_url(cefObjectPtr, cefStrPtr)
         defer {
             CEFStringPtrRelease(cefStrPtr)
             CEFStringPtrRelease(cefURLPtr)
         }
-        return NSURL(string: CEFStringToSwiftString(cefURLPtr!.pointee))!
+        guard let str = CEFStringPtrToSwiftString(cefURLPtr) else {
+            return nil
+        }
+        return NSURL(string: str)
     }
     
 }

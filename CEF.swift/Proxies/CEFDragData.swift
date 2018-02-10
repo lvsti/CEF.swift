@@ -52,7 +52,10 @@ public extension CEFDragData {
     public var linkURL: NSURL? {
         let cefStrPtr = cefObject.get_link_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? NSURL(string: CEFStringToSwiftString(cefStrPtr!.pointee))! : nil
+        guard let str = CEFStringPtrToSwiftString(cefStrPtr) else {
+            return nil
+        }
+        return NSURL(string: str)
     }
 
     /// Return the title associated with the link being dragged.
@@ -60,7 +63,7 @@ public extension CEFDragData {
     public var linkTitle: String? {
         let cefStrPtr = cefObject.get_link_title(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
+        return CEFStringPtrToSwiftString(cefStrPtr)
     }
     
     /// Return the metadata, if any, associated with the link being dragged.
@@ -68,23 +71,23 @@ public extension CEFDragData {
     public var linkMetadata: String? {
         let cefStrPtr = cefObject.get_link_metadata(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
+        return CEFStringPtrToSwiftString(cefStrPtr)
     }
     
     /// Return the plain text fragment that is being dragged.
     /// CEF name: `GetFragmentText`
-    public var fragmentText: String {
+    public var fragmentText: String? {
         let cefStrPtr = cefObject.get_fragment_text(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr)
     }
     
     /// Return the text/html fragment that is being dragged.
     /// CEF name: `GetFragmentHtml`
-    public var fragmentHTML: String {
+    public var fragmentHTML: String? {
         let cefStrPtr = cefObject.get_fragment_html(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr)
     }
     
     /// Return the base URL that the fragment came from. This value is used for
@@ -93,15 +96,18 @@ public extension CEFDragData {
     public var fragmentBaseURL: NSURL? {
         let cefStrPtr = cefObject.get_fragment_base_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return NSURL(string: CEFStringToSwiftString(cefStrPtr!.pointee))
+        guard let str = CEFStringPtrToSwiftString(cefStrPtr) else {
+            return nil
+        }
+        return NSURL(string: str)
     }
     
     /// Return the name of the file being dragged out of the browser window.
     /// CEF name: `GetFileName`
-    public var fileName: String {
+    public var fileName: String? {
         let cefStrPtr = cefObject.get_file_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr)
     }
     
     /// Write the contents of the file being dragged out of the web view into

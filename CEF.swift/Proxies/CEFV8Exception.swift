@@ -15,7 +15,7 @@ public extension CEFV8Exception {
     public var message: String {
         let cefStrPtr = cefObject.get_message(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
     }
 
     /// Returns the line of source code that the exception occurred within.
@@ -23,7 +23,7 @@ public extension CEFV8Exception {
     public var sourceLine: String {
         let cefStrPtr = cefObject.get_source_line(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
     }
     
     /// Returns the resource name for the script from where the function causing
@@ -32,7 +32,7 @@ public extension CEFV8Exception {
     public var scriptResourceName: String {
         let cefStrPtr = cefObject.get_script_resource_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
     }
     
     /// Returns the 1-based number of the line where the error occurred or 0 if the

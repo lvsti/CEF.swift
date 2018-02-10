@@ -28,7 +28,7 @@ public protocol CEFDisplayHandler {
     
     /// Called when the page title changes.
     /// CEF name: `OnTitleChange`
-    func onTitleChange(browser: CEFBrowser, title: String?)
+    func onTitleChange(browser: CEFBrowser, title: String)
     
     /// Called when the page icon changes.
     /// CEF name: `OnFaviconURLChange`
@@ -71,7 +71,7 @@ public extension CEFDisplayHandler {
     func onAddressChange(browser: CEFBrowser, frame: CEFFrame, url: NSURL) {
     }
     
-    func onTitleChange(browser: CEFBrowser, title: String?) {
+    func onTitleChange(browser: CEFBrowser, title: String) {
     }
     
     func onFaviconURLChange(browser: CEFBrowser, iconURLs: [NSURL]?) {

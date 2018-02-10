@@ -52,10 +52,10 @@ public extension CEFPOSTDataElement {
     
     /// Return the file name.
     /// CEF name: `GetFile`
-    public var fileName: String {
+    public var fileName: String? {
         let cefStrPtr = cefObject.get_file(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr)
     }
     
     /// Return the number of bytes.

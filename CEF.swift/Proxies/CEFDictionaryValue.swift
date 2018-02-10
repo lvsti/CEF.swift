@@ -158,7 +158,7 @@ public extension CEFDictionaryValue {
         let cefStrPtr = cefObject.get_string(cefObjectPtr, cefKeyPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
 
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
+        return CEFStringPtrToSwiftString(cefStrPtr)
     }
 
     /// Returns the value at the specified key as type binary. The returned

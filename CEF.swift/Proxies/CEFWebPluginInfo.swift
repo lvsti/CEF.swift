@@ -15,7 +15,7 @@ public extension CEFWebPluginInfo {
     public var name: String {
         let cefStrPtr = cefObject.get_name(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
     }
     
     /// Returns the plugin file path (DLL/bundle/library).
@@ -23,7 +23,7 @@ public extension CEFWebPluginInfo {
     public var path: String {
         let cefStrPtr = cefObject.get_path(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
     }
     
     /// Returns the version of the plugin (may be OS-specific).
@@ -31,7 +31,7 @@ public extension CEFWebPluginInfo {
     public var version: String {
         let cefStrPtr = cefObject.get_version(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
     }
     
     /// Returns a description of the plugin from the version information.
@@ -39,7 +39,7 @@ public extension CEFWebPluginInfo {
     public var description: String {
         let cefStrPtr = cefObject.get_description(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
     }
 
 }
