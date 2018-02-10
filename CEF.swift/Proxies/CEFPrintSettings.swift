@@ -60,7 +60,7 @@ public extension CEFPrintSettings {
         get {
             let cefStrPtr = cefObject.get_device_name(cefObjectPtr)
             defer { CEFStringPtrRelease(cefStrPtr) }
-            return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
+            return CEFStringPtrToSwiftString(cefStrPtr)
         }
         set {
             let cefStrPtr = newValue != nil ? CEFStringPtrCreateFromSwiftString(newValue!) : nil

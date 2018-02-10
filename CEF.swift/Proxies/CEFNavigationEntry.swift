@@ -47,7 +47,7 @@ public extension CEFNavigationEntry {
     public var title: String {
         let cefStrPtr = cefObject.get_url(cefObjectPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr!.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
     }
     
     /// Returns the transition type which indicates what the user did to move to

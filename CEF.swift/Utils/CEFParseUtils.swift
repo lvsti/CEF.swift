@@ -23,9 +23,9 @@ public enum CEFParseUtils {
         let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
         defer { CEFStringPtrRelease(cefURLPtr) }
         
-        let cefStrPtr = cef_format_url_for_security_display(cefURLPtr)!
+        let cefStrPtr = cef_format_url_for_security_display(cefURLPtr)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        return CEFStringToSwiftString(cefStrPtr.pointee)
+        return CEFStringPtrToSwiftString(cefStrPtr, defaultValue: "")
     }
 
     /// Returns the mime type for the specified file extension or an empty string if
@@ -36,7 +36,7 @@ public enum CEFParseUtils {
         defer { CEFStringPtrRelease(cefStrPtr) }
         let cefType = cef_get_mime_type(cefStrPtr)
         defer { CEFStringPtrRelease(cefType) }
-        return cefType != nil ? CEFStringToSwiftString(cefType!.pointee) : nil
+        return CEFStringPtrToSwiftString(cefType)
     }
 
     // Get the extensions associated with the given mime type. This should be passed
@@ -129,7 +129,7 @@ public enum CEFParseUtils {
         let cefStrPtr = cef_write_json(value.toCEF(), options.toCEF())
         defer { CEFStringPtrRelease(cefStrPtr) }
         
-        return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
+        return CEFStringPtrToSwiftString(cefStrPtr)
     }
 
 }

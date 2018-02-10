@@ -52,7 +52,7 @@ public protocol CEFLoadHandler {
     /// error text and |failedUrl| is the URL that failed to load.
     /// See net\base\net_error_list.h for complete descriptions of the error codes.
     /// CEF name: `OnLoadError`
-    func onLoadError(browser: CEFBrowser, frame: CEFFrame, errorCode: CEFErrorCode, errorMessage: String, url: URL)
+    func onLoadError(browser: CEFBrowser, frame: CEFFrame, errorCode: CEFErrorCode, errorMessage: String?, url: URL)
 
 }
 
@@ -67,7 +67,7 @@ public extension CEFLoadHandler {
     func onLoadEnd(browser: CEFBrowser, frame: CEFFrame, statusCode: Int) {
     }
     
-    func onLoadError(browser: CEFBrowser, frame: CEFFrame, errorCode: CEFErrorCode, errorMessage: String, url: URL) {
+    func onLoadError(browser: CEFBrowser, frame: CEFFrame, errorCode: CEFErrorCode, errorMessage: String?, url: URL) {
     }
 
 }

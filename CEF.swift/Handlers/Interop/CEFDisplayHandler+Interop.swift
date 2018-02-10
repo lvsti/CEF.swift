@@ -29,7 +29,7 @@ func CEFDisplayHandler_on_title_change(ptr: UnsafeMutablePointer<cef_display_han
     }
 
     obj.onTitleChange(browser: CEFBrowser.fromCEF(browser)!,
-                      title: title != nil ? CEFStringToSwiftString(title!.pointee) : nil)
+                      title: CEFStringPtrToSwiftString(title, defaultValue: ""))
 }
 
 func CEFDisplayHandler_on_favicon_urlchange(ptr: UnsafeMutablePointer<cef_display_handler_t>?,
@@ -97,8 +97,8 @@ func CEFDisplayHandler_on_console_message(ptr: UnsafeMutablePointer<cef_display_
 
     let action = obj.onConsoleMessage(browser: CEFBrowser.fromCEF(browser)!,
                                       logSeverity: CEFLogSeverity.fromCEF(logSeverity),
-                                      message: CEFStringToSwiftString(message!.pointee),
-                                      source: CEFStringToSwiftString(source!.pointee),
+                                      message: CEFStringPtrToSwiftString(message, defaultValue: ""),
+                                      source: CEFStringPtrToSwiftString(source, defaultValue: ""),
                                       lineNumber: Int(line))
     return action == .ignore ? 1 : 0
 }
