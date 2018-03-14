@@ -55,24 +55,6 @@ func CEFRenderProcessHandler_get_load_handler(ptr: UnsafeMutablePointer<cef_rend
     return nil
 }
 
-func CEFRenderProcessHandler_on_before_navigation(ptr: UnsafeMutablePointer<cef_render_process_handler_t>?,
-                                                  browser: UnsafeMutablePointer<cef_browser_t>?,
-                                                  frame: UnsafeMutablePointer<cef_frame_t>?,
-                                                  request: UnsafeMutablePointer<cef_request_t>?,
-                                                  navType: cef_navigation_type_t,
-                                                  isRedirect: Int32) -> Int32 {
-    guard let obj = CEFRenderProcessHandlerMarshaller.get(ptr) else {
-        return 0
-    }
-    
-    let action = obj.onBeforeNavigation(browser: CEFBrowser.fromCEF(browser)!,
-                                        frame: CEFFrame.fromCEF(frame)!,
-                                        request: CEFRequest.fromCEF(request)!,
-                                        navigationType: CEFNavigationType.fromCEF(navType),
-                                        isRedirect: isRedirect != 0)
-    return action == .cancel ? 1 : 0
-}
-
 func CEFRenderProcessHandler_on_context_created(ptr: UnsafeMutablePointer<cef_render_process_handler_t>?,
                                                 browser: UnsafeMutablePointer<cef_browser_t>?,
                                                 frame: UnsafeMutablePointer<cef_frame_t>?,
