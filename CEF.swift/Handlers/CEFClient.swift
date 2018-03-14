@@ -43,11 +43,6 @@ public protocol CEFClient {
     /// CEF name: `GetFocusHandler`
     var focusHandler: CEFFocusHandler? { get }
     
-    /// Return the handler for geolocation permissions requests. If no handler is
-    /// provided geolocation access will be denied by default.
-    /// CEF name: `GetGeolocationHandler`
-    var geolocationHandler: CEFGeolocationHandler? { get }
-    
     /// Return the handler for JavaScript dialogs. If no handler is provided the
     /// default implementation will be used.
     /// CEF name: `GetJSDialogHandler`
@@ -92,7 +87,6 @@ public extension CEFClient {
     var dragHandler: CEFDragHandler? { return nil }
     var findHandler: CEFFindHandler? { return nil }
     var focusHandler: CEFFocusHandler? { return nil }
-    var geolocationHandler: CEFGeolocationHandler? { return nil }
     var jsDialogHandler: CEFJSDialogHandler? { return nil }
     var keyboardHandler: CEFKeyboardHandler? { return nil }
     var lifeSpanHandler: CEFLifeSpanHandler? { return nil }
