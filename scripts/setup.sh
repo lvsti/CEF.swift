@@ -80,9 +80,24 @@ cd External/cef_binary
 
 for CONFIG in Debug Release
 do
-    rm -rf "${CONFIG}/Chromium Embedded Framework.framework/Headers/"
-    mkdir -p "${CONFIG}/Chromium Embedded Framework.framework/Headers/"
-    cp -R include "${CONFIG}/Chromium Embedded Framework.framework/Headers/"
+    rm -rf "${CONFIG}/Chromium Embedded Framework.framework/Versions/A/Headers/"
+    rm -rf "${CONFIG}/Chromium Embedded Framework.framework/Versions/A/Resources/"
+
+    mkdir -p "${CONFIG}/Chromium Embedded Framework.framework/Versions/A/Headers/"
+    cp -R include "${CONFIG}/Chromium Embedded Framework.framework/Versions/A/Headers/"
+
+    cd "${CONFIG}/Chromium Embedded Framework.framework"
+
+    mv "Chromium Embedded Framework" "Versions/A/"
+    mv "Resources" "Versions/A/"
+
+    ln -s "Versions/A/Headers/" "Headers"
+    ln -s "Versions/A/Resources" "Resources"
+    ln -s "Versions/A/Chromium Embedded Framework" "Chromium Embedded Framework"
+
+    cd Versions
+    ln -s "A" "Current"
+    cd "../../.."
 done
 
 popd > /dev/null
