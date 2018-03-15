@@ -62,7 +62,14 @@ if [ -h External/cef_binary ]; then
     rm -f External/cef_binary
 fi
 
-ln -s "${CEFBUILD_DIR_NAME}" External/cef_binary
+if [ -d External/cef_binary ]; then
+    rm -rf External/cef_binary
+fi
+
+mkdir External/cef_binary
+
+ln -s "../${CEFBUILD_DIR_NAME}/Debug" External/cef_binary/Debug
+ln -s "../${CEFBUILD_DIR_NAME}/Release" External/cef_binary/Release
 
 # fix framework id
 echo "Fixing framework identity..."
@@ -76,7 +83,7 @@ done
 echo "Copying headers into framework..."
 pushd . > /dev/null
 
-cd External/cef_binary
+cd "External/${CEFBUILD_DIR_NAME}"
 
 for CONFIG in Debug Release
 do

@@ -97,7 +97,9 @@ let app = SimpleApp()
 
 _ = SimpleApplication.shared
 
-let settings = CEFSettings()
+var settings = CEFSettings()
+settings.browserSubprocessPath = Bundle.main.bundleURL.appendingPathComponent("Contents/Frameworks/CEFHelper.app/Contents/MacOS/CEFHelper").path
+settings.useSingleProcess = false
 
 _ = CEFProcessUtils.initializeMain(with: args, settings: settings, app: app)
 
