@@ -16,12 +16,24 @@ public extension CEFCookieManager {
     /// manager's storage has been initialized. Using this method is equivalent to
     /// calling CefRequestContext::GetGlobalContext()->GetDefaultCookieManager().
     /// CEF name: `GetGlobalManager`
-    public static func globalManager(callback: CEFCompletionCallback? = nil) -> CEFCookieManager? {
+    public static func globalManager(callback: CEFCompletionCallback? = nil) -> CEFCookieManager {
         let cefCallbackPtr = callback?.toCEF()
         let cefCookieMgr = cef_cookie_manager_get_global_manager(cefCallbackPtr)
-        return CEFCookieManager.fromCEF(cefCookieMgr)
+        return CEFCookieManager.fromCEF(cefCookieMgr)!
     }
     
+    /// Returns a cookie manager that neither stores nor retrieves cookies. All
+    /// usage of cookies will be blocked including cookies accessed via the network
+    /// (request/response headers), via JavaScript (document.cookie), and via
+    /// CefCookieManager methods. No cookies will be displayed in DevTools. If you
+    /// wish to only block cookies sent via the network use the CefRequestHandler
+    /// CanGetCookies and CanSetCookie methods instead.
+    /// CEF name: `GetBlockingManager`
+    public static var blockingManager: CEFCookieManager {
+        let cefCookieMgr = cef_cookie_manager_get_blocking_manager()
+        return CEFCookieManager.fromCEF(cefCookieMgr)!
+    }
+
     /// Creates a new cookie manager. If |path| is empty data will be stored in
     /// memory only. Otherwise, data will be stored at the specified |path|. To
     /// persist session cookies (cookies without an expiry date or validity
