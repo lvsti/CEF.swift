@@ -10,7 +10,7 @@ import Cocoa
 import CEFswift
 
 
-class SimpleApp: CEFApp, CEFBrowserProcessHandler {
+class SimpleApp: CEFApp, CEFBrowserProcessHandler, CEFRenderProcessHandler {
 
     let client: SimpleHandler
     
@@ -20,6 +20,7 @@ class SimpleApp: CEFApp, CEFBrowserProcessHandler {
     
     // cefapp
     var browserProcessHandler: CEFBrowserProcessHandler? { return self }
+    var renderProcessHandler: CEFRenderProcessHandler? { return self }
     
     // cefbrowserprocesshandler
     func onContextInitialized() {
@@ -34,11 +35,17 @@ class SimpleApp: CEFApp, CEFBrowserProcessHandler {
         
         _ = CEFBrowserHost.createBrowser(windowInfo: winInfo, client: client, url: url, settings: settings, requestContext: nil)
     }
+
+    // renderprocesshandler
+    func onContextCreated(browser: CEFBrowser, frame: CEFFrame) {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+//            frame.copy()
+//        }
+    }
 }
 
-
 class SimpleHandler: CEFClient, CEFLifeSpanHandler {
-    
+
     static var instance = SimpleHandler()
     
     private var _browserList = [CEFBrowser]()
@@ -85,15 +92,11 @@ class SimpleHandler: CEFClient, CEFLifeSpanHandler {
 
 
 class SimpleApplication : CEFApplication {
-    
     override func terminate(_ sender: Any?) {
         let delegate = NSApplication.shared.delegate as! AppDelegate
         delegate.tryToTerminateApplication(app: self)
     }
 }
-
-let args = CEFMainArgs(arguments: CommandLine.arguments)
-let app = SimpleApp()
 
 _ = SimpleApplication.shared
 
@@ -101,10 +104,22 @@ var settings = CEFSettings()
 settings.browserSubprocessPath = Bundle.main.bundleURL.appendingPathComponent("Contents/Frameworks/CEFHelper.app/Contents/MacOS/CEFHelper").path
 settings.useSingleProcess = false
 
-_ = CEFProcessUtils.initializeMain(with: args, settings: settings, app: app)
+var args = CommandLine.arguments
+// Use --no-sandbox will prevent some sandbox error
+args.append("--no-sandbox")
+// Use --renderer-startup-dialog to debug subprocess
+// args.append("--renderer-startup-dialog")
+
+_ = CEFProcessUtils.initializeMain(
+    with: CEFMainArgs(arguments: args),
+    settings: settings,
+    app: SimpleApp()
+)
 
 let appDelegate = AppDelegate()
-appDelegate.createApplication()
+_ = NSApplication.shared
+Bundle.main.loadNibNamed(NSNib.Name("MainMenu"), owner: NSApp, topLevelObjects: nil)
+NSApp.delegate = appDelegate
 
 CEFProcessUtils.runMessageLoop()
 CEFProcessUtils.shutDown()

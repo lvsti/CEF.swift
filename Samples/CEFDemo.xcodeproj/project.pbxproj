@@ -10,7 +10,6 @@
 		A5EC028B205BBF3800A6CB6E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EC0283205BBF3800A6CB6E /* main.swift */; };
 		A5EC028C205BBF3800A6CB6E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EC0284205BBF3800A6CB6E /* AppDelegate.swift */; };
 		A5EC028D205BBF3800A6CB6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5EC0285205BBF3800A6CB6E /* Assets.xcassets */; };
-		A5EC028E205BBF3800A6CB6E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A5EC0287205BBF3800A6CB6E /* Info.plist */; };
 		A5EC028F205BBF3800A6CB6E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5EC0289205BBF3800A6CB6E /* MainMenu.xib */; };
 		A5EC029D205BBF8B00A6CB6E /* CEFswift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A5EC0296205BBF6A00A6CB6E /* CEFswift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A5EC029E205BBF8B00A6CB6E /* CEFHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = A5EC0298205BBF6A00A6CB6E /* CEFHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -183,6 +182,11 @@
 					E87836691B93B26400555EC2 = {
 						CreatedOnToolsVersion = 7.0;
 						LastSwiftMigration = 0920;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -233,7 +237,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5EC028E205BBF3800A6CB6E /* Info.plist in Resources */,
 				A5EC028D205BBF3800A6CB6E /* Assets.xcassets in Resources */,
 				A5EC028F205BBF3800A6CB6E /* MainMenu.xib in Resources */,
 			);
