@@ -11,35 +11,41 @@ import Foundation
 public extension CEFProcessMessage {
 
     public enum Message: String {
-        case evaluateJavascriptRequest = "CSEJSREQ"
-        //Message containing the result for a given evaluation
-        case evaluateJavascriptResponse = "CSEJSRES"
-        //Message to invoke a stored js function
-        case javascriptCallbackRequest = "CSJSCBREQ"
-        //Message to dereference a stored js function
-        case javascriptCallbackDestroyRequest = "CSJSCBDR"
-        //Message containing the result of a given js function call
-        case javascriptCallbackResponse = "CSJSCBRES"
-        //Message containing a request JSB root objects
-        case javascriptRootObjectRequest = "CSJSROREQ"
-        //Message containing the response for the JSB root objects
-        case javascriptRootObjectResponse = "CSJSRORES"
-        //Message from the render process to request a method invocation on a bound object
+        // case evaluateJavascriptRequest = "CSEJSREQ"
+        // Message containing the result for a given evaluation
+        // case evaluateJavascriptResponse = "CSEJSRES"
+        // Message to invoke a stored js function
+
+        // case javascriptCallbackRequest = "CSJSCBREQ"
+        // Message to dereference a stored js function
+        // case javascriptCallbackDestroyRequest = "CSJSCBDR"
+        // Message containing the result of a given js function call
+        // case javascriptCallbackResponse = "CSJSCBRES"
+
+        // Message containing a request JSB root objects
+        // case javascriptRootObjectRequest = "CSJSROREQ"
+        // Message containing the response for the JSB root objects
+        // case javascriptRootObjectResponse = "CSJSRORES"
+        // Message from the render process to request a method invocation on a bound object
+
         case javascriptAsyncMethodCallRequest = "CSJSAMCREQ"
-        //Message from the browser process containing the result of a bound method invocation
+        // Message from the browser process containing the result of a bound method invocation
         case javascriptAsyncMethodCallResponse = "CSJSAMCRES"
-        //Message that signals a new V8Context has been created
+        // Message that signals a new V8Context has been created
+
         case onContextCreatedRequest = "CSOCCR"
-        //Message that signals a new V8Context has been released
+        // Message that signals a new V8Context has been released
         case onContextReleasedRequest = "CSOCRR"
         // Message from the render process that an element (or nothing) has
         // gotten focus. This message is only sent if specified as an
         // optional message via command line argument when the subprocess is
         // created.
+
         case onFocusedNodeChanged = "CSOFNC"
-        //Message that signals an uncaught exception has occurred
+        // Message that signals an uncaught exception has occurred
         case onUncaughtException = "CSOUE"
-        //Message containing a request/notification that JSB objects have been bound
+        // Message containing a request/notification that JSB objects have been bound
+
         case javascriptObjectsBoundInJavascript = "CSJSOBJ"
     }
 

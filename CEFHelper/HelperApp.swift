@@ -10,6 +10,7 @@ import Foundation
 import CEFswift
 
 class HelperApp: CEFApp, CEFRenderProcessHandler {
+
     var renderProcessHandler: CEFRenderProcessHandler? { return self }
 
     /// Provides an opportunity to register custom schemes. Do not keep a reference
@@ -41,24 +42,31 @@ class HelperApp: CEFApp, CEFRenderProcessHandler {
     /// CEF name: `OnContextCreated`
     func onContextCreated(browser: CEFBrowser, frame: CEFFrame) {
         if frame.isMain, let message = CEFProcessMessage(.onContextCreatedRequest) {
-            message.argumentList?.set(Double(frame.identifier), at: 0)
+            let wrapper = CEFBrowserWrapper.getFrameWrapper(bid: browser.identifier, fid: frame.identifier)
+            wrapper.contextCreated = true
+
+            message.argumentList?.set(frame.identifier as Int64, at: 0)
             browser.sendProcessMessage(targetProcessID: CEFProcessID.browser, message: message)
+
+            tryBoundObject()
         }
-        // TODO: Might also support other frame.
-        // TODO: Start bind object to webpage
     }
 
     /// Called immediately before the V8 context for a frame is released. No
     /// references to the context should be kept after this method is called.
     /// CEF name: `OnContextReleased`
-    func onContextReleased(browser: CEFBrowser,
-                           frame: CEFFrame,
-                           context: CEFV8Context) {
+    func onContextReleased(browser: CEFBrowser, frame: CEFFrame) {
         if frame.isMain, let message = CEFProcessMessage(.onContextReleasedRequest) {
-            message.argumentList?.set(Double(frame.identifier), at: 0)
+            let wrapper = CEFBrowserWrapper.getFrameWrapper(bid: browser.identifier, fid: frame.identifier)
+            wrapper.contextCreated = false
+
+            message.argumentList?.set(frame.identifier as Int64, at: 0)
             browser.sendProcessMessage(targetProcessID: CEFProcessID.browser, message: message)
         }
-        // TODO: Cleanup bounded object
+    }
+
+    private func tryBoundObject() {
+        // TODO:
     }
 
     /// Called for global uncaught exceptions in a frame. Execution of this
@@ -86,25 +94,41 @@ class HelperApp: CEFApp, CEFRenderProcessHandler {
 //            i += 1
 //        }
 
-        list.set(Int(frame.identifier), at: 0)
-        list.set(exception.message, at: 1)
-        list.set(exception.lineNumber, at: 2)
-        list.set(exception.startPosition, at: 3)
-        list.set(exception.endPosition, at: 4)
-        list.set(exception.startColumn, at: 5)
-        list.set(exception.endColumn, at: 6)
+        list.set(frame.identifier as Int64, at: 0) // Uses two slot to store Int64
+        list.set(exception.message, at: 2)
+        list.set(exception.lineNumber, at: 3)
+        list.set(exception.startPosition, at: 4)
+        list.set(exception.endPosition, at: 5)
+        list.set(exception.startColumn, at: 6)
+        list.set(exception.endColumn, at: 7)
 //        list.set(frames, at: 7)
 
         browser.sendProcessMessage(targetProcessID: .browser, message: message)
     }
 
-    /// Called when a new message is received from a different process. Return true
-    /// if the message was handled or false otherwise. Do not keep a reference to
-    /// or attempt to access the message outside of this callback.
-    /// CEF name: `OnProcessMessageReceived`
     func onProcessMessageReceived(browser: CEFBrowser,
                                   processID: CEFProcessID,
                                   message: CEFProcessMessage) -> CEFOnProcessMessageReceivedAction {
+
+        guard
+            !CEFSettings.CEFSingleProcessMode,
+            case .browser = processID,
+            let msg = CEFProcessMessage.Message(rawValue: message.name)
+        else {
+            return .passThrough
+        }
+
+        print(browser, processID, message.name)
+
+        switch msg {
+            case .javascriptObjectsBoundInJavascript:
+                // Register bound object
+                // TODO:
+                break
+            default:
+                break
+        }
+
         return .passThrough
     }
 }

@@ -11,7 +11,7 @@ import Foundation
 public extension CEFFrame {
 
     public typealias Identifier = Int64
-    
+
     /// True if this object is currently attached to a valid frame.
     /// CEF name: `IsValid`
     public var isValid: Bool {
@@ -194,7 +194,92 @@ public extension CEFFrame {
     public func getDOMDocument(with visitor: CEFDOMVisitor) {
         return cefObject.visit_dom(cefObjectPtr, visitor.toCEF())
     }
-    
+
+    /// Register an object named `forName` in the frame, so that JS can call
+    /// its method. For example:
+    /// Swift:
+    ///   registerJsHandler(forName: "Native", handle: myHandler)
+    /// Js:
+    ///   window.Native.myFancyFunction(123)
+    public func registerJsHandler(forName: String, handler: CEFBoundObjectHandler) {
+        if CEFSettings.CEFSingleProcessMode {
+            print("[CEFswift ERR] registerJsHanlder() is not available in single process mode")
+            return
+        }
+
+        // Add handler to cache
+        let wrapper = CEFBrowserWrapper.getFrameWrapper(bid: browser.identifier, fid: identifier)
+        wrapper.boundObjectHandlers[forName] = handler
+
+        // Ask Renderer Process to bound js object.
+        guard
+            let message = CEFProcessMessage(.javascriptObjectsBoundInJavascript),
+            let list = message.argumentList,
+            let methodList = CEFListValue()
+        else {
+            print("[CEFswift ERR] Cannot alloc new object when bound")
+            return
+        }
+
+        list.set(identifier, at: 0)
+        list.set(forName, at: 2)
+
+        var idx = 0
+        for key in handler.methods.keys {
+            methodList.set(key, at: idx)
+            idx += 1
+        }
+        list.set(methodList, at: 3)
+        browser.sendProcessMessage(targetProcessID: .renderer, message: message)
+    }
+
+    /*
+    public typealias CEFEvalCallback = (CEFV8EvalResult) -> Void
+
+    private static var requestCache = [Int: CEFEvalCallback]()
+    private static var requestId: Int = 0
+    private static func nextRequestId() -> Int {
+        requestId += 1
+        return requestId
+    }
+
+    /// Clears all pending request (callback won't be called). However, it won't stop the JS code
+    /// This is used before CEFApp shutdown to free resources.
+    internal static func clearRequests() { requestCache.removeAll() }
+
+    /// Execute a string of JavaScript code in this frame.
+    /// If CEF is running in Single Process Mode, this method delegates the corresponding
+    /// V8 context to execute the javascript.
+    /// In Multi Process Mode, this method will send a IPC request to render process
+    /// to execute the code.
+    /// CEF name: `Eval`
+    public func executeJavaScriptInContext(_ code: String,
+                     scriptURL: URL? = nil,
+                     startLine: Int = 1,
+                     _ completionHandler: CEFEvalCallback?) {
+        if CEFSettings.CEFSingleProcessMode {
+            let result = v8Context.eval(code, scriptURL: scriptURL, startLine: startLine)
+            completionHandler?(result)
+        } else {
+            let requestId = CEFFrame.nextRequestId()
+            guard let message = CEFProcessMessage(.javascriptCallbackRequest) else { return }
+            guard let list = message.argumentList else { return }
+            list.set(Int(identifier), at: 0)
+            list.set(requestId, at: 1)
+            list.set(code, at: 2)
+            list.set(scriptURL?.path ?? "", at: 3)
+            list.set(startLine, at: 4)
+
+            if completionHandler != nil {
+                objc_sync_enter(CEFFrame.requestCache)
+                CEFFrame.requestCache[requestId] = completionHandler!
+                objc_sync_exit(CEFFrame.requestCache)
+            }
+
+            browser.sendProcessMessage(targetProcessID: .renderer, message: message)
+        }
+    }
+    */
 }
 
 

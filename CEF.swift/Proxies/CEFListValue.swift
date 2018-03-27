@@ -120,6 +120,14 @@ public extension CEFListValue {
         return Int(cefObject.get_int(cefObjectPtr, size_t(index)))
     }
 
+    /// Returns the value at the specified index as type Int64.
+    /// CEF name: `GetInt`
+    public func int64(at index: Int) -> Int64 {
+        let high = Int32(cefObject.get_int(cefObjectPtr, size_t(index)))
+        let low = Int32(cefObject.get_int(cefObjectPtr, size_t(index + 1)))
+        return (Int64(high) << 32) | Int64(UInt32(bitPattern:low))
+    }
+
     /// Returns the value at the specified index as type double.
     /// CEF name: `GetDouble`
     public func double(at index: Int) -> Double {
@@ -194,6 +202,22 @@ public extension CEFListValue {
     @discardableResult
     public func set(_ value: Int, at index: Int) -> Bool {
         return cefObject.set_int(cefObjectPtr, size_t(index), Int32(value)) != 0
+    }
+
+    /// Sets the value at the specified index as type int. Returns true if the
+    /// value was set successfully.
+    /// This will take up two index (index, index+1) to store the Int64
+    /// CEF name: `SetInt`
+    @discardableResult
+    public func set(_ value: Int64, at index: Int) -> Bool {
+        let high = Int32(truncatingIfNeeded: value >> 32)
+        let low = Int32(truncatingIfNeeded: (value & 0xFFFFFFFF))
+
+        if cefObject.set_int(cefObjectPtr, size_t(index), high) != 0 {
+            return cefObject.set_int(cefObjectPtr, size_t(index + 1), low) != 0
+        }
+
+        return false
     }
 
     /// Sets the value at the specified index as type double. Returns true if the

@@ -116,50 +116,38 @@ public extension CEFClient {
         print(browser, processID, message.name)
 
         switch msg {
-            case .evaluateJavascriptRequest:
-                break
-            case .evaluateJavascriptResponse:
-                break
             case .javascriptAsyncMethodCallRequest:
                 break
             case .javascriptAsyncMethodCallResponse:
                 break
-            case .javascriptCallbackDestroyRequest:
-                break
-            case .javascriptCallbackRequest:
-                break
-            case .javascriptCallbackResponse:
-                break
-            case .javascriptObjectsBoundInJavascript:
-                break
-            case .javascriptRootObjectRequest:
-                break
-            case .javascriptRootObjectResponse:
-                break
             case .onContextCreatedRequest:
                 if let rph = cefapp.renderProcessHandler,
-                   let frame = browser.mainFrame {
+                   let fid = message.argumentList?.int64(at: 0),
+                   let frame = browser.frame(id: fid) {
                     rph.onContextCreated(browser: browser, frame: frame)
                 }
             case .onContextReleasedRequest:
-                if let rph = cefapp.renderProcessHandler,
-                    let frame = browser.mainFrame {
-                    rph.onContextReleased(browser: browser, frame: frame)
+                if let fid = message.argumentList?.int64(at: 0) {
+                    // Free bounded object.
+                    CEFBrowserWrapper.getWrapper(browser.identifier).removeFrameWrapper(fid)
+
+                    if let rph = cefapp.renderProcessHandler,
+                       let frame = browser.frame(id: fid) {
+                        rph.onContextReleased(browser: browser, frame: frame)
+                    }
                 }
-            case .onFocusedNodeChanged:
-                break
             case .onUncaughtException:
                 if let args = message.argumentList,
-                   let frame = browser.frame(id: CEFFrame.Identifier(args.int(at: 0))),
+                   let frame = browser.frame(id: args.int64(at: 0)),
                    let rph = cefapp.renderProcessHandler {
 
                     let e = CEFV8ExceptionWrapper()
-                    e.message = args.string(at: 1) ?? ""
-                    e.lineNumber = args.int(at: 2)
-                    e.startPosition = args.int(at: 3)
-                    e.endPosition = args.int(at: 4)
-                    e.startColumn = args.int(at: 5)
-                    e.endColumn = args.int(at: 6)
+                    e.message = args.string(at: 2) ?? ""
+                    e.lineNumber = args.int(at: 3)
+                    e.startPosition = args.int(at: 4)
+                    e.endPosition = args.int(at: 5)
+                    e.startColumn = args.int(at: 6)
+                    e.endColumn = args.int(at: 7)
 
                     rph.onUncaughtException(
                         browser: browser,
@@ -168,6 +156,7 @@ public extension CEFClient {
                         stackTrace: CEFV8StackTraceWrapper()
                     )
                 }
+            default:
                 break
         }
 

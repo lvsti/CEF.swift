@@ -14,7 +14,7 @@ import Foundation
 /// CEF name: `cef_settings_t`
 public struct CEFSettings {
     // Allow other class to know if CEF is running on multi processes mode.
-    internal static var CEFSingleProcessMode = false
+    public fileprivate(set) static var CEFSingleProcessMode = false
 
     /// Set to true (1) to use a single process for the browser and renderer. This
     /// run mode is not officially supported by Chromium and is less stable than
