@@ -11,6 +11,7 @@
 		A542789A2069FD0D0061D6E5 /* CEFBrowserWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54278992069FD0D0061D6E5 /* CEFBrowserWrapper.swift */; };
 		A56DA921205A3A220024CC85 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56DA920205A3A220024CC85 /* main.swift */; };
 		A56DA924205A3AF30024CC85 /* CEFswift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8456E101B52C29700AE93DC /* CEFswift.framework */; };
+		A570C921206B328C009F6738 /* CEFBoundObjectDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A570C920206B328C009F6738 /* CEFBoundObjectDelegate.swift */; };
 		A5834FFE2068C3D800511583 /* ICEFV8Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EC07952064D67C00A6CB6E /* ICEFV8Exception.swift */; };
 		A58350002068C5BF00511583 /* ICEFV8StackTrace.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5834FFF2068C5BF00511583 /* ICEFV8StackTrace.swift */; };
 		A58350022068C5FC00511583 /* CEFV8StackTraceWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58350012068C5FC00511583 /* CEFV8StackTraceWrapper.swift */; };
@@ -433,6 +434,7 @@
 		A56DA911205A39620024CC85 /* CEFHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CEFHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A56DA91A205A39620024CC85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A56DA920205A3A220024CC85 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		A570C920206B328C009F6738 /* CEFBoundObjectDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CEFBoundObjectDelegate.swift; sourceTree = "<group>"; };
 		A5834FFF2068C5BF00511583 /* ICEFV8StackTrace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICEFV8StackTrace.swift; sourceTree = "<group>"; };
 		A58350012068C5FC00511583 /* CEFV8StackTraceWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CEFV8StackTraceWrapper.swift; sourceTree = "<group>"; };
 		A583725F2069E47D0025042C /* CEFBoundObjectHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CEFBoundObjectHandler.swift; sourceTree = "<group>"; };
@@ -877,6 +879,7 @@
 				A54278972069F6F90061D6E5 /* CEFFrameWrapper.swift */,
 				A5EC07992068B75B00A6CB6E /* CEFV8ExceptionWrapper.swift */,
 				A58350012068C5FC00511583 /* CEFV8StackTraceWrapper.swift */,
+				A570C920206B328C009F6738 /* CEFBoundObjectDelegate.swift */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -1829,6 +1832,7 @@
 				E8E53CD41B910F6D00A4A6C6 /* CEFRunFileDialogCallback+Interop.swift in Sources */,
 				E8E53C301B910BE800A4A6C6 /* CEFTask+Interop.g.swift in Sources */,
 				E8898B2F1B69654C009E0DFF /* CEFValue.swift in Sources */,
+				A570C921206B328C009F6738 /* CEFBoundObjectDelegate.swift in Sources */,
 				E87E2ED91B80986200480AD3 /* CEFEndTracingCallback.swift in Sources */,
 				E8898B151B69654C009E0DFF /* CEFBase.swift in Sources */,
 				E88B867E1B6EA08A00D10E17 /* CEFDragOperationsMask.g.swift in Sources */,

@@ -481,5 +481,84 @@ public extension CEFV8Value {
                                                                cefArgs)
         return CEFV8Value.fromCEF(cefValue)
     }
-    
+
+    public var cefValue: CEFValue {
+        var v = CEFValue()!
+
+        var success = false
+
+        if isString {
+            success = v.setString(stringValue)
+        } else if isBool {
+            success = v.setBool(boolValue)
+        } else if isNull {
+            success = v.setNull()
+        } else if isDouble {
+            success = v.setDouble(doubleValue)
+        } else if isInt {
+            success = v.setInt(intValue)
+        } else if isUInt {
+            success = v.setInt(Int(Int32(bitPattern: UINT32_MAX)))
+        } else if isArray {
+            success = v.setList(cefListValue)
+        } else if isObject {
+            success = v.setDictionary(cefDictionaryValue)
+        } else {
+            v.setNull()
+        }
+
+        if (!success) { v.setNull() }
+
+        return v
+    }
+
+    public var cefListValue: CEFListValue {
+        let list = CEFListValue()!
+
+        var nextIdx = 0
+        let len = arrayLength
+        while nextIdx < len {
+            if let v8item = value(at: nextIdx) {
+                list.set(v8item.cefValue, at: nextIdx)
+            } else {
+                let nullVal = CEFValue()!
+                nullVal.setNull()
+                list.set(nullVal, at: nextIdx)
+            }
+            nextIdx += 1
+        }
+
+        return list
+    }
+
+    public var cefDictionaryValue: CEFDictionaryValue {
+        let dict = CEFDictionaryValue()!
+
+        for key in allKeys {
+            if let v8item = value(for: key) {
+                dict.set(v8item.cefValue, for: key)
+            } else {
+                let nullVal = CEFValue()!
+                nullVal.setNull()
+                dict.set(nullVal, for: key)
+            }
+        }
+
+        return dict
+    }
+}
+
+public extension Array where Element == CEFV8Value {
+
+    public var cefListValue: CEFListValue {
+        let list = CEFListValue()!
+
+        var nextIdx = 0
+        for item in self {
+            list.set(item.cefValue, at: nextIdx)
+            nextIdx += 1
+        }
+
+        return list
+    }
 }

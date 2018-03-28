@@ -120,6 +120,11 @@ public extension CEFListValue {
         return Int(cefObject.get_int(cefObjectPtr, size_t(index)))
     }
 
+    /// Returns the value at the specified index as type int.
+    public func int32(at index: Int) -> Int32 {
+        return Int32(cefObject.get_int(cefObjectPtr, size_t(index)))
+    }
+
     /// Returns the value at the specified index as type Int64.
     /// CEF name: `GetInt`
     public func int64(at index: Int) -> Int64 {
@@ -168,6 +173,23 @@ public extension CEFListValue {
         return CEFListValue.fromCEF(cefList)
     }
 
+    // Returns the value at the specified index as type [String].
+    // If the element in that index is array, it must only contaisn string.
+    public func stringArray(at index: Int) -> [String]? {
+        guard let array = list(at: index) else {
+            return nil
+        }
+
+        var stringArray = [String]()
+        var i = 0
+        while i < array.size {
+            stringArray.append(array.string(at: i)!)
+            i += 1
+        }
+
+        return stringArray
+    }
+
     /// Sets the value at the specified index. Returns true if the value was set
     /// successfully. If |value| represents simple data then the underlying data
     /// will be copied and modifications to |value| will not modify this object. If
@@ -206,8 +228,14 @@ public extension CEFListValue {
 
     /// Sets the value at the specified index as type int. Returns true if the
     /// value was set successfully.
+    @discardableResult
+    public func set(_ value: Int32, at index: Int) -> Bool {
+        return cefObject.set_int(cefObjectPtr, size_t(index), value) != 0
+    }
+
+    /// Sets the value at the specified index as type int. Returns true if the
+    /// value was set successfully.
     /// This will take up two index (index, index+1) to store the Int64
-    /// CEF name: `SetInt`
     @discardableResult
     public func set(_ value: Int64, at index: Int) -> Bool {
         let high = Int32(truncatingIfNeeded: value >> 32)

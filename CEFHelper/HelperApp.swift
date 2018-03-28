@@ -45,10 +45,10 @@ class HelperApp: CEFApp, CEFRenderProcessHandler {
             let wrapper = CEFBrowserWrapper.getFrameWrapper(bid: browser.identifier, fid: frame.identifier)
             wrapper.contextCreated = true
 
+            tryBoundObject(browser, fid: frame.identifier)
+
             message.argumentList?.set(frame.identifier as Int64, at: 0)
             browser.sendProcessMessage(targetProcessID: CEFProcessID.browser, message: message)
-
-            tryBoundObject()
         }
     }
 
@@ -58,6 +58,8 @@ class HelperApp: CEFApp, CEFRenderProcessHandler {
     func onContextReleased(browser: CEFBrowser, frame: CEFFrame) {
         if frame.isMain, let message = CEFProcessMessage(.onContextReleasedRequest) {
             let wrapper = CEFBrowserWrapper.getFrameWrapper(bid: browser.identifier, fid: frame.identifier)
+
+            // Mark wrapper as uninited, which it will cleanup V8 resources.
             wrapper.contextCreated = false
 
             message.argumentList?.set(frame.identifier as Int64, at: 0)
@@ -65,8 +67,34 @@ class HelperApp: CEFApp, CEFRenderProcessHandler {
         }
     }
 
-    private func tryBoundObject() {
-        // TODO:
+    private func tryBoundObject(_ browser: CEFBrowser, fid: CEFFrame.Identifier) {
+        let wrapper = CEFBrowserWrapper.getFrameWrapper(bid: browser.identifier, fid: fid)
+        if wrapper.contextCreated, let f = browser.frame(id: fid) {
+            // Must assign the v8Context to a variable, because CEFFrame.v8Context always
+            // returns a new v8Context object.
+            let context = f.v8Context
+            if !context.enter() { return }
+
+            for delegate in wrapper.boundObjectDelegates.values {
+                if delegate.bound { continue }
+                delegate.bound = true
+
+                guard let boundObject = CEFV8Value.createObject() else { continue }
+
+                // Bound to window
+                for m in delegate.methods {
+                    boundObject.setValue(
+                        CEFV8Value.createFunction(name: m, handler: delegate)!,
+                        for: m,
+                        attribute: CEFV8PropertyAttribute.none
+                    )
+                }
+
+                context.globalObject?.setValue(boundObject, for: delegate.name, attribute: CEFV8PropertyAttribute.none)
+            }
+
+            context.exit()
+        }
     }
 
     /// Called for global uncaught exceptions in a frame. Execution of this
@@ -123,7 +151,24 @@ class HelperApp: CEFApp, CEFRenderProcessHandler {
         switch msg {
             case .javascriptObjectsBoundInJavascript:
                 // Register bound object
-                // TODO:
+                // Ask Renderer Process to bound js object.
+                guard let arguments = message.argumentList else {
+                    print("[CEFswift ERR] Cannot get IPC message args")
+                    return .passThrough
+                }
+
+                let fid = arguments.int64(at: 0)
+                if let objName = arguments.string(at: 2),
+                   let methods = arguments.stringArray(at: 3) {
+                    let wrapper = CEFBrowserWrapper.getFrameWrapper(bid: browser.identifier, fid: fid)
+                    wrapper.boundObjectDelegates[objName] = CEFBoundObjectDelegate(
+                        name: objName,
+                        methods: methods,
+                        browser: browser,
+                        fid: fid
+                    )
+                    tryBoundObject(browser, fid: fid)
+                }
                 break
             default:
                 break
