@@ -21,12 +21,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
 
-    func createApplication() {
-        _ = NSApplication.shared
-        Bundle.main.loadNibNamed(NSNib.Name("MainMenu"), owner: NSApp, topLevelObjects: nil)
-        NSApp.delegate = self
-    }
-    
     func tryToTerminateApplication(app: NSApplication) {
         let handler = SimpleHandler.instance
         if !handler.isClosing {

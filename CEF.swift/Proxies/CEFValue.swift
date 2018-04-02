@@ -15,7 +15,42 @@ public extension CEFValue {
     public convenience init?() {
         self.init(ptr: cef_value_create())
     }
-    
+
+    public convenience init?(_ el: Any) {
+        self.init(ptr: cef_value_create())
+
+        // Type checking order is important
+        if el is String {
+            setString(el as! String)
+        } else if el is Int64 {
+            setInt64(el as! Int64)
+        } else if el is UInt64 {
+            setUInt64(el as! UInt64)
+        } else if el is Int32 {
+            setInt32(el as! Int32)
+        } else if el is UInt32 {
+            setUInt32(el as! UInt32)
+        } else if el is Int {
+            setInt(el as! Int)
+        } else if el is UInt {
+            setUInt(el as! UInt)
+        } else if el is Double {
+            setDouble(el as! Double)
+        } else if el is Bool {
+            setBool(el as! Bool)
+        } else if el is NSNull {
+            setNull()
+        } else if el is [Any] {
+            if let l = CEFListValue(el as! [Any]) {
+                setList(l)
+            }
+        } else if el is [String: Any] {
+            if let d = CEFDictionaryValue(el as! [String: Any]) {
+                setDictionary(d)
+            }
+        }
+    }
+
     /// Returns true if the underlying data is valid. This will always be true for
     /// simple types. For complex types (binary, dictionary and list) the
     /// underlying data may become invalid if owned by another object (e.g. list or
@@ -79,6 +114,32 @@ public extension CEFValue {
     /// CEF name: `GetInt`
     public var intValue: Int {
         return Int(cefObject.get_int(cefObjectPtr))
+    }
+
+    public var uintValue: UInt {
+        return UInt(bitPattern: intValue)
+    }
+
+    public var int32Value: Int32 {
+        return cefObject.get_int(cefObjectPtr)
+    }
+
+    public var uint32Value: UInt32 {
+        return UInt32(bitPattern: cefObject.get_int(cefObjectPtr))
+    }
+
+    public var int64Value: Int64 {
+        if let b = binaryValue {
+            return b.int64
+        }
+        return 0
+    }
+
+    public var uint64Value: UInt64 {
+        if let b = binaryValue {
+            return b.uint64
+        }
+        return 0
     }
 
     /// Returns the underlying value as type double.
@@ -155,6 +216,37 @@ public extension CEFValue {
         return cefObject.set_int(cefObjectPtr, Int32(value)) != 0
     }
 
+    @discardableResult
+    public func setUInt(_ value: UInt) -> Bool {
+        return cefObject.set_int(cefObjectPtr, Int32(bitPattern:UInt32(value))) != 0
+    }
+
+    @discardableResult
+    public func setInt32(_ value: Int32) -> Bool {
+        return cefObject.set_int(cefObjectPtr, value) != 0
+    }
+
+    @discardableResult
+    public func setUInt32(_ value: UInt32) -> Bool {
+        return cefObject.set_int(cefObjectPtr, Int32(bitPattern:value)) != 0
+    }
+
+    @discardableResult
+    public func setInt64(_ value: Int64) -> Bool {
+        if let b = CEFBinaryValue(value) {
+            return setBinary(b)
+        }
+        return false
+    }
+
+    @discardableResult
+    public func setUInt64(_ value: UInt64) -> Bool {
+        if let b = CEFBinaryValue(value) {
+            return setBinary(b)
+        }
+        return false
+    }
+
     /// Sets the underlying value as type double. Returns true if the value was set
     /// successfully.
     /// CEF name: `SetDouble`
@@ -199,5 +291,4 @@ public extension CEFValue {
     public func setList(_ value: CEFListValue) -> Bool {
         return cefObject.set_list(cefObjectPtr, value.toCEF()) != 0
     }
-
 }

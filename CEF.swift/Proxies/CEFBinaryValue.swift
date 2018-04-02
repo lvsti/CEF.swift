@@ -17,6 +17,16 @@ public extension CEFBinaryValue {
     public convenience init?(data: UnsafeRawPointer, size: size_t) {
         self.init(ptr: cef_binary_value_create(data, size))
     }
+
+    public convenience init?(_ data: Int64) {
+        var d = data
+        self.init(ptr: cef_binary_value_create(&d, 8))
+    }
+
+    public convenience init?(_ data: UInt64) {
+        var d = data
+        self.init(ptr: cef_binary_value_create(&d, 8))
+    }
     
     /// Returns true if this object is valid. This object may become invalid if
     /// the underlying data is owned by another object (e.g. list or dictionary)
@@ -64,10 +74,27 @@ public extension CEFBinaryValue {
     
     /// Read up to |buffer_size| number of bytes into |buffer|. Reading begins at
     /// the specified byte |data_offset|. Returns the number of bytes read.
-    /// CEF name: `GetData`
+    /// CEF name: `GetData`Ø
     public func getData(buffer: UnsafeMutableRawPointer, size: size_t, offset: size_t) -> size_t {
         return cefObject.get_data(cefObjectPtr, buffer, size, offset)
     }
-    
+
+    public var int64: Int64 {
+        var data: Int64 = 0
+        if cefObject.get_data(cefObjectPtr, &data, 8, 0) != 0 {
+            return data
+        } else {
+            return 0
+        }
+    }
+
+    public var uint64: UInt64 {
+        var data: UInt64 = 0
+        if cefObject.get_data(cefObjectPtr, &data, 8, 0) != 0 {
+            return data
+        } else {
+            return 0
+        }
+    }
 }
 

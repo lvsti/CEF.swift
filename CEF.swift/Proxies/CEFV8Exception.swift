@@ -8,7 +8,7 @@
 
 import Foundation
 
-public extension CEFV8Exception {
+extension CEFV8Exception: ICEFV8Exception {
     
     /// Returns the exception message.
     /// CEF name: `GetMessage`

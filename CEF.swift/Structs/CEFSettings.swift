@@ -8,18 +8,24 @@
 
 import Foundation
 
-
 /// Initialization settings. Specify NULL or 0 to get the recommended default
 /// values. Many of these and other settings can also configured using command-
 /// line switches.
 /// CEF name: `cef_settings_t`
 public struct CEFSettings {
+    // Allow other class to know if CEF is running on multi processes mode.
+    public fileprivate(set) static var CEFSingleProcessMode = false
+
     /// Set to true (1) to use a single process for the browser and renderer. This
     /// run mode is not officially supported by Chromium and is less stable than
     /// the multi-process default. Also configurable using the "single-process"
     /// command-line switch.
     /// CEF name: `single_process`
-    public var useSingleProcess: Bool = false
+    public var useSingleProcess: Bool = false {
+        didSet {
+            CEFSettings.CEFSingleProcessMode = useSingleProcess
+        }
+    }
 
     /// Set to false (0) to disable the sandbox for sub-processes. See
     /// cef_sandbox_win.h for requirements to enable the sandbox on Windows. Also

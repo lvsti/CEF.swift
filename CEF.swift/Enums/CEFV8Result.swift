@@ -20,5 +20,5 @@ public enum CEFV8VoidResult {
 
 public enum CEFV8EvalResult {
     case success(CEFV8Value)
-    case failure(CEFV8Exception)
+    case failure(ICEFV8Exception)
 }

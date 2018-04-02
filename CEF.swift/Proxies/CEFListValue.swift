@@ -15,6 +15,45 @@ public extension CEFListValue {
     public convenience init?() {
         self.init(ptr: cef_list_value_create())
     }
+
+    public convenience init?(_ value: [Any]) {
+        self.init(ptr: cef_list_value_create())
+
+        var idx = 0
+        for el in value {
+            if el is String {
+                set(el as! String, at: idx)
+            } else if el is Int64 {
+                set(el as! Int64, at: idx)
+            } else if el is UInt64 {
+                set(el as! UInt64, at: idx)
+            } else if el is Int32 {
+                set(el as! Int32, at: idx)
+            } else if el is UInt32 {
+                set(el as! UInt32, at: idx)
+            } else if el is Int {
+                set(el as! Int, at: idx)
+            } else if el is UInt {
+                set(el as! UInt, at: idx)
+            } else if el is Double {
+                set(el as! Double, at: idx)
+            } else if el is Bool {
+                set(el as! Bool, at: idx)
+            } else if el is NSNull {
+                setNull(at: idx)
+            } else if el is [Any] {
+                if let l = CEFListValue(el as! [Any]) {
+                    set(l, at: idx)
+                }
+            } else if el is [String: Any] {
+                if let d = CEFDictionaryValue(el as! [String: Any]) {
+                    set(d, at: idx)
+                }
+            }
+
+            idx += 1
+        }
+    }
     
     /// Returns true if this object is valid. This object may become invalid if
     /// the underlying data is owned by another object (e.g. list or dictionary)
@@ -120,6 +159,34 @@ public extension CEFListValue {
         return Int(cefObject.get_int(cefObjectPtr, size_t(index)))
     }
 
+    /// Returns the value at the specified index as type int.
+    /// CEF name: `GetInt`
+    public func uint(at index: Int) -> UInt {
+        return UInt(bitPattern: int(at: index))
+    }
+
+    /// Returns the value at the specified index as type int.
+    public func int32(at index: Int) -> Int32 {
+        return Int32(cefObject.get_int(cefObjectPtr, size_t(index)))
+    }
+
+    /// Returns the value at the specified index as type int.
+    public func uint32(at index: Int) -> UInt32 {
+        return UInt32(bitPattern: cefObject.get_int(cefObjectPtr, size_t(index)))
+    }
+
+    /// Returns the value at the specified index as type Int64.
+    /// CEF name: `GetInt`
+    public func int64(at index: Int) -> Int64 {
+        if let b = binary(at: index) { return b.int64 }
+        return 0
+    }
+
+    public func uint64(at index: Int) -> UInt64 {
+        if let b = binary(at: index) { return b.uint64 }
+        return 0
+    }
+
     /// Returns the value at the specified index as type double.
     /// CEF name: `GetDouble`
     public func double(at index: Int) -> Double {
@@ -160,6 +227,23 @@ public extension CEFListValue {
         return CEFListValue.fromCEF(cefList)
     }
 
+    // Returns the value at the specified index as type [String].
+    // If the element in that index is array, it must only contaisn string.
+    public func stringArray(at index: Int) -> [String]? {
+        guard let array = list(at: index) else {
+            return nil
+        }
+
+        var stringArray = [String]()
+        var i = 0
+        while i < array.size {
+            stringArray.append(array.string(at: i)!)
+            i += 1
+        }
+
+        return stringArray
+    }
+
     /// Sets the value at the specified index. Returns true if the value was set
     /// successfully. If |value| represents simple data then the underlying data
     /// will be copied and modifications to |value| will not modify this object. If
@@ -194,6 +278,42 @@ public extension CEFListValue {
     @discardableResult
     public func set(_ value: Int, at index: Int) -> Bool {
         return cefObject.set_int(cefObjectPtr, size_t(index), Int32(value)) != 0
+    }
+
+    @discardableResult
+    public func set(_ value: UInt, at index: Int) -> Bool {
+        return cefObject.set_int(cefObjectPtr, size_t(index), Int32(bitPattern:UInt32(value))) != 0
+    }
+
+    /// Sets the value at the specified index as type int. Returns true if the
+    /// value was set successfully.
+    @discardableResult
+    public func set(_ value: Int32, at index: Int) -> Bool {
+        return cefObject.set_int(cefObjectPtr, size_t(index), value) != 0
+    }
+
+    @discardableResult
+    public func set(_ value: UInt32, at index: Int) -> Bool {
+        return cefObject.set_int(cefObjectPtr, size_t(index), Int32(bitPattern:value)) != 0
+    }
+
+    /// Sets the value at the specified index as type int. Returns true if the
+    /// value was set successfully.
+    /// This will take up two index (index, index+1) to store the Int64
+    @discardableResult
+    public func set(_ value: Int64, at index: Int) -> Bool {
+        if let b = CEFBinaryValue(value) {
+            return set(b, at: index)
+        }
+        return false
+    }
+
+    @discardableResult
+    public func set(_ value: UInt64, at index: Int) -> Bool {
+        if let b = CEFBinaryValue(value) {
+            return set(b, at: index)
+        }
+        return false
     }
 
     /// Sets the value at the specified index as type double. Returns true if the

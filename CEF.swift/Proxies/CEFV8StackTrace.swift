@@ -8,7 +8,7 @@
 
 import Foundation
 
-public extension CEFV8StackTrace {
+extension CEFV8StackTrace: ICEFV8StackTrace {
     
     /// Returns the stack trace for the currently active context. |frame_limit| is
     /// the maximum number of frames that will be captured.

@@ -65,16 +65,16 @@ public protocol CEFRenderProcessHandler {
     /// created. A task runner for posting tasks on the associated thread can be
     /// retrieved via the CefV8Context::GetTaskRunner() method.
     /// CEF name: `OnContextCreated`
-    func onContextCreated(browser: CEFBrowser,
-                          frame: CEFFrame,
-                          context: CEFV8Context)
+    ///
+    /// In Render Process, the context can be accessed via frame.v8Context
+    func onContextCreated(browser: CEFBrowser, frame: CEFFrame)
     
     /// Called immediately before the V8 context for a frame is released. No
     /// references to the context should be kept after this method is called.
     /// CEF name: `OnContextReleased`
-    func onContextReleased(browser: CEFBrowser,
-                           frame: CEFFrame,
-                           context: CEFV8Context)
+    ///
+    /// In Render Process, the context can be accessed via frame.v8Context
+    func onContextReleased(browser: CEFBrowser, frame: CEFFrame)
     
     /// Called for global uncaught exceptions in a frame. Execution of this
     /// callback is disabled by default. To enable set
@@ -82,9 +82,8 @@ public protocol CEFRenderProcessHandler {
     /// CEF name: `OnUncaughtException`
     func onUncaughtException(browser: CEFBrowser,
                              frame: CEFFrame,
-                             context: CEFV8Context,
-                             exception: CEFV8Exception,
-                             stackTrace: CEFV8StackTrace)
+                             exception: ICEFV8Exception,
+                             stackTrace: ICEFV8StackTrace)
     
     /// Called when a new node in the the browser gets focus. The |node| value may
     /// be empty if no specific node has gained focus. The node object passed to
@@ -131,21 +130,16 @@ public extension CEFRenderProcessHandler {
         return .allow
     }
     
-    func onContextCreated(browser: CEFBrowser,
-                          frame: CEFFrame,
-                          context: CEFV8Context) {
+    func onContextCreated(browser: CEFBrowser, frame: CEFFrame) {
     }
     
-    func onContextReleased(browser: CEFBrowser,
-                           frame: CEFFrame,
-                           context: CEFV8Context) {
+    func onContextReleased(browser: CEFBrowser, frame: CEFFrame) {
     }
     
     func onUncaughtException(browser: CEFBrowser,
                              frame: CEFFrame,
-                             context: CEFV8Context,
-                             exception: CEFV8Exception,
-                             stackTrace: CEFV8StackTrace) {
+                             exception: ICEFV8Exception,
+                             stackTrace: ICEFV8StackTrace) {
     }
     
     func onFocusedNodeChanged(browser: CEFBrowser,

@@ -43,7 +43,7 @@ Note that the bootstrap build will take quite some time as CEF.swift has to fetc
 
 CEF is developed on multiple branches simultaneously, which differ in API and functionality (see [Spotify OpenSource](http://opensource.spotify.com/cefbuilds/index.html) and [ChromeStatus](https://chromestatus.com/features)). CEF.swift aims at supporting the current stable release branch and a couple more of earlier releases. For any CEF branch `NNNN`, the corresponding CEF.swift branch is named `cef_NNNN`.
 
-Currently supported branches: 
+Currently supported branches:
 
 - 3282 (Chrome 64) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3282)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.0
 - 3239 (Chrome 63) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3239)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.0
@@ -57,7 +57,9 @@ Archived branches (not maintained anymore):
 
 ### Getting started
 
-Check out the (pretty skinny) CEFDemo app under `Samples/CEFDemo` to get the basic idea of how a CEF-based app should look like. For more inspiration, take a look at the `cefsimple` and `cefclient` apps shipped with the CEF binary distribution.
+Check out the (pretty skinny) CEFDemo app under `Samples/CEFDemo` to get the basic idea of how a CEF-based app should look like.
+The CEFDemo runs in multi-process mode. It will load google.com and then quickly changes to a string of JSON, to demostrate how to register Native API for JS.
+For more inspiration, take a look at the `cefsimple` and `cefclient` apps shipped with the CEF binary distribution.
 
 ### Disclaimer
 

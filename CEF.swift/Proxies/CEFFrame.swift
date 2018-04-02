@@ -11,7 +11,7 @@ import Foundation
 public extension CEFFrame {
 
     public typealias Identifier = Int64
-    
+
     /// True if this object is currently attached to a valid frame.
     /// CEF name: `IsValid`
     public var isValid: Bool {
@@ -194,7 +194,53 @@ public extension CEFFrame {
     public func getDOMDocument(with visitor: CEFDOMVisitor) {
         return cefObject.visit_dom(cefObjectPtr, visitor.toCEF())
     }
-    
+
+    /// When in multi-process mode, use this method to register an object
+    /// named `forName` in the frame, so that JS can call its method.
+    /// The return value in JS will always be converted to a promise.
+    /// This method can be called after CEFLifeSpanHandler.onAfterCreated() is called
+    /// To register JS handlers in single-process mode, checkout CEFV8Context
+    ///
+    /// Example:
+    /// Swift:
+    ///   registerJsHandler(forName: "Native", handle: myHandler)
+    /// Js:
+    ///   window.Native.myFancyFunction(123).then(...)
+    public func registerJsHandler(forName: String, handler: CEFBoundObjectHandler) {
+        if CEFSettings.CEFSingleProcessMode {
+            print("[CEFswift ERR] registerJsHanlder() is not available in single process mode")
+            return
+        }
+
+        // Add handler to cache
+        guard let wrapper = CEFBrowserWrapper.get(browser)?.getFrameWrapper(identifier) else {
+            print("[CEFswift ERR] FrameWrapper not found")
+            return
+        }
+
+        wrapper.boundObjectHandlers[forName] = handler
+
+        // Ask Renderer Process to bound js object.
+        guard
+            let message = CEFProcessMessage(.javascriptObjectsBoundInJavascript),
+            let list = message.argumentList,
+            let methodList = CEFListValue()
+        else {
+            print("[CEFswift ERR] Cannot alloc new object when bound")
+            return
+        }
+
+        list.set(identifier, at: 0)
+        list.set(forName, at: 1)
+
+        var idx = 0
+        for key in handler.methods.keys {
+            methodList.set(key, at: idx)
+            idx += 1
+        }
+        list.set(methodList, at: 2)
+        browser.sendProcessMessage(targetProcessID: .renderer, message: message)
+    }
 }
 
 

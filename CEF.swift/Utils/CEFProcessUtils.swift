@@ -9,6 +9,7 @@
 import Foundation
 
 public enum CEFProcessUtils {
+    internal static var cefapp: CEFApp?
 
     /// This function should be called from the application entry point function to
     /// execute a secondary process. It can be used to run secondary processes from
@@ -24,6 +25,8 @@ public enum CEFProcessUtils {
     public static func executeProcess(with args: CEFMainArgs,
                                       app: CEFApp? = nil,
                                       winSandboxInfo: UnsafeMutableRawPointer? = nil) -> Int {
+        cefapp = app
+
         var cefArgs = args.toCEF()
         defer { cefArgs.clear() }
         return Int(cef_execute_process(&cefArgs, app != nil ? app!.toCEF() : nil, winSandboxInfo))
@@ -40,6 +43,8 @@ public enum CEFProcessUtils {
                                       settings: CEFSettings,
                                       app: CEFApp? = nil,
                                       winSandboxInfo: UnsafeMutableRawPointer? = nil) -> Bool {
+        cefapp = app
+
         var cefArgs = args.toCEF()
         var cefSettings = settings.toCEF()
         defer {
@@ -53,6 +58,7 @@ public enum CEFProcessUtils {
     /// the CEF browser process before the application exits.
     /// CEF name: `CefShutdown`
     public static func shutDown() {
+        cefapp = nil
         cef_shutdown()
     }
 
