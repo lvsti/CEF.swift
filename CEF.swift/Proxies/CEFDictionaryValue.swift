@@ -15,6 +15,42 @@ public extension CEFDictionaryValue {
     public convenience init?() {
         self.init(ptr: cef_dictionary_value_create())
     }
+
+    public convenience init?(_ value: [String: Any]) {
+        self.init(ptr: cef_dictionary_value_create())
+
+        for (key, el) in value {
+            if el is String {
+                set(el as! String, for: key)
+            } else if el is Int64 {
+                set(el as! Int64, for: key)
+            } else if el is UInt64 {
+                set(el as! UInt64, for: key)
+            } else if el is Int32 {
+                set(el as! Int32, for: key)
+            } else if el is UInt32 {
+                set(el as! UInt32, for: key)
+            } else if el is Int {
+                set(el as! Int, for: key)
+            } else if el is UInt {
+                set(el as! UInt, for: key)
+            } else if el is Double {
+                set(el as! Double, for: key)
+            } else if el is Bool {
+                set(el as! Bool, for: key)
+            } else if el is NSNull {
+                setNull(for: key)
+            } else if el is [Any] {
+                if let l = CEFListValue(el as! [Any]) {
+                    set(l, for: key)
+                }
+            } else if el is [String: Any] {
+                if let d = CEFDictionaryValue(el as! [String: Any]) {
+                    set(d, for: key)
+                }
+            }
+        }
+    }
     
     /// Returns true if this object is valid. This object may become invalid if
     /// the underlying data is owned by another object (e.g. list or dictionary)
@@ -142,6 +178,38 @@ public extension CEFDictionaryValue {
         return Int(cefObject.get_int(cefObjectPtr, cefKeyPtr))
     }
 
+    public func uint(for key: String) -> UInt {
+        let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
+        defer { CEFStringPtrRelease(cefKeyPtr) }
+        return UInt(bitPattern: Int(cefObject.get_int(cefObjectPtr, cefKeyPtr)))
+    }
+
+    public func int32(for key: String) -> Int32 {
+        let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
+        defer { CEFStringPtrRelease(cefKeyPtr) }
+        return cefObject.get_int(cefObjectPtr, cefKeyPtr)
+    }
+
+    public func uint32(for key: String) -> UInt32 {
+        let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
+        defer { CEFStringPtrRelease(cefKeyPtr) }
+        return UInt32(bitPattern: cefObject.get_int(cefObjectPtr, cefKeyPtr))
+    }
+
+    public func int64(for key: String) -> Int64 {
+        if let b = binary(for: key) {
+            return b.int64
+        }
+        return 0
+    }
+
+    public func uint64(for key: String) -> UInt64 {
+        if let b = binary(for: key) {
+            return b.uint64
+        }
+        return 0
+    }
+
     /// Returns the value at the specified key as type double.
     /// CEF name: `GetDouble`
     public func double(for key: String) -> Double {
@@ -235,6 +303,43 @@ public extension CEFDictionaryValue {
         let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
         defer { CEFStringPtrRelease(cefKeyPtr) }
         return cefObject.set_int(cefObjectPtr, cefKeyPtr, Int32(value)) != 0
+    }
+
+    @discardableResult
+    public func set(_ value: UInt, for key: String) -> Bool {
+        let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
+        defer { CEFStringPtrRelease(cefKeyPtr) }
+        return cefObject.set_int(cefObjectPtr, cefKeyPtr, Int32(bitPattern: UInt32(value))) != 0
+    }
+
+    @discardableResult
+    public func set(_ value: Int32, for key: String) -> Bool {
+        let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
+        defer { CEFStringPtrRelease(cefKeyPtr) }
+        return cefObject.set_int(cefObjectPtr, cefKeyPtr, value) != 0
+    }
+
+    @discardableResult
+    public func set(_ value: UInt32, for key: String) -> Bool {
+        let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
+        defer { CEFStringPtrRelease(cefKeyPtr) }
+        return cefObject.set_int(cefObjectPtr, cefKeyPtr, Int32(bitPattern: value)) != 0
+    }
+
+    @discardableResult
+    public func set(_ value: Int64, for key: String) -> Bool {
+        if let b = CEFBinaryValue(value) {
+            set(b, for: key)
+        }
+        return false
+    }
+
+    @discardableResult
+    public func set(_ value: UInt64, for key: String) -> Bool {
+        if let b = CEFBinaryValue(value) {
+            set(b, for: key)
+        }
+        return false
     }
 
     /// Sets the value at the specified key as type double. Returns true if the

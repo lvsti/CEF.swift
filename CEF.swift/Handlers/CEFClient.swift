@@ -113,41 +113,83 @@ public extension CEFClient {
             return .passThrough
         }
 
-        print(browser, processID, message.name)
-
         switch msg {
             case .javascriptAsyncMethodCallRequest:
-                break
-            case .javascriptAsyncMethodCallResponse:
-                break
+
+                guard let args = message.argumentList,
+                   let objName = args.string(at: 2),
+                   let methodName = args.string(at: 3),
+                   let params = args.list(at: 4) else {
+                    return .consume
+                }
+
+                let fid = args.int64(at: 0)
+
+                guard let frameWrapper = CEFBrowserWrapper.getFrameWrapper(bid: browser.identifier, fid: fid),
+                      let handler = frameWrapper.boundObjectHandlers[objName] else {
+                    return .consume
+                }
+
+                let requestId = args.int32(at: 1)
+                var errorStr: String?
+                var result: Any?
+
+                if let method = handler.methods[methodName] {
+                    do {
+                        result = try method(handler, params)
+                    } catch {
+                        errorStr = error.localizedDescription
+                    }
+                } else {
+                    errorStr = "Not implemented"
+                }
+
+                guard let message = CEFProcessMessage(.javascriptAsyncMethodCallResponse),
+                    let list = message.argumentList else { return .consume }
+
+                // Result type: Error = 0, Success(no result) = 1, Success = 2
+                let resultType: Int32 = errorStr == nil ? (result == nil ? 1 : 2) : 0
+                list.set(fid as Int64, at: 0)
+                list.set(requestId, at: 1)
+                list.set(resultType, at: 2)
+                if errorStr != nil {
+                    list.set(errorStr!, at: 3)
+                } else if result != nil {
+                    // Convert result
+                    list.set(CEFValue(result!)!, at: 3)
+                }
+                browser.sendProcessMessage(targetProcessID: .renderer, message: message)
+                return .consume
             case .onContextCreatedRequest:
                 if let rph = cefapp.renderProcessHandler,
                    let fid = message.argumentList?.int64(at: 0),
                    let frame = browser.frame(id: fid) {
                     rph.onContextCreated(browser: browser, frame: frame)
                 }
+                return .consume
             case .onContextReleasedRequest:
                 if let fid = message.argumentList?.int64(at: 0) {
                     // Free bounded object.
-                    CEFBrowserWrapper.getWrapper(browser.identifier).removeFrameWrapper(fid)
+                    CEFBrowserWrapper.get(byId: browser.identifier)?.removeFrameWrapper(fid)
 
                     if let rph = cefapp.renderProcessHandler,
                        let frame = browser.frame(id: fid) {
                         rph.onContextReleased(browser: browser, frame: frame)
                     }
                 }
+                return .consume
             case .onUncaughtException:
                 if let args = message.argumentList,
                    let frame = browser.frame(id: args.int64(at: 0)),
                    let rph = cefapp.renderProcessHandler {
 
                     let e = CEFV8ExceptionWrapper()
-                    e.message = args.string(at: 2) ?? ""
-                    e.lineNumber = args.int(at: 3)
-                    e.startPosition = args.int(at: 4)
-                    e.endPosition = args.int(at: 5)
-                    e.startColumn = args.int(at: 6)
-                    e.endColumn = args.int(at: 7)
+                    e.message = args.string(at: 1) ?? ""
+                    e.lineNumber = args.int(at: 2)
+                    e.startPosition = args.int(at: 3)
+                    e.endPosition = args.int(at: 4)
+                    e.startColumn = args.int(at: 5)
+                    e.endColumn = args.int(at: 6)
 
                     rph.onUncaughtException(
                         browser: browser,
@@ -156,11 +198,12 @@ public extension CEFClient {
                         stackTrace: CEFV8StackTraceWrapper()
                     )
                 }
+                return .consume
             default:
                 break
         }
 
-        return .consume
+        return .passThrough
     }
 
 }

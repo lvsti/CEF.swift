@@ -8,30 +8,55 @@
 
 import Foundation
 
-// This class contains extra data for CEFFrame in multi process mode.
+// This class contains extra data for CEFBrowser & CEFFrame in multi process mode.
+// This class don't have to be thread-safe, because all the methods are called in main thread.
 public class CEFBrowserWrapper {
 
+    private static var terminated = [CEFBrowser.Identifier: Bool]()
     private static var cache = [CEFBrowser.Identifier: CEFBrowserWrapper]()
 
     private var frameCache = [CEFFrame.Identifier: CEFFrameWrapper]()
-    private var id: CEFBrowser.Identifier
+    public private(set) var browser: CEFBrowser
+    public var id: CEFBrowser.Identifier { return browser.identifier }
 
-    internal init(_ id: CEFBrowser.Identifier) {
-        self.id = id
-    }
-
-    public static func getWrapper(_ id: CEFBrowser.Identifier) -> CEFBrowserWrapper {
-        if let w = cache[id] {
-            return w
+    public init?(_ browser: CEFBrowser) {
+        let id = browser.identifier
+        if CEFBrowserWrapper.cache[id] != nil {
+            return nil
         }
 
-        let w = CEFBrowserWrapper(id)
-        cache[id] = w
-        return w
+        if CEFBrowserWrapper.terminated[id] == true {
+            return nil
+        }
+
+        self.browser = browser
+        CEFBrowserWrapper.cache[id] = self
     }
 
-    public static func getFrameWrapper(bid: CEFBrowser.Identifier, fid: CEFFrame.Identifier) -> CEFFrameWrapper {
-        return getWrapper(bid).getFrameWrapper(fid)
+    // Mark the browser as closed, and release corresponding CEF resource.
+    public static func terminate(_ id: CEFBrowser.Identifier) {
+        CEFBrowserWrapper.terminated[id] = true
+        CEFBrowserWrapper.cache.removeValue(forKey: id)
+    }
+
+    public static func get(byId: CEFBrowser.Identifier) -> CEFBrowserWrapper? {
+        if let w = cache[byId] {
+            return w
+        }
+        return nil
+    }
+
+    public static func get(_ browser: CEFBrowser) -> CEFBrowserWrapper? {
+        let id = browser.identifier
+        if let w = cache[id] { return w }
+        return CEFBrowserWrapper(browser)
+    }
+
+    public static func getFrameWrapper(bid: CEFBrowser.Identifier, fid: CEFFrame.Identifier) -> CEFFrameWrapper? {
+        return get(byId: bid)?.getFrameWrapper(fid)
+    }
+    public static func getFrameWrapper(_ browser: CEFBrowser, fid: CEFFrame.Identifier) -> CEFFrameWrapper? {
+        return get(browser)?.getFrameWrapper(fid)
     }
 
     public func getFrameWrapper(_ id: CEFFrame.Identifier) -> CEFFrameWrapper {

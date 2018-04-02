@@ -10,7 +10,7 @@ import Foundation
 
 
 public extension CEFV8Value {
- 
+
     /// Create a new CefV8Value object of type undefined.
     /// CEF name: `CreateUndefined`
     public static func createUndefined() -> CEFV8Value? {
@@ -482,8 +482,54 @@ public extension CEFV8Value {
         return CEFV8Value.fromCEF(cefValue)
     }
 
+    public static func fromCEFValue(_ val: CEFValue?) -> CEFV8Value? {
+        guard let value = val else { return nil }
+
+        switch value.type {
+            case .invalid:
+                return CEFV8Value.createUndefined()
+            case .null:
+                return CEFV8Value.createNull()
+            case .bool:
+                return CEFV8Value.createBool(value.boolValue)
+            case .int:
+                return CEFV8Value.createInt(value.intValue)
+            case .double:
+                return CEFV8Value.createDouble(value.doubleValue)
+            case .string:
+                return CEFV8Value.createString(value.stringValue)
+            case .binary:
+                return CEFV8Value.createUndefined()
+            case .dictionary:
+                if let dict = value.dictionaryValue,
+                   let v8Dict = CEFV8Value.createObject() {
+                    for key in dict.allKeys {
+                        if let v8Value = CEFV8Value.fromCEFValue(dict.value(for: key)!) {
+                            v8Dict.setValue(v8Value, for: key, attribute: CEFV8PropertyAttribute.none)
+                        }
+                    }
+                    return v8Dict
+                }
+                return nil
+            case .list:
+                if let array = value.listValue,
+                   let v8List = CEFV8Value.createArray(length: array.size) {
+                    let count = array.size
+                    var i = 0
+                    while i < count {
+                        if let v8Value = CEFV8Value.fromCEFValue(array.value(at: i)!) {
+                            v8List.setValue(v8Value, at: i)
+                        }
+                        i += 1
+                    }
+                    return v8List
+                }
+                return nil
+        }
+    }
+
     public var cefValue: CEFValue {
-        var v = CEFValue()!
+        let v = CEFValue()!
 
         var success = false
 
@@ -493,12 +539,12 @@ public extension CEFV8Value {
             success = v.setBool(boolValue)
         } else if isNull {
             success = v.setNull()
-        } else if isDouble {
-            success = v.setDouble(doubleValue)
         } else if isInt {
             success = v.setInt(intValue)
+        } else if isDouble {
+            success = v.setDouble(doubleValue)
         } else if isUInt {
-            success = v.setInt(Int(Int32(bitPattern: UINT32_MAX)))
+            success = v.setInt(Int(bitPattern: uintValue))
         } else if isArray {
             success = v.setList(cefListValue)
         } else if isObject {

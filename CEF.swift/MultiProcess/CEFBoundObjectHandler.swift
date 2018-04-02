@@ -8,31 +8,20 @@
 
 import Foundation
 
+// This object is used as the context object when JS calls Native method.
+// So one can inherit this object to provide more infomation for the Native method.
 public class CEFBoundObjectHandler {
-    public enum Result {
-        case success(CEFValue)
-        case failure(String)
-    }
 
-    typealias Method = (CEFBoundObjectHandler, CEFListValue) throws -> Result?
+    // Inits the handler with methods. These methods will be resitered in the Render Process.
+    // If the method return nil, the method call is considered to be successful with empty return value.
+    // If the method throws, the method will caused the corresponding promise in the webpage to be rejected.
+    // The return type Any can be: (Notice that Int64 is not supported)
+    //   Int32, Int(Cause runtime exception if the int is larger than Int32), Bool, Double, String, NSNull, [Any], [String: Any]
+    public typealias Method = (CEFBoundObjectHandler, CEFListValue) throws -> Any?
 
     internal private(set) var methods: [String: Method]
 
-    // Inits the handler with methods. If the method return nil, the method call is considered to be successful
-    // with empty return value.
-    init(methods: [String: Method]) {
+    public init(methods: [String: Method]) {
         self.methods = methods
-    }
-
-    public func execute(name: String, arguments: CEFListValue) -> Result? {
-        if let method = methods[name] {
-            do {
-                return try method(self, arguments)
-            } catch {
-                return .failure(error.localizedDescription)
-            }
-        }
-
-        return .failure("Not implemented")
     }
 }

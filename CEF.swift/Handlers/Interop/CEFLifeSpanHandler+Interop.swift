@@ -52,11 +52,17 @@ func CEFLifeSpanHandler_on_before_popup(ptr: UnsafeMutablePointer<cef_life_span_
 
 func CEFLifeSpanHandler_on_after_created(ptr: UnsafeMutablePointer<cef_life_span_handler_t>?,
                                          browser: UnsafeMutablePointer<cef_browser_t>?) {
+    let b = CEFBrowser.fromCEF(browser)!
+    // Create a wrapper and cache it
+    if !CEFSettings.CEFSingleProcessMode {
+        _ = CEFBrowserWrapper(b)
+    }
+
     guard let obj = CEFLifeSpanHandlerMarshaller.get(ptr) else {
         return
     }
     
-    obj.onAfterCreated(browser: CEFBrowser.fromCEF(browser)!)
+    obj.onAfterCreated(browser: b)
 }
 
 func CEFLifeSpanHandler_do_close(ptr: UnsafeMutablePointer<cef_life_span_handler_t>?,
@@ -71,10 +77,15 @@ func CEFLifeSpanHandler_do_close(ptr: UnsafeMutablePointer<cef_life_span_handler
 
 func CEFLifeSpanHandler_on_before_close(ptr: UnsafeMutablePointer<cef_life_span_handler_t>?,
                                         browser: UnsafeMutablePointer<cef_browser_t>?) {
+    let b = CEFBrowser.fromCEF(browser)!
+    if !CEFSettings.CEFSingleProcessMode {
+        CEFBrowserWrapper.terminate(b.identifier)
+    }
+
     guard let obj = CEFLifeSpanHandlerMarshaller.get(ptr) else {
         return
     }
-    
-    obj.onBeforeClose(browser: CEFBrowser.fromCEF(browser)!)
+
+    obj.onBeforeClose(browser: b)
 }
 

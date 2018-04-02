@@ -41,8 +41,9 @@ class HelperApp: CEFApp, CEFRenderProcessHandler {
     /// retrieved via the CefV8Context::GetTaskRunner() method.
     /// CEF name: `OnContextCreated`
     func onContextCreated(browser: CEFBrowser, frame: CEFFrame) {
-        if frame.isMain, let message = CEFProcessMessage(.onContextCreatedRequest) {
-            let wrapper = CEFBrowserWrapper.getFrameWrapper(bid: browser.identifier, fid: frame.identifier)
+        if frame.isMain,
+           let message = CEFProcessMessage(.onContextCreatedRequest),
+           let wrapper = CEFBrowserWrapper.getFrameWrapper(bid: browser.identifier, fid: frame.identifier) {
             wrapper.contextCreated = true
 
             tryBoundObject(browser, fid: frame.identifier)
@@ -56,8 +57,9 @@ class HelperApp: CEFApp, CEFRenderProcessHandler {
     /// references to the context should be kept after this method is called.
     /// CEF name: `OnContextReleased`
     func onContextReleased(browser: CEFBrowser, frame: CEFFrame) {
-        if frame.isMain, let message = CEFProcessMessage(.onContextReleasedRequest) {
-            let wrapper = CEFBrowserWrapper.getFrameWrapper(bid: browser.identifier, fid: frame.identifier)
+        if frame.isMain,
+           let message = CEFProcessMessage(.onContextReleasedRequest),
+           let wrapper = CEFBrowserWrapper.getFrameWrapper(bid: browser.identifier, fid: frame.identifier) {
 
             // Mark wrapper as uninited, which it will cleanup V8 resources.
             wrapper.contextCreated = false
@@ -68,8 +70,9 @@ class HelperApp: CEFApp, CEFRenderProcessHandler {
     }
 
     private func tryBoundObject(_ browser: CEFBrowser, fid: CEFFrame.Identifier) {
-        let wrapper = CEFBrowserWrapper.getFrameWrapper(bid: browser.identifier, fid: fid)
-        if wrapper.contextCreated, let f = browser.frame(id: fid) {
+        if let wrapper = CEFBrowserWrapper.getFrameWrapper(bid: browser.identifier, fid: fid),
+           wrapper.contextCreated,
+           let f = browser.frame(id: fid) {
             // Must assign the v8Context to a variable, because CEFFrame.v8Context always
             // returns a new v8Context object.
             let context = f.v8Context
@@ -123,12 +126,12 @@ class HelperApp: CEFApp, CEFRenderProcessHandler {
 //        }
 
         list.set(frame.identifier as Int64, at: 0) // Uses two slot to store Int64
-        list.set(exception.message, at: 2)
-        list.set(exception.lineNumber, at: 3)
-        list.set(exception.startPosition, at: 4)
-        list.set(exception.endPosition, at: 5)
-        list.set(exception.startColumn, at: 6)
-        list.set(exception.endColumn, at: 7)
+        list.set(exception.message, at: 1)
+        list.set(exception.lineNumber, at: 2)
+        list.set(exception.startPosition, at: 3)
+        list.set(exception.endPosition, at: 4)
+        list.set(exception.startColumn, at: 5)
+        list.set(exception.endColumn, at: 6)
 //        list.set(frames, at: 7)
 
         browser.sendProcessMessage(targetProcessID: .browser, message: message)
@@ -146,8 +149,6 @@ class HelperApp: CEFApp, CEFRenderProcessHandler {
             return .passThrough
         }
 
-        print(browser, processID, message.name)
-
         switch msg {
             case .javascriptObjectsBoundInJavascript:
                 // Register bound object
@@ -158,9 +159,9 @@ class HelperApp: CEFApp, CEFRenderProcessHandler {
                 }
 
                 let fid = arguments.int64(at: 0)
-                if let objName = arguments.string(at: 2),
-                   let methods = arguments.stringArray(at: 3) {
-                    let wrapper = CEFBrowserWrapper.getFrameWrapper(bid: browser.identifier, fid: fid)
+                if let objName = arguments.string(at: 1),
+                   let methods = arguments.stringArray(at: 2),
+                   let wrapper = CEFBrowserWrapper.getFrameWrapper(bid: browser.identifier, fid: fid) {
                     wrapper.boundObjectDelegates[objName] = CEFBoundObjectDelegate(
                         name: objName,
                         methods: methods,
@@ -169,7 +170,40 @@ class HelperApp: CEFApp, CEFRenderProcessHandler {
                     )
                     tryBoundObject(browser, fid: fid)
                 }
-                break
+                return .consume
+            case .javascriptAsyncMethodCallResponse:
+                // Js to Native returns.
+                guard let arguments = message.argumentList else {
+                    print("[CEFswift ERR] Cannot get IPC message args")
+                    return .passThrough
+                }
+
+                let fid = arguments.int64(at: 0)
+                let requestId = arguments.int32(at: 1)
+                let resultType = arguments.int32(at: 2)
+
+                var errorStr = resultType == 0 ? arguments.string(at: 3) : nil
+                var result = resultType == 2 ? arguments.value(at: 3) : nil
+
+                if let f = browser.frame(id: fid) {
+                    guard let wrapper = CEFBrowserWrapper.getFrameWrapper(bid: browser.identifier, fid: fid) else {
+                        return .consume
+                    }
+
+                    // Always store v8 Context in a variable, anonymous variable will be release immediately
+                    // cause a inbalanced exit() exception.
+                    let context = f.v8Context
+                    context.enter()
+                    defer { context.exit() }
+                    if resultType == 0 {
+                        wrapper.rejectPromise(requestId, errorStr ?? "Unknown error")
+                    } else {
+                        wrapper.resolvePromise(requestId, result)
+                    }
+                }
+
+                return .consume
+            
             default:
                 break
         }
