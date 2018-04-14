@@ -23,7 +23,8 @@ before_install:
   - brew update
   - brew install jq
   - sudo gem install xcpretty-travis-formatter --no-doc
-
+  - pip install --user -r requirements.txt
+  
 install:
   - ./scripts/setup.sh
   - ./scripts/check_proxy_impl.py ./External/cef_binary/include/ ./CEF.swift/Proxies/
