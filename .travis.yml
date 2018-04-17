@@ -16,14 +16,13 @@ branches:
 
 xcode_project: CEF.swift.xcodeproj
 xcode_scheme: CEF.swift
-osx_image: xcode9
-xcode_sdk: macosx10.12
+osx_image: xcode9.3
 
 before_install:
   - brew update
   - brew install jq
   - sudo gem install xcpretty-travis-formatter --no-doc
-  - pip install --user -r requirements.txt
+  - sudo pip install lxml
   
 install:
   - ./scripts/setup.sh
