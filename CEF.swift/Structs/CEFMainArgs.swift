@@ -36,14 +36,12 @@ extension cef_main_args_t {
         }
         
         for i in 0..<Int(argc) {
-            if let cstr = argv.advanced(by: i).pointee,
-               let str = String(validatingUTF8: cstr) {
-                let byteCount = str.lengthOfBytes(using: String.Encoding.utf8) + 1
-                cstr.deallocate(capacity: byteCount)
+            if let cstr = argv.advanced(by: i).pointee {
+                cstr.deallocate()
             }
         }
         
-        argv.deallocate(capacity: Int(argc))
+        argv.deallocate()
     }
 }
 

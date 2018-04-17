@@ -43,7 +43,7 @@ class CEFMarshallerBase {
         }
         
         var probe = Probe<Void, DummyStruct>()
-        let instancePtr = Unmanaged<Probe>.passUnretained(probe).toOpaque().assumingMemoryBound(to: Int8.self)
+        let instancePtr = Unmanaged<Probe<Void, DummyStruct>>.passUnretained(probe).toOpaque().assumingMemoryBound(to: Int8.self)
         let memberPtr = UnsafeMutablePointer<Int8>(from: &probe.firstMember)
         return instancePtr.distance(to: memberPtr)
     }()
