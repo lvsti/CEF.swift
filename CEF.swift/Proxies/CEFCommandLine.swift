@@ -54,7 +54,7 @@ public extension CEFCommandLine {
         let argv = CEFArgVFromArguments(arguments)
         let constArgv = UnsafeRawPointer(argv).assumingMemoryBound(to: (UnsafePointer<Int8>?).self)
         cefObject.init_from_argv(cefObjectPtr, Int32(arguments.count), constArgv)
-        argv.deallocate(capacity: arguments.count)
+        argv.deallocate()
     }
     
     /// Initialize the command line with the string returned by calling
