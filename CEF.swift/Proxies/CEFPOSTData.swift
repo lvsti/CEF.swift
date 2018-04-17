@@ -42,7 +42,7 @@ public extension CEFPOSTData {
     public var elements: [CEFPOSTDataElement] {
         var count: size_t = elementCount
         var cefElements = UnsafeMutablePointer<UnsafeMutablePointer<cef_post_data_element_t>?>.allocate(capacity: count)
-        defer { cefElements.deallocate(capacity: count) }
+        defer { cefElements.deallocate() }
         
         for i in 0..<count {
             cefElements.advanced(by: i).pointee = cef_post_data_element_create()

@@ -446,7 +446,7 @@ public extension CEFV8Value {
     public func executeFunction(object: CEFV8Value?, arguments: [CEFV8Value]) -> CEFV8Value? {
         let cefV8Obj = object?.toCEF()
         let cefArgs = UnsafeMutablePointer<UnsafeMutablePointer<cef_v8value_t>?>.allocate(capacity: arguments.count)
-        defer { cefArgs.deallocate(capacity: arguments.count) }
+        defer { cefArgs.deallocate() }
         
         for i in 0..<arguments.count {
             var cefArg: UnsafeMutablePointer<cef_v8value_t>? = arguments[i].toCEF()
@@ -467,7 +467,7 @@ public extension CEFV8Value {
     public func executeFunctionWithContext(_ context: CEFV8Context, object: CEFV8Value?, arguments: [CEFV8Value]) -> CEFV8Value? {
         let cefV8Obj = object?.toCEF()
         let cefArgs = UnsafeMutablePointer<UnsafeMutablePointer<cef_v8value_t>?>.allocate(capacity: arguments.count)
-        defer { cefArgs.deallocate(capacity: arguments.count) }
+        defer { cefArgs.deallocate() }
         
         for i in 0..<arguments.count {
             var cefArg: UnsafeMutablePointer<cef_v8value_t>? = arguments[i].toCEF()

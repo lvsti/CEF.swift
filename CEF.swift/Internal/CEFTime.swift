@@ -23,7 +23,7 @@ func CEFTimePtrCreateFromNSDate(_ date: NSDate) -> UnsafeMutablePointer<cef_time
 
 func CEFTimePtrRelease(_ ptr: UnsafeMutablePointer<cef_time_t>?) {
     if let ptr = ptr {
-        ptr.deallocate(capacity: 1)
+        ptr.deallocate()
     }
 }
 

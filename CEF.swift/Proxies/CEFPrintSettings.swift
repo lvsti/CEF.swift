@@ -79,7 +79,7 @@ public extension CEFPrintSettings {
     /// Set the page ranges.
     private func setPageRanges(_ ranges: [CEFRange]) {
         let cefRangesPtr = UnsafeMutablePointer<cef_range_t>.allocate(capacity: ranges.count)
-        defer { cefRangesPtr.deallocate(capacity: ranges.count) }
+        defer { cefRangesPtr.deallocate() }
         
         for i in 0..<ranges.count {
             cefRangesPtr.advanced(by: i).pointee = ranges[i].toCEF()

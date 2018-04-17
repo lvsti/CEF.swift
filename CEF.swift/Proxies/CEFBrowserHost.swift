@@ -298,7 +298,7 @@ public extension CEFBrowserHost {
                              settings: CEFBrowserSettings,
                              inspectionPoint: NSPoint?) {
         var cefPointPtr: UnsafeMutablePointer<cef_point_t>? = nil
-        defer { cefPointPtr?.deallocate(capacity: 1) }
+        defer { cefPointPtr?.deallocate() }
         
         if let inspectionPoint = inspectionPoint {
             cefPointPtr = UnsafeMutablePointer<cef_point_t>.allocate(capacity: 1)
@@ -495,14 +495,14 @@ public extension CEFBrowserHost {
         let cefStrPtr = text != nil ? CEFStringPtrCreateFromSwiftString(text!) : nil
         defer { CEFStringPtrRelease(cefStrPtr) }
         var cefUnderlinesPtr = UnsafeMutablePointer<cef_composition_underline_t>.allocate(capacity: underlines.count)
-        defer { cefUnderlinesPtr.deallocate(capacity: underlines.count) }
+        defer { cefUnderlinesPtr.deallocate() }
         
         for i in 0..<underlines.count {
             cefUnderlinesPtr.advanced(by: i).pointee = underlines[i].toCEF()
         }
 
         var cefReplRangePtr: UnsafeMutablePointer<cef_range_t>? = nil
-        defer { cefReplRangePtr?.deallocate(capacity: 1) }
+        defer { cefReplRangePtr?.deallocate() }
         
         if let replacementRange = replacementRange {
             cefReplRangePtr = UnsafeMutablePointer<cef_range_t>.allocate(capacity: 1)
@@ -510,7 +510,7 @@ public extension CEFBrowserHost {
         }
 
         var cefSelRangePtr: UnsafeMutablePointer<cef_range_t>? = nil
-        defer { cefSelRangePtr?.deallocate(capacity: 1) }
+        defer { cefSelRangePtr?.deallocate() }
         
         if let selectionRange = selectionRange {
             cefSelRangePtr = UnsafeMutablePointer<cef_range_t>.allocate(capacity: 1)
@@ -537,7 +537,7 @@ public extension CEFBrowserHost {
         defer { CEFStringPtrRelease(cefStrPtr) }
         
         var cefReplRangePtr: UnsafeMutablePointer<cef_range_t>? = nil
-        defer { cefReplRangePtr?.deallocate(capacity: 1) }
+        defer { cefReplRangePtr?.deallocate() }
         
         if let replacementRange = replacementRange {
             cefReplRangePtr = UnsafeMutablePointer<cef_range_t>.allocate(capacity: 1)
