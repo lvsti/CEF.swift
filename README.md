@@ -6,7 +6,7 @@ Swift bindings for the [Chromium Embedded Framework](https://bitbucket.org/chrom
 
 ### Requirements
 
-Xcode 9, Swift 4.0 (see notes below)<br/>
+Xcode 9.3, Swift 4.1 (see notes below)<br/>
 Supported target platforms: macOS 10.9+
 
 Required tools: jq, xcpretty, lxml<br/>
@@ -45,11 +45,11 @@ CEF is developed on multiple branches simultaneously, which differ in API and fu
 
 Currently supported branches: 
 
-- 3325 (Chrome 65) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3325)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.0
-- 3282 (Chrome 64) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3282)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.0
-- 3239 (Chrome 63) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3239)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.0
-- 3202 (Chrome 62) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3202)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.0
-- 3163 (Chrome 61) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3163)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.0
+- 3325 (Chrome 65) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3325)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.1
+- 3282 (Chrome 64) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3282)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.1
+- 3239 (Chrome 63) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3239)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.1
+- 3202 (Chrome 62) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3202)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.1
+- 3163 (Chrome 61) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3163)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.1
 
 Archived branches (not maintained anymore):
 
