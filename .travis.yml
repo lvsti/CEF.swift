@@ -17,8 +17,7 @@ branches:
 
 xcode_project: CEF.swift.xcodeproj
 xcode_scheme: CEF.swift
-osx_image: xcode9
-xcode_sdk: macosx10.12
+osx_image: xcode9.3
 
 before_install:
   - brew update
