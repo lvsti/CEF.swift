@@ -13,6 +13,11 @@ public enum CEFOnStartDraggingAction {
     case cancel
 }
 
+public struct CEFTextSelection {
+    let text: String
+    let range: CEFRange
+}
+
 /// Implement this interface to handle events when window rendering is disabled.
 /// The methods of this class will be called on the UI thread.
 /// CEF name: `CefRenderHandler`
@@ -112,6 +117,12 @@ public protocol CEFRenderHandler {
     /// bounds of each character in view coordinates.
     /// CEF name: `OnImeCompositionRangeChanged`
     func onIMECompositionRangeChanged(browser: CEFBrowser, selectedRange: CEFRange, characterBounds: [NSRect])
+
+    /// Called when text selection has changed for the specified |browser|.
+    /// |selected_text| is the currently selected text and |selected_range| is
+    // the character range.
+    /// CEF name: `OnTextSelectionChanged`
+    func onTextSelectionChanged(browser: CEFBrowser, selection: CEFTextSelection?)
 }
 
 public extension CEFRenderHandler {
@@ -169,6 +180,9 @@ public extension CEFRenderHandler {
     }
 
     func onIMECompositionRangeChanged(browser: CEFBrowser, selectedRange: CEFRange, characterBounds: [NSRect]) {
+    }
+    
+    func onTextSelectionChanged(browser: CEFBrowser, selection: CEFTextSelection?) {
     }
 }
 

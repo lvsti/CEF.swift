@@ -80,6 +80,10 @@ public protocol CEFDisplayHandler {
     /// CEF name: `OnAutoResize`
     func onAutoResize(browser: CEFBrowser, newSize: CGSize) -> CEFOnAutoResizeAction
     
+    /// Called when the overall page loading progress has changed. |progress|
+    /// ranges from 0.0 to 1.0.
+    /// CEF name: `OnLoadingProgressChange`
+    func onLoadingProgressChange(browser: CEFBrowser, progress: Double)
 }
 
 public extension CEFDisplayHandler {
@@ -114,6 +118,8 @@ public extension CEFDisplayHandler {
     func onAutoResize(browser: CEFBrowser, newSize: CGSize) -> CEFOnAutoResizeAction {
         return .performDefault
     }
-    
+
+    func onLoadingProgressChange(browser: CEFBrowser, progress: Double) {
+    }
 }
 

@@ -200,3 +200,21 @@ func CEFRenderHandler_on_ime_composition_range_changed(ptr: UnsafeMutablePointer
                                      selectedRange: CEFRange.fromCEF(selectedRange!.pointee),
                                      characterBounds: rects)
 }
+
+func CEFRenderHandler_on_text_selection_changed(ptr: UnsafeMutablePointer<cef_render_handler_t>?,
+                                                browser: UnsafeMutablePointer<cef_browser_t>?,
+                                                selectedText: UnsafePointer<cef_string_t>?,
+                                                selectedRange: UnsafePointer<cef_range_t>?) {
+    guard let obj = CEFRenderHandlerMarshaller.get(ptr) else {
+        return
+    }
+
+    var selection: CEFTextSelection?
+    if let text = selectedText, let range = selectedRange {
+        selection = CEFTextSelection(text: CEFStringToSwiftString(text.pointee),
+                                     range: CEFRange.fromCEF(range.pointee))
+    }
+    
+    obj.onTextSelectionChanged(browser: CEFBrowser.fromCEF(browser)!,
+                               selection: selection)
+}

@@ -115,3 +115,13 @@ func CEFDisplayHandler_on_auto_resize(ptr: UnsafeMutablePointer<cef_display_hand
     
     return action == .consume ? 1 : 0
 }
+
+func CEFDisplayHandler_on_loading_progress_change(ptr: UnsafeMutablePointer<cef_display_handler_t>?,
+                                                  browser: UnsafeMutablePointer<cef_browser_t>?,
+                                                  progress: Double) {
+    guard let obj = CEFDisplayHandlerMarshaller.get(ptr) else {
+        return
+    }
+    
+    obj.onLoadingProgressChange(browser: CEFBrowser.fromCEF(browser)!, progress: progress)
+}

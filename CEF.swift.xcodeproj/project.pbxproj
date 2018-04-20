@@ -23,6 +23,9 @@
 		E81F6B7B1B7A615400311F4B /* CEFScreenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F6B7A1B7A615400311F4B /* CEFScreenInfo.swift */; };
 		E81F6B7F1B7A715700311F4B /* CEFCrossOriginUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F6B7E1B7A715700311F4B /* CEFCrossOriginUtils.swift */; };
 		E81F6B811B7A973A00311F4B /* CEFPopupFeatures.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F6B801B7A973A00311F4B /* CEFPopupFeatures.swift */; };
+		E82C9005208A89E50011A1A7 /* CEFV8ArrayBufferReleaseCallback+Interop.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82C9004208A89E50011A1A7 /* CEFV8ArrayBufferReleaseCallback+Interop.g.swift */; };
+		E82C9007208A8AB60011A1A7 /* CEFV8ArrayBufferReleaseCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82C9006208A8AB60011A1A7 /* CEFV8ArrayBufferReleaseCallback.swift */; };
+		E82C9009208A8B490011A1A7 /* CEFV8ArrayBufferReleaseCallback+Interop.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82C9008208A8B490011A1A7 /* CEFV8ArrayBufferReleaseCallback+Interop.swift */; };
 		E835BB2E1B82907400BAF692 /* CEFSchemeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E835BB2D1B82907400BAF692 /* CEFSchemeUtils.swift */; };
 		E835FD421B9B798500121BF8 /* CEFV8Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = E835FD411B9B798500121BF8 /* CEFV8Result.swift */; };
 		E835FD461B9F895200121BF8 /* CEFPDFPrintCallback+Interop.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E835FD451B9F895200121BF8 /* CEFPDFPrintCallback+Interop.g.swift */; };
@@ -422,6 +425,9 @@
 		E81F6B7A1B7A615400311F4B /* CEFScreenInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFScreenInfo.swift; sourceTree = "<group>"; };
 		E81F6B7E1B7A715700311F4B /* CEFCrossOriginUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFCrossOriginUtils.swift; sourceTree = "<group>"; };
 		E81F6B801B7A973A00311F4B /* CEFPopupFeatures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFPopupFeatures.swift; sourceTree = "<group>"; };
+		E82C9004208A89E50011A1A7 /* CEFV8ArrayBufferReleaseCallback+Interop.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CEFV8ArrayBufferReleaseCallback+Interop.g.swift"; sourceTree = "<group>"; };
+		E82C9006208A8AB60011A1A7 /* CEFV8ArrayBufferReleaseCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CEFV8ArrayBufferReleaseCallback.swift; sourceTree = "<group>"; };
+		E82C9008208A8B490011A1A7 /* CEFV8ArrayBufferReleaseCallback+Interop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CEFV8ArrayBufferReleaseCallback+Interop.swift"; sourceTree = "<group>"; };
 		E835BB2D1B82907400BAF692 /* CEFSchemeUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFSchemeUtils.swift; sourceTree = "<group>"; };
 		E835FD411B9B798500121BF8 /* CEFV8Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFV8Result.swift; sourceTree = "<group>"; };
 		E835FD451B9F895200121BF8 /* CEFPDFPrintCallback+Interop.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CEFPDFPrintCallback+Interop.g.swift"; sourceTree = "<group>"; };
@@ -1023,6 +1029,7 @@
 				E87E2ED41B8090B000480AD3 /* CEFURLRequestClient.swift */,
 				E87E2EF01B813CC800480AD3 /* CEFUserData.swift */,
 				E88B85E31B6C11E400D10E17 /* CEFV8Accessor.swift */,
+				E82C9006208A8AB60011A1A7 /* CEFV8ArrayBufferReleaseCallback.swift */,
 				E88B85DF1B6C0D7800D10E17 /* CEFV8Handler.swift */,
 				E878ED3A1DCDF1B900504C5A /* CEFV8Interceptor.swift */,
 				E84249E11B753988000F23C1 /* CEFWebPluginInfoVisitor.swift */,
@@ -1295,6 +1302,7 @@
 				E8E53C081B910BE800A4A6C6 /* CEFTask+Interop.g.swift */,
 				E8E53C091B910BE800A4A6C6 /* CEFURLRequestClient+Interop.g.swift */,
 				E8E53C0A1B910BE800A4A6C6 /* CEFV8Accessor+Interop.g.swift */,
+				E82C9004208A89E50011A1A7 /* CEFV8ArrayBufferReleaseCallback+Interop.g.swift */,
 				E8C9A6D91B935F8A00B5FB1C /* CEFV8Handler+Interop.g.swift */,
 				E878ED3F1DCDF3B700504C5A /* CEFV8interceptor+Interop.g.swift */,
 				E8E53C0B1B910BE800A4A6C6 /* CEFWebPluginInfoVisitor+Interop.g.swift */,
@@ -1352,6 +1360,7 @@
 				E8E53CAF1B910F6D00A4A6C6 /* CEFURLRequestClient+Interop.swift */,
 				E8E53CB01B910F6D00A4A6C6 /* CEFUserData+Interop.swift */,
 				E8E53CB11B910F6D00A4A6C6 /* CEFV8Accessor+Interop.swift */,
+				E82C9008208A8B490011A1A7 /* CEFV8ArrayBufferReleaseCallback+Interop.swift */,
 				E8E53CB21B910F6D00A4A6C6 /* CEFV8Handler+Interop.swift */,
 				E878ED3C1DCDF36D00504C5A /* CEFV8Interceptor+Interop.swift */,
 				E8E53CB31B910F6D00A4A6C6 /* CEFWebPluginInfoVisitor+Interop.swift */,
@@ -1697,6 +1706,7 @@
 				E8E53C301B910BE800A4A6C6 /* CEFTask+Interop.g.swift in Sources */,
 				E8898B2F1B69654C009E0DFF /* CEFValue.swift in Sources */,
 				E87E2ED91B80986200480AD3 /* CEFEndTracingCallback.swift in Sources */,
+				E82C9009208A8B490011A1A7 /* CEFV8ArrayBufferReleaseCallback+Interop.swift in Sources */,
 				E8898B151B69654C009E0DFF /* CEFBase.swift in Sources */,
 				E88B867E1B6EA08A00D10E17 /* CEFDragOperationsMask.g.swift in Sources */,
 				E81F6B651B7A404200311F4B /* CEFKeyboardHandler.swift in Sources */,
@@ -1808,6 +1818,7 @@
 				E8E53C2A1B910BE800A4A6C6 /* CEFResourceBundleHandler+Interop.g.swift in Sources */,
 				E81F6B751B7A5C8500311F4B /* CEFRenderHandler.swift in Sources */,
 				E8CE3D281CD949160066BC53 /* CEFCrossAxisAlignment.g.swift in Sources */,
+				E82C9007208A8AB60011A1A7 /* CEFV8ArrayBufferReleaseCallback.swift in Sources */,
 				E878ED491DCE77ED00504C5A /* CEFRegisterCDMCallback+Interop.swift in Sources */,
 				E88B868A1B6EA08A00D10E17 /* CEFMenuID.g.swift in Sources */,
 				E88B85F11B6D423B00D10E17 /* CEFV8StackTrace.swift in Sources */,
@@ -1852,6 +1863,7 @@
 				E8621C4A1B76279800944CEE /* CEFDownloadHandler.swift in Sources */,
 				E8FDC2941C26190C00590C6E /* CEFResponseFilter+Interop.g.swift in Sources */,
 				E8898B261B69654C009E0DFF /* CEFListValue.swift in Sources */,
+				E82C9005208A89E50011A1A7 /* CEFV8ArrayBufferReleaseCallback+Interop.g.swift in Sources */,
 				E8E53CD31B910F6D00A4A6C6 /* CEFResourceHandler+Interop.swift in Sources */,
 				E8CE3D351CD94E1E0066BC53 /* CEFDownloadImageCallback+Interop.g.swift in Sources */,
 				E88B86791B6EA08A00D10E17 /* CEFCursorType.g.swift in Sources */,
