@@ -88,6 +88,21 @@ public extension CEFV8Value {
         return CEFV8Value.fromCEF(cef_v8value_create_array(Int32(length)))
     }
     
+    /// Create a new CefV8Value object of type ArrayBuffer which wraps the provided
+    /// |buffer| of size |length| bytes. The ArrayBuffer is externalized, meaning
+    /// that it does not own |buffer|. The caller is responsible for freeing
+    /// |buffer| when requested via a call to CefV8ArrayBufferReleaseCallback::
+    /// ReleaseBuffer. This method should only be called from within the scope of a
+    /// CefRenderProcessHandler, CefV8Handler or CefV8Accessor callback, or in
+    /// combination with calling Enter() and Exit() on a stored CefV8Context
+    /// reference.
+    /// CEF name: `CreateArrayBuffer`
+    public static func createArrayBuffer(from buffer: UnsafeMutableRawPointer,
+                                         length: Int,
+                                         releaseCallback: CEFV8ArrayBufferReleaseCallback?) -> CEFV8Value? {
+        return CEFV8Value.fromCEF(cef_v8value_create_array_buffer(buffer, length, releaseCallback?.toCEF()))
+    }
+
     /// Create a new CefV8Value object of type function. This method should only be
     /// called from within the scope of a CefRenderProcessHandler, CefV8Handler or
     /// CefV8Accessor callback, or in combination with calling Enter() and Exit()
@@ -166,6 +181,12 @@ public extension CEFV8Value {
     /// CEF name: `IsArray`
     public var isArray: Bool {
         return cefObject.is_array(cefObjectPtr) != 0
+    }
+
+    /// True if the value type is an ArrayBuffer.
+    /// CEF name: `IsArrayBuffer`
+    public var isArrayBuffer: Bool {
+        return cefObject.is_array_buffer(cefObjectPtr) != 0
     }
 
     /// True if the value type is function.
@@ -417,6 +438,25 @@ public extension CEFV8Value {
         return Int(cefObject.get_array_length(cefObjectPtr))
     }
     
+    // ARRAY BUFFER METHODS - These methods are only available on ArrayBuffers.
+    
+    /// Returns the ReleaseCallback object associated with the ArrayBuffer or NULL
+    /// if the ArrayBuffer was not created with CreateArrayBuffer.
+    /// CEF name: `GetArrayBufferReleaseCallback`
+    public var arrayBufferReleaseCallback: CEFV8ArrayBufferReleaseCallback? {
+        let cefCallback = cefObject.get_array_buffer_release_callback(cefObjectPtr)
+        return CEFV8ArrayBufferReleaseCallbackMarshaller.take(cefCallback)
+    }
+    
+    /// Prevent the ArrayBuffer from using it's memory block by setting the length
+    /// to zero. This operation cannot be undone. If the ArrayBuffer was created
+    /// with CreateArrayBuffer then CefV8ArrayBufferReleaseCallback::ReleaseBuffer
+    /// will be called to release the underlying buffer.
+    /// CEF name: `NeuterArrayBuffer`
+    public func neuterArrayBuffer() {
+        _ = cefObject.neuter_array_buffer(cefObjectPtr)
+    }
+
     // FUNCTION METHODS - These methods are only available on functions.
     
     /// Returns the function name.

@@ -106,4 +106,19 @@ public extension CEFResponse {
         }
     }
 
+    /// Get the resolved URL after redirects or changed as a result of HSTS.
+    /// CEF name: `GetURL`, `SetURL`
+    public var url: URL {
+        get {
+            let cefStrPtr = cefObject.get_url(cefObjectPtr)
+            defer { CEFStringPtrRelease(cefStrPtr)}
+            return URL(string: CEFStringPtrToSwiftString(cefStrPtr)!)!
+        }
+        set {
+            let cefStrPtr = CEFStringPtrCreateFromSwiftString(newValue.absoluteString)
+            defer { CEFStringPtrRelease(cefStrPtr)}
+            cefObject.set_url(cefObjectPtr, cefStrPtr)
+        }
+    }
+
 }
