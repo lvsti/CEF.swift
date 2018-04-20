@@ -52,6 +52,11 @@ public struct CEFURLRequestFlags: OptionSet {
     /// originated in the browser process.
     /// CEF name: `UR_FLAG_NO_RETRY_ON_5XX`.
     public static let noRetryOn5XX = CEFURLRequestFlags(rawValue: 1 << 5)
+
+    /// If set 3XX responses will cause the fetch to halt immediately rather than
+    /// continue through the redirect.
+    /// CEF name: `UR_FLAG_STOP_ON_REDIRECT`.
+    public static let stopOnRedirect = CEFURLRequestFlags(rawValue: 1 << 6)
 }
 
 extension CEFURLRequestFlags {
