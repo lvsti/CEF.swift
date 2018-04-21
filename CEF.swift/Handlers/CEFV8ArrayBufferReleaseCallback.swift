@@ -15,6 +15,7 @@ public protocol CEFV8ArrayBufferReleaseCallback {
     /// Called to release |buffer| when the ArrayBuffer JS object is garbage
     /// collected. |buffer| is the value that was passed to CreateArrayBuffer along
     /// with this object.
+    /// CEF name: `ReleaseBuffer`
     func releaseBuffer(_ buffer: UnsafeMutableRawPointer?)
 
 }
