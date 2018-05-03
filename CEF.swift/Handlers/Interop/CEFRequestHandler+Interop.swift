@@ -12,6 +12,7 @@ func CEFRequestHandler_on_before_browse(ptr: UnsafeMutablePointer<cef_request_ha
                                         browser: UnsafeMutablePointer<cef_browser_t>?,
                                         frame: UnsafeMutablePointer<cef_frame_t>?,
                                         request: UnsafeMutablePointer<cef_request_t>?,
+                                        userGesture: Int32,
                                         isRedirect: Int32) -> Int32 {
     guard let obj = CEFRequestHandlerMarshaller.get(ptr) else {
         return 0
@@ -20,6 +21,7 @@ func CEFRequestHandler_on_before_browse(ptr: UnsafeMutablePointer<cef_request_ha
     let action = obj.onBeforeBrowse(browser: CEFBrowser.fromCEF(browser)!,
                                     frame: CEFFrame.fromCEF(frame)!,
                                     request: CEFRequest.fromCEF(request)!,
+                                    userGesture: userGesture != 0,
                                     isRedirect: isRedirect != 0)
     return action == .cancel ? 1 : 0
 }

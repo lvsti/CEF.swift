@@ -66,11 +66,14 @@ public protocol CEFRequestHandler {
     /// If the navigation is allowed CefLoadHandler::OnLoadStart and
     /// CefLoadHandler::OnLoadEnd will be called. If the navigation is canceled
     /// CefLoadHandler::OnLoadError will be called with an |errorCode| value of
-    /// ERR_ABORTED.
+    /// ERR_ABORTED. The |user_gesture| value will be true if the browser
+    /// navigated via explicit user gesture (e.g. clicking a link) or false if it
+    /// navigated automatically (e.g. via the DomContentLoaded event).
     /// CEF name: `OnBeforeBrowse`
     func onBeforeBrowse(browser: CEFBrowser,
                         frame: CEFFrame,
                         request: CEFRequest,
+                        userGesture: Bool,
                         isRedirect: Bool) -> CEFOnBeforeBrowseAction
     
     /// Called on the UI thread before OnBeforeBrowse in certain limited cases
