@@ -47,6 +47,10 @@ public enum CEFThreadID: Int32 {
     /// CEF name: `TID_FILE_USER_BLOCKING`.
     case fileUserBlocking
 
+    /// Used to launch and terminate browser processes.
+    /// CEF name: `TID_PROCESS_LAUNCHER`.
+    case processLauncher
+
     /// Used to process IPC and network messages. Do not perform blocking tasks on
     /// this thread. All tasks posted after
     /// CefBrowserProcessHandler::OnContextInitialized() and before CefShutdown()
