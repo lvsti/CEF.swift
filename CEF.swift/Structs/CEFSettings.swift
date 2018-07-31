@@ -14,13 +14,6 @@ import Foundation
 /// line switches.
 /// CEF name: `cef_settings_t`
 public struct CEFSettings {
-    /// Set to true (1) to use a single process for the browser and renderer. This
-    /// run mode is not officially supported by Chromium and is less stable than
-    /// the multi-process default. Also configurable using the "single-process"
-    /// command-line switch.
-    /// CEF name: `single_process`
-    public var useSingleProcess: Bool = false
-
     /// Set to false (0) to disable the sandbox for sub-processes. See
     /// cef_sandbox_win.h for requirements to enable the sandbox on Windows. Also
     /// configurable using the "no-sandbox" command-line switch.
@@ -247,7 +240,6 @@ extension CEFSettings {
         var cefStruct = cef_settings_t()
         
         cefStruct.size = MemoryLayout<cef_settings_t>.stride
-        cefStruct.single_process = useSingleProcess ? 1 : 0
         cefStruct.no_sandbox = !useSandbox ? 1 : 0
         CEFStringSetFromSwiftString(browserSubprocessPath, cefStringPtr: &cefStruct.browser_subprocess_path)
         cefStruct.multi_threaded_message_loop = useMultiThreadedMessageLoop ? 1 : 0
