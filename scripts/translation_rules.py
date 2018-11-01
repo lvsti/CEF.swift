@@ -4,7 +4,7 @@ abbreviations = [
     'cef', 'http', 'https', 'ssl', 'url', 'uri', 'json', 'html', 'xhtml', 'v8', 'dom',
     'cdata', 'utf8', 'utf16le', 'utf16be', 'ascii', 'io', 'ui', 'db', '5xx', 'xhr',
     'cmy', 'cmyk', 'kcmy', 'rgb', 'rgba', 'bgra', 'rgb16', 'hp', 'rfc', 'id', 'js', 'xml', 'pdf',
-    'ev', 'ct', 'sha1', 'csp', 'cdm', 'com'
+    'ev', 'ct', 'sha1', 'csp', 'cdm', 'com', 'oom'
 ]
 
 typename_overrides = {

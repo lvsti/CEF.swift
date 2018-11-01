@@ -22,6 +22,10 @@ public enum CEFTerminationStatus: Int32 {
     /// Segmentation fault.
     /// CEF name: `TS_PROCESS_CRASHED`.
     case processCrashed
+
+    /// Out of memory. Some platforms may use TS_PROCESS_CRASHED instead.
+    /// CEF name: `TS_PROCESS_OOM`.
+    case processOOM
 }
 
 extension CEFTerminationStatus {
