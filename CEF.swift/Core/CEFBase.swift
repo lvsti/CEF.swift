@@ -21,6 +21,7 @@ protocol CEFRefCounting: class {
     func addRef()
     func release() -> Bool
     func hasOneRef() -> Bool
+    func hasAtLeastOneRef() -> Bool
 }
 
 
@@ -60,6 +61,12 @@ public class CEFProxy<T : CEFObject>: CEFRefCounting {
     func hasOneRef() -> Bool {
         return _cefPtr.withMemoryRebound(to: cef_base_ref_counted_t.self, capacity: 1) { basePtr in
             return _cefPtr.pointee.base.has_one_ref(basePtr) != 0
+        }
+    }
+    
+    func hasAtLeastOneRef() -> Bool {
+        return _cefPtr.withMemoryRebound(to: cef_base_ref_counted_t.self, capacity: 1) { basePtr in
+            return _cefPtr.pointee.base.has_at_least_one_ref(basePtr) != 0
         }
     }
 

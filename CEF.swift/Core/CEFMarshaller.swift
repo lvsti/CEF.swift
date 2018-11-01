@@ -40,6 +40,7 @@ class CEFMarshallerBase {
             func addRef() {}
             func release() -> Bool { return false }
             func hasOneRef() -> Bool { return false }
+            func hasAtLeastOneRef() -> Bool { return false }
         }
         
         var probe = Probe<Void, DummyStruct>()
@@ -112,6 +113,7 @@ final class CEFMarshaller<TClass, TStruct>: CEFMarshallerBase, CEFRefCounting
         cefStruct.base.add_ref = CEFMarshaller_addRef
         cefStruct.base.release = CEFMarshaller_release
         cefStruct.base.has_one_ref = CEFMarshaller_hasOneRef
+        cefStruct.base.has_at_least_one_ref = CEFMarshaller_hasAtLeastOneRef
 
         cefStruct.marshalCallbacks()
         
@@ -157,7 +159,13 @@ final class CEFMarshaller<TClass, TStruct>: CEFMarshallerBase, CEFRefCounting
         defer { _refCountMutex.unlock() }
         return _refCount == 1
     }
-    
+
+    func hasAtLeastOneRef() -> Bool {
+        _refCountMutex.lock()
+        defer { _refCountMutex.unlock() }
+        return _refCount >= 1
+    }
+
     private var _refCount: Int = 0
     private var _refCountMutex: Lock
     private var _self: InstanceType? = nil
@@ -191,4 +199,14 @@ func CEFMarshaller_hasOneRef(ptr: UnsafeMutablePointer<cef_base_ref_counted_t>?)
         return 0
     }
     return marshaller.hasOneRef() ? 1 : 0
+}
+
+func CEFMarshaller_hasAtLeastOneRef(ptr: UnsafeMutablePointer<cef_base_ref_counted_t>?) -> Int32 {
+    guard
+        let ptr = ptr,
+        let marshaller = CEFMarshallerBase.getMarshallerFromBaseStructPtr(ptr) as? CEFRefCounting
+    else {
+        return 0
+    }
+    return marshaller.hasAtLeastOneRef() ? 1 : 0
 }
