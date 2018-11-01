@@ -40,7 +40,7 @@ public struct CEFSettings {
     /// Set to true (1) to have the browser process message loop run in a separate
     /// thread. If false (0) than the CefDoMessageLoopWork() function must be
     /// called from your application message loop. This option is only supported on
-    /// Windows.
+    /// Windows and Linux.
     /// CEF name: `multi_threaded_message_loop`
     public var useMultiThreadedMessageLoop: Bool = false
     
