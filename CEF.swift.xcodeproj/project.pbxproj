@@ -2023,7 +2023,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Modules/ChromiumEmbedded";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				WARNING_CFLAGS = "-Wpartial-availability";
 			};
 			name = Debug;
@@ -2053,7 +2053,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Modules/ChromiumEmbedded";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				WARNING_CFLAGS = "-Wpartial-availability";
 			};
 			name = Release;
