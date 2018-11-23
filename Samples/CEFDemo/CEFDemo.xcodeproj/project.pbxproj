@@ -8,24 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		E86341771FB7AD0F00D6DEDF /* CEFswift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8727E2F1FB78EC000CE0E66 /* CEFswift.framework */; };
-		E86341791FB7AE1800D6DEDF /* CEFswift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8727E2F1FB78EC000CE0E66 /* CEFswift.framework */; };
 		E871EC9B1FB398D200ADFF77 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E871EC7D1FB3920700ADFF77 /* main.swift */; };
 		E871EC9E1FB399F800ADFF77 /* CEFDemo Helper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = E871EC8D1FB398AF00ADFF77 /* CEFDemo Helper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E878366E1B93B26400555EC2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E878366D1B93B26400555EC2 /* AppDelegate.swift */; };
 		E87836701B93B26400555EC2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E878366F1B93B26400555EC2 /* Assets.xcassets */; };
 		E87836731B93B26500555EC2 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E87836711B93B26500555EC2 /* MainMenu.xib */; };
 		E878367B1B93B29B00555EC2 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E878367A1B93B29B00555EC2 /* main.swift */; };
-		E8A9A6DE1FB83A1B00F41676 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = E8A9A6DD1FB83A1B00F41676 /* main.c */; };
-		E8A9A6DF1FB83BA700F41676 /* Chromium Embedded Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E86341741FB7A6CC00D6DEDF /* Chromium Embedded Framework.framework */; };
+		E883E75B21A8A87B002E9EA4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E883E75A21A8A87B002E9EA4 /* main.cpp */; };
+		E883E75F21A8AA05002E9EA4 /* cef_sandbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E883E75E21A8AA05002E9EA4 /* cef_sandbox.a */; };
+		E883E76B21A8ABAE002E9EA4 /* libCEFSandbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E883E76A21A8ABA5002E9EA4 /* libCEFSandbox.a */; };
+		E883E77321A8AECF002E9EA4 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = E8A9A6DD1FB83A1B00F41676 /* main.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		E8A9A6E01FB83C2500F41676 /* PBXContainerItemProxy */ = {
+		E883E75C21A8A8B9002E9EA4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E87836621B93B26400555EC2 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = E8A9A6D31FB839D400F41676;
-			remoteInfo = "CEFDemo Helper (C)";
+			remoteGlobalIDString = E883E75021A8A85B002E9EA4;
+			remoteInfo = "CEFDemo Helper (C++)";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -40,10 +41,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E883E74A21A8993D002E9EA4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E86341741FB7A6CC00D6DEDF /* Chromium Embedded Framework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Chromium Embedded Framework.framework"; path = "../../../../External/cef_binary_3.3202.1683.gb095524_macosx64/Release/Chromium Embedded Framework.framework"; sourceTree = "<group>"; };
 		E871EC7D1FB3920700ADFF77 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		E871EC8D1FB398AF00ADFF77 /* CEFDemo Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CEFDemo Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E871EC961FB398AF00ADFF77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -54,6 +63,11 @@
 		E87836721B93B26500555EC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		E87836741B93B26500555EC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E878367A1B93B29B00555EC2 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		E883E75821A8A85B002E9EA4 /* CEFDemo Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CEFDemo Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E883E75A21A8A87B002E9EA4 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		E883E75E21A8AA05002E9EA4 /* cef_sandbox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = cef_sandbox.a; path = ../../External/cef_binary_3.3538.1852.gcb937fc_macosx64/Release/cef_sandbox.a; sourceTree = "<group>"; };
+		E883E76A21A8ABA5002E9EA4 /* libCEFSandbox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCEFSandbox.a; sourceTree = "<group>"; };
+		E894BCB321A8B4DF00DF7216 /* Chromium Embedded Framework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "Chromium Embedded Framework.framework"; sourceTree = "<group>"; };
 		E8A9A6DB1FB839D500F41676 /* CEFDemo Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CEFDemo Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8A9A6DD1FB83A1B00F41676 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,7 +77,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E86341791FB7AE1800D6DEDF /* CEFswift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,11 +88,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E883E75321A8A85B002E9EA4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E883E75F21A8AA05002E9EA4 /* cef_sandbox.a in Frameworks */,
+				E883E76B21A8ABAE002E9EA4 /* libCEFSandbox.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E8A9A6D61FB839D400F41676 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8A9A6DF1FB83BA700F41676 /* Chromium Embedded Framework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +118,7 @@
 		E871EC711FB3909800ADFF77 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E883E75E21A8AA05002E9EA4 /* cef_sandbox.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -107,6 +129,7 @@
 				E871EC7D1FB3920700ADFF77 /* main.swift */,
 				E871EC961FB398AF00ADFF77 /* Info.plist */,
 				E8A9A6DD1FB83A1B00F41676 /* main.c */,
+				E883E75A21A8A87B002E9EA4 /* main.cpp */,
 			);
 			path = "CEFDemo Helper";
 			sourceTree = "<group>";
@@ -114,7 +137,8 @@
 		E8727E2E1FB78EC000CE0E66 /* Release */ = {
 			isa = PBXGroup;
 			children = (
-				E86341741FB7A6CC00D6DEDF /* Chromium Embedded Framework.framework */,
+				E883E76A21A8ABA5002E9EA4 /* libCEFSandbox.a */,
+				E894BCB321A8B4DF00DF7216 /* Chromium Embedded Framework.framework */,
 				E8727E2F1FB78EC000CE0E66 /* CEFswift.framework */,
 			);
 			path = Release;
@@ -137,6 +161,7 @@
 				E878366A1B93B26400555EC2 /* CEFDemo.app */,
 				E871EC8D1FB398AF00ADFF77 /* CEFDemo Helper.app */,
 				E8A9A6DB1FB839D500F41676 /* CEFDemo Helper.app */,
+				E883E75821A8A85B002E9EA4 /* CEFDemo Helper.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -162,6 +187,7 @@
 			buildPhases = (
 				E871EC891FB398AF00ADFF77 /* Sources */,
 				E871EC8A1FB398AF00ADFF77 /* Frameworks */,
+				E883E74A21A8993D002E9EA4 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -176,6 +202,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E87836771B93B26500555EC2 /* Build configuration list for PBXNativeTarget "CEFDemo" */;
 			buildPhases = (
+				E894BCB121A8B3DC00DF7216 /* Symlink CEF */,
 				E87836661B93B26400555EC2 /* Sources */,
 				E87836671B93B26400555EC2 /* Frameworks */,
 				E87836681B93B26400555EC2 /* Resources */,
@@ -185,11 +212,28 @@
 			buildRules = (
 			);
 			dependencies = (
-				E8A9A6E11FB83C2500F41676 /* PBXTargetDependency */,
+				E883E75D21A8A8B9002E9EA4 /* PBXTargetDependency */,
 			);
 			name = CEFDemo;
 			productName = CEFDemoExt;
 			productReference = E878366A1B93B26400555EC2 /* CEFDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E883E75021A8A85B002E9EA4 /* CEFDemo Helper Sandboxed (C++) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E883E75521A8A85B002E9EA4 /* Build configuration list for PBXNativeTarget "CEFDemo Helper Sandboxed (C++)" */;
+			buildPhases = (
+				E883E75121A8A85B002E9EA4 /* Sources */,
+				E883E75321A8A85B002E9EA4 /* Frameworks */,
+				E894BCB221A8B46000DF7216 /* Symlink CEF */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CEFDemo Helper Sandboxed (C++)";
+			productName = "CEFDemo Helper";
+			productReference = E883E75821A8A85B002E9EA4 /* CEFDemo Helper.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E8A9A6D31FB839D400F41676 /* CEFDemo Helper (C) */ = {
@@ -245,6 +289,7 @@
 				E87836691B93B26400555EC2 /* CEFDemo */,
 				E871EC8C1FB398AF00ADFF77 /* CEFDemo Helper (Swift) */,
 				E8A9A6D31FB839D400F41676 /* CEFDemo Helper (C) */,
+				E883E75021A8A85B002E9EA4 /* CEFDemo Helper Sandboxed (C++) */,
 			);
 		};
 /* End PBXProject section */
@@ -274,7 +319,43 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\nfor FW in CEFswift \"Chromium Embedded Framework\"\ndo\n    rm -rf \"${BUILT_PRODUCTS_DIR}/CEFDemo.app/Contents/Frameworks/${FW}.framework\"\n    cp -R \"${PROJECT_DIR}/Library/Release/${FW}.framework\" \"${BUILT_PRODUCTS_DIR}/CEFDemo.app/Contents/Frameworks/\"\ndone\n";
+			shellScript = "set -e\n\nfor FW in CEFswift \"Chromium Embedded Framework\"\ndo\n    rm -rf \"${BUILT_PRODUCTS_DIR}/CEFDemo.app/Contents/Frameworks/${FW}.framework\"\n    cp -RH \"${PROJECT_DIR}/Library/Release/${FW}.framework\" \"${BUILT_PRODUCTS_DIR}/CEFDemo.app/Contents/Frameworks/\"\ndone\n";
+		};
+		E894BCB121A8B3DC00DF7216 /* Symlink CEF */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Symlink CEF";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ ! -h \"${SRCROOT}/Library/Release/Chromium Embedded Framework.framework\" ]; then\n    ln -s \"${SRCROOT}/../../External/cef_binary/Release/Chromium Embedded Framework.framework\" \"${SRCROOT}/Library/Release/Chromium Embedded Framework.framework\"\nfi\n";
+		};
+		E894BCB221A8B46000DF7216 /* Symlink CEF */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Symlink CEF";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ ! -h \"${SRCROOT}/Library/Release/Chromium Embedded Framework.framework\" ]; then\n    ln -s \"${SRCROOT}/../../External/cef_binary/Release/Chromium Embedded Framework.framework\" \"${SRCROOT}/Library/Release/Chromium Embedded Framework.framework\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -296,21 +377,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E883E75121A8A85B002E9EA4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E883E75B21A8A87B002E9EA4 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E8A9A6D41FB839D400F41676 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8A9A6DE1FB83A1B00F41676 /* main.c in Sources */,
+				E883E77321A8AECF002E9EA4 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E8A9A6E11FB83C2500F41676 /* PBXTargetDependency */ = {
+		E883E75D21A8A8B9002E9EA4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E8A9A6D31FB839D400F41676 /* CEFDemo Helper (C) */;
-			targetProxy = E8A9A6E01FB83C2500F41676 /* PBXContainerItemProxy */;
+			target = E883E75021A8A85B002E9EA4 /* CEFDemo Helper Sandboxed (C++) */;
+			targetProxy = E883E75C21A8A8B9002E9EA4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -339,11 +428,16 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Library/Release",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/Library/Release/Chromium Embedded Framework.framework/Headers\"";
 				INFOPLIST_FILE = "CEFDemo Helper/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../..";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../.. @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "me.cocoagrinder.CEFDemo-Helper";
 				PRODUCT_NAME = "CEFDemo Helper";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -364,11 +458,16 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Library/Release",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/Library/Release/Chromium Embedded Framework.framework/Headers\"";
 				INFOPLIST_FILE = "CEFDemo Helper/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../..";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../.. @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "me.cocoagrinder.CEFDemo-Helper";
 				PRODUCT_NAME = "CEFDemo Helper";
 				SWIFT_VERSION = 4.0;
@@ -502,6 +601,62 @@
 			};
 			name = Release;
 		};
+		E883E75621A8A85B002E9EA4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Library/Release",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/Library/Release/Chromium Embedded Framework.framework/Headers\"";
+				INFOPLIST_FILE = "CEFDemo Helper/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../..";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "me.cocoagrinder.CEFDemo-Helper";
+				PRODUCT_NAME = "CEFDemo Helper";
+			};
+			name = Debug;
+		};
+		E883E75721A8A85B002E9EA4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Library/Release",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/Library/Release/Chromium Embedded Framework.framework/Headers\"";
+				INFOPLIST_FILE = "CEFDemo Helper/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../..";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "me.cocoagrinder.CEFDemo-Helper";
+				PRODUCT_NAME = "CEFDemo Helper";
+			};
+			name = Release;
+		};
 		E8A9A6D91FB839D400F41676 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -513,11 +668,18 @@
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Library/Release";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Library/Release",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/Library/Release/Chromium Embedded Framework.framework/Headers\"";
 				INFOPLIST_FILE = "CEFDemo Helper/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../..";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "me.cocoagrinder.CEFDemo-Helper";
 				PRODUCT_NAME = "CEFDemo Helper";
 			};
@@ -534,11 +696,18 @@
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Library/Release";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Library/Release",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/Library/Release/Chromium Embedded Framework.framework/Headers\"";
 				INFOPLIST_FILE = "CEFDemo Helper/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../..";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "me.cocoagrinder.CEFDemo-Helper";
 				PRODUCT_NAME = "CEFDemo Helper";
 			};
@@ -570,6 +739,15 @@
 			buildConfigurations = (
 				E87836781B93B26500555EC2 /* Debug */,
 				E87836791B93B26500555EC2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E883E75521A8A85B002E9EA4 /* Build configuration list for PBXNativeTarget "CEFDemo Helper Sandboxed (C++)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E883E75621A8A85B002E9EA4 /* Debug */,
+				E883E75721A8A85B002E9EA4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
