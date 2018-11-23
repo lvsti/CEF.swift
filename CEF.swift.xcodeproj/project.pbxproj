@@ -148,6 +148,8 @@
 		E87E2EE91B80A32D00480AD3 /* CEFPrintJobCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87E2EE81B80A32D00480AD3 /* CEFPrintJobCallback.swift */; };
 		E87E2EEB1B80A39600480AD3 /* CEFPrintHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87E2EEA1B80A39600480AD3 /* CEFPrintHandler.swift */; };
 		E87E2EF11B813CC800480AD3 /* CEFUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87E2EF01B813CC800480AD3 /* CEFUserData.swift */; };
+		E883E77121A8ACEC002E9EA4 /* cef_library_loader_mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = E883E76E21A8ACEC002E9EA4 /* cef_library_loader_mac.mm */; };
+		E883E77221A8ACEC002E9EA4 /* libcef_dll_dylib.cc in Sources */ = {isa = PBXBuildFile; fileRef = E883E76F21A8ACEC002E9EA4 /* libcef_dll_dylib.cc */; };
 		E8898B151B69654C009E0DFF /* CEFBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8898AED1B69654C009E0DFF /* CEFBase.swift */; };
 		E8898B161B69654C009E0DFF /* CEFMarshaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8898AEE1B69654C009E0DFF /* CEFMarshaller.swift */; };
 		E8898B171B69654C009E0DFF /* CEFApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8898AF01B69654C009E0DFF /* CEFApp.swift */; };
@@ -555,6 +557,9 @@
 		E87E2EE81B80A32D00480AD3 /* CEFPrintJobCallback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFPrintJobCallback.swift; sourceTree = "<group>"; };
 		E87E2EEA1B80A39600480AD3 /* CEFPrintHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFPrintHandler.swift; sourceTree = "<group>"; };
 		E87E2EF01B813CC800480AD3 /* CEFUserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFUserData.swift; sourceTree = "<group>"; };
+		E883E76421A8AAD4002E9EA4 /* libCEFSandbox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCEFSandbox.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E883E76E21A8ACEC002E9EA4 /* cef_library_loader_mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = cef_library_loader_mac.mm; path = External/cef_binary/libcef_dll/wrapper/cef_library_loader_mac.mm; sourceTree = SOURCE_ROOT; };
+		E883E76F21A8ACEC002E9EA4 /* libcef_dll_dylib.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = libcef_dll_dylib.cc; path = External/cef_binary/libcef_dll/wrapper/libcef_dll_dylib.cc; sourceTree = SOURCE_ROOT; };
 		E8898AED1B69654C009E0DFF /* CEFBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFBase.swift; sourceTree = "<group>"; };
 		E8898AEE1B69654C009E0DFF /* CEFMarshaller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFMarshaller.swift; sourceTree = "<group>"; };
 		E8898AF01B69654C009E0DFF /* CEFApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFApp.swift; sourceTree = "<group>"; };
@@ -824,6 +829,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E883E76221A8AAD4002E9EA4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -931,6 +943,7 @@
 			isa = PBXGroup;
 			children = (
 				E8456E121B52C29700AE93DC /* CEF.swift */,
+				E883E76C21A8AC37002E9EA4 /* CEFSandbox */,
 				E84545CA1B94FD0F005CC3D0 /* Modules */,
 				E8456E111B52C29700AE93DC /* Products */,
 			);
@@ -940,6 +953,7 @@
 			isa = PBXGroup;
 			children = (
 				E8456E101B52C29700AE93DC /* CEFswift.framework */,
+				E883E76421A8AAD4002E9EA4 /* libCEFSandbox.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -968,6 +982,15 @@
 				E86529D01FB25C9700E21801 /* CEFApplication.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		E883E76C21A8AC37002E9EA4 /* CEFSandbox */ = {
+			isa = PBXGroup;
+			children = (
+				E883E76E21A8ACEC002E9EA4 /* cef_library_loader_mac.mm */,
+				E883E76F21A8ACEC002E9EA4 /* libcef_dll_dylib.cc */,
+			);
+			name = CEFSandbox;
 			sourceTree = "<group>";
 		};
 		E8898AEC1B69654C009E0DFF /* Core */ = {
@@ -1384,6 +1407,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E883E76021A8AAD4002E9EA4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -1407,6 +1437,24 @@
 			productReference = E8456E101B52C29700AE93DC /* CEFswift.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		E883E76321A8AAD4002E9EA4 /* CEFSandbox */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E883E76521A8AAD4002E9EA4 /* Build configuration list for PBXNativeTarget "CEFSandbox" */;
+			buildPhases = (
+				E883E76021A8AAD4002E9EA4 /* Headers */,
+				E883E76121A8AAD4002E9EA4 /* Sources */,
+				E883E76221A8AAD4002E9EA4 /* Frameworks */,
+				E894BCB521A8B6F300DF7216 /* Symlink to sample code */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CEFSandbox;
+			productName = CEFSandbox;
+			productReference = E883E76421A8AAD4002E9EA4 /* libCEFSandbox.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1419,6 +1467,10 @@
 				TargetAttributes = {
 					E8456E0F1B52C29700AE93DC = {
 						CreatedOnToolsVersion = 7.0;
+					};
+					E883E76321A8AAD4002E9EA4 = {
+						CreatedOnToolsVersion = 10.1;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1436,6 +1488,7 @@
 			projectRoot = "";
 			targets = (
 				E8456E0F1B52C29700AE93DC /* CEF.swift */,
+				E883E76321A8AAD4002E9EA4 /* CEFSandbox */,
 			);
 		};
 /* End PBXProject section */
@@ -1464,6 +1517,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -ex\n\nFW_PATH=\"${SRCROOT}/Samples/CEFDemo/Library/${CONFIGURATION}/CEFswift.framework\"\n\nif [ ! -h \"${FW_PATH}\" ]; then\n    rm -rf \"${FW_PATH}\"\n    mkdir -p $(dirname \"${FW_PATH}\")\n    ln -s \"${BUILT_PRODUCTS_DIR}/CEFswift.framework\" \"${FW_PATH}\"\nfi\n";
+		};
+		E894BCB521A8B6F300DF7216 /* Symlink to sample code */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Symlink to sample code";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -ex\n\nLIB_PATH=\"${SRCROOT}/Samples/CEFDemo/Library/${CONFIGURATION}/libCEFSandbox.a\"\n\nif [ ! -h \"${LIB_PATH}\" ]; then\n    rm -f \"${LIB_PATH}\"\n    mkdir -p $(dirname \"${LIB_PATH}\")\n    ln -s \"${BUILT_PRODUCTS_DIR}/libCEFSandbox.a\" \"${LIB_PATH}\"\nfi\n";
 		};
 		E8B98AA11EED3EE200171EA3 /* Prepare external dependencies */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1888,6 +1959,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E883E76121A8AAD4002E9EA4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E883E77221A8ACEC002E9EA4 /* libcef_dll_dylib.cc in Sources */,
+				E883E77121A8ACEC002E9EA4 /* cef_library_loader_mac.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
@@ -2001,7 +2081,6 @@
 		E8456E191B52C29700AE93DC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CEF_BINARY_ROOT = "$(SRCROOT)/External/cef_binary";
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -2031,7 +2110,6 @@
 		E8456E1A1B52C29700AE93DC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CEF_BINARY_ROOT = "$(SRCROOT)/External/cef_binary";
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -2058,6 +2136,57 @@
 			};
 			name = Release;
 		};
+		E883E76621A8AAD4002E9EA4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = "$(CEF_BINARY_ROOT)";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-DBUILDING_CEF_SHARED",
+					"-DWRAPPING_CEF_SHARED",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		E883E76721A8AAD4002E9EA4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = "$(CEF_BINARY_ROOT)";
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-DBUILDING_CEF_SHARED",
+					"-DWRAPPING_CEF_SHARED",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2075,6 +2204,15 @@
 			buildConfigurations = (
 				E8456E191B52C29700AE93DC /* Debug */,
 				E8456E1A1B52C29700AE93DC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E883E76521A8AAD4002E9EA4 /* Build configuration list for PBXNativeTarget "CEFSandbox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E883E76621A8AAD4002E9EA4 /* Debug */,
+				E883E76721A8AAD4002E9EA4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
