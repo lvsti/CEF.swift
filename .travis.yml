@@ -8,31 +8,22 @@ language: objective-c
 
 branches:
   only:
-    - cef_3163
-    - cef_3202
-    - cef_3239
-    - cef_3282
-    - cef_3325
     - cef_3359
     - cef_3396
     - cef_3440
     - cef_3497
+    - cef_3538
 
 xcode_project: CEF.swift.xcodeproj
 xcode_scheme: CEF.swift
-osx_image: xcode9.3
+osx_image: xcode10.1
 
 before_install:
   - brew update
   - brew install jq
-  - sudo gem install xcpretty-travis-formatter --no-doc
   - sudo pip install lxml
   
 install:
   - ./scripts/setup.sh
   - ./scripts/check_proxy_impl.py ./External/cef_binary/include/ ./CEF.swift/Proxies/
   - ./scripts/check_handler_interface.py ./External/cef_binary/include/ ./CEF.swift/Handlers/
-
-script: 
-  - set -o pipefail && xcodebuild clean build -project CEF.swift.xcodeproj -scheme CEF.swift | xcpretty -c -f `xcpretty-travis-formatter`
-  - set -o pipefail && xcodebuild clean build -project CEF.swift.xcodeproj -scheme CEFSandbox | xcpretty -c -f `xcpretty-travis-formatter`

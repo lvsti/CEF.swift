@@ -6,7 +6,7 @@ Swift bindings for the [Chromium Embedded Framework](https://bitbucket.org/chrom
 
 ### Requirements
 
-Xcode 9.3, Swift 4.1 (see notes below)<br/>
+Xcode 10.0, Swift 4.2 (see notes below)<br/>
 Supported target platforms: macOS 10.9+
 
 Required tools: jq, xcpretty, lxml<br/>
@@ -45,18 +45,15 @@ CEF is developed on multiple branches simultaneously, which differ in API and fu
 
 Currently supported branches: 
 
+- 3538 (Chrome 70) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3538)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
 - 3497 (Chrome 69) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3497)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.1
 - 3440 (Chrome 68) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3440)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.1
 - 3396 (Chrome 67) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3396)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.1
 - 3359 (Chrome 66) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3359)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.1
-- 3325 (Chrome 65) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3325)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.1
-- 3282 (Chrome 64) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3282)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.1
-- 3239 (Chrome 63) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3239)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.1
-- 3202 (Chrome 62) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3202)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.1
-- 3163 (Chrome 61) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3163)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.1
 
 Archived branches (not maintained anymore):
 
+- 3325, 3282, 3239, 3202, 3163 - Swift 4.1
 - 3112, 3071, 3029, 2987, 2924, 2883, 2840, 2785, 2743, 2704 - Swift 3.0
 - 2623, 2526, 2454, 2357 - Swift 2.3
 
