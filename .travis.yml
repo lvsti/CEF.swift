@@ -8,11 +8,6 @@ language: objective-c
 
 branches:
   only:
-    - cef_3163
-    - cef_3202
-    - cef_3239
-    - cef_3282
-    - cef_3325
     - cef_3359
     - cef_3396
     - cef_3440
