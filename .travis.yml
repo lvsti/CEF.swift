@@ -28,4 +28,4 @@ install:
   - ./scripts/check_proxy_impl.py ./External/cef_binary/include/ ./CEF.swift/Proxies/
   - ./scripts/check_handler_interface.py ./External/cef_binary/include/ ./CEF.swift/Handlers/
 
-script: set -o pipefail && xcodebuild clean build -project CEF.swift.xcodeproj -scheme CEF.swift | xcpretty`
+script: set -o pipefail && xcodebuild clean build -project CEF.swift.xcodeproj -scheme CEF.swift | xcpretty
