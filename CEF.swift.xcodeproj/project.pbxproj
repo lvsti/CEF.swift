@@ -411,6 +411,16 @@
 		E8FDC2941C26190C00590C6E /* CEFResponseFilter+Interop.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FDC2931C26190C00590C6E /* CEFResponseFilter+Interop.g.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		E89145E321A9F5DF00F2F6BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8456E071B52C29700AE93DC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E883E76321A8AAD4002E9EA4;
+			remoteInfo = CEFSandbox;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		E812A5761BB6D7F90054821A /* CEFJSONParseResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFJSONParseResult.swift; sourceTree = "<group>"; };
 		E81F6B581B7A323000311F4B /* CEFFindHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFFindHandler.swift; sourceTree = "<group>"; };
@@ -1431,6 +1441,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				E89145E421A9F5DF00F2F6BC /* PBXTargetDependency */,
 			);
 			name = CEF.swift;
 			productName = CEF.swift;
@@ -1969,6 +1980,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E89145E421A9F5DF00F2F6BC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E883E76321A8AAD4002E9EA4 /* CEFSandbox */;
+			targetProxy = E89145E321A9F5DF00F2F6BC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		E8456E161B52C29700AE93DC /* Debug */ = {
