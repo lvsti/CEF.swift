@@ -6,7 +6,7 @@ Swift bindings for the [Chromium Embedded Framework](https://bitbucket.org/chrom
 
 ### Requirements
 
-Xcode 9.3, Swift 4.1 (see notes below)<br/>
+Xcode 10.0, Swift 4.2 (see notes below)<br/>
 Supported target platforms: macOS 10.9+
 
 Required tools: jq, xcpretty, lxml<br/>
@@ -45,6 +45,7 @@ CEF is developed on multiple branches simultaneously, which differ in API and fu
 
 Currently supported branches: 
 
+- 3538 (Chrome 70) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3538)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
 - 3497 (Chrome 69) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3497)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.1
 - 3440 (Chrome 68) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3440)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.1
 - 3396 (Chrome 67) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3396)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.1
