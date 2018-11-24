@@ -610,6 +610,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.cocoagrinder.CEFDemo;
 				PRODUCT_NAME = CEFDemo;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = edit_to_USE_LEGACY_SANDBOX;
 				SWIFT_VERSION = 4.2;
 				WARNING_CFLAGS = "-Wpartial-availability";
 			};
@@ -629,6 +630,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.cocoagrinder.CEFDemo;
 				PRODUCT_NAME = CEFDemo;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = edit_to_USE_LEGACY_SANDBOX;
 				SWIFT_VERSION = 4.2;
 				WARNING_CFLAGS = "-Wpartial-availability";
 			};

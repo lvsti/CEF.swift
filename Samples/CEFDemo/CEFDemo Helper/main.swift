@@ -22,6 +22,13 @@ class App: CEFApp, CEFRenderProcessHandler {
     }
 }
 
+#error("Important notice")
+// This helper written in Swift does not YET support the new macOS sandboxing mechanism.
+// You are encouraged to use the provided C or C++ helper implementations instead.
+// If that is not an option for you, you may try falling back to using the legacy sandbox
+// by setting the USE_LEGACY_SANDBOX compilation condition in the CEFDemo target.
+// NOTE: This workaround is not guaranteed to work in subsequent CEF releases.
+
 let mainArgs = CEFMainArgs(arguments: CommandLine.arguments)
 let commandLine = CEFCommandLine()!
 commandLine.initFromArguments(CommandLine.arguments)

@@ -92,7 +92,7 @@ class SimpleApplication : CEFApplication {
     }
 }
 
-#if DISABLE_SANDBOX
+#if USE_LEGACY_SANDBOX
 let args = CEFMainArgs(arguments: CommandLine.arguments + ["--disable-features=MacV2Sandbox"])
 #else
 let args = CEFMainArgs(arguments: CommandLine.arguments)
