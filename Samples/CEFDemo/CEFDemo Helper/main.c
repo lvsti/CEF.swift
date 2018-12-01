@@ -6,7 +6,14 @@
 //  Copyright © 2017. Tamas Lustyik. All rights reserved.
 //
 
+#define USE_SWIFT_HELPER 1
+
+#if USE_SWIFT_HELPER
+#include <dlfcn.h>
+#else
 #include "include/capi/cef_app_capi.h"
+#endif
+
 #include "include/wrapper/cef_library_loader.h"
 #include "include/cef_sandbox_mac.h"
 #include <libgen.h>
@@ -27,14 +34,28 @@ int main(int argc, char* argv[]) {
     
     if (!cef_load_library(fwPath)) {
         cef_sandbox_destroy(sandboxContext);
-        return 1;
+        return 2;
     }
     
+#if USE_SWIFT_HELPER
+    void* lib = dlopen("SwiftHelper.framework/SwiftHelper", RTLD_LAZY);
+    if (!lib) {
+        return 3;
+    }
+    
+    int (*helperMain)(void) = dlsym(lib, "HelperMain");
+    if (!helperMain) {
+        return 4;
+    }
+    
+    int retval = helperMain();
+#else
     // Provide CEF with command-line arguments.
     cef_main_args_t mainArgs = {.argc = argc, .argv = argv};
     
     // Execute the sub-process.
     int retval = cef_execute_process(&mainArgs, NULL, NULL);
+#endif
     
     cef_unload_library();
     cef_sandbox_destroy(sandboxContext);
