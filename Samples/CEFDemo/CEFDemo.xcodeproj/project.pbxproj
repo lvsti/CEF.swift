@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E82118DD21B2F38C000BF144 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82118DA21B2F070000BF144 /* App.swift */; };
 		E871EC9B1FB398D200ADFF77 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E871EC7D1FB3920700ADFF77 /* main.swift */; };
 		E871EC9E1FB399F800ADFF77 /* CEFDemo Helper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = E871EC8D1FB398AF00ADFF77 /* CEFDemo Helper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E878366E1B93B26400555EC2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E878366D1B93B26400555EC2 /* AppDelegate.swift */; };
@@ -55,6 +56,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E82118DA21B2F070000BF144 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		E871EC7D1FB3920700ADFF77 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		E871EC8D1FB398AF00ADFF77 /* CEFDemo Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CEFDemo Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E871EC961FB398AF00ADFF77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				E871EC961FB398AF00ADFF77 /* Info.plist */,
 				E8A9A6DD1FB83A1B00F41676 /* main.c */,
 				E883E75A21A8A87B002E9EA4 /* main.cpp */,
+				E82118DA21B2F070000BF144 /* App.swift */,
 			);
 			path = "CEFDemo Helper";
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E871EC9B1FB398D200ADFF77 /* main.swift in Sources */,
+				E82118DD21B2F38C000BF144 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

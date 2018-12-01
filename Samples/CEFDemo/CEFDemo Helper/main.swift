@@ -9,19 +9,6 @@
 import Darwin
 import CEFswift
 
-class App: CEFApp, CEFRenderProcessHandler {
-    var renderProcessHandler: CEFRenderProcessHandler? {
-        return self
-    }
-    
-    func onContextCreated(browser: CEFBrowser, frame: CEFFrame, context: CEFV8Context) {
-        context.enter()
-        let v8Str = CEFV8Value.createString("Hello World!")
-        print("\(v8Str!.stringValue)")
-        context.exit()
-    }
-}
-
 #error("Important notice")
 // This helper written in Swift does not YET support the new macOS sandboxing mechanism.
 // You are encouraged to use the provided C or C++ helper implementations instead.
