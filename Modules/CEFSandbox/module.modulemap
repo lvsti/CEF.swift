@@ -1,0 +1,6 @@
+
+module CEFSandbox {
+    umbrella header "CEFSandbox.h"
+    link "cef_sandbox.a"
+    export *
+}
