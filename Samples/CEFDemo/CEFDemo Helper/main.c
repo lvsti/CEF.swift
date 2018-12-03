@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
     // as required by the macOS sandbox implementation.
     const char* format = "%s/../../../Chromium Embedded Framework.framework/Chromium Embedded Framework";
     char* dirName = dirname(argv[0]);
-    size_t bufSize = snprintf(NULL, 0, format, dirName);
+    size_t bufSize = snprintf(NULL, 0, format, dirName) + 1;
     char* fwPath = (char*)malloc(bufSize);
     snprintf(fwPath, bufSize, format, dirName);
     
