@@ -38,6 +38,17 @@ public struct CEFWindowInfo {
     /// CEF name: `windowless_rendering_enabled`
     public var useWindowlessRendering: Bool = false
     
+    /// Set to true (1) to enable shared textures for windowless rendering. Only
+    /// valid if windowless_rendering_enabled above is also set to true. Currently
+    /// only supported on Windows (D3D11).
+    /// CEF name: `shared_texture_enabled`
+    public var useSharedTexture: Bool = false
+    
+    /// Set to true (1) to enable the ability to issue BeginFrame from the client
+    /// application.
+    /// CEF name: `external_begin_frame_enabled`
+    public var allowExternalBeginFrame: Bool = false
+    
     /// NSView pointer for the new browser view. Only used with windowed rendering.
     /// CEF name: `view`
     public var view: CEFWindowHandle? = nil
@@ -86,6 +97,8 @@ extension CEFWindowInfo {
         }
         
         cefStruct.windowless_rendering_enabled = useWindowlessRendering ? 1 : 0
+        cefStruct.shared_texture_enabled = useSharedTexture ? 1 : 0
+        cefStruct.external_begin_frame_enabled = allowExternalBeginFrame ? 1 : 0
         
         if let view = view {
             cefStruct.view = UnsafeMutableRawPointer(Unmanaged<CEFWindowHandle>.passUnretained(view).toOpaque())
@@ -102,6 +115,8 @@ extension CEFWindowInfo {
         winInfo.parentView = value.parent_view != nil ?
             Unmanaged<CEFWindowHandle>.fromOpaque(value.parent_view).takeUnretainedValue() : nil
         winInfo.useWindowlessRendering = value.windowless_rendering_enabled != 0
+        winInfo.useSharedTexture = value.shared_texture_enabled != 0
+        winInfo.allowExternalBeginFrame = value.external_begin_frame_enabled != 0
         winInfo.view = value.view != nil ?
             Unmanaged<CEFWindowHandle>.fromOpaque(value.view).takeUnretainedValue() : nil
         
