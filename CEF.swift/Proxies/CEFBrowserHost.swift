@@ -401,6 +401,13 @@ public extension CEFBrowserHost {
         cefObject.invalidate(cefObjectPtr, element.toCEF())
     }
 
+    /// Issue a BeginFrame request to Chromium.  Only valid when
+    /// CefWindowInfo::external_begin_frame_enabled is set to true.
+    /// CEF name: `SendExternalBeginFrame`
+    public func sendExternalBeginFrame() {
+        cefObject.send_external_begin_frame(cefObjectPtr);
+    }
+    
     /// Send a key event to the browser.
     /// CEF name: `SendKeyEvent`
     public func sendKeyEvent(_ event: CEFKeyEvent) {
