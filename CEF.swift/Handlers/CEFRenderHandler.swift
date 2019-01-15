@@ -29,14 +29,15 @@ public protocol CEFRenderHandler {
     var accessibilityHandler: CEFAccessibilityHandler? { get }
     
     /// Called to retrieve the root window rectangle in screen coordinates. Return
-    /// true if the rectangle was provided.
+    /// true if the rectangle was provided. If this method returns false the
+    /// rectangle from GetViewRect will be used.
     /// CEF name: `GetRootScreenRect`
     func rootScreenRectForBrowser(browser: CEFBrowser) -> NSRect?
     
     /// Called to retrieve the view rectangle which is relative to screen
-    /// coordinates. Return true if the rectangle was provided.
+    /// coordinates. This method must always provide a non-empty rectangle.
     /// CEF name: `GetViewRect`
-    func viewRectForBrowser(browser: CEFBrowser) -> NSRect?
+    func viewRectForBrowser(browser: CEFBrowser) -> NSRect
     
     /// Called to retrieve the translation from view coordinates to actual screen
     /// coordinates. Return true if the screen coordinates were provided.
@@ -67,15 +68,28 @@ public protocol CEFRenderHandler {
     /// CefScreenInfo.device_scale_factor returned from GetScreenInfo. |type|
     /// indicates whether the element is the view or the popup widget. |buffer|
     /// contains the pixel data for the whole image. |dirtyRects| contains the set
-    /// of rectangles in pixel coordinates that need to be repainted. |buffer| will
     /// be |width|*|height|*4 bytes in size and represents a BGRA image with an
-    /// upper-left origin.
+    /// upper-left origin. This method is only called when
+    /// CefWindowInfo::shared_texture_enabled is set to false.
     /// CEF name: `OnPaint`
     func onPaint(browser: CEFBrowser,
                  type: CEFPaintElementType,
                  dirtyRects: [NSRect],
                  buffer: UnsafeRawPointer,
                  size: NSSize)
+    
+    /// Called when an element has been rendered to the shared texture handle.
+    /// |type| indicates whether the element is the view or the popup widget.
+    /// |dirtyRects| contains the set of rectangles in pixel coordinates that need
+    /// to be repainted. |shared_handle| is the handle for a D3D11 Texture2D that
+    /// can be accessed via ID3D11Device using the OpenSharedResource method. This
+    /// method is only called when CefWindowInfo::shared_texture_enabled is set to
+    /// true, and is currently only supported on Windows.
+    /// CEF name: `OnAcceleratedPaint`
+    func onAcceleratedPaint(browser: CEFBrowser,
+                            type: CEFPaintElementType,
+                            dirtyRects: [NSRect],
+                            textureHandle: UnsafeMutableRawPointer)
     
     /// Called when the browser's cursor has changed. If |type| is CT_CUSTOM then
     /// |custom_cursor_info| will be populated with the custom cursor information.
@@ -135,8 +149,8 @@ public extension CEFRenderHandler {
         return nil
     }
 
-    func viewRectForBrowser(browser: CEFBrowser) -> NSRect? {
-        return nil
+    func viewRectForBrowser(browser: CEFBrowser) -> NSRect {
+        return .zero
     }
 
     func screenPointForBrowser(browser: CEFBrowser, viewPoint: NSPoint) -> NSPoint? {
@@ -158,6 +172,12 @@ public extension CEFRenderHandler {
                  dirtyRects: [NSRect],
                  buffer: UnsafeRawPointer,
                  size: NSSize) {
+    }
+
+    func onAcceleratedPaint(browser: CEFBrowser,
+                            type: CEFPaintElementType,
+                            dirtyRects: [NSRect],
+                            textureHandle: UnsafeMutableRawPointer) {
     }
 
     func onCursorChange(browser: CEFBrowser,

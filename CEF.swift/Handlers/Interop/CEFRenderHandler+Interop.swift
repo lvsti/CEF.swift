@@ -37,17 +37,13 @@ func CEFRenderHandler_get_root_screen_rect(ptr: UnsafeMutablePointer<cef_render_
 
 func CEFRenderHandler_get_view_rect(ptr: UnsafeMutablePointer<cef_render_handler_t>?,
                                     browser: UnsafeMutablePointer<cef_browser_t>?,
-                                    cefRect: UnsafeMutablePointer<cef_rect_t>?) -> Int32 {
+                                    cefRect: UnsafeMutablePointer<cef_rect_t>?) {
     guard let obj = CEFRenderHandlerMarshaller.get(ptr) else {
-        return 0
+        return
     }
 
     let rect = obj.viewRectForBrowser(browser: CEFBrowser.fromCEF(browser)!)
-    if let rect = rect {
-        cefRect!.pointee = rect.toCEF()
-    }
-    
-    return rect != nil ? 1 : 0
+    cefRect!.pointee = rect.toCEF()
 }
 
 func CEFRenderHandler_get_screen_point(ptr: UnsafeMutablePointer<cef_render_handler_t>?,
@@ -127,6 +123,27 @@ func CEFRenderHandler_on_paint(ptr: UnsafeMutablePointer<cef_render_handler_t>?,
                 dirtyRects: rects,
                 buffer: buffer!,
                 size: NSSize(width: Int(width), height: Int(height)))
+}
+
+func CEFRenderHandler_on_accelerated_paint(ptr: UnsafeMutablePointer<cef_render_handler_t>?,
+                                           browser: UnsafeMutablePointer<cef_browser_t>?,
+                                           type: cef_paint_element_type_t,
+                                           rectCount: size_t,
+                                           cefRects: UnsafePointer<cef_rect_t>?,
+                                           texture: UnsafeMutableRawPointer?) {
+    guard let obj = CEFRenderHandlerMarshaller.get(ptr) else {
+        return
+    }
+    
+    var rects = [NSRect]()
+    for i in 0..<rectCount {
+        rects.append(NSRect.fromCEF(cefRects!.advanced(by: i).pointee))
+    }
+    
+    obj.onAcceleratedPaint(browser: CEFBrowser.fromCEF(browser)!,
+                           type: CEFPaintElementType.fromCEF(type),
+                           dirtyRects: rects,
+                           textureHandle: texture!)
 }
 
 func CEFRenderHandler_on_cursor_change(ptr: UnsafeMutablePointer<cef_render_handler_t>?,
