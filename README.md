@@ -41,10 +41,11 @@ Note that the bootstrap build will take quite some time as CEF.swift has to fetc
 
 ### CEF branches
 
-CEF is developed on multiple branches simultaneously, which differ in API and functionality (see [Spotify OpenSource](http://opensource.spotify.com/cefbuilds/index.html) and [ChromeStatus](https://chromestatus.com/features)). CEF.swift aims at supporting the current stable release branch and a couple more of earlier releases. For any CEF branch `NNNN`, the corresponding CEF.swift branch is named `cef_NNNN`.
+CEF is developed on multiple branches simultaneously, which differ in API and functionality (see [Spotify OpenSource](http://opensource.spotify.com/cefbuilds/index.html) and [ChromeStatus](https://www.chromestatus.com/features)). CEF.swift aims at supporting the current stable release branch and a couple more of earlier releases. For any CEF branch `NNNN`, the corresponding CEF.swift branch is named `cef_NNNN`.
 
 Currently supported branches: 
 
+- 3578 (Chrome 71) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3578)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
 - 3538 (Chrome 70) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3538)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
 - 3497 (Chrome 69) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3497)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.1
 - 3440 (Chrome 68) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3440)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.1
