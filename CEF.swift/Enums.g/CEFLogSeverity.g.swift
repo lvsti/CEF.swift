@@ -31,7 +31,12 @@ public enum CEFLogSeverity: Int32 {
     /// CEF name: `LOGSEVERITY_ERROR`.
     case error
 
-    /// Completely disable logging.
+    /// FATAL logging.
+    /// CEF name: `LOGSEVERITY_FATAL`.
+    case fatal
+
+    /// Disable logging to file for all messages, and to stderr for messages with
+    /// severity less than FATAL.
     /// CEF name: `LOGSEVERITY_DISABLE`.
     case disable = 99
     
