@@ -86,9 +86,10 @@ public struct CEFErrorCode: RawRepresentable {
     public static let certRevoked = CEFErrorCode(rawValue: -206)
     /// CEF name: `ERR_CERT_INVALID`.
     public static let certInvalid = CEFErrorCode(rawValue: -207)
-    // -209 is available: was ERR_CERT_NOT_IN_DNS.
     /// CEF name: `ERR_CERT_WEAK_SIGNATURE_ALGORITHM`.
     public static let certWeakSignatureAlgorithm = CEFErrorCode(rawValue: -208)
+
+    /// -209 is available: was ERR_CERT_NOT_IN_DNS.
     /// CEF name: `ERR_CERT_NON_UNIQUE_NAME`.
     public static let certNonUniqueName = CEFErrorCode(rawValue: -210)
     /// CEF name: `ERR_CERT_WEAK_KEY`.

@@ -29,10 +29,10 @@ public struct CEFEventFlags: OptionSet {
     public static let leftMouseButton = CEFEventFlags(rawValue: 1 << 4)
     /// CEF name: `EVENTFLAG_MIDDLE_MOUSE_BUTTON`.
     public static let middleMouseButton = CEFEventFlags(rawValue: 1 << 5)
-
-    /// Mac OS-X command key.
     /// CEF name: `EVENTFLAG_RIGHT_MOUSE_BUTTON`.
     public static let rightMouseButton = CEFEventFlags(rawValue: 1 << 6)
+
+    /// Mac OS-X command key.
     /// CEF name: `EVENTFLAG_COMMAND_DOWN`.
     public static let commandDown = CEFEventFlags(rawValue: 1 << 7)
     /// CEF name: `EVENTFLAG_NUM_LOCK_ON`.

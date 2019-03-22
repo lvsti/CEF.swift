@@ -45,9 +45,8 @@ def common_prefix(m):
     return s1    
 
 
-enum_type_pattern = re.compile("\/\/\/\s*\n((?:\s*\/\/(?!\/)[^\n]*\n)+)\s*\/\/\/\s*\s*typedef\s+enum\s*{\s*([^}]*?)\s*}\s*([^;]+);", re.S)
-enum_value_pattern = re.compile("(?:\/\/\/\s*\n((?:\s*\/\/(?!\/)[^\n]*\n)+)\s*\/\/\/\s*)?(?:^|\n)\s*(\w+)\s*(?:=\s*([^,\/]+)\s*)?,?\s*((?:\s*\/\/(?!\/)[^\n]*)*)(?=(?:\n|$))", re.S)
-
+enum_type_pattern = re.compile("\/\/\/?\s*\n((?:\s*\/\/(?!\/)[^\n]*\n)+)\s*\/\/\/?\s*\s*typedef\s+enum\s*{\s*([^}]*?)\s*}\s*([^;]+);", re.S)
+enum_value_pattern = re.compile("(?:(?:\/\/\/?\s*\n)?((?:\s*\/\/(?!\/)[^\n]*\n)+)\s*(?:\/\/\/?\s*)?)?(?:^|\n)\s*(\w+)\s*(?:=\s*([^,\/]+)\s*)?,?((?:(?: |[^\n])*\/\/(?!\/)[^\n]*)*)(?=(?:\n|$))", re.S | re.M)
 def make_enum(cef_capi_name, cef_body):
     result = ""
 

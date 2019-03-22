@@ -114,6 +114,27 @@ entryname_overrides = {
     'CEF_MENU_ANCHOR_BOTTOMCENTER': 'bottomCenter',
     'DRAG_OPERATION_EVERY': 'any',
     'RV_CONTINUE': 'continueNow',
+    'CEF_CHANNEL_LAYOUT_2_1': 'layout_2_1',
+    'CEF_CHANNEL_LAYOUT_4_0': 'layout_4_0',
+    'CEF_CHANNEL_LAYOUT_2_2': 'layout_2_2',
+    'CEF_CHANNEL_LAYOUT_5_0': 'layout_5_0',
+    'CEF_CHANNEL_LAYOUT_5_1': 'layout_5_1',
+    'CEF_CHANNEL_LAYOUT_5_0_BACK': 'layout_5_0_back',
+    'CEF_CHANNEL_LAYOUT_5_1_BACK': 'layout_5_1_back',
+    'CEF_CHANNEL_LAYOUT_7_0': 'layout_7_0',
+    'CEF_CHANNEL_LAYOUT_7_1': 'layout_7_1',
+    'CEF_CHANNEL_LAYOUT_7_1_WIDE': 'layout_7_1_wide',
+    'CEF_CHANNEL_LAYOUT_2POINT1': 'layout_2point1',
+    'CEF_CHANNEL_LAYOUT_3_1': 'layout_3_1',
+    'CEF_CHANNEL_LAYOUT_4_1': 'layout_4_1',
+    'CEF_CHANNEL_LAYOUT_6_0': 'layout_6_0',
+    'CEF_CHANNEL_LAYOUT_6_0_FRONT': 'layout_6_0_front',
+    'CEF_CHANNEL_LAYOUT_6_1': 'layout_6_1',
+    'CEF_CHANNEL_LAYOUT_6_1_BACK': 'layout_6_1_back',
+    'CEF_CHANNEL_LAYOUT_6_1_FRONT': 'layout_6_1_front',
+    'CEF_CHANNEL_LAYOUT_7_0_FRONT': 'layout_7_0_front',
+    'CEF_CHANNEL_LAYOUT_7_1_WIDE_BACK': 'layout_7_1_wideBack',
+    'CEF_CHANNEL_LAYOUT_4_1_QUAD_SIDE': 'layout_4_1_quadSide'
 }
 
 entrytype_tocef_cast_overrides = {
@@ -185,7 +206,13 @@ cef_enums = [
     'cef_com_init_mode_t',
     
     # branch 2987
-    'cef_menu_color_type_t'
+    'cef_menu_color_type_t',
+
+    # branch 3683
+    'cef_text_input_mode_t',
+    'cef_touch_event_type_t',
+    'cef_pointer_type_t',
+    'cef_channel_layout_t'
 ]
 
 cef_option_sets = [
@@ -206,7 +233,10 @@ cef_option_sets = [
     'cef_cert_status_t',
     
     # branch 2840
-    'cef_ssl_content_status_t'
+    'cef_ssl_content_status_t',
+
+    # branch 3683
+    'cef_scheme_options_t'
 ]
 
 cef_const_collections = {

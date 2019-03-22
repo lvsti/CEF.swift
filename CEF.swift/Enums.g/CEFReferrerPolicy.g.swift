@@ -53,11 +53,13 @@ public enum CEFReferrerPolicy: Int32 {
     /// Always clear the referrer regardless of the request destination.
     /// CEF name: `REFERRER_POLICY_NO_REFERRER`.
     case noReferrer
-    /// CEF name: `REFERRER_POLICY_LAST_VALUE`.
-    case lastValue
     
     /// CEF name: `REFERRER_POLICY_DEFAULT`.
     public static let `default`: CEFReferrerPolicy = .clearReferrerOnTransitionFromSecureToInsecure
+
+    /// Always the last value in this enumeration.
+    /// CEF name: `REFERRER_POLICY_LAST_VALUE`.
+    public static let lastValue: CEFReferrerPolicy = .noReferrer
 }
 
 extension CEFReferrerPolicy {
