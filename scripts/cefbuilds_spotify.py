@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import urllib
 import urllib2
 import re
 import json
@@ -17,6 +18,11 @@ distributions = {
     "release_symbols": "_release_symbols"
 }
 
+def compare_versions(ver1, ver2):
+    def normalize(v):
+        return [int(x) for x in re.sub(r'(\.0+)*$','', v).split(".")]
+    return cmp(normalize(ver1), normalize(ver2))
+
 # fetch page
 def fetch_cefbuilds_html():
     response = urllib2.urlopen(base_url + "/index.html")
@@ -29,18 +35,27 @@ def get_latest_builds_for_platform(platform, body):
     
     builds = dict()
     for spec in build_specs:
-        spec_comps = spec.split('.')
-        branch = spec_comps[1]
-        delta = int(spec_comps[2])
+        if '+' in spec:
+            # 73.1.3+g46cf800+chromium-73.0.3683.75
+            spec_comps = spec.split('+')
+            tag = spec_comps[0]
+            branch = spec_comps[2].split('.')[2]
+            commit = spec_comps[1][1:]
+        else:
+            # 3.3578.1869.gcc1dc0f
+            spec_comps = spec.split('.')
+            tag = "0.0." + spec_comps[2]
+            branch = spec_comps[1]
+            commit = spec_comps[3][1:]
         
-        if not branch in builds or builds[branch]['delta'] < delta:
+        if not branch in builds or compare_versions(builds[branch]['tag'], tag) < 0:
             dists = dict()
             for dist_name in distributions.keys():
-                dists[dist_name] = base_url + "/cef_binary_" + spec + "_" + platform + distributions[dist_name] + ".tar.bz2"
+                dists[dist_name] = base_url + "/cef_binary_" + urllib.quote(spec) + "_" + platform + distributions[dist_name] + ".tar.bz2"
             
             builds[branch] = {
-                'delta': delta, 
-                'commit': spec_comps[3][1:],
+                'tag': tag, 
+                'commit': commit,
                 'dists': dists
             }
             
@@ -119,16 +134,17 @@ for platform in platform_filter:
         saved_builds = None
     
     for branch, current_build in current_builds.iteritems():
-        if (saved_builds is None or
-            not branch in saved_builds or
-            int(current_build['delta']) > int(saved_builds[branch]['delta'])):
+        if saved_builds is None or \
+           not branch in saved_builds or \
+           'tag' in current_build and not 'tag' in saved_builds['branch'] or \
+           compare_versions(current_build['tag'], saved_builds['branch']['tag'] if 'tag' in saved_builds['branch'] else ("0.0." + saved_builds['branch']['delta'])) > 0:
             
             if not platform in updates:
                 updates[platform] = dict()
             
             updates[platform][branch] = current_build
             if verbose:
-                print " - new build available for " + platform + ": " + branch + "." + current_build['delta']
+                print " - new build available for " + platform + ": " + branch + " -> " + current_build['tag'] if 'tag' in current_build else current_build['delta']
     
     if not disable_stash:
         if verbose:
