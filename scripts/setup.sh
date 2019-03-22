@@ -42,7 +42,7 @@ CEFBUILD_DESCRIPTOR=$(curl http://opensource.spotify.com/cefbuilds/index.html |
                       jq '."macosx64"."'${CEF_BRANCH}'"')
 
 CEFBUILD_URL=$(echo ${CEFBUILD_DESCRIPTOR} | jq '.dists.standard' | tr -d '"')
-CEFBUILD_VERSION=${CEF_BRANCH}'.'$(echo ${CEFBUILD_DESCRIPTOR} | jq '.delta' | tr -d '"')
+CEFBUILD_VERSION=${CEF_BRANCH}'-'$(echo ${CEFBUILD_DESCRIPTOR} | jq '.tag' | tr -d '"')
 
 echo "Fetching build ${CEFBUILD_VERSION}..."
 
