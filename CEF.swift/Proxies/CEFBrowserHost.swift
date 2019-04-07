@@ -721,7 +721,7 @@ public extension CEFBrowserHost {
 
     /// Set whether the browser's audio is muted. This method can only be
     /// called on the UI thread.
-    /// CEF name: `SetAudioMuted`
+    /// CEF name: `IsAudioMuted`, `SetAudioMuted`
     public var isAudioMuted: Bool {
         get { return cefObject.is_audio_muted(cefObjectPtr) != 0 }
         set { cefObject.set_audio_muted(cefObjectPtr, newValue ? 1 : 0) }
