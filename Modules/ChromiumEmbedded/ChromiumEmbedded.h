@@ -25,3 +25,4 @@
 #include "include/capi/cef_zip_reader_capi.h"
 #include "include/cef_application_mac.h"
 #include "include/capi/cef_server_capi.h"
+#include "include/cef_api_hash.h"
