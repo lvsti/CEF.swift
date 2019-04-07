@@ -15,61 +15,63 @@ public struct CEFTouchEvent {
     /// Note that a maximum of 16 concurrent touches will be tracked; touches
     /// beyond that will be ignored.
     /// CEF name: `id`
-    public let id: Int
+    public var id: Int
     
     /// X coordinate relative to the left side of the view.
     /// CEF name: `x`
-    public let x: Float
+    public var x: Float
     
     /// Y coordinate relative to the top side of the view.
     /// CEF name: `y`
-    public let y: Float
+    public var y: Float
     
     /// X radius in pixels. Set to 0 if not applicable.
     /// CEF name: `radius_x`
-    public let xRadius: Float
+    public var xRadius: Float
     
     /// Y radius in pixels. Set to 0 if not applicable.
     /// CEF name: `radius_y`
-    public let yRadius: Float
+    public var yRadius: Float
 
     /// Rotation angle in radians. Set to 0 if not applicable.
     /// CEF name: `radius_x`
-    public let rotationAngle: Float
+    public var rotationAngle: Float
     
     /// The normalized pressure of the pointer input in the range of [0,1].
     /// Set to 0 if not applicable.
     /// CEF name: `pressure`
-    public let pressure: Float
+    public var pressure: Float
 
     /// The state of the touch point. Touches begin with one CEF_TET_PRESSED event
     /// followed by zero or more CEF_TET_MOVED events and finally one
     /// CEF_TET_RELEASED or CEF_TET_CANCELLED event. Events not respecting this
     /// order will be ignored.
     /// CEF name: `type`
-    public let type: CEFTouchEventType
+    public var type: CEFTouchEventType
     
     /// Bit flags describing any pressed modifier keys. See
     /// cef_event_flags_t for values.
     /// CEF name: `modifiers`
-    public let modifiers: CEFEventFlags
+    public var modifiers: CEFEventFlags
     
     /// The device type that caused the event.
     /// CEF name: `pointer_type`
-    public let pointerType: CEFPointerType
+    public var pointerType: CEFPointerType
 }
 
 extension CEFTouchEvent {
-    static func fromCEF(_ value: cef_touch_event_t) -> CEFTouchEvent {
-        return CEFTouchEvent(id: Int(value.id),
-                             x: value.x,
-                             y: value.y,
-                             xRadius: value.radius_x,
-                             yRadius: value.radius_y,
-                             rotationAngle: value.rotation_angle,
-                             pressure: value.pressure,
-                             type: CEFTouchEventType.fromCEF(value.type),
-                             modifiers: CEFEventFlags(rawValue: value.modifiers),
-                             pointerType: CEFPointerType.fromCEF(value.pointer_type))
+    func toCEF() -> cef_touch_event_t {
+        var cefStruct = cef_touch_event_t()
+        cefStruct.id = Int32(id)
+        cefStruct.x = x
+        cefStruct.y = y
+        cefStruct.radius_x = xRadius
+        cefStruct.radius_y = yRadius
+        cefStruct.rotation_angle = rotationAngle
+        cefStruct.pressure = pressure
+        cefStruct.type = type.toCEF()
+        cefStruct.modifiers = modifiers.toCEF().rawValue
+        cefStruct.pointer_type = pointerType.toCEF()
+        return cefStruct
     }
 }

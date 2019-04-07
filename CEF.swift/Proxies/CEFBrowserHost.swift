@@ -442,6 +442,13 @@ public extension CEFBrowserHost {
         cefObject.send_mouse_wheel_event(cefObjectPtr, &cefEvent, Int32(deltaX), Int32(deltaY))
     }
     
+    /// Send a touch event to the browser for a windowless browser.
+    /// CEF name: `SendTouchEvent`
+    public func sendTouchEvent(_ event: CEFTouchEvent) {
+        var cefEvent = event.toCEF()
+        cefObject.send_touch_event(cefObjectPtr, &cefEvent)
+    }
+    
     /// Send a focus event to the browser.
     /// CEF name: `SendFocusEvent`
     public func sendFocusEvent(focus: Bool) {
@@ -711,8 +718,15 @@ public extension CEFBrowserHost {
     public var isBackgroundHost: Bool {
         return cefObject.is_background_host(cefObjectPtr) != 0
     }
-}
 
+    /// Set whether the browser's audio is muted. This method can only be
+    /// called on the UI thread.
+    /// CEF name: `SetAudioMuted`
+    public var isAudioMuted: Bool {
+        get { return cefObject.is_audio_muted(cefObjectPtr) != 0 }
+        set { cefObject.set_audio_muted(cefObjectPtr, newValue ? 1 : 0) }
+    }
+}
 
 public extension CEFBrowserHost {
     /// Retrieve a snapshot of current navigation entries as values sent to the
