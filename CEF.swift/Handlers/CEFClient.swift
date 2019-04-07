@@ -12,6 +12,10 @@ import Foundation
 /// CEF name: `CefClient`
 public protocol CEFClient {
 
+    /// Return the handler for audio rendering events.
+    /// CEF name: `GetAudioHandler`
+    var audioHandler: CEFAudioHandler? { get }
+
     /// Return the handler for context menus. If no handler is provided the default
     /// implementation will be used.
     /// CEF name: `GetContextMenuHandler`

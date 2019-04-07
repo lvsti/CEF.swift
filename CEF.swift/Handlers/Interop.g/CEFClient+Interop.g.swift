@@ -19,6 +19,7 @@ extension CEFClient {
 
 extension cef_client_t: CEFCallbackMarshalling {
     mutating func marshalCallbacks() {
+        get_audio_handler = CEFClient_get_audio_handler
         get_context_menu_handler = CEFClient_get_context_menu_handler
         get_dialog_handler = CEFClient_get_dialog_handler
         get_display_handler = CEFClient_get_display_handler

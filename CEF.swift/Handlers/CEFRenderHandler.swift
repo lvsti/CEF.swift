@@ -137,6 +137,13 @@ public protocol CEFRenderHandler {
     // the character range.
     /// CEF name: `OnTextSelectionChanged`
     func onTextSelectionChanged(browser: CEFBrowser, selection: CEFTextSelection?)
+
+    /// Called when an on-screen keyboard should be shown or hidden for the
+    /// specified |browser|. |input_mode| specifies what kind of keyboard
+    /// should be opened. If |input_mode| is CEF_TEXT_INPUT_MODE_NONE, any
+    /// existing keyboard for this browser should be hidden.
+    /// CEF name: `OnVirtualKeyboardRequested`
+    func onVirtualKeyboardRequested(browser: CEFBrowser, inputMode: CEFTextInputMode)
 }
 
 public extension CEFRenderHandler {
@@ -203,6 +210,9 @@ public extension CEFRenderHandler {
     }
     
     func onTextSelectionChanged(browser: CEFBrowser, selection: CEFTextSelection?) {
+    }
+
+    func onVirtualKeyboardRequested(browser: CEFBrowser, inputMode: CEFTextInputMode) {
     }
 }
 

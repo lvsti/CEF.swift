@@ -235,3 +235,16 @@ func CEFRenderHandler_on_text_selection_changed(ptr: UnsafeMutablePointer<cef_re
     obj.onTextSelectionChanged(browser: CEFBrowser.fromCEF(browser)!,
                                selection: selection)
 }
+
+func CEFRenderHandler_on_virtual_keyboard_requested(ptr: UnsafeMutablePointer<cef_render_handler_t>?,
+                                                    browser: UnsafeMutablePointer<cef_browser_t>?,
+                                                    inputMode: cef_text_input_mode_t) {
+    guard let obj = CEFRenderHandlerMarshaller.get(ptr) else {
+        return
+    }
+    
+    obj.onVirtualKeyboardRequested(browser: CEFBrowser.fromCEF(browser)!,
+                                   inputMode: CEFTextInputMode.fromCEF(inputMode))
+}
+
+
