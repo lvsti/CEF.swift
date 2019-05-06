@@ -84,6 +84,7 @@ public protocol CEFClient {
 
 public extension CEFClient {
 
+    var audioHandler: CEFAudioHandler? { return nil }
     var contextMenuHandler: CEFContextMenuHandler? { return nil }
     var dialogHandler: CEFDialogHandler? { return nil }
     var displayHandler: CEFDisplayHandler? { return nil }

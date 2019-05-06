@@ -14,16 +14,16 @@ import Foundation
 public protocol CEFDeleteCookiesCallback {
     
     /// Method that will be called upon completion. |num_deleted| will be the
-    /// number of cookies that were deleted or -1 if unknown.
+    /// number of cookies that were deleted.
     /// CEF name: `OnComplete`
-    func onComplete(deletedCount: Int?)
+    func onComplete(deletedCount: Int)
     
 }
 
 
 public extension CEFDeleteCookiesCallback {
     
-    func onComplete(deletedCount: Int?) {
+    func onComplete(deletedCount: Int) {
     }
     
 }

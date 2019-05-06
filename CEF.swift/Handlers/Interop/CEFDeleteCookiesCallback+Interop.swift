@@ -14,6 +14,5 @@ func CEFDeleteCookiesCallback_on_complete(ptr: UnsafeMutablePointer<cef_delete_c
         return
     }
     
-    let count: Int? = deletedCount >= 0 ? Int(deletedCount) : nil
-    obj.onComplete(deletedCount: count)
+    obj.onComplete(deletedCount: Int(deletedCount))
 }
