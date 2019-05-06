@@ -234,23 +234,6 @@ public extension CEFRequestContext {
         cefObject.resolve_host(cefObjectPtr, cefStrPtr, callback.toCEF())
     }
     
-    /// Attempts to resolve |origin| to a list of associated IP addresses using
-    /// cached data. |resolved_ips| will be populated with the list of resolved IP
-    /// addresses or empty if no cached data is available. Returns ERR_NONE on
-    /// success. This method must be called on the browser process IO thread.
-    /// CEF name: `ResolveHostCached`
-    public func resolveCachedHost(_ hostName: String) -> [String]? {
-        let cefStrPtr = CEFStringPtrCreateFromSwiftString(hostName)
-        let cefList = cef_string_list_alloc()!
-        defer {
-            CEFStringPtrRelease(cefStrPtr)
-            CEFStringListRelease(cefList)
-        }
-        let errorCode = cefObject.resolve_host_cached(cefObjectPtr, cefStrPtr, cefList)
-        
-        return errorCode == ERR_NONE ? CEFStringListToSwiftArray(cefList) : nil
-    }
-
     /// Load an extension.
     ///
     /// If extension resources will be read from disk using the default load
