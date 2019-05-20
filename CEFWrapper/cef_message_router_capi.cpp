@@ -9,6 +9,10 @@
 #include "cef_message_router_capi.h"
 #include "include/wrapper/cef_message_router.h"
 
+#include "include/capi/cef_browser_capi.h"
+#include "include/capi/cef_frame_capi.h"
+#include "include/capi/cef_v8_capi.h"
+
 #include "libcef_dll/cpptoc/cpptoc_ref_counted.h"
 
 #include "libcef_dll/ctocpp/browser_ctocpp.h"

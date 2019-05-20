@@ -11,10 +11,11 @@
 #pragma once
 
 #include "include/capi/cef_base_capi.h"
-#include "include/capi/cef_browser_capi.h"
-#include "include/capi/cef_frame_capi.h"
 #include "include/capi/cef_process_message_capi.h"
-#include "include/capi/cef_v8_capi.h"
+
+struct _cef_browser_t;
+struct _cef_frame_t;
+struct _cef_v8context_t;
 
 #ifdef __cplusplus
 extern "C" {
@@ -72,11 +73,10 @@ typedef struct _cef_message_router_renderer_side_t {
 
 } cef_message_router_renderer_side_t;
 
-
 ///
 // Create a new router with the specified configuration.
 ///
-extern cef_message_router_renderer_side_t* cef_message_router_renderer_side_create(const struct _cef_message_router_config_t* config);
+CEF_EXPORT cef_message_router_renderer_side_t* cef_message_router_renderer_side_create(const struct _cef_message_router_config_t* config);
 
 #ifdef __cplusplus
 }
