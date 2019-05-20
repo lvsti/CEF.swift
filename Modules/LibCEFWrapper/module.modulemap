@@ -1,0 +1,5 @@
+
+module LibCEFWrapper {
+    header "../../CEFWrapper/cef_message_router_capi.h"
+    export *
+}

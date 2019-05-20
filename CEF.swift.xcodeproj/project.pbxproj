@@ -45,7 +45,7 @@
 		E836AFC22259FB3700E5F006 /* CEFAudioHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E836AFC12259FB3700E5F006 /* CEFAudioHandler.swift */; };
 		E836AFC4225A104300E5F006 /* CEFAPIHashUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E836AFC3225A104300E5F006 /* CEFAPIHashUtils.swift */; };
 		E83755A42280D5660016B7FE /* cef_message_router_capi.h in Headers */ = {isa = PBXBuildFile; fileRef = E83755A22280D5650016B7FE /* cef_message_router_capi.h */; };
-		E83755A52280D5660016B7FE /* cef_message_router_capi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83755A32280D5650016B7FE /* cef_message_router_capi.cpp */; };
+		E837562E2280DDEC0016B7FE /* LibCEFWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = E837562D2280DDEB0016B7FE /* LibCEFWrapper.h */; };
 		E8398D681E47C0F100CFC34A /* CEFCrashUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8398D671E47C0F100CFC34A /* CEFCrashUtils.swift */; };
 		E84249E01B7538CD000F23C1 /* CEFWebPluginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84249DF1B7538CD000F23C1 /* CEFWebPluginInfo.swift */; };
 		E84249E21B753988000F23C1 /* CEFWebPluginInfoVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84249E11B753988000F23C1 /* CEFWebPluginInfoVisitor.swift */; };
@@ -108,6 +108,9 @@
 		E8519F0F1B7D3CD2003CE7C5 /* CEFParseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8519F0E1B7D3CD2003CE7C5 /* CEFParseUtils.swift */; };
 		E8519F111B7E6AF4003CE7C5 /* CEFPathUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8519F101B7E6AF4003CE7C5 /* CEFPathUtils.swift */; };
 		E8519F131B7E6BEF003CE7C5 /* CEFZipReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8519F121B7E6BEF003CE7C5 /* CEFZipReader.swift */; };
+		E85852CD2284B69100D40401 /* cef_message_router_capi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E83755A32280D5650016B7FE /* cef_message_router_capi.cpp */; };
+		E85852CE2284BA6F00D40401 /* libCEFWrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E837559D2280D5070016B7FE /* libCEFWrapper.a */; };
+		E85852D22284BB4000D40401 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E85852D12284BB4000D40401 /* libc++.tbd */; };
 		E85FB5A51CB1A4EC001B610C /* CEFResolveCallback+Interop.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85FB5A41CB1A4EC001B610C /* CEFResolveCallback+Interop.g.swift */; };
 		E85FB5A71CB1A518001B610C /* CEFResolveCallback+Interop.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85FB5A61CB1A518001B610C /* CEFResolveCallback+Interop.swift */; };
 		E85FB5A91CB1A5B1001B610C /* CEFResolveCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85FB5A81CB1A5B1001B610C /* CEFResolveCallback.swift */; };
@@ -424,6 +427,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		E85852C42284B3E300D40401 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8456E071B52C29700AE93DC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E837559C2280D5070016B7FE;
+			remoteInfo = CEFWrapper;
+		};
 		E89145E321A9F5DF00F2F6BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E8456E071B52C29700AE93DC /* Project object */;
@@ -475,6 +485,8 @@
 		E83755A22280D5650016B7FE /* cef_message_router_capi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cef_message_router_capi.h; sourceTree = "<group>"; };
 		E83755A32280D5650016B7FE /* cef_message_router_capi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cef_message_router_capi.cpp; sourceTree = "<group>"; };
 		E83755A62280D6D90016B7FE /* cef_wrapper_types_ext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cef_wrapper_types_ext.h; sourceTree = "<group>"; };
+		E837562C2280DDEB0016B7FE /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		E837562D2280DDEB0016B7FE /* LibCEFWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibCEFWrapper.h; sourceTree = "<group>"; };
 		E8398D671E47C0F100CFC34A /* CEFCrashUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFCrashUtils.swift; sourceTree = "<group>"; };
 		E84249DF1B7538CD000F23C1 /* CEFWebPluginInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFWebPluginInfo.swift; sourceTree = "<group>"; };
 		E84249E11B753988000F23C1 /* CEFWebPluginInfoVisitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFWebPluginInfoVisitor.swift; sourceTree = "<group>"; };
@@ -541,6 +553,8 @@
 		E8519F0E1B7D3CD2003CE7C5 /* CEFParseUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFParseUtils.swift; sourceTree = "<group>"; };
 		E8519F101B7E6AF4003CE7C5 /* CEFPathUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFPathUtils.swift; sourceTree = "<group>"; };
 		E8519F121B7E6BEF003CE7C5 /* CEFZipReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFZipReader.swift; sourceTree = "<group>"; };
+		E85852CF2284BAAE00D40401 /* libcef_dll_wrapper.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcef_dll_wrapper.a; path = "External/cef_binary_74.1.13+g98f22d3+chromium-74.0.3729.108_macosx64/libcef_dll_wrapper/Debug/libcef_dll_wrapper.a"; sourceTree = "<group>"; };
+		E85852D12284BB4000D40401 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		E85FB5A41CB1A4EC001B610C /* CEFResolveCallback+Interop.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CEFResolveCallback+Interop.g.swift"; sourceTree = "<group>"; };
 		E85FB5A61CB1A518001B610C /* CEFResolveCallback+Interop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CEFResolveCallback+Interop.swift"; sourceTree = "<group>"; };
 		E85FB5A81CB1A5B1001B610C /* CEFResolveCallback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFResolveCallback.swift; sourceTree = "<group>"; };
@@ -869,6 +883,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E85852D22284BB4000D40401 /* libc++.tbd in Frameworks */,
+				E85852CE2284BA6F00D40401 /* libCEFWrapper.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -897,6 +913,24 @@
 			children = (
 			);
 			path = Wrappers;
+			sourceTree = "<group>";
+		};
+		E83756272280DD1B0016B7FE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E85852D12284BB4000D40401 /* libc++.tbd */,
+				E85852CF2284BAAE00D40401 /* libcef_dll_wrapper.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E837562B2280DDEB0016B7FE /* LibCEFWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				E837562D2280DDEB0016B7FE /* LibCEFWrapper.h */,
+				E837562C2280DDEB0016B7FE /* module.modulemap */,
+			);
+			path = LibCEFWrapper;
 			sourceTree = "<group>";
 		};
 		E84249E91B753CA0000F23C1 /* Utils */ = {
@@ -986,6 +1020,7 @@
 		E84545CA1B94FD0F005CC3D0 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				E837562B2280DDEB0016B7FE /* LibCEFWrapper */,
 				E84545CB1B94FD0F005CC3D0 /* ChromiumEmbedded */,
 			);
 			path = Modules;
@@ -1008,6 +1043,7 @@
 				E83755A12280D5650016B7FE /* CEFWrapper */,
 				E84545CA1B94FD0F005CC3D0 /* Modules */,
 				E8456E111B52C29700AE93DC /* Products */,
+				E83756272280DD1B0016B7FE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1033,6 +1069,7 @@
 				E8898B0A1B69654C009E0DFF /* Structs */,
 				E86529CF1FB25BE500E21801 /* UI */,
 				E84249E91B753CA0000F23C1 /* Utils */,
+				E83756262280DC2B0016B7FE /* Wrappers */,
 				E8456E131B52C29700AE93DC /* CEFswift.h */,
 				E8456E151B52C29700AE93DC /* Info.plist */,
 			);
@@ -1484,6 +1521,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E8456E141B52C29700AE93DC /* CEFswift.h in Headers */,
+				E837562E2280DDEC0016B7FE /* LibCEFWrapper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1529,6 +1567,7 @@
 			);
 			dependencies = (
 				E89145E421A9F5DF00F2F6BC /* PBXTargetDependency */,
+				E85852C52284B3E300D40401 /* PBXTargetDependency */,
 			);
 			name = CEF.swift;
 			productName = CEF.swift;
@@ -1659,7 +1698,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E83755A52280D5660016B7FE /* cef_message_router_capi.cpp in Sources */,
+				E85852CD2284B69100D40401 /* cef_message_router_capi.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2091,6 +2130,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		E85852C52284B3E300D40401 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E837559C2280D5070016B7FE /* CEFWrapper */;
+			targetProxy = E85852C42284B3E300D40401 /* PBXContainerItemProxy */;
+		};
 		E89145E421A9F5DF00F2F6BC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E883E76321A8AAD4002E9EA4 /* CEFSandbox */;
@@ -2109,6 +2153,7 @@
 				CLANG_WARN_COMMA = NO;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				DEFINES_MODULE = YES;
 				EXECUTABLE_PREFIX = lib;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				HEADER_SEARCH_PATHS = "$(CEF_BINARY_ROOT)";
@@ -2119,6 +2164,7 @@
 					"-DBUILDING_CEF_SHARED",
 					"-DWRAPPING_CEF_SHARED",
 				);
+				PRODUCT_MODULE_NAME = LibCEFWrapper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -2134,6 +2180,7 @@
 				CLANG_WARN_COMMA = NO;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				DEFINES_MODULE = YES;
 				EXECUTABLE_PREFIX = lib;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				HEADER_SEARCH_PATHS = "$(CEF_BINARY_ROOT)";
@@ -2143,6 +2190,7 @@
 					"-DBUILDING_CEF_SHARED",
 					"-DWRAPPING_CEF_SHARED",
 				);
+				PRODUCT_MODULE_NAME = LibCEFWrapper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -2266,19 +2314,27 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(CEF_BINARY_ROOT)/$(CONFIGURATION)";
 				FRAMEWORK_VERSION = A;
-				HEADER_SEARCH_PATHS = "$(CEF_BINARY_ROOT)";
+				HEADER_SEARCH_PATHS = (
+					"$(CEF_BINARY_ROOT)",
+					"$(SRCROOT)/CEFWrapper",
+				);
 				INFOPLIST_FILE = CEF.swift/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(CEF_BINARY_ROOT)/libcef_dll_wrapper/$(CONFIGURATION)",
+				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					"\"Chromium Embedded Framework\"",
+					"-lcef_dll_wrapper",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "me.cocoagrinder.CEF-swift";
 				PRODUCT_NAME = CEFswift;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Modules/ChromiumEmbedded";
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Modules/ChromiumEmbedded $(SRCROOT)/Modules/LibCEFWrapper";
 				SWIFT_VERSION = 4.2;
 				WARNING_CFLAGS = "-Wpartial-availability";
 			};
@@ -2295,19 +2351,27 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(CEF_BINARY_ROOT)/$(CONFIGURATION)";
 				FRAMEWORK_VERSION = A;
-				HEADER_SEARCH_PATHS = "$(CEF_BINARY_ROOT)";
+				HEADER_SEARCH_PATHS = (
+					"$(CEF_BINARY_ROOT)",
+					"$(SRCROOT)/CEFWrapper",
+				);
 				INFOPLIST_FILE = CEF.swift/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(CEF_BINARY_ROOT)/libcef_dll_wrapper/$(CONFIGURATION)",
+				);
 				OTHER_LDFLAGS = (
 					"-framework",
 					"\"Chromium Embedded Framework\"",
+					"-lcef_dll_wrapper",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "me.cocoagrinder.CEF-swift";
 				PRODUCT_NAME = CEFswift;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Modules/ChromiumEmbedded";
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Modules/ChromiumEmbedded $(SRCROOT)/Modules/LibCEFWrapper";
 				SWIFT_VERSION = 4.2;
 				WARNING_CFLAGS = "-Wpartial-availability";
 			};
