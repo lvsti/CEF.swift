@@ -85,6 +85,12 @@ do
     cp -R include "${CONFIG}/Chromium Embedded Framework.framework/Headers/"
 done
 
+# build wrapper lib
+echo "Building dependencies..."
+
+cmake -G Xcode -DPROJECT_ARCH="x86_64" . > /dev/null
+xcodebuild -project cef.xcodeproj -target libcef_dll_wrapper -configuration Release > /dev/null
+
 popd > /dev/null
 
 echo "Preparing sample code..."
