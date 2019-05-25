@@ -269,6 +269,7 @@ public extension CEFRequestHandler {
     func onBeforeBrowse(browser: CEFBrowser,
                         frame: CEFFrame,
                         request: CEFRequest,
+                        userGesture: Bool,
                         isRedirect: Bool) -> CEFOnBeforeBrowseAction {
         return .allow
     }
