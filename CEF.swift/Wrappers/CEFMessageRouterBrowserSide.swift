@@ -19,7 +19,11 @@ class CEFMessageRouterBrowserSideHandlerTokenImpl: CEFMessageRouterBrowserSideHa
     let handlerStructPtr: UnsafeMutablePointer<cef_message_router_browser_side_handler_t>
     
     init(handler: CEFMessageRouterBrowserSideHandler) {
-        handlerStructPtr = handler.toCEF()
+        handlerStructPtr = CEFMessageRouterBrowserSideHandlerMarshaller.pass(handler)
+    }
+    
+    deinit {
+        _ = CEFMessageRouterBrowserSideHandlerMarshaller.take(handlerStructPtr)
     }
 }
 

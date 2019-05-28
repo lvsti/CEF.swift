@@ -87,6 +87,7 @@ class SimpleHandler: CEFClient, CEFLifeSpanHandler, CEFLoadHandler, CEFRequestHa
                                         }
                                         
                                         self._router.removeHandler(withToken: self._token!)
+                                        self._token = nil
                                         return .consume
                                     },
                                     onQueryCanceled: { _, _, queryID  in

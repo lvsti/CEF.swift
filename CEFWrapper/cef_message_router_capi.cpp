@@ -177,6 +177,7 @@ namespace {
         int retval = CefMessageRouterBrowserSideCppToC::Get(self)->RemoveHandler(cppHandler);
         if (retval) {
             g_browserSideHandlers.erase(it);
+            delete cppHandler;
         }
         
         return retval;
