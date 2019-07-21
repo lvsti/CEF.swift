@@ -31,7 +31,8 @@ public enum CEFSSLVersion: Int32 {
     /// CEF name: `SSL_CONNECTION_VERSION_TLS1_2`
     case tls1_2 = 5
     
-    // Reserve 6 for TLS 1.3.
+    /// CEF name: `SSL_CONNECTION_VERSION_TLS1_3`
+    case tls1_3 = 6
     
     /// CEF name: `SSL_CONNECTION_VERSION_QUIC`
     case quic = 7
