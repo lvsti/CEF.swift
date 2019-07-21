@@ -57,7 +57,7 @@ def make_enum(cef_capi_name, cef_body):
     names = []
     values = []
     inline_comments = []
-    for value_match in re.finditer(enum_value_pattern, type_body):
+    for value_match in re.finditer(enum_value_pattern, cef_body):
         head_comments.append(value_match.group(1))
         names.append(value_match.group(2))
         values.append(value_match.group(3))
@@ -112,7 +112,7 @@ def make_option_set(cef_capi_name, cef_body):
     names = []
     values = []
     inline_comments = []
-    for value_match in re.finditer(enum_value_pattern, type_body):
+    for value_match in re.finditer(enum_value_pattern, cef_body):
         head_comments.append(value_match.group(1))
         names.append(value_match.group(2))
         values.append(value_match.group(3))
@@ -145,7 +145,7 @@ def make_option_set(cef_capi_name, cef_body):
     return result
 
 
-def make_const_collection(cef_capi_name, cef_header_name):
+def make_const_collection(cef_capi_name, cef_body):
     result = ""
 
     swift_type_name = cef_capi_type_to_swift(cef_capi_name)
@@ -161,7 +161,7 @@ def make_const_collection(cef_capi_name, cef_header_name):
     names = []
     values = []
     inline_comments = []
-    for value_match in re.finditer(enum_value_pattern, type_body):
+    for value_match in re.finditer(enum_value_pattern, cef_body):
         head_comments.append(value_match.group(1))
         names.append(value_match.group(2))
         values.append(value_match.group(3))
@@ -209,6 +209,37 @@ import Foundation
     return header % (swift_type_name, cef_header_name)
 
 
+def make_error_enum(infile_path):
+    infile = open(os.path.dirname(os.path.dirname(infile_path)) + '/base/internal/cef_net_error_list.h', "r")
+    infile_contents = infile.read()
+    infile.close()
+
+    type_name = 'cef_errorcode_t'
+    result = ""
+    result += indent_multiline_string(make_swiftdoc_comment("Supported error code values.\n"), 0)
+    result += "/// CEF name: `" + type_name + "`.\n"
+
+    error_pattern = re.compile("((?:\/\/.+\n)+)NET_ERROR\(\s*(.*)\s*,\s*(.*)\s*\)", re.M)
+    error_enum_body = "typedef enum {\n"
+    for error_match in re.finditer(error_pattern, infile_contents):
+        error_enum_body += error_match.group(1)
+        error_enum_body += "ERR_" + error_match.group(2) + " = " + error_match.group(3) + ",\n" 
+    error_enum_body += "} cef_errorcode_t;\n"
+
+    swift_type_name = cef_capi_type_to_swift(type_name)
+    
+    outfile_contents = make_enum_header(swift_type_name, os.path.basename(infile_path))
+    outfile_contents += result
+    outfile_contents += make_const_collection(type_name, error_enum_body)
+    
+    if not os.access(dst_dir, os.F_OK):
+        os.makedirs(dst_dir)
+    
+    outfile = open(os.path.join(dst_dir, swift_type_name + ".g.swift"), "w")
+    outfile.write(outfile_contents)
+    outfile.close()
+
+
 if len(sys.argv) < 3:
     print "Usage: " + os.path.basename(sys.argv[0]) + " <cef_header> <dst_dir>"
     exit(-1)
@@ -231,7 +262,7 @@ for type_match in re.finditer(enum_type_pattern, infile_contents):
     result += indent_multiline_string(make_swiftdoc_comment(strip_c_comment_prefix(type_comment)), 0)
     result += "/// CEF name: `" + type_name + "`.\n"
     
-    if type_name in cef_enums:
+    if type_name in cef_enums and type_name != 'cef_errorcode_t':
         result += make_enum(type_name, type_body)
     elif type_name in cef_option_sets:
         result += make_option_set(type_name, type_body)
@@ -256,5 +287,8 @@ for type_match in re.finditer(enum_type_pattern, infile_contents):
     outfile.write(outfile_contents)
     outfile.close()
 
+
+# error enum
+make_error_enum(infile_path)
 
 # print find_enums(file_contents)
