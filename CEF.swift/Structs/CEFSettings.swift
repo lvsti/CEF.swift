@@ -68,14 +68,25 @@ public struct CEFSettings {
     /// CEF name: `command_line_args_disabled`
     public var enableCommandLineArgs: Bool = true
     
-    /// The location where cache data will be stored on disk. If empty then
-    /// browsers will be created in "incognito mode" where in-memory caches are
-    /// used for storage and no data is persisted to disk. HTML5 databases such as
-    /// localStorage will only persist across sessions if a cache path is
-    /// specified. Can be overridden for individual CefRequestContext instances via
-    /// the CefRequestContextSettings.cache_path value.
+    /// The location where data for the global browser cache will be stored on
+    /// disk. If non-empty this must be either equal to or a child directory of
+    /// CefSettings.root_cache_path. If empty then browsers will be created in
+    /// "incognito mode" where in-memory caches are used for storage and no data is
+    /// persisted to disk. HTML5 databases such as localStorage will only persist
+    /// across sessions if a cache path is specified. Can be overridden for
+    /// individual CefRequestContext instances via the
+    /// CefRequestContextSettings.cache_path value.
     /// CEF name: `cache_path`
     public var cachePath: String = ""
+    
+    /// The root directory that all CefSettings.cache_path and
+    /// CefRequestContextSettings.cache_path values must have in common. If this
+    /// value is empty and CefSettings.cache_path is non-empty then this value will
+    /// default to the CefSettings.cache_path value. Failure to set this value
+    /// correctly may result in the sandbox blocking read/write access to the
+    /// cache_path directory.
+    /// CEF name: `root_cache_path`
+    public var rootCachePath: String = ""
     
     /// The location where user data such as spell checking dictionary files will
     /// be stored on disk. If empty then the default platform-specific user data
@@ -232,6 +243,13 @@ public struct CEFSettings {
     /// CEF name: `accept_language_list`
     public var acceptLanguageList: String = ""
 
+    /// GUID string used for identifying the application. This is passed to the
+    /// system AV function for scanning downloaded files. By default, the GUID
+    /// will be an empty string and the file will be treated as an untrusted
+    /// file when the GUID is empty.
+    /// CEF name: `application_client_id_for_file_scanning`
+    public var applicationClientIDForFileScanning: String = ""
+    
     public init() {
     }
 }
@@ -248,6 +266,7 @@ extension CEFSettings {
         cefStruct.windowless_rendering_enabled = useWindowlessRendering ? 1 : 0
         cefStruct.command_line_args_disabled = !enableCommandLineArgs ? 1 : 0
         CEFStringSetFromSwiftString(cachePath, cefStringPtr: &cefStruct.cache_path)
+        CEFStringSetFromSwiftString(rootCachePath, cefStringPtr: &cefStruct.root_cache_path)
         CEFStringSetFromSwiftString(userDataPath, cefStringPtr: &cefStruct.user_data_path)
         cefStruct.persist_session_cookies = persistSessionCookies ? 1 : 0
         cefStruct.persist_user_preferences = persistUserPreferences ? 1 : 0
@@ -265,7 +284,9 @@ extension CEFSettings {
         cefStruct.ignore_certificate_errors = ignoreCertificateErrors ? 1 : 0
         cefStruct.background_color = backgroundColor.toCEF()
         CEFStringSetFromSwiftString(acceptLanguageList, cefStringPtr: &cefStruct.accept_language_list)
-        
+        CEFStringSetFromSwiftString(applicationClientIDForFileScanning, cefStringPtr: &cefStruct.application_client_id_for_file_scanning)
+        CEFStringSetFromSwiftString(rootCachePath, cefStringPtr: &cefStruct.root_cache_path)
+
         return cefStruct
     }
 }
@@ -283,6 +304,8 @@ extension cef_settings_t {
         cef_string_utf16_clear(&resources_dir_path)
         cef_string_utf16_clear(&locales_dir_path)
         cef_string_utf16_clear(&accept_language_list)
+        cef_string_utf16_clear(&application_client_id_for_file_scanning)
+        cef_string_utf16_clear(&root_cache_path)
     }
 }
 

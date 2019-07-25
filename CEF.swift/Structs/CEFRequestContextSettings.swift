@@ -12,12 +12,14 @@ import Foundation
 /// recommended default values.
 /// CEF name: `cef_request_context_settings_t`
 public struct CEFRequestContextSettings {
-    /// The location where cache data will be stored on disk. If empty then
-    /// browsers will be created in "incognito mode" where in-memory caches are
-    /// used for storage and no data is persisted to disk. HTML5 databases such as
-    /// localStorage will only persist across sessions if a cache path is
-    /// specified. To share the global browser cache and related configuration set
-    /// this value to match the CefSettings.cache_path value.
+    /// The location where cache data for this request context will be stored on
+    /// disk. If non-empty this must be either equal to or a child directory of
+    /// CefSettings.root_cache_path. If empty then browsers will be created in
+    /// "incognito mode" where in-memory caches are used for storage and no data is
+    /// persisted to disk. HTML5 databases such as localStorage will only persist
+    /// across sessions if a cache path is specified. To share the global browser
+    /// cache and related configuration set this value to match the
+    /// CefSettings.cache_path value.
     /// CEF name: `cache_path`
     public var cachePath: String = ""
 
