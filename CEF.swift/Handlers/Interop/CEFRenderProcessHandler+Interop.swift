@@ -26,12 +26,13 @@ func CEFRenderProcessHandler_on_web_kit_initialized(ptr: UnsafeMutablePointer<ce
 }
 
 func CEFRenderProcessHandler_on_browser_created(ptr: UnsafeMutablePointer<cef_render_process_handler_t>?,
-                                                browser: UnsafeMutablePointer<cef_browser_t>?) {
+                                                browser: UnsafeMutablePointer<cef_browser_t>?,
+                                                userInfo: UnsafeMutablePointer<cef_dictionary_value_t>?) {
     guard let obj = CEFRenderProcessHandlerMarshaller.get(ptr) else {
         return
     }
 
-    obj.onBrowserCreated(browser: CEFBrowser.fromCEF(browser)!)
+    obj.onBrowserCreated(browser: CEFBrowser.fromCEF(browser)!, userInfo: CEFDictionaryValue.fromCEF(userInfo)!)
 }
 
 func CEFRenderProcessHandler_on_browser_destroyed(ptr: UnsafeMutablePointer<cef_render_process_handler_t>?,
@@ -113,13 +114,15 @@ func CEFRenderProcessHandler_on_focused_node_changed(ptr: UnsafeMutablePointer<c
 
 func CEFRenderProcessHandler_on_process_message_received(ptr: UnsafeMutablePointer<cef_render_process_handler_t>?,
                                                          browser: UnsafeMutablePointer<cef_browser_t>?,
+                                                         frame: UnsafeMutablePointer<cef_frame_t>?,
                                                          processID: cef_process_id_t,
-                                                         message:UnsafeMutablePointer<cef_process_message_t>?) -> Int32 {
+                                                         message: UnsafeMutablePointer<cef_process_message_t>?) -> Int32 {
     guard let obj = CEFRenderProcessHandlerMarshaller.get(ptr) else {
         return 0
     }
     
     let action = obj.onProcessMessageReceived(browser: CEFBrowser.fromCEF(browser)!,
+                                              frame: CEFFrame.fromCEF(frame)!,
                                               processID: CEFProcessID.fromCEF(processID),
                                               message: CEFProcessMessage.fromCEF(message)!)
     return action == .consume ? 1 : 0

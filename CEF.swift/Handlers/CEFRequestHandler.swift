@@ -18,12 +18,6 @@ public enum CEFOnOpenURLFromTabAction {
     case cancel
 }
 
-public enum CEFOnResourceResponseAction {
-    case continueLoading
-    case redirect
-    case retry
-}
-
 public enum CEFOnAuthCredentialsRequiredAction {
     case allow
     case cancel
@@ -97,82 +91,41 @@ public protocol CEFRequestHandler {
                           targetDisposition: CEFWindowOpenDisposition,
                           userGesture: Bool) -> CEFOnOpenURLFromTabAction
     
-    /// Called on the IO thread before a resource request is loaded. The |request|
-    /// object may be modified. Return RV_CONTINUE to continue the request
-    /// immediately. Return RV_CONTINUE_ASYNC and call CefRequestCallback::
-    /// Continue() at a later time to continue or cancel the request
-    /// asynchronously. Return RV_CANCEL to cancel the request immediately.
-    /// CEF name: `OnBeforeResourceLoad`
-    func onBeforeResourceLoad(browser: CEFBrowser,
-                              frame: CEFFrame,
-                              request: CEFRequest,
-                              callback: CEFRequestCallback) -> CEFReturnValue
-    
-    /// Called on the IO thread before a resource is loaded. To allow the resource
-    /// to load normally return NULL. To specify a handler for the resource return
-    /// a CefResourceHandler object. The |request| object should not be modified in
-    /// this callback.
-    /// CEF name: `GetResourceHandler`
-    func resourceHandler(browser: CEFBrowser,
-                         frame: CEFFrame,
-                         request: CEFRequest) -> CEFResourceHandler?
-
-    /// Called on the IO thread when a resource load is redirected. The |request|
-    /// parameter will contain the old URL and other request-related information.
-    /// The |response| parameter will contain the response that resulted in the
-    /// redirect. The |new_url| parameter will contain the new URL and can be
-    /// changed if desired. The |request| object cannot be modified in this
-    /// callback.
-    /// CEF name: `OnResourceRedirect`
-    func onResourceRedirect(browser: CEFBrowser,
-                            frame: CEFFrame,
-                            request: CEFRequest,
-                            response: CEFResponse,
-                            newURL: inout URL)
-    
-    /// Called on the IO thread when a resource response is received. To allow the
-    /// resource to load normally return false. To redirect or retry the resource
-    /// modify |request| (url, headers or post body) and return true. The
-    /// |response| object cannot be modified in this callback.
-    /// CEF name: `OnResourceResponse`
-    func onResourceResponse(browser: CEFBrowser,
-                            frame: CEFFrame,
-                            request: CEFRequest,
-                            response: CEFResponse) -> CEFOnResourceResponseAction
-
-    /// Called on the IO thread to optionally filter resource response content.
-    /// |request| and |response| represent the request and response respectively
-    /// and cannot be modified in this callback.
-    /// CEF name: `GetResourceResponseFilter`
-    func onGetResourceResponseFilter(browser: CEFBrowser,
+    /// Called on the browser process IO thread before a resource request is
+    /// initiated. The |browser| and |frame| values represent the source of the
+    /// request. |request| represents the request contents and cannot be modified
+    /// in this callback. |is_navigation| will be true if the resource request is a
+    /// navigation. |is_download| will be true if the resource request is a
+    /// download. |request_initiator| is the origin (scheme + domain) of the page
+    /// that initiated the request. Set |disable_default_handling| to true to
+    /// disable default handling of the request, in which case it will need to be
+    /// handled via CefResourceRequestHandler::GetResourceHandler or it will be
+    /// canceled. To allow the resource load to proceed with default handling
+    /// return NULL. To specify a handler for the resource return a
+    /// CefResourceRequestHandler object. If this callback returns NULL the same
+    /// method will be called on the associated CefRequestContextHandler, if any.
+    /// CEF name: `GetResourceRequestHandler`
+    func onGetResourceRequestHandler(browser: CEFBrowser,
                                      frame: CEFFrame,
                                      request: CEFRequest,
-                                     response: CEFResponse) -> CEFResponseFilter?
+                                     isNavigation: Bool,
+                                     isDownload: Bool,
+                                     initiator: String,
+                                     disableDefault: inout Bool) -> CEFResourceRequestHandler?
     
-    /// Called on the IO thread when a resource load has completed. |request| and
-    /// |response| represent the request and response respectively and cannot be
-    /// modified in this callback. |status| indicates the load completion status.
-    /// |received_content_length| is the number of response bytes actually read.
-    /// CEF name: `OnResourceLoadComplete`
-    func onResourceLoadComplete(browser: CEFBrowser,
-                                frame: CEFFrame,
-                                request: CEFRequest,
-                                response: CEFResponse,
-                                status: CEFURLRequestStatus,
-                                contentLength: Int64)
-
     /// Called on the IO thread when the browser needs credentials from the user.
-    /// |isProxy| indicates whether the host is a proxy server. |host| contains the
-    /// hostname and |port| contains the port number. |realm| is the realm of the
-    /// challenge and may be empty. |scheme| is the authentication scheme used,
-    /// such as "basic" or "digest", and will be empty if the source of the request
-    /// is an FTP server. Return true to continue the request and call
+    /// |origin_url| is the origin making this authentication request. |isProxy|
+    /// indicates whether the host is a proxy server. |host| contains the hostname
+    /// and |port| contains the port number. |realm| is the realm of the challenge
+    /// and may be empty. |scheme| is the authentication scheme used, such as
+    /// "basic" or "digest", and will be empty if the source of the request is an
+    /// FTP server. Return true to continue the request and call
     /// CefAuthCallback::Continue() either in this method or at a later time when
     /// the authentication information is available. Return false to cancel the
     /// request immediately.
     /// CEF name: `GetAuthCredentials`
     func onAuthCredentialsRequired(browser: CEFBrowser,
-                                   frame: CEFFrame,
+                                   originURL: URL,
                                    isProxy: Bool,
                                    host: String,
                                    port: UInt16,
@@ -180,20 +133,6 @@ public protocol CEFRequestHandler {
                                    scheme: String?,
                                    callback: CEFAuthCallback) -> CEFOnAuthCredentialsRequiredAction
     
-    /// Called on the IO thread before sending a network request with a "Cookie"
-    /// request header. Return true to allow cookies to be included in the network
-    /// request or false to block cookies. The |request| object should not be
-    /// modified in this callback.
-    /// CEF name: `CanGetCookies`
-    func onAttachCookies(browser: CEFBrowser, frame: CEFFrame, request: CEFRequest) -> CEFOnAttachCookiesAction
-    
-    /// Called on the IO thread when receiving a network request with a
-    /// "Set-Cookie" response header value represented by |cookie|. Return true to
-    /// allow the cookie to be stored or false to block the cookie. The |request|
-    /// object should not be modified in this callback.
-    /// CEF name: `CanSetCookie`
-    func onSetCookie(browser: CEFBrowser, frame: CEFFrame, request: CEFRequest, cookie: CEFCookie) -> CEFOnSetCookieAction
-
     /// Called on the IO thread when JavaScript requests a specific storage quota
     /// size via the webkitStorageInfo.requestQuota function. |origin_url| is the
     /// origin of the page making the request. |new_size| is the requested quota
@@ -205,14 +144,6 @@ public protocol CEFRequestHandler {
                         origin: URL,
                         newSize: Int64,
                         callback: CEFRequestCallback) -> CEFOnQuotaRequestAction
-    
-    /// Called on the UI thread to handle requests for URLs with an unknown
-    /// protocol component. Set |allow_os_execution| to true to attempt execution
-    /// via the registered OS protocol handler, if any.
-    /// SECURITY WARNING: YOU SHOULD USE THIS METHOD TO ENFORCE RESTRICTIONS BASED
-    /// ON SCHEME, HOST OR OTHER URL ANALYSIS BEFORE ALLOWING OS EXECUTION.
-    /// CEF name: `OnProtocolExecution`
-    func onProtocolExecution(browser: CEFBrowser, url: URL, allowExecution: inout Bool)
     
     /// Called on the UI thread to handle requests for URLs with an invalid
     /// SSL certificate. Return true and call CefRequestCallback::Continue() either
@@ -282,50 +213,18 @@ public extension CEFRequestHandler {
         return .allow
     }
 
-    func onBeforeResourceLoad(browser: CEFBrowser,
-                              frame: CEFFrame,
-                              request: CEFRequest,
-                              callback: CEFRequestCallback) -> CEFReturnValue {
-        return .continueNow
-    }
-
-    func resourceHandler(browser: CEFBrowser,
-                         frame: CEFFrame,
-                         request: CEFRequest) -> CEFResourceHandler? {
-        return nil
-    }
-
-    func onResourceRedirect(browser: CEFBrowser,
-                            frame: CEFFrame,
-                            request: CEFRequest,
-                            response: CEFResponse,
-                            newURL: inout URL) {
-    }
-    
-    func onResourceResponse(browser: CEFBrowser,
-                            frame: CEFFrame,
-                            request: CEFRequest,
-                            response: CEFResponse) -> CEFOnResourceResponseAction {
-        return .continueLoading
-    }
-    
-    func onGetResourceResponseFilter(browser: CEFBrowser,
+    func onGetResourceRequestHandler(browser: CEFBrowser,
                                      frame: CEFFrame,
                                      request: CEFRequest,
-                                     response: CEFResponse) -> CEFResponseFilter? {
+                                     isNavigation: Bool,
+                                     isDownload: Bool,
+                                     initiator: String,
+                                     disableDefault: inout Bool) -> CEFResourceRequestHandler? {
         return nil
     }
 
-    func onResourceLoadComplete(browser: CEFBrowser,
-                                frame: CEFFrame,
-                                request: CEFRequest,
-                                response: CEFResponse,
-                                status: CEFURLRequestStatus,
-                                contentLength: Int64) {
-    }
-    
     func onAuthCredentialsRequired(browser: CEFBrowser,
-                                   frame: CEFFrame,
+                                   originURL: URL,
                                    isProxy: Bool,
                                    host: String,
                                    port: UInt16,
@@ -335,14 +234,6 @@ public extension CEFRequestHandler {
         return .cancel
     }
 
-    func onAttachCookies(browser: CEFBrowser, frame: CEFFrame, request: CEFRequest) -> CEFOnAttachCookiesAction {
-        return .allow
-    }
-    
-    func onSetCookie(browser: CEFBrowser, frame: CEFFrame, request: CEFRequest, cookie: CEFCookie) -> CEFOnSetCookieAction {
-        return .allow
-    }
-    
     func onQuotaRequest(browser: CEFBrowser,
                         origin: URL,
                         newSize: Int64,

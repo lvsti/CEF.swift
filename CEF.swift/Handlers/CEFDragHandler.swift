@@ -36,7 +36,7 @@ public protocol CEFDragHandler {
     /// never be called. If the last draggable region is removed from a document
     /// this method will be called with an empty vector.
     /// CEF name: `OnDraggableRegionsChanged`
-    func onDraggableRegionsChanged(browser: CEFBrowser, regions: [CEFDraggableRegion])
+    func onDraggableRegionsChanged(browser: CEFBrowser, frame: CEFFrame, regions: [CEFDraggableRegion])
 
 }
 
@@ -48,7 +48,7 @@ public extension CEFDragHandler {
         return .accept
     }
     
-    func onDraggableRegionsChanged(browser: CEFBrowser, regions: [CEFDraggableRegion]) {
+    func onDraggableRegionsChanged(browser: CEFBrowser, frame: CEFFrame, regions: [CEFDraggableRegion]) {
     }
 
 }

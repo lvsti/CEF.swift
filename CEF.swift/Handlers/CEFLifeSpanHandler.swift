@@ -43,7 +43,10 @@ public protocol CEFLifeSpanHandler {
     /// |windowInfo| will be ignored if the parent browser is wrapped in a
     /// CefBrowserView. Popup browser creation will be canceled if the parent
     /// browser is destroyed before the popup browser creation completes (indicated
-    /// by a call to OnAfterCreated for the popup browser).
+    /// by a call to OnAfterCreated for the popup browser). The |extra_info|
+    /// parameter provides an opportunity to specify extra information specific
+    /// to the created popup browser that will be passed to
+    /// CefRenderProcessHandler::OnBrowserCreated() in the render process.
     /// CEF name: `OnBeforePopup`
     func onBeforePopup(browser: CEFBrowser,
                        frame: CEFFrame,
@@ -55,6 +58,7 @@ public protocol CEFLifeSpanHandler {
                        windowInfo: inout CEFWindowInfo,
                        client: inout CEFClient,
                        settings: inout CEFBrowserSettings,
+                       userInfo: inout CEFDictionaryValue,
                        jsAccess: inout Bool) -> CEFOnBeforePopupAction
 
     /// Called after a new browser is created. This callback will be the first
@@ -154,9 +158,13 @@ public protocol CEFLifeSpanHandler {
     
     /// Called just before a browser is destroyed. Release all references to the
     /// browser object and do not attempt to execute any methods on the browser
-    /// object after this callback returns. This callback will be the last
-    /// notification that references |browser|. See DoClose() documentation for
-    /// additional usage information.
+    /// object (other than GetIdentifier or IsSame) after this callback returns.
+    /// This callback will be the last notification that references |browser| on
+    /// the UI thread. Any in-progress network requests associated with |browser|
+    /// will be aborted when the browser is destroyed, and
+    /// CefResourceRequestHandler callbacks related to those requests may still
+    /// arrive on the IO thread after this method is called. See DoClose()
+    /// documentation for additional usage information.
     /// CEF name: `OnBeforeClose`
     func onBeforeClose(browser: CEFBrowser)
 
@@ -174,6 +182,7 @@ public extension CEFLifeSpanHandler {
                        windowInfo: inout CEFWindowInfo,
                        client: inout CEFClient,
                        settings: inout CEFBrowserSettings,
+                       userInfo: inout CEFDictionaryValue,
                        jsAccess: inout Bool) -> CEFOnBeforePopupAction {
         return .allow
     }

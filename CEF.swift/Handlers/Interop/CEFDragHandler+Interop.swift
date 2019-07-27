@@ -24,6 +24,7 @@ func CEFDragHandler_on_drag_enter(ptr: UnsafeMutablePointer<cef_drag_handler_t>?
 
 func CEFDragHandler_on_draggable_regions_changed(ptr: UnsafeMutablePointer<cef_drag_handler_t>?,
                                                  browser: UnsafeMutablePointer<cef_browser_t>?,
+                                                 frame: UnsafeMutablePointer<cef_frame_t>?,
                                                  count: size_t,
                                                  cefRegions: UnsafePointer<cef_draggable_region_t>?) {
     guard let obj = CEFDragHandlerMarshaller.get(ptr) else {
@@ -35,6 +36,8 @@ func CEFDragHandler_on_draggable_regions_changed(ptr: UnsafeMutablePointer<cef_d
         regions.append(CEFDraggableRegion.fromCEF(cefRegions!.advanced(by: i).pointee))
     }
     
-    obj.onDraggableRegionsChanged(browser: CEFBrowser.fromCEF(browser)!, regions: regions)
+    obj.onDraggableRegionsChanged(browser: CEFBrowser.fromCEF(browser)!,
+                                  frame: CEFFrame.fromCEF(frame)!,
+                                  regions: regions)
 }
 

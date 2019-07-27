@@ -44,119 +44,36 @@ func CEFRequestHandler_on_open_urlfrom_tab(ptr: UnsafeMutablePointer<cef_request
     return action == .cancel ? 1 : 0
 }
 
-func CEFRequestHandler_on_before_resource_load(ptr: UnsafeMutablePointer<cef_request_handler_t>?,
-                                               browser: UnsafeMutablePointer<cef_browser_t>?,
-                                               frame: UnsafeMutablePointer<cef_frame_t>?,
-                                               request: UnsafeMutablePointer<cef_request_t>?,
-                                               callback: UnsafeMutablePointer<cef_request_callback_t>?) -> cef_return_value_t {
-    guard let obj = CEFRequestHandlerMarshaller.get(ptr) else {
-        return CEFReturnValue.continueNow.toCEF()
-    }
-    
-    let retval = obj.onBeforeResourceLoad(browser: CEFBrowser.fromCEF(browser)!,
-                                          frame: CEFFrame.fromCEF(frame)!,
-                                          request: CEFRequest.fromCEF(request)!,
-                                          callback: CEFRequestCallback.fromCEF(callback)!)
-    
-    return retval.toCEF()
-}
-
-func CEFRequestHandler_get_resource_handler(ptr: UnsafeMutablePointer<cef_request_handler_t>?,
-                                            browser: UnsafeMutablePointer<cef_browser_t>?,
-                                            frame: UnsafeMutablePointer<cef_frame_t>?,
-                                            request: UnsafeMutablePointer<cef_request_t>?) -> UnsafeMutablePointer<cef_resource_handler_t>? {
+func CEFRequestHandler_get_resource_request_handler(ptr: UnsafeMutablePointer<cef_request_handler_t>?,
+                                                    browser: UnsafeMutablePointer<cef_browser_t>?,
+                                                    frame: UnsafeMutablePointer<cef_frame_t>?,
+                                                    request: UnsafeMutablePointer<cef_request_t>?,
+                                                    isNavigation: Int32,
+                                                    isDownload: Int32,
+                                                    initiator: UnsafePointer<cef_string_t>?,
+                                                    cefDisableDefault: UnsafeMutablePointer<Int32>?) -> UnsafeMutablePointer<cef_resource_request_handler_t>? {
     guard let obj = CEFRequestHandlerMarshaller.get(ptr) else {
         return nil
     }
     
-    if let handler = obj.resourceHandler(browser: CEFBrowser.fromCEF(browser)!,
-                                         frame: CEFFrame.fromCEF(frame)!,
-                                         request: CEFRequest.fromCEF(request)!) {
+    var disableDefault: Bool = cefDisableDefault?.pointee != 0
+    if let handler = obj.onGetResourceRequestHandler(browser: CEFBrowser.fromCEF(browser)!,
+                                                     frame: CEFFrame.fromCEF(frame)!,
+                                                     request: CEFRequest.fromCEF(request)!,
+                                                     isNavigation: isNavigation != 0,
+                                                     isDownload: isDownload != 0,
+                                                     initiator: CEFStringToSwiftString(initiator!.pointee),
+                                                     disableDefault: &disableDefault) {
+        cefDisableDefault?.pointee = disableDefault ? 1 : 0
         return handler.toCEF()
     }
     
     return nil
 }
 
-
-func CEFRequestHandler_on_resource_redirect(ptr: UnsafeMutablePointer<cef_request_handler_t>?,
-                                            browser: UnsafeMutablePointer<cef_browser_t>?,
-                                            frame: UnsafeMutablePointer<cef_frame_t>?,
-                                            request: UnsafeMutablePointer<cef_request_t>?,
-                                            response: UnsafeMutablePointer<cef_response_t>?,
-                                            newURL: UnsafeMutablePointer<cef_string_t>?) {
-    guard let obj = CEFRequestHandlerMarshaller.get(ptr) else {
-        return
-    }
-
-    var url = URL(string: CEFStringToSwiftString(newURL!.pointee))!
-
-    obj.onResourceRedirect(browser: CEFBrowser.fromCEF(browser)!,
-                           frame: CEFFrame.fromCEF(frame)!,
-                           request: CEFRequest.fromCEF(request)!,
-                           response: CEFResponse.fromCEF(response)!,
-                           newURL: &url)
-    
-    CEFStringSetFromSwiftString(url.absoluteString, cefStringPtr: newURL!)
-}
-
-func CEFRequestHandler_on_resource_response(ptr: UnsafeMutablePointer<cef_request_handler_t>?,
-                                            browser: UnsafeMutablePointer<cef_browser_t>?,
-                                            frame: UnsafeMutablePointer<cef_frame_t>?,
-                                            request: UnsafeMutablePointer<cef_request_t>?,
-                                            response: UnsafeMutablePointer<cef_response_t>?) -> Int32 {
-    guard let obj = CEFRequestHandlerMarshaller.get(ptr) else {
-        return 0
-    }
-
-    let action = obj.onResourceResponse(browser: CEFBrowser.fromCEF(browser)!,
-                                        frame: CEFFrame.fromCEF(frame)!,
-                                        request: CEFRequest.fromCEF(request)!,
-                                        response: CEFResponse.fromCEF(response)!)
-    return action == .redirect || action == .retry ? 1 : 0
-}
-
-func CEFRequestHandler_get_resource_response_filter(ptr: UnsafeMutablePointer<cef_request_handler_t>?,
-                                                    browser: UnsafeMutablePointer<cef_browser_t>?,
-                                                    frame: UnsafeMutablePointer<cef_frame_t>?,
-                                                    request: UnsafeMutablePointer<cef_request_t>?,
-                                                    response: UnsafeMutablePointer<cef_response_t>?) -> UnsafeMutablePointer<cef_response_filter_t>? {
-    guard let obj = CEFRequestHandlerMarshaller.get(ptr) else {
-        return nil
-    }
-    
-    if let filter = obj.onGetResourceResponseFilter(browser: CEFBrowser.fromCEF(browser)!,
-                                                    frame: CEFFrame.fromCEF(frame)!,
-                                                    request: CEFRequest.fromCEF(request)!,
-                                                    response: CEFResponse.fromCEF(response)!) {
-        return filter.toCEF()
-    }
-    
-    return nil
-}
-
-func CEFRequestHandler_on_resource_load_complete(ptr: UnsafeMutablePointer<cef_request_handler_t>?,
-                                                 browser: UnsafeMutablePointer<cef_browser_t>?,
-                                                 frame: UnsafeMutablePointer<cef_frame_t>?,
-                                                 request: UnsafeMutablePointer<cef_request_t>?,
-                                                 response: UnsafeMutablePointer<cef_response_t>?,
-                                                 status: cef_urlrequest_status_t,
-                                                 contentLength: Int64) {
-    guard let obj = CEFRequestHandlerMarshaller.get(ptr) else {
-        return
-    }
-    
-    obj.onResourceLoadComplete(browser: CEFBrowser.fromCEF(browser)!,
-                               frame: CEFFrame.fromCEF(frame)!,
-                               request: CEFRequest.fromCEF(request)!,
-                               response: CEFResponse.fromCEF(response)!,
-                               status: CEFURLRequestStatus.fromCEF(status),
-                               contentLength: contentLength)
-}
-
 func CEFRequestHandler_get_auth_credentials(ptr: UnsafeMutablePointer<cef_request_handler_t>?,
                                             browser: UnsafeMutablePointer<cef_browser_t>?,
-                                            frame: UnsafeMutablePointer<cef_frame_t>?,
+                                            originURL: UnsafePointer<cef_string_t>?,
                                             isProxy: Int32,
                                             host: UnsafePointer<cef_string_t>?,
                                             port: Int32,
@@ -168,45 +85,13 @@ func CEFRequestHandler_get_auth_credentials(ptr: UnsafeMutablePointer<cef_reques
     }
     
     let action = obj.onAuthCredentialsRequired(browser: CEFBrowser.fromCEF(browser)!,
-                                               frame: CEFFrame.fromCEF(frame)!,
+                                               originURL: URL(string: CEFStringToSwiftString(originURL!.pointee))!,
                                                isProxy: isProxy != 0,
                                                host: CEFStringToSwiftString(host!.pointee),
                                                port: UInt16(port),
                                                realm: CEFStringPtrToSwiftString(realm),
                                                scheme: CEFStringPtrToSwiftString(scheme),
                                                callback: CEFAuthCallback.fromCEF(callback)!)
-    return action == .allow ? 1 : 0
-}
-
-func CEFRequestHandler_can_get_cookies(ptr: UnsafeMutablePointer<cef_request_handler_t>?,
-                                       browser: UnsafeMutablePointer<cef_browser_t>?,
-                                       frame: UnsafeMutablePointer<cef_frame_t>?,
-                                       request: UnsafeMutablePointer<cef_request_t>?) -> Int32 {
-    guard let obj = CEFRequestHandlerMarshaller.get(ptr) else {
-        return 0
-    }
-
-    let action = obj.onAttachCookies(browser: CEFBrowser.fromCEF(browser)!,
-                                     frame: CEFFrame.fromCEF(frame)!,
-                                     request: CEFRequest.fromCEF(request)!)
-    
-    return action == .allow ? 1 : 0
-}
-
-func CEFRequestHandler_can_set_cookie(ptr: UnsafeMutablePointer<cef_request_handler_t>?,
-                                      browser: UnsafeMutablePointer<cef_browser_t>?,
-                                      frame: UnsafeMutablePointer<cef_frame_t>?,
-                                      request: UnsafeMutablePointer<cef_request_t>?,
-                                      cookie: UnsafePointer<cef_cookie_t>?) -> Int32 {
-    guard let obj = CEFRequestHandlerMarshaller.get(ptr) else {
-        return 0
-    }
-    
-    let action = obj.onSetCookie(browser: CEFBrowser.fromCEF(browser)!,
-                                 frame: CEFFrame.fromCEF(frame)!,
-                                 request: CEFRequest.fromCEF(request)!,
-                                 cookie: CEFCookie.fromCEF(cookie!.pointee))
-
     return action == .allow ? 1 : 0
 }
 
@@ -226,21 +111,6 @@ func CEFRequestHandler_on_quota_request(ptr: UnsafeMutablePointer<cef_request_ha
     return action == .allow ? 1 : 0
 }
 
-
-func CEFRequestHandler_on_protocol_execution(ptr: UnsafeMutablePointer<cef_request_handler_t>?,
-                                             browser: UnsafeMutablePointer<cef_browser_t>?,
-                                             url: UnsafePointer<cef_string_t>?,
-                                             allow: UnsafeMutablePointer<Int32>?) {
-    guard let obj = CEFRequestHandlerMarshaller.get(ptr) else {
-        return
-    }
-    
-    var allowExecution: Bool = allow!.pointee != 0
-    obj.onProtocolExecution(browser: CEFBrowser.fromCEF(browser)!,
-                            url: URL(string: CEFStringToSwiftString(url!.pointee))!,
-                            allowExecution: &allowExecution)
-    allow!.pointee = allowExecution ? 1 : 0
-}
 
 func CEFRequestHandler_on_certificate_error(ptr: UnsafeMutablePointer<cef_request_handler_t>?,
                                             browser: UnsafeMutablePointer<cef_browser_t>?,

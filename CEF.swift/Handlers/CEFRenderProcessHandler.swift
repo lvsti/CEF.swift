@@ -32,9 +32,11 @@ public protocol CEFRenderProcessHandler {
     
     /// Called after a browser has been created. When browsing cross-origin a new
     /// browser will be created before the old browser with the same identifier is
-    /// destroyed.
+    /// destroyed. |extra_info| is a read-only value originating from
+    /// CefBrowserHost::CreateBrowser(), CefBrowserHost::CreateBrowserSync(),
+    /// CefLifeSpanHandler::OnBeforePopup() or CefBrowserView::CreateBrowserView().
     /// CEF name: `OnBrowserCreated`
-    func onBrowserCreated(browser: CEFBrowser)
+    func onBrowserCreated(browser: CEFBrowser, userInfo: CEFDictionaryValue)
     
     /// Called before a browser is destroyed.
     /// CEF name: `OnBrowserDestroyed`
@@ -87,6 +89,7 @@ public protocol CEFRenderProcessHandler {
     /// or attempt to access the message outside of this callback.
     /// CEF name: `OnProcessMessageReceived`
     func onProcessMessageReceived(browser: CEFBrowser,
+                                  frame: CEFFrame,
                                   processID: CEFProcessID,
                                   message: CEFProcessMessage) -> CEFOnProcessMessageReceivedAction
     
@@ -100,7 +103,7 @@ public extension CEFRenderProcessHandler {
     func onWebKitInitialized() {
     }
     
-    func onBrowserCreated(browser: CEFBrowser) {
+    func onBrowserCreated(browser: CEFBrowser, userInfo: CEFDictionaryValue) {
     }
     
     func onBrowserDestroyed(browser: CEFBrowser) {
@@ -131,6 +134,7 @@ public extension CEFRenderProcessHandler {
     }
     
     func onProcessMessageReceived(browser: CEFBrowser,
+                                  frame: CEFFrame,
                                   processID: CEFProcessID,
                                   message: CEFProcessMessage) -> CEFOnProcessMessageReceivedAction {
         return .passThrough

@@ -178,6 +178,7 @@ func CEFClient_get_request_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> 
 
 func CEFClient_on_process_message_received(ptr: UnsafeMutablePointer<cef_client_t>?,
                                            browser: UnsafeMutablePointer<cef_browser_t>?,
+                                           frame: UnsafeMutablePointer<cef_frame_t>?,
                                            source: cef_process_id_t,
                                            message: UnsafeMutablePointer<cef_process_message_t>?) -> Int32 {
     guard let obj = CEFClientMarshaller.get(ptr) else {
@@ -185,6 +186,7 @@ func CEFClient_on_process_message_received(ptr: UnsafeMutablePointer<cef_client_
     }
 
     let action = obj.onProcessMessageReceived(browser: CEFBrowser.fromCEF(browser)!,
+                                              frame: CEFFrame.fromCEF(frame)!,
                                               processID: CEFProcessID.fromCEF(source),
                                               message: CEFProcessMessage.fromCEF(message)!)
     return action == .consume ? 1 : 0

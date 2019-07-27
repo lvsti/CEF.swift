@@ -19,11 +19,12 @@ extension CEFResourceHandler {
 
 extension cef_resource_handler_t: CEFCallbackMarshalling {
     mutating func marshalCallbacks() {
+        open = CEFResourceHandler_open
         process_request = CEFResourceHandler_process_request
         get_response_headers = CEFResourceHandler_get_response_headers
+        skip = CEFResourceHandler_skip
+        read = CEFResourceHandler_read
         read_response = CEFResourceHandler_read_response
-        can_get_cookie = CEFResourceHandler_can_get_cookie
-        can_set_cookie = CEFResourceHandler_can_set_cookie
         cancel = CEFResourceHandler_cancel
     }
 }
