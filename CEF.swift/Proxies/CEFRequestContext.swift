@@ -76,26 +76,20 @@ public extension CEFRequestContext {
         return CEFStringPtrToSwiftString(cefStrPtr)
     }
     
-    /// Returns the default cookie manager for this object. This will be the global
-    /// cookie manager if this object is the global request context. Otherwise,
-    /// this will be the default cookie manager used when this request context does
-    /// not receive a value via CefRequestContextHandler::GetCookieManager().
-    /// CEF name: `GetDefaultCookieManager`
-    public var defaultCookieManager: CEFCookieManager? {
-        let cefCookieMgr = cefObject.get_default_cookie_manager(cefObjectPtr, nil)
+    /// Returns the cookie manager for this object.
+    /// CEF name: `GetCookieManager`
+    public var cookieManager: CEFCookieManager? {
+        let cefCookieMgr = cefObject.get_cookie_manager(cefObjectPtr, nil)
         return CEFCookieManager.fromCEF(cefCookieMgr)
     }
     
-    /// Returns the default cookie manager for this object. This will be the global
-    /// cookie manager if this object is the global request context. Otherwise,
-    /// this will be the default cookie manager used when this request context does
-    /// not receive a value via CefRequestContextHandler::GetCookieManager(). If
-    /// |callback| is non-NULL it will be executed asnychronously on the IO thread
-    /// after the manager's storage has been initialized.
-    /// CEF name: `GetDefaultCookieManager`
-    public func getDefaultCookieManager(with callback: CEFCompletionCallback? = nil) -> CEFCookieManager? {
+    /// Returns the cookie manager for this object. If |callback| is non-NULL it
+    /// will be executed asnychronously on the IO thread after the manager's
+    /// storage has been initialized.
+    /// CEF name: `GetCookieManager`
+    public func getCookieManager(with callback: CEFCompletionCallback? = nil) -> CEFCookieManager? {
         let cefCallbackPtr = callback?.toCEF()
-        let cefCookieMgr = cefObject.get_default_cookie_manager(cefObjectPtr, cefCallbackPtr)
+        let cefCookieMgr = cefObject.get_cookie_manager(cefObjectPtr, cefCallbackPtr)
         return CEFCookieManager.fromCEF(cefCookieMgr)
     }
     
@@ -213,6 +207,15 @@ public extension CEFRequestContext {
     public func clearCertificateExceptions(callback: CEFCompletionCallback? = nil) {
         let cefCallbackPtr = callback?.toCEF()
         cefObject.clear_certificate_exceptions(cefObjectPtr, cefCallbackPtr)
+    }
+    
+    /// Clears all HTTP authentication credentials that were added as part of
+    /// handling GetAuthCredentials. If |callback| is non-NULL it will be executed
+    /// on the UI thread after completion.
+    /// CEF name: `ClearHttpAuthCredentials`
+    func clearHTTPAuthCredentials(callback: CEFCompletionCallback? = nil) {
+        let cefCallbackPtr = callback?.toCEF()
+        cefObject.clear_http_auth_credentials(cefObjectPtr, cefCallbackPtr)
     }
     
     /// Clears all active and idle connections that Chromium currently has.
@@ -337,15 +340,12 @@ public extension CEFRequestContext {
 
 public extension CEFRequestContext {
     
-    /// Returns the default cookie manager for this object. This will be the global
-    /// cookie manager if this object is the global request context. Otherwise,
-    /// this will be the default cookie manager used when this request context does
-    /// not receive a value via CefRequestContextHandler::GetCookieManager(). If
-    /// |callback| is non-NULL it will be executed asnychronously on the IO thread
-    /// after the manager's storage has been initialized.
-    /// CEF name: `GetDefaultCookieManager`
-    public func getDefaultCookieManager(block: @escaping CEFCompletionCallbackOnCompleteBlock) -> CEFCookieManager? {
-        return getDefaultCookieManager(with: CEFCompletionCallbackBridge(block: block))
+    /// Returns the cookie manager for this object. If |callback| is non-NULL it
+    /// will be executed asnychronously on the IO thread after the manager's
+    /// storage has been initialized.
+    /// CEF name: `GetCookieManager`
+    public func getCookieManager(block: @escaping CEFCompletionCallbackOnCompleteBlock) -> CEFCookieManager? {
+        return getCookieManager(with: CEFCompletionCallbackBridge(block: block))
     }
     
     /// Clears all certificate exceptions that were added as part of handling

@@ -140,6 +140,31 @@ public extension CEFRequest {
         cefObject.set_header_map(cefObjectPtr, cefHeaderMap)
     }
     
+    /// Returns the first header value for |name| or an empty string if not found.
+    /// Will not return the Referer value if any. Use GetHeaderMap instead if
+    /// |name| might have multiple values.
+    /// CEF name: `GetHeaderByName`
+    func headerValue(forName name: String) -> String? {
+        let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
+        defer { CEFStringPtrRelease(cefNamePtr) }
+        let cefHeader = cefObject.get_header_by_name(cefObjectPtr, cefNamePtr)
+        defer { CEFStringPtrRelease(cefHeader) }
+        return cefHeader != nil ? CEFStringToSwiftString(cefHeader!.pointee) : nil
+    }
+    
+    /// Set the header |name| to |value|. If |overwrite| is true any existing
+    /// values will be replaced with the new value. If |overwrite| is false any
+    /// existing values will not be overwritten. The Referer value cannot be set
+    /// using this method.
+    /// CEF name: `SetHeaderByName`
+    func setHeaderValue(_ value: String?, forName name: String, overwriteExisting: Bool) {
+        let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
+        defer { CEFStringPtrRelease(cefNamePtr) }
+        let cefStrPtr = value != nil ? CEFStringPtrCreateFromSwiftString(value!) : nil
+        defer { CEFStringPtrRelease(cefStrPtr) }
+        cefObject.set_header_by_name(cefObjectPtr, cefNamePtr, cefStrPtr, overwriteExisting ? 1 : 0)
+    }
+    
     /// Set all values at one time.
     /// CEF name: `Set`
     public func set(url: URL, method: String, postData: CEFPOSTData? = nil, headers: HeaderMap) {
@@ -170,25 +195,28 @@ public extension CEFRequest {
     /// The URL to the first party for cookies used in combination with
     /// CefURLRequest.
     /// CEF name: `GetFirstPartyForCookies`, `SetFirstPartyForCookies`
-    public var firstPartyURLForCookies: URL {
+    public var firstPartyURLForCookies: URL? {
         get { return getFirstPartyURLForCookies() }
         set { setFirstPartyURLForCookies(newValue) }
     }
 
     /// Get the URL to the first party for cookies used in combination with
     /// CefURLRequest.
-    private func getFirstPartyURLForCookies() -> URL {
+    private func getFirstPartyURLForCookies() -> URL? {
         let cefURL = cefObject.get_first_party_for_cookies(cefObjectPtr)
         defer { CEFStringPtrRelease(cefURL) }
 
-        let urlStr = CEFStringToSwiftString(cefURL!.pointee)
+        guard let url = cefURL else {
+            return nil
+        }
+        let urlStr = CEFStringToSwiftString(url.pointee)
         return URL(string: urlStr)!
     }
     
     /// Set the URL to the first party for cookies used in combination with
     /// CefURLRequest.
-    private func setFirstPartyURLForCookies(_ url: URL) {
-        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
+    private func setFirstPartyURLForCookies(_ url: URL?) {
+        let cefURLPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString) : nil
         defer { CEFStringPtrRelease(cefURLPtr) }
         cefObject.set_first_party_for_cookies(cefObjectPtr, cefURLPtr)
     }
@@ -211,8 +239,8 @@ public extension CEFRequest {
     }
     
     /// Returns the globally unique identifier for this request or 0 if not
-    /// specified. Can be used by CefRequestHandler implementations in the browser
-    /// process to track a single request across multiple callbacks.
+    /// specified. Can be used by CefResourceRequestHandler implementations in the
+    /// browser process to track a single request across multiple callbacks.
     /// CEF name: `GetIdentifier`
     public var identifier: UInt64? {
         let cefID = cefObject.get_identifier(cefObjectPtr)

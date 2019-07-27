@@ -12,7 +12,7 @@ public extension CEFCookieManager {
 
     /// Returns the global cookie manager. By default data will be stored at
     /// CefSettings.cache_path if specified or in memory otherwise. If |callback|
-    /// is non-NULL it will be executed asnychronously on the IO thread after the
+    /// is non-NULL it will be executed asnychronously on the UI thread after the
     /// manager's storage has been initialized. Using this method is equivalent to
     /// calling CefRequestContext::GetGlobalContext()->GetDefaultCookieManager().
     /// CEF name: `GetGlobalManager`
@@ -22,51 +22,23 @@ public extension CEFCookieManager {
         return CEFCookieManager.fromCEF(cefCookieMgr)!
     }
     
-    /// Returns a cookie manager that neither stores nor retrieves cookies. All
-    /// usage of cookies will be blocked including cookies accessed via the network
-    /// (request/response headers), via JavaScript (document.cookie), and via
-    /// CefCookieManager methods. No cookies will be displayed in DevTools. If you
-    /// wish to only block cookies sent via the network use the CefRequestHandler
-    /// CanGetCookies and CanSetCookie methods instead.
-    /// CEF name: `GetBlockingManager`
-    public static var blockingManager: CEFCookieManager {
-        let cefCookieMgr = cef_cookie_manager_get_blocking_manager()
-        return CEFCookieManager.fromCEF(cefCookieMgr)!
-    }
-
-    /// Creates a new cookie manager. If |path| is empty data will be stored in
-    /// memory only. Otherwise, data will be stored at the specified |path|. To
-    /// persist session cookies (cookies without an expiry date or validity
-    /// interval) set |persist_session_cookies| to true. Session cookies are
-    /// generally intended to be transient and most Web browsers do not persist
-    /// them. If |callback| is non-NULL it will be executed asnychronously on the
-    /// IO thread after the manager's storage has been initialized.
-    /// CEF name: `CreateManager`
-    public convenience init?(path: String? = nil,
-                             persistSessionCookies: Bool,
-                             callback: CEFCompletionCallback? = nil) {
-        let cefPathPtr = path != nil ? CEFStringPtrCreateFromSwiftString(path!) : nil
-        defer { CEFStringPtrRelease(cefPathPtr) }
-                                        
-        let cefCallbackPtr = callback?.toCEF()
-        let cefCookieMgr = cef_cookie_manager_create_manager(cefPathPtr, persistSessionCookies ? 1 : 0, cefCallbackPtr)
-        self.init(ptr: cefCookieMgr)
-    }
-    
-    /// Set the schemes supported by this manager. The default schemes ("http",
-    /// "https", "ws" and "wss") will always be supported. If |callback| is non-
-    /// NULL it will be executed asnychronously on the IO thread after the change
-    /// has been applied. Must be called before any cookies are accessed.
+    /// Set the schemes supported by this manager. If |include_defaults| is true
+    /// the default schemes ("http", "https", "ws" and "wss") will also be
+    /// supported. Calling this method with an empty |schemes| value and
+    /// |include_defaults| set to false will disable all loading and saving of
+    /// cookies for this manager. If |callback| is non-NULL it will be executed
+    /// asnychronously on the UI thread after the change has been applied. Must be
+    /// called before any cookies are accessed.
     /// CEF name: `SetSupportedSchemes`
-    public func setSupportedSchemes(_ schemes: [String], callback: CEFCompletionCallback? = nil) {
+    public func setSupportedSchemes(_ schemes: [String], includeDefaults: Bool, callback: CEFCompletionCallback? = nil) {
         let cefSchemes = CEFStringListCreateFromSwiftArray(schemes)
         defer { CEFStringListRelease(cefSchemes) }
         let cefCallbackPtr = callback?.toCEF()
         
-        cefObject.set_supported_schemes(cefObjectPtr, cefSchemes, cefCallbackPtr)
+        cefObject.set_supported_schemes(cefObjectPtr, cefSchemes, includeDefaults ? 1 : 0, cefCallbackPtr)
     }
 
-    /// Visit all cookies on the IO thread. The returned cookies are ordered by
+    /// Visit all cookies on the UI thread. The returned cookies are ordered by
     /// longest path, then by earliest creation date. Returns false if cookies
     /// cannot be accessed.
     /// CEF name: `VisitAllCookies`
@@ -75,7 +47,7 @@ public extension CEFCookieManager {
         return cefObject.visit_all_cookies(cefObjectPtr, visitor.toCEF()) != 0
     }
 
-    /// Visit a subset of cookies on the IO thread. The results are filtered by the
+    /// Visit a subset of cookies on the UI thread. The results are filtered by the
     /// given url scheme, host, domain and path. If |includeHttpOnly| is true
     /// HTTP-only cookies will also be included in the results. The returned
     /// cookies are ordered by longest path, then by earliest creation date.
@@ -93,7 +65,7 @@ public extension CEFCookieManager {
     /// check for disallowed characters (e.g. the ';' character is disallowed
     /// within the cookie value attribute) and fail without setting the cookie if
     /// such characters are found. If |callback| is non-NULL it will be executed
-    /// asnychronously on the IO thread after the cookie has been set. Returns
+    /// asnychronously on the UI thread after the cookie has been set. Returns
     /// false if an invalid URL is specified or if cookies cannot be accessed.
     /// CEF name: `SetCookie`
     @discardableResult
@@ -114,7 +86,7 @@ public extension CEFCookieManager {
     /// both will be deleted. If only |url| is specified all host cookies (but not
     /// domain cookies) irrespective of path will be deleted. If |url| is empty all
     /// cookies for all hosts and domains will be deleted. If |callback| is
-    /// non-NULL it will be executed asnychronously on the IO thread after the
+    /// non-NULL it will be executed asnychronously on the UI thread after the
     /// cookies have been deleted. Returns false if a non-empty invalid URL is
     /// specified or if cookies cannot be accessed. Cookies can alternately be
     /// deleted using the Visit*Cookies() methods.
@@ -133,27 +105,8 @@ public extension CEFCookieManager {
         return cefObject.delete_cookies(cefObjectPtr, cefURLPtr, cefNamePtr, cefCallbackPtr) != 0
     }
     
-    /// Sets the directory path that will be used for storing cookie data. If
-    /// |path| is empty data will be stored in memory only. Otherwise, data will be
-    /// stored at the specified |path|. To persist session cookies (cookies without
-    /// an expiry date or validity interval) set |persist_session_cookies| to true.
-    /// Session cookies are generally intended to be transient and most Web
-    /// browsers do not persist them. If |callback| is non-NULL it will be executed
-    /// asnychronously on the IO thread after the manager's storage has been
-    /// initialized. Returns false if cookies cannot be accessed.
-    /// CEF name: `SetStoragePath`
-    @discardableResult
-    public func setStoragePath(_ path: String? = nil, persistSessionCookies: Bool, callback: CEFCompletionCallback? = nil) -> Bool {
-        let cefPathPtr = path != nil ? CEFStringPtrCreateFromSwiftString(path!) : nil
-        defer { CEFStringPtrRelease(cefPathPtr) }
-        
-        let cefCallbackPtr = callback?.toCEF()
-        
-        return cefObject.set_storage_path(cefObjectPtr, cefPathPtr, persistSessionCookies ? 1 : 0, cefCallbackPtr) != 0
-    }
-    
     /// Flush the backing store (if any) to disk. If |callback| is non-NULL it will
-    /// be executed asnychronously on the IO thread after the flush is complete.
+    /// be executed asnychronously on the UI thread after the flush is complete.
     /// Returns false if cookies cannot be accessed.
     /// CEF name: `FlushStore`
     @discardableResult
@@ -169,7 +122,7 @@ public extension CEFCookieManager {
 
     /// Returns the global cookie manager. By default data will be stored at
     /// CefSettings.cache_path if specified or in memory otherwise. If |callback|
-    /// is non-NULL it will be executed asnychronously on the IO thread after the
+    /// is non-NULL it will be executed asnychronously on the UI thread after the
     /// manager's storage has been initialized. Using this method is equivalent to
     /// calling CefRequestContext::GetGlobalContext()->GetDefaultCookieManager().
     /// CEF name: `GetGlobalManager`
@@ -177,32 +130,23 @@ public extension CEFCookieManager {
         return CEFCookieManager.globalManager(callback: CEFCompletionCallbackBridge(block: block))
     }
 
-    /// Creates a new cookie manager. If |path| is empty data will be stored in
-    /// memory only. Otherwise, data will be stored at the specified |path|. To
-    /// persist session cookies (cookies without an expiry date or validity
-    /// interval) set |persist_session_cookies| to true. Session cookies are
-    /// generally intended to be transient and most Web browsers do not persist
-    /// them. If |callback| is non-NULL it will be executed asnychronously on the
-    /// IO thread after the manager's storage has been initialized.
-    /// CEF name: `CreateManager`
-    public convenience init?(path: String? = nil,
-                 persistSessionCookies: Bool,
-                 block: @escaping CEFCompletionCallbackOnCompleteBlock) {
-        self.init(path: path,
-                  persistSessionCookies: persistSessionCookies,
-                  callback: CEFCompletionCallbackBridge(block: block))
-    }
-
-    /// Set the schemes supported by this manager. The default schemes ("http",
-    /// "https", "ws" and "wss") will always be supported. If |callback| is non-
-    /// NULL it will be executed asnychronously on the IO thread after the change
-    /// has been applied. Must be called before any cookies are accessed.
+    /// Set the schemes supported by this manager. If |include_defaults| is true
+    /// the default schemes ("http", "https", "ws" and "wss") will also be
+    /// supported. Calling this method with an empty |schemes| value and
+    /// |include_defaults| set to false will disable all loading and saving of
+    /// cookies for this manager. If |callback| is non-NULL it will be executed
+    /// asnychronously on the UI thread after the change has been applied. Must be
+    /// called before any cookies are accessed.
     /// CEF name: `SetSupportedSchemes`
-    public func setSupportedSchemes(_ schemes: [String], block: @escaping CEFCompletionCallbackOnCompleteBlock) {
-        return setSupportedSchemes(schemes, callback: CEFCompletionCallbackBridge(block: block))
+    public func setSupportedSchemes(_ schemes: [String],
+                                    includeDefaults: Bool,
+                                    block: @escaping CEFCompletionCallbackOnCompleteBlock) {
+        return setSupportedSchemes(schemes,
+                                   includeDefaults: includeDefaults,
+                                   callback: CEFCompletionCallbackBridge(block: block))
     }
 
-    /// Visit all cookies on the IO thread. The returned cookies are ordered by
+    /// Visit all cookies on the UI thread. The returned cookies are ordered by
     /// longest path, then by earliest creation date. Returns false if cookies
     /// cannot be accessed.
     /// CEF name: `VisitAllCookies`
@@ -211,7 +155,7 @@ public extension CEFCookieManager {
         return enumerateAllCookies(with: CEFCookieVisitorBridge(block: block))
     }
     
-    /// Visit a subset of cookies on the IO thread. The results are filtered by the
+    /// Visit a subset of cookies on the UI thread. The results are filtered by the
     /// given url scheme, host, domain and path. If |includeHttpOnly| is true
     /// HTTP-only cookies will also be included in the results. The returned
     /// cookies are ordered by longest path, then by earliest creation date.
@@ -227,7 +171,7 @@ public extension CEFCookieManager {
     /// check for disallowed characters (e.g. the ';' character is disallowed
     /// within the cookie value attribute) and fail without setting the cookie if
     /// such characters are found. If |callback| is non-NULL it will be executed
-    /// asnychronously on the IO thread after the cookie has been set. Returns
+    /// asnychronously on the UI thread after the cookie has been set. Returns
     /// false if an invalid URL is specified or if cookies cannot be accessed.
     /// CEF name: `SetCookie`
     @discardableResult
@@ -240,7 +184,7 @@ public extension CEFCookieManager {
     /// both will be deleted. If only |url| is specified all host cookies (but not
     /// domain cookies) irrespective of path will be deleted. If |url| is empty all
     /// cookies for all hosts and domains will be deleted. If |callback| is
-    /// non-NULL it will be executed asnychronously on the IO thread after the
+    /// non-NULL it will be executed asnychronously on the UI thread after the
     /// cookies have been deleted. Returns false if a non-empty invalid URL is
     /// specified or if cookies cannot be accessed. Cookies can alternately be
     /// deleted using the Visit*Cookies() methods.
@@ -252,24 +196,8 @@ public extension CEFCookieManager {
                              callback: CEFDeleteCookiesCallbackBridge(block: block))
     }
 
-    /// Sets the directory path that will be used for storing cookie data. If
-    /// |path| is empty data will be stored in memory only. Otherwise, data will be
-    /// stored at the specified |path|. To persist session cookies (cookies without
-    /// an expiry date or validity interval) set |persist_session_cookies| to true.
-    /// Session cookies are generally intended to be transient and most Web
-    /// browsers do not persist them. If |callback| is non-NULL it will be executed
-    /// asnychronously on the IO thread after the manager's storage has been
-    /// initialized. Returns false if cookies cannot be accessed.
-    /// CEF name: `SetStoragePath`
-    @discardableResult
-    public func setStoragePath(_ path: String? = nil, persistSessionCookies: Bool, block: @escaping CEFCompletionCallbackOnCompleteBlock) -> Bool {
-        return setStoragePath(path,
-                              persistSessionCookies: persistSessionCookies,
-                              callback: CEFCompletionCallbackBridge(block: block))
-    }
-
     /// Flush the backing store (if any) to disk. If |callback| is non-NULL it will
-    /// be executed asnychronously on the IO thread after the flush is complete.
+    /// be executed asnychronously on the UI thread after the flush is complete.
     /// Returns false if cookies cannot be accessed.
     /// CEF name: `FlushStore`
     @discardableResult

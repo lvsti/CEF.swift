@@ -48,14 +48,14 @@ public extension CEFResponse {
 
     /// Response status text.
     /// CEF name: `GetStatusText`, `SetStatusText`
-    public var statusText: String {
+    public var statusText: String? {
         get {
             let cefStrPtr = cefObject.get_status_text(cefObjectPtr)
             defer { CEFStringPtrRelease(cefStrPtr)}
-            return CEFStringToSwiftString(cefStrPtr!.pointee)
+            return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
         }
         set {
-            let cefStrPtr = CEFStringPtrCreateFromSwiftString(newValue)
+            let cefStrPtr = newValue != nil ? CEFStringPtrCreateFromSwiftString(newValue!) : nil
             defer { CEFStringPtrRelease(cefStrPtr)}
             cefObject.set_status_text(cefObjectPtr, cefStrPtr)
         }
@@ -67,12 +67,27 @@ public extension CEFResponse {
         get {
             let cefStrPtr = cefObject.get_mime_type(cefObjectPtr)
             defer { CEFStringPtrRelease(cefStrPtr)}
-            return CEFStringPtrToSwiftString(cefStrPtr)
+            return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
         }
         set {
-            let cefStrPtr = CEFStringPtrCreateFromSwiftString(newValue ?? "")
+            let cefStrPtr = newValue != nil ? CEFStringPtrCreateFromSwiftString(newValue!) : nil
             defer { CEFStringPtrRelease(cefStrPtr)}
             cefObject.set_mime_type(cefObjectPtr, cefStrPtr)
+        }
+    }
+    
+    /// Get the response charset.
+    /// CEF name: `GetCharset`, `SetCharset`
+    public var charset: String? {
+        get {
+            let cefStrPtr = cefObject.get_charset(cefObjectPtr)
+            defer { CEFStringPtrRelease(cefStrPtr)}
+            return cefStrPtr != nil ? CEFStringToSwiftString(cefStrPtr!.pointee) : nil
+        }
+        set {
+            let cefStrPtr = newValue != nil ? CEFStringPtrCreateFromSwiftString(newValue!) : nil
+            defer { CEFStringPtrRelease(cefStrPtr)}
+            cefObject.set_charset(cefObjectPtr, cefStrPtr)
         }
     }
     
@@ -108,14 +123,14 @@ public extension CEFResponse {
 
     /// Get the resolved URL after redirects or changed as a result of HSTS.
     /// CEF name: `GetURL`, `SetURL`
-    public var url: URL {
+    public var url: URL? {
         get {
             let cefStrPtr = cefObject.get_url(cefObjectPtr)
             defer { CEFStringPtrRelease(cefStrPtr)}
-            return URL(string: CEFStringPtrToSwiftString(cefStrPtr)!)!
+            return cefStrPtr != nil ? URL(string: CEFStringToSwiftString(cefStrPtr!.pointee)) : nil
         }
         set {
-            let cefStrPtr = CEFStringPtrCreateFromSwiftString(newValue.absoluteString)
+            let cefStrPtr = newValue != nil ? CEFStringPtrCreateFromSwiftString(newValue!.absoluteString) : nil
             defer { CEFStringPtrRelease(cefStrPtr)}
             cefObject.set_url(cefObjectPtr, cefStrPtr)
         }

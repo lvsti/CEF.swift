@@ -15,18 +15,23 @@ public extension CEFBrowserHost {
     /// |windowInfo|. All values will be copied internally and the actual window
     /// will be created on the UI thread. If |request_context| is empty the
     /// global request context will be used. This method can be called on any
-    /// browser process thread and will not block.
+    /// browser process thread and will not block. The optional |extra_info|
+    /// parameter provides an opportunity to specify extra information specific
+    /// to the created browser that will be passed to
+    /// CefRenderProcessHandler::OnBrowserCreated() in the render process.
     /// CEF name: `CreateBrowser`
     @discardableResult
     public static func createBrowser(windowInfo: CEFWindowInfo,
                                      client: CEFClient? = nil,
                                      url: URL? = nil,
                                      settings: CEFBrowserSettings,
+                                     userInfo: CEFDictionaryValue? = nil,
                                      requestContext: CEFRequestContext? = nil) -> Bool {
         var cefSettings = settings.toCEF()
         let cefURLPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString) : nil
         var cefWinInfo = windowInfo.toCEF()
         let cefClient = client?.toCEF()
+        let cefUserInfo = userInfo?.toCEF()
         let cefReqCtx = requestContext?.toCEF()
         
         defer {
@@ -35,23 +40,33 @@ public extension CEFBrowserHost {
             cefWinInfo.clear()
         }
         
-        return cef_browser_host_create_browser(&cefWinInfo, cefClient, cefURLPtr, &cefSettings, cefReqCtx) != 0
+        return cef_browser_host_create_browser(&cefWinInfo,
+                                               cefClient,
+                                               cefURLPtr,
+                                               &cefSettings,
+                                               cefUserInfo,
+                                               cefReqCtx) != 0
     }
 
     /// Create a new browser window using the window parameters specified by
     /// |windowInfo|. If |request_context| is empty the global request context
     /// will be used. This method can only be called on the browser process UI
-    /// thread.
+    /// thread. The optional |extra_info| parameter provides an opportunity to
+    /// specify extra information specific to the created browser that will be
+    /// passed to CefRenderProcessHandler::OnBrowserCreated() in the render
+    /// process.
     /// CEF name: `CreateBrowserSync`
     public static func createBrowserSync(windowInfo: CEFWindowInfo,
                                          client: CEFClient? = nil,
                                          url: URL? = nil,
                                          settings: CEFBrowserSettings,
+                                         userInfo: CEFDictionaryValue? = nil,
                                          requestContext: CEFRequestContext? = nil) -> CEFBrowser? {
         var cefSettings = settings.toCEF()
         let cefURLPtr = url != nil ? CEFStringPtrCreateFromSwiftString(url!.absoluteString) : nil
         var cefWinInfo = windowInfo.toCEF()
         let cefClient = client?.toCEF()
+        let cefUserInfo = userInfo?.toCEF()
         let cefReqCtx = requestContext?.toCEF()
         
         defer {
@@ -59,8 +74,13 @@ public extension CEFBrowserHost {
             CEFStringPtrRelease(cefURLPtr)
             cefWinInfo.clear()
         }
-        
-        let cefBrowser = cef_browser_host_create_browser_sync(&cefWinInfo, cefClient, cefURLPtr, &cefSettings, cefReqCtx)
+
+        let cefBrowser = cef_browser_host_create_browser_sync(&cefWinInfo,
+                                                              cefClient,
+                                                              cefURLPtr,
+                                                              &cefSettings,
+                                                              cefUserInfo,
+                                                              cefReqCtx)
         return CEFBrowser.fromCEF(cefBrowser)
     }
 

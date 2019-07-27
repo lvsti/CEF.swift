@@ -2,7 +2,7 @@
 //  CEFRequestCallback+Interop.g.swift
 //  CEF.swift
 //
-//  This file was generated automatically from cef_request_handler.h.
+//  This file was generated automatically from cef_request_callback.h.
 //
 
 import Foundation
