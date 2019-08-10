@@ -37,6 +37,12 @@ public struct CEFSettings {
     /// CEF name: `framework_dir_path`
     public var frameworkDirPath: String = ""
     
+    /// The path to the main bundle on macOS. If this value is empty then it
+    /// defaults to the top-level app bundle. Also configurable using
+    /// the "main-bundle-path" command-line switch.
+    /// CEF name: `main_bundle_path`
+    public var mainBundlePath: String = ""
+    
     /// Set to true (1) to have the browser process message loop run in a separate
     /// thread. If false (0) than the CefDoMessageLoopWork() function must be
     /// called from your application message loop. This option is only supported on
@@ -261,6 +267,8 @@ extension CEFSettings {
         cefStruct.size = MemoryLayout<cef_settings_t>.stride
         cefStruct.no_sandbox = !useSandbox ? 1 : 0
         CEFStringSetFromSwiftString(browserSubprocessPath, cefStringPtr: &cefStruct.browser_subprocess_path)
+        CEFStringSetFromSwiftString(frameworkDirPath, cefStringPtr: &cefStruct.framework_dir_path)
+        CEFStringSetFromSwiftString(mainBundlePath, cefStringPtr: &cefStruct.main_bundle_path)
         cefStruct.multi_threaded_message_loop = useMultiThreadedMessageLoop ? 1 : 0
         cefStruct.external_message_pump = useExternalMessageLoop ? 1 : 0
         cefStruct.windowless_rendering_enabled = useWindowlessRendering ? 1 : 0
@@ -285,7 +293,6 @@ extension CEFSettings {
         cefStruct.background_color = backgroundColor.toCEF()
         CEFStringSetFromSwiftString(acceptLanguageList, cefStringPtr: &cefStruct.accept_language_list)
         CEFStringSetFromSwiftString(applicationClientIDForFileScanning, cefStringPtr: &cefStruct.application_client_id_for_file_scanning)
-        CEFStringSetFromSwiftString(rootCachePath, cefStringPtr: &cefStruct.root_cache_path)
 
         return cefStruct
     }
@@ -294,6 +301,8 @@ extension CEFSettings {
 extension cef_settings_t {
     mutating func clear() {
         cef_string_utf16_clear(&browser_subprocess_path)
+        cef_string_utf16_clear(&framework_dir_path)
+        cef_string_utf16_clear(&main_bundle_path)
         cef_string_utf16_clear(&cache_path)
         cef_string_utf16_clear(&user_data_path)
         cef_string_utf16_clear(&user_agent)
