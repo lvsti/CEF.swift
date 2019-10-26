@@ -334,10 +334,6 @@ public struct CEFErrorCode: RawRepresentable {
     /// CEF name: `ERR_MSG_TOO_BIG`.
     public static let msgTooBig = CEFErrorCode(rawValue: -142)
 
-    /// A SPDY session already exists, and should be used instead of this connection.
-    /// CEF name: `ERR_SPDY_SESSION_ALREADY_EXISTS`.
-    public static let spdySessionAlreadyExists = CEFErrorCode(rawValue: -143)
-
     /// Websocket protocol error. Indicates that we are terminating the connection
     /// due to a malformed frame or other protocol violation.
     /// CEF name: `ERR_WS_PROTOCOL_ERROR`.
@@ -364,11 +360,6 @@ public struct CEFErrorCode: RawRepresentable {
     /// Server request for client certificate did not contain any types we support.
     /// CEF name: `ERR_CLIENT_AUTH_CERT_TYPE_UNSUPPORTED`.
     public static let clientAuthCertTypeUnsupported = CEFErrorCode(rawValue: -151)
-
-    /// Server requested one type of cert, then requested a different type while the
-    /// first was still being generated.
-    /// CEF name: `ERR_ORIGIN_BOUND_CERT_GENERATION_TYPE_MISMATCH`.
-    public static let originBoundCertGenerationTypeMismatch = CEFErrorCode(rawValue: -152)
 
     /// An SSL peer sent us a fatal decrypt_error alert. This typically occurs when
     /// a peer could not correctly verify a signature (in CertificateVerify or
@@ -461,12 +452,6 @@ public struct CEFErrorCode: RawRepresentable {
     /// visible, because the normal Read() method is used as a fallback.
     /// CEF name: `ERR_READ_IF_READY_NOT_IMPLEMENTED`.
     public static let readIfReadyNotImplemented = CEFErrorCode(rawValue: -174)
-
-    /// 3. The server is buggy and does not implement TLS version negotiation
-    /// correctly. TLS 1.3 was tweaked to avoid a common server bug here, so this
-    /// is unlikely.
-    /// CEF name: `ERR_SSL_VERSION_INTERFERENCE`.
-    public static let sslVersionInterference = CEFErrorCode(rawValue: -175)
 
     /// No socket buffer space is available.
     /// CEF name: `ERR_NO_BUFFER_SPACE`.
@@ -646,9 +631,9 @@ public struct CEFErrorCode: RawRepresentable {
     /// CEF name: `ERR_NO_SUPPORTED_PROXIES`.
     public static let noSupportedProxies = CEFErrorCode(rawValue: -336)
 
-    /// There is a SPDY protocol error.
-    /// CEF name: `ERR_SPDY_PROTOCOL_ERROR`.
-    public static let spdyProtocolError = CEFErrorCode(rawValue: -337)
+    /// There is an HTTP/2 protocol error.
+    /// CEF name: `ERR_HTTP2_PROTOCOL_ERROR`.
+    public static let http2ProtocolError = CEFErrorCode(rawValue: -337)
 
     /// Credentials could not be established during HTTP Authentication.
     /// CEF name: `ERR_INVALID_AUTH_CREDENTIALS`.
@@ -688,10 +673,10 @@ public struct CEFErrorCode: RawRepresentable {
     /// CEF name: `ERR_RESPONSE_HEADERS_MULTIPLE_CONTENT_LENGTH`.
     public static let responseHeadersMultipleContentLength = CEFErrorCode(rawValue: -346)
 
-    /// SPDY Headers have been received, but not all of them - status or version
+    /// HTTP/2 headers have been received, but not all of them - status or version
     /// headers are missing, so we're expecting additional frames to complete them.
-    /// CEF name: `ERR_INCOMPLETE_SPDY_HEADERS`.
-    public static let incompleteSpdyHeaders = CEFErrorCode(rawValue: -347)
+    /// CEF name: `ERR_INCOMPLETE_HTTP2_HEADERS`.
+    public static let incompleteHTTP2Headers = CEFErrorCode(rawValue: -347)
 
     /// No PAC URL configuration could be retrieved from DHCP. This can indicate
     /// either a failure to retrieve the DHCP configuration, or that there was no
@@ -712,12 +697,12 @@ public struct CEFErrorCode: RawRepresentable {
     /// stream id corresponding to the request indicating that this request has not
     /// been processed yet, or a RST_STREAM frame with error code REFUSED_STREAM.
     /// Client MAY retry (on a different connection).  See RFC7540 Section 8.1.4.
-    /// CEF name: `ERR_SPDY_SERVER_REFUSED_STREAM`.
-    public static let spdyServerRefusedStream = CEFErrorCode(rawValue: -351)
+    /// CEF name: `ERR_HTTP2_SERVER_REFUSED_STREAM`.
+    public static let http2ServerRefusedStream = CEFErrorCode(rawValue: -351)
 
-    /// SPDY server didn't respond to the PING message.
-    /// CEF name: `ERR_SPDY_PING_FAILED`.
-    public static let spdyPingFailed = CEFErrorCode(rawValue: -352)
+    /// HTTP/2 server didn't respond to the PING message.
+    /// CEF name: `ERR_HTTP2_PING_FAILED`.
+    public static let http2PingFailed = CEFErrorCode(rawValue: -352)
 
     /// The HTTP response body transferred fewer bytes than were advertised by the
     /// Content-Length header when the connection is closed.
@@ -742,21 +727,21 @@ public struct CEFErrorCode: RawRepresentable {
     /// CEF name: `ERR_QUIC_HANDSHAKE_FAILED`.
     public static let quicHandshakeFailed = CEFErrorCode(rawValue: -358)
 
-    /// Transport security is inadequate for the SPDY version.
-    /// CEF name: `ERR_SPDY_INADEQUATE_TRANSPORT_SECURITY`.
-    public static let spdyInadequateTransportSecurity = CEFErrorCode(rawValue: -360)
+    /// Transport security is inadequate for the HTTP/2 version.
+    /// CEF name: `ERR_HTTP2_INADEQUATE_TRANSPORT_SECURITY`.
+    public static let http2InadequateTransportSecurity = CEFErrorCode(rawValue: -360)
 
-    /// The peer violated SPDY flow control.
-    /// CEF name: `ERR_SPDY_FLOW_CONTROL_ERROR`.
-    public static let spdyFlowControlError = CEFErrorCode(rawValue: -361)
+    /// The peer violated HTTP/2 flow control.
+    /// CEF name: `ERR_HTTP2_FLOW_CONTROL_ERROR`.
+    public static let http2FlowControlError = CEFErrorCode(rawValue: -361)
 
-    /// The peer sent an improperly sized SPDY frame.
-    /// CEF name: `ERR_SPDY_FRAME_SIZE_ERROR`.
-    public static let spdyFrameSizeError = CEFErrorCode(rawValue: -362)
+    /// The peer sent an improperly sized HTTP/2 frame.
+    /// CEF name: `ERR_HTTP2_FRAME_SIZE_ERROR`.
+    public static let http2FrameSizeError = CEFErrorCode(rawValue: -362)
 
-    /// Decoding or encoding of compressed SPDY headers failed.
-    /// CEF name: `ERR_SPDY_COMPRESSION_ERROR`.
-    public static let spdyCompressionError = CEFErrorCode(rawValue: -363)
+    /// Decoding or encoding of compressed HTTP/2 headers failed.
+    /// CEF name: `ERR_HTTP2_COMPRESSION_ERROR`.
+    public static let http2CompressionError = CEFErrorCode(rawValue: -363)
 
     /// Proxy Auth Requested without a valid Client Socket Handle.
     /// CEF name: `ERR_PROXY_AUTH_REQUESTED_WITH_NO_CONNECTION`.
@@ -786,17 +771,17 @@ public struct CEFErrorCode: RawRepresentable {
     /// Received HTTP/2 RST_STREAM frame with NO_ERROR error code.  This error should
     /// be handled internally by HTTP/2 code, and should not make it above the
     /// SpdyStream layer.
-    /// CEF name: `ERR_SPDY_RST_STREAM_NO_ERROR_RECEIVED`.
-    public static let spdyRstStreamNoErrorReceived = CEFErrorCode(rawValue: -372)
+    /// CEF name: `ERR_HTTP2_RST_STREAM_NO_ERROR_RECEIVED`.
+    public static let http2RstStreamNoErrorReceived = CEFErrorCode(rawValue: -372)
 
     /// The pushed stream claimed by the request is no longer available.
-    /// CEF name: `ERR_SPDY_PUSHED_STREAM_NOT_AVAILABLE`.
-    public static let spdyPushedStreamNotAvailable = CEFErrorCode(rawValue: -373)
+    /// CEF name: `ERR_HTTP2_PUSHED_STREAM_NOT_AVAILABLE`.
+    public static let http2PushedStreamNotAvailable = CEFErrorCode(rawValue: -373)
 
     /// A pushed stream was claimed and later reset by the server. When this happens,
     /// the request should be retried.
-    /// CEF name: `ERR_SPDY_CLAIMED_PUSHED_STREAM_RESET_BY_SERVER`.
-    public static let spdyClaimedPushedStreamResetByServer = CEFErrorCode(rawValue: -374)
+    /// CEF name: `ERR_HTTP2_CLAIMED_PUSHED_STREAM_RESET_BY_SERVER`.
+    public static let http2ClaimedPushedStreamResetByServer = CEFErrorCode(rawValue: -374)
 
     /// An HTTP transaction was retried too many times due for authentication or
     /// invalid certificates. This may be due to a bug in the net stack that would
@@ -806,17 +791,17 @@ public struct CEFErrorCode: RawRepresentable {
     public static let tooManyRetries = CEFErrorCode(rawValue: -375)
 
     /// Received an HTTP/2 frame on a closed stream.
-    /// CEF name: `ERR_SPDY_STREAM_CLOSED`.
-    public static let spdyStreamClosed = CEFErrorCode(rawValue: -376)
+    /// CEF name: `ERR_HTTP2_STREAM_CLOSED`.
+    public static let http2StreamClosed = CEFErrorCode(rawValue: -376)
 
     /// Client is refusing an HTTP/2 stream.
-    /// CEF name: `ERR_SPDY_CLIENT_REFUSED_STREAM`.
-    public static let spdyClientRefusedStream = CEFErrorCode(rawValue: -377)
+    /// CEF name: `ERR_HTTP2_CLIENT_REFUSED_STREAM`.
+    public static let http2ClientRefusedStream = CEFErrorCode(rawValue: -377)
 
     /// A pushed HTTP/2 stream was claimed by a request based on matching URL and
     /// request headers, but the pushed response headers do not match the request.
-    /// CEF name: `ERR_SPDY_PUSHED_RESPONSE_DOES_NOT_MATCH`.
-    public static let spdyPushedResponseDoesNotMatch = CEFErrorCode(rawValue: -378)
+    /// CEF name: `ERR_HTTP2_PUSHED_RESPONSE_DOES_NOT_MATCH`.
+    public static let http2PushedResponseDoesNotMatch = CEFErrorCode(rawValue: -378)
 
     /// The cache does not have the requested entry.
     /// CEF name: `ERR_CACHE_MISS`.
