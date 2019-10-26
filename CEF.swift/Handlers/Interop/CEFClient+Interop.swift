@@ -8,18 +8,6 @@
 
 import Foundation
 
-func CEFClient_get_audio_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> UnsafeMutablePointer<cef_audio_handler_t>? {
-    guard let obj = CEFClientMarshaller.get(ptr) else {
-        return nil
-    }
-    
-    if let handler = obj.audioHandler {
-        return handler.toCEF()
-    }
-    
-    return nil
-}
-
 func CEFClient_get_context_menu_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> UnsafeMutablePointer<cef_context_menu_handler_t>? {
     guard let obj = CEFClientMarshaller.get(ptr) else {
         return nil
