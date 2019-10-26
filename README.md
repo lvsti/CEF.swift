@@ -45,6 +45,7 @@ CEF is developed on multiple branches simultaneously, which differ in API and fu
 
 Currently supported branches: 
 
+- 3865 (Chrome 77) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3865)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
 - 3809 (Chrome 76) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3809)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
 - 3770 (Chrome 75) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3770)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
 - 3729 (Chrome 74) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3729)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
@@ -62,6 +63,10 @@ Archived branches (not maintained anymore):
 ### Getting started
 
 Check out the (pretty skinny) CEFDemo app under `Samples/CEFDemo` to get the basic idea of how a CEF-based app should look like. For more inspiration, take a look at the `cefsimple` and `cefclient` apps shipped with the CEF binary distribution.
+
+### If you get stuck
+
+CEF.swift is just a (partial) language wrapper around CEF. Once you can get a webpage to load, you are pretty much set on the integration side. If, later on, you bump into a problem, you should first go and check the official [CEF forum](https://magpcss.org/ceforum/) for guidance unless it is clearly a flaw in the Swift bindings themselves (in which case please create an issue here).
 
 ### Disclaimer
 
