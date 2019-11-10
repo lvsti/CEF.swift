@@ -105,7 +105,7 @@ public struct CEFErrorCode: RawRepresentable {
     /// CEF name: `ERR_NETWORK_CHANGED`.
     public static let networkChanged = CEFErrorCode(rawValue: -21)
 
-    /// The request was blocked by the URL blacklist configured by the domain
+    /// The request was blocked by the URL block list configured by the domain
     /// administrator.
     /// CEF name: `ERR_BLOCKED_BY_ADMINISTRATOR`.
     public static let blockedByAdministrator = CEFErrorCode(rawValue: -22)
@@ -135,11 +135,6 @@ public struct CEFErrorCode: RawRepresentable {
     /// checks and 'Cross-Origin-Resource-Policy', for instance).
     /// CEF name: `ERR_BLOCKED_BY_RESPONSE`.
     public static let blockedByResponse = CEFErrorCode(rawValue: -27)
-
-    /// The request failed after the response was received, based on client-side
-    /// heuristics that point to the possiblility of a cross-site scripting attack.
-    /// CEF name: `ERR_BLOCKED_BY_XSS_AUDITOR`.
-    public static let blockedByXssAuditor = CEFErrorCode(rawValue: -28)
 
     /// The request was blocked by system policy disallowing some or all cleartext
     /// requests. Used for NetworkSecurityPolicy on Android.
@@ -528,9 +523,15 @@ public struct CEFErrorCode: RawRepresentable {
     /// CEF name: `ERR_CERT_SYMANTEC_LEGACY`.
     public static let certSymantecLegacy = CEFErrorCode(rawValue: -215)
 
+    /// The certificate presented on a QUIC connection does not chain to a known root
+    /// and the origin connected to is not on a list of domains where unknown roots
+    /// are allowed.
+    /// CEF name: `ERR_QUIC_CERT_ROOT_NOT_KNOWN`.
+    public static let quicCertRootNotKnown = CEFErrorCode(rawValue: -216)
+
     /// The value immediately past the last certificate error code.
     /// CEF name: `ERR_CERT_END`.
-    public static let certEnd = CEFErrorCode(rawValue: -216)
+    public static let certEnd = CEFErrorCode(rawValue: -217)
 
     /// The URL is invalid.
     /// CEF name: `ERR_INVALID_URL`.
@@ -588,10 +589,6 @@ public struct CEFErrorCode: RawRepresentable {
     /// The headers section of the response is too large.
     /// CEF name: `ERR_RESPONSE_HEADERS_TOO_BIG`.
     public static let responseHeadersTooBig = CEFErrorCode(rawValue: -325)
-
-    /// The PAC requested by HTTP did not have a valid status code (non-200).
-    /// CEF name: `ERR_PAC_STATUS_NOT_OK`.
-    public static let pacStatusNotOk = CEFErrorCode(rawValue: -326)
 
     /// The evaluation of the PAC script failed.
     /// CEF name: `ERR_PAC_SCRIPT_FAILED`.
@@ -803,6 +800,12 @@ public struct CEFErrorCode: RawRepresentable {
     /// CEF name: `ERR_HTTP2_PUSHED_RESPONSE_DOES_NOT_MATCH`.
     public static let http2PushedResponseDoesNotMatch = CEFErrorCode(rawValue: -378)
 
+    /// Not that this error is only used by certain APIs that interpret the HTTP
+    /// response itself. URLRequest for instance just passes most non-2xx
+    /// response back as success.
+    /// CEF name: `ERR_HTTP_RESPONSE_CODE_FAILURE`.
+    public static let httpResponseCodeFailure = CEFErrorCode(rawValue: -379)
+
     /// The cache does not have the requested entry.
     /// CEF name: `ERR_CACHE_MISS`.
     public static let cacheMiss = CEFErrorCode(rawValue: -400)
@@ -886,6 +889,10 @@ public struct CEFErrorCode: RawRepresentable {
     /// An error occurred while handling a signed exchange.
     /// CEF name: `ERR_INVALID_SIGNED_EXCHANGE`.
     public static let invalidSignedExchange = CEFErrorCode(rawValue: -504)
+
+    /// An error occurred while handling a bundled-exchanges source.
+    /// CEF name: `ERR_INVALID_BUNDLED_EXCHANGES`.
+    public static let invalidBundledExchanges = CEFErrorCode(rawValue: -505)
 
     /// A generic error for failed FTP control connection command.
     /// If possible, please use or add a more specific error code.
@@ -1003,7 +1010,10 @@ public struct CEFErrorCode: RawRepresentable {
     /// CEF name: `ERR_DNS_TIMED_OUT`.
     public static let dnsTimedOut = CEFErrorCode(rawValue: -803)
 
-    /// The entry was not found in cache, for cache-only lookups.
+    /// The entry was not found in cache or other local sources, for lookups where
+    /// only local sources were queried.
+    /// TODO(ericorth): Consider renaming to DNS_LOCAL_MISS or something like that as
+    /// the cache is not necessarily queried either.
     /// CEF name: `ERR_DNS_CACHE_MISS`.
     public static let dnsCacheMiss = CEFErrorCode(rawValue: -804)
 
