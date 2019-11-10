@@ -83,6 +83,9 @@ public extension CEFFrame {
     }
     
     /// Load the request represented by the |request| object.
+    /// WARNING: This method will fail with "bad IPC message" reason
+    /// INVALID_INITIATOR_ORIGIN (213) unless you first navigate to the
+    /// request origin using some other mechanism (LoadURL, link click, etc).
     /// CEF name: `LoadRequest`
     public func loadRequest(_ request: CEFRequest) {
         cefObject.load_request(cefObjectPtr, request.toCEF())
@@ -96,20 +99,6 @@ public extension CEFFrame {
         cefObject.load_url(cefObjectPtr, cefURLPtr)
     }
     
-    /// Load the contents of |string_val| with the specified dummy |url|. |url|
-    /// should have a standard scheme (for example, http scheme) or behaviors like
-    /// link clicks and web security restrictions may not behave as expected.
-    /// CEF name: `LoadString`
-    public func loadString(_ str: String, withURL url: URL) {
-        let cefStrPtr = CEFStringPtrCreateFromSwiftString(str)
-        let cefURLPtr = CEFStringPtrCreateFromSwiftString(url.absoluteString)
-        defer {
-            CEFStringPtrRelease(cefStrPtr)
-            CEFStringPtrRelease(cefURLPtr)
-        }
-        cefObject.load_string(cefObjectPtr, cefStrPtr, cefURLPtr)
-    }
-
     /// Execute a string of JavaScript code in this frame. The |script_url|
     /// parameter is the URL where the script in question can be found, if any.
     /// The renderer may request this URL to show the developer the source of the

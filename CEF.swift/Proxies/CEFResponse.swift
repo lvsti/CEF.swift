@@ -92,16 +92,30 @@ public extension CEFResponse {
     }
     
     /// Get the value for the specified response header field.
-    /// CEF name: `GetHeader`
-    public func header(for key: String) -> String? {
-        let cefKeyPtr = CEFStringPtrCreateFromSwiftString(key)
-        let cefHeaderPtr = cefObject.get_header(cefObjectPtr, cefKeyPtr)
+    /// CEF name: `GetHeaderByName`
+    public func header(for name: String) -> String? {
+        let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
+        let cefHeaderPtr = cefObject.get_header_by_name(cefObjectPtr, cefNamePtr)
         defer {
-            CEFStringPtrRelease(cefKeyPtr)
+            CEFStringPtrRelease(cefNamePtr)
             CEFStringPtrRelease(cefHeaderPtr)
         }
         
         return CEFStringPtrToSwiftString(cefHeaderPtr)
+    }
+    
+    /// Set the header |name| to |value|. If |overwrite| is true any existing
+    /// values will be replaced with the new value. If |overwrite| is false any
+    /// existing values will not be overwritten.
+    /// CEF name: `SetHeaderByName`
+    public func setHeader(_ value: String?, for name: String, overwritingExisting: Bool = true) {
+        let cefNamePtr = CEFStringPtrCreateFromSwiftString(name)
+        let cefValuePtr = value != nil ? CEFStringPtrCreateFromSwiftString(value!) : nil
+        defer {
+            CEFStringPtrRelease(cefNamePtr)
+            CEFStringPtrRelease(cefValuePtr)
+        }
+        cefObject.set_header_by_name(cefObjectPtr, cefNamePtr, cefValuePtr, overwritingExisting ? 1 : 0)
     }
     
     /// Response header fields.

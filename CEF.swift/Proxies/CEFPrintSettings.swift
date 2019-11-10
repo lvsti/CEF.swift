@@ -30,13 +30,6 @@ public extension CEFPrintSettings {
         return cefObject.is_read_only(cefObjectPtr) != 0
     }
 
-    /// Returns a writable copy of this object.
-    /// CEF name: `Copy`
-    public func copy() -> CEFPrintSettings? {
-        let cefSettings = cefObject.copy(cefObjectPtr)
-        return CEFPrintSettings.fromCEF(cefSettings)
-    }
-
     /// Page orientation.
     /// CEF name: `IsLandscape`, `SetOrientation`
     public var orientation: CEFPageOrientation {
