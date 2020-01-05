@@ -13,8 +13,8 @@ extension cef_image_t: CEFObject {}
 /// image representations should be the same size in density independent pixel
 /// (DIP) units. For example, if the image at scale factor 1.0 is 100x100 pixels
 /// then the image at scale factor 2.0 should be 200x200 pixels -- both images
-/// will display with a DIP size of 100x100 units. The methods of this class must
-/// be called on the browser process UI thread.
+/// will display with a DIP size of 100x100 units. The methods of this class can
+/// be called on any browser process thread.
 /// CEF name: `CefImage`
 public final class CEFImage: CEFProxy<cef_image_t> {
     override init?(ptr: UnsafeMutablePointer<cef_image_t>?) {
