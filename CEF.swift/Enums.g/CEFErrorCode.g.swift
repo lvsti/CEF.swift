@@ -523,15 +523,14 @@ public struct CEFErrorCode: RawRepresentable {
     /// CEF name: `ERR_CERT_SYMANTEC_LEGACY`.
     public static let certSymantecLegacy = CEFErrorCode(rawValue: -215)
 
-    /// The certificate presented on a QUIC connection does not chain to a known root
-    /// and the origin connected to is not on a list of domains where unknown roots
-    /// are allowed.
-    /// CEF name: `ERR_QUIC_CERT_ROOT_NOT_KNOWN`.
-    public static let quicCertRootNotKnown = CEFErrorCode(rawValue: -216)
+    /// The certificate is known to be used for interception by an entity other
+    /// the device owner.
+    /// CEF name: `ERR_CERT_KNOWN_INTERCEPTION_BLOCKED`.
+    public static let certKnownInterceptionBlocked = CEFErrorCode(rawValue: -217)
 
     /// The value immediately past the last certificate error code.
     /// CEF name: `ERR_CERT_END`.
-    public static let certEnd = CEFErrorCode(rawValue: -217)
+    public static let certEnd = CEFErrorCode(rawValue: -218)
 
     /// The URL is invalid.
     /// CEF name: `ERR_INVALID_URL`.
@@ -806,6 +805,12 @@ public struct CEFErrorCode: RawRepresentable {
     /// CEF name: `ERR_HTTP_RESPONSE_CODE_FAILURE`.
     public static let httpResponseCodeFailure = CEFErrorCode(rawValue: -379)
 
+    /// The certificate presented on a QUIC connection does not chain to a known root
+    /// and the origin connected to is not on a list of domains where unknown roots
+    /// are allowed.
+    /// CEF name: `ERR_QUIC_CERT_ROOT_NOT_KNOWN`.
+    public static let quicCertRootNotKnown = CEFErrorCode(rawValue: -380)
+
     /// The cache does not have the requested entry.
     /// CEF name: `ERR_CACHE_MISS`.
     public static let cacheMiss = CEFErrorCode(rawValue: -400)
@@ -890,9 +895,9 @@ public struct CEFErrorCode: RawRepresentable {
     /// CEF name: `ERR_INVALID_SIGNED_EXCHANGE`.
     public static let invalidSignedExchange = CEFErrorCode(rawValue: -504)
 
-    /// An error occurred while handling a bundled-exchanges source.
-    /// CEF name: `ERR_INVALID_BUNDLED_EXCHANGES`.
-    public static let invalidBundledExchanges = CEFErrorCode(rawValue: -505)
+    /// An error occurred while handling a Web Bundle source.
+    /// CEF name: `ERR_INVALID_WEB_BUNDLE`.
+    public static let invalidWebBundle = CEFErrorCode(rawValue: -505)
 
     /// A generic error for failed FTP control connection command.
     /// If possible, please use or add a more specific error code.
@@ -1025,9 +1030,9 @@ public struct CEFErrorCode: RawRepresentable {
     /// CEF name: `ERR_DNS_SORT_ERROR`.
     public static let dnsSortError = CEFErrorCode(rawValue: -806)
 
-    /// Failed to resolve over HTTP, fallback to legacy
-    /// CEF name: `ERR_DNS_HTTP_FAILED`.
-    public static let dnsHTTPFailed = CEFErrorCode(rawValue: -807)
+    /// Failed to resolve the hostname of a DNS-over-HTTPS server.
+    /// CEF name: `ERR_DNS_SECURE_RESOLVER_HOSTNAME_RESOLUTION_FAILED`.
+    public static let dnsSecureResolverHostnameResolutionFailed = CEFErrorCode(rawValue: -808)
 }
 
 extension CEFErrorCode {

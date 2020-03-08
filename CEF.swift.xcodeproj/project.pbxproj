@@ -27,6 +27,8 @@
 		E81F6B7B1B7A615400311F4B /* CEFScreenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F6B7A1B7A615400311F4B /* CEFScreenInfo.swift */; };
 		E81F6B7F1B7A715700311F4B /* CEFCrossOriginUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F6B7E1B7A715700311F4B /* CEFCrossOriginUtils.swift */; };
 		E81F6B811B7A973A00311F4B /* CEFPopupFeatures.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81F6B801B7A973A00311F4B /* CEFPopupFeatures.swift */; };
+		E82313862458C1F800F03641 /* CEFMediaRouteConnectionState.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82313842458C1F800F03641 /* CEFMediaRouteConnectionState.g.swift */; };
+		E82313872458C1F800F03641 /* CEFMediaRouteCreateResult.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82313852458C1F800F03641 /* CEFMediaRouteCreateResult.g.swift */; };
 		E82C9005208A89E50011A1A7 /* CEFV8ArrayBufferReleaseCallback+Interop.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82C9004208A89E50011A1A7 /* CEFV8ArrayBufferReleaseCallback+Interop.g.swift */; };
 		E82C9007208A8AB60011A1A7 /* CEFV8ArrayBufferReleaseCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82C9006208A8AB60011A1A7 /* CEFV8ArrayBufferReleaseCallback.swift */; };
 		E82C9009208A8B490011A1A7 /* CEFV8ArrayBufferReleaseCallback+Interop.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82C9008208A8B490011A1A7 /* CEFV8ArrayBufferReleaseCallback+Interop.swift */; };
@@ -458,6 +460,8 @@
 		E81F6B7A1B7A615400311F4B /* CEFScreenInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFScreenInfo.swift; sourceTree = "<group>"; };
 		E81F6B7E1B7A715700311F4B /* CEFCrossOriginUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFCrossOriginUtils.swift; sourceTree = "<group>"; };
 		E81F6B801B7A973A00311F4B /* CEFPopupFeatures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFPopupFeatures.swift; sourceTree = "<group>"; };
+		E82313842458C1F800F03641 /* CEFMediaRouteConnectionState.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFMediaRouteConnectionState.g.swift; sourceTree = "<group>"; };
+		E82313852458C1F800F03641 /* CEFMediaRouteCreateResult.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFMediaRouteCreateResult.g.swift; sourceTree = "<group>"; };
 		E82C9004208A89E50011A1A7 /* CEFV8ArrayBufferReleaseCallback+Interop.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CEFV8ArrayBufferReleaseCallback+Interop.g.swift"; sourceTree = "<group>"; };
 		E82C9006208A8AB60011A1A7 /* CEFV8ArrayBufferReleaseCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CEFV8ArrayBufferReleaseCallback.swift; sourceTree = "<group>"; };
 		E82C9008208A8B490011A1A7 /* CEFV8ArrayBufferReleaseCallback+Interop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CEFV8ArrayBufferReleaseCallback+Interop.swift"; sourceTree = "<group>"; };
@@ -1255,6 +1259,8 @@
 				E88B865B1B6EA08A00D10E17 /* CEFKeyEventType.g.swift */,
 				E88B865C1B6EA08A00D10E17 /* CEFLogSeverity.g.swift */,
 				E8CE3D221CD949160066BC53 /* CEFMainAxisAlignment.g.swift */,
+				E82313842458C1F800F03641 /* CEFMediaRouteConnectionState.g.swift */,
+				E82313852458C1F800F03641 /* CEFMediaRouteCreateResult.g.swift */,
 				E8CE3D231CD949160066BC53 /* CEFMenuAnchorPosition.g.swift */,
 				E877E9FE1E79460C00262038 /* CEFMenuColorType.g.swift */,
 				E88B865D1B6EA08A00D10E17 /* CEFMenuID.g.swift */,
@@ -1711,6 +1717,7 @@
 				E8CE3D3E1CD951670066BC53 /* CEFMenuModelDelegate.swift in Sources */,
 				E8E53C191B910BE800A4A6C6 /* CEFDragHandler+Interop.g.swift in Sources */,
 				E88B86C01B6EA0CC00D10E17 /* CEFTransitionType.swift in Sources */,
+				E82313862458C1F800F03641 /* CEFMediaRouteConnectionState.g.swift in Sources */,
 				E8398D681E47C0F100CFC34A /* CEFCrashUtils.swift in Sources */,
 				E8C8DF081DFD42E900142638 /* CEFMessageLoopType.g.swift in Sources */,
 				E836AFB62259F4D700E5F006 /* CEFTouchEventType.g.swift in Sources */,
@@ -1725,6 +1732,7 @@
 				E835BB2E1B82907400BAF692 /* CEFSchemeUtils.swift in Sources */,
 				E8CE3D271CD949160066BC53 /* CEFColorType.g.swift in Sources */,
 				E88B86801B6EA08A00D10E17 /* CEFErrorCode.g.swift in Sources */,
+				E82313872458C1F800F03641 /* CEFMediaRouteCreateResult.g.swift in Sources */,
 				E8E53C211B910BE800A4A6C6 /* CEFLifeSpanHandler+Interop.g.swift in Sources */,
 				E8E53CBD1B910F6D00A4A6C6 /* CEFDialogHandler+Interop.swift in Sources */,
 				E8519F0F1B7D3CD2003CE7C5 /* CEFParseUtils.swift in Sources */,

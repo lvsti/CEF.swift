@@ -191,6 +191,10 @@ cef_enums = [
     'cef_text_input_mode_t',
     'cef_touch_event_type_t',
     'cef_pointer_type_t',
+
+    # branch 3987
+    'cef_media_route_create_result_t',
+    'cef_media_route_connection_state_t'
 ]
 
 cef_option_sets = [
