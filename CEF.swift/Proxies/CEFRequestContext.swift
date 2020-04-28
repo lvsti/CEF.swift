@@ -336,6 +336,12 @@ public extension CEFRequestContext {
         return CEFExtension.fromCEF(cefExt)
     }
 
+    /// Returns the MediaRouter object associated with this context.
+    /// CEF name: `GetMediaRouter`
+    public var mediaRouter: CEFMediaRouter? {
+        let cefRouter = cefObject.get_media_router(cefObjectPtr)
+        return CEFMediaRouter.fromCEF(cefRouter)
+    }
 }
 
 public extension CEFRequestContext {
