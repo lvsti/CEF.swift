@@ -11,7 +11,8 @@
 		E821192821B3032F000BF144 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82118DA21B2F070000BF144 /* App.swift */; };
 		E821192A21B30360000BF144 /* HelperMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E821192921B30360000BF144 /* HelperMain.swift */; };
 		E821192B21B303FE000BF144 /* CEFswift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8727E2F1FB78EC000CE0E66 /* CEFswift.framework */; };
-		E821196321B30E58000BF144 /* cef_sandbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E821196221B30E58000BF144 /* cef_sandbox.a */; };
+		E823138F2458CEFE00F03641 /* cef_sandbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E883E75E21A8AA05002E9EA4 /* cef_sandbox.a */; };
+		E82313902458CF0900F03641 /* cef_sandbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E883E75E21A8AA05002E9EA4 /* cef_sandbox.a */; };
 		E843032821B5BCE700871688 /* SwiftHelper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E821191E21B302FF000BF144 /* SwiftHelper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E85994C521B457B500836F14 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = E8A9A6DD1FB83A1B00F41676 /* main.c */; };
 		E85994C921B4590F00836F14 /* libCEFSandbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E883E76A21A8ABA5002E9EA4 /* libCEFSandbox.a */; };
@@ -21,7 +22,6 @@
 		E87836731B93B26500555EC2 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E87836711B93B26500555EC2 /* MainMenu.xib */; };
 		E878367B1B93B29B00555EC2 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E878367A1B93B29B00555EC2 /* main.swift */; };
 		E883E77321A8AECF002E9EA4 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = E8A9A6DD1FB83A1B00F41676 /* main.c */; };
-		E894BCBA21A8BCCA00DF7216 /* cef_sandbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E883E75E21A8AA05002E9EA4 /* cef_sandbox.a */; };
 		E894BCBB21A8BE4200DF7216 /* libCEFSandbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E883E76A21A8ABA5002E9EA4 /* libCEFSandbox.a */; };
 		E894BCBD21A8BE9900DF7216 /* CEFswift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8727E2F1FB78EC000CE0E66 /* CEFswift.framework */; };
 /* End PBXBuildFile section */
@@ -72,7 +72,6 @@
 		E821192021B302FF000BF144 /* SwiftHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftHelper.h; sourceTree = "<group>"; };
 		E821192121B302FF000BF144 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E821192921B30360000BF144 /* HelperMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperMain.swift; sourceTree = "<group>"; };
-		E821196221B30E58000BF144 /* cef_sandbox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = cef_sandbox.a; path = ../../External/cef_binary_3.3538.1852.gcb937fc_macosx64/Release/cef_sandbox.a; sourceTree = "<group>"; };
 		E871EC8D1FB398AF00ADFF77 /* CEFDemo Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CEFDemo Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E871EC961FB398AF00ADFF77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8727E2F1FB78EC000CE0E66 /* CEFswift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CEFswift.framework; sourceTree = "<group>"; };
@@ -102,8 +101,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E821196321B30E58000BF144 /* cef_sandbox.a in Frameworks */,
 				E85994C921B4590F00836F14 /* libCEFSandbox.a in Frameworks */,
+				E82313902458CF0900F03641 /* cef_sandbox.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,8 +118,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E894BCBA21A8BCCA00DF7216 /* cef_sandbox.a in Frameworks */,
 				E894BCBB21A8BE4200DF7216 /* libCEFSandbox.a in Frameworks */,
+				E823138F2458CEFE00F03641 /* cef_sandbox.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,7 +148,6 @@
 		E871EC711FB3909800ADFF77 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E821196221B30E58000BF144 /* cef_sandbox.a */,
 				E883E75E21A8AA05002E9EA4 /* cef_sandbox.a */,
 			);
 			name = Frameworks;
