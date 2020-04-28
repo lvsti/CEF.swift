@@ -13,6 +13,18 @@
 		E821192B21B303FE000BF144 /* CEFswift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8727E2F1FB78EC000CE0E66 /* CEFswift.framework */; };
 		E823138F2458CEFE00F03641 /* cef_sandbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E883E75E21A8AA05002E9EA4 /* cef_sandbox.a */; };
 		E82313902458CF0900F03641 /* cef_sandbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E883E75E21A8AA05002E9EA4 /* cef_sandbox.a */; };
+		E82313952458D12500F03641 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = E8A9A6DD1FB83A1B00F41676 /* main.c */; };
+		E82313972458D12500F03641 /* libCEFSandbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E883E76A21A8ABA5002E9EA4 /* libCEFSandbox.a */; };
+		E82313982458D12500F03641 /* cef_sandbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E883E75E21A8AA05002E9EA4 /* cef_sandbox.a */; };
+		E82313A12458D13900F03641 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = E8A9A6DD1FB83A1B00F41676 /* main.c */; };
+		E82313A32458D13900F03641 /* libCEFSandbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E883E76A21A8ABA5002E9EA4 /* libCEFSandbox.a */; };
+		E82313A42458D13900F03641 /* cef_sandbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E883E75E21A8AA05002E9EA4 /* cef_sandbox.a */; };
+		E82313AD2458D14500F03641 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = E8A9A6DD1FB83A1B00F41676 /* main.c */; };
+		E82313AF2458D14500F03641 /* libCEFSandbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E883E76A21A8ABA5002E9EA4 /* libCEFSandbox.a */; };
+		E82313B02458D14500F03641 /* cef_sandbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E883E75E21A8AA05002E9EA4 /* cef_sandbox.a */; };
+		E82313BC2458D1C500F03641 /* CEFDemo Helper (GPU).app in CopyFiles */ = {isa = PBXBuildFile; fileRef = E823139C2458D12500F03641 /* CEFDemo Helper (GPU).app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E82313BD2458D1C800F03641 /* CEFDemo Helper (Renderer).app in CopyFiles */ = {isa = PBXBuildFile; fileRef = E82313A82458D13900F03641 /* CEFDemo Helper (Renderer).app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E82313BE2458D1CB00F03641 /* CEFDemo Helper (Plugin).app in CopyFiles */ = {isa = PBXBuildFile; fileRef = E82313B42458D14500F03641 /* CEFDemo Helper (Plugin).app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E843032821B5BCE700871688 /* SwiftHelper.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E821191E21B302FF000BF144 /* SwiftHelper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E85994C521B457B500836F14 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = E8A9A6DD1FB83A1B00F41676 /* main.c */; };
 		E85994C921B4590F00836F14 /* libCEFSandbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E883E76A21A8ABA5002E9EA4 /* libCEFSandbox.a */; };
@@ -34,6 +46,27 @@
 			remoteGlobalIDString = E821191D21B302FF000BF144;
 			remoteInfo = SwiftHelper;
 		};
+		E82313B62458D19D00F03641 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E87836621B93B26400555EC2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E82313922458D12500F03641;
+			remoteInfo = "CEFDemo Helper (GPU)";
+		};
+		E82313B82458D19F00F03641 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E87836621B93B26400555EC2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E823139E2458D13900F03641;
+			remoteInfo = "CEFDemo Helper (Renderer)";
+		};
+		E82313BA2458D1A100F03641 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E87836621B93B26400555EC2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E82313AA2458D14500F03641;
+			remoteInfo = "CEFDemo Helper (Plugin)";
+		};
 		E85994C621B457C200836F14 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E87836621B93B26400555EC2 /* Project object */;
@@ -51,6 +84,9 @@
 			dstSubfolderSpec = 10;
 			files = (
 				E871EC9E1FB399F800ADFF77 /* CEFDemo Helper.app in CopyFiles */,
+				E82313BC2458D1C500F03641 /* CEFDemo Helper (GPU).app in CopyFiles */,
+				E82313BD2458D1C800F03641 /* CEFDemo Helper (Renderer).app in CopyFiles */,
+				E82313BE2458D1CB00F03641 /* CEFDemo Helper (Plugin).app in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +108,12 @@
 		E821192021B302FF000BF144 /* SwiftHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftHelper.h; sourceTree = "<group>"; };
 		E821192121B302FF000BF144 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E821192921B30360000BF144 /* HelperMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperMain.swift; sourceTree = "<group>"; };
+		E823139C2458D12500F03641 /* CEFDemo Helper (GPU).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CEFDemo Helper (GPU).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E823139D2458D12600F03641 /* CEFDemo Helper (C) copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CEFDemo Helper (C) copy-Info.plist"; path = "/Users/lvsti/dev/opensource/CEF.swift/Samples/CEFDemo/CEFDemo Helper (C) copy-Info.plist"; sourceTree = "<absolute>"; };
+		E82313A82458D13900F03641 /* CEFDemo Helper (Renderer).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CEFDemo Helper (Renderer).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E82313A92458D13900F03641 /* CEFDemo Helper (GPU) copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CEFDemo Helper (GPU) copy-Info.plist"; path = "/Users/lvsti/dev/opensource/CEF.swift/Samples/CEFDemo/CEFDemo Helper (GPU) copy-Info.plist"; sourceTree = "<absolute>"; };
+		E82313B42458D14500F03641 /* CEFDemo Helper (Plugin).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CEFDemo Helper (Plugin).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E82313B52458D14500F03641 /* CEFDemo Helper (GPU) copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CEFDemo Helper (GPU) copy2-Info.plist"; path = "/Users/lvsti/dev/opensource/CEF.swift/Samples/CEFDemo/CEFDemo Helper (GPU) copy2-Info.plist"; sourceTree = "<absolute>"; };
 		E871EC8D1FB398AF00ADFF77 /* CEFDemo Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CEFDemo Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E871EC961FB398AF00ADFF77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8727E2F1FB78EC000CE0E66 /* CEFswift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CEFswift.framework; sourceTree = "<group>"; };
@@ -94,6 +136,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				E821192B21B303FE000BF144 /* CEFswift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E82313962458D12500F03641 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E82313972458D12500F03641 /* libCEFSandbox.a in Frameworks */,
+				E82313982458D12500F03641 /* cef_sandbox.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E82313A22458D13900F03641 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E82313A32458D13900F03641 /* libCEFSandbox.a in Frameworks */,
+				E82313A42458D13900F03641 /* cef_sandbox.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E82313AE2458D14500F03641 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E82313AF2458D14500F03641 /* libCEFSandbox.a in Frameworks */,
+				E82313B02458D14500F03641 /* cef_sandbox.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,6 +250,9 @@
 				E821191F21B302FF000BF144 /* SwiftHelper */,
 				E878366B1B93B26400555EC2 /* Products */,
 				E871EC711FB3909800ADFF77 /* Frameworks */,
+				E823139D2458D12600F03641 /* CEFDemo Helper (C) copy-Info.plist */,
+				E82313A92458D13900F03641 /* CEFDemo Helper (GPU) copy-Info.plist */,
+				E82313B52458D14500F03641 /* CEFDemo Helper (GPU) copy2-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -191,6 +263,9 @@
 				E871EC8D1FB398AF00ADFF77 /* CEFDemo Helper.app */,
 				E8A9A6DB1FB839D500F41676 /* CEFDemo Helper.app */,
 				E821191E21B302FF000BF144 /* SwiftHelper.framework */,
+				E823139C2458D12500F03641 /* CEFDemo Helper (GPU).app */,
+				E82313A82458D13900F03641 /* CEFDemo Helper (Renderer).app */,
+				E82313B42458D14500F03641 /* CEFDemo Helper (Plugin).app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -239,6 +314,57 @@
 			productReference = E821191E21B302FF000BF144 /* SwiftHelper.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		E82313922458D12500F03641 /* CEFDemo Helper (GPU) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E82313992458D12500F03641 /* Build configuration list for PBXNativeTarget "CEFDemo Helper (GPU)" */;
+			buildPhases = (
+				E82313932458D12500F03641 /* Symlink CEF */,
+				E82313942458D12500F03641 /* Sources */,
+				E82313962458D12500F03641 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CEFDemo Helper (GPU)";
+			productName = "CEFDemo Helper";
+			productReference = E823139C2458D12500F03641 /* CEFDemo Helper (GPU).app */;
+			productType = "com.apple.product-type.application";
+		};
+		E823139E2458D13900F03641 /* CEFDemo Helper (Renderer) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E82313A52458D13900F03641 /* Build configuration list for PBXNativeTarget "CEFDemo Helper (Renderer)" */;
+			buildPhases = (
+				E823139F2458D13900F03641 /* Symlink CEF */,
+				E82313A02458D13900F03641 /* Sources */,
+				E82313A22458D13900F03641 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CEFDemo Helper (Renderer)";
+			productName = "CEFDemo Helper";
+			productReference = E82313A82458D13900F03641 /* CEFDemo Helper (Renderer).app */;
+			productType = "com.apple.product-type.application";
+		};
+		E82313AA2458D14500F03641 /* CEFDemo Helper (Plugin) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E82313B12458D14500F03641 /* Build configuration list for PBXNativeTarget "CEFDemo Helper (Plugin)" */;
+			buildPhases = (
+				E82313AB2458D14500F03641 /* Symlink CEF */,
+				E82313AC2458D14500F03641 /* Sources */,
+				E82313AE2458D14500F03641 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CEFDemo Helper (Plugin)";
+			productName = "CEFDemo Helper";
+			productReference = E82313B42458D14500F03641 /* CEFDemo Helper (Plugin).app */;
+			productType = "com.apple.product-type.application";
+		};
 		E871EC8C1FB398AF00ADFF77 /* CEFDemo Helper (Swift) */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E871EC981FB398AF00ADFF77 /* Build configuration list for PBXNativeTarget "CEFDemo Helper (Swift)" */;
@@ -273,6 +399,9 @@
 			);
 			dependencies = (
 				E85994C721B457C200836F14 /* PBXTargetDependency */,
+				E82313B72458D19D00F03641 /* PBXTargetDependency */,
+				E82313BB2458D1A100F03641 /* PBXTargetDependency */,
+				E82313B92458D19F00F03641 /* PBXTargetDependency */,
 			);
 			name = CEFDemo;
 			productName = CEFDemoExt;
@@ -339,6 +468,9 @@
 				E871EC8C1FB398AF00ADFF77 /* CEFDemo Helper (Swift) */,
 				E8A9A6D31FB839D400F41676 /* CEFDemo Helper (C) */,
 				E821191D21B302FF000BF144 /* SwiftHelper */,
+				E82313922458D12500F03641 /* CEFDemo Helper (GPU) */,
+				E823139E2458D13900F03641 /* CEFDemo Helper (Renderer) */,
+				E82313AA2458D14500F03641 /* CEFDemo Helper (Plugin) */,
 			);
 		};
 /* End PBXProject section */
@@ -363,6 +495,60 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		E82313932458D12500F03641 /* Symlink CEF */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Symlink CEF";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ ! -h \"${SRCROOT}/Library/Release/Chromium Embedded Framework.framework\" ]; then\n    ln -s \"${SRCROOT}/../../External/cef_binary/Release/Chromium Embedded Framework.framework\" \"${SRCROOT}/Library/Release/Chromium Embedded Framework.framework\"\nfi\n";
+		};
+		E823139F2458D13900F03641 /* Symlink CEF */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Symlink CEF";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ ! -h \"${SRCROOT}/Library/Release/Chromium Embedded Framework.framework\" ]; then\n    ln -s \"${SRCROOT}/../../External/cef_binary/Release/Chromium Embedded Framework.framework\" \"${SRCROOT}/Library/Release/Chromium Embedded Framework.framework\"\nfi\n";
+		};
+		E82313AB2458D14500F03641 /* Symlink CEF */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Symlink CEF";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ ! -h \"${SRCROOT}/Library/Release/Chromium Embedded Framework.framework\" ]; then\n    ln -s \"${SRCROOT}/../../External/cef_binary/Release/Chromium Embedded Framework.framework\" \"${SRCROOT}/Library/Release/Chromium Embedded Framework.framework\"\nfi\n";
+		};
 		E85994C821B4580D00836F14 /* Symlink CEF */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -443,6 +629,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E82313942458D12500F03641 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E82313952458D12500F03641 /* main.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E82313A02458D13900F03641 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E82313A12458D13900F03641 /* main.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E82313AC2458D14500F03641 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E82313AD2458D14500F03641 /* main.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E871EC891FB398AF00ADFF77 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -475,6 +685,21 @@
 			isa = PBXTargetDependency;
 			target = E821191D21B302FF000BF144 /* SwiftHelper */;
 			targetProxy = E821192621B30307000BF144 /* PBXContainerItemProxy */;
+		};
+		E82313B72458D19D00F03641 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E82313922458D12500F03641 /* CEFDemo Helper (GPU) */;
+			targetProxy = E82313B62458D19D00F03641 /* PBXContainerItemProxy */;
+		};
+		E82313B92458D19F00F03641 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E823139E2458D13900F03641 /* CEFDemo Helper (Renderer) */;
+			targetProxy = E82313B82458D19F00F03641 /* PBXContainerItemProxy */;
+		};
+		E82313BB2458D1A100F03641 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E82313AA2458D14500F03641 /* CEFDemo Helper (Plugin) */;
+			targetProxy = E82313BA2458D1A100F03641 /* PBXContainerItemProxy */;
 		};
 		E85994C721B457C200836F14 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -572,6 +797,180 @@
 				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E823139A2458D12500F03641 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Library/Release",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/Library/Release/Chromium Embedded Framework.framework/Headers\"";
+				INFOPLIST_FILE = "CEFDemo Helper/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../.. @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
+				OTHER_LDFLAGS = "-lstdc++";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.cocoagrinder.CEFDemo-Helper";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E823139B2458D12500F03641 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Library/Release",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/Library/Release/Chromium Embedded Framework.framework/Headers\"";
+				INFOPLIST_FILE = "CEFDemo Helper/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../.. @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
+				OTHER_LDFLAGS = "-lstdc++";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.cocoagrinder.CEFDemo-Helper";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		E82313A62458D13900F03641 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Library/Release",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/Library/Release/Chromium Embedded Framework.framework/Headers\"";
+				INFOPLIST_FILE = "CEFDemo Helper/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../.. @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
+				OTHER_LDFLAGS = "-lstdc++";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.cocoagrinder.CEFDemo-Helper";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E82313A72458D13900F03641 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Library/Release",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/Library/Release/Chromium Embedded Framework.framework/Headers\"";
+				INFOPLIST_FILE = "CEFDemo Helper/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../.. @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
+				OTHER_LDFLAGS = "-lstdc++";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.cocoagrinder.CEFDemo-Helper";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		E82313B22458D14500F03641 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Library/Release",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/Library/Release/Chromium Embedded Framework.framework/Headers\"";
+				INFOPLIST_FILE = "CEFDemo Helper/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../.. @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
+				OTHER_LDFLAGS = "-lstdc++";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.cocoagrinder.CEFDemo-Helper";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E82313B32458D14500F03641 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Library/Release",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/Library/Release/Chromium Embedded Framework.framework/Headers\"";
+				INFOPLIST_FILE = "CEFDemo Helper/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../../.. @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)/Release",
+				);
+				OTHER_LDFLAGS = "-lstdc++";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.cocoagrinder.CEFDemo-Helper";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -848,6 +1247,33 @@
 			buildConfigurations = (
 				E821192421B302FF000BF144 /* Debug */,
 				E821192521B302FF000BF144 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E82313992458D12500F03641 /* Build configuration list for PBXNativeTarget "CEFDemo Helper (GPU)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E823139A2458D12500F03641 /* Debug */,
+				E823139B2458D12500F03641 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E82313A52458D13900F03641 /* Build configuration list for PBXNativeTarget "CEFDemo Helper (Renderer)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E82313A62458D13900F03641 /* Debug */,
+				E82313A72458D13900F03641 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E82313B12458D14500F03641 /* Build configuration list for PBXNativeTarget "CEFDemo Helper (Plugin)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E82313B22458D14500F03641 /* Debug */,
+				E82313B32458D14500F03641 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
