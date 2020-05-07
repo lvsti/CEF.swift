@@ -194,7 +194,11 @@ cef_enums = [
 
     # branch 3987
     'cef_media_route_create_result_t',
-    'cef_media_route_connection_state_t'
+    'cef_media_route_connection_state_t',
+
+    # branch 4044
+    'cef_media_sink_icon_type_t',
+    'cef_composition_underline_style_t'
 ]
 
 cef_option_sets = [

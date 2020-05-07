@@ -7,9 +7,8 @@
 
 import Foundation
 
-/// Result codes for CefMediaRouter::CreateRoute. These constants match
-/// their equivalents in Chromium's route_request_result.h and should not be
-/// renumbered.
+/// Result codes for CefMediaRouter::CreateRoute. Should be kept in sync with
+/// Chromium's media_router::RouteRequestResult::ResultCode type.
 /// CEF name: `cef_media_route_create_result_t`.
 public enum CEFMediaRouteCreateResult: Int32 {
     /// CEF name: `CEF_MRCR_UNKNOWN_ERROR`.

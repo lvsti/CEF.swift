@@ -43,6 +43,8 @@ public struct CEFEventFlags: OptionSet {
     public static let isLeft = CEFEventFlags(rawValue: 1 << 10)
     /// CEF name: `EVENTFLAG_IS_RIGHT`.
     public static let isRight = CEFEventFlags(rawValue: 1 << 11)
+    /// CEF name: `EVENTFLAG_ALTGR_DOWN`.
+    public static let altgrDown = CEFEventFlags(rawValue: 1 << 12)
 }
 
 extension CEFEventFlags {

@@ -265,10 +265,6 @@ public struct CEFErrorCode: RawRepresentable {
     /// CEF name: `ERR_PROXY_AUTH_REQUESTED`.
     public static let proxyAuthRequested = CEFErrorCode(rawValue: -127)
 
-    /// The SSL server attempted to use a weak ephemeral Diffie-Hellman key.
-    /// CEF name: `ERR_SSL_WEAK_SERVER_EPHEMERAL_DH_KEY`.
-    public static let sslWeakServerEphemeralDhKey = CEFErrorCode(rawValue: -129)
-
     /// Could not create a connection to the proxy server. An error occurred
     /// either in resolving its name, or in connecting a socket to it.
     /// Note that this does NOT include failures during the actual "CONNECT" method
@@ -528,9 +524,13 @@ public struct CEFErrorCode: RawRepresentable {
     /// CEF name: `ERR_CERT_KNOWN_INTERCEPTION_BLOCKED`.
     public static let certKnownInterceptionBlocked = CEFErrorCode(rawValue: -217)
 
+    /// The connection uses an obsolete version of SSL/TLS.
+    /// CEF name: `ERR_SSL_OBSOLETE_VERSION`.
+    public static let sslObsoleteVersion = CEFErrorCode(rawValue: -218)
+
     /// The value immediately past the last certificate error code.
     /// CEF name: `ERR_CERT_END`.
-    public static let certEnd = CEFErrorCode(rawValue: -218)
+    public static let certEnd = CEFErrorCode(rawValue: -219)
 
     /// The URL is invalid.
     /// CEF name: `ERR_INVALID_URL`.
