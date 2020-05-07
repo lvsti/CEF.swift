@@ -39,7 +39,7 @@ public struct CEFPDFPrintSettings {
     /// CEF name: `scale_factor`
     public var scaleFactor: Int
     
-    /// Margins in millimeters. Only used if |margin_type| is set to
+    /// Margins in points. Only used if |margin_type| is set to
     /// PDF_PRINT_MARGIN_CUSTOM.
     /// CEF name: `margin_type`, `margin_top`, `margin_left`, `margin_bottom`, `margin_right`
     public var margins: CEFPDFPrintMargins = .default
@@ -79,10 +79,10 @@ extension CEFPDFPrintSettings {
         
         cefStruct.margin_type = margins.toCEF()
         if case .custom(let insets) = margins {
-            cefStruct.margin_top = Double(insets.top)
-            cefStruct.margin_left = Double(insets.left)
-            cefStruct.margin_bottom = Double(insets.bottom)
-            cefStruct.margin_right = Double(insets.right)
+            cefStruct.margin_top = Int32(insets.top)
+            cefStruct.margin_left = Int32(insets.left)
+            cefStruct.margin_bottom = Int32(insets.bottom)
+            cefStruct.margin_right = Int32(insets.right)
         }
         
         cefStruct.selection_only = printsSelectionOnly ? 1 : 0

@@ -28,6 +28,10 @@ public struct CEFCompositionUnderline {
     /// Set to true (1) for thick underline.
     /// CEF name: `thick`
     public var useThickStyle: Bool
+    
+    /// Style.
+    /// CEF name: `style`
+    public var style: CEFCompositionUnderlineStyle
 }
 
 extension CEFCompositionUnderline {
@@ -35,13 +39,15 @@ extension CEFCompositionUnderline {
         return cef_composition_underline_t(range: range.toCEF(),
                                            color: color.toCEF(),
                                            background_color: backgroundColor.toCEF(),
-                                           thick: useThickStyle ? 1 : 0)
+                                           thick: useThickStyle ? 1 : 0,
+                                           style: style.toCEF())
     }
     
     static func fromCEF(_ value: cef_composition_underline_t) -> CEFCompositionUnderline {
         return CEFCompositionUnderline(range: CEFRange.fromCEF(value.range),
                                        color: CEFColor.fromCEF(value.color),
                                        backgroundColor: CEFColor.fromCEF(value.background_color),
-                                       useThickStyle: value.thick != 0)
+                                       useThickStyle: value.thick != 0,
+                                       style: CEFCompositionUnderlineStyle.fromCEF(value.style))
     }
 }
