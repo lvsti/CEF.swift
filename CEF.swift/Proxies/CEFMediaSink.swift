@@ -39,6 +39,13 @@ public extension CEFMediaSink {
         return CEFStringPtrToSwiftString(cefStrPtr)
     }
 
+    /// Returns the icon type for this sink.
+    /// CEF name: `GetIconType`
+    public var iconType: CEFMediaSinkIconType {
+        let cefType = cefObject.get_icon_type(cefObjectPtr)
+        return CEFMediaSinkIconType.fromCEF(cefType)
+    }
+    
     /// Returns true if this sink accepts content via Cast.
     /// CEF name: `IsCastSink`
     public var isCastSink: Bool {
