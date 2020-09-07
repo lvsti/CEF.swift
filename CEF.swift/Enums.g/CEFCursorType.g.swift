@@ -96,8 +96,20 @@ public enum CEFCursorType: Int32 {
     case grab
     /// CEF name: `CT_GRABBING`.
     case grabbing
+    /// CEF name: `CT_MIDDLE_PANNING_VERTICAL`.
+    case middlePanningVertical
+    /// CEF name: `CT_MIDDLE_PANNING_HORIZONTAL`.
+    case middlePanningHorizontal
     /// CEF name: `CT_CUSTOM`.
     case custom
+    /// CEF name: `CT_DND_NONE`.
+    case dndNone
+    /// CEF name: `CT_DND_MOVE`.
+    case dndMove
+    /// CEF name: `CT_DND_COPY`.
+    case dndCopy
+    /// CEF name: `CT_DND_LINK`.
+    case dndLink
 }
 
 extension CEFCursorType {

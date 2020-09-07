@@ -899,6 +899,17 @@ public struct CEFErrorCode: RawRepresentable {
     /// CEF name: `ERR_INVALID_WEB_BUNDLE`.
     public static let invalidWebBundle = CEFErrorCode(rawValue: -505)
 
+    /// A Trust Tokens protocol operation-executing request failed for one of a
+    /// number of reasons (precondition failure, internal error, bad response).
+    /// CEF name: `ERR_TRUST_TOKEN_OPERATION_FAILED`.
+    public static let trustTokenOperationFailed = CEFErrorCode(rawValue: -506)
+
+    /// When handling a Trust Tokens protocol operation-executing request, the system
+    /// found that the request's desired Trust Tokens results were already present in
+    /// a local cache; as a result, the main request was cancelled.
+    /// CEF name: `ERR_TRUST_TOKEN_OPERATION_CACHE_HIT`.
+    public static let trustTokenOperationCacheHit = CEFErrorCode(rawValue: -507)
+
     /// A generic error for failed FTP control connection command.
     /// If possible, please use or add a more specific error code.
     /// CEF name: `ERR_FTP_FAILED`.
