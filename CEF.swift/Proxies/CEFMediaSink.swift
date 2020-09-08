@@ -46,6 +46,12 @@ public extension CEFMediaSink {
         return CEFMediaSinkIconType.fromCEF(cefType)
     }
     
+    /// Asynchronously retrieves device info.
+    /// CEF name: `GetDeviceInfo`
+    public func getDeviceInfo(callback: CEFMediaSinkDeviceInfoCallback) {
+        cefObject.get_device_info(cefObjectPtr, callback.toCEF())
+    }
+
     /// Returns true if this sink accepts content via Cast.
     /// CEF name: `IsCastSink`
     public var isCastSink: Bool {
@@ -62,5 +68,13 @@ public extension CEFMediaSink {
     /// CEF name: `IsCompatibleWith`
     public func isCompatible(with source: CEFMediaSource) -> Bool {
         return cefObject.is_compatible_with(cefObjectPtr, source.toCEF()) != 0
+    }
+}
+
+public extension CEFMediaSink {
+    /// Asynchronously retrieves device info.
+    /// CEF name: `GetDeviceInfo`
+    public func getDeviceInfo(block: @escaping CEFMediaSinkDeviceInfoCallbackOnMediaSinkDeviceInfoBlock) {
+        getDeviceInfo(callback: CEFMediaSinkDeviceInfoCallbackBridge(block: block))
     }
 }

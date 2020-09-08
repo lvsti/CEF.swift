@@ -347,6 +347,71 @@ public extension CEFBrowserHost {
         return cefObject.has_dev_tools(cefObjectPtr) != 0
     }
     
+    /// Send a method call message over the DevTools protocol. |message| must be a
+    /// UTF8-encoded JSON dictionary that contains "id" (int), "method" (string)
+    /// and "params" (dictionary, optional) values. See the DevTools protocol
+    /// documentation at https://chromedevtools.github.io/devtools-protocol/ for
+    /// details of supported methods and the expected "params" dictionary contents.
+    /// |message| will be copied if necessary. This method will return true if
+    /// called on the UI thread and the message was successfully submitted for
+    /// validation, otherwise false. Validation will be applied asynchronously and
+    /// any messages that fail due to formatting errors or missing parameters may
+    /// be discarded without notification. Prefer ExecuteDevToolsMethod if a more
+    /// structured approach to message formatting is desired.
+    ///
+    /// Every valid method call will result in an asynchronous method result or
+    /// error message that references the sent message "id". Event messages are
+    /// received while notifications are enabled (for example, between method calls
+    /// for "Page.enable" and "Page.disable"). All received messages will be
+    /// delivered to the observer(s) registered with AddDevToolsMessageObserver.
+    /// See CefDevToolsMessageObserver::OnDevToolsMessage documentation for details
+    /// of received message contents.
+    ///
+    /// Usage of the SendDevToolsMessage, ExecuteDevToolsMethod and
+    /// AddDevToolsMessageObserver methods does not require an active DevTools
+    /// front-end or remote-debugging session. Other active DevTools sessions will
+    /// continue to function independently. However, any modification of global
+    /// browser state by one session may not be reflected in the UI of other
+    /// sessions.
+    ///
+    /// Communication with the DevTools front-end (when displayed) can be logged
+    /// for development purposes by passing the
+    /// `--devtools-protocol-log-file=<path>` command-line flag.
+    /// CEF name: `SendDevToolsMessage`
+    @discardableResult
+    public func sendDevToolsMessage(_ message: Data) -> Bool {
+        return message.withUnsafeBytes { ptr in
+            return cefObject.send_dev_tools_message(cefObjectPtr, ptr, message.count)
+        } != 0
+    }
+    
+    /// Execute a method call over the DevTools protocol. This is a more structured
+    /// version of SendDevToolsMessage. |message_id| is an incremental number that
+    /// uniquely identifies the message (pass 0 to have the next number assigned
+    /// automatically based on previous values). |method| is the method name.
+    /// |params| are the method parameters, which may be empty. See the DevTools
+    /// protocol documentation (linked above) for details of supported methods and
+    /// the expected |params| dictionary contents. This method will return the
+    /// assigned message ID if called on the UI thread and the message was
+    /// successfully submitted for validation, otherwise 0. See the
+    /// SendDevToolsMessage documentation for additional usage information.
+    /// CEF name: `ExecuteDevToolsMethod`
+    func executeDevToolsMethod(messageID: Int, method: String, parameters: CEFDictionaryValue?) -> Int {
+        let cefStrPtr = CEFStringPtrCreateFromSwiftString(method)
+        defer { CEFStringPtrRelease(cefStrPtr) }
+        return Int(cefObject.execute_dev_tools_method(cefObjectPtr, Int32(messageID), cefStrPtr, parameters?.toCEF()))
+    }
+    
+    /// Add an observer for DevTools protocol messages (method results and events).
+    /// The observer will remain registered until the returned Registration object
+    /// is destroyed. See the SendDevToolsMessage documentation for additional
+    /// usage information.
+    /// CEF name: `AddDevToolsMessageObserver`
+    func addDevToolsMessageObserver(_ observer: CEFDevToolsMessageObserver) -> CEFRegistration {
+        let cefReg = cefObject.add_dev_tools_message_observer(cefObjectPtr, observer.toCEF())
+        return CEFRegistration.fromCEF(cefReg)!
+    }
+
     /// Retrieve a snapshot of current navigation entries as values sent to the
     /// specified visitor. If |current_only| is true only the current navigation
     /// entry will be sent, otherwise all navigation entries will be sent.

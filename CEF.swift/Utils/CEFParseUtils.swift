@@ -39,10 +39,10 @@ public enum CEFParseUtils {
         return CEFStringPtrToSwiftString(cefType)
     }
 
-    // Get the extensions associated with the given mime type. This should be passed
-    // in lower case. There could be multiple extensions for a given mime type, like
-    // "html,htm" for "text/html", or "txt,text,html,..." for "text/*". Any existing
-    // elements in the provided vector will not be erased.
+    /// Get the extensions associated with the given mime type. This should be passed
+    /// in lower case. There could be multiple extensions for a given mime type, like
+    /// "html,htm" for "text/html", or "txt,text,html,..." for "text/*". Any existing
+    /// elements in the provided vector will not be erased.
     /// CEF name: `CefGetExtensionsForMimeType`
     public static func extensionsForMIMEType(_ mimeType: String) -> [String] {
         let cefList = cef_string_list_alloc()!
@@ -91,8 +91,8 @@ public enum CEFParseUtils {
         return CEFStringToSwiftString(cefDecodedPtr!.pointee)
     }
 
-    // Parses the specified |json_string| and returns a dictionary or list
-    // representation. If JSON parsing fails this method returns NULL.
+    /// Parses the specified |json_string| and returns a dictionary or list
+    /// representation. If JSON parsing fails this method returns NULL.
     /// CEF name: `CefParseJSON`
     public static func parseJSON(_ jsonString: String, options: CEFJSONParserOptions = .rfc) -> CEFValue? {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(jsonString)
@@ -100,11 +100,22 @@ public enum CEFParseUtils {
         let cefValue = cef_parse_json(cefStrPtr, options.toCEF())
         return CEFValue.fromCEF(cefValue)
     }
+    
+    /// Parses the specified UTF8-encoded |json| buffer of size |json_size| and
+    /// returns a dictionary or list representation. If JSON parsing fails this
+    /// method returns NULL.
+    /// CEF name: `CefParseJSON`
+    public static func parseJSON(_ jsonData: Data, options: CEFJSONParserOptions = .rfc) -> CEFValue? {
+        let cefValue = jsonData.withUnsafeBytes { ptr in
+            return cef_parse_json_buffer(ptr, jsonData.count, options.toCEF())
+        }
+        return CEFValue.fromCEF(cefValue)
+    }
 
-    // Parses the specified |json_string| and returns a dictionary or list
-    // representation. If JSON parsing fails this method returns NULL and populates
-    // |error_code_out| and |error_msg_out| with an error code and a formatted error
-    // message respectively.
+    /// Parses the specified |json_string| and returns a dictionary or list
+    /// representation. If JSON parsing fails this method returns NULL and populates
+    /// |error_code_out| and |error_msg_out| with an error code and a formatted error
+    /// message respectively.
     /// CEF name: `CefParseJSONAndReturnError`
     public static func parseJSONToResult(_ jsonString: String,
                                          options: CEFJSONParserOptions = .rfc) -> CEFJSONParseResult {
@@ -121,9 +132,10 @@ public enum CEFParseUtils {
         return .success(CEFValue.fromCEF(cefValue)!)
     }
 
-    // Generates a JSON string from the specified root |node| which should be a
-    // dictionary or list value. Returns an empty string on failure. This method
-    // requires exclusive access to |node| including any underlying data.
+    
+    /// Generates a JSON string from the specified root |node| which should be a
+    /// dictionary or list value. Returns an empty string on failure. This method
+    /// requires exclusive access to |node| including any underlying data.
     /// CEF name: `CefWriteJSON`
     public static func writeJSON(value: CEFValue, options: CEFJSONWriterOptions = .default) -> String? {
         let cefStrPtr = cef_write_json(value.toCEF(), options.toCEF())
