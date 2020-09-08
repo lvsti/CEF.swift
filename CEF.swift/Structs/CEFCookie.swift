@@ -58,6 +58,14 @@ public struct CEFCookie {
     /// CEF name: `expires`
     public var expirationDate: Date? = nil
     
+    /// Same site.
+    /// CEF name: `same_site`
+    public var sameSite: CEFCookieSameSite = .unspecified
+    
+    /// Priority.
+    /// CEF name: `priority`
+    public var priority: CEFCookiePriority = .low
+
     public init() {
     }
 }
