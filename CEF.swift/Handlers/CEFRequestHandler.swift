@@ -193,6 +193,11 @@ public protocol CEFRequestHandler {
     /// CEF name: `OnRenderProcessTerminated`
     func onRenderProcessTerminated(browser: CEFBrowser, status: CEFTerminationStatus)
 
+    /// Called on the browser process UI thread when the window.document object of
+    /// the main frame has been created.
+    /// CEF name: `OnDocumentAvailableInMainFrame`
+    func onDocumentAvailableInMainFrame(browser: CEFBrowser)
+
 }
 
 public extension CEFRequestHandler {
@@ -269,6 +274,8 @@ public extension CEFRequestHandler {
 
     func onRenderProcessTerminated(browser: CEFBrowser, status: CEFTerminationStatus) {
     }
-    
+
+    func onDocumentAvailableInMainFrame(browser: CEFBrowser) {
+    }
 }
 

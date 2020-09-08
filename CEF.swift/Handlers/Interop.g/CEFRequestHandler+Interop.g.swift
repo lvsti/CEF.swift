@@ -29,5 +29,6 @@ extension cef_request_handler_t: CEFCallbackMarshalling {
         on_plugin_crashed = CEFRequestHandler_on_plugin_crashed
         on_render_view_ready = CEFRequestHandler_on_render_view_ready
         on_render_process_terminated = CEFRequestHandler_on_render_process_terminated
+        on_document_available_in_main_frame = CEFRequestHandler_on_document_available_in_main_frame
     }
 }

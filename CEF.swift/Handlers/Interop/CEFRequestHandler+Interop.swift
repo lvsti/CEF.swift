@@ -182,3 +182,13 @@ func CEFRequestHandler_on_render_process_terminated(ptr: UnsafeMutablePointer<ce
                                   status: CEFTerminationStatus.fromCEF(status))
 }
 
+func CEFRequestHandler_on_document_available_in_main_frame(ptr: UnsafeMutablePointer<cef_request_handler_t>?,
+                                                           browser: UnsafeMutablePointer<cef_browser_t>?) {
+    guard let obj = CEFRequestHandlerMarshaller.get(ptr) else {
+        return
+    }
+    
+    obj.onDocumentAvailableInMainFrame(browser: CEFBrowser.fromCEF(browser)!)
+}
+
+
