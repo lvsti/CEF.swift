@@ -45,6 +45,7 @@ CEF is developed on multiple branches simultaneously, which differ in API and fu
 
 Currently supported branches: 
 
+- 4103 (Chrome 83) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_4103)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
 - 4044 (Chrome 81) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_4044)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
 - 3987 (Chrome 80) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3987)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
 - 3904 (Chrome 78) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3904)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
