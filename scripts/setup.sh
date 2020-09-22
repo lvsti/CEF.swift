@@ -4,6 +4,8 @@ set -e
 
 if [ "${TRAVIS}" = "true" ]; then
     BRANCH="${TRAVIS_BRANCH}"
+elif [ -f "branch.txt" ]; then
+    BRANCH=$(cat branch.txt)
 else
     BRANCH=$(git rev-parse --abbrev-ref HEAD)
 fi
