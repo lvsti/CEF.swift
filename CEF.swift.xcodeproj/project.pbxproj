@@ -1608,6 +1608,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E883E76521A8AAD4002E9EA4 /* Build configuration list for PBXNativeTarget "CEFSandbox" */;
 			buildPhases = (
+				E8B0123D251A8D56009BC82A /* Prepare external dependencies */,
 				E883E76021A8AAD4002E9EA4 /* Headers */,
 				E883E76121A8AAD4002E9EA4 /* Sources */,
 				E883E76221A8AAD4002E9EA4 /* Frameworks */,
@@ -1702,6 +1703,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -ex\n\nLIB_PATH=\"${SRCROOT}/Samples/CEFDemo/Library/${CONFIGURATION}/libCEFSandbox.a\"\n\nif [ ! -h \"${LIB_PATH}\" ]; then\n    rm -f \"${LIB_PATH}\"\n    mkdir -p $(dirname \"${LIB_PATH}\")\n    ln -s \"${BUILT_PRODUCTS_DIR}/libCEFSandbox.a\" \"${LIB_PATH}\"\nfi\n";
+		};
+		E8B0123D251A8D56009BC82A /* Prepare external dependencies */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Prepare external dependencies";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -e \"${CEF_BINARY_ROOT}/${CONFIGURATION}/Chromium Embedded Framework.framework/Headers/include\" ]; then\n    exit 0\nfi\n\necho \"Building external dependencies\"\n\ncd \"${SRCROOT}\"\nscripts/setup.sh\n";
 		};
 		E8B98AA11EED3EE200171EA3 /* Prepare external dependencies */ = {
 			isa = PBXShellScriptBuildPhase;
