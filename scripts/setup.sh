@@ -32,14 +32,9 @@ if [ -z "$(which xcpretty)" ]; then
     exit 1
 fi
 
-if [ -z "$(pip list 2>/dev/null | grep lxml)" ]; then
-    echo "ERROR: lxml not found; pip install lxml"
-    exit 1
-fi
-
 # fetch CEF binary distribution package
 echo "Querying binary distributions..."
-CEFBUILD_DESCRIPTOR=$(curl http://opensource.spotify.com/cefbuilds/index.html |
+CEFBUILD_DESCRIPTOR=$(curl http://opensource.spotify.com/cefbuilds/index.json |
                       scripts/cefbuilds_spotify.py -x --platforms=macosx64 --branches=${CEF_BRANCH} - |
                       jq '."macosx64"."'${CEF_BRANCH}'"')
 

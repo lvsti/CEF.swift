@@ -1,57 +1,59 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import urllib
-import urllib2
+import urllib.parse
 import re
 import json
 import os.path
 import argparse
 import sys
-from lxml import html
 
 base_url = "https://opensource.spotify.com/cefbuilds"
-distributions = {
-    "standard": "",
-    "minimal": "_minimal",
-    "client": "_client",
-    "debug_symbols": "_debug_symbols",
-    "release_symbols": "_release_symbols"
-}
+distributions = [
+    "standard",
+    "minimal",
+    "client",
+    "debug_symbols",
+    "release_symbols"
+]
 
 def compare_versions(ver1, ver2):
+    def cmp(a, b):
+        return (a > b) - (a < b) 
     def normalize(v):
         return [int(x) for x in re.sub(r'(\.0+)*$','', v).split(".")]
     return cmp(normalize(ver1), normalize(ver2))
 
 # fetch page
-def fetch_cefbuilds_html():
-    response = urllib2.urlopen(base_url + "/index.html")
+def fetch_cefbuilds_json():
+    response = urllib.request.urlopen(base_url + "/index.json")
     contents = response.read()
     return contents
 
 # returns {<branch1> => {delta => <delta>, commit => <git_sha1>, dists => {<dist> => <artifact_url>, ...}}, <branch2> => ...}
-def get_latest_builds_for_platform(platform, body):
-    build_specs = body.xpath('table[@id="' + platform + '"]/tr[@class="toprow"]/@data-version')
+def get_latest_builds_for_platform(platform, builds_json):
+    build_specs = builds_json[platform]['versions']
     
     builds = dict()
     for spec in build_specs:
-        if '+' in spec:
+        cef_version = spec['cef_version']
+        if '+' in cef_version:
             # 73.1.3+g46cf800+chromium-73.0.3683.75
-            spec_comps = spec.split('+')
+            spec_comps = cef_version.split('+')
             tag = spec_comps[0]
             branch = spec_comps[2].split('.')[2]
             commit = spec_comps[1][1:]
         else:
             # 3.3578.1869.gcc1dc0f
-            spec_comps = spec.split('.')
+            spec_comps = cef_version.split('.')
             tag = "0.0." + spec_comps[2]
             branch = spec_comps[1]
             commit = spec_comps[3][1:]
         
         if not branch in builds or compare_versions(builds[branch]['tag'], tag) < 0:
             dists = dict()
-            for dist_name in distributions.keys():
-                dists[dist_name] = base_url + "/cef_binary_" + urllib.quote(spec) + "_" + platform + distributions[dist_name] + ".tar.bz2"
+            for spec_file in spec['files']:
+                dists[spec_file['type']] = base_url + '/' + urllib.parse.quote(spec_file['name'])
             
             builds[branch] = {
                 'tag': tag, 
@@ -86,7 +88,7 @@ parser.add_argument('--branches', dest='branch_filter', action='store', default=
 parser.add_argument('--stash-dir', dest='stash_dir', action='store', default=".", help='where to stash the computed results (default: current working directory)')
 parser.add_argument('-x','--disable-stash', dest='disable_stash', action='store_true', help='if present, computed results are neither loaded nor written to disk')
 parser.add_argument('-v','--verbose', dest='verbose', action='store_true', help='verbose mode')
-parser.add_argument('cefbuilds_html', type=argparse.FileType('r'))
+parser.add_argument('cefbuilds_json', type=argparse.FileType('r'))
 args = vars(parser.parse_args(sys.argv[1:]))
 
 if 'platform_filter' in args and not args['platform_filter'] is None:
@@ -103,22 +105,21 @@ disable_stash = args['disable_stash']
 stash_dir = args['stash_dir']
 verbose = args['verbose']
 
-html_document = html.fromstring(args['cefbuilds_html'].read())
-html_body = html_document.xpath('/html/body')[0]
+builds_json = json.loads(args['cefbuilds_json'].read())
 updates = dict()
 builds = []
 
 for platform in platform_filter:
     if verbose:
-        print "parsing builds for platform " + platform
-    platform_builds = get_latest_builds_for_platform(platform, html_body)
+        print("parsing builds for platform " + platform)
+    platform_builds = get_latest_builds_for_platform(platform, builds_json)
     
     if not branch_filter is None:
         current_builds = dict()
         for branch in platform_builds.keys():
             if not branch in branch_filter:
                 if verbose:
-                    print "skipping branch " + branch + " due to command line switch"
+                    print("skipping branch " + branch + " due to command line switch")
                 continue
             else:
                 current_builds[branch] = platform_builds[branch]
@@ -127,13 +128,13 @@ for platform in platform_filter:
     
     if not disable_stash:
         if verbose:
-            print "calculating diff"
+            print("calculating diff")
         filename = stash_dir + "/builds_" + platform + ".json"
         saved_builds = load_builds_from_file(filename)
     else:
         saved_builds = None
     
-    for branch, current_build in current_builds.iteritems():
+    for branch, current_build in iter(current_builds.items()):
         if saved_builds is None or \
            not branch in saved_builds or \
            'tag' in current_build and not 'tag' in saved_builds['branch'] or \
@@ -144,12 +145,12 @@ for platform in platform_filter:
             
             updates[platform][branch] = current_build
             if verbose:
-                print " - new build available for " + platform + ": " + branch + " -> " + current_build['tag'] if 'tag' in current_build else current_build['delta']
+                print(" - new build available for " + platform + ": " + branch + " -> " + current_build['tag'] if 'tag' in current_build else current_build['delta'])
     
     if not disable_stash:
         if verbose:
-            print "stashing results"
+            print("stashing results")
         save_builds_to_file(current_builds, filename)
 
 if len(updates) > 0:
-    print json.dumps(updates)
+    print(json.dumps(updates))
