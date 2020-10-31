@@ -141,6 +141,14 @@ public struct CEFErrorCode: RawRepresentable {
     /// CEF name: `ERR_CLEARTEXT_NOT_PERMITTED`.
     public static let cleartextNotPermitted = CEFErrorCode(rawValue: -29)
 
+    /// The request was blocked by a Content Security Policy
+    /// CEF name: `ERR_BLOCKED_BY_CSP`.
+    public static let blockedByCSP = CEFErrorCode(rawValue: -30)
+
+    /// The request was blocked because of no H/2 or QUIC session.
+    /// CEF name: `ERR_H2_OR_QUIC_REQUIRED`.
+    public static let h2OrQuicRequired = CEFErrorCode(rawValue: -31)
+
     /// A connection was closed (corresponding to a TCP FIN).
     /// CEF name: `ERR_CONNECTION_CLOSED`.
     public static let connectionClosed = CEFErrorCode(rawValue: -100)
