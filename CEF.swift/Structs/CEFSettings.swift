@@ -45,6 +45,12 @@ public struct CEFSettings {
     /// CEF name: `main_bundle_path`
     public var mainBundlePath: String = ""
     
+    /// Set to true (1) to enable use of the Chrome runtime in CEF. This feature is
+    /// considered experimental and is not recommended for most users at this time.
+    /// See issue #2969 for details.
+    /// CEF name: `chrome_runtime`
+    public var useChromeRuntime: Bool = false
+
     /// Set to true (1) to have the browser process message loop run in a separate
     /// thread. If false (0) than the CefDoMessageLoopWork() function must be
     /// called from your application message loop. This option is only supported on
@@ -262,6 +268,7 @@ extension CEFSettings {
         CEFStringSetFromSwiftString(browserSubprocessPath, cefStringPtr: &cefStruct.browser_subprocess_path)
         CEFStringSetFromSwiftString(frameworkDirPath, cefStringPtr: &cefStruct.framework_dir_path)
         CEFStringSetFromSwiftString(mainBundlePath, cefStringPtr: &cefStruct.main_bundle_path)
+        cefStruct.chrome_runtime = useChromeRuntime ? 1 : 0
         cefStruct.multi_threaded_message_loop = useMultiThreadedMessageLoop ? 1 : 0
         cefStruct.external_message_pump = useExternalMessageLoop ? 1 : 0
         cefStruct.windowless_rendering_enabled = useWindowlessRendering ? 1 : 0
