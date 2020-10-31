@@ -9,13 +9,12 @@ Swift bindings for the [Chromium Embedded Framework](https://bitbucket.org/chrom
 Xcode 10.1, Swift 4.2 (see notes below)<br/>
 Supported target platforms: macOS 10.9+
 
-Required tools: jq, xcpretty, lxml<br/>
+Required tools: jq, xcpretty<br/>
 To set up your environment:
 
 ```
 $ brew install jq
 $ gem install xcpretty
-$ pip install lxml
 ```
 
 ### How to build
@@ -45,17 +44,14 @@ CEF is developed on multiple branches simultaneously, which differ in API and fu
 
 Currently supported branches: 
 
+- 4147 (Chrome 84) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_4147)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
 - 4103 (Chrome 83) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_4103)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
 - 4044 (Chrome 81) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_4044)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
 - 3987 (Chrome 80) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3987)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
-- 3904 (Chrome 78) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3904)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
-- 3865 (Chrome 77) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3865)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
-- 3809 (Chrome 76) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3809)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
-- 3770 (Chrome 75) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3770)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
 
 Archived branches (not maintained anymore):
 
-- 3729, 3683, 3626, 3578, 3538 - Swift 4.2
+- 3904, 3865, 3809, 3770, 3729, 3683, 3626, 3578, 3538 - Swift 4.2
 - 3497, 3440, 3396, 3359, 3325, 3282, 3239, 3202, 3163 - Swift 4.1
 - 3112, 3071, 3029, 2987, 2924, 2883, 2840, 2785, 2743, 2704 - Swift 3.0
 - 2623, 2526, 2454, 2357 - Swift 2.3
