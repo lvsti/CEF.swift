@@ -149,6 +149,12 @@ public struct CEFErrorCode: RawRepresentable {
     /// CEF name: `ERR_H2_OR_QUIC_REQUIRED`.
     public static let h2OrQuicRequired = CEFErrorCode(rawValue: -31)
 
+    /// The request was blocked because it is a private network request coming from
+    /// an insecure context in a less private IP address space. This is used to
+    /// enforce CORS-RFC1918: https://wicg.github.io/cors-rfc1918.
+    /// CEF name: `ERR_INSECURE_PRIVATE_NETWORK_REQUEST`.
+    public static let insecurePrivateNetworkRequest = CEFErrorCode(rawValue: -32)
+
     /// A connection was closed (corresponding to a TCP FIN).
     /// CEF name: `ERR_CONNECTION_CLOSED`.
     public static let connectionClosed = CEFErrorCode(rawValue: -100)
