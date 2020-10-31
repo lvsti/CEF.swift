@@ -19,13 +19,6 @@ public enum CEFOnProcessMessageReceivedAction {
 /// CEF name: `CefRenderProcessHandler`
 public protocol CEFRenderProcessHandler {
 
-    /// Called after the render process main thread has been created. |extra_info|
-    /// is a read-only value originating from
-    /// CefBrowserProcessHandler::OnRenderProcessThreadCreated(). Do not keep a
-    /// reference to |extra_info| outside of this method.
-    /// CEF name: `OnRenderThreadCreated`
-    func onRenderThreadCreated(info: CEFListValue)
-    
     /// Called after WebKit has been initialized.
     /// CEF name: `OnWebKitInitialized`
     func onWebKitInitialized()
@@ -96,9 +89,6 @@ public protocol CEFRenderProcessHandler {
 }
 
 public extension CEFRenderProcessHandler {
-    
-    func onRenderThreadCreated(info: CEFListValue) {
-    }
     
     func onWebKitInitialized() {
     }

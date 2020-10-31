@@ -19,7 +19,6 @@ extension CEFRenderProcessHandler {
 
 extension cef_render_process_handler_t: CEFCallbackMarshalling {
     mutating func marshalCallbacks() {
-        on_render_thread_created = CEFRenderProcessHandler_on_render_thread_created
         on_web_kit_initialized = CEFRenderProcessHandler_on_web_kit_initialized
         on_browser_created = CEFRenderProcessHandler_on_browser_created
         on_browser_destroyed = CEFRenderProcessHandler_on_browser_destroyed

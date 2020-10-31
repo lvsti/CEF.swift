@@ -8,15 +8,6 @@
 
 import Foundation
 
-func CEFRenderProcessHandler_on_render_thread_created(ptr: UnsafeMutablePointer<cef_render_process_handler_t>?,
-                                                      info: UnsafeMutablePointer<cef_list_value_t>?) {
-    guard let obj = CEFRenderProcessHandlerMarshaller.get(ptr) else {
-        return
-    }
-    
-    obj.onRenderThreadCreated(info: CEFListValue.fromCEF(info)!)
-}
-
 func CEFRenderProcessHandler_on_web_kit_initialized(ptr: UnsafeMutablePointer<cef_render_process_handler_t>?) {
     guard let obj = CEFRenderProcessHandlerMarshaller.get(ptr) else {
         return
