@@ -8,13 +8,10 @@ language: objective-c
 
 branches:
   only:
-    - cef_3770
-    - cef_3809
-    - cef_3865
-    - cef_3904
     - cef_3987
     - cef_4044
     - cef_4103
+    - cef_4147
 
 xcode_project: CEF.swift.xcodeproj
 xcode_scheme: CEF.swift
@@ -23,7 +20,6 @@ osx_image: xcode10.1
 before_install:
   - brew update
   - brew install jq
-  - sudo pip install lxml
   
 install:
   - ./scripts/setup.sh
