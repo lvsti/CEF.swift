@@ -17,12 +17,6 @@ public extension CEFMediaSource {
         return CEFStringPtrToSwiftString(cefStrPtr)
     }
 
-    /// Returns true if this source is valid.
-    /// CEF name: `IsValid`
-    public var isValid: Bool {
-        return cefObject.is_valid(cefObjectPtr) != 0
-    }
-
     /// Returns true if this source outputs its content via Cast.
     /// CEF name: `IsCastSource`
     public var isCastSource: Bool {
