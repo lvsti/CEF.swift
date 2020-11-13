@@ -579,7 +579,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\nfor FW in CEFswift \"Chromium Embedded Framework\"\ndo\n    rm -rf \"${BUILT_PRODUCTS_DIR}/CEFDemo.app/Contents/Frameworks/${FW}.framework\"\n    cp -RH \"${PROJECT_DIR}/Library/Release/${FW}.framework\" \"${BUILT_PRODUCTS_DIR}/CEFDemo.app/Contents/Frameworks/\"\ndone\n";
+			shellScript = "set -e\n\nrm -rf \"${BUILT_PRODUCTS_DIR}/CEFDemo.app/Contents/Frameworks/CEFswift.framework\"\ncp -RH \"${PROJECT_DIR}/Library/Release/CEFswift.framework\" \"${BUILT_PRODUCTS_DIR}/CEFDemo.app/Contents/Frameworks/\"\n\nrm -rf \"${BUILT_PRODUCTS_DIR}/CEFDemo.app/Contents/Frameworks/Chromium Embedded Framework.framework\"\ncp -RH \"${PROJECT_DIR}/Library/Release/Chromium Embedded Framework.framework\" \"${BUILT_PRODUCTS_DIR}/CEFDemo.app/Contents/Frameworks/\"\n/usr/bin/codesign --force --sign - --timestamp=none --preserve-metadata=identifier,entitlements,flags \"${BUILT_PRODUCTS_DIR}/CEFDemo.app/Contents/Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework\"\n";
 		};
 		E894BCB121A8B3DC00DF7216 /* Symlink CEF */ = {
 			isa = PBXShellScriptBuildPhase;
