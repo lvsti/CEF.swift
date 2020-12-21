@@ -10,16 +10,18 @@ import Foundation
 
 func CEFStringListCreateFromSwiftArray(_ array: [String]) -> cef_string_list_t! {
     let cefList = cef_string_list_alloc()!
-    
+    CEFStringListAppendToList(cefList, elements: array)
+    return cefList
+}
+
+func CEFStringListAppendToList(_ cefList: cef_string_list_t!, elements: [String]) {
     var cefStr = cef_string_t()
     defer { cef_string_utf16_clear(&cefStr) }
-    
-    for item in array {
+
+    for item in elements {
         CEFStringSetFromSwiftString(item, cefStringPtr: &cefStr)
         cef_string_list_append(cefList, &cefStr)
     }
-    
-    return cefList
 }
 
 func CEFStringListRelease(_ cefList: cef_string_list_t?) {
