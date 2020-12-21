@@ -8,7 +8,7 @@ import os.path
 import argparse
 import sys
 
-base_url = "https://opensource.spotify.com/cefbuilds"
+base_url = "https://cef-builds.spotifycdn.com"
 distributions = [
     "standard",
     "minimal",
