@@ -146,21 +146,6 @@ func CEFRenderHandler_on_accelerated_paint(ptr: UnsafeMutablePointer<cef_render_
                            textureHandle: texture!)
 }
 
-func CEFRenderHandler_on_cursor_change(ptr: UnsafeMutablePointer<cef_render_handler_t>?,
-                                       browser: UnsafeMutablePointer<cef_browser_t>?,
-                                       cursor: UnsafeMutableRawPointer?,
-                                       type: cef_cursor_type_t,
-                                       info: UnsafePointer<cef_cursor_info_t>?) {
-    guard let obj = CEFRenderHandlerMarshaller.get(ptr) else {
-        return
-    }
-    
-    obj.onCursorChange(browser: CEFBrowser.fromCEF(browser)!,
-                       cursor: Unmanaged<CEFCursorHandle>.fromOpaque(cursor!).takeUnretainedValue(),
-                       type: CEFCursorType.fromCEF(type),
-                       cursorInfo: info != nil ? CEFCursorInfo.fromCEF(info!.pointee) : nil)
-}
-
 func CEFRenderHandler_start_dragging(ptr: UnsafeMutablePointer<cef_render_handler_t>?,
                                      browser: UnsafeMutablePointer<cef_browser_t>?,
                                      dragData: UnsafeMutablePointer<cef_drag_data_t>?,

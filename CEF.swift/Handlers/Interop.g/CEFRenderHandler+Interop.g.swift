@@ -28,7 +28,6 @@ extension cef_render_handler_t: CEFCallbackMarshalling {
         on_popup_size = CEFRenderHandler_on_popup_size
         on_paint = CEFRenderHandler_on_paint
         on_accelerated_paint = CEFRenderHandler_on_accelerated_paint
-        on_cursor_change = CEFRenderHandler_on_cursor_change
         start_dragging = CEFRenderHandler_start_dragging
         update_drag_cursor = CEFRenderHandler_update_drag_cursor
         on_scroll_offset_changed = CEFRenderHandler_on_scroll_offset_changed

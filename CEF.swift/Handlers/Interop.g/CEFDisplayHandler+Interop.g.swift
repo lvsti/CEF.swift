@@ -28,5 +28,6 @@ extension cef_display_handler_t: CEFCallbackMarshalling {
         on_console_message = CEFDisplayHandler_on_console_message
         on_auto_resize = CEFDisplayHandler_on_auto_resize
         on_loading_progress_change = CEFDisplayHandler_on_loading_progress_change
+        on_cursor_change = CEFDisplayHandler_on_cursor_change
     }
 }

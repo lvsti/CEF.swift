@@ -26,6 +26,14 @@ public enum CEFOnAutoResizeAction {
     case performDefault
 }
 
+public enum CEFOnCursorChangeAction {
+    /// Treat event as handled
+    case consume
+
+    /// Fall back to default behavior
+    case performDefault
+}
+
 /// Implement this interface to handle events related to browser display state.
 /// The methods of this class will be called on the UI thread.
 /// CEF name: `CefDisplayHandler`
@@ -84,6 +92,16 @@ public protocol CEFDisplayHandler {
     /// ranges from 0.0 to 1.0.
     /// CEF name: `OnLoadingProgressChange`
     func onLoadingProgressChange(browser: CEFBrowser, progress: Double)
+
+    /// Called when the browser's cursor has changed. If |type| is CT_CUSTOM then
+    /// |custom_cursor_info| will be populated with the custom cursor information.
+    /// Return true (1) if the cursor change was handled or false (0) for default
+    /// handling.
+    /// CEF name: `OnCursorChange`
+    func onCursorChange(browser: CEFBrowser,
+                        cursor: CEFCursorHandle,
+                        type: CEFCursorType,
+                        cursorInfo: CEFCursorInfo?) -> CEFOnCursorChangeAction
 }
 
 public extension CEFDisplayHandler {
@@ -120,6 +138,13 @@ public extension CEFDisplayHandler {
     }
 
     func onLoadingProgressChange(browser: CEFBrowser, progress: Double) {
+    }
+
+    func onCursorChange(browser: CEFBrowser,
+                        cursor: CEFCursorHandle,
+                        type: CEFCursorType,
+                        cursorInfo: CEFCursorInfo?) -> CEFOnCursorChangeAction {
+        return .performDefault
     }
 }
 

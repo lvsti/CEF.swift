@@ -125,3 +125,20 @@ func CEFDisplayHandler_on_loading_progress_change(ptr: UnsafeMutablePointer<cef_
     
     obj.onLoadingProgressChange(browser: CEFBrowser.fromCEF(browser)!, progress: progress)
 }
+
+func CEFDisplayHandler_on_cursor_change(ptr: UnsafeMutablePointer<cef_display_handler_t>?,
+                                        browser: UnsafeMutablePointer<cef_browser_t>?,
+                                        cursor: UnsafeMutableRawPointer?,
+                                        type: cef_cursor_type_t,
+                                        info: UnsafePointer<cef_cursor_info_t>?) -> Int32 {
+    guard let obj = CEFDisplayHandlerMarshaller.get(ptr) else {
+        return 0
+    }
+
+    let action = obj.onCursorChange(browser: CEFBrowser.fromCEF(browser)!,
+                                    cursor: Unmanaged<CEFCursorHandle>.fromOpaque(cursor!).takeUnretainedValue(),
+                                    type: CEFCursorType.fromCEF(type),
+                                    cursorInfo: info != nil ? CEFCursorInfo.fromCEF(info!.pointee) : nil)
+
+    return action == .consume ? 1 : 0
+}

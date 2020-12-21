@@ -91,14 +91,6 @@ public protocol CEFRenderHandler {
                             dirtyRects: [NSRect],
                             textureHandle: UnsafeMutableRawPointer)
     
-    /// Called when the browser's cursor has changed. If |type| is CT_CUSTOM then
-    /// |custom_cursor_info| will be populated with the custom cursor information.
-    /// CEF name: `OnCursorChange`
-    func onCursorChange(browser: CEFBrowser,
-                        cursor: CEFCursorHandle,
-                        type: CEFCursorType,
-                        cursorInfo: CEFCursorInfo?)
-    
     /// Called when the user starts dragging content in the web view. Contextual
     /// information about the dragged content is supplied by |drag_data|.
     /// (|x|, |y|) is the drag start location in screen coordinates.
@@ -185,12 +177,6 @@ public extension CEFRenderHandler {
                             type: CEFPaintElementType,
                             dirtyRects: [NSRect],
                             textureHandle: UnsafeMutableRawPointer) {
-    }
-
-    func onCursorChange(browser: CEFBrowser,
-                        cursor: CEFCursorHandle,
-                        type: CEFCursorType,
-                        cursorInfo: CEFCursorInfo?) {
     }
 
     func onStartDragging(browser: CEFBrowser,
