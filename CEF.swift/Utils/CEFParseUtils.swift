@@ -114,19 +114,17 @@ public enum CEFParseUtils {
 
     /// Parses the specified |json_string| and returns a dictionary or list
     /// representation. If JSON parsing fails this method returns NULL and populates
-    /// |error_code_out| and |error_msg_out| with an error code and a formatted error
-    /// message respectively.
+    /// |error_msg_out| with a formatted error message.
     /// CEF name: `CefParseJSONAndReturnError`
     public static func parseJSONToResult(_ jsonString: String,
                                          options: CEFJSONParserOptions = .rfc) -> CEFJSONParseResult {
         let cefStrPtr = CEFStringPtrCreateFromSwiftString(jsonString)
         defer { CEFStringPtrRelease(cefStrPtr) }
-        var code = CEFJSONParserError.noError.toCEF()
         var msg = cef_string_t()
         
-        let cefValue = cef_parse_jsonand_return_error(cefStrPtr, options.toCEF(), &code, &msg)
+        let cefValue = cef_parse_jsonand_return_error(cefStrPtr, options.toCEF(), &msg)
         if cefValue != nil {
-            return .failure(CEFJSONParserError.fromCEF(code), CEFStringToSwiftString(msg))
+            return .failure(CEFStringToSwiftString(msg))
         }
         
         return .success(CEFValue.fromCEF(cefValue)!)
