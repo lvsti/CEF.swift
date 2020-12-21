@@ -34,7 +34,7 @@ fi
 
 # fetch CEF binary distribution package
 echo "Querying binary distributions..."
-CEFBUILD_DESCRIPTOR=$(curl http://opensource.spotify.com/cefbuilds/index.json |
+CEFBUILD_DESCRIPTOR=$(curl https://cef-builds.spotifycdn.com/index.json |
                       scripts/cefbuilds_spotify.py -x --platforms=macosx64 --branches=${CEF_BRANCH} - |
                       jq '."macosx64"."'${CEF_BRANCH}'"')
 
