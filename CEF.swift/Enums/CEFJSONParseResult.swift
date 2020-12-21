@@ -10,5 +10,5 @@ import Foundation
 
 public enum CEFJSONParseResult {
     case success(CEFValue)
-    case failure(CEFJSONParserError, String)
+    case failure(String)
 }

@@ -18,7 +18,7 @@ public struct CEFSSLContentStatus: OptionSet {
     }
 
     /// CEF name: `SSL_CONTENT_NORMAL_CONTENT`
-    public static let normalContent = CEFSSLContentStatus(rawValue: 0)
+    public static let normalContent = CEFSSLContentStatus([])
     
     /// CEF name: `SSL_CONTENT_DISPLAYED_INSECURE_CONTENT`
     public static let displayedInsecureContent = CEFSSLContentStatus(rawValue: 1 << 0)

@@ -274,7 +274,6 @@
 		E88B86811B6EA08A00D10E17 /* CEFEventFlags.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88B86541B6EA08A00D10E17 /* CEFEventFlags.g.swift */; };
 		E88B86821B6EA08A00D10E17 /* CEFFocusSource.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88B86551B6EA08A00D10E17 /* CEFFocusSource.g.swift */; };
 		E88B86841B6EA08A00D10E17 /* CEFJSDialogType.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88B86571B6EA08A00D10E17 /* CEFJSDialogType.g.swift */; };
-		E88B86851B6EA08A00D10E17 /* CEFJSONParserError.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88B86581B6EA08A00D10E17 /* CEFJSONParserError.g.swift */; };
 		E88B86861B6EA08A00D10E17 /* CEFJSONParserOptions.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88B86591B6EA08A00D10E17 /* CEFJSONParserOptions.g.swift */; };
 		E88B86871B6EA08A00D10E17 /* CEFJSONWriterOptions.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88B865A1B6EA08A00D10E17 /* CEFJSONWriterOptions.g.swift */; };
 		E88B86881B6EA08A00D10E17 /* CEFKeyEventType.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88B865B1B6EA08A00D10E17 /* CEFKeyEventType.g.swift */; };
@@ -746,7 +745,6 @@
 		E88B86541B6EA08A00D10E17 /* CEFEventFlags.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFEventFlags.g.swift; sourceTree = "<group>"; };
 		E88B86551B6EA08A00D10E17 /* CEFFocusSource.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFFocusSource.g.swift; sourceTree = "<group>"; };
 		E88B86571B6EA08A00D10E17 /* CEFJSDialogType.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFJSDialogType.g.swift; sourceTree = "<group>"; };
-		E88B86581B6EA08A00D10E17 /* CEFJSONParserError.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFJSONParserError.g.swift; sourceTree = "<group>"; };
 		E88B86591B6EA08A00D10E17 /* CEFJSONParserOptions.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFJSONParserOptions.g.swift; sourceTree = "<group>"; };
 		E88B865A1B6EA08A00D10E17 /* CEFJSONWriterOptions.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFJSONWriterOptions.g.swift; sourceTree = "<group>"; };
 		E88B865B1B6EA08A00D10E17 /* CEFKeyEventType.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFKeyEventType.g.swift; sourceTree = "<group>"; };
@@ -1342,7 +1340,6 @@
 				E88B86551B6EA08A00D10E17 /* CEFFocusSource.g.swift */,
 				E8CE3D211CD949160066BC53 /* CEFHorizontalAlignment.g.swift */,
 				E88B86571B6EA08A00D10E17 /* CEFJSDialogType.g.swift */,
-				E88B86581B6EA08A00D10E17 /* CEFJSONParserError.g.swift */,
 				E88B86591B6EA08A00D10E17 /* CEFJSONParserOptions.g.swift */,
 				E88B865A1B6EA08A00D10E17 /* CEFJSONWriterOptions.g.swift */,
 				E88B865B1B6EA08A00D10E17 /* CEFKeyEventType.g.swift */,
@@ -1847,7 +1844,6 @@
 				E8398D681E47C0F100CFC34A /* CEFCrashUtils.swift in Sources */,
 				E8C8DF081DFD42E900142638 /* CEFMessageLoopType.g.swift in Sources */,
 				E836AFB62259F4D700E5F006 /* CEFTouchEventType.g.swift in Sources */,
-				E88B86851B6EA08A00D10E17 /* CEFJSONParserError.g.swift in Sources */,
 				E88B86881B6EA08A00D10E17 /* CEFKeyEventType.g.swift in Sources */,
 				E80048202506DED400A270DC /* CEFAudioHandler.swift in Sources */,
 				E877E9FF1E79460C00262038 /* CEFMenuColorType.g.swift in Sources */,

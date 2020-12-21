@@ -825,6 +825,11 @@ public struct CEFErrorCode: RawRepresentable {
     /// CEF name: `ERR_QUIC_CERT_ROOT_NOT_KNOWN`.
     public static let quicCertRootNotKnown = CEFErrorCode(rawValue: -380)
 
+    /// A GOAWAY frame has been received indicating that the request has not been
+    /// processed and is therefore safe to retry on a different connection.
+    /// CEF name: `ERR_QUIC_GOAWAY_REQUEST_CAN_BE_RETRIED`.
+    public static let quicGoawayRequestCanBeRetried = CEFErrorCode(rawValue: -381)
+
     /// The cache does not have the requested entry.
     /// CEF name: `ERR_CACHE_MISS`.
     public static let cacheMiss = CEFErrorCode(rawValue: -400)
