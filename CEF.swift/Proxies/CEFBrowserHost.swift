@@ -420,13 +420,6 @@ public extension CEFBrowserHost {
         cefObject.get_navigation_entries(cefObjectPtr, visitor.toCEF(), currentOnly ? 1 : 0)
     }
     
-    /// Whether mouse cursor change is disabled.
-    /// CEF name: `IsMouseCursorChangeDisabled`, `SetMouseCursorChangeDisabled`
-    public var mouseCursorChangeDisabled: Bool {
-        get { return cefObject.is_mouse_cursor_change_disabled(cefObjectPtr) != 0 }
-        set { cefObject.set_mouse_cursor_change_disabled(cefObjectPtr, newValue ? 1 : 0) }
-    }
-    
     /// If a misspelled word is currently selected in an editable node calling
     /// this method will replace it with the specified |word|.
     /// CEF name: `ReplaceMisspelling`

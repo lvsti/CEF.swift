@@ -16,7 +16,7 @@ public extension CEFThread {
     /// to identify the thread. |priority| is the thread execution priority.
     /// |message_loop_type| indicates the set of asynchronous events that the
     /// thread can process. If |stoppable| is true the thread will stopped and
-    /// joined on destruction or when Stop() is called; otherwise, the the thread
+    /// joined on destruction or when Stop() is called; otherwise, the thread
     /// cannot be stopped and will be leaked on shutdown. On Windows the
     /// |com_init_mode| value specifies how COM will be initialized for the thread.
     /// If |com_init_mode| is set to COM_INIT_MODE_STA then |message_loop_type|
