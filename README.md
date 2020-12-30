@@ -7,7 +7,7 @@ Swift bindings for the [Chromium Embedded Framework](https://bitbucket.org/chrom
 ### Requirements
 
 Xcode 10.1, Swift 4.2 (see notes below)<br/>
-Supported target platforms: macOS 10.9+
+Supported target platforms: macOS 10.9+, 10.10+
 
 Required tools: jq, xcpretty<br/>
 To set up your environment:
@@ -44,19 +44,17 @@ CEF is developed on multiple branches simultaneously, which differ in API and fu
 
 Currently supported branches: 
 
-- 4240 (Chrome 86) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_4240)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
-- 4183 (Chrome 85) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_4183)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
-- 4147 (Chrome 84) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_4147)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
-- 4103 (Chrome 83) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_4103)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
-- 4044 (Chrome 81) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_4044)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
-- 3987 (Chrome 80) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_3987)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2
+- 4280 (Chrome 87) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_4280)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2, macOS 10.10+
+- 4240 (Chrome 86) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_4240)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2, macOS 10.9+
+- 4183 (Chrome 85) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_4183)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2, macOS 10.9+
+- 4147 (Chrome 84) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_4147)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2, macOS 10.9+
 
 Archived branches (not maintained anymore):
 
-- 3904, 3865, 3809, 3770, 3729, 3683, 3626, 3578, 3538 - Swift 4.2
-- 3497, 3440, 3396, 3359, 3325, 3282, 3239, 3202, 3163 - Swift 4.1
-- 3112, 3071, 3029, 2987, 2924, 2883, 2840, 2785, 2743, 2704 - Swift 3.0
-- 2623, 2526, 2454, 2357 - Swift 2.3
+- 4103, 4044, 3987, 3904, 3865, 3809, 3770, 3729, 3683, 3626, 3578, 3538 - Swift 4.2, macOS 10.9+
+- 3497, 3440, 3396, 3359, 3325, 3282, 3239, 3202, 3163 - Swift 4.1, macOS 10.9+
+- 3112, 3071, 3029, 2987, 2924, 2883, 2840, 2785, 2743, 2704 - Swift 3.0, macOS 10.9+
+- 2623, 2526, 2454, 2357 - Swift 2.3, macOS 10.9+
 
 ### Getting started
 
