@@ -14,6 +14,7 @@ branches:
     - cef_4147
     - cef_4183
     - cef_4240
+    - cef_4280
 
 xcode_project: CEF.swift.xcodeproj
 xcode_scheme: CEF.swift
