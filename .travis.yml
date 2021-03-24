@@ -15,10 +15,11 @@ branches:
     - cef_4183
     - cef_4240
     - cef_4280
+    - ci-test
 
 xcode_project: CEF.swift.xcodeproj
 xcode_scheme: CEF.swift
-osx_image: xcode10.1
+osx_image: xcode11.3
 
 before_install:
   - brew update
