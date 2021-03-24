@@ -29,12 +29,14 @@ public enum CEFMediaRouteCreateResult: Int32 {
     case cancelled = 8
     /// CEF name: `CEF_MRCR_ROUTE_ALREADY_EXISTS`.
     case routeAlreadyExists = 9
+    /// CEF name: `CEF_MRCR_ROUTE_ALREADY_TERMINATED`.
+    case routeAlreadyTerminated = 11
 
     ///
     // The total number of values.
     ///
     /// CEF name: `CEF_MRCR_TOTAL_COUNT`.
-    case totalCount = 11
+    case totalCount = 12
 }
 
 extension CEFMediaRouteCreateResult {

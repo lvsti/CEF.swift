@@ -72,7 +72,7 @@ public struct CEFMenuID: RawRepresentable {
     public static let addToDictionary = CEFMenuID(rawValue: 206)
 
     /// Custom menu items originating from the renderer process. For example,
-    /// plugin placeholder menu items or Flash menu items.
+    /// plugin placeholder menu items.
     /// CEF name: `MENU_ID_CUSTOM_FIRST`.
     public static let customFirst = CEFMenuID(rawValue: 220)
     /// CEF name: `MENU_ID_CUSTOM_LAST`.

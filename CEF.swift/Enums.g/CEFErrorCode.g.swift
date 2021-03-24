@@ -149,12 +149,6 @@ public struct CEFErrorCode: RawRepresentable {
     /// CEF name: `ERR_H2_OR_QUIC_REQUIRED`.
     public static let h2OrQuicRequired = CEFErrorCode(rawValue: -31)
 
-    /// The request was blocked because it is a private network request coming from
-    /// an insecure context in a less private IP address space. This is used to
-    /// enforce CORS-RFC1918: https://wicg.github.io/cors-rfc1918.
-    /// CEF name: `ERR_INSECURE_PRIVATE_NETWORK_REQUEST`.
-    public static let insecurePrivateNetworkRequest = CEFErrorCode(rawValue: -32)
-
     /// A connection was closed (corresponding to a TCP FIN).
     /// CEF name: `ERR_CONNECTION_CLOSED`.
     public static let connectionClosed = CEFErrorCode(rawValue: -100)
@@ -924,10 +918,12 @@ public struct CEFErrorCode: RawRepresentable {
     public static let trustTokenOperationFailed = CEFErrorCode(rawValue: -506)
 
     /// When handling a Trust Tokens protocol operation-executing request, the system
-    /// found that the request's desired Trust Tokens results were already present in
-    /// a local cache; as a result, the main request was cancelled.
-    /// CEF name: `ERR_TRUST_TOKEN_OPERATION_CACHE_HIT`.
-    public static let trustTokenOperationCacheHit = CEFErrorCode(rawValue: -507)
+    /// was able to execute the request's Trust Tokens operation without sending the
+    /// request to its destination: for instance, the results could have been present
+    /// in a local cache (for redemption) or the operation could have been diverted
+    /// to a local provider (for "platform-provided" issuance).
+    /// CEF name: `ERR_TRUST_TOKEN_OPERATION_SUCCESS_WITHOUT_SENDING_REQUEST`.
+    public static let trustTokenOperationSuccessWithoutSendingRequest = CEFErrorCode(rawValue: -507)
 
     /// A generic error for failed FTP control connection command.
     /// If possible, please use or add a more specific error code.
