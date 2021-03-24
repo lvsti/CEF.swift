@@ -20,7 +20,6 @@ xcode_scheme: CEF.swift
 osx_image: xcode10.1
 
 before_install:
-  - brew update
   - brew install jq
   
 install:
