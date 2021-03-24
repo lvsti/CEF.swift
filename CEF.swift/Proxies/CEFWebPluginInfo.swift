@@ -10,7 +10,7 @@ import Foundation
 
 public extension CEFWebPluginInfo {
 
-    /// Returns the plugin name (i.e. Flash).
+    /// Returns the plugin name.
     /// CEF name: `GetName`
     public var name: String {
         let cefStrPtr = cefObject.get_name(cefObjectPtr)
