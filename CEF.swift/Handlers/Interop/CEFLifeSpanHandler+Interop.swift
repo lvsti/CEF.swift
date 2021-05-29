@@ -28,7 +28,10 @@ func CEFLifeSpanHandler_on_before_popup(ptr: UnsafeMutablePointer<cef_life_span_
     var winInfo = CEFWindowInfo.fromCEF(windowInfo!.pointee)
     var client = CEFClientMarshaller.take(cefClient!.pointee)!
     var settings = CEFBrowserSettings.fromCEF(cefSettings!.pointee)
-    var userInfo = CEFDictionaryValue.fromCEF(cefUserInfo!.pointee)!
+    var userInfo = cefUserInfo!.pointee != nil ? CEFDictionaryValue.fromCEF(cefUserInfo!.pointee)! : CEFDictionaryValue()!
+    if userInfo.isReadOnly {
+        userInfo = CEFDictionaryValue()!
+    }
     var jsAccess = !(noJSAccess!.pointee != 0)
     
     let action = obj.onBeforePopup(browser: CEFBrowser.fromCEF(browser)!,
@@ -41,13 +44,15 @@ func CEFLifeSpanHandler_on_before_popup(ptr: UnsafeMutablePointer<cef_life_span_
                                    windowInfo: &winInfo,
                                    client: &client,
                                    settings: &settings,
-                                   userInfo: &userInfo,
+                                   userInfo: userInfo,
                                    jsAccess: &jsAccess)
 
     windowInfo!.pointee = winInfo.toCEF()
     cefClient!.pointee = CEFClientMarshaller.pass(client)
     cefSettings!.pointee = settings.toCEF()
-    cefUserInfo!.pointee = userInfo.toCEF()
+    if cefUserInfo!.pointee == nil, userInfo.count > 0 {
+        cefUserInfo!.pointee = userInfo.toCEF()
+    }
     noJSAccess!.pointee = jsAccess ? 0 : 1
     
     return action == .cancel ? 1 : 0

@@ -58,7 +58,7 @@ public protocol CEFLifeSpanHandler {
                        windowInfo: inout CEFWindowInfo,
                        client: inout CEFClient,
                        settings: inout CEFBrowserSettings,
-                       userInfo: inout CEFDictionaryValue,
+                       userInfo: CEFDictionaryValue,
                        jsAccess: inout Bool) -> CEFOnBeforePopupAction
 
     /// Called after a new browser is created. This callback will be the first
@@ -182,7 +182,7 @@ public extension CEFLifeSpanHandler {
                        windowInfo: inout CEFWindowInfo,
                        client: inout CEFClient,
                        settings: inout CEFBrowserSettings,
-                       userInfo: inout CEFDictionaryValue,
+                       userInfo: CEFDictionaryValue,
                        jsAccess: inout Bool) -> CEFOnBeforePopupAction {
         return .allow
     }
