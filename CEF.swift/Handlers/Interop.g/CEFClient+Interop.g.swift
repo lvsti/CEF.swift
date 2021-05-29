@@ -31,6 +31,7 @@ extension cef_client_t: CEFCallbackMarshalling {
         get_keyboard_handler = CEFClient_get_keyboard_handler
         get_life_span_handler = CEFClient_get_life_span_handler
         get_load_handler = CEFClient_get_load_handler
+        get_print_handler = CEFClient_get_print_handler
         get_render_handler = CEFClient_get_render_handler
         get_request_handler = CEFClient_get_request_handler
         on_process_message_received = CEFClient_on_process_message_received

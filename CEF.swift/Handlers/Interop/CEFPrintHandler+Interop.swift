@@ -70,12 +70,13 @@ func CEFPrintHandler_on_print_reset(ptr: UnsafeMutablePointer<cef_print_handler_
 }
 
 func CEFPrintHandler_get_pdf_paper_size(ptr: UnsafeMutablePointer<cef_print_handler_t>?,
+                                        browser: UnsafeMutablePointer<cef_browser_t>?,
                                         dpi: Int32) -> cef_size_t {
     guard let obj = CEFPrintHandlerMarshaller.get(ptr) else {
         return cef_size_t()
     }
     
-    let size = obj.pdfPaperSizeForDPI(deviceUnitsPerInch: Int(dpi))
+    let size = obj.pdfPaperSize(browser: CEFBrowser.fromCEF(browser)!, forDeviceUnitsPerInch: Int(dpi))
     return size.toCEF()
 }
 

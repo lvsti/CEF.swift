@@ -152,6 +152,18 @@ func CEFClient_get_load_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> Uns
     return nil
 }
 
+func CEFClient_get_print_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> UnsafeMutablePointer<cef_print_handler_t>? {
+    guard let obj = CEFClientMarshaller.get(ptr) else {
+        return nil
+    }
+
+    if let handler = obj.printHandler {
+        return handler.toCEF()
+    }
+
+    return nil
+}
+
 func CEFClient_get_render_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> UnsafeMutablePointer<cef_render_handler_t>? {
     guard let obj = CEFClientMarshaller.get(ptr) else {
         return nil

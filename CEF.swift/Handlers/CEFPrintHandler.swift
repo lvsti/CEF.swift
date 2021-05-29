@@ -55,7 +55,7 @@ public protocol CEFPrintHandler {
     /// Return the PDF paper size in device units. Used in combination with
     /// CefBrowserHost::PrintToPDF().
     /// CEF name: `GetPdfPaperSize`
-    func pdfPaperSizeForDPI(deviceUnitsPerInch: Int) -> NSSize
+    func pdfPaperSize(browser: CEFBrowser, forDeviceUnitsPerInch: Int) -> NSSize
 }
 
 public extension CEFPrintHandler {
@@ -76,8 +76,8 @@ public extension CEFPrintHandler {
     func onPrintReset(browser: CEFBrowser) {
     }
 
-    func pdfPaperSizeForDPI(deviceUnitsPerInch: Int) -> NSSize {
-        return NSSize()
+    func pdfPaperSize(browser: CEFBrowser, forDeviceUnitsPerInch: Int) -> NSSize {
+        return .zero
     }
 }
 

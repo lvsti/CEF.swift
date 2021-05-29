@@ -63,11 +63,16 @@ public protocol CEFClient {
     /// Return the handler for browser load status events.
     /// CEF name: `GetLoadHandler`
     var loadHandler: CEFLoadHandler? { get }
-    
+
+    /// Return the handler for printing on Linux. If a print handler is not
+    /// provided then printing will not be supported on the Linux platform.
+    /// CEF name: `GetPrintHandler`
+    var printHandler: CEFPrintHandler? { get }
+
     /// Return the handler for off-screen rendering events.
     /// CEF name: `GetRenderHandler`
     var renderHandler: CEFRenderHandler? { get }
-    
+
     /// Return the handler for browser request events.
     /// CEF name: `GetRequestHandler`
     var requestHandler: CEFRequestHandler? { get }
@@ -97,6 +102,7 @@ public extension CEFClient {
     var keyboardHandler: CEFKeyboardHandler? { return nil }
     var lifeSpanHandler: CEFLifeSpanHandler? { return nil }
     var loadHandler: CEFLoadHandler? { return nil }
+    var printHandler: CEFPrintHandler? { return nil }
     var renderHandler: CEFRenderHandler? { return nil }
     var requestHandler: CEFRequestHandler? { return nil }
     

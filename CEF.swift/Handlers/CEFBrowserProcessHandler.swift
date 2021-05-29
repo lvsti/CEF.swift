@@ -8,31 +8,10 @@
 
 import Foundation
 
-public enum CEFCookiableSchemesResult {
-    case none
-    case `default`
-    case custom([String])
-    case customAndDefault([String])
-}
-
 /// Class used to implement browser process callbacks. The methods of this class
 /// will be called on the browser process main thread unless otherwise indicated.
 /// CEF name: `CefBrowserProcessHandler`
 public protocol CEFBrowserProcessHandler {
-
-    /// Called on the browser process UI thread to retrieve the list of schemes
-    /// that should support cookies. If |include_defaults| is true the default
-    /// schemes ("http", "https", "ws" and "wss") will also be supported. Providing
-    /// an empty |schemes| value and setting |include_defaults| to false will
-    /// disable all loading and saving of cookies.
-    ///
-    /// This state will apply to the CefCookieManager associated with the global
-    /// CefRequestContext. It will also be used as the initial state for any new
-    /// CefRequestContexts created by the client. After creating a new
-    /// CefRequestContext the CefCookieManager::SetSupportedSchemes method may be
-    /// called on the associated CefCookieManager to futher override these values.
-    /// CEF name: `GetCookieableSchemes`
-    func getCookieableSchemes() -> CEFCookiableSchemesResult
 
     /// Called on the browser process UI thread immediately after the CEF context
     /// has been initialized.
@@ -47,11 +26,6 @@ public protocol CEFBrowserProcessHandler {
     /// CEF name: `OnBeforeChildProcessLaunch`
     func onBeforeChildProcessLaunch(commandLine: CEFCommandLine)
     
-    /// Return the handler for printing on Linux. If a print handler is not
-    /// provided then printing will not be supported on the Linux platform.
-    /// CEF name: `GetPrintHandler`
-    var printHandler: CEFPrintHandler? { get }
-
     /// Called from any thread when work has been scheduled for the browser process
     /// main (UI) thread. This callback is used in combination with CefSettings.
     /// external_message_pump and CefDoMessageLoopWork() in cases where the CEF
@@ -77,17 +51,11 @@ public protocol CEFBrowserProcessHandler {
 
 public extension CEFBrowserProcessHandler {
 
-    func getCookieableSchemes() -> CEFCookiableSchemesResult {
-        return .default
-    }
-
     func onContextInitialized() {
     }
     
     func onBeforeChildProcessLaunch(commandLine: CEFCommandLine) {
     }
-    
-    var printHandler: CEFPrintHandler? { return nil }
     
     func onScheduleMessageLoopWork(delay: TimeInterval) {
     }
