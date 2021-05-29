@@ -94,7 +94,7 @@ args = vars(parser.parse_args(sys.argv[1:]))
 if 'platform_filter' in args and not args['platform_filter'] is None:
     platform_filter = args['platform_filter'].split(',')
 else:
-    platform_filter = ['linux32', 'linux64', 'macosx64', 'windows32', 'windows64']
+    platform_filter = ['linux32', 'linux64', 'linuxarm', 'linuxarm64', 'macosarm64', 'macosx64', 'windows32', 'windows64', 'windowsarm64']
 
 if 'branch_filter' in args and not args['branch_filter'] is None:
     branch_filter = args['branch_filter'].split(',')

@@ -17,6 +17,9 @@ fi
 
 CEF_BRANCH="${BRANCH##*_}"
 
+# optionally replace with "macosarm64" for Apple Silicon
+CEF_PLATFORM="macosx64"
+
 if [ -z "$(which jq)" ]; then
     echo "ERROR: jq not found; brew install jq"
     exit 1
@@ -35,8 +38,8 @@ fi
 # fetch CEF binary distribution package
 echo "Querying binary distributions..."
 CEFBUILD_DESCRIPTOR=$(curl https://cef-builds.spotifycdn.com/index.json |
-                      scripts/cefbuilds_spotify.py -x --platforms=macosx64 --branches=${CEF_BRANCH} - |
-                      jq '."macosx64"."'${CEF_BRANCH}'"')
+                      scripts/cefbuilds_spotify.py -x --platforms=${CEF_PLATFORM} --branches=${CEF_BRANCH} - |
+                      jq '."${CEF_PLATFORM}"."'${CEF_BRANCH}'"')
 
 CEFBUILD_URL=$(echo ${CEFBUILD_DESCRIPTOR} | jq '.dists.standard' | tr -d '"')
 CEFBUILD_VERSION=${CEF_BRANCH}'-'$(echo ${CEFBUILD_DESCRIPTOR} | jq '.tag' | tr -d '"')
