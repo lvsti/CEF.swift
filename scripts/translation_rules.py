@@ -225,7 +225,12 @@ cef_enums = [
     # branch 4103
     'cef_cookie_priority_t',
     'cef_cookie_same_site_t',
-    'cef_channel_layout_t'
+    'cef_channel_layout_t',
+
+    'cef_text_field_commands_t',
+
+    # branch 4430
+    'cef_chrome_toolbar_type_t'
 ]
 
 cef_option_sets = [
