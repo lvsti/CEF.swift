@@ -47,7 +47,21 @@ public struct CEFRequestContextSettings {
     /// |cache_path| matches the CefSettings.cache_path value.
     /// CEF name: `ignore_certificate_errors`
     public var ignoreCertificateErrors: Bool = false
-    
+
+    /// Comma delimited list of schemes supported by the associated
+    /// CefCookieManager.
+    /// CEF name: `cookieable_schemes_list`
+    public var cookieableSchemesList: String = ""
+
+    /// If |cookieable_schemes_exclude_defaults| is false (0) the
+    /// default schemes ("http", "https", "ws" and "wss") will also be supported.
+    /// Specifying a |cookieable_schemes_list| value and setting
+    /// |cookieable_schemes_exclude_defaults| to true (1) will disable all loading
+    /// and saving of cookies for this manager. These values will be ignored if
+    /// |cache_path| matches the CefSettings.cache_path value.
+    /// CEF name: `cookieable_schemes_exclude_defaults`
+    public var cookieableSchemesExcludeDefaults: Bool = false
+
     /// Comma delimited ordered list of language codes without any whitespace that
     /// will be used in the "Accept-Language" HTTP header. Can be set globally
     /// using the CefSettings.accept_language_list value or overridden on a per-
@@ -69,6 +83,8 @@ extension CEFRequestContextSettings {
         cefStruct.persist_session_cookies = persistSessionCookies ? 1 : 0
         cefStruct.persist_user_preferences = persistUserPreferences ? 1 : 0
         cefStruct.ignore_certificate_errors = ignoreCertificateErrors ? 1 : 0
+        CEFStringSetFromSwiftString(cookieableSchemesList, cefStringPtr: &cefStruct.cookieable_schemes_list)
+        cefStruct.cookieable_schemes_exclude_defaults = cookieableSchemesExcludeDefaults ? 1 : 0
         CEFStringSetFromSwiftString(acceptLanguageList, cefStringPtr: &cefStruct.accept_language_list)
         
         return cefStruct
@@ -78,6 +94,7 @@ extension CEFRequestContextSettings {
 extension cef_request_context_settings_t {
     mutating func clear() {
         cef_string_utf16_clear(&cache_path)
+        cef_string_utf16_clear(&cookieable_schemes_list)
         cef_string_utf16_clear(&accept_language_list)
     }
 }

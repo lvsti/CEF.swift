@@ -94,13 +94,6 @@ public struct CEFBrowserSettings {
     /// CEF name: `file_access_from_file_urls`
     public var fileAccessFromFileURLs: CEFState = .default
 
-    /// Controls whether web security restrictions (same-origin policy) will be
-    /// enforced. Disabling this setting is not recommend as it will allow risky
-    /// security behavior such as cross-site scripting (XSS). Also configurable
-    /// using the "disable-web-security" command-line switch.
-    /// CEF name: `web_security`
-    public var webSecurity: CEFState = .default
-    
     /// Controls whether image URLs will be loaded from the network. A cached image
     /// will still be rendered if requested. Also configurable using the
     /// "disable-image-loading" command-line switch.
@@ -157,7 +150,7 @@ public struct CEFBrowserSettings {
     
     /// Comma delimited ordered list of language codes without any whitespace that
     /// will be used in the "Accept-Language" HTTP header. May be set globally
-    /// using the CefBrowserSettings.accept_language_list value. If both values are
+    /// using the CefSettings.accept_language_list value. If both values are
     /// empty then "en-US,en" will be used.
     /// CEF name: `accept_language_list`
     public var acceptLanguageList: String = ""
@@ -192,7 +185,6 @@ extension CEFBrowserSettings {
         cefStruct.plugins = plugins.toCEF()
         cefStruct.universal_access_from_file_urls = universalAccessFromFileURLs.toCEF()
         cefStruct.file_access_from_file_urls = fileAccessFromFileURLs.toCEF()
-        cefStruct.web_security = webSecurity.toCEF()
         cefStruct.image_loading = imageLoading.toCEF()
         cefStruct.image_shrink_standalone_to_fit = imageShrinkStandaloneToFit.toCEF()
         cefStruct.text_area_resize = textAreaResize.toCEF()
@@ -230,7 +222,6 @@ extension CEFBrowserSettings {
         settings.plugins = CEFState.fromCEF(value.plugins)
         settings.universalAccessFromFileURLs = CEFState.fromCEF(value.universal_access_from_file_urls)
         settings.fileAccessFromFileURLs = CEFState.fromCEF(value.file_access_from_file_urls)
-        settings.webSecurity = CEFState.fromCEF(value.web_security)
         settings.imageLoading = CEFState.fromCEF(value.image_loading)
         settings.imageShrinkStandaloneToFit = CEFState.fromCEF(value.image_shrink_standalone_to_fit)
         settings.textAreaResize = CEFState.fromCEF(value.text_area_resize)
