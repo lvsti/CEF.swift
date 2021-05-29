@@ -10,11 +10,13 @@ import Foundation
 
 public extension CEFMediaRouter {
     /// Returns the MediaRouter object associated with the global request context.
-    /// Equivalent to calling
-    /// CefRequestContext::GetGlobalContext()->GetMediaRouter().
+    /// If |callback| is non-NULL it will be executed asnychronously on the UI
+    /// thread after the manager's storage has been initialized. Equivalent to
+    /// calling CefRequestContext::GetGlobalContext()->GetMediaRouter().
     /// CEF name: `GetGlobalMediaRouter`
-    public static var global: CEFMediaRouter {
-        let cefRouter = cef_media_router_get_global()
+    public static func getGlobal(callback: CEFCompletionCallback? = nil) -> CEFMediaRouter {
+        let cefCallbackPtr = callback?.toCEF()
+        let cefRouter = cef_media_router_get_global(cefCallbackPtr)
         return CEFMediaRouter.fromCEF(cefRouter)!
     }
     

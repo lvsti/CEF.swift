@@ -186,11 +186,5 @@ public extension CEFContextMenuParams {
         return cefObject.is_custom_menu(cefObjectPtr) != 0
     }
     
-    /// Returns true if the context menu was invoked from a pepper plugin.
-    /// CEF name: `IsPepperMenu`
-    public var isPepperMenu: Bool {
-        return cefObject.is_pepper_menu(cefObjectPtr) != 0
-    }
-
 }
 

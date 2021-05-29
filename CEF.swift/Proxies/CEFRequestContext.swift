@@ -84,7 +84,7 @@ public extension CEFRequestContext {
     }
     
     /// Returns the cookie manager for this object. If |callback| is non-NULL it
-    /// will be executed asnychronously on the IO thread after the manager's
+    /// will be executed asnychronously on the UI thread after the manager's
     /// storage has been initialized.
     /// CEF name: `GetCookieManager`
     public func getCookieManager(with callback: CEFCompletionCallback? = nil) -> CEFCookieManager? {
@@ -336,10 +336,13 @@ public extension CEFRequestContext {
         return CEFExtension.fromCEF(cefExt)
     }
 
-    /// Returns the MediaRouter object associated with this context.
+    /// Returns the MediaRouter object associated with this context.  If |callback|
+    /// is non-NULL it will be executed asnychronously on the UI thread after the
+    /// manager's context has been initialized.
     /// CEF name: `GetMediaRouter`
-    public var mediaRouter: CEFMediaRouter? {
-        let cefRouter = cefObject.get_media_router(cefObjectPtr)
+    public func getMediaRouter(callback: CEFCompletionCallback? = nil) -> CEFMediaRouter? {
+        let cefCallbackPtr = callback?.toCEF()
+        let cefRouter = cefObject.get_media_router(cefObjectPtr, cefCallbackPtr)
         return CEFMediaRouter.fromCEF(cefRouter)
     }
 }
@@ -347,7 +350,7 @@ public extension CEFRequestContext {
 public extension CEFRequestContext {
     
     /// Returns the cookie manager for this object. If |callback| is non-NULL it
-    /// will be executed asnychronously on the IO thread after the manager's
+    /// will be executed asnychronously on the UI thread after the manager's
     /// storage has been initialized.
     /// CEF name: `GetCookieManager`
     public func getCookieManager(block: @escaping CEFCompletionCallbackOnCompleteBlock) -> CEFCookieManager? {
@@ -379,6 +382,14 @@ public extension CEFRequestContext {
     /// CEF name: `ResolveHost`
     public func resolveHost(hostName: String, block: @escaping CEFResolveCallbackOnResolveCompletedBlock) {
         resolveHost(hostName, callback: CEFResolveCallbackBridge(block: block))
+    }
+
+    /// Returns the MediaRouter object associated with this context.  If |callback|
+    /// is non-NULL it will be executed asnychronously on the UI thread after the
+    /// manager's context has been initialized.
+    /// CEF name: `GetMediaRouter`
+    public func getMediaRouter(block: @escaping CEFCompletionCallbackOnCompleteBlock) -> CEFMediaRouter? {
+        return getMediaRouter(callback: CEFCompletionCallbackBridge(block: block))
     }
 }
 

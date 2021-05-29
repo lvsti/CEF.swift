@@ -22,22 +22,6 @@ public extension CEFCookieManager {
         return CEFCookieManager.fromCEF(cefCookieMgr)!
     }
     
-    /// Set the schemes supported by this manager. If |include_defaults| is true
-    /// the default schemes ("http", "https", "ws" and "wss") will also be
-    /// supported. Calling this method with an empty |schemes| value and
-    /// |include_defaults| set to false will disable all loading and saving of
-    /// cookies for this manager. If |callback| is non-NULL it will be executed
-    /// asnychronously on the UI thread after the change has been applied. Must be
-    /// called before any cookies are accessed.
-    /// CEF name: `SetSupportedSchemes`
-    public func setSupportedSchemes(_ schemes: [String], includeDefaults: Bool, callback: CEFCompletionCallback? = nil) {
-        let cefSchemes = CEFStringListCreateFromSwiftArray(schemes)
-        defer { CEFStringListRelease(cefSchemes) }
-        let cefCallbackPtr = callback?.toCEF()
-        
-        cefObject.set_supported_schemes(cefObjectPtr, cefSchemes, includeDefaults ? 1 : 0, cefCallbackPtr)
-    }
-
     /// Visit all cookies on the UI thread. The returned cookies are ordered by
     /// longest path, then by earliest creation date. Returns false if cookies
     /// cannot be accessed.
@@ -128,22 +112,6 @@ public extension CEFCookieManager {
     /// CEF name: `GetGlobalManager`
     public static func globalManager(block: @escaping CEFCompletionCallbackOnCompleteBlock) -> CEFCookieManager? {
         return CEFCookieManager.globalManager(callback: CEFCompletionCallbackBridge(block: block))
-    }
-
-    /// Set the schemes supported by this manager. If |include_defaults| is true
-    /// the default schemes ("http", "https", "ws" and "wss") will also be
-    /// supported. Calling this method with an empty |schemes| value and
-    /// |include_defaults| set to false will disable all loading and saving of
-    /// cookies for this manager. If |callback| is non-NULL it will be executed
-    /// asnychronously on the UI thread after the change has been applied. Must be
-    /// called before any cookies are accessed.
-    /// CEF name: `SetSupportedSchemes`
-    public func setSupportedSchemes(_ schemes: [String],
-                                    includeDefaults: Bool,
-                                    block: @escaping CEFCompletionCallbackOnCompleteBlock) {
-        return setSupportedSchemes(schemes,
-                                   includeDefaults: includeDefaults,
-                                   callback: CEFCompletionCallbackBridge(block: block))
     }
 
     /// Visit all cookies on the UI thread. The returned cookies are ordered by
