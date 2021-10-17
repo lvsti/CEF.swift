@@ -39,7 +39,7 @@ fi
 echo "Querying binary distributions..."
 CEFBUILD_DESCRIPTOR=$(curl https://cef-builds.spotifycdn.com/index.json |
                       scripts/cefbuilds_spotify.py -x --platforms=${CEF_PLATFORM} --branches=${CEF_BRANCH} - |
-                      jq '."${CEF_PLATFORM}"."'${CEF_BRANCH}'"')
+                      jq '."'${CEF_PLATFORM}'"."'${CEF_BRANCH}'"')
 
 CEFBUILD_URL=$(echo ${CEFBUILD_DESCRIPTOR} | jq '.dists.standard' | tr -d '"')
 CEFBUILD_VERSION=${CEF_BRANCH}'-'$(echo ${CEFBUILD_DESCRIPTOR} | jq '.tag' | tr -d '"')
