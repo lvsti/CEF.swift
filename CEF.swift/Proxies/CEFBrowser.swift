@@ -11,6 +11,13 @@ import Foundation
 public extension CEFBrowser {
     public typealias Identifier = Int32
     
+    /// True if this object is currently valid. This will return false after
+    /// CefLifeSpanHandler::OnBeforeClose is called.
+    /// CEF name: `CanGoBack`
+    public var isValid: Bool {
+        return cefObject.is_valid(cefObjectPtr) != 0
+    }
+
     /// Returns the browser host object. This method can only be called in the
     /// browser process.
     /// CEF name: `GetHost`
@@ -80,7 +87,7 @@ public extension CEFBrowser {
         return cefObject.is_same(cefObjectPtr, other.toCEF()) != 0
     }
 
-    /// Returns true if the window is a popup window.
+    /// Returns true if the browser is a popup.
     /// CEF name: `IsPopup`
     public var isPopup: Bool {
         return cefObject.is_popup(cefObjectPtr) != 0
@@ -92,11 +99,13 @@ public extension CEFBrowser {
         return cefObject.has_document(cefObjectPtr) != 0
     }
     
-    /// Returns the main (top-level) frame for the browser window. In the browser
-    /// process this will return a valid object until after
+    /// Returns the main (top-level) frame for the browser. In the browser process
+    /// this will return a valid object until after
     /// CefLifeSpanHandler::OnBeforeClose is called. In the renderer process this
     /// will return NULL if the main frame is hosted in a different renderer
-    /// process (e.g. for cross-origin sub-frames).
+    /// process (e.g. for cross-origin sub-frames). The main frame object will
+    /// change during cross-origin navigation or re-navigation after renderer
+    /// process termination (due to crashes, etc).
     /// CEF name: `GetMainFrame`
     public var mainFrame: CEFFrame? {
         // TODO: audit nonnull
@@ -104,7 +113,7 @@ public extension CEFBrowser {
         return CEFFrame.fromCEF(cefFrame)
     }
     
-    /// Returns the focused frame for the browser window.
+    /// Returns the focused frame for the browser.
     /// CEF name: `GetFocusedFrame`
     public var focusedFrame: CEFFrame? {
         // TODO: audit nonnull
