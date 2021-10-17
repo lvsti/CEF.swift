@@ -47,6 +47,12 @@ public protocol CEFClient {
     /// CEF name: `GetFocusHandler`
     var focusHandler: CEFFocusHandler? { get }
     
+    /// Return the handler for events related to CefFrame lifespan. This method
+    /// will be called once during CefBrowser creation and the result will be
+    /// cached for performance reasons.
+    /// CEF name: `GetFrameHandler`
+    var frameHandler: CEFFrameHandler? { get }
+    
     /// Return the handler for JavaScript dialogs. If no handler is provided the
     /// default implementation will be used.
     /// CEF name: `GetJSDialogHandler`
@@ -78,8 +84,8 @@ public protocol CEFClient {
     var requestHandler: CEFRequestHandler? { get }
     
     /// Called when a new message is received from a different process. Return true
-    /// if the message was handled or false otherwise. Do not keep a reference to
-    /// or attempt to access the message outside of this callback.
+    /// if the message was handled or false otherwise.  It is safe to keep a
+    /// reference to |message| outside of this callback.
     /// CEF name: `OnProcessMessageReceived`
     func onProcessMessageReceived(browser: CEFBrowser,
                                   frame: CEFFrame,
@@ -98,6 +104,7 @@ public extension CEFClient {
     var dragHandler: CEFDragHandler? { return nil }
     var findHandler: CEFFindHandler? { return nil }
     var focusHandler: CEFFocusHandler? { return nil }
+    var frameHandler: CEFFrameHandler? { return nil }
     var jsDialogHandler: CEFJSDialogHandler? { return nil }
     var keyboardHandler: CEFKeyboardHandler? { return nil }
     var lifeSpanHandler: CEFLifeSpanHandler? { return nil }

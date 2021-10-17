@@ -27,6 +27,7 @@ extension cef_client_t: CEFCallbackMarshalling {
         get_drag_handler = CEFClient_get_drag_handler
         get_find_handler = CEFClient_get_find_handler
         get_focus_handler = CEFClient_get_focus_handler
+        get_frame_handler = CEFClient_get_frame_handler
         get_jsdialog_handler = CEFClient_get_jsdialog_handler
         get_keyboard_handler = CEFClient_get_keyboard_handler
         get_life_span_handler = CEFClient_get_life_span_handler

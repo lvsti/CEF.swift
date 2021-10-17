@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		BE4B19CC2662892F0047EB66 /* CEFTextFieldCommands.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4B19CA2662892F0047EB66 /* CEFTextFieldCommands.g.swift */; };
 		BE4B19CD2662892F0047EB66 /* CEFChromeToolbarType.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4B19CB2662892F0047EB66 /* CEFChromeToolbarType.g.swift */; };
+		BE69C332271CA38E00FCF19A /* CEFFrameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE69C331271CA38E00FCF19A /* CEFFrameHandler.swift */; };
+		BE69C334271CA4B200FCF19A /* CEFFrameHandler+Interop.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE69C333271CA4B200FCF19A /* CEFFrameHandler+Interop.g.swift */; };
+		BE69C336271CA4D000FCF19A /* CEFFrameHandler+Interop.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE69C335271CA4D000FCF19A /* CEFFrameHandler+Interop.swift */; };
 		E80048202506DED400A270DC /* CEFAudioHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E800481F2506DED400A270DC /* CEFAudioHandler.swift */; };
 		E80048222506E0C800A270DC /* CEFAudioParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80048212506E0C800A270DC /* CEFAudioParameters.swift */; };
 		E80048262506E12E00A270DC /* CEFCookiePriority.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80048232506E12D00A270DC /* CEFCookiePriority.g.swift */; };
@@ -477,6 +480,9 @@
 /* Begin PBXFileReference section */
 		BE4B19CA2662892F0047EB66 /* CEFTextFieldCommands.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFTextFieldCommands.g.swift; sourceTree = "<group>"; };
 		BE4B19CB2662892F0047EB66 /* CEFChromeToolbarType.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFChromeToolbarType.g.swift; sourceTree = "<group>"; };
+		BE69C331271CA38E00FCF19A /* CEFFrameHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CEFFrameHandler.swift; sourceTree = "<group>"; };
+		BE69C333271CA4B200FCF19A /* CEFFrameHandler+Interop.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CEFFrameHandler+Interop.g.swift"; sourceTree = "<group>"; };
+		BE69C335271CA4D000FCF19A /* CEFFrameHandler+Interop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CEFFrameHandler+Interop.swift"; sourceTree = "<group>"; };
 		E800481F2506DED400A270DC /* CEFAudioHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CEFAudioHandler.swift; sourceTree = "<group>"; };
 		E80048212506E0C800A270DC /* CEFAudioParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CEFAudioParameters.swift; sourceTree = "<group>"; };
 		E80048232506E12D00A270DC /* CEFCookiePriority.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFCookiePriority.g.swift; sourceTree = "<group>"; };
@@ -1154,6 +1160,7 @@
 				E8CF55441FABC4E300864141 /* CEFExtensionHandler.swift */,
 				E81F6B581B7A323000311F4B /* CEFFindHandler.swift */,
 				E8621C4F1B762E2400944CEE /* CEFFocusHandler.swift */,
+				BE69C331271CA38E00FCF19A /* CEFFrameHandler.swift */,
 				E81F6B6A1B7A4BC200311F4B /* CEFJSDialogHandler.swift */,
 				E81F6B641B7A404200311F4B /* CEFKeyboardHandler.swift */,
 				E8898AF31B69654C009E0DFF /* CEFLifeSpanHandler.swift */,
@@ -1460,6 +1467,7 @@
 				E8CF553C1FABBA8D00864141 /* CEFExtensionHandler+Interop.g.swift */,
 				E8E53BF31B910BE800A4A6C6 /* CEFFindHandler+Interop.g.swift */,
 				E8E53BF41B910BE800A4A6C6 /* CEFFocusHandler+Interop.g.swift */,
+				BE69C333271CA4B200FCF19A /* CEFFrameHandler+Interop.g.swift */,
 				E8E53BF71B910BE800A4A6C6 /* CEFJSDialogHandler+Interop.g.swift */,
 				E8E53BF81B910BE800A4A6C6 /* CEFKeyboardHandler+Interop.g.swift */,
 				E8E53BF91B910BE800A4A6C6 /* CEFLifeSpanHandler+Interop.g.swift */,
@@ -1524,6 +1532,7 @@
 				E8CF554A1FABCCCD00864141 /* CEFExtensionHandler+Interop.swift */,
 				E8E53C991B910F6D00A4A6C6 /* CEFFindHandler+Interop.swift */,
 				E8E53C9A1B910F6D00A4A6C6 /* CEFFocusHandler+Interop.swift */,
+				BE69C335271CA4D000FCF19A /* CEFFrameHandler+Interop.swift */,
 				E8E53C9D1B910F6D00A4A6C6 /* CEFJSDialogHandler+Interop.swift */,
 				E8E53C9E1B910F6D00A4A6C6 /* CEFKeyboardHandler+Interop.swift */,
 				E8E53C9F1B910F6D00A4A6C6 /* CEFLifeSpanHandler+Interop.swift */,
@@ -1782,6 +1791,7 @@
 				E8453FBF1BB4995B0084AFE4 /* CEFPrintSettings+Interop.g.swift in Sources */,
 				E8453FAA1BB4995B0084AFE4 /* CEFCallback+Interop.g.swift in Sources */,
 				E8453FBC1BB4995B0084AFE4 /* CEFPOSTDataElement+Interop.g.swift in Sources */,
+				BE69C336271CA4D000FCF19A /* CEFFrameHandler+Interop.swift in Sources */,
 				E82313732458BAA000F03641 /* CEFMediaSink+Interop.g.swift in Sources */,
 				E8CF55451FABC4E300864141 /* CEFExtensionHandler.swift in Sources */,
 				E86529D11FB25C9700E21801 /* CEFApplication.swift in Sources */,
@@ -1908,6 +1918,7 @@
 				E81F6B771B7A600C00311F4B /* CEFCursorInfo.swift in Sources */,
 				E88B86251B6E0D2C00D10E17 /* CEFCookie.swift in Sources */,
 				E82313812458C06E00F03641 /* CEFMediaRouterCreateCallback+Interop.swift in Sources */,
+				BE69C332271CA38E00FCF19A /* CEFFrameHandler.swift in Sources */,
 				E890E9991B72A2CA007DB9C6 /* CEFLoadHandler.swift in Sources */,
 				E8E53C2E1B910BE800A4A6C6 /* CEFSetCookieCallback+Interop.g.swift in Sources */,
 				E85FB5AB1CB1AA6E001B610C /* CEFResolveCallbackBridge.swift in Sources */,
@@ -2046,6 +2057,7 @@
 				E8A9A4731FE56C72007C5749 /* CEFServerHandler.swift in Sources */,
 				E8621C501B762E2400944CEE /* CEFFocusHandler.swift in Sources */,
 				E88B86961B6EA08A00D10E17 /* CEFTerminationStatus.g.swift in Sources */,
+				BE69C334271CA4B200FCF19A /* CEFFrameHandler+Interop.g.swift in Sources */,
 				E8E53C281B910BE800A4A6C6 /* CEFRequestContextHandler+Interop.g.swift in Sources */,
 				E8E53CDE1B910F6D00A4A6C6 /* CEFWebPluginUnstableCallback+Interop.swift in Sources */,
 				E88B861F1B6E093E00D10E17 /* CEFCompletionCallback.swift in Sources */,

@@ -104,6 +104,18 @@ func CEFClient_get_focus_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> Un
     return nil
 }
 
+func CEFClient_get_frame_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> UnsafeMutablePointer<cef_frame_handler_t>? {
+    guard let obj = CEFClientMarshaller.get(ptr) else {
+        return nil
+    }
+    
+    if let handler = obj.frameHandler {
+        return handler.toCEF()
+    }
+    
+    return nil
+}
+
 func CEFClient_get_jsdialog_handler(ptr: UnsafeMutablePointer<cef_client_t>?) -> UnsafeMutablePointer<cef_jsdialog_handler_t>? {
     guard let obj = CEFClientMarshaller.get(ptr) else {
         return nil

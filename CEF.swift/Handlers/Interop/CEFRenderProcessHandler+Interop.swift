@@ -23,7 +23,7 @@ func CEFRenderProcessHandler_on_browser_created(ptr: UnsafeMutablePointer<cef_re
         return
     }
 
-    obj.onBrowserCreated(browser: CEFBrowser.fromCEF(browser)!, userInfo: CEFDictionaryValue.fromCEF(userInfo)!)
+    obj.onBrowserCreated(browser: CEFBrowser.fromCEF(browser)!, userInfo: CEFDictionaryValue.fromCEF(userInfo))
 }
 
 func CEFRenderProcessHandler_on_browser_destroyed(ptr: UnsafeMutablePointer<cef_render_process_handler_t>?,
