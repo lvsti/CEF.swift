@@ -40,13 +40,14 @@ Note that the bootstrap build will take quite some time as CEF.swift has to fetc
 
 ### CEF branches
 
-CEF is developed on multiple branches simultaneously, which differ in API and functionality (see [Spotify OpenSource](http://opensource.spotify.com/cefbuilds/index.html) and [ChromeStatus](https://www.chromestatus.com/features)). CEF.swift aims at supporting the current stable release branch and a couple more of earlier releases. For any CEF branch `NNNN`, the corresponding CEF.swift branch is named `cef_NNNN`.
+CEF is developed on multiple branches simultaneously, which differ in API and functionality (see [Spotify OpenSource](https://cef-builds.spotifycdn.com/index.html) and [ChromeStatus](https://www.chromestatus.com/features)). CEF.swift aims at supporting the current stable release branch and a couple more of earlier releases. For any CEF branch `NNNN`, the corresponding CEF.swift branch is named `cef_NNNN`.
 
 Currently supported branches: 
 
-- 4430 (Chrome 90) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_4430)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2, macOS 10.11+
-- 4389 (Chrome 89) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_4389)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2, macOS 10.10+
-- 4280 (Chrome 87) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_4280)](https://travis-ci.org/lvsti/CEF.swift) - Swift 4.2, macOS 10.10+
+- 4472 (Chrome 91) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_4472)](https://app.travis-ci.com/github/lvsti/CEF.swift) - Swift 4.2, macOS 10.11+
+- 4430 (Chrome 90) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_4430)](https://app.travis-ci.com/github/lvsti/CEF.swift) - Swift 4.2, macOS 10.11+
+- 4389 (Chrome 89) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_4389)](https://app.travis-ci.com/github/lvsti/CEF.swift) - Swift 4.2, macOS 10.10+
+- 4280 (Chrome 87) [![Build Status](https://travis-ci.org/lvsti/CEF.swift.svg?branch=cef_4280)](https://app.travis-ci.com/github/lvsti/CEF.swift) - Swift 4.2, macOS 10.10+
 
 Archived branches (not maintained anymore):
 

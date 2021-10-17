@@ -11,10 +11,12 @@ branches:
     - cef_4280
     - cef_4389
     - cef_4430
+    - cef_4472
 
 xcode_project: CEF.swift.xcodeproj
 xcode_scheme: CEF.swift
 osx_image: xcode10.1
+os: osx
 
 before_install:
   - brew install jq
