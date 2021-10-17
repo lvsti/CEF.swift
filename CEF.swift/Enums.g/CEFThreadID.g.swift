@@ -65,9 +65,6 @@ public enum CEFThreadID: Int32 {
     /// without warning).
     /// CEF name: `TID_RENDERER`.
     case renderer
-    
-    /// CEF name: `TID_FILE`.
-    public static let file: CEFThreadID = .fileBackground
 }
 
 extension CEFThreadID {
