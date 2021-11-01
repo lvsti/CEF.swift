@@ -92,9 +92,11 @@ public protocol CEFFrameHandler {
     func onFrameCreated(browser: CEFBrowser, frame: CEFFrame)
 
     /// Called when a frame can begin routing commands to/from the associated
-    /// renderer process. Any commands that were queued have now been dispatched.
+    /// renderer process. |reattached| will be true if the frame was re-attached
+    /// after exiting the BackForwardCache. Any commands that were queued have now
+    /// been dispatched.
     /// CEF name: `OnFrameAttached`
-    func onFrameAttached(browser: CEFBrowser, frame: CEFFrame)
+    func onFrameAttached(browser: CEFBrowser, frame: CEFFrame, isReattached: Bool)
 
     /// Called when a frame loses its connection to the renderer process and will
     /// be destroyed. Any pending or future commands will be discarded and
@@ -124,7 +126,7 @@ public extension CEFFrameHandler {
     func onFrameCreated(browser: CEFBrowser, frame: CEFFrame) {
     }
 
-    func onFrameAttached(browser: CEFBrowser, frame: CEFFrame) {
+    func onFrameAttached(browser: CEFBrowser, frame: CEFFrame, isReattached: Bool) {
     }
 
     func onFrameDetached(browser: CEFBrowser, frame: CEFFrame) {
