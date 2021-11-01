@@ -15,8 +15,9 @@ extension cef_command_line_t: CEFObject {}
 /// optionally have a value specified using the '=' delimiter (e.g.
 /// "-switch=value"). An argument of "--" will terminate switch parsing with all
 /// subsequent tokens, regardless of prefix, being interpreted as non-switch
-/// arguments. Switch names are considered case-insensitive. This class can be
-/// used before CefInitialize() is called.
+/// arguments. Switch names should be lowercase ASCII and will be converted to
+/// such if necessary. Switch values will retain the original case and UTF8
+/// encoding. This class can be used before CefInitialize() is called.
 /// CEF name: `CefCommandLine`
 public final class CEFCommandLine: CEFProxy<cef_command_line_t> {
     override init?(ptr: UnsafeMutablePointer<cef_command_line_t>?) {

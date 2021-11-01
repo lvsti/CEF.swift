@@ -527,12 +527,6 @@ public extension CEFBrowserHost {
         cefObject.send_touch_event(cefObjectPtr, &cefEvent)
     }
     
-    /// Send a focus event to the browser.
-    /// CEF name: `SendFocusEvent`
-    public func sendFocusEvent(focus: Bool) {
-        cefObject.send_focus_event(cefObjectPtr, focus ? 1 : 0)
-    }
-    
     /// Send a capture lost event to the browser.
     /// CEF name: `SendCaptureLostEvent`
     public func sendCaptureLostEvent() {
