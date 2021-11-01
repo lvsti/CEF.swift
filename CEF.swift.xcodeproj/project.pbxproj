@@ -12,6 +12,7 @@
 		BE69C332271CA38E00FCF19A /* CEFFrameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE69C331271CA38E00FCF19A /* CEFFrameHandler.swift */; };
 		BE69C334271CA4B200FCF19A /* CEFFrameHandler+Interop.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE69C333271CA4B200FCF19A /* CEFFrameHandler+Interop.g.swift */; };
 		BE69C336271CA4D000FCF19A /* CEFFrameHandler+Interop.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE69C335271CA4D000FCF19A /* CEFFrameHandler+Interop.swift */; };
+		BE84D3F127303739007D02C3 /* CEFI18nUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE84D3F027303739007D02C3 /* CEFI18nUtils.swift */; };
 		E80048202506DED400A270DC /* CEFAudioHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E800481F2506DED400A270DC /* CEFAudioHandler.swift */; };
 		E80048222506E0C800A270DC /* CEFAudioParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80048212506E0C800A270DC /* CEFAudioParameters.swift */; };
 		E80048262506E12E00A270DC /* CEFCookiePriority.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80048232506E12D00A270DC /* CEFCookiePriority.g.swift */; };
@@ -478,6 +479,7 @@
 		BE69C331271CA38E00FCF19A /* CEFFrameHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CEFFrameHandler.swift; sourceTree = "<group>"; };
 		BE69C333271CA4B200FCF19A /* CEFFrameHandler+Interop.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CEFFrameHandler+Interop.g.swift"; sourceTree = "<group>"; };
 		BE69C335271CA4D000FCF19A /* CEFFrameHandler+Interop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CEFFrameHandler+Interop.swift"; sourceTree = "<group>"; };
+		BE84D3F027303739007D02C3 /* CEFI18nUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CEFI18nUtils.swift; sourceTree = "<group>"; };
 		E800481F2506DED400A270DC /* CEFAudioHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CEFAudioHandler.swift; sourceTree = "<group>"; };
 		E80048212506E0C800A270DC /* CEFAudioParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CEFAudioParameters.swift; sourceTree = "<group>"; };
 		E80048232506E12D00A270DC /* CEFCookiePriority.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFCookiePriority.g.swift; sourceTree = "<group>"; };
@@ -958,6 +960,7 @@
 				E8398D671E47C0F100CFC34A /* CEFCrashUtils.swift */,
 				E81F6B7E1B7A715700311F4B /* CEFCrossOriginUtils.swift */,
 				E8C8DF101DFD510500142638 /* CEFFileUtils.swift */,
+				BE84D3F027303739007D02C3 /* CEFI18nUtils.swift */,
 				E8519F0E1B7D3CD2003CE7C5 /* CEFParseUtils.swift */,
 				E8519F101B7E6AF4003CE7C5 /* CEFPathUtils.swift */,
 				E8621C531B76395900944CEE /* CEFProcessUtils.swift */,
@@ -2049,6 +2052,7 @@
 				E863A2E11BD04C96007C2069 /* CEFResourceBundle+Interop.g.swift in Sources */,
 				E87E2EE91B80A32D00480AD3 /* CEFPrintJobCallback.swift in Sources */,
 				E8898B341B69654C009E0DFF /* CEFString.swift in Sources */,
+				BE84D3F127303739007D02C3 /* CEFI18nUtils.swift in Sources */,
 				E8898B371B69654C009E0DFF /* CEFStringMultimap.swift in Sources */,
 				E835FD461B9F895200121BF8 /* CEFPDFPrintCallback+Interop.g.swift in Sources */,
 				E823137D2458BD9E00F03641 /* CEFMediaSource.swift in Sources */,
