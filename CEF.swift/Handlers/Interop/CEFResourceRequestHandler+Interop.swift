@@ -26,7 +26,7 @@ func CEFResourceRequestHandler_on_before_resource_load(ptr: UnsafeMutablePointer
                                                        browser: UnsafeMutablePointer<cef_browser_t>?,
                                                        frame: UnsafeMutablePointer<cef_frame_t>?,
                                                        request: UnsafeMutablePointer<cef_request_t>?,
-                                                       callback: UnsafeMutablePointer<cef_request_callback_t>?) -> cef_return_value_t {
+                                                       callback: UnsafeMutablePointer<cef_callback_t>?) -> cef_return_value_t {
     guard let obj = CEFResourceRequestHandlerMarshaller.get(ptr) else {
         return RV_CANCEL
     }
@@ -34,7 +34,7 @@ func CEFResourceRequestHandler_on_before_resource_load(ptr: UnsafeMutablePointer
     let action = obj.onBeforeResourceLoad(browser: CEFBrowser.fromCEF(browser),
                                           frame: CEFFrame.fromCEF(frame),
                                           request: CEFRequest.fromCEF(request)!,
-                                          callback: CEFRequestCallback.fromCEF(callback)!)
+                                          callback: CEFCallback.fromCEF(callback)!)
     
     return action.toCEF()
 }

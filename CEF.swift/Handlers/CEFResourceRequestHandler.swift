@@ -40,14 +40,14 @@ public protocol CEFResourceRequestHandler {
     /// requests originating from service workers or CefURLRequest. To redirect or
     /// change the resource load optionally modify |request|. Modification of the
     /// request URL will be treated as a redirect. Return RV_CONTINUE to continue
-    /// the request immediately. Return RV_CONTINUE_ASYNC and call
-    /// CefRequestCallback:: Continue() at a later time to continue or cancel the
-    /// request asynchronously. Return RV_CANCEL to cancel the request immediately.
+    /// the request immediately. Return RV_CONTINUE_ASYNC and call CefCallback
+    /// methods at a later time to continue or cancel the request asynchronously.
+    /// Return RV_CANCEL to cancel the request immediately.
     /// CEF name: `OnBeforeResourceLoad`
     func onBeforeResourceLoad(browser: CEFBrowser?,
                               frame: CEFFrame?,
                               request: CEFRequest,
-                              callback: CEFRequestCallback) -> CEFReturnValue
+                              callback: CEFCallback) -> CEFReturnValue
     
     /// Called on the IO thread before a resource is loaded. The |browser| and
     /// |frame| values represent the source of the request, and may be NULL for
@@ -150,7 +150,7 @@ public extension CEFResourceRequestHandler {
     func onBeforeResourceLoad(browser: CEFBrowser?,
                               frame: CEFFrame?,
                               request: CEFRequest,
-                              callback: CEFRequestCallback) -> CEFReturnValue {
+                              callback: CEFCallback) -> CEFReturnValue {
         return .continueNow
     }
     

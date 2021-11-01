@@ -99,7 +99,7 @@ func CEFRequestHandler_on_quota_request(ptr: UnsafeMutablePointer<cef_request_ha
                                         browser: UnsafeMutablePointer<cef_browser_t>?,
                                         origin: UnsafePointer<cef_string_t>?,
                                         newSize: Int64,
-                                        callback: UnsafeMutablePointer<cef_request_callback_t>?) -> Int32 {
+                                        callback: UnsafeMutablePointer<cef_callback_t>?) -> Int32 {
     guard let obj = CEFRequestHandlerMarshaller.get(ptr) else {
         return 0
     }
@@ -107,7 +107,7 @@ func CEFRequestHandler_on_quota_request(ptr: UnsafeMutablePointer<cef_request_ha
     let action = obj.onQuotaRequest(browser: CEFBrowser.fromCEF(browser)!,
                                     origin: URL(string: CEFStringToSwiftString(origin!.pointee))!,
                                     newSize: newSize,
-                                    callback: CEFRequestCallback.fromCEF(callback)!)
+                                    callback: CEFCallback.fromCEF(callback)!)
     return action == .allow ? 1 : 0
 }
 
@@ -117,7 +117,7 @@ func CEFRequestHandler_on_certificate_error(ptr: UnsafeMutablePointer<cef_reques
                                             errorCode: cef_errorcode_t,
                                             url: UnsafePointer<cef_string_t>?,
                                             sslInfo: UnsafeMutablePointer<cef_sslinfo_t>?,
-                                            callback: UnsafeMutablePointer<cef_request_callback_t>?) -> Int32 {
+                                            callback: UnsafeMutablePointer<cef_callback_t>?) -> Int32 {
     guard let obj = CEFRequestHandlerMarshaller.get(ptr) else {
         return 0
     }
@@ -126,7 +126,7 @@ func CEFRequestHandler_on_certificate_error(ptr: UnsafeMutablePointer<cef_reques
                                         errorCode: CEFErrorCode.fromCEF(errorCode.rawValue),
                                         url: URL(string: CEFStringToSwiftString(url!.pointee))!,
                                         sslInfo: CEFSSLInfo.fromCEF(sslInfo)!,
-                                        callback: CEFRequestCallback.fromCEF(callback)!)
+                                        callback: CEFCallback.fromCEF(callback)!)
     return action == .allow ? 1 : 0
 }
 

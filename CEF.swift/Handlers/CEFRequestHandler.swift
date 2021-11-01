@@ -136,27 +136,27 @@ public protocol CEFRequestHandler {
     /// Called on the IO thread when JavaScript requests a specific storage quota
     /// size via the webkitStorageInfo.requestQuota function. |origin_url| is the
     /// origin of the page making the request. |new_size| is the requested quota
-    /// size in bytes. Return true to continue the request and call
-    /// CefRequestCallback::Continue() either in this method or at a later time to
-    /// grant or deny the request. Return false to cancel the request immediately.
+    /// size in bytes. Return true to continue the request and call CefCallback
+    /// methods either in this method or at a later time to grant or deny the
+    /// request. Return false to cancel the request immediately.
     /// CEF name: `OnQuotaRequest`
     func onQuotaRequest(browser: CEFBrowser,
                         origin: URL,
                         newSize: Int64,
-                        callback: CEFRequestCallback) -> CEFOnQuotaRequestAction
+                        callback: CEFCallback) -> CEFOnQuotaRequestAction
     
     /// Called on the UI thread to handle requests for URLs with an invalid
-    /// SSL certificate. Return true and call CefRequestCallback::Continue() either
-    /// in this method or at a later time to continue or cancel the request. Return
-    /// false to cancel the request immediately. If
-    /// CefSettings.ignore_certificate_errors is set all invalid certificates will
-    /// be accepted without calling this method.
+    /// SSL certificate. Return true and call CefCallback methods either in this
+    /// method or at a later time to continue or cancel the request. Return false
+    /// to cancel the request immediately. If CefSettings.ignore_certificate_errors
+    /// is set all invalid certificates will be accepted without calling this
+    /// method.
     /// CEF name: `OnCertificateError`
     func onCertificateError(browser: CEFBrowser,
                             errorCode: CEFErrorCode,
                             url: URL,
                             sslInfo: CEFSSLInfo,
-                            callback: CEFRequestCallback) -> CEFOnCertificateErrorAction
+                            callback: CEFCallback) -> CEFOnCertificateErrorAction
     
     /// Called on the UI thread when a client certificate is being requested for
     /// authentication. Return false to use the default behavior and automatically
@@ -242,7 +242,7 @@ public extension CEFRequestHandler {
     func onQuotaRequest(browser: CEFBrowser,
                         origin: URL,
                         newSize: Int64,
-                        callback: CEFRequestCallback) -> CEFOnQuotaRequestAction {
+                        callback: CEFCallback) -> CEFOnQuotaRequestAction {
         return .cancel
     }
 
@@ -253,7 +253,7 @@ public extension CEFRequestHandler {
                             errorCode: CEFErrorCode,
                             url: URL,
                             sslInfo: CEFSSLInfo,
-                            callback: CEFRequestCallback) -> CEFOnCertificateErrorAction {
+                            callback: CEFCallback) -> CEFOnCertificateErrorAction {
         return .cancel
     }
     
