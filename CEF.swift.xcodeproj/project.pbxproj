@@ -169,7 +169,6 @@
 		E877E9FF1E79460C00262038 /* CEFMenuColorType.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E877E9FE1E79460C00262038 /* CEFMenuColorType.g.swift */; };
 		E878ED211DC90D5500504C5A /* CEFSSLVersion.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E878ED201DC90D5500504C5A /* CEFSSLVersion.g.swift */; };
 		E878ED231DC90E3900504C5A /* CEFSSLContentStatus.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E878ED221DC90E3900504C5A /* CEFSSLContentStatus.g.swift */; };
-		E878ED251DC90F8200504C5A /* CEFCDMRegistrationError.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E878ED241DC90F8200504C5A /* CEFCDMRegistrationError.g.swift */; };
 		E878ED2B1DC910C000504C5A /* CEFSSLStatus+Interop.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E878ED271DC910C000504C5A /* CEFSSLStatus+Interop.g.swift */; };
 		E878ED2C1DC910C000504C5A /* CEFX509Certificate+Interop.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E878ED281DC910C000504C5A /* CEFX509Certificate+Interop.g.swift */; };
 		E878ED2D1DC910C000504C5A /* CEFX509CertPrincipal+Interop.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = E878ED291DC910C000504C5A /* CEFX509CertPrincipal+Interop.g.swift */; };
@@ -644,7 +643,6 @@
 		E877E9FE1E79460C00262038 /* CEFMenuColorType.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFMenuColorType.g.swift; sourceTree = "<group>"; };
 		E878ED201DC90D5500504C5A /* CEFSSLVersion.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFSSLVersion.g.swift; sourceTree = "<group>"; };
 		E878ED221DC90E3900504C5A /* CEFSSLContentStatus.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFSSLContentStatus.g.swift; sourceTree = "<group>"; };
-		E878ED241DC90F8200504C5A /* CEFCDMRegistrationError.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CEFCDMRegistrationError.g.swift; sourceTree = "<group>"; };
 		E878ED271DC910C000504C5A /* CEFSSLStatus+Interop.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CEFSSLStatus+Interop.g.swift"; sourceTree = "<group>"; };
 		E878ED281DC910C000504C5A /* CEFX509Certificate+Interop.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CEFX509Certificate+Interop.g.swift"; sourceTree = "<group>"; };
 		E878ED291DC910C000504C5A /* CEFX509CertPrincipal+Interop.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CEFX509CertPrincipal+Interop.g.swift"; sourceTree = "<group>"; };
@@ -1325,7 +1323,6 @@
 			children = (
 				E8CE3D1D1CD949160066BC53 /* CEFAlphaType.g.swift */,
 				E8CE3D1E1CD949160066BC53 /* CEFButtonState.g.swift */,
-				E878ED241DC90F8200504C5A /* CEFCDMRegistrationError.g.swift */,
 				E8FDC2891C2604CC00590C6E /* CEFCertStatus.g.swift */,
 				E80048242506E12E00A270DC /* CEFChannelLayout.g.swift */,
 				BE4B19CB2662892F0047EB66 /* CEFChromeToolbarType.g.swift */,
@@ -2066,7 +2063,6 @@
 				E87E2EE91B80A32D00480AD3 /* CEFPrintJobCallback.swift in Sources */,
 				E8898B341B69654C009E0DFF /* CEFString.swift in Sources */,
 				E8898B371B69654C009E0DFF /* CEFStringMultimap.swift in Sources */,
-				E878ED251DC90F8200504C5A /* CEFCDMRegistrationError.g.swift in Sources */,
 				E835FD461B9F895200121BF8 /* CEFPDFPrintCallback+Interop.g.swift in Sources */,
 				E823137D2458BD9E00F03641 /* CEFMediaSource.swift in Sources */,
 				E863A2E71BD04E5F007C2069 /* CEFResourceBundle.swift in Sources */,

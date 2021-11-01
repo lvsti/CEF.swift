@@ -45,6 +45,8 @@ public struct CEFEventFlags: OptionSet {
     public static let isRight = CEFEventFlags(rawValue: 1 << 11)
     /// CEF name: `EVENTFLAG_ALTGR_DOWN`.
     public static let altgrDown = CEFEventFlags(rawValue: 1 << 12)
+    /// CEF name: `EVENTFLAG_IS_REPEAT`.
+    public static let isRepeat = CEFEventFlags(rawValue: 1 << 13)
 }
 
 extension CEFEventFlags {

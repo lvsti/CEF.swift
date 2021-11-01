@@ -42,7 +42,7 @@ public enum CEFPathKey: Int32 {
     case localAppData
 
     /// "Application Data" directory under the user profile directory on Windows
-    /// and "~/Library/Application Support" directory on Mac OS X.
+    /// and "~/Library/Application Support" directory on MacOS.
     /// CEF name: `PK_USER_DATA`.
     case userData
 
