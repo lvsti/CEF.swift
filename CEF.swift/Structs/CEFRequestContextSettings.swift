@@ -39,15 +39,6 @@ public struct CEFRequestContextSettings {
     /// CEF name: `persist_user_preferences`
     public var persistUserPreferences: Bool = false
 
-    /// Set to true (1) to ignore errors related to invalid SSL certificates.
-    /// Enabling this setting can lead to potential security vulnerabilities like
-    /// "man in the middle" attacks. Applications that load content from the
-    /// internet should not enable this setting. Can be set globally using the
-    /// CefSettings.ignore_certificate_errors value. This value will be ignored if
-    /// |cache_path| matches the CefSettings.cache_path value.
-    /// CEF name: `ignore_certificate_errors`
-    public var ignoreCertificateErrors: Bool = false
-
     /// Comma delimited list of schemes supported by the associated
     /// CefCookieManager.
     /// CEF name: `cookieable_schemes_list`
@@ -82,7 +73,6 @@ extension CEFRequestContextSettings {
         CEFStringSetFromSwiftString(cachePath, cefStringPtr: &cefStruct.cache_path)
         cefStruct.persist_session_cookies = persistSessionCookies ? 1 : 0
         cefStruct.persist_user_preferences = persistUserPreferences ? 1 : 0
-        cefStruct.ignore_certificate_errors = ignoreCertificateErrors ? 1 : 0
         CEFStringSetFromSwiftString(cookieableSchemesList, cefStringPtr: &cefStruct.cookieable_schemes_list)
         cefStruct.cookieable_schemes_exclude_defaults = cookieableSchemesExcludeDefaults ? 1 : 0
         CEFStringSetFromSwiftString(acceptLanguageList, cefStringPtr: &cefStruct.accept_language_list)

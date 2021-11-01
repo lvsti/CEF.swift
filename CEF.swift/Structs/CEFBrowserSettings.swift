@@ -84,16 +84,6 @@ public struct CEFBrowserSettings {
     /// CEF name: `plugins`
     public var plugins: CEFState = .default
     
-    /// Controls whether file URLs will have access to all URLs. Also configurable
-    /// using the "allow-universal-access-from-files" command-line switch.
-    /// CEF name: `universal_access_from_file_urls`
-    public var universalAccessFromFileURLs: CEFState = .default
-    
-    /// Controls whether file URLs will have access to other file URLs. Also
-    /// configurable using the "allow-access-from-files" command-line switch.
-    /// CEF name: `file_access_from_file_urls`
-    public var fileAccessFromFileURLs: CEFState = .default
-
     /// Controls whether image URLs will be loaded from the network. A cached image
     /// will still be rendered if requested. Also configurable using the
     /// "disable-image-loading" command-line switch.
@@ -125,11 +115,6 @@ public struct CEFBrowserSettings {
     /// "disable-databases" command-line switch.
     /// CEF name: `databases`
     public var databases: CEFState = .default
-    
-    /// Controls whether the application cache can be used. Also configurable using
-    /// the "disable-application-cache" command-line switch.
-    /// CEF name: `application_cache`
-    public var applicationCache: CEFState = .default
     
     /// Controls whether WebGL can be used. Note that WebGL requires hardware
     /// support and may not work on all systems even when enabled. Also
@@ -183,15 +168,12 @@ extension CEFBrowserSettings {
         cefStruct.javascript_access_clipboard = javascriptAccessClipboard.toCEF()
         cefStruct.javascript_dom_paste = javascriptDOMPaste.toCEF()
         cefStruct.plugins = plugins.toCEF()
-        cefStruct.universal_access_from_file_urls = universalAccessFromFileURLs.toCEF()
-        cefStruct.file_access_from_file_urls = fileAccessFromFileURLs.toCEF()
         cefStruct.image_loading = imageLoading.toCEF()
         cefStruct.image_shrink_standalone_to_fit = imageShrinkStandaloneToFit.toCEF()
         cefStruct.text_area_resize = textAreaResize.toCEF()
         cefStruct.tab_to_links = tabToLinks.toCEF()
         cefStruct.local_storage = localStorage.toCEF()
         cefStruct.databases = databases.toCEF()
-        cefStruct.application_cache = applicationCache.toCEF()
         cefStruct.webgl = webGL.toCEF()
         cefStruct.background_color = backgroundColor.toCEF()
         CEFStringSetFromSwiftString(acceptLanguageList, cefStringPtr: &cefStruct.accept_language_list)
@@ -220,15 +202,12 @@ extension CEFBrowserSettings {
         settings.javascriptAccessClipboard = CEFState.fromCEF(value.javascript_access_clipboard)
         settings.javascriptDOMPaste = CEFState.fromCEF(value.javascript_dom_paste)
         settings.plugins = CEFState.fromCEF(value.plugins)
-        settings.universalAccessFromFileURLs = CEFState.fromCEF(value.universal_access_from_file_urls)
-        settings.fileAccessFromFileURLs = CEFState.fromCEF(value.file_access_from_file_urls)
         settings.imageLoading = CEFState.fromCEF(value.image_loading)
         settings.imageShrinkStandaloneToFit = CEFState.fromCEF(value.image_shrink_standalone_to_fit)
         settings.textAreaResize = CEFState.fromCEF(value.text_area_resize)
         settings.tabToLinks = CEFState.fromCEF(value.tab_to_links)
         settings.localStorage = CEFState.fromCEF(value.local_storage)
         settings.databases = CEFState.fromCEF(value.databases)
-        settings.applicationCache = CEFState.fromCEF(value.application_cache)
         settings.webGL = CEFState.fromCEF(value.webgl)
         settings.backgroundColor = CEFColor(argb: value.background_color)
         settings.acceptLanguageList = CEFStringToSwiftString(value.accept_language_list)

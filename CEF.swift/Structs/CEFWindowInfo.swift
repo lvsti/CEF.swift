@@ -86,10 +86,7 @@ extension CEFWindowInfo {
         var cefStruct = cef_window_info_t()
         
         CEFStringSetFromSwiftString(windowName, cefStringPtr: &cefStruct.window_name)
-        cefStruct.x = Int32(rect.origin.x)
-        cefStruct.y = Int32(rect.origin.y)
-        cefStruct.width = Int32(rect.size.width)
-        cefStruct.height = Int32(rect.size.height)
+        cefStruct.bounds = rect.toCEF()
         cefStruct.hidden = isHidden ? 1 : 0
         
         if let parentView = parentView {
@@ -110,7 +107,7 @@ extension CEFWindowInfo {
     static func fromCEF(_ value: cef_window_info_t) -> CEFWindowInfo {
         var winInfo = CEFWindowInfo()
         winInfo.windowName = CEFStringToSwiftString(value.window_name)
-        winInfo.rect = NSRect(x: Int(value.x), y: Int(value.y), width: Int(value.width), height: Int(value.height))
+        winInfo.rect = NSRect.fromCEF(value.bounds)
         winInfo.isHidden = value.hidden != 0
         winInfo.parentView = value.parent_view != nil ?
             Unmanaged<CEFWindowHandle>.fromOpaque(value.parent_view).takeUnretainedValue() : nil
