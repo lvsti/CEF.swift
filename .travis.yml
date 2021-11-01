@@ -8,11 +8,10 @@ language: objective-c
 
 branches:
   only:
-    - cef_4280
-    - cef_4389
     - cef_4430
     - cef_4472
     - cef_4515
+    - cef_4577
 
 xcode_project: CEF.swift.xcodeproj
 xcode_scheme: CEF.swift
