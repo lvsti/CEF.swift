@@ -230,7 +230,11 @@ cef_enums = [
     'cef_text_field_commands_t',
 
     # branch 4430
-    'cef_chrome_toolbar_type_t'
+    'cef_chrome_toolbar_type_t',
+    
+    # branch 4606
+    'cef_docking_mode_t',
+    'cef_show_state_t',
 ]
 
 cef_option_sets = [

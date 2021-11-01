@@ -1059,6 +1059,12 @@ public struct CEFErrorCode: RawRepresentable {
     /// Failed to resolve the hostname of a DNS-over-HTTPS server.
     /// CEF name: `ERR_DNS_SECURE_RESOLVER_HOSTNAME_RESOLUTION_FAILED`.
     public static let dnsSecureResolverHostnameResolutionFailed = CEFErrorCode(rawValue: -808)
+
+    /// DNS identified the request as disallowed for insecure connection (http/ws).
+    /// Error should be handled as if an HTTP redirect was received to redirect to
+    /// https or wss.
+    /// CEF name: `ERR_DNS_NAME_HTTPS_ONLY`.
+    public static let dnsNameHTTPSOnly = CEFErrorCode(rawValue: 809)
 }
 
 extension CEFErrorCode {

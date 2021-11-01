@@ -83,6 +83,14 @@ public enum CEFResourceType: Int32 {
     /// A resource that a plugin requested.
     /// CEF name: `RT_PLUGIN_RESOURCE`.
     case pluginResource
+
+    /// A main-frame service worker navigation preload request.
+    /// CEF name: `RT_NAVIGATION_PRELOAD_MAIN_FRAME`.
+    case navigationPreloadMainFrame = 19
+
+    /// A sub-frame service worker navigation preload request.
+    /// CEF name: `RT_NAVIGATION_PRELOAD_SUB_FRAME`.
+    case navigationPreloadSubFrame
 }
 
 extension CEFResourceType {
