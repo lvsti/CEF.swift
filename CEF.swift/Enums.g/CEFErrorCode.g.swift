@@ -1064,7 +1064,7 @@ public struct CEFErrorCode: RawRepresentable {
     /// Error should be handled as if an HTTP redirect was received to redirect to
     /// https or wss.
     /// CEF name: `ERR_DNS_NAME_HTTPS_ONLY`.
-    public static let dnsNameHTTPSOnly = CEFErrorCode(rawValue: 809)
+    public static let dnsNameHTTPSOnly = CEFErrorCode(rawValue: -809)
 }
 
 extension CEFErrorCode {
